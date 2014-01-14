@@ -1,0 +1,356 @@
+/* In alphabetical order */
+
+{
+
+  "acl": {
+    "type": "git",
+    "url": "git://git.savannah.nongnu.org/acl.git",
+    "sparse": "man/",
+    "cmd": "rsync -a --exclude=Makefile --exclude=Makemodule.am sources/acl/man/ man"
+  },
+
+  "acct": {
+    "type": "svn",
+    "url": "svn://svn.savannah.gnu.org/acct/trunk",
+    "cmd": "cp sources/acct/*.1 man/man1/;
+cp sources/acct/*.8 man/man8/"
+  },
+
+  "attr": {
+    "type": "git",
+    "url": "git://git.savannah.nongnu.org/attr.git",
+    "sparse": "man/",
+    "cmd": "rsync -a --exclude=Makefile --exclude=Makemodule.am sources/attr/man/ man"
+  },
+
+  "bash": {
+    "type": "git",
+    "url": "git://git.savannah.gnu.org/bash.git",
+    "cmd": "(cd sources/bash/; ./configure; make doc);
+find sources/bash/doc/ -name \\*.1 -exec cp {} man/man1/ \\;"
+  },
+
+  "btrfs-progs": {
+    "type": "git",
+    "url": "git://git.kernel.org/pub/scm/linux/kernel/git/mason/btrfs-progs.git",
+    "sparse": "man/*.in",
+    "cmd": "for f in $(find sources/btrfs-progs/man/ -name \\*.in); do cp $f man/man8/$(basename -s .in $f); done"
+  },
+
+  "coreutils": {
+    "type": "git",
+    "url": "git://git.sv.gnu.org/coreutils",
+    "cmd": "(cd sources/coreutils/; ./bootstrap; ./configure --quiet; make);
+cp sources/coreutils/man/*.1 man/man1/"
+  },
+
+  "cronie": {
+    "type": "git",
+    "url": "http://git.fedorahosted.org/git/cronie.git",
+    "sparse": "man/",
+    "cmd": "cp sources/cronie/man/*.1 man/man1/;
+cp sources/cronie/man/*.5 man/man5/;
+cp sources/cronie/man/*.8 man/man8/"
+  },
+
+  "dpkg": {
+    "type": "git",
+    "url": "git://git.debian.org/git/dpkg/dpkg.git",
+    "sparse": "man/",
+    "cmd": "cp sources/dpkg/man/*.1 man/man1/;
+cp sources/dpkg/man/*.5 man/man5/;
+cp sources/dpkg/man/*.8 man/man8/"
+  },
+
+  "dracut": {
+    "type": "git",
+    "url": "git://git.kernel.org/pub/scm/boot/dracut/dracut.git",
+    "sparse": "*.asc",
+    "cmd": "(cd sources/dracut/; find . -name \\*.[1-9].asc -exec bash -c 'base=$(basename -s .asc {}); manNum=\"${base##*.}\"; asciidoc -d manpage -b docbook -o ../../xml/man$manNum/$base.xml {}' \\;)"
+  },
+
+  "e2fsprogs": {
+    "type": "git",
+    "url": "git://git.kernel.org/pub/scm/fs/ext2/e2fsprogs.git",
+    "cmd": "(cd sources/e2fsprogs/; mkdir -p build/install; cd build; ../configure; make; make install DESTDIR=$(pwd)/install);
+rsync -a sources/e2fsprogs/build/install/usr/share/man/ man"
+  },
+
+  "findutils": {
+    "type": "git",
+    "url": "git://git.savannah.gnu.org/findutils.git",
+    "sparse": "*.[1-8]",
+    "cmd": "find sources/findutils/ -name \\*.1 -exec cp {} man/man1/ \\;;
+find sources/findutils/ -name \\*.5 -exec cp {} man/man5/ \\;"
+  },
+
+  "gawk": {
+    "type": "git",
+    "url": "git://git.savannah.gnu.org/gawk.git",
+    "sparse": "doc/",
+    "cmd": "find sources/gawk/doc/ -name \\*.1 -exec cp {} man/man1/ \\;"
+  },
+
+  "git": {
+    "type": "git",
+    "url": "https://github.com/git/git.git",
+    "sparse": "Documentation/",
+    "cmd": "(cd sources/git/Documentation/; find . \\( -name git-\\*.txt -o -name git.txt -o -name gitk.txt -o -name gitremote-helpers.txt -o -name gitweb.txt \\) -exec bash -c 'asciidoc -d manpage -b docbook -f asciidoc.conf -o ../../../xml/man1/$(basename -s .txt {}).1.xml {}' \\;);
+(cd sources/git/Documentation/; find . \\( -name gitattributes.txt -o -name githooks.txt -o -name gitignore.txt -o -name gitmodules.txt -o -name gitrepository-layout.txt -o -name gitweb.conf.txt \\) -exec bash -c 'asciidoc -d manpage -b docbook -f asciidoc.conf -o ../../../xml/man5/$(basename -s .txt {}).5.xml {}' \\;);
+(cd sources/git/Documentation/; find . \\( -name gitcli.txt -o -name gitcore-tutorial.txt -o -name gitcredentials.txt -o -name gitcvs-migration.txt -o -name gitdiffcore.txt -o -name gitglossary.txt -o -name gitnamespaces.txt -o -name gitrevisions.txt -o -name gittutorial-2.txt -o -name gittutorial.txt -o -name gitworkflows.txt \\) -exec bash -c 'asciidoc -d manpage -b docbook -f asciidoc.conf -o ../../../xml/man7/$(basename -s .txt {}).7.xml {}' \\;)"
+  },
+
+  "hg": {
+    "type": "hg",
+    "url": "http://selenic.com/hg",
+    "cmd": "(cd sources/hg/; make doc);
+cp sources/hg/doc/*.1 man/man1/;
+cp sources/hg/doc/*.5 man/man5/"
+  },
+
+  "iproute2": {
+    "type": "git",
+    "url": "git://git.kernel.org/pub/scm/linux/kernel/git/shemminger/iproute2.git",
+    "sparse": "man/",
+    "cmd": "(cd sources/iproute2/man/man8/; make);
+rsync -a --exclude=Makefile --exclude=\\*.in --exclude=.gitignore sources/iproute2/man/ man"
+  },
+
+  "iputils": {
+    "type": "git",
+    "url": "git://git.code.sf.net/p/iputils/code",
+    "sparse": "doc/",
+    "cmd": "find sources/iputils/doc -name \\*.sgml -exec bash -c 'osx -xlower {} > xml/man8/$(basename -s .sgml {}).8.xml {}' \\;"
+  },
+
+  "kernel_man_pages": {
+    "type": "git",
+    "url": "http://git.kernel.org/pub/scm/docs/man-pages/man-pages",
+    "cmd": "cp -r sources/kernel_man_pages/man[1-8] man/"
+  },
+
+  "keyutils": {
+    "type": "git",
+    "url": "http://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils.git",
+    "sparse": "*.[1-8]",
+    "cmd": "cp sources/keyutils/*.1 man/man1/;
+cp sources/keyutils/*.3 man/man3/;
+cp sources/keyutils/*.5 man/man5/;
+cp sources/keyutils/*.8 man/man8/"
+  },
+
+  "kmod": {
+    "type": "git",
+    "url": "git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git",
+    "sparse": "man/",
+    "cmd": "cp sources/kmod/man/depmod.d.xml xml/man5/depmod.d.5.xml;
+cp sources/kmod/man/modprobe.d.xml xml/man5/modprobe.d.5.xml;
+cp sources/kmod/man/modules.dep.xml xml/man5/modules.dep.5.xml;
+cp sources/kmod/man/depmod.xml xml/man8/depmod.8.xml;
+cp sources/kmod/man/insmod.xml xml/man8/insmod.8.xml;
+cp sources/kmod/man/lsmod.xml xml/man8/lsmod.8.xml;
+cp sources/kmod/man/rmmod.xml xml/man8/rmmod.8.xml;
+cp sources/kmod/man/modprobe.xml xml/man8/modprobe.8.xml;
+cp sources/kmod/man/modinfo.xml xml/man8/modinfo.8.xml;
+echo '.so man5/modules.dep.5' > man/man5/modules.dep.bin.5"
+  },
+
+  "libcap": {
+    "type": "git",
+    "url": "git://git.kernel.org/pub/scm/linux/kernel/git/morgan/libcap.git",
+    "sparse": "doc/",
+    "cmd": "cp sources/libcap/doc/*.1 man/man1/;
+cp sources/libcap/doc/*.3 man/man3/;
+cp sources/libcap/doc/*.8 man/man8/"
+  },
+
+  "linux-pam": {
+    "type": "git",
+    "url": "https://git.fedorahosted.org/git/linux-pam.git",
+    "cmd": "(cd sources/linux-pam/; ./autogen.sh; ./configure);
+cp sources/linux-pam/doc/man/*.3.xml xml/man3/;
+cp sources/linux-pam/doc/man/*.8.xml xml/man8/"
+  },
+
+  "ltrace": {
+    "type": "git",
+    "url": "git://anonscm.debian.org/collab-maint/ltrace.git",
+    "sparse": "*.[1-8]",
+    "cmd": "cp sources/ltrace/ltrace.1 man/man1/;
+cp sources/ltrace/ltrace.conf.5 man/man5/"
+  },
+
+  "lvm2": {
+    "type": "git",
+    "url": "git://git.fedorahosted.org/git/lvm2.git",
+    /*"sparse": "man/\nVERSION\nVERSION_DM", <- need to run ./configure so get everything for now*/
+    "cmd": "(cd sources/lvm2; ./configure; cd man; make man);
+cp sources/lvm2/man/*.5 man/man5/;
+cp sources/lvm2/man/*.8 man/man8/"
+  },
+
+  "make": {
+    "type": "git",
+    "url": "git://git.savannah.gnu.org/make.git",
+    "sparse": "make.1",
+    "cmd": "cp sources/make/make.1 man/man1/"
+  },
+
+  "man-db": {
+    "type": "bzr",
+    "url": "http://bzr.savannah.gnu.org/r/man-db/trunk",
+    "cmd": "(cd sources/man-db/; ./autogen.sh; ./configure; cd man; make);
+cp sources/man-db/man/man1/*.1 man/man1/;
+cp sources/man-db/man/man5/*.5 man/man5/;
+cp sources/man-db/man/man8/*.8 man/man8/"
+  },
+
+  "mmv": {
+    "type": "git",
+    "url": "git://git.deb.at/pkg/mmv.git",
+    "cmd": "cp sources/mmv/mmv.1 man/man1/"
+  },
+
+  "mono": {
+    "type": "git",
+    "url": "https://github.com/mono/mono.git",
+    "sparse": "man/*.[1-8]",
+    "cmd": "cp sources/mono/man/*.1 man/man1/;
+cp sources/mono/man/*.5 man/man5/;"
+  },
+
+  "net-tools": {
+    "type": "git",
+    "url": "git://net-tools.git.sourceforge.net/gitroot/net-tools/net-tools",
+    "sparse": "man/en_US",
+    "cmd": "cp sources/net-tools/man/en_US/*.1 man/man1/;
+cp sources/net-tools/man/en_US/*.5 man/man5/;
+cp sources/net-tools/man/en_US/*.8 man/man8/"
+  },
+
+  "nmap": {
+    "type": "svn",
+    "url": "https://svn.nmap.org/nmap/docs",
+    "cmd": "cp sources/nmap/*.1 man/man1/"
+  },
+
+  "patch": {
+    "type": "git",
+    "url": "git://git.savannah.gnu.org/patch.git",
+    "sparse": "patch.man",
+    "cmd": "cp sources/patch/patch.man man/man1/patch.1"
+  },
+
+  "procps": {
+    "type": "cvs",
+    "url": "-d:pserver:anonymous@procps.cvs.sourceforge.net:/cvsroot/procps",
+    "cmd": "find sources/procps/ -name \\*.1 -exec cp -f {} man/man1/ \\;;
+find sources/procps/ -name \\*.5 -exec cp {} man/man5/ \\;;
+find sources/procps/ -name \\*.8 -exec cp {} man/man8/ \\;"
+  },
+
+  "quota": {
+    "type": "git",
+    "url": "git://git.code.sf.net/p/linuxquota/code",
+    "sparse": "*.[1-8]",
+    "cmd": "cp sources/quota/*.1 man/man1/;
+cp sources/quota/*.5 man/man5/;
+cp sources/quota/*.8 man/man8/"
+  },
+
+  "readline": {
+    "type": "git",
+    "url": "git://git.savannah.gnu.org/readline.git",
+    "sparse": "doc/",
+    "cmd": "cp sources/readline/doc/*.3 man/man3/"
+  },
+
+  "sed": {
+    "type": "git",
+    "url": "git://git.savannah.gnu.org/sed.git",
+    "sparse": "doc/*.[1-8]",
+    "cmd": "cp sources/sed/doc/*.1 man/man1/"
+  },
+
+  "selinux": {
+    "type": "git",
+    "url": "http://oss.tresys.com/git/selinux.git",
+    "sparse": "libsemanage/man/*\nlibselinux/man/*\nlibsepol/man/*\npolicycoreutils/mcstrans/man/*\npolicycoreutils/man/*",
+    "cmd": "find sources/selinux/ -name \\*.3 -exec cp -f {} man/man3/ \\;;
+find sources/selinux/ -name \\*.5 -exec cp {} man/man5/ \\;;
+find sources/selinux/ -name \\*.8 -exec cp {} man/man8/ \\;"
+  },
+
+  "shadow-utils": {
+    "type": "svn",
+    "url": "svn://anonscm.debian.org/pkg-shadow/upstream/trunk",
+    "cmd": "(cd sources/shadow-utils; ./autogen.sh; ./configure --enable-man);
+(cd sources/shadow-utils/man; find -name '*.[1-8].xml' -print0 | while read -d $'\\0' -r file ; do sed -e '/^<!-- SHADOW-CONFIG-HERE -->/r config.xml' -e '//d' $file > $(basename $file).__; done;);
+(cd sources/shadow-utils/man; for f in *.__; do base=$(basename -s .__ $f); manNum=$(echo $base | rev | cut -c 5); xsltproc ../../../utils/db4-upgrade.xsl $f > ../../../xml/man$manNum/$base; done;)"
+  },
+
+  "sox": {
+    "type": "git",
+    "url": "git://git.code.sf.net/p/sox/code",
+    "sparse": "*.[1-8]",
+    "cmd": "find sources/sox/ -name \\*.1 -exec cp -f {} man/man1/ \\;;
+find sources/sox/ -name \\*.3 -exec cp {} man/man3/ \\;;
+find sources/sox/ -name \\*.7 -exec cp {} man/man7/ \\;"
+  },
+
+  "strace": {
+    "type": "git",
+    "url": "git://strace.git.sourceforge.net/gitroot/strace/strace",
+    "sparse": "*.[1-8]",
+    "cmd": "cp sources/strace/*.1 man/man1/"
+  },
+
+  "systemd": {
+    "type": "git",
+    "url": "git://anongit.freedesktop.org/systemd/systemd",
+    "cmd": "(cd sources/systemd/; libtoolize; aclocal; autoheader; ./autogen.sh; ./configure CFLAGS='-g -O0' --sysconfdir=/etc --localstatedir=/var --libdir=/usr/lib64 --enable-gtk-doc; make man/custom-entities.ent);
+find sources/systemd/man -name '*.xml' -print0 | while read -d $'\\0' -r file ; do manNum=$(xmllint --shell $file  <<< \"cat //refmeta/manvolnum/text()\"  | grep -v \"^/ >\"); cp $file \"xml/man$manNum/$(basename -s .xml $file).$manNum.xml\"; done"
+  },
+
+  "tcpdump": {
+    "type": "git",
+    "url": "git://bpf.tcpdump.org/tcpdump",
+    "sparse": "tcpdump.1.in",
+    "cmd": "cp sources/tcpdump/tcpdump.1.in man/man1/tcpdump.1"
+  },
+
+  "util-linux": {
+    "type": "git",
+    "url": "git://git.kernel.org/pub/scm/utils/util-linux/util-linux.git",
+    "sparse": "*.[1-8]",
+    "cmd": "find sources/util-linux/*utils/ -name \\*.1 -exec cp -f {} man/man1/ \\;;
+find sources/util-linux/ -name \\*.3 -exec cp {} man/man3/ \\;;
+find sources/util-linux/ -name \\*.5 -exec cp {} man/man5/ \\;;
+find sources/util-linux/ -name \\*.8 -exec cp {} man/man8/ \\;"
+  },
+
+  "xfsprogs-dev": {
+    "type": "git",
+    "url": "http://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git",
+    "sparse": "man/",
+    "cmd": "rsync -a --exclude=Makefile sources/xfsprogs-dev/man/ man"
+  },
+
+  "yum": {
+    "type": "git",
+    "url": "git://yum.baseurl.org/yum.git",
+    "sparse": "docs/*.[1-8]",
+    "cmd": "cp sources/yum/docs/*.5 man/man5/;
+cp sources/yum/docs/*.8 man/man8/"
+  },
+
+  "yum-utils": {
+    "type": "git",
+    "url": "git://yum.baseurl.org/yum-utils.git",
+    "sparse": "docs/*.[1-8]",
+    "cmd": "cp sources/yum-utils/docs/*.1 man/man1/;
+cp sources/yum-utils/docs/*.5 man/man5/;
+cp sources/yum-utils/docs/*.8 man/man8/"
+  }
+
+}
