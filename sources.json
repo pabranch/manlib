@@ -305,6 +305,13 @@ find sources/sox/ -name \\*.7 -exec cp {} man/man7/ \\;"
     "cmd": "cp sources/strace/*.1 man/man1/"
   },
 
+  "sudo": {
+    "type": "hg",
+    "url": "http://www.sudo.ws/repos/sudo",
+    "cmd": "(cd sources/sudo/; ./configure; make; mkdir -p /tmp/sudo-inst; make DESTDIR=/tmp/sudo-inst install-doc);
+cp -r /tmp/sudo-inst/usr/local/man/man[1-8] man/"
+  },
+
   "systemd": {
     "type": "git",
     "url": "git://anongit.freedesktop.org/systemd/systemd",
