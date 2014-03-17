@@ -234,6 +234,16 @@ cp sources/net-tools/man/en_US/*.8 man/man8/"
     "cmd": "cp sources/nmap/*.1 man/man1/"
   },
 
+  "openssl": {
+    "type": "git",
+    "url": "git://git.openssl.org/openssl.git",
+    "sparse": "doc/",
+    "cmd": "find sources/openssl/ -name \\*.pod -exec bash -c 'pod2docbook --doctype=refentry {} | sed \"s~<openssl/~\\&lt;openssl/~g\" | sed \"s~.h>~.h\\&gt;~g\" | xsltproc utils/db4-upgrade.xsl - > xml/man3/$(basename -s .pod {}).3.xml' \\;;
+mv xml/man3/config.3.xml xml/man5/config.5.xml;
+mv xml/man3/x509v3_config.3.xml xml/man5/x509v3_config.5.xml;
+mv xml/man3/des_modes.3.xml xml/man7/des_modes.7.xml"
+  },
+
   "patch": {
     "type": "git",
     "url": "git://git.savannah.gnu.org/patch.git",
