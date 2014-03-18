@@ -1,0 +1,96 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_sess_set_get_cb.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_sess_set_new_cb, SSL_CTX_sess_set_remove_cb, SSL_CTX_sess_set_get_cb, SSL_CTX_sess_get_new_cb, SSL_CTX_sess_get_remove_cb, SSL_CTX_sess_get_get_cb</refname>
+<refpurpose>provide callback functions for server side external session caching</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">void SSL_CTX_sess_set_new_cb(SSL_CTX *ctx,
+                             int (*new_session_cb)(SSL *, SSL_SESSION *));
+void SSL_CTX_sess_set_remove_cb(SSL_CTX *ctx,
+          void (*remove_session_cb)(SSL_CTX *ctx, SSL_SESSION *));
+void SSL_CTX_sess_set_get_cb(SSL_CTX *ctx,
+          SSL_SESSION (*get_session_cb)(SSL *, unsigned char *, int, int *));</synopsis>
+<synopsis format="linespecific">int (*SSL_CTX_sess_get_new_cb(SSL_CTX *ctx))(struct ssl_st *ssl, SSL_SESSION *sess);
+void (*SSL_CTX_sess_get_remove_cb(SSL_CTX *ctx))(struct ssl_ctx_st *ctx, SSL_SESSION *sess);
+SSL_SESSION *(*SSL_CTX_sess_get_get_cb(SSL_CTX *ctx))(struct ssl_st *ssl, unsigned char *data, int len, int *copy);</synopsis>
+<synopsis format="linespecific">int (*new_session_cb)(struct ssl_st *ssl, SSL_SESSION *sess);
+void (*remove_session_cb)(struct ssl_ctx_st *ctx, SSL_SESSION *sess);
+SSL_SESSION *(*get_session_cb)(struct ssl_st *ssl, unsigned char *data,
+              int len, int *copy);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_sess_set_get_cb.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_CTX_sess_set_new_cb() sets the callback function, which is
+      automatically called whenever a new session was negotiated.
+    </para>
+    <para>
+      SSL_CTX_sess_set_remove_cb() sets the callback function, which is
+      automatically called whenever a session is removed by the SSL engine,
+      because it is considered faulty or the session has become obsolete
+      because of exceeding the timeout value.
+    </para>
+    <para>
+      SSL_CTX_sess_set_get_cb() sets the callback function which is called,
+      whenever a SSL/TLS client proposed to resume a session but the
+      session could not be found in the internal session cache (see
+      SSL_CTX_set_session_cache_mode(3)). (SSL/TLS server only.)
+    </para>
+    <para>
+      SSL_CTX_sess_get_new_cb(), SSL_CTX_sess_get_remove_cb(), and
+      SSL_CTX_sess_get_get_cb() allow to retrieve the function pointers of
+      the provided callback functions. If a callback function has not been
+      set, the NULL pointer is returned.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_sess_set_get_cb.pod:NOTES"><title>NOTES</title>
+    <para>
+      In order to allow external session caching, synchronization with the
+      internal session cache is realized via callback functions. Inside
+      these callback functions, session can be saved to disk or put into a
+      database using the d2i_SSL_SESSION(3) interface.
+    </para>
+    <para>
+      The new_session_cb() is called, whenever a new session has been
+      negotiated and session caching is enabled (see
+      SSL_CTX_set_session_cache_mode(3)). The new_session_cb() is passed
+      the <emphasis role="bold">ssl</emphasis> connection and the ssl
+      session <emphasis role="bold">sess</emphasis>. If the callback
+      returns <emphasis role="bold">0</emphasis>, the session will be
+      immediately removed again.
+    </para>
+    <para>
+      The remove_session_cb() is called, whenever the SSL engine removes a
+      session from the internal cache. This happens when the session is
+      removed because it is expired or when a connection was not shutdown
+      cleanly. It also happens for all sessions in the internal session
+      cache when SSL_CTX_free(3) is called. The remove_session_cb() is
+      passed the <emphasis role="bold">ctx</emphasis> and the ssl session
+      <emphasis role="bold">sess</emphasis>. It does not provide any
+      feedback.
+    </para>
+    <para>
+      The get_session_cb() is only called on SSL/TLS servers with the
+      session id proposed by the client. The get_session_cb() is always
+      called, also when session caching was disabled. The get_session_cb()
+      is passed the <emphasis role="bold">ssl</emphasis> connection, the
+      session id of length <emphasis role="bold">length</emphasis> at the
+      memory location <emphasis role="bold">data</emphasis>. With the
+      parameter <emphasis role="bold">copy</emphasis> the callback can
+      require the SSL engine to increment the reference count of the
+      SSL_SESSION object, Normally the reference count is not incremented
+      and therefore the session must not be explicitly freed with
+      SSL_SESSION_free(3).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_sess_set_get_cb.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), d2i_SSL_SESSION(3), SSL_CTX_set_session_cache_mode(3),
+      SSL_CTX_flush_sessions(3), SSL_SESSION_free(3), SSL_CTX_free(3)
+    </para>
+  </refsection>
+</refentry>

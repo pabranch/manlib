@@ -1,0 +1,48 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CONF_CTX_set_ssl_ctx.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CONF_CTX_set_ssl_ctx, SSL_CONF_CTX_set_ssl</refname>
+<refpurpose>set context to configure</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">void SSL_CONF_CTX_set_ssl_ctx(SSL_CONF_CTX *cctx, SSL_CTX *ctx);
+void SSL_CONF_CTX_set_ssl(SSL_CONF_CTX *cctx, SSL *ssl);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_set_ssl_ctx.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_CONF_CTX_set_ssl_ctx() sets the context associated with <emphasis role="bold">cctx</emphasis> to the <emphasis role="bold">SSL_CTX</emphasis> structure <emphasis role="bold">ctx</emphasis>. Any previos <emphasis role="bold">SSL</emphasis> or <emphasis role="bold">SSL_CTX</emphasis> associated with <emphasis role="bold">cctx</emphasis> is cleared. Subsequent calls to
+      SSL_CONF_cmd() will be sent to <emphasis role="bold">ctx</emphasis>.
+    </para>
+    <para>
+      SSL_CONF_CTX_set_ssl() sets the context associated with <emphasis role="bold">cctx</emphasis> to the <emphasis role="bold">SSL</emphasis> structure <emphasis role="bold">ssl</emphasis>. Any previos <emphasis role="bold">SSL</emphasis> or <emphasis role="bold">SSL_CTX</emphasis> associated with <emphasis role="bold">cctx</emphasis> is cleared. Subsequent calls to
+      SSL_CONF_cmd() will be sent to <emphasis role="bold">ssl</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_set_ssl_ctx.pod:NOTES"><title>NOTES</title>
+    <para>
+      The context need not be set or it can be set to <emphasis role="bold">NULL</emphasis> in which case only syntax checking of
+      commands is performed, where possible.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_set_ssl_ctx.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      SSL_CONF_CTX_set_ssl_ctx() and SSL_CTX_set_ssl() do not return a
+      value.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_set_ssl_ctx.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      SSL_CONF_CTX_new(3), SSL_CONF_CTX_set_flags(3),
+      SSL_CONF_CTX_set1_prefix(3), SSL_CONF_cmd(3), SSL_CONF_cmd_argv(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_set_ssl_ctx.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      These functions were first added to OpenSSL 1.0.2
+    </para>
+  </refsection>
+</refentry>

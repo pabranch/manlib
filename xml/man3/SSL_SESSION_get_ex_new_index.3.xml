@@ -1,0 +1,64 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_SESSION_get_ex_new_index.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_SESSION_get_ex_new_index, SSL_SESSION_set_ex_data, SSL_SESSION_get_ex_data</refname>
+<refpurpose>internal application specific data functions</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">int SSL_SESSION_get_ex_new_index(long argl, void *argp,
+               CRYPTO_EX_new *new_func,
+               CRYPTO_EX_dup *dup_func,
+               CRYPTO_EX_free *free_func);</synopsis>
+<synopsis format="linespecific">int SSL_SESSION_set_ex_data(SSL_SESSION *session, int idx, void *arg);</synopsis>
+<synopsis format="linespecific">void *SSL_SESSION_get_ex_data(const SSL_SESSION *session, int idx);</synopsis>
+<synopsis format="linespecific">typedef int new_func(void *parent, void *ptr, CRYPTO_EX_DATA *ad,
+               int idx, long argl, void *argp);
+typedef void free_func(void *parent, void *ptr, CRYPTO_EX_DATA *ad,
+               int idx, long argl, void *argp);
+typedef int dup_func(CRYPTO_EX_DATA *to, CRYPTO_EX_DATA *from, void *from_d,
+               int idx, long argl, void *argp);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_SESSION_get_ex_new_index.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      Several OpenSSL structures can have application specific data
+      attached to them. These functions are used internally by OpenSSL to
+      manipulate application specific data attached to a specific
+      structure.
+    </para>
+    <para>
+      SSL_SESSION_get_ex_new_index() is used to register a new index for
+      application specific data.
+    </para>
+    <para>
+      SSL_SESSION_set_ex_data() is used to store application data at
+      <emphasis role="bold">arg</emphasis> for <emphasis role="bold">idx</emphasis> into the <emphasis role="bold">session</emphasis> object.
+    </para>
+    <para>
+      SSL_SESSION_get_ex_data() is used to retrieve the information for
+      <emphasis role="bold">idx</emphasis> from <emphasis role="bold">session</emphasis>.
+    </para>
+    <para>
+      A detailed description for the <emphasis role="bold">*_get_ex_new_index()</emphasis> functionality can be
+      found in RSA_get_ex_new_index(3). The <emphasis role="bold">*_get_ex_data()</emphasis> and <emphasis role="bold">*_set_ex_data()</emphasis> functionality is described in
+      CRYPTO_set_ex_data(3).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_SESSION_get_ex_new_index.pod:WARNINGS"><title>WARNINGS</title>
+    <para>
+      The application data is only maintained for sessions held in memory.
+      The application data is not included when dumping the session with
+      i2d_SSL_SESSION() (and all functions indirectly calling the dump
+      functions like PEM_write_SSL_SESSION() and
+      PEM_write_bio_SSL_SESSION()) and can therefore not be restored.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_SESSION_get_ex_new_index.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), RSA_get_ex_new_index(3), CRYPTO_set_ex_data(3)
+    </para>
+  </refsection>
+</refentry>

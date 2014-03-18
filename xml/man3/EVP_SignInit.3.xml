@@ -1,0 +1,127 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>EVP_SignInit.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>EVP_SignInit, EVP_SignUpdate, EVP_SignFinal</refname>
+<refpurpose>EVP signing functions</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis format="linespecific">int EVP_SignInit_ex(EVP_MD_CTX *ctx, const EVP_MD *type, ENGINE *impl);
+int EVP_SignUpdate(EVP_MD_CTX *ctx, const void *d, unsigned int cnt);
+int EVP_SignFinal(EVP_MD_CTX *ctx,unsigned char *sig,unsigned int *s, EVP_PKEY *pkey);</synopsis>
+<synopsis format="linespecific">void EVP_SignInit(EVP_MD_CTX *ctx, const EVP_MD *type);</synopsis>
+<synopsis format="linespecific">int EVP_PKEY_size(EVP_PKEY *pkey);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_SignInit.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The EVP signature routines are a high level interface to digital
+      signatures.
+    </para>
+    <para>
+      EVP_SignInit_ex() sets up signing context <emphasis role="bold">ctx</emphasis> to use digest <emphasis role="bold">type</emphasis> from ENGINE <emphasis role="bold">impl</emphasis>. <emphasis role="bold">ctx</emphasis>
+      must be initialized with EVP_MD_CTX_init() before calling this
+      function.
+    </para>
+    <para>
+      EVP_SignUpdate() hashes <emphasis role="bold">cnt</emphasis> bytes of
+      data at <emphasis role="bold">d</emphasis> into the signature context
+      <emphasis role="bold">ctx</emphasis>. This function can be called
+      several times on the same <emphasis role="bold">ctx</emphasis> to
+      include additional data.
+    </para>
+    <para>
+      EVP_SignFinal() signs the data in <emphasis role="bold">ctx</emphasis> using the private key <emphasis role="bold">pkey</emphasis> and places the signature in <emphasis role="bold">sig</emphasis>. The number of bytes of data written (i.e.
+      the length of the signature) will be written to the integer at
+      <emphasis role="bold">s</emphasis>, at most EVP_PKEY_size(pkey) bytes
+      will be written.
+    </para>
+    <para>
+      EVP_SignInit() initializes a signing context <emphasis role="bold">ctx</emphasis> to use the default implementation of
+      digest <emphasis role="bold">type</emphasis>.
+    </para>
+    <para>
+      EVP_PKEY_size() returns the maximum size of a signature in bytes. The
+      actual signature returned by EVP_SignFinal() may be smaller.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_SignInit.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      EVP_SignInit_ex(), EVP_SignUpdate() and EVP_SignFinal() return 1 for
+      success and 0 for failure.
+    </para>
+    <para>
+      EVP_PKEY_size() returns the maximum size of a signature in bytes.
+    </para>
+    <para>
+      The error codes can be obtained by ERR_get_error(3).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_SignInit.pod:NOTES"><title>NOTES</title>
+    <para>
+      The <emphasis role="bold">EVP</emphasis> interface to digital
+      signatures should almost always be used in preference to the low
+      level interfaces. This is because the code then becomes transparent
+      to the algorithm used and much more flexible.
+    </para>
+    <para>
+      Due to the link between message digests and public key algorithms the
+      correct digest algorithm must be used with the correct public key
+      type. A list of algorithms and associated public key algorithms
+      appears in EVP_DigestInit(3). 
+    </para>
+    <para>
+      When signing with DSA private keys the random number generator must
+      be seeded or the operation will fail. The random number generator
+      does not need to be seeded for RSA signatures.
+    </para>
+    <para>
+      The call to EVP_SignFinal() internally finalizes a copy of the digest
+      context. This means that calls to EVP_SignUpdate() and
+      EVP_SignFinal() can be called later to digest and sign additional
+      data.
+    </para>
+    <para>
+      Since only a copy of the digest context is ever finalized the context
+      must be cleaned up after use by calling EVP_MD_CTX_cleanup() or a
+      memory leak will occur.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_SignInit.pod:BUGS"><title>BUGS</title>
+    <para>
+      Older versions of this documentation wrongly stated that calls to
+      EVP_SignUpdate() could not be made after calling EVP_SignFinal(). 
+    </para>
+    <para>
+      Since the private key is passed in the call to EVP_SignFinal() any
+      error relating to the private key (for example an unsuitable key and
+      digest combination) will not be indicated until after potentially
+      large amounts of data have been passed through EVP_SignUpdate().
+    </para>
+    <para>
+      It is not possible to change the signing parameters using these
+      function.
+    </para>
+    <para>
+      The previous two bugs are fixed in the newer EVP_SignDigest*()
+      function.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_SignInit.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      EVP_VerifyInit(3), EVP_DigestInit(3), err(3), evp(3), hmac(3),
+      md2(3), md5(3), mdc2(3), ripemd(3), sha(3), dgst(1)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_SignInit.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      EVP_SignInit(), EVP_SignUpdate() and EVP_SignFinal() are available in
+      all versions of SSLeay and OpenSSL.
+    </para>
+    <para>
+      EVP_SignInit_ex() was added in OpenSSL 0.9.7.
+    </para>
+  </refsection>
+</refentry>

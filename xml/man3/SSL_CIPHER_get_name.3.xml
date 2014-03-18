@@ -1,0 +1,150 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CIPHER_get_name.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CIPHER_get_name, SSL_CIPHER_get_bits, SSL_CIPHER_get_version, SSL_CIPHER_description</refname>
+<refpurpose>get SSL_CIPHER properties</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">const char *SSL_CIPHER_get_name(const SSL_CIPHER *cipher);
+int SSL_CIPHER_get_bits(const SSL_CIPHER *cipher, int *alg_bits);
+char *SSL_CIPHER_get_version(const SSL_CIPHER *cipher);
+char *SSL_CIPHER_description(const SSL_CIPHER *cipher, char *buf, int size);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_CIPHER_get_name() returns a pointer to the name of <emphasis role="bold">cipher</emphasis>. If the argument is the NULL pointer, a
+      pointer to the constant value "NONE" is returned.
+    </para>
+    <para>
+      SSL_CIPHER_get_bits() returns the number of secret bits used for
+      <emphasis role="bold">cipher</emphasis>. If <emphasis role="bold">alg_bits</emphasis> is not NULL, it contains the number
+      of bits processed by the chosen algorithm. If <emphasis role="bold">cipher</emphasis> is NULL, 0 is returned.
+    </para>
+    <para>
+      SSL_CIPHER_get_version() returns the protocol version for <emphasis role="bold">cipher</emphasis>, currently "SSLv2", "SSLv3", or
+      "TLSv1". If <emphasis role="bold">cipher</emphasis> is NULL, "(NONE)"
+      is returned.
+    </para>
+    <para>
+      SSL_CIPHER_description() returns a textual description of the cipher
+      used into the buffer <emphasis role="bold">buf</emphasis> of length
+      <emphasis role="bold">len</emphasis> provided. <emphasis role="bold">len</emphasis> must be at least 128 bytes, otherwise a
+      pointer to the string "Buffer too small" is returned. If <emphasis role="bold">buf</emphasis> is NULL, a buffer of 128 bytes is
+      allocated using OPENSSL_malloc(). If the allocation fails, a pointer
+      to the string "OPENSSL_malloc Error" is returned.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:NOTES"><title>NOTES</title>
+    <para>
+      The number of bits processed can be different from the secret bits.
+      An export cipher like e.g. EXP-RC4-MD5 has only 40 secret bits. The
+      algorithm does use the full 128 bits (which would be returned for
+      <emphasis role="bold">alg_bits</emphasis>), of which however 88bits
+      are fixed. The search space is hence only 40 bits.
+    </para>
+    <para>
+      The string returned by SSL_CIPHER_description() in case of success
+      consists of cleartext information separated by one or more blanks in
+      the following sequence:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:ltciphernamegt"/>&lt;ciphername&gt;</term>
+          <listitem>
+            <para>
+	      Textual representation of the cipher name.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:ltprotocol_versiongt"/>&lt;protocol version&gt;</term>
+          <listitem>
+            <para>
+	      Protocol version: <emphasis role="bold">SSLv2</emphasis>,
+	      <emphasis role="bold">SSLv3</emphasis>. The TLSv1 ciphers are
+	      flagged with SSLv3.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:Kxltkey_exchangegt"/>Kx=&lt;key exchange&gt;</term>
+          <listitem>
+            <para>
+	      Key exchange method: <emphasis role="bold">RSA</emphasis>
+	      (for export ciphers as <emphasis role="bold">RSA(512)</emphasis> or <emphasis role="bold">RSA(1024)</emphasis>), <emphasis role="bold">DH</emphasis> (for export ciphers as <emphasis role="bold">DH(512)</emphasis> or <emphasis role="bold">DH(1024)</emphasis>), <emphasis role="bold">DH/RSA</emphasis>, <emphasis role="bold">DH/DSS</emphasis>, <emphasis role="bold">Fortezza</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:Aultauthenticationgt"/>Au=&lt;authentication&gt;</term>
+          <listitem>
+            <para>
+	      Authentication method: <emphasis role="bold">RSA</emphasis>,
+	      <emphasis role="bold">DSS</emphasis>, <emphasis role="bold">DH</emphasis>, <emphasis role="bold">None</emphasis>. None is the representation of
+	      anonymous ciphers.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:Encltsymmetric_encryption_methodgt"/>Enc=&lt;symmetric encryption method&gt;</term>
+          <listitem>
+            <para>
+	      Encryption method with number of secret bits: <emphasis role="bold">DES(40)</emphasis>, <emphasis role="bold">DES(56)</emphasis>, <emphasis role="bold">3DES(168)</emphasis>, <emphasis role="bold">RC4(40)</emphasis>, <emphasis role="bold">RC4(56)</emphasis>, <emphasis role="bold">RC4(64)</emphasis>, <emphasis role="bold">RC4(128)</emphasis>, <emphasis role="bold">RC2(40)</emphasis>, <emphasis role="bold">RC2(56)</emphasis>, <emphasis role="bold">RC2(128)</emphasis>, <emphasis role="bold">IDEA(128)</emphasis>, <emphasis role="bold">Fortezza</emphasis>, <emphasis role="bold">None</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:Macltmessage_authentication_codegt"/>Mac=&lt;message authentication code&gt;</term>
+          <listitem>
+            <para>
+	      Message digest: <emphasis role="bold">MD5</emphasis>,
+	      <emphasis role="bold">SHA1</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:ltexport_flaggt"/>&lt;export flag&gt;</term>
+          <listitem>
+            <para>
+	      If the cipher is flagged exportable with respect to old US
+	      crypto regulations, the word "<emphasis role="bold">export</emphasis>" is printed.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      Some examples for the output of SSL_CIPHER_description():
+    </para>
+    <screen>DHE-RSA-DES-CBC3-SHA    SSLv3 Kx=DH       Au=RSA  Enc=3DES(168) Mac=SHA1
+DHE-DSS-DES-CBC3-SHA    SSLv3 Kx=DH       Au=DSS  Enc=3DES(168) Mac=SHA1
+RC4-MD5                 SSLv3 Kx=RSA      Au=RSA  Enc=RC4(128)  Mac=MD5
+EXP-RC4-MD5             SSLv3 Kx=RSA(512) Au=RSA  Enc=RC4(40)   Mac=MD5  export</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:BUGS"><title>BUGS</title>
+    <para>
+      If SSL_CIPHER_description() is called with <emphasis role="bold">cipher</emphasis> being NULL, the library crashes.
+    </para>
+    <para>
+      If SSL_CIPHER_description() cannot handle a built-in cipher, the
+      according description of the cipher property is <emphasis role="bold">unknown</emphasis>. This case should not occur.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      See DESCRIPTION
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_get_current_cipher(3), SSL_get_ciphers(3), ciphers(1)
+    </para>
+  </refsection>
+</refentry>

@@ -1,0 +1,146 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>X509_STORE_CTX_new.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>X509_STORE_CTX_new, X509_STORE_CTX_cleanup, X509_STORE_CTX_free, X509_STORE_CTX_init, X509_STORE_CTX_trusted_stack, X509_STORE_CTX_set_cert, X509_STORE_CTX_set_chain, X509_STORE_CTX_set0_crls, X509_STORE_CTX_get0_param, X509_STORE_CTX_set0_param, X509_STORE_CTX_set_default</refname>
+<refpurpose>X509_STORE_CTX initialisation</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/x509_vfy.h&gt;</synopsis>
+<synopsis format="linespecific">X509_STORE_CTX *X509_STORE_CTX_new(void);
+void X509_STORE_CTX_cleanup(X509_STORE_CTX *ctx);
+void X509_STORE_CTX_free(X509_STORE_CTX *ctx);</synopsis>
+<synopsis format="linespecific">int X509_STORE_CTX_init(X509_STORE_CTX *ctx, X509_STORE *store,
+                        X509 *x509, STACK_OF(X509) *chain);</synopsis>
+<synopsis format="linespecific">void X509_STORE_CTX_trusted_stack(X509_STORE_CTX *ctx, STACK_OF(X509) *sk);</synopsis>
+<synopsis format="linespecific">void   X509_STORE_CTX_set_cert(X509_STORE_CTX *ctx,X509 *x);
+void   X509_STORE_CTX_set_chain(X509_STORE_CTX *ctx,STACK_OF(X509) *sk);
+void   X509_STORE_CTX_set0_crls(X509_STORE_CTX *ctx, STACK_OF(X509_CRL) *sk);</synopsis>
+<synopsis format="linespecific">X509_VERIFY_PARAM *X509_STORE_CTX_get0_param(X509_STORE_CTX *ctx);
+void X509_STORE_CTX_set0_param(X509_STORE_CTX *ctx, X509_VERIFY_PARAM *param);
+int X509_STORE_CTX_set_default(X509_STORE_CTX *ctx, const char *name);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_new.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      These functions initialise an <emphasis role="bold">X509_STORE_CTX</emphasis> structure for subsequent use by
+      X509_verify_cert().
+    </para>
+    <para>
+      X509_STORE_CTX_new() returns a newly initialised <emphasis role="bold">X509_STORE_CTX</emphasis> structure.
+    </para>
+    <para>
+      X509_STORE_CTX_cleanup() internally cleans up an <emphasis role="bold">X509_STORE_CTX</emphasis> structure. The context can then
+      be reused with an new call to X509_STORE_CTX_init().
+    </para>
+    <para>
+      X509_STORE_CTX_free() completely frees up <emphasis role="bold">ctx</emphasis>. After this call <emphasis role="bold">ctx</emphasis> is no longer valid.
+    </para>
+    <para>
+      X509_STORE_CTX_init() sets up <emphasis role="bold">ctx</emphasis>
+      for a subsequent verification operation. The trusted certificate
+      store is set to <emphasis role="bold">store</emphasis>, the end
+      entity certificate to be verified is set to <emphasis role="bold">x509</emphasis> and a set of additional certificates
+      (which will be untrusted but may be used to build the chain) in
+      <emphasis role="bold">chain</emphasis>. Any or all of the <emphasis role="bold">store</emphasis>, <emphasis role="bold">x509</emphasis>
+      and <emphasis role="bold">chain</emphasis> parameters can be
+      <emphasis role="bold">NULL</emphasis>.
+    </para>
+    <para>
+      X509_STORE_CTX_trusted_stack() sets the set of trusted certificates
+      of <emphasis role="bold">ctx</emphasis> to <emphasis role="bold">sk</emphasis>. This is an alternative way of specifying
+      trusted certificates instead of using an <emphasis role="bold">X509_STORE</emphasis>. 
+    </para>
+    <para>
+      X509_STORE_CTX_set_cert() sets the certificate to be vertified in
+      <emphasis role="bold">ctx</emphasis> to <emphasis role="bold">x</emphasis>.
+    </para>
+    <para>
+      X509_STORE_CTX_set_chain() sets the additional certificate chain used
+      by <emphasis role="bold">ctx</emphasis> to <emphasis role="bold">sk</emphasis>.
+    </para>
+    <para>
+      X509_STORE_CTX_set0_crls() sets a set of CRLs to use to aid
+      certificate verification to <emphasis role="bold">sk</emphasis>.
+      These CRLs will only be used if CRL verification is enabled in the
+      associated <emphasis role="bold">X509_VERIFY_PARAM</emphasis>
+      structure. This might be used where additional "useful" CRLs are
+      supplied as part of a protocol, for example in a PKCS#7 structure.
+    </para>
+    <para>
+      X509_VERIFY_PARAM *X509_STORE_CTX_get0_param() retrieves an intenal
+      pointer to the verification parameters associated with <emphasis role="bold">ctx</emphasis>.
+    </para>
+    <para>
+      X509_STORE_CTX_set0_param() sets the intenal verification parameter
+      pointer to <emphasis role="bold">param</emphasis>. After this call
+      <emphasis role="bold">param</emphasis> should not be used.
+    </para>
+    <para>
+      X509_STORE_CTX_set_default() looks up and sets the default
+      verification method to <emphasis role="bold">name</emphasis>. This
+      uses the function X509_VERIFY_PARAM_lookup() to find an appropriate
+      set of parameters from <emphasis role="bold">name</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_new.pod:NOTES"><title>NOTES</title>
+    <para>
+      The certificates and CRLs in a store are used internally and should
+      <emphasis role="bold">not</emphasis> be freed up until after the
+      associated <emphasis role="bold">X509_STORE_CTX</emphasis> is freed.
+      Legacy applications might implicitly use an <emphasis role="bold">X509_STORE_CTX</emphasis> like this:
+    </para>
+    <screen>X509_STORE_CTX ctx;
+X509_STORE_CTX_init(&amp;ctx, store, cert, chain);</screen>
+    <para>
+      this is <emphasis role="bold">not</emphasis> recommended in new
+      applications they should instead do:
+    </para>
+    <screen>X509_STORE_CTX *ctx;
+ctx = X509_STORE_CTX_new();
+if (ctx == NULL)
+      /* Bad error */
+X509_STORE_CTX_init(ctx, store, cert, chain);</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_new.pod:BUGS"><title>BUGS</title>
+    <para>
+      The certificates and CRLs in a context are used internally and should
+      <emphasis role="bold">not</emphasis> be freed up until after the
+      associated <emphasis role="bold">X509_STORE_CTX</emphasis> is freed.
+      Copies should be made or reference counts increased instead.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_new.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      X509_STORE_CTX_new() returns an newly allocates context or <emphasis role="bold">NULL</emphasis> is an error occurred.
+    </para>
+    <para>
+      X509_STORE_CTX_init() returns 1 for success or 0 if an error
+      occurred.
+    </para>
+    <para>
+      X509_STORE_CTX_get0_param() returns a pointer to an <emphasis role="bold">X509_VERIFY_PARAM</emphasis> structure or <emphasis role="bold">NULL</emphasis> if an error occurred.
+    </para>
+    <para>
+      X509_STORE_CTX_cleanup(), X509_STORE_CTX_free(),
+      X509_STORE_CTX_trusted_stack(), X509_STORE_CTX_set_cert(),
+      X509_STORE_CTX_set_chain(), X509_STORE_CTX_set0_crls() and
+      X509_STORE_CTX_set0_param() do not return values.
+    </para>
+    <para>
+      X509_STORE_CTX_set_default() returns 1 for success or 0 if an error
+      occurred.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_new.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      X509_verify_cert(3) X509_VERIFY_PARAM_set_flags(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_new.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      X509_STORE_CTX_set0_crls() was first added to OpenSSL 1.0.0
+    </para>
+  </refsection>
+</refentry>

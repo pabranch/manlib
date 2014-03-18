@@ -1,0 +1,93 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_set_shutdown.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_set_shutdown, SSL_get_shutdown</refname>
+<refpurpose>manipulate shutdown state of an SSL connection</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">void SSL_set_shutdown(SSL *ssl, int mode);</synopsis>
+<synopsis format="linespecific">int SSL_get_shutdown(const SSL *ssl);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_set_shutdown.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_set_shutdown() sets the shutdown state of <emphasis role="bold">ssl</emphasis> to <emphasis role="bold">mode</emphasis>.
+    </para>
+    <para>
+      SSL_get_shutdown() returns the shutdown mode of <emphasis role="bold">ssl</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_set_shutdown.pod:NOTES"><title>NOTES</title>
+    <para>
+      The shutdown state of an ssl connection is a bitmask of:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_set_shutdown.pod:0"/>0</term>
+          <listitem>
+            <para>
+	      No shutdown setting, yet.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_set_shutdown.pod:SSL_SENT_SHUTDOWN"/>SSL_SENT_SHUTDOWN</term>
+          <listitem>
+            <para>
+	      A "close notify" shutdown alert was sent to the peer, the
+	      connection is being considered closed and the session is
+	      closed and correct.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_set_shutdown.pod:SSL_RECEIVED_SHUTDOWN"/>SSL_RECEIVED_SHUTDOWN</term>
+          <listitem>
+            <para>
+	      A shutdown alert was received form the peer, either a normal
+	      "close notify" or a fatal error.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+    <para>
+      SSL_SENT_SHUTDOWN and SSL_RECEIVED_SHUTDOWN can be set at the same
+      time.
+    </para>
+    <para>
+      The shutdown state of the connection is used to determine the state
+      of the ssl session. If the session is still open, when SSL_clear(3)
+      or SSL_free(3) is called, it is considered bad and removed according
+      to RFC2246. The actual condition for a correctly closed session is
+      SSL_SENT_SHUTDOWN (according to the TLS RFC, it is acceptable to only
+      send the "close notify" alert but to not wait for the peer's answer,
+      when the underlying connection is closed). SSL_set_shutdown() can be
+      used to set this state without sending a close alert to the peer (see
+      SSL_shutdown(3)).
+    </para>
+    <para>
+      If a "close notify" was received, SSL_RECEIVED_SHUTDOWN will be set,
+      for setting SSL_SENT_SHUTDOWN the application must however still call
+      SSL_shutdown(3) or SSL_set_shutdown() itself.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_set_shutdown.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      SSL_set_shutdown() does not return diagnostic information.
+    </para>
+    <para>
+      SSL_get_shutdown() returns the current setting.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_set_shutdown.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_shutdown(3), SSL_CTX_set_quiet_shutdown(3), SSL_clear(3),
+      SSL_free(3)
+    </para>
+  </refsection>
+</refentry>

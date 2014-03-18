@@ -1,0 +1,255 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>d2i_X509.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>d2i_X509, i2d_X509, d2i_X509_bio, d2i_X509_fp, i2d_X509_bio,
+i2d_X509_fp</refname>
+<refpurpose>X509 encode and decode functions</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/x509.h&gt;</synopsis>
+<synopsis format="linespecific">X509 *d2i_X509(X509 **px, const unsigned char **in, int len);
+int i2d_X509(X509 *x, unsigned char **out);</synopsis>
+<synopsis format="linespecific">X509 *d2i_X509_bio(BIO *bp, X509 **x);
+X509 *d2i_X509_fp(FILE *fp, X509 **x);</synopsis>
+<synopsis format="linespecific">int i2d_X509_bio(BIO *bp, X509 *x);
+int i2d_X509_fp(FILE *fp, X509 *x);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.d2i_X509.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The X509 encode and decode routines encode and parse an <emphasis role="bold">X509</emphasis> structure, which represents an X509
+      certificate.
+    </para>
+    <para>
+      d2i_X509() attempts to decode <emphasis role="bold">len</emphasis>
+      bytes at <emphasis role="bold">*in</emphasis>. If successful a
+      pointer to the <emphasis role="bold">X509</emphasis> structure is
+      returned. If an error occurred then <emphasis role="bold">NULL</emphasis> is returned. If <emphasis role="bold">px</emphasis> is not <emphasis role="bold">NULL</emphasis> then the returned structure is written to
+      <emphasis role="bold">*px</emphasis>. If <emphasis role="bold">*px</emphasis> is not <emphasis role="bold">NULL</emphasis> then it is assumed that <emphasis role="bold">*px</emphasis> contains a valid <emphasis role="bold">X509</emphasis> structure and an attempt is made to reuse
+      it. If the call is successful <emphasis role="bold">*in</emphasis> is
+      incremented to the byte following the parsed data. 
+    </para>
+    <para>
+      i2d_X509() encodes the structure pointed to by <emphasis role="bold">x</emphasis> into DER format. If <emphasis role="bold">out</emphasis> is not <emphasis role="bold">NULL</emphasis> is writes the DER encoded data to the
+      buffer at <emphasis role="bold">*out</emphasis>, and increments it to
+      point after the data just written. If the return value is negative an
+      error occurred, otherwise it returns the length of the encoded data.
+    </para>
+    <para>
+      For OpenSSL 0.9.7 and later if <emphasis role="bold">*out</emphasis>
+      is <emphasis role="bold">NULL</emphasis> memory will be allocated for
+      a buffer and the encoded data written to it. In this case <emphasis role="bold">*out</emphasis> is not incremented and it points to the
+      start of the data just written.
+    </para>
+    <para>
+      d2i_X509_bio() is similar to d2i_X509() except it attempts to parse
+      data from BIO <emphasis role="bold">bp</emphasis>.
+    </para>
+    <para>
+      d2i_X509_fp() is similar to d2i_X509() except it attempts to parse
+      data from FILE pointer <emphasis role="bold">fp</emphasis>.
+    </para>
+    <para>
+      i2d_X509_bio() is similar to i2d_X509() except it writes the encoding
+      of the structure <emphasis role="bold">x</emphasis> to BIO <emphasis role="bold">bp</emphasis> and it returns 1 for success and 0 for
+      failure.
+    </para>
+    <para>
+      i2d_X509_fp() is similar to i2d_X509() except it writes the encoding
+      of the structure <emphasis role="bold">x</emphasis> to BIO <emphasis role="bold">bp</emphasis> and it returns 1 for success and 0 for
+      failure.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.d2i_X509.pod:NOTES"><title>NOTES</title>
+    <para>
+      The letters <emphasis role="bold">i</emphasis> and <emphasis role="bold">d</emphasis> in for example <emphasis role="bold">i2d_X509</emphasis> stand for "internal" (that is an
+      internal C structure) and "DER". So that <emphasis role="bold">i2d_X509</emphasis> converts from internal to DER.
+    </para>
+    <para>
+      The functions can also understand <emphasis role="bold">BER</emphasis> forms.
+    </para>
+    <para>
+      The actual X509 structure passed to i2d_X509() must be a valid
+      populated <emphasis role="bold">X509</emphasis> structure it can
+      <emphasis role="bold">not</emphasis> simply be fed with an empty
+      structure such as that returned by X509_new().
+    </para>
+    <para>
+      The encoded data is in binary form and may contain embedded zeroes.
+      Therefore any FILE pointers or BIOs should be opened in binary mode.
+      Functions such as <emphasis role="bold">strlen()</emphasis> will
+      <emphasis role="bold">not</emphasis> return the correct length of the
+      encoded structure.
+    </para>
+    <para>
+      The ways that <emphasis role="bold">*in</emphasis> and <emphasis role="bold">*out</emphasis> are incremented after the operation can
+      trap the unwary. See the <emphasis role="bold">WARNINGS</emphasis>
+      section for some common errors.
+    </para>
+    <para>
+      The reason for the auto increment behaviour is to reflect a typical
+      usage of ASN1 functions: after one structure is encoded or decoded
+      another will processed after it.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.d2i_X509.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      Allocate and encode the DER encoding of an X509 structure:
+    </para>
+    <screen>int len;
+unsigned char *buf, *p;
+
+len = i2d_X509(x, NULL);
+
+buf = OPENSSL_malloc(len);
+
+if (buf == NULL)
+       /* error */
+
+p = buf;
+
+i2d_X509(x, &amp;p);</screen>
+    <para>
+      If you are using OpenSSL 0.9.7 or later then this can be simplified
+      to:
+    </para>
+    <screen>
+
+int len;
+unsigned char *buf;
+
+buf = NULL;
+
+len = i2d_X509(x, &amp;buf);
+
+if (len &lt; 0)
+       /* error */</screen>
+    <para>
+      Attempt to decode a buffer:
+    </para>
+    <screen>X509 *x;
+
+unsigned char *buf, *p;
+
+int len;
+
+/* Something to setup buf and len */
+
+p = buf;
+
+x = d2i_X509(NULL, &amp;p, len);
+
+if (x == NULL)
+   /* Some error */</screen>
+    <para>
+      Alternative technique:
+    </para>
+    <screen>X509 *x;
+
+unsigned char *buf, *p;
+
+int len;
+
+/* Something to setup buf and len */
+
+p = buf;
+
+x = NULL;
+
+if(!d2i_X509(&amp;x, &amp;p, len))
+   /* Some error */
+
+</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.d2i_X509.pod:WARNINGS"><title>WARNINGS</title>
+    <para>
+      The use of temporary variable is mandatory. A common mistake is to
+      attempt to use a buffer directly as follows:
+    </para>
+    <screen>int len;
+unsigned char *buf;
+
+len = i2d_X509(x, NULL);
+
+buf = OPENSSL_malloc(len);
+
+if (buf == NULL)
+       /* error */
+
+i2d_X509(x, &amp;buf);
+
+/* Other stuff ... */
+
+OPENSSL_free(buf);</screen>
+    <para>
+      This code will result in <emphasis role="bold">buf</emphasis>
+      apparently containing garbage because it was incremented after the
+      call to point after the data just written. Also <emphasis role="bold">buf</emphasis> will no longer contain the pointer
+      allocated by <emphasis role="bold">OPENSSL_malloc()</emphasis> and
+      the subsequent call to <emphasis role="bold">OPENSSL_free()</emphasis> may well crash.
+    </para>
+    <para>
+      The auto allocation feature (setting buf to NULL) only works on
+      OpenSSL 0.9.7 and later. Attempts to use it on earlier versions will
+      typically cause a segmentation violation.
+    </para>
+    <para>
+      Another trap to avoid is misuse of the <emphasis role="bold">xp</emphasis> argument to <emphasis role="bold">d2i_X509()</emphasis>:
+    </para>
+    <screen>X509 *x;
+
+if (!d2i_X509(&amp;x, &amp;p, len))
+       /* Some error */</screen>
+    <para>
+      This will probably crash somewhere in <emphasis role="bold">d2i_X509()</emphasis>. The reason for this is that the
+      variable <emphasis role="bold">x</emphasis> is uninitialized and an
+      attempt will be made to interpret its (invalid) value as an <emphasis role="bold">X509</emphasis> structure, typically causing a
+      segmentation violation. If <emphasis role="bold">x</emphasis> is set
+      to NULL first then this will not happen.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.d2i_X509.pod:BUGS"><title>BUGS</title>
+    <para>
+      In some versions of OpenSSL the "reuse" behaviour of d2i_X509() when
+      <emphasis role="bold">*px</emphasis> is valid is broken and some
+      parts of the reused structure may persist if they are not present in
+      the new one. As a result the use of this "reuse" behaviour is
+      strongly discouraged. 
+    </para>
+    <para>
+      i2d_X509() will not return an error in many versions of OpenSSL, if
+      mandatory fields are not initialized due to a programming error then
+      the encoded structure may contain invalid data or omit the fields
+      entirely and will not be parsed by d2i_X509(). This may be fixed in
+      future so code should not assume that i2d_X509() will always succeed.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.d2i_X509.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      d2i_X509(), d2i_X509_bio() and d2i_X509_fp() return a valid <emphasis role="bold">X509</emphasis> structure or <emphasis role="bold">NULL</emphasis> if an error occurs. The error code that
+      can be obtained by ERR_get_error(3).
+    </para>
+    <para>
+      i2d_X509() returns the number of bytes successfully encoded or a
+      negative value if an error occurs. The error code can be obtained by
+      ERR_get_error(3).
+    </para>
+    <para>
+      i2d_X509_bio() and i2d_X509_fp() return 1 for success and 0 if an
+      error occurs The error code can be obtained by ERR_get_error(3). 
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.d2i_X509.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ERR_get_error(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.d2i_X509.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      d2i_X509, i2d_X509, d2i_X509_bio, d2i_X509_fp, i2d_X509_bio and
+      i2d_X509_fp are available in all versions of SSLeay and OpenSSL.
+    </para>
+  </refsection>
+</refentry>

@@ -1,0 +1,89 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_get_session.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_get_session, SSL_get0_session, SSL_get1_session</refname>
+<refpurpose>retrieve TLS/SSL session data</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">SSL_SESSION *SSL_get_session(const SSL *ssl);
+SSL_SESSION *SSL_get0_session(const SSL *ssl);
+SSL_SESSION *SSL_get1_session(SSL *ssl);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_session.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_get_session() returns a pointer to the <emphasis role="bold">SSL_SESSION</emphasis> actually used in <emphasis role="bold">ssl</emphasis>. The reference count of the <emphasis role="bold">SSL_SESSION</emphasis> is not incremented, so that the
+      pointer can become invalid by other operations.
+    </para>
+    <para>
+      SSL_get0_session() is the same as SSL_get_session().
+    </para>
+    <para>
+      SSL_get1_session() is the same as SSL_get_session(), but the
+      reference count of the <emphasis role="bold">SSL_SESSION</emphasis>
+      is incremented by one.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_session.pod:NOTES"><title>NOTES</title>
+    <para>
+      The ssl session contains all information required to re-establish the
+      connection without a new handshake.
+    </para>
+    <para>
+      SSL_get0_session() returns a pointer to the actual session. As the
+      reference counter is not incremented, the pointer is only valid while
+      the connection is in use. If SSL_clear(3) or SSL_free(3) is called,
+      the session may be removed completely (if considered bad), and the
+      pointer obtained will become invalid. Even if the session is valid,
+      it can be removed at any time due to timeout during
+      SSL_CTX_flush_sessions(3).
+    </para>
+    <para>
+      If the data is to be kept, SSL_get1_session() will increment the
+      reference count, so that the session will not be implicitly removed
+      by other operations but stays in memory. In order to remove the
+      session SSL_SESSION_free(3) must be explicitly called once to
+      decrement the reference count again.
+    </para>
+    <para>
+      SSL_SESSION objects keep internal link information about the session
+      cache list, when being inserted into one SSL_CTX object's session
+      cache. One SSL_SESSION object, regardless of its reference count,
+      must therefore only be used with one SSL_CTX object (and the SSL
+      objects created from this SSL_CTX object).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_session.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      The following return values can occur:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_session.pod:NULL"/>NULL</term>
+          <listitem>
+            <para>
+	      There is no session available in <emphasis role="bold">ssl</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_session.pod:Pointer_to_an_SSL"/>Pointer to an SSL</term>
+          <listitem>
+            <para>
+	      The return value points to the data of an SSL session.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_session.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_free(3), SSL_clear(3), SSL_SESSION_free(3)
+    </para>
+  </refsection>
+</refentry>

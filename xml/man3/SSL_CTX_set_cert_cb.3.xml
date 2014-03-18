@@ -1,0 +1,79 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_set_cert_cb.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_set_cert_cb, SSL_set_cert_cb</refname>
+<refpurpose>handle certificate callback function</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">void SSL_CTX_set_cert_cb(SSL_CTX *c, int (*cert_cb)(SSL *ssl, void *arg), void *arg);
+void SSL_set_cert_cb(SSL *s, int (*cert_cb)(SSL *ssl, void *arg), void *arg);</synopsis>
+<synopsis format="linespecific">int (*cert_cb)(SSL *ssl, void *arg);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cert_cb.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_CTX_set_cert_cb() and SSL_set_cert_cb() sets the <emphasis role="bold">cert_cb()</emphasis> callback, <emphasis role="bold">arg</emphasis> value is pointer which is passed to the
+      application callback.
+    </para>
+    <para>
+      When <emphasis role="bold">cert_cb()</emphasis> is NULL, no callback
+      function is used.
+    </para>
+    <para>
+      cert_cb() is the application defined callback. It is called before a
+      certificate will be used by a client or server. The callback can then
+      inspect the passed <emphasis role="bold">ssl</emphasis> structure and
+      set or clear any appropriate certificates. If the callback is
+      successful it <emphasis role="bold">MUST</emphasis> return 1 even if
+      no certificates have been set. A zero is returned on error which will
+      abort the handshake with a fatal internal error alert. A negative
+      return value will suspend the handshake and the handshake function
+      will return immediatly. SSL_get_error(3) will return
+      SSL_ERROR_WANT_X509_LOOKUP to indicate, that the handshake was
+      suspended. The next call to the handshake function will again lead to
+      the call of cert_cb(). It is the job of the cert_cb() to store
+      information about the state of the last call, if required to
+      continue.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cert_cb.pod:NOTES"><title>NOTES</title>
+    <para>
+      An application will typically call SSL_use_certificate() and
+      SSL_use_PrivateKey() to set the end entity certificate and private
+      key. It can add intermediate and optionally the root CA certificates
+      using SSL_add1_chain_cert().
+    </para>
+    <para>
+      It might also call SSL_certs_clear() to delete any certificates
+      associated with the <emphasis role="bold">SSL</emphasis> object.
+    </para>
+    <para>
+      The certificate callback functionality supercedes the (largely
+      broken) functionality provided by the old client certificate callback
+      interface. It is <emphasis role="bold">always</emphasis> called even
+      is a certificate is already set so the callback can modify or delete
+      the existing certificate.
+    </para>
+    <para>
+      A more advanced callback might examine the handshake parameters and
+      set whatever chain is appropriate. For example a legacy client
+      supporting only TLS v1.0 might receive a certificate chain signed
+      using SHA1 whereas a TLS v1.2 client which advertises support for
+      SHA256 could receive a chain using SHA256.
+    </para>
+    <para>
+      Normal server sanity checks are performed on any certificates set by
+      the callback. So if an EC chain is set for a curve the client does
+      not support it will <emphasis role="bold">not</emphasis> be used.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cert_cb.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_use_certificate(3), SSL_add1_chain_cert(3),
+      SSL_get_client_CA_list(3), SSL_clear(3), SSL_free(3)
+    </para>
+  </refsection>
+</refentry>

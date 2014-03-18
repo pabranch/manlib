@@ -1,0 +1,49 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_pending.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_pending</refname>
+<refpurpose>obtain number of readable bytes buffered in an SSL object</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">int SSL_pending(const SSL *ssl);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_pending.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_pending() returns the number of bytes which are available inside
+      <emphasis role="bold">ssl</emphasis> for immediate read.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_pending.pod:NOTES"><title>NOTES</title>
+    <para>
+      Data are received in blocks from the peer. Therefore data can be
+      buffered inside <emphasis role="bold">ssl</emphasis> and are ready
+      for immediate retrieval with SSL_read(3).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_pending.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      The number of bytes pending is returned.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_pending.pod:BUGS"><title>BUGS</title>
+    <para>
+      SSL_pending() takes into account only bytes from the TLS/SSL record
+      that is currently being processed (if any).  If the <emphasis role="bold">SSL</emphasis> object's <emphasis role="italic">read_ahead</emphasis> flag is set, additional protocol
+      bytes may have been read containing more TLS/SSL records; these are
+      ignored by SSL_pending().
+    </para>
+    <para>
+      Up to OpenSSL 0.9.6, SSL_pending() does not check if the record type
+      of pending data is application data.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_pending.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      SSL_read(3), ssl(3)
+    </para>
+  </refsection>
+</refentry>

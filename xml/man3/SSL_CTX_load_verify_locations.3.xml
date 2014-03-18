@@ -1,0 +1,141 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_load_verify_locations.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_load_verify_locations</refname>
+<refpurpose>set default locations for trusted CA
+certificates</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">int SSL_CTX_load_verify_locations(SSL_CTX *ctx, const char *CAfile,
+                                  const char *CApath);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_load_verify_locations.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_CTX_load_verify_locations() specifies the locations for <emphasis role="bold">ctx</emphasis>, at which CA certificates for verification
+      purposes are located. The certificates available via <emphasis role="bold">CAfile</emphasis> and <emphasis role="bold">CApath</emphasis> are trusted.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_load_verify_locations.pod:NOTES"><title>NOTES</title>
+    <para>
+      If <emphasis role="bold">CAfile</emphasis> is not NULL, it points to
+      a file of CA certificates in PEM format. The file can contain several
+      CA certificates identified by
+    </para>
+    <screen>-----BEGIN CERTIFICATE-----
+... (CA certificate in base64 encoding) ...
+-----END CERTIFICATE-----</screen>
+    <para>
+      sequences. Before, between, and after the certificates text is
+      allowed which can be used e.g. for descriptions of the certificates.
+    </para>
+    <para>
+      The <emphasis role="bold">CAfile</emphasis> is processed on execution
+      of the SSL_CTX_load_verify_locations() function.
+    </para>
+    <para>
+      If <emphasis role="bold">CApath</emphasis> is not NULL, it points to
+      a directory containing CA certificates in PEM format. The files each
+      contain one CA certificate. The files are looked up by the CA subject
+      name hash value, which must hence be available. If more than one CA
+      certificate with the same name hash value exist, the extension must
+      be different (e.g. 9d66eef0.0, 9d66eef0.1 etc). The search is
+      performed in the ordering of the extension number, regardless of
+      other properties of the certificates. Use the <emphasis role="bold">c_rehash</emphasis> utility to create the necessary
+      links.
+    </para>
+    <para>
+      The certificates in <emphasis role="bold">CApath</emphasis> are only
+      looked up when required, e.g. when building the certificate chain or
+      when actually performing the verification of a peer certificate.
+    </para>
+    <para>
+      When looking up CA certificates, the OpenSSL library will first
+      search the certificates in <emphasis role="bold">CAfile</emphasis>,
+      then those in <emphasis role="bold">CApath</emphasis>. Certificate
+      matching is done based on the subject name, the key identifier (if
+      present), and the serial number as taken from the certificate to be
+      verified. If these data do not match, the next certificate will be
+      tried. If a first certificate matching the parameters is found, the
+      verification process will be performed; no other certificates for the
+      same parameters will be searched in case of failure.
+    </para>
+    <para>
+      In server mode, when requesting a client certificate, the server must
+      send the list of CAs of which it will accept client certificates.
+      This list is not influenced by the contents of <emphasis role="bold">CAfile</emphasis> or <emphasis role="bold">CApath</emphasis> and must explicitly be set using the
+      SSL_CTX_set_client_CA_list(3) family of functions.
+    </para>
+    <para>
+      When building its own certificate chain, an OpenSSL client/server
+      will try to fill in missing certificates from <emphasis role="bold">CAfile</emphasis>/<emphasis role="bold">CApath</emphasis>, if the certificate chain was not
+      explicitly specified (see SSL_CTX_add_extra_chain_cert(3),
+      SSL_CTX_use_certificate(3).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_load_verify_locations.pod:WARNINGS"><title>WARNINGS</title>
+    <para>
+      If several CA certificates matching the name, key identifier, and
+      serial number condition are available, only the first one will be
+      examined. This may lead to unexpected results if the same CA
+      certificate is available with different expiration dates. If a
+      "certificate expired" verification error occurs, no other certificate
+      will be searched. Make sure to not have expired certificates mixed
+      with valid ones.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_load_verify_locations.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      Generate a CA certificate file with descriptive text from the CA
+      certificates ca1.pem ca2.pem ca3.pem:
+    </para>
+    <screen>#!/bin/sh
+rm CAfile.pem
+for i in ca1.pem ca2.pem ca3.pem ; do
+  openssl x509 -in $i -text &gt;&gt; CAfile.pem
+done</screen>
+    <para>
+      Prepare the directory /some/where/certs containing several CA
+      certificates for use as <emphasis role="bold">CApath</emphasis>:
+    </para>
+    <screen>cd /some/where/certs
+c_rehash .</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_load_verify_locations.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      The following return values can occur:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_load_verify_locations.pod:0"/>0</term>
+          <listitem>
+            <para>
+	      The operation failed because <emphasis role="bold">CAfile</emphasis> and <emphasis role="bold">CApath</emphasis> are NULL or the processing at
+	      one of the locations specified failed. Check the error stack
+	      to find out the reason.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_load_verify_locations.pod:1"/>1</term>
+          <listitem>
+            <para>
+	      The operation succeeded.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_load_verify_locations.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_CTX_set_client_CA_list(3), SSL_get_client_CA_list(3),
+      SSL_CTX_use_certificate(3), SSL_CTX_add_extra_chain_cert(3),
+      SSL_CTX_set_cert_store(3)
+    </para>
+  </refsection>
+</refentry>

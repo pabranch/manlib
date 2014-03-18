@@ -1,0 +1,44 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CONF_CTX_new.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CONF_CTX_new, SSL_CONF_CTX_free</refname>
+<refpurpose>SSL configuration allocation functions</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">SSL_CONF_CTX *SSL_CONF_CTX_new(void);
+void SSL_CONF_CTX_free(SSL_CONF_CTX *cctx);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_new.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The function SSL_CONF_CTX_new() allocates and initialises an
+      <emphasis role="bold">SSL_CONF_CTX</emphasis> structure for use with
+      the SSL_CONF functions.
+    </para>
+    <para>
+      The function SSL_CONF_CTX_free() frees up the context <emphasis role="bold">cctx</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_new.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      SSL_CONF_CTX_new() returns either the newly allocated <emphasis role="bold">SSL_CONF_CTX</emphasis> structure or <emphasis role="bold">NULL</emphasis> if an error occurs.
+    </para>
+    <para>
+      SSL_CONF_CTX_free() does not return a value.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_new.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      SSL_CONF_CTX_set_flags(3), SSL_CONF_CTX_set_ssl_ctx(3),
+      SSL_CONF_CTX_set1_prefix(3), SSL_CONF_cmd(3), SSL_CONF_cmd_argv(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_new.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      These functions were first added to OpenSSL 1.0.2
+    </para>
+  </refsection>
+</refentry>

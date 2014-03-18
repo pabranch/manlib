@@ -1,0 +1,3119 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="login.defs.5">
+  <!--  $Id: login.defs.5.xml 3742 2012-05-25 11:45:21Z nekral-guest $ -->
+  <info>
+    <author><personname><firstname>Julianne Frances</firstname><surname>Haugh</surname></personname><contrib>Creation, 1991</contrib></author>
+    <author><personname><firstname>Thomas</firstname><surname>Kłoczko</surname></personname><email>kloczek@pld.org.pl</email><contrib>shadow-utils maintainer, 2000 - 2007</contrib></author>
+    <author><personname><firstname>Nicolas</firstname><surname>François</surname></personname><email>nicolas.francois@centraliens.net</email><contrib>shadow-utils maintainer, 2007 - now</contrib></author>
+  </info>
+  <refmeta>
+    <refentrytitle>login.defs</refentrytitle>
+    <manvolnum>5</manvolnum>
+    <refmiscinfo class="sectdesc">File Formats and Conversions</refmiscinfo>
+    <refmiscinfo class="source">shadow-utils</refmiscinfo>
+    <refmiscinfo class="version">4.1.5.1</refmiscinfo>
+  </refmeta>
+  <refnamediv xml:id="name">
+    <refname>login.defs</refname>
+    <refpurpose>shadow password suite configuration</refpurpose>
+  </refnamediv>
+
+  <refsect1 xml:id="description">
+    <title>DESCRIPTION</title>
+    <para>
+      The <filename>/etc/login.defs</filename> file defines the
+      site-specific configuration for the shadow password suite. This file
+      is required. Absence of this file will not prevent system operation,
+      but will probably result in undesirable operation.
+    </para>
+
+    <para>
+      This file is a readable text file, each line of the file describing
+      one configuration parameter. The lines consist of a configuration name
+      and value, separated by whitespace. Blank lines and comment lines are
+      ignored. Comments are introduced with a "#" pound sign and the pound
+      sign must be the first non-white character of the line.
+    </para>
+
+    <para>
+      Parameter values may be of four types: strings, booleans, numbers, and
+      long numbers. A string is comprised of any printable characters. A
+      boolean should be either the value <replaceable>yes</replaceable> or
+      <replaceable>no</replaceable>. An undefined boolean
+      parameter or one with a value other than these will be given a
+      <replaceable>no</replaceable>
+      value. Numbers (both regular and long) may be either decimal values,
+      octal values (precede the value with <replaceable>0</replaceable>) or
+      hexadecimal values
+      (precede the value with <replaceable>0x</replaceable>).
+      The maximum value of the regular and
+      long numeric parameters is machine-dependent.
+    </para>
+
+    <para>The following configuration items are provided:</para>
+
+    <variablelist remap="IP">
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="no_pam">
+  <term><option>CHFN_AUTH</option> (boolean)</term>
+  <listitem>
+    <para>
+      If <replaceable>yes</replaceable>, the <command>chfn</command>
+      program will require authentication before making any changes,
+      unless run by the superuser.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>CHFN_RESTRICT</option> (string)</term>
+  <listitem>
+    <para>
+      This parameter specifies which values in the <emphasis remap="I">gecos</emphasis> field of the
+      <filename>/etc/passwd</filename> file may be changed by regular
+      users using the <command>chfn</command> program. It can be any
+      combination of letters <replaceable>f</replaceable>,
+      <replaceable>r</replaceable>, <replaceable>w</replaceable>,
+      <replaceable>h</replaceable>, for Full name, Room number, Work
+      phone, and Home phone, respectively. For backward compatibility,
+      <replaceable>yes</replaceable> is equivalent to
+      <replaceable>rwh</replaceable> and <replaceable>no</replaceable> is
+      equivalent to <replaceable>frwh</replaceable>. If not specified,
+      only the superuser can make any changes. The most restrictive
+      setting is better achieved by not installing <command>chfn</command>
+      SUID.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="no_pam">
+  <term><option>CHSH_AUTH</option> (boolean)</term>
+  <listitem>
+    <para>
+      If <replaceable>yes</replaceable>, the <command>chsh</command>
+      program will require authentication before making any changes,
+      unless run by the superuser.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="no_pam">
+  <term><option>CONSOLE</option> (string)</term>
+  <listitem>
+    <para>
+      If defined, either full pathname of a file containing device names
+      (one per line) or a ":" delimited list of device names.  Root logins will be
+      allowed only upon these devices.
+    </para>
+    <para>
+      If not defined, root will be allowed on any device.
+    </para>
+    <para>
+      The device should be specified without the /dev/ prefix.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>CONSOLE_GROUPS</option> (string)</term>
+  <listitem>
+    <para>
+      List of groups to add to the user's supplementary groups set when
+      logging in on the console (as determined by the CONSOLE setting).
+      Default is none.
+    <para>
+    </para>
+      Use with caution - it is possible for users to gain permanent access
+      to these groups, even when not logged in on the console.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 2009       , Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>CREATE_HOME</option> (boolean)</term>
+  <listitem>
+    <para>
+      Indicate if a home directory should be created by default for new
+      users.
+    </para>
+    <para>
+      This setting does not apply to system users, and can be overridden on
+      the command line.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>DEFAULT_HOME</option> (boolean)</term>
+  <listitem>
+    <para>
+      Indicate if login is allowed if we can't cd to the home directory.
+      Default is no.
+    </para>
+    <para>
+      If set to <replaceable>yes</replaceable>, the user will login in
+      the root (<filename>/</filename>) directory if it is not possible to
+      cd to her home directory.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>ENCRYPT_METHOD</option> (string)</term>
+  <listitem>
+    <para>
+      This defines the system default encryption algorithm for encrypting
+      passwords (if no algorithm are specified on the command line).
+    </para>
+    <para>
+      It can take one of these values:
+      <replaceable>DES</replaceable> (default),
+      <replaceable>MD5</replaceable><phrase condition="sha_crypt">,
+      <replaceable>SHA256</replaceable>,
+      <replaceable>SHA512</replaceable></phrase>.
+    </para>
+    <para>
+      Note: this parameter overrides the <option>MD5_CRYPT_ENAB</option>
+      variable.
+    </para>
+    <para condition="pam">
+      Note: This only affect the generation of group passwords.
+      The generation of user passwords is done by PAM and subject to the
+      PAM configuration. It is recommended to set this variable
+      consistently with the PAM configuration.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <!-- XXX: When compiled with PAM support, only sulogin uses ENV_HZ -->
+  <term><option>ENV_HZ</option> (string)</term>
+  <listitem>
+    <para>
+      If set, it will be used to define the HZ environment variable when
+      a user login. The value must be preceded by
+      <replaceable>HZ=</replaceable>. A common value on Linux is
+      <replaceable>HZ=100</replaceable>.
+    </para>
+    <para condition="pam">
+      The <envar>HZ</envar> environment variable is only set when the user
+      (the superuser) logs in with <command>sulogin</command>.
+    </para>
+    <!-- TODO: it can in fact be used to set any other variable-->
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>ENV_PATH</option> (string)</term>
+  <listitem>
+    <para>
+      If set, it will be used to define the PATH environment variable when
+      a regular user login. The value is a colon separated list of paths
+      (for example <replaceable>/bin:/usr/bin</replaceable>) and can be
+      preceded by <replaceable>PATH=</replaceable>. The default value is
+      <replaceable>PATH=/bin:/usr/bin</replaceable>.
+    </para>
+    <!-- TODO: it can in fact be used to set any other variable-->
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2009, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>ENV_SUPATH</option> (string)</term>
+  <listitem>
+    <para>
+      If set, it will be used to define the PATH environment variable when
+      the superuser login. The value is a colon separated list of paths 
+      (for example
+      <replaceable>/sbin:/bin:/usr/sbin:/usr/bin</replaceable>) and can be
+      preceded by <replaceable>PATH=</replaceable>. The default value is
+      <replaceable>PATH=/sbin:/bin:/usr/sbin:/usr/bin</replaceable>.
+    </para>
+    <!-- TODO: it can in fact be used to set any other variable-->
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="no_pam">
+  <term><option>ENV_TZ</option> (string)</term>
+  <listitem>
+    <para>
+      If set, it will be used to define the TZ environment variable when
+      a user login. The value can be the name of a timezone preceded by
+      <replaceable>TZ=</replaceable> (for example
+      <replaceable>TZ=CST6CDT</replaceable>), or the full path to the file
+      containing the timezone specification (for example
+      <filename>/etc/tzname</filename>).
+    </para>
+    <!-- TODO: it can in fact be used to set any other variable-->
+    <para>
+      If a full path is specified but the file does not exist or cannot be
+      read, the default is to use <replaceable>TZ=CST6CDT</replaceable>.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2009, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="no_pam">
+  <term><option>ENVIRON_FILE</option> (string)</term>
+  <listitem>
+    <para>
+      If this file exists and is readable, login environment will be
+      read from it.  Every line should be in the form name=value.
+    </para>
+    <para>
+      Lines starting with a # are treated as comment lines and ignored.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>ERASECHAR</option> (number)</term>
+  <listitem>
+    <para>
+      Terminal ERASE character (<replaceable>010</replaceable> =
+      backspace, <replaceable>0177</replaceable> = DEL).
+    </para>
+    <para>
+      The value can be prefixed "0" for an octal value, or "0x" for an
+      hexadecimal value.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>FAIL_DELAY</option> (number)</term>
+  <listitem>
+    <para>
+      Delay in seconds before being allowed another attempt after a login
+      failure.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="no_pam">
+  <term><option>FAILLOG_ENAB</option> (boolean)</term>
+  <listitem>
+    <para>
+      Enable logging and display of <filename>/var/log/faillog</filename>
+      login failure info.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>FAKE_SHELL</option> (string)</term>
+  <listitem>
+    <para>
+      If set, <command>login</command> will execute this shell instead of
+      the users' shell specified in <filename>/etc/passwd</filename>.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="no_pam">
+  <term><option>FTMP_FILE</option> (string)</term>
+  <listitem>
+    <para>
+      If defined, login failures will be logged in this file in a utmp format.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>GID_MAX</option> (number)</term>
+  <term><option>GID_MIN</option> (number)</term>
+  <listitem>
+    <para>
+      Range of group IDs used for the creation of regular groups by
+      <command>useradd</command>, <command>groupadd</command>, or
+      <command>newusers</command>.
+    </para>
+    <para>
+      The default value for <option>GID_MIN</option> (resp.
+      <option>GID_MAX</option>) is 1000 (resp. 60000).
+    </para>
+  </listitem>
+</varlistentry>
+ <!-- documents also GID_MIN -->
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>HUSHLOGIN_FILE</option> (string)</term>
+  <listitem>
+    <para>
+      If defined, this file can inhibit all the usual chatter during the
+      login sequence.  If a full pathname is specified, then hushed mode
+      will be enabled if the user's name or shell are found in the file.
+      If not a full pathname, then hushed mode will be enabled if the file
+      exists in the user's home directory.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="no_pam">
+  <term><option>ISSUE_FILE</option> (string)</term>
+  <listitem>
+    <para>
+      If defined, this file will be displayed before each login prompt.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>KILLCHAR</option> (number)</term>
+  <listitem>
+    <para>
+      Terminal KILL character (<replaceable>025</replaceable> = CTRL/U).
+    </para>
+    <para>
+      The value can be prefixed "0" for an octal value, or "0x" for an
+      hexadecimal value.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="no_pam">
+  <term><option>LASTLOG_ENAB</option> (boolean)</term>
+  <listitem>
+    <para>
+      Enable logging and display of /var/log/lastlog login time info.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>LOG_OK_LOGINS</option> (boolean)</term>
+  <listitem>
+    <para>
+      Enable logging of successful logins.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>LOG_UNKFAIL_ENAB</option> (boolean)</term>
+  <listitem>
+    <para>
+      Enable display of unknown usernames when login failures are
+      recorded.
+    </para>
+    <para>
+      Note: logging unknown usernames may be a security issue if an user
+      enter her password instead of her login name.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>LOGIN_RETRIES</option> (number)</term>
+  <listitem>
+    <para>
+      Maximum number of login retries in case of bad password.
+    </para>
+    <para condition="pam">
+      This will most likely be overridden by PAM, since the default
+      pam_unix module has its own built in of 3 retries. However, this is
+      a safe fallback in case you are using an authentication module that
+      does not enforce PAM_MAXTRIES.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="no_pam">
+  <term><option>LOGIN_STRING</option> (string)</term>
+  <listitem>
+    <para>
+      The string used for prompting a password. The default is to use
+      "Password: ", or a translation of that string. If you set this
+      variable, the prompt will not be translated.
+    </para>
+    <para>
+      If the string contains <replaceable>%s</replaceable>, this will be
+      replaced by the user's name.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>LOGIN_TIMEOUT</option> (number)</term>
+  <listitem>
+    <para>
+      Max time in seconds for login.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="no_pam">
+  <term><option>MAIL_CHECK_ENAB</option> (boolean)</term>
+  <listitem>
+    <para>
+      Enable checking and display of mailbox status upon login.
+    </para>
+    <para>
+      You should disable it if the shell startup files already check for
+      mail ("mailx -e" or equivalent).
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>MAIL_DIR</option> (string)</term>
+  <listitem>
+    <para>
+      The mail spool directory. This is needed to manipulate the mailbox
+      when its corresponding user account is modified or deleted. If not
+      specified, a compile-time default is used.
+    </para>
+  </listitem>
+</varlistentry><varlistentry>
+  <term><option>MAIL_FILE</option> (string)</term>
+  <listitem>
+    <para>
+      Defines the location of the users mail spool files relatively to
+      their home directory.
+    </para>
+  </listitem>
+</varlistentry>
+<!-- FIXME: MAIL_FILE not used in useradd -->
+<para>
+  The <option>MAIL_DIR</option> and <option>MAIL_FILE</option> variables
+  are used by <command>useradd</command>, <command>usermod</command>, and
+  <command>userdel</command> to create, move, or delete the user's mail
+  spool.
+</para>
+<para condition="no_pam">
+  If <option>MAIL_CHECK_ENAB</option> is set to
+  <replaceable>yes</replaceable>, they are also used to define the
+  <envar>MAIL</envar> environment variable.
+</para>
+
+      <!--
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>MAX_MEMBERS_PER_GROUP</option> (number)</term>
+  <listitem>
+    <para>
+      Maximum members per group entry. When the maximum is reached, a new
+      group entry (line) is started in <filename>/etc/group</filename>
+      (with the same name, same password, and same GID).
+    </para>
+    <para>
+      The default value is 0, meaning that there are no limits in the
+      number of members in a group.
+    </para>
+    <!-- Note: on HP, split groups have the same ID, but different
+               names. -->
+    <para>
+      This feature (split group) permits to limit the length of lines in
+      the group file. This is useful to make sure that lines for NIS
+      groups are not larger than 1024 characters.
+    </para>
+    <para>
+      If you need to enforce such limit, you can use 25.
+    </para>
+    <para>
+      Note: split groups may not be supported by all tools (even in the
+      Shadow toolsuite). You should not use this variable unless you really
+      need it.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>MD5_CRYPT_ENAB</option> (boolean)</term>
+  <listitem>
+    <para>
+      Indicate if passwords must be encrypted using the MD5-based
+      algorithm. If set to <replaceable>yes</replaceable>, new passwords
+      will be encrypted using the MD5-based algorithm compatible with the
+      one used by recent releases of FreeBSD. It supports passwords of
+      unlimited length and longer salt strings. Set to
+      <replaceable>no</replaceable> if you need to copy encrypted
+      passwords to other systems which don't understand the new algorithm.
+      Default is <replaceable>no</replaceable>.
+    </para>
+    <para>
+      This variable is superseded by the <option>ENCRYPT_METHOD</option>
+      variable or by any command line option used to configure the
+      encryption algorithm.
+    </para>
+    <para>
+      This variable is deprecated. You should use
+      <option>ENCRYPT_METHOD</option>.
+    </para>
+    <para condition="pam">
+      Note: This only affect the generation of group passwords.
+      The generation of user passwords is done by PAM and subject to the
+      PAM configuration. It is recommended to set this variable
+      consistently with the PAM configuration.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="no_pam">
+  <term><option>MOTD_FILE</option> (string)</term>
+  <listitem>
+    <para>
+      If defined, ":" delimited list of "message of the day" files to be
+      displayed upon login.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="no_pam">
+  <term><option>NOLOGINS_FILE</option> (string)</term>
+  <listitem>
+    <para>
+      If defined, name of file whose presence will inhibit non-root
+      logins.  The contents of this file should be a message indicating
+      why logins are inhibited.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="no_pam">
+  <term><option>OBSCURE_CHECKS_ENAB</option> (boolean)</term>
+  <listitem>
+    <para>
+      Enable additional checks upon password changes.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="no_pam">
+  <term><option>PASS_ALWAYS_WARN</option> (boolean)</term>
+  <listitem>
+    <para>
+      Warn about weak passwords (but still allow them) if you are root.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="no_pam">
+  <term><option>PASS_CHANGE_TRIES</option> (number)</term>
+  <listitem>
+    <para>
+      Maximum number of attempts to change password if rejected (too
+      easy).
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>PASS_MAX_DAYS</option> (number)</term>
+  <listitem>
+    <para>
+      The maximum number of days a password may be used. If the password
+      is older than this, a password change will be forced.  If not
+      specified, -1 will be assumed (which disables the restriction).
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>PASS_MIN_DAYS</option> (number)</term>
+  <listitem>
+    <para>
+      The minimum number of days allowed between password changes.  Any
+      password changes attempted sooner than this will be rejected. If not
+      specified, -1 will be assumed (which disables the restriction).
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>PASS_WARN_AGE</option> (number)</term>
+  <listitem>
+    <para>
+      The number of days warning given before a password expires. A zero
+      means warning is given only upon the day of expiration, a negative
+      value means no warning is given. If not specified, no warning will
+      be provided.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <para> 
+        <option>PASS_MAX_DAYS</option>, <option>PASS_MIN_DAYS</option> and
+        <option>PASS_WARN_AGE</option> are only used at the
+        time of account creation. Any changes to these settings won't affect
+        existing accounts.
+      </para>
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="no_pam">
+  <term><option>PASS_MAX_LEN</option> (number)</term>
+  <term><option>PASS_MIN_LEN</option> (number)</term>
+  <listitem>
+    <para>
+      Number of significant characters in the password for crypt().
+      <option>PASS_MAX_LEN</option> is 8 by default. Don't change unless
+      your crypt() is better. This is ignored if
+      <option>MD5_CRYPT_ENAB</option> set to
+      <replaceable>yes</replaceable>.
+    </para>
+  </listitem>
+</varlistentry>
+ <!-- documents also PASS_MIN_LEN -->
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="no_pam">
+  <term><option>PORTTIME_CHECKS_ENAB</option> (boolean)</term>
+  <listitem>
+    <para>
+      Enable checking of time restrictions specified in
+      <filename>/etc/porttime</filename>.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2011, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="no_pam">
+  <term><option>QUOTAS_ENAB</option> (boolean)</term>
+  <listitem>
+    <para>
+      Enable setting of resource limits from
+      <filename>/etc/limits</filename> and ulimit, umask, and niceness
+      from the user's passwd gecos field.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="sha_crypt">
+  <term><option>SHA_CRYPT_MIN_ROUNDS</option> (number)</term>
+  <term><option>SHA_CRYPT_MAX_ROUNDS</option> (number)</term>
+  <listitem>
+    <para>
+      When <option>ENCRYPT_METHOD</option> is set to
+      <replaceable>SHA256</replaceable> or
+      <replaceable>SHA512</replaceable>, this defines the number of SHA
+      rounds used by the encryption algorithm by default (when the number
+      of rounds is not specified on the command line).
+    </para>
+    <para>
+      With a lot of rounds, it is more difficult to brute forcing the
+      password. But note also that more CPU resources will be needed to
+      authenticate users.
+    </para>
+    <para>
+      If not specified, the libc will choose the default number of rounds
+      (5000).
+    </para>
+    <para>
+      The values must be inside the 1000-999,999,999 range.
+    </para>
+    <para>
+      If only one of the <option>SHA_CRYPT_MIN_ROUNDS</option> or
+      <option>SHA_CRYPT_MAX_ROUNDS</option> values is set, then this value
+      will be used.
+    </para>
+    <para>
+      If <option>SHA_CRYPT_MIN_ROUNDS</option> &gt;
+      <option>SHA_CRYPT_MAX_ROUNDS</option>, the highest value will be
+      used.
+    </para>
+    <para condition="pam">
+      Note: This only affect the generation of group passwords.
+      The generation of user passwords is done by PAM and subject to the
+      PAM configuration. It is recommended to set this variable
+      consistently with the PAM configuration.
+    </para>
+  </listitem>
+</varlistentry>
+ <!-- documents also SHA_CRYPT_MAX_ROUNDS -->
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>SULOG_FILE</option> (string)</term>
+  <listitem>
+    <para>
+      If defined, all su activity is logged to this file.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>SU_NAME</option> (string)</term>
+  <listitem>
+    <para>
+      If defined, the command name to display when running "su -".  For
+      example, if this is defined as "su" then a "ps" will display the
+      command is "-su".  If not defined, then "ps" would display the name
+      of the shell actually being run, e.g. something like "-sh".
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<!-- TODO: TBC -->
+<varlistentry condition="no_pam">
+  <term><option>SU_WHEEL_ONLY</option> (boolean)</term>
+  <listitem>
+    <para>
+      If <replaceable>yes</replaceable>, the user must be listed as a
+      member of the first gid 0 group in <filename>/etc/group</filename>
+      (called <replaceable>root</replaceable> on most Linux systems) to be
+      able to <command>su</command> to uid 0 accounts.  If the group
+      doesn't exist or is empty, no one will be able to
+      <command>su</command> to uid 0.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>SYS_GID_MAX</option> (number)</term>
+  <term><option>SYS_GID_MIN</option> (number)</term>
+  <listitem>
+    <para>
+      Range of group IDs used for the creation of system groups by
+      <command>useradd</command>, <command>groupadd</command>, or
+      <command>newusers</command>.
+    </para>
+    <para>
+      The default value for <option>SYS_GID_MIN</option> (resp.
+      <option>SYS_GID_MAX</option>) is 101 (resp. <option>GID_MIN</option>-1).
+    </para>
+  </listitem>
+</varlistentry>
+ <!-- documents also SYS_GID_MIN -->
+      <!--
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>SYS_UID_MAX</option> (number)</term>
+  <term><option>SYS_UID_MIN</option> (number)</term>
+  <listitem>
+    <para>
+      Range of user IDs used for the creation of system users by
+      <command>useradd</command> or <command>newusers</command>.
+    </para>
+    <para>
+      The default value for <option>SYS_UID_MIN</option> (resp.
+      <option>SYS_UID_MAX</option>) is 101 (resp. <option>UID_MIN</option>-1).
+    </para>
+  </listitem>
+</varlistentry>
+ <!-- documents also SYS_UID_MIN -->
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>SYSLOG_SG_ENAB</option> (boolean)</term>
+  <listitem>
+    <para>
+      Enable "syslog" logging of <command>sg</command> activity.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>SYSLOG_SU_ENAB</option> (boolean)</term>
+  <listitem>
+    <para>
+      Enable "syslog" logging of <command>su</command> activity - in
+      addition to sulog file logging.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 2010, Pawel Hajdan
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="tcb">
+  <term><option>TCB_AUTH_GROUP</option> (boolean)</term>
+  <listitem>
+    <para>
+      If <replaceable>yes</replaceable>, newly created tcb shadow files
+      will be group owned by the <replaceable>auth</replaceable> group.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 2010, Pawel Hajdan
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="tcb">
+  <term><option>TCB_SYMLINKS</option> (boolean)</term>
+  <listitem>
+    <para>
+      If <replaceable>yes</replaceable>, the location of the user tcb
+      directory to be created will not be automatically set to /etc/tcb/user,
+      but will be computed depending on the UID of the user, according to
+      the following algorithm:
+      <programlisting>
+if ( UID is less than 1000) {
+  use /etc/tcb/user
+} else if ( UID is less than 1000000) {
+  kilos = UID / 1000
+  use /etc/tcb/:kilos/user
+  make symlink /etc/tcb/user to the above directory
+} else {
+  megas = UID / 1000000
+  kilos = ( UID / megas * 1000000 ) / 1000
+  use /etc/tcb/:megas/:kilos/user
+  make symlink /etc/tcb/user to the above directory
+}
+      </programlisting>
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>TTYGROUP</option> (string)</term>
+  <term><option>TTYPERM</option> (string)</term>
+  <listitem>
+    <para>
+      The terminal permissions: the login tty will be owned by the
+      <option>TTYGROUP</option> group, and the permissions will be set to
+      <option>TTYPERM</option>.
+    </para>
+    <para>
+      By default, the ownership of the terminal is set to the user's
+      primary group and the permissions are set to
+      <replaceable>0600</replaceable>.
+    </para>
+    <para>
+      <option>TTYGROUP</option> can be either the name of a group or a
+      numeric group identifier.
+    </para>
+    <para>
+      If you have a <command>write</command> program which is "setgid" to
+      a special group which owns the terminals, define TTYGROUP to the
+      group number and TTYPERM to 0620.  Otherwise leave TTYGROUP
+      commented out and assign TTYPERM to either 622 or 600.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>TTYTYPE_FILE</option> (string)</term>
+  <listitem>
+    <para>
+      If defined, file which maps tty line to TERM environment parameter.
+      Each line of the file is in a format something like "vt100  tty01".
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>UID_MAX</option> (number)</term>
+  <term><option>UID_MIN</option> (number)</term>
+  <listitem>
+    <para>
+      Range of user IDs used for the creation of regular users by
+      <command>useradd</command> or <command>newusers</command>.
+    </para>
+    <para>
+      The default value for <option>UID_MIN</option> (resp.
+      <option>UID_MAX</option>) is 1000 (resp. 60000).
+    </para>
+  </listitem>
+</varlistentry>
+ <!-- documents also UID_MIN -->
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="no_pam">
+  <term><option>ULIMIT</option> (number)</term>
+  <listitem>
+    <para>
+      Default <command>ulimit</command> value.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2009, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>UMASK</option> (number)</term>
+  <listitem>
+    <para>
+      The file mode creation mask is initialized to this value. If not
+      specified, the mask will be initialized to 022.
+    </para>
+    <para>
+      <command>useradd</command> and <command>newusers</command> use this
+      mask to set the mode of the home directory they create
+    </para>
+    <para condition="no_pam">
+      It is also used by <command>login</command> to define users' initial
+      umask.  Note that this mask can be overridden by the user's GECOS
+      line (if <option>QUOTAS_ENAB</option> is set) or by the
+      specification of a limit with the <emphasis>K</emphasis> identifier
+      in <citerefentry><refentrytitle>limits</refentrytitle>
+      <manvolnum>5</manvolnum></citerefentry>.
+    </para>
+    <para condition="pam">
+      It is also used by <command>pam_umask</command> as the default umask
+      value.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 1996 - 2000, Marek Michałkiewicz
+   Copyright (c) 2007 - 2009, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>USERDEL_CMD</option> (string)</term>
+  <listitem>
+    <para>
+      If defined, this command is run when removing a user. It should
+      remove any at/cron/print jobs etc. owned by the user to be removed
+      (passed as the first argument).
+    </para>
+    <para>
+      The return code of the script is not taken into account.
+    </para>
+    <para>
+      Here is an example script, which removes the user's
+      cron, at and print jobs:
+      <programlisting>
+#! /bin/sh
+
+# Check for the required argument.
+if [ $# != 1 ]; then
+	echo "Usage: $0 username"
+	exit 1
+fi
+
+# Remove cron jobs.
+crontab -r -u $1
+
+# Remove at jobs.
+# Note that it will remove any jobs owned by the same UID,
+# even if it was shared by a different username.
+AT_SPOOL_DIR=/var/spool/cron/atjobs
+find $AT_SPOOL_DIR -name "[^.]*" -type f -user $1 -delete \;
+
+# Remove print jobs.
+lprm $1
+
+# All done.
+exit 0
+      </programlisting>
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>USERGROUPS_ENAB</option> (boolean)</term>
+  <listitem>
+    <para condition="no_pam">
+      Enable setting of the umask group bits to be the same as owner bits
+      (examples: 022 -&gt; 002, 077 -&gt; 007) for non-root users, if the uid is
+      the same as gid, and username is the same as the primary group name.
+    </para>
+    <para>
+      If set to <replaceable>yes</replaceable>, <command>userdel</command>
+      will remove the user's group if it contains no more members, and
+      <command>useradd</command> will create by default a group with the
+      name of the user.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 2010, Pawel Hajdan
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="tcb">
+  <term><option>USE_TCB</option> (boolean)</term>
+  <listitem>
+    <para>
+      If <replaceable>yes</replaceable>, the <citerefentry>
+      <refentrytitle>tcb</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+      password shadowing scheme will be used.
+    </para>
+  </listitem>
+</varlistentry>
+
+    </variablelist>
+  </refsect1>
+
+  <refsect1 xml:id="cross_references">
+    <title>CROSS REFERENCES</title>
+    <para>
+      The following cross references show which programs in the shadow
+      password suite use which parameters.
+    </para>
+    <!-- .na -->
+    <variablelist remap="IP">
+      <varlistentry condition="tcb">
+	<term>chage</term>
+	<listitem>
+	  <para>USE_TCB</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>chfn</term>
+	<listitem>
+	  <para>
+	    <phrase condition="no_pam">CHFN_AUTH</phrase>
+	    CHFN_RESTRICT
+	    <phrase condition="no_pam">LOGIN_STRING</phrase>
+	  </para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>chgpasswd</term>
+	<listitem>
+	  <para>
+	    ENCRYPT_METHOD MAX_MEMBERS_PER_GROUP MD5_CRYPT_ENAB
+	    <phrase condition="sha_crypt">SHA_CRYPT_MAX_ROUNDS
+	    SHA_CRYPT_MIN_ROUNDS</phrase>
+	  </para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>chpasswd</term>
+	<listitem>
+	  <para>
+	    <phrase condition="no_pam">ENCRYPT_METHOD
+	    MD5_CRYPT_ENAB </phrase>
+	    <phrase condition="sha_crypt">SHA_CRYPT_MAX_ROUNDS
+	    SHA_CRYPT_MIN_ROUNDS</phrase>
+	  </para>
+	</listitem>
+      </varlistentry>
+      <varlistentry condition="no_pam">
+	<term>chsh</term>
+	<listitem>
+	  <para>
+	    CHSH_AUTH LOGIN_STRING
+	  </para>
+	</listitem>
+      </varlistentry>
+      <!-- expiry: no variables (CONSOLE_GROUPS linked, but not used) -->
+      <!-- faillog: no variables -->
+      <varlistentry>
+	<term>gpasswd</term>
+	<listitem>
+	  <para>
+	    ENCRYPT_METHOD MAX_MEMBERS_PER_GROUP MD5_CRYPT_ENAB
+	    <phrase condition="sha_crypt">SHA_CRYPT_MAX_ROUNDS
+	    SHA_CRYPT_MIN_ROUNDS</phrase>
+	  </para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>groupadd</term>
+	<listitem>
+	  <para>
+	    GID_MAX GID_MIN MAX_MEMBERS_PER_GROUP
+	    SYS_GID_MAX SYS_GID_MIN
+	  </para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>groupdel</term>
+	<listitem>
+	  <para>MAX_MEMBERS_PER_GROUP</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>groupmems</term>
+	<listitem>
+	  <para>MAX_MEMBERS_PER_GROUP</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>groupmod</term>
+	<listitem>
+	  <para>MAX_MEMBERS_PER_GROUP</para>
+	</listitem>
+      </varlistentry>
+      <!-- groups: no variables -->
+      <varlistentry>
+	<term>grpck</term>
+	<listitem>
+	  <para>MAX_MEMBERS_PER_GROUP</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>grpconv</term>
+	<listitem>
+	  <para>MAX_MEMBERS_PER_GROUP</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>grpunconv</term>
+	<listitem>
+	  <para>MAX_MEMBERS_PER_GROUP</para>
+	</listitem>
+      </varlistentry>
+      <!-- id: no variables -->
+      <!-- lastlog: no variables -->
+      <varlistentry>
+	<term>login</term>
+	<listitem>
+	  <para>
+	    <phrase condition="no_pam">CONSOLE</phrase>
+	    CONSOLE_GROUPS DEFAULT_HOME
+	    <phrase condition="no_pam">ENV_HZ ENV_PATH ENV_SUPATH
+	    ENV_TZ ENVIRON_FILE</phrase>
+	    ERASECHAR FAIL_DELAY
+	    <phrase condition="no_pam">FAILLOG_ENAB</phrase>
+	    FAKE_SHELL
+	    <phrase condition="no_pam">FTMP_FILE</phrase>
+	    HUSHLOGIN_FILE
+	    <phrase condition="no_pam">ISSUE_FILE</phrase>
+	    KILLCHAR
+	    <phrase condition="no_pam">LASTLOG_ENAB</phrase>
+	    LOGIN_RETRIES
+	    <phrase condition="no_pam">LOGIN_STRING</phrase>
+	    LOGIN_TIMEOUT LOG_OK_LOGINS LOG_UNKFAIL_ENAB
+	    <phrase condition="no_pam">MAIL_CHECK_ENAB MAIL_DIR MAIL_FILE
+	    MOTD_FILE NOLOGINS_FILE PORTTIME_CHECKS_ENAB
+	    QUOTAS_ENAB</phrase>
+	    TTYGROUP TTYPERM TTYTYPE_FILE
+	    <phrase condition="no_pam">ULIMIT UMASK</phrase>
+	    USERGROUPS_ENAB
+	  </para>
+	</listitem>
+      </varlistentry>
+      <!-- logoutd: no variables -->
+      <varlistentry>
+	<term>newgrp / sg</term>
+	<listitem>
+	  <para>
+	    SYSLOG_SG_ENAB
+	  </para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>newusers</term>
+	<listitem>
+	  <para>
+	    ENCRYPT_METHOD
+	    GID_MAX GID_MIN
+	    MAX_MEMBERS_PER_GROUP MD5_CRYPT_ENAB
+	    PASS_MAX_DAYS PASS_MIN_DAYS PASS_WARN_AGE
+	    <phrase condition="sha_crypt">SHA_CRYPT_MAX_ROUNDS
+	    SHA_CRYPT_MIN_ROUNDS</phrase>
+	    SYS_GID_MAX SYS_GID_MIN SYS_UID_MAX SYS_UID_MIN UID_MAX UID_MIN
+	    UMASK
+	  </para>
+	</listitem>
+      </varlistentry>
+      <!-- nologin: no variables -->
+      <varlistentry condition="no_pam">
+	<term>passwd</term>
+	<listitem>
+	  <para>
+	    ENCRYPT_METHOD MD5_CRYPT_ENAB OBSCURE_CHECKS_ENAB
+	    PASS_ALWAYS_WARN PASS_CHANGE_TRIES PASS_MAX_LEN PASS_MIN_LEN
+	    <phrase condition="sha_crypt">SHA_CRYPT_MAX_ROUNDS
+	    SHA_CRYPT_MIN_ROUNDS</phrase>
+	  </para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>pwck</term>
+	<listitem>
+	  <para>
+	    PASS_MAX_DAYS PASS_MIN_DAYS PASS_WARN_AGE
+	    <phrase condition="tcb">TCB_AUTH_GROUP TCB_SYMLINKS USE_TCB</phrase>
+	  </para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>pwconv</term>
+	<listitem>
+	  <para>
+	    PASS_MAX_DAYS PASS_MIN_DAYS PASS_WARN_AGE
+	    <phrase condition="tcb">USE_TCB</phrase>
+	  </para>
+	</listitem>
+      </varlistentry>
+      <varlistentry condition="tcb">
+	<term>pwunconv</term>
+	<listitem>
+	  <para>
+	    <phrase condition="tcb">USE_TCB</phrase>
+	  </para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>su</term>
+	<listitem>
+	  <para>
+	    <phrase condition="no_pam">CONSOLE</phrase>
+	    CONSOLE_GROUPS DEFAULT_HOME
+	    <phrase condition="no_pam">ENV_HZ ENVIRON_FILE</phrase>
+	    ENV_PATH ENV_SUPATH
+	    <phrase condition="no_pam">ENV_TZ LOGIN_STRING MAIL_CHECK_ENAB
+	    MAIL_DIR MAIL_FILE QUOTAS_ENAB</phrase>
+	    SULOG_FILE SU_NAME
+	    <phrase condition="no_pam">SU_WHEEL_ONLY</phrase>
+	    SYSLOG_SU_ENAB
+	    <phrase condition="no_pam">USERGROUPS_ENAB</phrase>
+	  </para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>sulogin</term>
+	<listitem>
+	  <para>
+	    ENV_HZ
+	    <phrase condition="no_pam">ENV_TZ</phrase>
+	  </para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>useradd</term>
+	<listitem>
+	  <para>
+	    CREATE_HOME
+	    GID_MAX GID_MIN
+	    MAIL_DIR MAX_MEMBERS_PER_GROUP
+	    PASS_MAX_DAYS PASS_MIN_DAYS PASS_WARN_AGE
+	    SYS_GID_MAX SYS_GID_MIN SYS_UID_MAX SYS_UID_MIN UID_MAX UID_MIN
+	    UMASK
+	    <phrase condition="tcb">TCB_AUTH_GROUP TCB_SYMLINK USE_TCB</phrase>
+	  </para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>userdel</term>
+	<listitem>
+	  <para>
+	    MAIL_DIR MAIL_FILE MAX_MEMBERS_PER_GROUP USERDEL_CMD
+	    USERGROUPS_ENAB
+	    <phrase condition="tcb">TCB_SYMLINKS USE_TCB</phrase>
+	  </para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>usermod</term>
+	<listitem>
+	  <para>
+	    MAIL_DIR MAIL_FILE MAX_MEMBERS_PER_GROUP
+	    <phrase condition="tcb">TCB_SYMLINKS USE_TCB</phrase>
+	  </para>
+	</listitem>
+      </varlistentry>
+      <varlistentry condition="tcb">
+	<term>vipw</term>
+	<listitem>
+	  <para>
+	    <phrase condition="tcb">USE_TCB</phrase>
+	  </para>
+	</listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1 xml:id="bugs" condition="pam">
+    <title>BUGS</title>
+    <para>
+      Much of the functionality that used to be provided by the shadow
+      password suite is now handled by PAM. Thus,
+      <filename>/etc/login.defs</filename> is no longer used by <citerefentry>
+      <refentrytitle>passwd</refentrytitle><manvolnum>1</manvolnum>
+      </citerefentry>, or less used by <citerefentry>
+      <refentrytitle>login</refentrytitle><manvolnum>1</manvolnum>
+      </citerefentry>, and <citerefentry>
+      <refentrytitle>su</refentrytitle><manvolnum>1</manvolnum>
+      </citerefentry>. Please refer to the corresponding PAM configuration
+      files instead.
+    </para>
+  </refsect1>
+
+  <refsect1 xml:id="see_also">
+    <title>SEE ALSO</title>
+    <para>
+      <citerefentry>
+	<refentrytitle>login</refentrytitle><manvolnum>1</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>passwd</refentrytitle><manvolnum>1</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>su</refentrytitle><manvolnum>1</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>passwd</refentrytitle><manvolnum>5</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>shadow</refentrytitle><manvolnum>5</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>pam</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>.
+    </para>
+  </refsect1>
+</refentry>

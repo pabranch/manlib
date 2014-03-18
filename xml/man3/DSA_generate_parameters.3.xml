@@ -1,0 +1,144 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>DSA_generate_parameters.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>DSA_generate_parameters_ex, DSA_generate_parameters</refname>
+<refpurpose>generate DSA parameters</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/dsa.h&gt;</synopsis>
+<synopsis format="linespecific">int DSA_generate_parameters_ex(DSA *dsa, int bits,
+               const unsigned char *seed,int seed_len,
+               int *counter_ret, unsigned long *h_ret, BN_GENCB *cb);</synopsis>
+<synopsis format="linespecific">Deprecated:</synopsis>
+<synopsis format="linespecific">DSA *DSA_generate_parameters(int bits, unsigned char *seed,
+               int seed_len, int *counter_ret, unsigned long *h_ret,
+               void (*callback)(int, int, void *), void *cb_arg);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.DSA_generate_parameters.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      DSA_generate_parameters_ex() generates primes p and q and a generator
+      g for use in the DSA and stores the result in <emphasis role="bold">dsa</emphasis>.
+    </para>
+    <para>
+      <emphasis role="bold">bits</emphasis> is the length of the prime to
+      be generated; the DSS allows a maximum of 1024 bits.
+    </para>
+    <para>
+      If <emphasis role="bold">seed</emphasis> is <emphasis role="bold">NULL</emphasis> or <emphasis role="bold">seed_len</emphasis> &lt; 20, the primes will be generated
+      at random. Otherwise, the seed is used to generate them. If the given
+      seed does not yield a prime q, a new random seed is chosen and placed
+      at <emphasis role="bold">seed</emphasis>.
+    </para>
+    <para>
+      DSA_generate_parameters_ex() places the iteration count in *<emphasis role="bold">counter_ret</emphasis> and a counter used for finding a
+      generator in *<emphasis role="bold">h_ret</emphasis>, unless these
+      are <emphasis role="bold">NULL</emphasis>.
+    </para>
+    <para>
+      A callback function may be used to provide feedback about the
+      progress of the key generation. If <emphasis role="bold">cb</emphasis> is not <emphasis role="bold">NULL</emphasis>, it will be called as shown below. For
+      information on the BN_GENCB structure and the BN_GENCB_call function
+      discussed below, refer to BN_generate_prime(3).
+    </para>
+    <para>
+      <itemizedlist>
+        <listitem>
+          <para>
+	    When a candidate for q is generated, <emphasis role="bold">BN_GENCB_call(cb, 0, m++)</emphasis> is called (m
+	    is 0 for the first candidate).
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+	    When a candidate for q has passed a test by trial division,
+	    <emphasis role="bold">BN_GENCB_call(cb, 1, -1)</emphasis> is
+	    called. While a candidate for q is tested by Miller-Rabin
+	    primality tests, <emphasis role="bold">BN_GENCB_call(cb, 1,
+	    i)</emphasis> is called in the outer loop (once for each
+	    witness that confirms that the candidate may be prime); i is
+	    the loop counter (starting at 0).
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+	    When a prime q has been found, <emphasis role="bold">BN_GENCB_call(cb, 2, 0)</emphasis> and <emphasis role="bold">BN_GENCB_call(cb, 3, 0)</emphasis> are called.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+	    Before a candidate for p (other than the first) is generated
+	    and tested, <emphasis role="bold">BN_GENCB_call(cb, 0,
+	    counter)</emphasis> is called.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+	    When a candidate for p has passed the test by trial division,
+	    <emphasis role="bold">BN_GENCB_call(cb, 1, -1)</emphasis> is
+	    called. While it is tested by the Miller-Rabin primality test,
+	    <emphasis role="bold">BN_GENCB_call(cb, 1, i)</emphasis> is
+	    called in the outer loop (once for each witness that confirms
+	    that the candidate may be prime). i is the loop counter
+	    (starting at 0).
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+	    When p has been found, <emphasis role="bold">BN_GENCB_call(cb,
+	    2, 1)</emphasis> is called.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+	    When the generator has been found, <emphasis role="bold">BN_GENCB_call(cb, 3, 1)</emphasis> is called.
+          </para>
+        </listitem>
+      </itemizedlist>
+    </para>
+    <para>
+      DSA_generate_parameters() (deprecated) works in much the same way as
+      for DSA_generate_parameters_ex, except that no <emphasis role="bold">dsa</emphasis> parameter is passed and instead a newly
+      allocated <emphasis role="bold">DSA</emphasis> structure is returned.
+      Additionally "old style" callbacks are used instead of the newer
+      BN_GENCB based approach. Refer to BN_generate_prime(3) for further
+      information.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.DSA_generate_parameters.pod:RETURN_VALUE"><title>RETURN VALUE</title>
+    <para>
+      DSA_generate_parameters_ex() returns a 1 on success, or 0 otherwise.
+    </para>
+    <para>
+      DSA_generate_parameters() returns a pointer to the DSA structure, or
+      <emphasis role="bold">NULL</emphasis> if the parameter generation
+      fails.
+    </para>
+    <para>
+      The error codes can be obtained by ERR_get_error(3).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.DSA_generate_parameters.pod:BUGS"><title>BUGS</title>
+    <para>
+      Seed lengths &gt; 20 are not supported.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.DSA_generate_parameters.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      dsa(3), ERR_get_error(3), rand(3), DSA_free(3), BN_generate_prime(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.DSA_generate_parameters.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      DSA_generate_parameters() appeared in SSLeay 0.8. The <emphasis role="bold">cb_arg</emphasis> argument was added in SSLeay 0.9.0. In
+      versions up to OpenSSL 0.9.4, <emphasis role="bold">callback(1,
+      ...)</emphasis> was called in the inner loop of the Miller-Rabin test
+      whenever it reached the squaring step (the parameters to <emphasis role="bold">callback</emphasis> did not reveal how many witnesses had
+      been tested); since OpenSSL 0.9.5, <emphasis role="bold">callback(1,
+      ...)</emphasis> is called as in BN_is_prime(3), i.e. once for each
+      witness. =cut
+    </para>
+  </refsection>
+</refentry>

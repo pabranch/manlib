@@ -1,0 +1,86 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>ERR_get_error.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>ERR_get_error, ERR_peek_error, ERR_peek_last_error,
+ERR_get_error_line, ERR_peek_error_line, ERR_peek_last_error_line,
+ERR_get_error_line_data, ERR_peek_error_line_data,
+ERR_peek_last_error_line_data</refname>
+<refpurpose>obtain error code and data</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/err.h&gt;</synopsis>
+<synopsis format="linespecific">unsigned long ERR_get_error(void);
+unsigned long ERR_peek_error(void);
+unsigned long ERR_peek_last_error(void);</synopsis>
+<synopsis format="linespecific">unsigned long ERR_get_error_line(const char **file, int *line);
+unsigned long ERR_peek_error_line(const char **file, int *line);
+unsigned long ERR_peek_last_error_line(const char **file, int *line);</synopsis>
+<synopsis format="linespecific">unsigned long ERR_get_error_line_data(const char **file, int *line,
+        const char **data, int *flags);
+unsigned long ERR_peek_error_line_data(const char **file, int *line,
+        const char **data, int *flags);
+unsigned long ERR_peek_last_error_line_data(const char **file, int *line,
+        const char **data, int *flags);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.ERR_get_error.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      ERR_get_error() returns the earliest error code from the thread's
+      error queue and removes the entry. This function can be called
+      repeatedly until there are no more error codes to return.
+    </para>
+    <para>
+      ERR_peek_error() returns the earliest error code from the thread's
+      error queue without modifying it.
+    </para>
+    <para>
+      ERR_peek_last_error() returns the latest error code from the thread's
+      error queue without modifying it.
+    </para>
+    <para>
+      See ERR_GET_LIB(3) for obtaining information about location and
+      reason of the error, and ERR_error_string(3) for human-readable error
+      messages.
+    </para>
+    <para>
+      ERR_get_error_line(), ERR_peek_error_line() and
+      ERR_peek_last_error_line() are the same as the above, but they
+      additionally store the file name and line number where the error
+      occurred in *<emphasis role="bold">file</emphasis> and *<emphasis role="bold">line</emphasis>, unless these are <emphasis role="bold">NULL</emphasis>.
+    </para>
+    <para>
+      ERR_get_error_line_data(), ERR_peek_error_line_data() and
+      ERR_get_last_error_line_data() store additional data and flags
+      associated with the error code in *<emphasis role="bold">data</emphasis> and *<emphasis role="bold">flags</emphasis>, unless these are <emphasis role="bold">NULL</emphasis>. *<emphasis role="bold">data</emphasis>
+      contains a string if *<emphasis role="bold">flags</emphasis>&amp;amp;<emphasis role="bold">ERR_TXT_STRING</emphasis> is true.
+    </para>
+    <para>
+      An application <emphasis role="bold">MUST NOT</emphasis> free the
+      *<emphasis role="bold">data</emphasis> pointer (or any other pointers
+      returned by these functions) with OPENSSL_free() as freeing is
+      handled automatically by the error library.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ERR_get_error.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      The error code, or 0 if there is no error in the queue.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ERR_get_error.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      err(3), ERR_error_string(3), ERR_GET_LIB(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ERR_get_error.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      ERR_get_error(), ERR_peek_error(), ERR_get_error_line() and
+      ERR_peek_error_line() are available in all versions of SSLeay and
+      OpenSSL. ERR_get_error_line_data() and ERR_peek_error_line_data()
+      were added in SSLeay 0.9.0. ERR_peek_last_error(),
+      ERR_peek_last_error_line() and ERR_peek_last_error_line_data() were
+      added in OpenSSL 0.9.7.
+    </para>
+  </refsection>
+</refentry>

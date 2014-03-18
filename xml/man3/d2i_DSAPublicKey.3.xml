@@ -1,0 +1,93 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>d2i_DSAPublicKey.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>d2i_DSAPublicKey, i2d_DSAPublicKey, d2i_DSAPrivateKey, i2d_DSAPrivateKey,
+d2i_DSA_PUBKEY, i2d_DSA_PUBKEY, d2i_DSAparams, i2d_DSAparams, d2i_DSA_SIG, i2d_DSA_SIG</refname>
+<refpurpose>DSA key encoding
+and parsing functions.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/dsa.h&gt;
+#include &lt;openssl/x509.h&gt;</synopsis>
+<synopsis format="linespecific">DSA * d2i_DSAPublicKey(DSA **a, const unsigned char **pp, long length);</synopsis>
+<synopsis format="linespecific">int i2d_DSAPublicKey(const DSA *a, unsigned char **pp);</synopsis>
+<synopsis format="linespecific">DSA * d2i_DSA_PUBKEY(DSA **a, const unsigned char **pp, long length);</synopsis>
+<synopsis format="linespecific">int i2d_DSA_PUBKEY(const DSA *a, unsigned char **pp);</synopsis>
+<synopsis format="linespecific">DSA * d2i_DSAPrivateKey(DSA **a, const unsigned char **pp, long length);</synopsis>
+<synopsis format="linespecific">int i2d_DSAPrivateKey(const DSA *a, unsigned char **pp);</synopsis>
+<synopsis format="linespecific">DSA * d2i_DSAparams(DSA **a, const unsigned char **pp, long length);</synopsis>
+<synopsis format="linespecific">int i2d_DSAparams(const DSA *a, unsigned char **pp);</synopsis>
+<synopsis format="linespecific">DSA * d2i_DSA_SIG(DSA_SIG **a, const unsigned char **pp, long length);</synopsis>
+<synopsis format="linespecific">int i2d_DSA_SIG(const DSA_SIG *a, unsigned char **pp);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.d2i_DSAPublicKey.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      d2i_DSAPublicKey() and i2d_DSAPublicKey() decode and encode the DSA
+      public key components structure.
+    </para>
+    <para>
+      d2i_DSA_PUBKEY() and i2d_DSA_PUBKEY() decode and encode an DSA public
+      key using a SubjectPublicKeyInfo (certificate public key) structure.
+    </para>
+    <para>
+      d2i_DSAPrivateKey(), i2d_DSAPrivateKey() decode and encode the DSA
+      private key components.
+    </para>
+    <para>
+      d2i_DSAparams(), i2d_DSAparams() decode and encode the DSA parameters
+      using a <emphasis role="bold">Dss-Parms</emphasis> structure as
+      defined in RFC2459.
+    </para>
+    <para>
+      d2i_DSA_SIG(), i2d_DSA_SIG() decode and encode a DSA signature using
+      a <emphasis role="bold">Dss-Sig-Value</emphasis> structure as defined
+      in RFC2459.
+    </para>
+    <para>
+      The usage of all of these functions is similar to the d2i_X509() and
+      i2d_X509() described in the d2i_X509(3) manual page.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.d2i_DSAPublicKey.pod:NOTES"><title>NOTES</title>
+    <para>
+      The <emphasis role="bold">DSA</emphasis> structure passed to the
+      private key encoding functions should have all the private key
+      components present.
+    </para>
+    <para>
+      The data encoded by the private key functions is unencrypted and
+      therefore offers no private key security. 
+    </para>
+    <para>
+      The <emphasis role="bold">DSA_PUBKEY</emphasis> functions should be
+      used in preference to the <emphasis role="bold">DSAPublicKey</emphasis> functions when encoding public
+      keys because they use a standard format.
+    </para>
+    <para>
+      The <emphasis role="bold">DSAPublicKey</emphasis> functions use an
+      non standard format the actual data encoded depends on the value of
+      the <emphasis role="bold">write_params</emphasis> field of the
+      <emphasis role="bold">a</emphasis> key parameter. If <emphasis role="bold">write_params</emphasis> is zero then only the <emphasis role="bold">pub_key</emphasis> field is encoded as an <emphasis role="bold">INTEGER</emphasis>. If <emphasis role="bold">write_params</emphasis> is 1 then a <emphasis role="bold">SEQUENCE</emphasis> consisting of the <emphasis role="bold">p</emphasis>, <emphasis role="bold">q</emphasis>,
+      <emphasis role="bold">g</emphasis> and <emphasis role="bold">pub_key</emphasis> respectively fields are encoded.
+    </para>
+    <para>
+      The <emphasis role="bold">DSAPrivateKey</emphasis> functions also use
+      a non standard structure consiting consisting of a SEQUENCE
+      containing the <emphasis role="bold">p</emphasis>, <emphasis role="bold">q</emphasis>, <emphasis role="bold">g</emphasis> and
+      <emphasis role="bold">pub_key</emphasis> and <emphasis role="bold">priv_key</emphasis> fields respectively.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.d2i_DSAPublicKey.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      d2i_X509(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.d2i_DSAPublicKey.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      TBA
+    </para>
+  </refsection>
+</refentry>

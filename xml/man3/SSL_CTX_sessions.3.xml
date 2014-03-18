@@ -1,0 +1,36 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_sessions.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_sessions</refname>
+<refpurpose>access internal session cache</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">struct lhash_st *SSL_CTX_sessions(SSL_CTX *ctx);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_sessions.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_CTX_sessions() returns a pointer to the lhash databases
+      containing the internal session cache for <emphasis role="bold">ctx</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_sessions.pod:NOTES"><title>NOTES</title>
+    <para>
+      The sessions in the internal session cache are kept in an lhash(3)
+      type database. It is possible to directly access this database e.g.
+      for searching. In parallel, the sessions form a linked list which is
+      maintained separately from the lhash(3) operations, so that the
+      database must not be modified directly but by using the
+      SSL_CTX_add_session(3) family of functions.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_sessions.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), lhash(3), SSL_CTX_add_session(3),
+      SSL_CTX_set_session_cache_mode(3)
+    </para>
+  </refsection>
+</refentry>

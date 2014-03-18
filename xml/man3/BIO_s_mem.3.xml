@@ -1,0 +1,140 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>BIO_s_mem.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>BIO_s_mem, BIO_set_mem_eof_return, BIO_get_mem_data, BIO_set_mem_buf,
+BIO_get_mem_ptr, BIO_new_mem_buf</refname>
+<refpurpose>memory BIO</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/bio.h&gt;</synopsis>
+<synopsis format="linespecific">BIO_METHOD *   BIO_s_mem(void);</synopsis>
+<synopsis format="linespecific">BIO_set_mem_eof_return(BIO *b,int v)
+long BIO_get_mem_data(BIO *b, char **pp)
+BIO_set_mem_buf(BIO *b,BUF_MEM *bm,int c)
+BIO_get_mem_ptr(BIO *b,BUF_MEM **pp)</synopsis>
+<synopsis format="linespecific">BIO *BIO_new_mem_buf(void *buf, int len);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_mem.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      BIO_s_mem() return the memory BIO method function.
+    </para>
+    <para>
+      A memory BIO is a source/sink BIO which uses memory for its I/O. Data
+      written to a memory BIO is stored in a BUF_MEM structure which is
+      extended as appropriate to accommodate the stored data.
+    </para>
+    <para>
+      Any data written to a memory BIO can be recalled by reading from it.
+      Unless the memory BIO is read only any data read from it is deleted
+      from the BIO.
+    </para>
+    <para>
+      Memory BIOs support BIO_gets() and BIO_puts().
+    </para>
+    <para>
+      If the BIO_CLOSE flag is set when a memory BIO is freed then the
+      underlying BUF_MEM structure is also freed.
+    </para>
+    <para>
+      Calling BIO_reset() on a read write memory BIO clears any data in it.
+      On a read only BIO it restores the BIO to its original state and the
+      read only data can be read again.
+    </para>
+    <para>
+      BIO_eof() is true if no data is in the BIO.
+    </para>
+    <para>
+      BIO_ctrl_pending() returns the number of bytes currently stored.
+    </para>
+    <para>
+      BIO_set_mem_eof_return() sets the behaviour of memory BIO <emphasis role="bold">b</emphasis> when it is empty. If the <emphasis role="bold">v</emphasis> is zero then an empty memory BIO will return
+      EOF (that is it will return zero and BIO_should_retry(b) will be
+      false. If <emphasis role="bold">v</emphasis> is non zero then it will
+      return <emphasis role="bold">v</emphasis> when it is empty and it
+      will set the read retry flag (that is BIO_read_retry(b) is true). To
+      avoid ambiguity with a normal positive return value <emphasis role="bold">v</emphasis> should be set to a negative value, typically
+      -1.
+    </para>
+    <para>
+      BIO_get_mem_data() sets <emphasis role="bold">pp</emphasis> to a
+      pointer to the start of the memory BIOs data and returns the total
+      amount of data available. It is implemented as a macro.
+    </para>
+    <para>
+      BIO_set_mem_buf() sets the internal BUF_MEM structure to <emphasis role="bold">bm</emphasis> and sets the close flag to <emphasis role="bold">c</emphasis>, that is <emphasis role="bold">c</emphasis>
+      should be either BIO_CLOSE or BIO_NOCLOSE. It is a macro.
+    </para>
+    <para>
+      BIO_get_mem_ptr() places the underlying BUF_MEM structure in
+      <emphasis role="bold">pp</emphasis>. It is a macro.
+    </para>
+    <para>
+      BIO_new_mem_buf() creates a memory BIO using <emphasis role="bold">len</emphasis> bytes of data at <emphasis role="bold">buf</emphasis>, if <emphasis role="bold">len</emphasis>
+      is -1 then the <emphasis role="bold">buf</emphasis> is assumed to be
+      null terminated and its length is determined by <emphasis role="bold">strlen</emphasis>. The BIO is set to a read only state
+      and as a result cannot be written to. This is useful when some data
+      needs to be made available from a static area of memory in the form
+      of a BIO. The supplied data is read directly from the supplied
+      buffer: it is <emphasis role="bold">not</emphasis> copied first, so
+      the supplied area of memory must be unchanged until the BIO is freed.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_mem.pod:NOTES"><title>NOTES</title>
+    <para>
+      Writes to memory BIOs will always succeed if memory is available:
+      that is their size can grow indefinitely.
+    </para>
+    <para>
+      Every read from a read write memory BIO will remove the data just
+      read with an internal copy operation, if a BIO contains a lot of data
+      and it is read in small chunks the operation can be very slow. The
+      use of a read only memory BIO avoids this problem. If the BIO must be
+      read write then adding a buffering BIO to the chain will speed up the
+      process.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_mem.pod:BUGS"><title>BUGS</title>
+    <para>
+      There should be an option to set the maximum size of a memory BIO.
+    </para>
+    <para>
+      There should be a way to "rewind" a read write BIO without destroying
+      its contents.
+    </para>
+    <para>
+      The copying operation should not occur after every small read of a
+      large BIO to improve efficiency.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_mem.pod:EXAMPLE"><title>EXAMPLE</title>
+    <para>
+      Create a memory BIO and write some data to it:
+    </para>
+    <screen>BIO *mem = BIO_new(BIO_s_mem());
+BIO_puts(mem, "Hello World\n");</screen>
+    <para>
+      Create a read only memory BIO:
+    </para>
+    <screen>char data[] = "Hello World";
+BIO *mem;
+mem = BIO_new_mem_buf(data, -1);</screen>
+    <para>
+      Extract the BUF_MEM structure from a memory BIO and then free up the
+      BIO:
+    </para>
+    <screen>BUF_MEM *bptr;
+BIO_get_mem_ptr(mem, &amp;bptr);
+BIO_set_close(mem, BIO_NOCLOSE); /* So BIO_free() leaves BUF_MEM alone */
+BIO_free(mem);
+
+</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_mem.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      TBA
+    </para>
+  </refsection>
+</refentry>

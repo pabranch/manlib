@@ -1,0 +1,600 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="userdel.8">
+  <!-- $Id: userdel.8.xml 3742 2012-05-25 11:45:21Z nekral-guest $ -->
+  <info>
+    <author><personname><firstname>Julianne Frances</firstname><surname>Haugh</surname></personname><contrib>Creation, 1991</contrib></author>
+    <author><personname><firstname>Thomas</firstname><surname>Kłoczko</surname></personname><email>kloczek@pld.org.pl</email><contrib>shadow-utils maintainer, 2000 - 2007</contrib></author>
+    <author><personname><firstname>Nicolas</firstname><surname>François</surname></personname><email>nicolas.francois@centraliens.net</email><contrib>shadow-utils maintainer, 2007 - now</contrib></author>
+  </info>
+  <refmeta>
+    <refentrytitle>userdel</refentrytitle>
+    <manvolnum>8</manvolnum>
+    <refmiscinfo class="sectdesc">System Management Commands</refmiscinfo>
+    <refmiscinfo class="source">shadow-utils</refmiscinfo>
+    <refmiscinfo class="version">4.1.5.1</refmiscinfo>
+  </refmeta>
+  <refnamediv xml:id="name">
+    <refname>userdel</refname>
+    <refpurpose>delete a user account and related files</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv xml:id="synopsis">
+    <cmdsynopsis sepchar=" ">
+      <command>userdel</command>
+      <arg choice="opt" rep="norepeat">options</arg>
+      <arg choice="plain" rep="norepeat">
+	<replaceable>LOGIN</replaceable>
+      </arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1 xml:id="description">
+    <title>DESCRIPTION</title>
+    <para>
+      The <command>userdel</command> command modifies the system account
+      files, deleting all entries that refer to the user name <emphasis remap="I">LOGIN</emphasis>. The named user must exist.
+    </para>
+  </refsect1>
+
+  <refsect1 xml:id="options">
+    <title>OPTIONS</title>
+    <para>
+      The options which apply to the <command>userdel</command> command are:
+    </para>
+    <variablelist remap="IP">
+      <varlistentry>
+	<term>
+	  <option>-f</option>, <option>--force</option>
+	</term>
+	<listitem>
+	  <para>
+	    This option forces the removal of the user account, even if the
+	    user is still
+	    logged in. It also forces <command>userdel</command> to remove
+	    the user's home directory and mail spool, even if another
+	    user uses the same home directory or if the mail spool is not
+	    owned by the specified user.  If
+	    <option>USERGROUPS_ENAB</option> is defined to <emphasis remap="I">yes</emphasis> in <filename>/etc/login.defs</filename>
+	    and if a group exists with the same name as the deleted user,
+	    then this group will be removed, even if it is still the primary
+	    group of another user.
+	  </para>
+	  <para>
+	    <emphasis>Note:</emphasis> This option is dangerous and may leave
+	    your system in an inconsistent state.
+	  </para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-h</option>, <option>--help</option></term>
+          <listitem>
+	    <para>Display help message and exit.</para>
+	  </listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>
+	  <option>-r</option>, <option>--remove</option>
+	</term>
+	<listitem>
+	  <para>
+	    Files in the user's home directory will be removed along with
+	    the home directory itself and the user's mail spool. Files
+	    located in other file systems will have to be searched for and
+	    deleted manually.
+	  </para>
+	  <para>
+	    The mail spool is defined by the <option>MAIL_DIR</option>
+	    variable in the <filename>login.defs</filename> file.
+	  </para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>
+	  <option>-R</option>, <option>--root</option>
+	  <replaceable>CHROOT_DIR</replaceable>
+	</term>
+	<listitem>
+	  <para>
+	    Apply changes in the <replaceable>CHROOT_DIR</replaceable>
+	    directory and use the configuration files from the
+	    <replaceable>CHROOT_DIR</replaceable> directory.
+	  </para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>
+	  <option>-Z</option>, <option>--selinux-user</option>
+	</term>
+	<listitem>
+	  <para>
+	    Remove any SELinux user mapping for the user's login.
+	  </para>
+	</listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1 xml:id="configuration">
+    <title>CONFIGURATION</title>
+    <para>
+      The following configuration variables in
+      <filename>/etc/login.defs</filename> change the behavior of this
+      tool:
+    </para>
+    <variablelist>
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>MAIL_DIR</option> (string)</term>
+  <listitem>
+    <para>
+      The mail spool directory. This is needed to manipulate the mailbox
+      when its corresponding user account is modified or deleted. If not
+      specified, a compile-time default is used.
+    </para>
+  </listitem>
+</varlistentry><varlistentry>
+  <term><option>MAIL_FILE</option> (string)</term>
+  <listitem>
+    <para>
+      Defines the location of the users mail spool files relatively to
+      their home directory.
+    </para>
+  </listitem>
+</varlistentry>
+<!-- FIXME: MAIL_FILE not used in useradd -->
+<para>
+  The <option>MAIL_DIR</option> and <option>MAIL_FILE</option> variables
+  are used by <command>useradd</command>, <command>usermod</command>, and
+  <command>userdel</command> to create, move, or delete the user's mail
+  spool.
+</para>
+<para condition="no_pam">
+  If <option>MAIL_CHECK_ENAB</option> is set to
+  <replaceable>yes</replaceable>, they are also used to define the
+  <envar>MAIL</envar> environment variable.
+</para>
+ <!-- documents also MAIL_FILE -->
+      <!--
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>MAX_MEMBERS_PER_GROUP</option> (number)</term>
+  <listitem>
+    <para>
+      Maximum members per group entry. When the maximum is reached, a new
+      group entry (line) is started in <filename>/etc/group</filename>
+      (with the same name, same password, and same GID).
+    </para>
+    <para>
+      The default value is 0, meaning that there are no limits in the
+      number of members in a group.
+    </para>
+    <!-- Note: on HP, split groups have the same ID, but different
+               names. -->
+    <para>
+      This feature (split group) permits to limit the length of lines in
+      the group file. This is useful to make sure that lines for NIS
+      groups are not larger than 1024 characters.
+    </para>
+    <para>
+      If you need to enforce such limit, you can use 25.
+    </para>
+    <para>
+      Note: split groups may not be supported by all tools (even in the
+      Shadow toolsuite). You should not use this variable unless you really
+      need it.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 2010, Pawel Hajdan
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="tcb">
+  <term><option>TCB_SYMLINKS</option> (boolean)</term>
+  <listitem>
+    <para>
+      If <replaceable>yes</replaceable>, the location of the user tcb
+      directory to be created will not be automatically set to /etc/tcb/user,
+      but will be computed depending on the UID of the user, according to
+      the following algorithm:
+      <programlisting>
+if ( UID is less than 1000) {
+  use /etc/tcb/user
+} else if ( UID is less than 1000000) {
+  kilos = UID / 1000
+  use /etc/tcb/:kilos/user
+  make symlink /etc/tcb/user to the above directory
+} else {
+  megas = UID / 1000000
+  kilos = ( UID / megas * 1000000 ) / 1000
+  use /etc/tcb/:megas/:kilos/user
+  make symlink /etc/tcb/user to the above directory
+}
+      </programlisting>
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 2010, Pawel Hajdan
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry condition="tcb">
+  <term><option>USE_TCB</option> (boolean)</term>
+  <listitem>
+    <para>
+      If <replaceable>yes</replaceable>, the <citerefentry>
+      <refentrytitle>tcb</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+      password shadowing scheme will be used.
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 1996 - 2000, Marek Michałkiewicz
+   Copyright (c) 2007 - 2009, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>USERDEL_CMD</option> (string)</term>
+  <listitem>
+    <para>
+      If defined, this command is run when removing a user. It should
+      remove any at/cron/print jobs etc. owned by the user to be removed
+      (passed as the first argument).
+    </para>
+    <para>
+      The return code of the script is not taken into account.
+    </para>
+    <para>
+      Here is an example script, which removes the user's
+      cron, at and print jobs:
+      <programlisting>
+#! /bin/sh
+
+# Check for the required argument.
+if [ $# != 1 ]; then
+	echo "Usage: $0 username"
+	exit 1
+fi
+
+# Remove cron jobs.
+crontab -r -u $1
+
+# Remove at jobs.
+# Note that it will remove any jobs owned by the same UID,
+# even if it was shared by a different username.
+AT_SPOOL_DIR=/var/spool/cron/atjobs
+find $AT_SPOOL_DIR -name "[^.]*" -type f -user $1 -delete \;
+
+# Remove print jobs.
+lprm $1
+
+# All done.
+exit 0
+      </programlisting>
+    </para>
+  </listitem>
+</varlistentry>
+
+      <!--
+   Copyright (c) 1991 - 1993, Julianne Frances Haugh
+   Copyright (c) 1991 - 1993, Chip Rosenthal
+   Copyright (c) 2007 - 2008, Nicolas François
+   All rights reserved.
+  
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+   1. Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   2. Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+   3. The name of the copyright holders or contributors may not be used to
+      endorse or promote products derived from this software without
+      specific prior written permission.
+  
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+   PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<varlistentry>
+  <term><option>USERGROUPS_ENAB</option> (boolean)</term>
+  <listitem>
+    <para condition="no_pam">
+      Enable setting of the umask group bits to be the same as owner bits
+      (examples: 022 -&gt; 002, 077 -&gt; 007) for non-root users, if the uid is
+      the same as gid, and username is the same as the primary group name.
+    </para>
+    <para>
+      If set to <replaceable>yes</replaceable>, <command>userdel</command>
+      will remove the user's group if it contains no more members, and
+      <command>useradd</command> will create by default a group with the
+      name of the user.
+    </para>
+  </listitem>
+</varlistentry>
+
+    </variablelist>
+  </refsect1>
+
+  <refsect1 xml:id="files">
+    <title>FILES</title>
+    <variablelist>
+      <varlistentry>
+	<term><filename>/etc/group</filename></term>
+	<listitem>
+	  <para>Group account information.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><filename>/etc/login.defs</filename></term>
+	<listitem>
+	  <para>Shadow password suite configuration.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><filename>/etc/passwd</filename></term>
+	<listitem>
+	  <para>User account information.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><filename>/etc/shadow</filename></term>
+	<listitem>
+	  <para>Secure user account information.</para>
+	</listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1 xml:id="exit_values">
+    <title>EXIT VALUES</title>
+    <para>
+      The <command>userdel</command> command exits with the following values:
+      <variablelist>
+	<varlistentry>
+	  <term><replaceable>0</replaceable></term>
+	  <listitem>
+	    <para>success</para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term><replaceable>1</replaceable></term>
+	  <listitem>
+	    <para>can't update password file</para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term><replaceable>2</replaceable></term>
+	  <listitem>
+	    <para>invalid command syntax</para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term><replaceable>6</replaceable></term>
+	  <listitem>
+	    <para>specified user doesn't exist</para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term><replaceable>8</replaceable></term>
+	  <listitem>
+	    <para>user currently logged in</para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term><replaceable>10</replaceable></term>
+	  <listitem>
+	    <para>can't update group file</para>
+	  </listitem>
+	</varlistentry>
+	<varlistentry>
+	  <term><replaceable>12</replaceable></term>
+	  <listitem>
+	    <para>can't remove home directory</para>
+	  </listitem>
+	</varlistentry>
+      </variablelist>
+    </para>
+  </refsect1>
+
+  <refsect1 xml:id="caveats">
+    <title>CAVEATS</title>
+    <para>
+      <command>userdel</command> will not allow you to remove an account if
+      there are running processes which belong to this account. In that
+      case, you may have to kill those processes or lock the user's
+      password or account and remove the account later. The
+      <option>-f</option> option can force the deletion of this account.
+    </para>
+    <para>
+      You should manually check all file systems to ensure that no files
+      remain owned by this user.
+    </para>
+    <para>You may not remove any NIS attributes on a NIS client. This must
+      be performed on the NIS server.
+    </para>
+    <para>If <option>USERGROUPS_ENAB</option> is defined to <emphasis remap="I">yes</emphasis> in <filename>/etc/login.defs</filename>,
+      <command>userdel</command> will delete the group with the same name
+      as the user. To avoid inconsistencies in the passwd and group
+      databases, <command>userdel</command> will check that this group is
+      not used as a primary group for another user, and will just warn
+      without deleting the group otherwise. The <option>-f</option> option
+      can force the deletion of this group.
+    </para>
+  </refsect1>
+
+  <refsect1 xml:id="see_also">
+    <title>SEE ALSO</title>
+    <para><citerefentry>
+	<refentrytitle>chfn</refentrytitle><manvolnum>1</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>chsh</refentrytitle><manvolnum>1</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>passwd</refentrytitle><manvolnum>1</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>login.defs</refentrytitle><manvolnum>5</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>gpasswd</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>groupadd</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>groupdel</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>groupmod</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>useradd</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>usermod</refentrytitle><manvolnum>8</manvolnum>
+      </citerefentry>.
+    </para>
+  </refsect1>
+</refentry>

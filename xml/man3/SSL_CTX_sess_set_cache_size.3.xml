@@ -1,0 +1,59 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_sess_set_cache_size.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_sess_set_cache_size, SSL_CTX_sess_get_cache_size</refname>
+<refpurpose>manipulate session cache size</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">long SSL_CTX_sess_set_cache_size(SSL_CTX *ctx, long t);
+long SSL_CTX_sess_get_cache_size(SSL_CTX *ctx);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_sess_set_cache_size.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_CTX_sess_set_cache_size() sets the size of the internal session
+      cache of context <emphasis role="bold">ctx</emphasis> to <emphasis role="bold">t</emphasis>.
+    </para>
+    <para>
+      SSL_CTX_sess_get_cache_size() returns the currently valid session
+      cache size.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_sess_set_cache_size.pod:NOTES"><title>NOTES</title>
+    <para>
+      The internal session cache size is
+      SSL_SESSION_CACHE_MAX_SIZE_DEFAULT, currently 1024*20, so that up to
+      20000 sessions can be held. This size can be modified using the
+      SSL_CTX_sess_set_cache_size() call. A special case is the size 0,
+      which is used for unlimited size.
+    </para>
+    <para>
+      When the maximum number of sessions is reached, no more new sessions
+      are added to the cache. New space may be added by calling
+      SSL_CTX_flush_sessions(3) to remove expired sessions.
+    </para>
+    <para>
+      If the size of the session cache is reduced and more sessions are
+      already in the session cache, old session will be removed at the next
+      time a session shall be added. This removal is not synchronized with
+      the expiration of sessions.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_sess_set_cache_size.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      SSL_CTX_sess_set_cache_size() returns the previously valid size.
+    </para>
+    <para>
+      SSL_CTX_sess_get_cache_size() returns the currently valid size.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_sess_set_cache_size.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_CTX_set_session_cache_mode(3), SSL_CTX_sess_number(3),
+      SSL_CTX_flush_sessions(3)
+    </para>
+  </refsection>
+</refentry>

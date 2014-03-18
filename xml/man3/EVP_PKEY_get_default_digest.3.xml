@@ -1,0 +1,46 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>EVP_PKEY_get_default_digest.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>EVP_PKEY_get_default_digest_nid</refname>
+<refpurpose>get default signature digest</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;
+int EVP_PKEY_get_default_digest_nid(EVP_PKEY *pkey, int *pnid);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_get_default_digest.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The EVP_PKEY_get_default_digest_nid() function sets <emphasis role="bold">pnid</emphasis> to the default message digest NID for the
+      public key signature operations associated with key <emphasis role="bold">pkey</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_get_default_digest.pod:NOTES"><title>NOTES</title>
+    <para>
+      For all current standard OpenSSL public key algorithms SHA1 is
+      returned.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_get_default_digest.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      The EVP_PKEY_get_default_digest_nid() function returns 1 if the
+      message digest is advisory (that is other digests can be used) and 2
+      if it is mandatory (other digests can not be used).  It returns 0 or
+      a negative value for failure. In particular a return value of -2
+      indicates the operation is not supported by the public key algorithm.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_get_default_digest.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      EVP_PKEY_CTX_new(3), EVP_PKEY_sign(3), EVP_PKEY_verify(3),
+      EVP_PKEY_verify_recover(3),
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_get_default_digest.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      This function was first added to OpenSSL 1.0.0.
+    </para>
+  </refsection>
+</refentry>

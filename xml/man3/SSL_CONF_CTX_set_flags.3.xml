@@ -1,0 +1,91 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CONF_CTX_set_flags.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CONF_CTX_set_flags, SSL_CONF_CTX_clear_flags</refname>
+<refpurpose>Set of clear SSL configuration context flags</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">unsigned int SSL_CONF_CTX_set_flags(SSL_CONF_CTX *cctx, unsigned int flags);
+unsigned int SSL_CONF_CTX_clear_flags(SSL_CONF_CTX *cctx, unsigned int flags);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_set_flags.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The function SSL_CONF_CTX_set_flags() sets <emphasis role="bold">flags</emphasis> in the context <emphasis role="bold">cctx</emphasis>.
+    </para>
+    <para>
+      The function SSL_CONF_CTX_clear_flags() clears <emphasis role="bold">flags</emphasis> in the context <emphasis role="bold">cctx</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_set_flags.pod:NOTES"><title>NOTES</title>
+    <para>
+      The flags set affect how subsequent calls to SSL_CONF_cmd() or
+      SSL_CONF_argv() behave.
+    </para>
+    <para>
+      Currently the following <emphasis role="bold">flags</emphasis> values
+      are recognised:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_set_flags.pod:SSL_CONF_FLAG_CMDLINE_SSL_CONF_FLAG_FILE"/>SSL_CONF_FLAG_CMDLINE, SSL_CONF_FLAG_FILE</term>
+          <listitem>
+            <para>
+	      recognise options intended for command line or configuration
+	      file use. At least one of these flags must be set.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_set_flags.pod:SSL_CONF_FLAG_CLIENT_SSL_CONF_FLAG_SERVER"/>SSL_CONF_FLAG_CLIENT, SSL_CONF_FLAG_SERVER</term>
+          <listitem>
+            <para>
+	      recognise options intended for use in SSL/TLS clients or
+	      servers. One or both of these flags must be set.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_set_flags.pod:SSL_CONF_CERTIFICATE"/>SSL_CONF_CERTIFICATE</term>
+          <listitem>
+            <para>
+	      recognise certificate and private key options.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_set_flags.pod:SSL_CONF_FLAG_SHOW_ERRORS"/>SSL_CONF_FLAG_SHOW_ERRORS</term>
+          <listitem>
+            <para>
+	      indicate errors relating to unrecognised options or missing
+	      arguments in the error queue. If this option isn't set such
+	      errors are only reflected in the return values of
+	      SSL_CONF_set_cmd() or SSL_CONF_set_argv()
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_set_flags.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      SSL_CONF_CTX_set_flags() and SSL_CONF_CTX_clear_flags() returns the
+      new flags value after setting or clearing flags.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_set_flags.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      SSL_CONF_CTX_new(3), SSL_CONF_CTX_set_ssl_ctx(3),
+      SSL_CONF_CTX_set1_prefix(3), SSL_CONF_cmd(3), SSL_CONF_cmd_argv(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_set_flags.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      These functions were first added to OpenSSL 1.0.2
+    </para>
+  </refsection>
+</refentry>

@@ -1,0 +1,52 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_use_serverinfo.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_use_serverinfo, SSL_CTX_use_serverinfo_file</refname>
+<refpurpose/>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">int SSL_CTX_use_serverinfo(SSL_CTX *ctx, const unsigned char *serverinfo,
+                           size_t serverinfo_length);</synopsis>
+<synopsis format="linespecific">int SSL_CTX_use_serverinfo_file(SSL_CTX *ctx, const char *file);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_use_serverinfo.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      These functions load "serverinfo" TLS ServerHello Extensions into the
+      SSL_CTX. A "serverinfo" extension is returned in response to an empty
+      ClientHello Extension.
+    </para>
+    <para>
+      SSL_CTX_use_serverinfo() loads one or more serverinfo extensions from
+      a byte array into <emphasis role="bold">ctx</emphasis>.  The
+      extensions must be concatenated into a sequence of bytes.  Each
+      extension must consist of a 2-byte Extension Type, a 2-byte length,
+      and then length bytes of extension_data. 
+    </para>
+    <para>
+      SSL_CTX_use_serverinfo_file() loads one or more serverinfo extensions
+      from <emphasis role="bold">file</emphasis> into <emphasis role="bold">ctx</emphasis>.  The extensions must be in PEM format. 
+      Each extension must consist of a 2-byte Extension Type, a 2-byte
+      length, and then length bytes of extension_data.	Each PEM extension
+      name must begin with the phrase "BEGIN SERVERINFO FOR ".
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_use_serverinfo.pod:NOTES"><title>NOTES</title>
+    <para/>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_use_serverinfo.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      On success, the functions return 1. On failure, the functions return
+      0.  Check out the error stack to find out the reason.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_use_serverinfo.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para/>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_use_serverinfo.pod:HISTORY"><title>HISTORY</title>
+    <screen></screen>
+  </refsection>
+</refentry>

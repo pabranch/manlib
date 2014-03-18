@@ -1,0 +1,76 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_set_ssl_version.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_set_ssl_version, SSL_set_ssl_method, SSL_get_ssl_method</refname>
+<refpurpose>choose a new TLS/SSL method</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">int SSL_CTX_set_ssl_version(SSL_CTX *ctx, const SSL_METHOD *method);
+int SSL_set_ssl_method(SSL *s, const SSL_METHOD *method);
+const SSL_METHOD *SSL_get_ssl_method(SSL *ssl);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_ssl_version.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_CTX_set_ssl_version() sets a new default TLS/SSL <emphasis role="bold">method</emphasis> for SSL objects newly created from this
+      <emphasis role="bold">ctx</emphasis>. SSL objects already created
+      with SSL_new(3) are not affected, except when SSL_clear(3) is being
+      called.
+    </para>
+    <para>
+      SSL_set_ssl_method() sets a new TLS/SSL <emphasis role="bold">method</emphasis> for a particular <emphasis role="bold">ssl</emphasis> object. It may be reset, when SSL_clear()
+      is called.
+    </para>
+    <para>
+      SSL_get_ssl_method() returns a function pointer to the TLS/SSL method
+      set in <emphasis role="bold">ssl</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_ssl_version.pod:NOTES"><title>NOTES</title>
+    <para>
+      The available <emphasis role="bold">method</emphasis> choices are
+      described in SSL_CTX_new(3).
+    </para>
+    <para>
+      When SSL_clear(3) is called and no session is connected to an SSL
+      object, the method of the SSL object is reset to the method currently
+      set in the corresponding SSL_CTX object.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_ssl_version.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      The following return values can occur for SSL_CTX_set_ssl_version()
+      and SSL_set_ssl_method():
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_ssl_version.pod:0"/>0</term>
+          <listitem>
+            <para>
+	      The new choice failed, check the error stack to find out the
+	      reason.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_ssl_version.pod:1"/>1</term>
+          <listitem>
+            <para>
+	      The operation succeeded.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_ssl_version.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      SSL_CTX_new(3), SSL_new(3), SSL_clear(3), ssl(3),
+      SSL_set_connect_state(3)
+    </para>
+  </refsection>
+</refentry>

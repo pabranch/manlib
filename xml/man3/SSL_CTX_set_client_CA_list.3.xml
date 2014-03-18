@@ -1,0 +1,116 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_set_client_CA_list.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_set_client_CA_list, SSL_set_client_CA_list, SSL_CTX_add_client_CA,
+SSL_add_client_CA</refname>
+<refpurpose>set list of CAs sent to the client when requesting a
+client certificate</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">void SSL_CTX_set_client_CA_list(SSL_CTX *ctx, STACK_OF(X509_NAME) *list);
+void SSL_set_client_CA_list(SSL *s, STACK_OF(X509_NAME) *list);
+int SSL_CTX_add_client_CA(SSL_CTX *ctx, X509 *cacert);
+int SSL_add_client_CA(SSL *ssl, X509 *cacert);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_client_CA_list.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_CTX_set_client_CA_list() sets the <emphasis role="bold">list</emphasis> of CAs sent to the client when requesting
+      a client certificate for <emphasis role="bold">ctx</emphasis>.
+    </para>
+    <para>
+      SSL_set_client_CA_list() sets the <emphasis role="bold">list</emphasis> of CAs sent to the client when requesting
+      a client certificate for the chosen <emphasis role="bold">ssl</emphasis>, overriding the setting valid for
+      <emphasis role="bold">ssl</emphasis>'s SSL_CTX object.
+    </para>
+    <para>
+      SSL_CTX_add_client_CA() adds the CA name extracted from <emphasis role="bold">cacert</emphasis> to the list of CAs sent to the client
+      when requesting a client certificate for <emphasis role="bold">ctx</emphasis>.
+    </para>
+    <para>
+      SSL_add_client_CA() adds the CA name extracted from <emphasis role="bold">cacert</emphasis> to the list of CAs sent to the client
+      when requesting a client certificate for the chosen <emphasis role="bold">ssl</emphasis>, overriding the setting valid for
+      <emphasis role="bold">ssl</emphasis>'s SSL_CTX object.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_client_CA_list.pod:NOTES"><title>NOTES</title>
+    <para>
+      When a TLS/SSL server requests a client certificate (see <emphasis role="bold">SSL_CTX_set_verify_options()</emphasis>), it sends a list
+      of CAs, for which it will accept certificates, to the client.
+    </para>
+    <para>
+      This list must explicitly be set using SSL_CTX_set_client_CA_list()
+      for <emphasis role="bold">ctx</emphasis> and SSL_set_client_CA_list()
+      for the specific <emphasis role="bold">ssl</emphasis>. The list
+      specified overrides the previous setting. The CAs listed do not
+      become trusted (<emphasis role="bold">list</emphasis> only contains
+      the names, not the complete certificates); use
+      SSL_CTX_load_verify_locations(3) to additionally load them for
+      verification. 
+    </para>
+    <para>
+      If the list of acceptable CAs is compiled in a file, the
+      SSL_load_client_CA_file(3) function can be used to help importing the
+      necessary data.
+    </para>
+    <para>
+      SSL_CTX_add_client_CA() and SSL_add_client_CA() can be used to add
+      additional items the list of client CAs. If no list was specified
+      before using SSL_CTX_set_client_CA_list() or
+      SSL_set_client_CA_list(), a new client CA list for <emphasis role="bold">ctx</emphasis> or <emphasis role="bold">ssl</emphasis>
+      (as appropriate) is opened.
+    </para>
+    <para>
+      These functions are only useful for TLS/SSL servers.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_client_CA_list.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      SSL_CTX_set_client_CA_list() and SSL_set_client_CA_list() do not
+      return diagnostic information.
+    </para>
+    <para>
+      SSL_CTX_add_client_CA() and SSL_add_client_CA() have the following
+      return values:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_client_CA_list.pod:0"/>0</term>
+          <listitem>
+            <para>
+	      A failure while manipulating the STACK_OF(X509_NAME) object
+	      occurred or the X509_NAME could not be extracted from
+	      <emphasis role="bold">cacert</emphasis>. Check the error
+	      stack to find out the reason.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_client_CA_list.pod:1"/>1</term>
+          <listitem>
+            <para>
+	      The operation succeeded.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_client_CA_list.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      Scan all certificates in <emphasis role="bold">CAfile</emphasis> and
+      list them as acceptable CAs:
+    </para>
+    <screen>SSL_CTX_set_client_CA_list(ctx,SSL_load_client_CA_file(CAfile));</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_client_CA_list.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_get_client_CA_list(3), SSL_load_client_CA_file(3),
+      SSL_CTX_load_verify_locations(3)
+    </para>
+  </refsection>
+</refentry>

@@ -1,0 +1,58 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>DH_generate_key.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>DH_generate_key, DH_compute_key</refname>
+<refpurpose>perform Diffie-Hellman key exchange</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/dh.h&gt;</synopsis>
+<synopsis format="linespecific">int DH_generate_key(DH *dh);</synopsis>
+<synopsis format="linespecific">int DH_compute_key(unsigned char *key, BIGNUM *pub_key, DH *dh);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.DH_generate_key.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      DH_generate_key() performs the first step of a Diffie-Hellman key
+      exchange by generating private and public DH values. By calling
+      DH_compute_key(), these are combined with the other party's public
+      value to compute the shared key.
+    </para>
+    <para>
+      DH_generate_key() expects <emphasis role="bold">dh</emphasis> to
+      contain the shared parameters <emphasis role="bold">dh-&gt;p</emphasis> and <emphasis role="bold">dh-&gt;g</emphasis>. It generates a random private DH
+      value unless <emphasis role="bold">dh-&gt;priv_key</emphasis> is
+      already set, and computes the corresponding public value <emphasis role="bold">dh-&gt;pub_key</emphasis>, which can then be published.
+    </para>
+    <para>
+      DH_compute_key() computes the shared secret from the private DH value
+      in <emphasis role="bold">dh</emphasis> and the other party's public
+      value in <emphasis role="bold">pub_key</emphasis> and stores it in
+      <emphasis role="bold">key</emphasis>. <emphasis role="bold">key</emphasis> must point to <emphasis role="bold">DH_size(dh)</emphasis> bytes of memory.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.DH_generate_key.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      DH_generate_key() returns 1 on success, 0 otherwise.
+    </para>
+    <para>
+      DH_compute_key() returns the size of the shared secret on success, -1
+      on error.
+    </para>
+    <para>
+      The error codes can be obtained by ERR_get_error(3).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.DH_generate_key.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      dh(3), ERR_get_error(3), rand(3), DH_size(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.DH_generate_key.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      DH_generate_key() and DH_compute_key() are available in all versions
+      of SSLeay and OpenSSL.
+    </para>
+  </refsection>
+</refentry>

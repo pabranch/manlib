@@ -1,0 +1,71 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>BN_zero.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>BN_zero, BN_one, BN_value_one, BN_set_word, BN_get_word</refname>
+<refpurpose>BIGNUM assignment
+operations</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis format="linespecific">int BN_zero(BIGNUM *a);
+int BN_one(BIGNUM *a);</synopsis>
+<synopsis format="linespecific">const BIGNUM *BN_value_one(void);</synopsis>
+<synopsis format="linespecific">int BN_set_word(BIGNUM *a, unsigned long w);
+unsigned long BN_get_word(BIGNUM *a);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_zero.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      BN_zero(), BN_one() and BN_set_word() set <emphasis role="bold">a</emphasis> to the values 0, 1 and <emphasis role="bold">w</emphasis> respectively.  BN_zero() and BN_one() are
+      macros.
+    </para>
+    <para>
+      BN_value_one() returns a <emphasis role="bold">BIGNUM</emphasis>
+      constant of value 1. This constant is useful for use in comparisons
+      and assignment.
+    </para>
+    <para>
+      BN_get_word() returns <emphasis role="bold">a</emphasis>, if it can
+      be represented as an unsigned long.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_zero.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      BN_get_word() returns the value <emphasis role="bold">a</emphasis>,
+      and 0xffffffffL if <emphasis role="bold">a</emphasis> cannot be
+      represented as an unsigned long.
+    </para>
+    <para>
+      BN_zero(), BN_one() and BN_set_word() return 1 on success, 0
+      otherwise. BN_value_one() returns the constant.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_zero.pod:BUGS"><title>BUGS</title>
+    <para>
+      Someone might change the constant.
+    </para>
+    <para>
+      If a <emphasis role="bold">BIGNUM</emphasis> is equal to 0xffffffffL
+      it can be represented as an unsigned long but this value is also
+      returned on error.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_zero.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      bn(3), BN_bn2bin(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_zero.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      BN_zero(), BN_one() and BN_set_word() are available in all versions
+      of SSLeay and OpenSSL. BN_value_one() and BN_get_word() were added in
+      SSLeay 0.8.
+    </para>
+    <para>
+      BN_value_one() was changed to return a true const BIGNUM * in OpenSSL
+      0.9.7.
+    </para>
+  </refsection>
+</refentry>

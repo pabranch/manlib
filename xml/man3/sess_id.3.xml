@@ -1,0 +1,235 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>sess_id.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>sess_id</refname>
+<refpurpose>SSL/TLS session handling utility</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific"><emphasis role="bold">openssl</emphasis> <emphasis role="bold">sess_id</emphasis>
+[<emphasis role="bold">-inform PEM|DER</emphasis>]
+[<emphasis role="bold">-outform PEM|DER</emphasis>]
+[<emphasis role="bold">-in filename</emphasis>]
+[<emphasis role="bold">-out filename</emphasis>]
+[<emphasis role="bold">-text</emphasis>]
+[<emphasis role="bold">-noout</emphasis>]
+[<emphasis role="bold">-context ID</emphasis>]</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.apps.sess_id.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The <emphasis role="bold">sess_id</emphasis> process the encoded
+      version of the SSL session structure and optionally prints out SSL
+      session details (for example the SSL session master key) in human
+      readable format. Since this is a diagnostic tool that needs some
+      knowledge of the SSL protocol to use properly, most users will not
+      need to use it.
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.sess_id.pod:-inform_DERPEM"/><emphasis role="bold">-inform DER|PEM</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the input format. The <emphasis role="bold">DER</emphasis> option uses an ASN1 DER encoded
+	      format containing session details. The precise format can
+	      vary from one version to the next.  The <emphasis role="bold">PEM</emphasis> form is the default format: it
+	      consists of the <emphasis role="bold">DER</emphasis> format
+	      base64 encoded with additional header and footer lines.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.sess_id.pod:-outform_DERPEM"/><emphasis role="bold">-outform DER|PEM</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the output format, the options have the same
+	      meaning as the <emphasis role="bold">-inform</emphasis>
+	      option. 
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.sess_id.pod:-in_filename"/><emphasis role="bold">-in filename</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the input filename to read session information
+	      from or standard input by default.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.sess_id.pod:-out_filename"/><emphasis role="bold">-out filename</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the output filename to write session
+	      information to or standard output if this option is not
+	      specified.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.sess_id.pod:-text"/><emphasis role="bold">-text</emphasis></term>
+          <listitem>
+            <para>
+	      prints out the various public or private key components in
+	      plain text in addition to the encoded version.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.sess_id.pod:-cert"/><emphasis role="bold">-cert</emphasis></term>
+          <listitem>
+            <para>
+	      if a certificate is present in the session it will be output
+	      using this option, if the <emphasis role="bold">-text</emphasis> option is also present then it
+	      will be printed out in text form.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.sess_id.pod:-noout"/><emphasis role="bold">-noout</emphasis></term>
+          <listitem>
+            <para>
+	      this option prevents output of the encoded version of the
+	      session.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.sess_id.pod:-context_ID"/><emphasis role="bold">-context ID</emphasis></term>
+          <listitem>
+            <para>
+	      this option can set the session id so the output session
+	      information uses the supplied ID. The ID can be any string of
+	      characters. This option wont normally be used.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.sess_id.pod:OUTPUT"><title>OUTPUT</title>
+    <para>
+      Typical output:
+    </para>
+    <screen>SSL-Session:
+    Protocol  : TLSv1
+    Cipher    : 0016
+    Session-ID: 871E62626C554CE95488823752CBD5F3673A3EF3DCE9C67BD916C809914B40ED
+    Session-ID-ctx: 01000000
+    Master-Key: A7CEFC571974BE02CAC305269DC59F76EA9F0B180CB6642697A68251F2D2BB57E51DBBB4C7885573192AE9AEE220FACD
+    Key-Arg   : None
+    Start Time: 948459261
+    Timeout   : 300 (sec)
+    Verify return code 0 (ok)</screen>
+    <para>
+      Theses are described below in more detail.
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.sess_id.pod:Protocol"/><emphasis role="bold">Protocol</emphasis></term>
+          <listitem>
+            <para>
+	      this is the protocol in use TLSv1, SSLv3 or SSLv2.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.sess_id.pod:Cipher"/><emphasis role="bold">Cipher</emphasis></term>
+          <listitem>
+            <para>
+	      the cipher used this is the actual raw SSL or TLS cipher
+	      code, see the SSL or TLS specifications for more information.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.sess_id.pod:Session-ID"/><emphasis role="bold">Session-ID</emphasis></term>
+          <listitem>
+            <para>
+	      the SSL session ID in hex format.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.sess_id.pod:Session-ID-ctx"/><emphasis role="bold">Session-ID-ctx</emphasis></term>
+          <listitem>
+            <para>
+	      the session ID context in hex format.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.sess_id.pod:Master-Key"/><emphasis role="bold">Master-Key</emphasis></term>
+          <listitem>
+            <para>
+	      this is the SSL session master key.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.sess_id.pod:Key-Arg"/><emphasis role="bold">Key-Arg</emphasis></term>
+          <listitem>
+            <para>
+	      the key argument, this is only used in SSL v2.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.sess_id.pod:Start_Time"/><emphasis role="bold">Start Time</emphasis></term>
+          <listitem>
+            <para>
+	      this is the session start time represented as an integer in
+	      standard Unix format.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.sess_id.pod:Timeout"/><emphasis role="bold">Timeout</emphasis></term>
+          <listitem>
+            <para>
+	      the timeout in seconds.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.sess_id.pod:Verify_return_code"/><emphasis role="bold">Verify return code</emphasis></term>
+          <listitem>
+            <para>
+	      this is the return code when an SSL client certificate is
+	      verified.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.sess_id.pod:NOTES"><title>NOTES</title>
+    <para>
+      The PEM encoded session format uses the header and footer lines:
+    </para>
+    <screen>-----BEGIN SSL SESSION PARAMETERS-----
+-----END SSL SESSION PARAMETERS-----</screen>
+    <para>
+      Since the SSL session output contains the master key it is possible
+      to read the contents of an encrypted session using this information.
+      Therefore appropriate security precautions should be taken if the
+      information is being output by a "real" application. This is however
+      strongly discouraged and should only be used for debugging purposes.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.sess_id.pod:BUGS"><title>BUGS</title>
+    <para>
+      The cipher and start time should be printed out in human readable
+      form.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.sess_id.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ciphers(1), s_server(1)
+    </para>
+  </refsection>
+</refentry>

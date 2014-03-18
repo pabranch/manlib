@@ -1,0 +1,160 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_get_error.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_get_error</refname>
+<refpurpose>obtain result code for TLS/SSL I/O operation</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">int SSL_get_error(const SSL *ssl, int ret);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_error.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_get_error() returns a result code (suitable for the C "switch"
+      statement) for a preceding call to SSL_connect(), SSL_accept(),
+      SSL_do_handshake(), SSL_read(), SSL_peek(), or SSL_write() on
+      <emphasis role="bold">ssl</emphasis>.  The value returned by that
+      TLS/SSL I/O function must be passed to SSL_get_error() in parameter
+      <emphasis role="bold">ret</emphasis>.
+    </para>
+    <para>
+      In addition to <emphasis role="bold">ssl</emphasis> and <emphasis role="bold">ret</emphasis>, SSL_get_error() inspects the current
+      thread's OpenSSL error queue.  Thus, SSL_get_error() must be used in
+      the same thread that performed the TLS/SSL I/O operation, and no
+      other OpenSSL function calls should appear in between.  The current
+      thread's error queue must be empty before the TLS/SSL I/O operation
+      is attempted, or SSL_get_error() will not work reliably.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_error.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      The following return values can currently occur:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_error.pod:SSL_ERROR_NONE"/>SSL_ERROR_NONE</term>
+          <listitem>
+            <para>
+	      The TLS/SSL I/O operation completed.  This result code is
+	      returned if and only if <emphasis role="bold">ret &gt;
+	      0</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_error.pod:SSL_ERROR_ZERO_RETURN"/>SSL_ERROR_ZERO_RETURN</term>
+          <listitem>
+            <para>
+	      The TLS/SSL connection has been closed.  If the protocol
+	      version is SSL 3.0 or TLS 1.0, this result code is returned
+	      only if a closure alert has occurred in the protocol, i.e. if
+	      the connection has been closed cleanly. Note that in this
+	      case <emphasis role="bold">SSL_ERROR_ZERO_RETURN</emphasis>
+	      does not necessarily indicate that the underlying transport
+	      has been closed.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_error.pod:SSL_ERROR_WANT_READ_SSL_ERROR_WANT_WRITE"/>SSL_ERROR_WANT_READ, SSL_ERROR_WANT_WRITE</term>
+          <listitem>
+            <para>
+	      The operation did not complete; the same TLS/SSL I/O function
+	      should be called again later.  If, by then, the underlying
+	      <emphasis role="bold">BIO</emphasis> has data available for
+	      reading (if the result code is <emphasis role="bold">SSL_ERROR_WANT_READ</emphasis>) or allows writing
+	      data (<emphasis role="bold">SSL_ERROR_WANT_WRITE</emphasis>),
+	      then some TLS/SSL protocol progress will take place, i.e. at
+	      least part of an TLS/SSL record will be read or written. 
+	      Note that the retry may again lead to a <emphasis role="bold">SSL_ERROR_WANT_READ</emphasis> or <emphasis role="bold">SSL_ERROR_WANT_WRITE</emphasis> condition. There
+	      is no fixed upper limit for the number of iterations that may
+	      be necessary until progress becomes visible at application
+	      protocol level.
+            </para>
+            <para>
+	      For socket <emphasis role="bold">BIO</emphasis>s (e.g. when
+	      SSL_set_fd() was used), select() or poll() on the underlying
+	      socket can be used to find out when the TLS/SSL I/O function
+	      should be retried.
+            </para>
+            <para>
+	      Caveat: Any TLS/SSL I/O function can lead to either of
+	      <emphasis role="bold">SSL_ERROR_WANT_READ</emphasis> and
+	      <emphasis role="bold">SSL_ERROR_WANT_WRITE</emphasis>.  In
+	      particular, SSL_read() or SSL_peek() may want to write data
+	      and SSL_write() may want to read data.  This is mainly
+	      because TLS/SSL handshakes may occur at any time during the
+	      protocol (initiated by either the client or the server);
+	      SSL_read(), SSL_peek(), and SSL_write() will handle any
+	      pending handshakes.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_error.pod:SSL_ERROR_WANT_CONNECT_SSL_ERROR_WANT_ACCEPT"/>SSL_ERROR_WANT_CONNECT, SSL_ERROR_WANT_ACCEPT</term>
+          <listitem>
+            <para>
+	      The operation did not complete; the same TLS/SSL I/O function
+	      should be called again later. The underlying BIO was not
+	      connected yet to the peer and the call would block in
+	      connect()/accept(). The SSL function should be called again
+	      when the connection is established. These messages can only
+	      appear with a BIO_s_connect() or BIO_s_accept() BIO,
+	      respectively. In order to find out, when the connection has
+	      been successfully established, on many platforms select() or
+	      poll() for writing on the socket file descriptor can be used.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_error.pod:SSL_ERROR_WANT_X509_LOOKUP"/>SSL_ERROR_WANT_X509_LOOKUP</term>
+          <listitem>
+            <para>
+	      The operation did not complete because an application
+	      callback set by SSL_CTX_set_client_cert_cb() has asked to be
+	      called again. The TLS/SSL I/O function should be called again
+	      later. Details depend on the application.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_error.pod:SSL_ERROR_SYSCALL"/>SSL_ERROR_SYSCALL</term>
+          <listitem>
+            <para>
+	      Some I/O error occurred.	The OpenSSL error queue may contain
+	      more information on the error.  If the error queue is empty
+	      (i.e. ERR_get_error() returns 0), <emphasis role="bold">ret</emphasis> can be used to find out more about
+	      the error: If <emphasis role="bold">ret == 0</emphasis>, an
+	      EOF was observed that violates the protocol.  If <emphasis role="bold">ret == -1</emphasis>, the underlying <emphasis role="bold">BIO</emphasis> reported an I/O error (for socket
+	      I/O on Unix systems, consult <emphasis role="bold">errno</emphasis> for details).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_error.pod:SSL_ERROR_SSL"/>SSL_ERROR_SSL</term>
+          <listitem>
+            <para>
+	      A failure in the SSL library occurred, usually a protocol
+	      error.  The OpenSSL error queue contains more information on
+	      the error.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_error.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), err(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_error.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      SSL_get_error() was added in SSLeay 0.8.
+    </para>
+  </refsection>
+</refentry>

@@ -1,0 +1,58 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>ERR_print_errors.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>ERR_print_errors, ERR_print_errors_fp</refname>
+<refpurpose>print error messages</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/err.h&gt;</synopsis>
+<synopsis format="linespecific">void ERR_print_errors(BIO *bp);
+void ERR_print_errors_fp(FILE *fp);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.ERR_print_errors.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      ERR_print_errors() is a convenience function that prints the error
+      strings for all errors that OpenSSL has recorded to <emphasis role="bold">bp</emphasis>, thus emptying the error queue.
+    </para>
+    <para>
+      ERR_print_errors_fp() is the same, except that the output goes to a
+      <emphasis role="bold">FILE</emphasis>.
+    </para>
+    <screen></screen>
+    <para>
+      The error strings will have the following format:
+    </para>
+    <screen>[pid]:error:[error code]:[library name]:[function name]:[reason string]:[file name]:[line]:[optional text message]</screen>
+    <para>
+      <emphasis role="italic">error code</emphasis> is an 8 digit
+      hexadecimal number. <emphasis role="italic">library name</emphasis>,
+      <emphasis role="italic">function name</emphasis> and <emphasis role="italic">reason string</emphasis> are ASCII text, as is
+      <emphasis role="italic">optional text message</emphasis> if one was
+      set for the respective error code.
+    </para>
+    <para>
+      If there is no text string registered for the given error code, the
+      error string will contain the numeric code.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ERR_print_errors.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      ERR_print_errors() and ERR_print_errors_fp() return no values.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ERR_print_errors.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      err(3), ERR_error_string(3), ERR_get_error(3),
+      ERR_load_crypto_strings(3), SSL_load_error_strings(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ERR_print_errors.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      ERR_print_errors() and ERR_print_errors_fp() are available in all
+      versions of SSLeay and OpenSSL.
+    </para>
+  </refsection>
+</refentry>

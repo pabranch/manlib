@@ -1,0 +1,152 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>PKCS7_verify.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>PKCS7_verify, PKCS7_get0_signers</refname>
+<refpurpose>verify a PKCS#7 signedData structure</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/pkcs7.h&gt;</synopsis>
+<synopsis format="linespecific">int PKCS7_verify(PKCS7 *p7, STACK_OF(X509) *certs, X509_STORE *store, BIO *indata, BIO *out, int flags);</synopsis>
+<synopsis format="linespecific">STACK_OF(X509) *PKCS7_get0_signers(PKCS7 *p7, STACK_OF(X509) *certs, int flags);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_verify.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      PKCS7_verify() verifies a PKCS#7 signedData structure. <emphasis role="bold">p7</emphasis> is the PKCS7 structure to verify. <emphasis role="bold">certs</emphasis> is a set of certificates in which to
+      search for the signer's certificate. <emphasis role="bold">store</emphasis> is a trusted certficate store (used for
+      chain verification). <emphasis role="bold">indata</emphasis> is the
+      signed data if the content is not present in <emphasis role="bold">p7</emphasis> (that is it is detached). The content is
+      written to <emphasis role="bold">out</emphasis> if it is not NULL.
+    </para>
+    <para>
+      <emphasis role="bold">flags</emphasis> is an optional set of flags,
+      which can be used to modify the verify operation.
+    </para>
+    <para>
+      PKCS7_get0_signers() retrieves the signer's certificates from
+      <emphasis role="bold">p7</emphasis>, it does <emphasis role="bold">not</emphasis> check their validity or whether any
+      signatures are valid. The <emphasis role="bold">certs</emphasis> and
+      <emphasis role="bold">flags</emphasis> parameters have the same
+      meanings as in PKCS7_verify().
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_verify.pod:VERIFY_PROCESS"><title>VERIFY PROCESS</title>
+    <para>
+      Normally the verify process proceeds as follows.
+    </para>
+    <para>
+      Initially some sanity checks are performed on <emphasis role="bold">p7</emphasis>. The type of <emphasis role="bold">p7</emphasis> must be signedData. There must be at least
+      one signature on the data and if the content is detached <emphasis role="bold">indata</emphasis> cannot be <emphasis role="bold">NULL</emphasis>.
+    </para>
+    <para>
+      An attempt is made to locate all the signer's certificates, first
+      looking in the <emphasis role="bold">certs</emphasis> parameter (if
+      it is not <emphasis role="bold">NULL</emphasis>) and then looking in
+      any certificates contained in the <emphasis role="bold">p7</emphasis>
+      structure itself. If any signer's certificates cannot be located the
+      operation fails.
+    </para>
+    <para>
+      Each signer's certificate is chain verified using the <emphasis role="bold">smimesign</emphasis> purpose and the supplied trusted
+      certificate store. Any internal certificates in the message are used
+      as untrusted CAs. If any chain verify fails an error code is
+      returned.
+    </para>
+    <para>
+      Finally the signed content is read (and written to <emphasis role="bold">out</emphasis> is it is not NULL) and the signature's
+      checked.
+    </para>
+    <para>
+      If all signature's verify correctly then the function is successful.
+    </para>
+    <para>
+      Any of the following flags (ored together) can be passed in the
+      <emphasis role="bold">flags</emphasis> parameter to change the
+      default verify behaviour. Only the flag <emphasis role="bold">PKCS7_NOINTERN</emphasis> is meaningful to
+      PKCS7_get0_signers().
+    </para>
+    <para>
+      If <emphasis role="bold">PKCS7_NOINTERN</emphasis> is set the
+      certificates in the message itself are not searched when locating the
+      signer's certificate. This means that all the signers certificates
+      must be in the <emphasis role="bold">certs</emphasis> parameter. 
+    </para>
+    <para>
+      If the <emphasis role="bold">PKCS7_TEXT</emphasis> flag is set MIME
+      headers for type <emphasis role="bold">text/plain</emphasis> are
+      deleted from the content. If the content is not of type <emphasis role="bold">text/plain</emphasis> then an error is returned.
+    </para>
+    <para>
+      If <emphasis role="bold">PKCS7_NOVERIFY</emphasis> is set the
+      signer's certificates are not chain verified.
+    </para>
+    <para>
+      If <emphasis role="bold">PKCS7_NOCHAIN</emphasis> is set then the
+      certificates contained in the message are not used as untrusted CAs.
+      This means that the whole verify chain (apart from the signer's
+      certificate) must be contained in the trusted store.
+    </para>
+    <para>
+      If <emphasis role="bold">PKCS7_NOSIGS</emphasis> is set then the
+      signatures on the data are not checked.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_verify.pod:NOTES"><title>NOTES</title>
+    <para>
+      One application of <emphasis role="bold">PKCS7_NOINTERN</emphasis> is
+      to only accept messages signed by a small number of certificates. The
+      acceptable certificates would be passed in the <emphasis role="bold">certs</emphasis> parameter. In this case if the signer is
+      not one of the certificates supplied in <emphasis role="bold">certs</emphasis> then the verify will fail because the
+      signer cannot be found.
+    </para>
+    <para>
+      Care should be taken when modifying the default verify behaviour, for
+      example setting <emphasis role="bold">PKCS7_NOVERIFY|PKCS7_NOSIGS</emphasis> will totally
+      disable all verification and any signed message will be considered
+      valid. This combination is however useful if one merely wishes to
+      write the content to <emphasis role="bold">out</emphasis> and its
+      validity is not considered important. 
+    </para>
+    <para>
+      Chain verification should arguably be performed  using the signing
+      time rather than the current time. However since the signing time is
+      supplied by the signer it cannot be trusted without additional
+      evidence (such as a trusted timestamp).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_verify.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      PKCS7_verify() returns 1 for a successful verification and zero or a
+      negative value if an error occurs.
+    </para>
+    <para>
+      PKCS7_get0_signers() returns all signers or <emphasis role="bold">NULL</emphasis> if an error occurred.
+    </para>
+    <para>
+      The error can be obtained from ERR_get_error(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_verify.pod:BUGS"><title>BUGS</title>
+    <para>
+      The trusted certificate store is not searched for the signers
+      certificate, this is primarily due to the inadequacies of the current
+      <emphasis role="bold">X509_STORE</emphasis> functionality.
+    </para>
+    <para>
+      The lack of single pass processing and need to hold all data in
+      memory as mentioned in PKCS7_sign() also applies to PKCS7_verify().
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_verify.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ERR_get_error(3), PKCS7_sign(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_verify.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      PKCS7_verify() was added to OpenSSL 0.9.5
+    </para>
+  </refsection>
+</refentry>

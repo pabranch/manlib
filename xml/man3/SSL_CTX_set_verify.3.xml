@@ -1,0 +1,342 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_set_verify.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_set_verify, SSL_set_verify, SSL_CTX_set_verify_depth, SSL_set_verify_depth</refname>
+<refpurpose>set peer certificate verification parameters</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">void SSL_CTX_set_verify(SSL_CTX *ctx, int mode,
+                        int (*verify_callback)(int, X509_STORE_CTX *));
+void SSL_set_verify(SSL *s, int mode,
+                    int (*verify_callback)(int, X509_STORE_CTX *));
+void SSL_CTX_set_verify_depth(SSL_CTX *ctx,int depth);
+void SSL_set_verify_depth(SSL *s, int depth);</synopsis>
+<synopsis format="linespecific">int verify_callback(int preverify_ok, X509_STORE_CTX *x509_ctx);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_verify.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_CTX_set_verify() sets the verification flags for <emphasis role="bold">ctx</emphasis> to be <emphasis role="bold">mode</emphasis> and specifies the <emphasis role="bold">verify_callback</emphasis> function to be used. If no
+      callback function shall be specified, the NULL pointer can be used
+      for <emphasis role="bold">verify_callback</emphasis>.
+    </para>
+    <para>
+      SSL_set_verify() sets the verification flags for <emphasis role="bold">ssl</emphasis> to be <emphasis role="bold">mode</emphasis> and specifies the <emphasis role="bold">verify_callback</emphasis> function to be used. If no
+      callback function shall be specified, the NULL pointer can be used
+      for <emphasis role="bold">verify_callback</emphasis>. In this case
+      last <emphasis role="bold">verify_callback</emphasis> set
+      specifically for this <emphasis role="bold">ssl</emphasis> remains.
+      If no special <emphasis role="bold">callback</emphasis> was set
+      before, the default callback for the underlying <emphasis role="bold">ctx</emphasis> is used, that was valid at the time
+      <emphasis role="bold">ssl</emphasis> was created with SSL_new(3).
+    </para>
+    <para>
+      SSL_CTX_set_verify_depth() sets the maximum <emphasis role="bold">depth</emphasis> for the certificate chain verification
+      that shall be allowed for <emphasis role="bold">ctx</emphasis>. (See
+      the BUGS section.)
+    </para>
+    <para>
+      SSL_set_verify_depth() sets the maximum <emphasis role="bold">depth</emphasis> for the certificate chain verification
+      that shall be allowed for <emphasis role="bold">ssl</emphasis>. (See
+      the BUGS section.)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_verify.pod:NOTES"><title>NOTES</title>
+    <para>
+      The verification of certificates can be controlled by a set of
+      logically or'ed <emphasis role="bold">mode</emphasis> flags:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_verify.pod:SSL_VERIFY_NONE"/>SSL_VERIFY_NONE</term>
+          <listitem>
+            <para>
+	      <emphasis role="bold">Server mode:</emphasis> the server will
+	      not send a client certificate request to the client, so the
+	      client will not send a certificate.
+            </para>
+            <para>
+	      <emphasis role="bold">Client mode:</emphasis> if not using an
+	      anonymous cipher (by default disabled), the server will send
+	      a certificate which will be checked. The result of the
+	      certificate verification process can be checked after the
+	      TLS/SSL handshake using the SSL_get_verify_result(3)
+	      function. The handshake will be continued regardless of the
+	      verification result.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_verify.pod:SSL_VERIFY_PEER"/>SSL_VERIFY_PEER</term>
+          <listitem>
+            <para>
+	      <emphasis role="bold">Server mode:</emphasis> the server
+	      sends a client certificate request to the client. The
+	      certificate returned (if any) is checked. If the verification
+	      process fails, the TLS/SSL handshake is immediately
+	      terminated with an alert message containing the reason for
+	      the verification failure. The behaviour can be controlled by
+	      the additional SSL_VERIFY_FAIL_IF_NO_PEER_CERT and
+	      SSL_VERIFY_CLIENT_ONCE flags.
+            </para>
+            <para>
+	      <emphasis role="bold">Client mode:</emphasis> the server
+	      certificate is verified. If the verification process fails,
+	      the TLS/SSL handshake is immediately terminated with an alert
+	      message containing the reason for the verification failure.
+	      If no server certificate is sent, because an anonymous cipher
+	      is used, SSL_VERIFY_PEER is ignored.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_verify.pod:SSL_VERIFY_FAIL_IF_NO_PEER_CERT"/>SSL_VERIFY_FAIL_IF_NO_PEER_CERT</term>
+          <listitem>
+            <para>
+	      <emphasis role="bold">Server mode:</emphasis> if the client
+	      did not return a certificate, the TLS/SSL handshake is
+	      immediately terminated with a "handshake failure" alert. This
+	      flag must be used together with SSL_VERIFY_PEER.
+            </para>
+            <para>
+	      <emphasis role="bold">Client mode:</emphasis> ignored
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_verify.pod:SSL_VERIFY_CLIENT_ONCE"/>SSL_VERIFY_CLIENT_ONCE</term>
+          <listitem>
+            <para>
+	      <emphasis role="bold">Server mode:</emphasis> only request a
+	      client certificate on the initial TLS/SSL handshake. Do not
+	      ask for a client certificate again in case of a
+	      renegotiation. This flag must be used together with
+	      SSL_VERIFY_PEER.
+            </para>
+            <para>
+	      <emphasis role="bold">Client mode:</emphasis> ignored
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+    <para>
+      Exactly one of the <emphasis role="bold">mode</emphasis> flags
+      SSL_VERIFY_NONE and SSL_VERIFY_PEER must be set at any time.
+    </para>
+    <para>
+      The actual verification procedure is performed either using the
+      built-in verification procedure or using another application provided
+      verification function set with SSL_CTX_set_cert_verify_callback(3).
+      The following descriptions apply in the case of the built-in
+      procedure. An application provided procedure also has access to the
+      verify depth information and the verify_callback() function, but the
+      way this information is used may be different.
+    </para>
+    <para>
+      SSL_CTX_set_verify_depth() and SSL_set_verify_depth() set the limit
+      up to which depth certificates in a chain are used during the
+      verification procedure. If the certificate chain is longer than
+      allowed, the certificates above the limit are ignored. Error messages
+      are generated as if these certificates would not be present, most
+      likely a X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY will be issued.
+      The depth count is "level 0:peer certificate", "level 1: CA
+      certificate", "level 2: higher level CA certificate", and so on.
+      Setting the maximum depth to 2 allows the levels 0, 1, and 2. The
+      default depth limit is 9, allowing for the peer certificate and
+      additional 9 CA certificates.
+    </para>
+    <para>
+      The <emphasis role="bold">verify_callback</emphasis> function is used
+      to control the behaviour when the SSL_VERIFY_PEER flag is set. It
+      must be supplied by the application and receives two arguments:
+      <emphasis role="bold">preverify_ok</emphasis> indicates, whether the
+      verification of the certificate in question was passed
+      (preverify_ok=1) or not (preverify_ok=0). <emphasis role="bold">x509_ctx</emphasis> is a pointer to the complete context
+      used for the certificate chain verification.
+    </para>
+    <para>
+      The certificate chain is checked starting with the deepest nesting
+      level (the root CA certificate) and worked upward to the peer's
+      certificate. At each level signatures and issuer attributes are
+      checked. Whenever a verification error is found, the error number is
+      stored in <emphasis role="bold">x509_ctx</emphasis> and <emphasis role="bold">verify_callback</emphasis> is called with <emphasis role="bold">preverify_ok</emphasis>=0. By applying X509_CTX_store_*
+      functions <emphasis role="bold">verify_callback</emphasis> can locate
+      the certificate in question and perform additional steps (see
+      EXAMPLES). If no error is found for a certificate, <emphasis role="bold">verify_callback</emphasis> is called with <emphasis role="bold">preverify_ok</emphasis>=1 before advancing to the next
+      level.
+    </para>
+    <para>
+      The return value of <emphasis role="bold">verify_callback</emphasis>
+      controls the strategy of the further verification process. If
+      <emphasis role="bold">verify_callback</emphasis> returns 0, the
+      verification process is immediately stopped with "verification
+      failed" state. If SSL_VERIFY_PEER is set, a verification failure
+      alert is sent to the peer and the TLS/SSL handshake is terminated. If
+      <emphasis role="bold">verify_callback</emphasis> returns 1, the
+      verification process is continued. If <emphasis role="bold">verify_callback</emphasis> always returns 1, the TLS/SSL
+      handshake will not be terminated with respect to verification
+      failures and the connection will be established. The calling process
+      can however retrieve the error code of the last verification error
+      using SSL_get_verify_result(3) or by maintaining its own error
+      storage managed by <emphasis role="bold">verify_callback</emphasis>.
+    </para>
+    <para>
+      If no <emphasis role="bold">verify_callback</emphasis> is specified,
+      the default callback will be used. Its return value is identical to
+      <emphasis role="bold">preverify_ok</emphasis>, so that any
+      verification failure will lead to a termination of the TLS/SSL
+      handshake with an alert message, if SSL_VERIFY_PEER is set.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_verify.pod:BUGS"><title>BUGS</title>
+    <para>
+      In client mode, it is not checked whether the SSL_VERIFY_PEER flag is
+      set, but whether SSL_VERIFY_NONE is not set. This can lead to
+      unexpected behaviour, if the SSL_VERIFY_PEER and SSL_VERIFY_NONE are
+      not used as required (exactly one must be set at any time).
+    </para>
+    <para>
+      The certificate verification depth set with SSL[_CTX]_verify_depth()
+      stops the verification at a certain depth. The error message produced
+      will be that of an incomplete certificate chain and not
+      X509_V_ERR_CERT_CHAIN_TOO_LONG as may be expected.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_verify.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      The SSL*_set_verify*() functions do not provide diagnostic
+      information.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_verify.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      The following code sequence realizes an example <emphasis role="bold">verify_callback</emphasis> function that will always
+      continue the TLS/SSL handshake regardless of verification failure, if
+      wished. The callback realizes a verification depth limit with more
+      informational output.
+    </para>
+    <para>
+      All verification errors are printed; information about the
+      certificate chain is printed on request. The example is realized for
+      a server that does allow but not require client certificates.
+    </para>
+    <para>
+      The example makes use of the ex_data technique to store application
+      data into/retrieve application data from the SSL structure (see
+      SSL_get_ex_new_index(3), SSL_get_ex_data_X509_STORE_CTX_idx(3)).
+    </para>
+    <screen>...
+typedef struct {
+  int verbose_mode;
+  int verify_depth;
+  int always_continue;
+} mydata_t;
+int mydata_index;
+...
+static int verify_callback(int preverify_ok, X509_STORE_CTX *ctx)
+{
+   char    buf[256];
+   X509   *err_cert;
+   int     err, depth;
+   SSL    *ssl;
+   mydata_t *mydata;
+
+err_cert = X509_STORE_CTX_get_current_cert(ctx);
+err = X509_STORE_CTX_get_error(ctx);
+depth = X509_STORE_CTX_get_error_depth(ctx);
+
+/*
+ * Retrieve the pointer to the SSL of the connection currently treated
+ * and the application specific data stored into the SSL object.
+ */
+ssl = X509_STORE_CTX_get_ex_data(ctx, SSL_get_ex_data_X509_STORE_CTX_idx());
+mydata = SSL_get_ex_data(ssl, mydata_index);
+
+X509_NAME_oneline(X509_get_subject_name(err_cert), buf, 256);
+
+/*
+ * Catch a too long certificate chain. The depth limit set using
+ * SSL_CTX_set_verify_depth() is by purpose set to "limit+1" so
+ * that whenever the "dep.h&amp;gt;verify_depth" condition is met, we
+ * have violated the limit and want to log this error condition.
+ * We must do it here, because the CHAIN_TOO_LONG error would not
+ * be found explicitly; only errors introduced by cutting off the
+ * additional certificates would be logged.
+ */
+if (depth &gt; mydata-&gt;verify_depth) {
+    preverify_ok = 0;
+    err = X509_V_ERR_CERT_CHAIN_TOO_LONG;
+    X509_STORE_CTX_set_error(ctx, err);
+} 
+if (!preverify_ok) {
+    printf("verify error:num=%d:%s:depth=%d:%s\n", err,
+             X509_verify_cert_error_string(err), depth, buf);
+}
+else if (mydata-&gt;verbose_mode)
+{
+    printf("depth=%d:%s\n", depth, buf);
+}
+
+/*
+ * At this point, err contains the last verification error. We can use
+ * it for something special
+ */
+if (!preverify_ok &amp;&amp; (err == X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT))
+{
+  X509_NAME_oneline(X509_get_issuer_name(ctx-&gt;current_cert), buf, 256);
+  printf("issuer= %s\n", buf);
+}
+
+   if (mydata-&gt;always_continue)
+     return 1;
+   else
+     return preverify_ok;
+}
+...
+
+mydata_t mydata;
+
+...
+mydata_index = SSL_get_ex_new_index(0, "mydata index", NULL, NULL, NULL);
+
+...
+SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER|SSL_VERIFY_CLIENT_ONCE,
+                   verify_callback);
+
+/*
+ * Let the verify_callback catch the verify_depth error so that we get
+ * an appropriate error in the logfile.
+ */
+SSL_CTX_set_verify_depth(verify_depth + 1);
+
+/*
+ * Set up the SSL specific data into "mydata" and store it into th SSL
+ * structure.
+ */
+mydata.verify_depth = verify_depth; ...
+SSL_set_ex_data(ssl, mydata_index, &amp;mydata);
+
+...
+SSL_accept(ssl);       /* check of success left out for clarity */
+if (peer = SSL_get_peer_certificate(ssl))
+{
+  if (SSL_get_verify_result(ssl) == X509_V_OK)
+  {
+    /* The client sent a certificate which verified OK */
+  }
+}</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_verify.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_new(3), SSL_CTX_get_verify_mode(3),
+      SSL_get_verify_result(3), SSL_CTX_load_verify_locations(3),
+      SSL_get_peer_certificate(3), SSL_CTX_set_cert_verify_callback(3),
+      SSL_get_ex_data_X509_STORE_CTX_idx(3), SSL_get_ex_new_index(3)
+    </para>
+  </refsection>
+</refentry>

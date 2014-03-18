@@ -1,0 +1,366 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_alert_type_string.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_alert_type_string, SSL_alert_type_string_long, SSL_alert_desc_string, SSL_alert_desc_string_long</refname>
+<refpurpose>get textual description of alert information</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">const char *SSL_alert_type_string(int value);
+const char *SSL_alert_type_string_long(int value);</synopsis>
+<synopsis format="linespecific">const char *SSL_alert_desc_string(int value);
+const char *SSL_alert_desc_string_long(int value);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_alert_type_string() returns a one letter string indicating the
+      type of the alert specified by <emphasis role="bold">value</emphasis>.
+    </para>
+    <para>
+      SSL_alert_type_string_long() returns a string indicating the type of
+      the alert specified by <emphasis role="bold">value</emphasis>.
+    </para>
+    <para>
+      SSL_alert_desc_string() returns a two letter string as a short form
+      describing the reason of the alert specified by <emphasis role="bold">value</emphasis>.
+    </para>
+    <para>
+      SSL_alert_desc_string_long() returns a string describing the reason
+      of the alert specified by <emphasis role="bold">value</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:NOTES"><title>NOTES</title>
+    <para>
+      When one side of an SSL/TLS communication wants to inform the peer
+      about a special situation, it sends an alert. The alert is sent as a
+      special message and does not influence the normal data stream (unless
+      its contents results in the communication being canceled).
+    </para>
+    <para>
+      A warning alert is sent, when a non-fatal error condition occurs. The
+      "close notify" alert is sent as a warning alert. Other examples for
+      non-fatal errors are certificate errors ("certificate expired",
+      "unsupported certificate"), for which a warning alert may be sent.
+      (The sending party may however decide to send a fatal error.) The
+      receiving side may cancel the connection on reception of a warning
+      alert on it discretion.
+    </para>
+    <para>
+      Several alert messages must be sent as fatal alert messages as
+      specified by the TLS RFC. A fatal alert always leads to a connection
+      abort.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      The following strings can occur for SSL_alert_type_string() or
+      SSL_alert_type_string_long():
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:W.warning"/>"W"/"warning"</term>
+          <listitem>
+            <para/>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:F.fatal"/>"F"/"fatal"</term>
+          <listitem>
+            <para/>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:U.unknown"/>"U"/"unknown"</term>
+          <listitem>
+            <para>
+	      This indicates that no support is available for this alert
+	      type. Probably <emphasis role="bold">value</emphasis> does
+	      not contain a correct alert message.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+    <para>
+      The following strings can occur for SSL_alert_desc_string() or
+      SSL_alert_desc_string_long():
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:CN.close_notify"/>"CN"/"close notify"</term>
+          <listitem>
+            <para>
+	      The connection shall be closed. This is a warning alert.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:UM.unexpected_message"/>"UM"/"unexpected message"</term>
+          <listitem>
+            <para>
+	      An inappropriate message was received. This alert is always
+	      fatal and should never be observed in communication between
+	      proper implementations.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:BM.bad_record_mac"/>"BM"/"bad record mac"</term>
+          <listitem>
+            <para>
+	      This alert is returned if a record is received with an
+	      incorrect MAC. This message is always fatal.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:DF.decompression_failure"/>"DF"/"decompression failure"</term>
+          <listitem>
+            <para>
+	      The decompression function received improper input (e.g. data
+	      that would expand to excessive length). This message is
+	      always fatal.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:HF.handshake_failure"/>"HF"/"handshake failure"</term>
+          <listitem>
+            <para>
+	      Reception of a handshake_failure alert message indicates that
+	      the sender was unable to negotiate an acceptable set of
+	      security parameters given the options available. This is a
+	      fatal error.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:NC.no_certificate"/>"NC"/"no certificate"</term>
+          <listitem>
+            <para>
+	      A client, that was asked to send a certificate, does not send
+	      a certificate (SSLv3 only).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:BC.bad_certificate"/>"BC"/"bad certificate"</term>
+          <listitem>
+            <para>
+	      A certificate was corrupt, contained signatures that did not
+	      verify correctly, etc
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:UC.unsupported_certificate"/>"UC"/"unsupported certificate"</term>
+          <listitem>
+            <para>
+	      A certificate was of an unsupported type.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:CR.certificate_revoked"/>"CR"/"certificate revoked"</term>
+          <listitem>
+            <para>
+	      A certificate was revoked by its signer.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:CE.certificate_expired"/>"CE"/"certificate expired"</term>
+          <listitem>
+            <para>
+	      A certificate has expired or is not currently valid.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:CU.certificate_unknown"/>"CU"/"certificate unknown"</term>
+          <listitem>
+            <para>
+	      Some other (unspecified) issue arose in processing the
+	      certificate, rendering it unacceptable.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:IP.illegal_parameter"/>"IP"/"illegal parameter"</term>
+          <listitem>
+            <para>
+	      A field in the handshake was out of range or inconsistent
+	      with other fields. This is always fatal.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:DC.decryption_failed"/>"DC"/"decryption failed"</term>
+          <listitem>
+            <para>
+	      A TLSCiphertext decrypted in an invalid way: either it wasn't
+	      an even multiple of the block length or its padding values,
+	      when checked, weren't correct. This message is always fatal.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:RO.record_overflow"/>"RO"/"record overflow"</term>
+          <listitem>
+            <para>
+	      A TLSCiphertext record was received which had a length more
+	      than 2^14+2048 bytes, or a record decrypted to a
+	      TLSCompressed record with more than 2^14+1024 bytes. This
+	      message is always fatal.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:CA.unknown_CA"/>"CA"/"unknown CA"</term>
+          <listitem>
+            <para>
+	      A valid certificate chain or partial chain was received, but
+	      the certificate was not accepted because the CA certificate
+	      could not be located or couldn't be matched with a known,
+	      trusted CA.  This message is always fatal.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:AD.access_denied"/>"AD"/"access denied"</term>
+          <listitem>
+            <para>
+	      A valid certificate was received, but when access control was
+	      applied, the sender decided not to proceed with negotiation.
+	      This message is always fatal.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:DE.decode_error"/>"DE"/"decode error"</term>
+          <listitem>
+            <para>
+	      A message could not be decoded because some field was out of
+	      the specified range or the length of the message was
+	      incorrect. This message is always fatal.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:CY.decrypt_error"/>"CY"/"decrypt error"</term>
+          <listitem>
+            <para>
+	      A handshake cryptographic operation failed, including being
+	      unable to correctly verify a signature, decrypt a key
+	      exchange, or validate a finished message.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:ER.export_restriction"/>"ER"/"export restriction"</term>
+          <listitem>
+            <para>
+	      A negotiation not in compliance with export restrictions was
+	      detected; for example, attempting to transfer a 1024 bit
+	      ephemeral RSA key for the RSA_EXPORT handshake method. This
+	      message is always fatal.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:PV.protocol_version"/>"PV"/"protocol version"</term>
+          <listitem>
+            <para>
+	      The protocol version the client has attempted to negotiate is
+	      recognized, but not supported. (For example, old protocol
+	      versions might be avoided for security reasons). This message
+	      is always fatal.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:IS.insufficient_security"/>"IS"/"insufficient security"</term>
+          <listitem>
+            <para>
+	      Returned instead of handshake_failure when a negotiation has
+	      failed specifically because the server requires ciphers more
+	      secure than those supported by the client. This message is
+	      always fatal.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:IE.internal_error"/>"IE"/"internal error"</term>
+          <listitem>
+            <para>
+	      An internal error unrelated to the peer or the correctness of
+	      the protocol makes it impossible to continue (such as a
+	      memory allocation failure). This message is always fatal.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:US.user_canceled"/>"US"/"user canceled"</term>
+          <listitem>
+            <para>
+	      This handshake is being canceled for some reason unrelated to
+	      a protocol failure. If the user cancels an operation after
+	      the handshake is complete, just closing the connection by
+	      sending a close_notify is more appropriate. This alert should
+	      be followed by a close_notify. This message is generally a
+	      warning.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:NR.no_renegotiation"/>"NR"/"no renegotiation"</term>
+          <listitem>
+            <para>
+	      Sent by the client in response to a hello request or by the
+	      server in response to a client hello after initial
+	      handshaking. Either of these would normally lead to
+	      renegotiation; when that is not appropriate, the recipient
+	      should respond with this alert; at that point, the original
+	      requester can decide whether to proceed with the connection.
+	      One case where this would be appropriate would be where a
+	      server has spawned a process to satisfy a request; the
+	      process might receive security parameters (key length,
+	      authentication, etc.) at startup and it might be difficult to
+	      communicate changes to these parameters after that point.
+	      This message is always a warning.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:UP.unknown_PSK_identity"/>"UP"/"unknown PSK identity"</term>
+          <listitem>
+            <para>
+	      Sent by the server to indicate that it does not recognize a
+	      PSK identity or an SRP identity.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:UK.unknown"/>"UK"/"unknown"</term>
+          <listitem>
+            <para>
+	      This indicates that no description is available for this
+	      alert type. Probably <emphasis role="bold">value</emphasis>
+	      does not contain a correct alert message.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_CTX_set_info_callback(3)
+    </para>
+  </refsection>
+</refentry>

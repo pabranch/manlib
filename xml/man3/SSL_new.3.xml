@@ -1,0 +1,55 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_new.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_new</refname>
+<refpurpose>create a new SSL structure for a connection</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">SSL *SSL_new(SSL_CTX *ctx);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_new.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_new() creates a new <emphasis role="bold">SSL</emphasis>
+      structure which is needed to hold the data for a TLS/SSL connection.
+      The new structure inherits the settings of the underlying context
+      <emphasis role="bold">ctx</emphasis>: connection method
+      (SSLv2/v3/TLSv1), options, verification settings, timeout settings.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_new.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      The following return values can occur:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_new.pod:NULL"/>NULL</term>
+          <listitem>
+            <para>
+	      The creation of a new SSL structure failed. Check the error
+	      stack to find out the reason.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_new.pod:Pointer_to_an_SSL_structure"/>Pointer to an SSL structure</term>
+          <listitem>
+            <para>
+	      The return value points to an allocated SSL structure.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_new.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      SSL_free(3), SSL_clear(3), SSL_CTX_set_options(3),
+      SSL_get_SSL_CTX(3), ssl(3)
+    </para>
+  </refsection>
+</refentry>

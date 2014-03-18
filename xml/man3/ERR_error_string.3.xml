@@ -1,0 +1,80 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>ERR_error_string.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>ERR_error_string, ERR_error_string_n, ERR_lib_error_string,
+ERR_func_error_string, ERR_reason_error_string</refname>
+<refpurpose>obtain human-readable
+error message</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/err.h&gt;</synopsis>
+<synopsis format="linespecific">char *ERR_error_string(unsigned long e, char *buf);
+void ERR_error_string_n(unsigned long e, char *buf, size_t len);</synopsis>
+<synopsis format="linespecific">const char *ERR_lib_error_string(unsigned long e);
+const char *ERR_func_error_string(unsigned long e);
+const char *ERR_reason_error_string(unsigned long e);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.ERR_error_string.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      ERR_error_string() generates a human-readable string representing the
+      error code <emphasis role="italic">e</emphasis>, and places it at
+      <emphasis role="italic">buf</emphasis>. <emphasis role="italic">buf</emphasis> must be at least 120 bytes long. If
+      <emphasis role="italic">buf</emphasis> is <emphasis role="bold">NULL</emphasis>, the error string is placed in a static
+      buffer. ERR_error_string_n() is a variant of ERR_error_string() that
+      writes at most <emphasis role="italic">len</emphasis> characters
+      (including the terminating 0) and truncates the string if necessary.
+      For ERR_error_string_n(), <emphasis role="italic">buf</emphasis> may
+      not be <emphasis role="bold">NULL</emphasis>.
+    </para>
+    <para>
+      The string will have the following format:
+    </para>
+    <screen>error:[error code]:[library name]:[function name]:[reason string]</screen>
+    <para>
+      <emphasis role="italic">error code</emphasis> is an 8 digit
+      hexadecimal number, <emphasis role="italic">library name</emphasis>,
+      <emphasis role="italic">function name</emphasis> and <emphasis role="italic">reason string</emphasis> are ASCII text.
+    </para>
+    <para>
+      ERR_lib_error_string(), ERR_func_error_string() and
+      ERR_reason_error_string() return the library name, function name and
+      reason string respectively.
+    </para>
+    <para>
+      The OpenSSL error strings should be loaded by calling
+      ERR_load_crypto_strings(3) or, for SSL applications,
+      SSL_load_error_strings(3) first. If there is no text string
+      registered for the given error code, the error string will contain
+      the numeric code.
+    </para>
+    <para>
+      ERR_print_errors(3) can be used to print all error codes currently in
+      the queue.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ERR_error_string.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      ERR_error_string() returns a pointer to a static buffer containing
+      the string if <emphasis role="italic">buf</emphasis> <emphasis role="bold">== NULL</emphasis>, <emphasis role="italic">buf</emphasis> otherwise.
+    </para>
+    <para>
+      ERR_lib_error_string(), ERR_func_error_string() and
+      ERR_reason_error_string() return the strings, and <emphasis role="bold">NULL</emphasis> if none is registered for the error code.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ERR_error_string.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      err(3), ERR_get_error(3), ERR_load_crypto_strings(3),
+      SSL_load_error_strings(3) ERR_print_errors(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ERR_error_string.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      ERR_error_string() is available in all versions of SSLeay and
+      OpenSSL. ERR_error_string_n() was added in OpenSSL 0.9.6.
+    </para>
+  </refsection>
+</refentry>

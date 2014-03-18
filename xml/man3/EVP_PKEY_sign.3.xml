@@ -1,0 +1,105 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>EVP_PKEY_sign.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>EVP_PKEY_sign_init, EVP_PKEY_sign</refname>
+<refpurpose>sign using a public key algorithm</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis format="linespecific">int EVP_PKEY_sign_init(EVP_PKEY_CTX *ctx);
+int EVP_PKEY_sign(EVP_PKEY_CTX *ctx,
+                       unsigned char *sig, size_t *siglen,
+                       const unsigned char *tbs, size_t tbslen);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_sign.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The EVP_PKEY_sign_init() function initializes a public key algorithm
+      context using key <emphasis role="bold">pkey</emphasis> for a signing
+      operation.
+    </para>
+    <para>
+      The EVP_PKEY_sign() function performs a public key signing operation
+      using <emphasis role="bold">ctx</emphasis>. The data to be signed is
+      specified using the <emphasis role="bold">tbs</emphasis> and
+      <emphasis role="bold">tbslen</emphasis> parameters. If <emphasis role="bold">sig</emphasis> is <emphasis role="bold">NULL</emphasis>
+      then the maximum size of the output buffer is written to the
+      <emphasis role="bold">siglen</emphasis> parameter. If <emphasis role="bold">sig</emphasis> is not <emphasis role="bold">NULL</emphasis> then before the call the <emphasis role="bold">siglen</emphasis> parameter should contain the length of
+      the <emphasis role="bold">sig</emphasis> buffer, if the call is
+      successful the signature is written to <emphasis role="bold">sig</emphasis> and the amount of data written to
+      <emphasis role="bold">siglen</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_sign.pod:NOTES"><title>NOTES</title>
+    <para>
+      After the call to EVP_PKEY_sign_init() algorithm specific control
+      operations can be performed to set any appropriate parameters for the
+      operation.
+    </para>
+    <para>
+      The function EVP_PKEY_sign() can be called more than once on the same
+      context if several operations are performed using the same
+      parameters.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_sign.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      EVP_PKEY_sign_init() and EVP_PKEY_sign() return 1 for success and 0
+      or a negative value for failure. In particular a return value of -2
+      indicates the operation is not supported by the public key algorithm.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_sign.pod:EXAMPLE"><title>EXAMPLE</title>
+    <para>
+      Sign data using RSA with PKCS#1 padding and SHA256 digest:
+    </para>
+    <screen>#include &amp;lt;openssl/evp.h&amp;gt;
+#include &amp;lt;openssl/rsa.h&amp;gt;
+
+EVP_PKEY_CTX *ctx;
+unsigned char *md, *sig;
+size_t mdlen, siglen; 
+EVP_PKEY *signing_key;
+/* NB: assumes signing_key, md and mdlen are already set up
+ * and that signing_key is an RSA private key
+ */
+ctx = EVP_PKEY_CTX_new(signing_key);
+if (!ctx)
+       /* Error occurred */
+if (EVP_PKEY_sign_init(ctx) &lt;= 0)
+       /* Error */
+if (EVP_PKEY_CTX_set_rsa_padding(ctx, RSA_PKCS1_PADDING) &lt;= 0)
+       /* Error */
+if (EVP_PKEY_CTX_set_signature_md(ctx, EVP_sha256()) &lt;= 0)
+       /* Error */
+
+/* Determine buffer length */
+if (EVP_PKEY_sign(ctx, NULL, &amp;siglen, md, mdlen) &lt;= 0)
+       /* Error */
+
+sig = OPENSSL_malloc(siglen);
+
+if (!sig)
+       /* malloc failure */
+
+if (EVP_PKEY_sign(ctx, sig, &amp;siglen, md, mdlen) &lt;= 0)
+       /* Error */
+
+/* Signature is siglen bytes written to buffer sig */
+
+</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_sign.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      EVP_PKEY_CTX_new(3), EVP_PKEY_encrypt(3), EVP_PKEY_decrypt(3),
+      EVP_PKEY_verify(3), EVP_PKEY_verify_recover(3), EVP_PKEY_derive(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_sign.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      These functions were first added to OpenSSL 1.0.0.
+    </para>
+  </refsection>
+</refentry>

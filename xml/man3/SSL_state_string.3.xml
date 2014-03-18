@@ -1,0 +1,53 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_state_string.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_state_string, SSL_state_string_long</refname>
+<refpurpose>get textual description of state of an SSL object</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">const char *SSL_state_string(const SSL *ssl);
+const char *SSL_state_string_long(const SSL *ssl);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_state_string.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_state_string() returns a 6 letter string indicating the current
+      state of the SSL object <emphasis role="bold">ssl</emphasis>.
+    </para>
+    <para>
+      SSL_state_string_long() returns a string indicating the current state
+      of the SSL object <emphasis role="bold">ssl</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_state_string.pod:NOTES"><title>NOTES</title>
+    <para>
+      During its use, an SSL objects passes several states. The state is
+      internally maintained. Querying the state information is not very
+      informative before or when a connection has been established. It
+      however can be of significant interest during the handshake.
+    </para>
+    <para>
+      When using non-blocking sockets, the function call performing the
+      handshake may return with SSL_ERROR_WANT_READ or SSL_ERROR_WANT_WRITE
+      condition, so that SSL_state_string[_long]() may be called.
+    </para>
+    <para>
+      For both blocking or non-blocking sockets, the details state
+      information can be used within the info_callback function set with
+      the SSL_set_info_callback() call.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_state_string.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      Detailed description of possible states to be included later.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_state_string.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_CTX_set_info_callback(3)
+    </para>
+  </refsection>
+</refentry>

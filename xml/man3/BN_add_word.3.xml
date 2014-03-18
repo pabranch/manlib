@@ -1,0 +1,73 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>BN_add_word.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>BN_add_word, BN_sub_word, BN_mul_word, BN_div_word, BN_mod_word</refname>
+<refpurpose>arithmetic
+functions on BIGNUMs with integers</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis format="linespecific">int BN_add_word(BIGNUM *a, BN_ULONG w);</synopsis>
+<synopsis format="linespecific">int BN_sub_word(BIGNUM *a, BN_ULONG w);</synopsis>
+<synopsis format="linespecific">int BN_mul_word(BIGNUM *a, BN_ULONG w);</synopsis>
+<synopsis format="linespecific">BN_ULONG BN_div_word(BIGNUM *a, BN_ULONG w);</synopsis>
+<synopsis format="linespecific">BN_ULONG BN_mod_word(const BIGNUM *a, BN_ULONG w);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_add_word.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      These functions perform arithmetic operations on BIGNUMs with
+      unsigned integers. They are much more efficient than the normal
+      BIGNUM arithmetic operations.
+    </para>
+    <para>
+      BN_add_word() adds <emphasis role="bold">w</emphasis> to <emphasis role="bold">a</emphasis> (<literal role="code">a+=w</literal>).
+    </para>
+    <para>
+      BN_sub_word() subtracts <emphasis role="bold">w</emphasis> from
+      <emphasis role="bold">a</emphasis> (<literal role="code">a-=w</literal>).
+    </para>
+    <para>
+      BN_mul_word() multiplies <emphasis role="bold">a</emphasis> and
+      <emphasis role="bold">w</emphasis> (<literal role="code">a*=w</literal>).
+    </para>
+    <para>
+      BN_div_word() divides <emphasis role="bold">a</emphasis> by <emphasis role="bold">w</emphasis> (<literal role="code">a/=w</literal>) and returns the remainder.
+    </para>
+    <para>
+      BN_mod_word() returns the remainder of <emphasis role="bold">a</emphasis> divided by <emphasis role="bold">w</emphasis> (<literal role="code">a%w</literal>).
+    </para>
+    <para>
+      For BN_div_word() and BN_mod_word(), <emphasis role="bold">w</emphasis> must not be 0.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_add_word.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      BN_add_word(), BN_sub_word() and BN_mul_word() return 1 for success,
+      0 on error. The error codes can be obtained by ERR_get_error(3).
+    </para>
+    <para>
+      BN_mod_word() and BN_div_word() return <emphasis role="bold">a</emphasis>%<emphasis role="bold">w</emphasis> on
+      success and <emphasis role="bold">(BN_ULONG)-1</emphasis> if an error
+      occurred.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_add_word.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      bn(3), ERR_get_error(3), BN_add(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_add_word.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      BN_add_word() and BN_mod_word() are available in all versions of
+      SSLeay and OpenSSL. BN_div_word() was added in SSLeay 0.8, and
+      BN_sub_word() and BN_mul_word() in SSLeay 0.9.0.
+    </para>
+    <para>
+      Before 0.9.8a the return value for BN_div_word() and BN_mod_word() in
+      case of an error was 0.
+    </para>
+  </refsection>
+</refentry>

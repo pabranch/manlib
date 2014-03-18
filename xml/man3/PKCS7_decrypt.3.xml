@@ -1,0 +1,69 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>PKCS7_decrypt.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>PKCS7_decrypt</refname>
+<refpurpose>decrypt content from a PKCS#7 envelopedData structure</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/pkcs7.h&gt;</synopsis>
+<synopsis format="linespecific">int PKCS7_decrypt(PKCS7 *p7, EVP_PKEY *pkey, X509 *cert, BIO *data, int flags);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_decrypt.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      PKCS7_decrypt() extracts and decrypts the content from a PKCS#7
+      envelopedData structure. <emphasis role="bold">pkey</emphasis> is the
+      private key of the recipient, <emphasis role="bold">cert</emphasis>
+      is the recipients certificate, <emphasis role="bold">data</emphasis>
+      is a BIO to write the content to and <emphasis role="bold">flags</emphasis> is an optional set of flags.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_decrypt.pod:NOTES"><title>NOTES</title>
+    <para>
+      OpenSSL_add_all_algorithms() (or equivalent) should be called before
+      using this function or errors about unknown algorithms will occur.
+    </para>
+    <para>
+      Although the recipients certificate is not needed to decrypt the data
+      it is needed to locate the appropriate (of possible several)
+      recipients in the PKCS#7 structure.
+    </para>
+    <para>
+      The following flags can be passed in the <emphasis role="bold">flags</emphasis> parameter.
+    </para>
+    <para>
+      If the <emphasis role="bold">PKCS7_TEXT</emphasis> flag is set MIME
+      headers for type <emphasis role="bold">text/plain</emphasis> are
+      deleted from the content. If the content is not of type <emphasis role="bold">text/plain</emphasis> then an error is returned.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_decrypt.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      PKCS7_decrypt() returns either 1 for success or 0 for failure. The
+      error can be obtained from ERR_get_error(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_decrypt.pod:BUGS"><title>BUGS</title>
+    <para>
+      PKCS7_decrypt() must be passed the correct recipient key and
+      certificate. It would be better if it could look up the correct key
+      and certificate from a database.
+    </para>
+    <para>
+      The lack of single pass processing and need to hold all data in
+      memory as mentioned in PKCS7_sign() also applies to PKCS7_verify().
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_decrypt.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ERR_get_error(3), PKCS7_encrypt(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_decrypt.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      PKCS7_decrypt() was added to OpenSSL 0.9.5
+    </para>
+  </refsection>
+</refentry>

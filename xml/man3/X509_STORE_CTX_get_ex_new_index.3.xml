@@ -1,0 +1,47 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>X509_STORE_CTX_get_ex_new_index.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>X509_STORE_CTX_get_ex_new_index, X509_STORE_CTX_set_ex_data, X509_STORE_CTX_get_ex_data</refname>
+<refpurpose>add application specific data to X509_STORE_CTX structures</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/x509_vfy.h&gt;</synopsis>
+<synopsis format="linespecific">int X509_STORE_CTX_get_ex_new_index(long argl, void *argp,
+               CRYPTO_EX_new *new_func,
+               CRYPTO_EX_dup *dup_func,
+               CRYPTO_EX_free *free_func);</synopsis>
+<synopsis format="linespecific">int X509_STORE_CTX_set_ex_data(X509_STORE_CTX *d, int idx, void *arg);</synopsis>
+<synopsis format="linespecific">char *X509_STORE_CTX_get_ex_data(X509_STORE_CTX *d, int idx);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_ex_new_index.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      These functions handle application specific data in X509_STORE_CTX
+      structures. Their usage is identical to that of
+      RSA_get_ex_new_index(), RSA_set_ex_data() and RSA_get_ex_data() as
+      described in <citerefentry>
+      <refentrytitle>RSA_get_ex_new_index</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_ex_new_index.pod:NOTES"><title>NOTES</title>
+    <para>
+      This mechanism is used internally by the <emphasis role="bold">ssl</emphasis> library to store the <emphasis role="bold">SSL</emphasis> structure associated with a verification
+      operation in an <emphasis role="bold">X509_STORE_CTX</emphasis>
+      structure.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_ex_new_index.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      RSA_get_ex_new_index(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_ex_new_index.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      X509_STORE_CTX_get_ex_new_index(), X509_STORE_CTX_set_ex_data() and
+      X509_STORE_CTX_get_ex_data() are available since OpenSSL 0.9.5.
+    </para>
+  </refsection>
+</refentry>

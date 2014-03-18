@@ -1,0 +1,63 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>EVP_PKEY_CTX_new.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>EVP_PKEY_CTX_new, EVP_PKEY_CTX_new_id, EVP_PKEY_CTX_dup, EVP_PKEY_CTX_free</refname>
+<refpurpose>public key algorithm context functions.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis format="linespecific">EVP_PKEY_CTX *EVP_PKEY_CTX_new(EVP_PKEY *pkey, ENGINE *e);
+EVP_PKEY_CTX *EVP_PKEY_CTX_new_id(int id, ENGINE *e);
+EVP_PKEY_CTX *EVP_PKEY_CTX_dup(EVP_PKEY_CTX *ctx);
+void EVP_PKEY_CTX_free(EVP_PKEY_CTX *ctx);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_CTX_new.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The EVP_PKEY_CTX_new() function allocates public key algorithm
+      context using the algorithm specified in <emphasis role="bold">pkey</emphasis> and ENGINE <emphasis role="bold">e</emphasis>.
+    </para>
+    <para>
+      The EVP_PKEY_CTX_new_id() function allocates public key algorithm
+      context using the algorithm specified by <emphasis role="bold">id</emphasis> and ENGINE <emphasis role="bold">e</emphasis>. It is normally used when no <emphasis role="bold">EVP_PKEY</emphasis> structure is associated with the
+      operations, for example during parameter generation of key genration
+      for some algorithms.
+    </para>
+    <para>
+      EVP_PKEY_CTX_dup() duplicates the context <emphasis role="bold">ctx</emphasis>.
+    </para>
+    <para>
+      EVP_PKEY_CTX_free() frees up the context <emphasis role="bold">ctx</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_CTX_new.pod:NOTES"><title>NOTES</title>
+    <para>
+      The <emphasis role="bold">EVP_PKEY_CTX</emphasis> structure is an
+      opaque public key algorithm context used by the OpenSSL high level
+      public key API. Contexts <emphasis role="bold">MUST NOT</emphasis> be
+      shared between threads: that is it is not permissible to use the same
+      context simultaneously in two threads.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_CTX_new.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      EVP_PKEY_CTX_new(), EVP_PKEY_CTX_new_id(), EVP_PKEY_CTX_dup() returns
+      either the newly allocated <emphasis role="bold">EVP_PKEY_CTX</emphasis> structure of <emphasis role="bold">NULL</emphasis> if an error occurred.
+    </para>
+    <para>
+      EVP_PKEY_CTX_free() does not return a value.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_CTX_new.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      EVP_PKEY_new(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_CTX_new.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      These functions were first added to OpenSSL 1.0.0.
+    </para>
+  </refsection>
+</refentry>

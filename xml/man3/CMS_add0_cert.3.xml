@@ -1,0 +1,75 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>CMS_add0_cert.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>CMS_add0_cert, CMS_add1_cert, CMS_get1_certs, CMS_add0_crl, CMS_add1_crl, CMS_get1_crls,</refname>
+<refpurpose>CMS certificate and CRL utility functions</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/cms.h&gt;</synopsis>
+<synopsis format="linespecific">int CMS_add0_cert(CMS_ContentInfo *cms, X509 *cert);
+int CMS_add1_cert(CMS_ContentInfo *cms, X509 *cert);
+STACK_OF(X509) *CMS_get1_certs(CMS_ContentInfo *cms);</synopsis>
+<synopsis format="linespecific">int CMS_add0_crl(CMS_ContentInfo *cms, X509_CRL *crl);
+int CMS_add1_crl(CMS_ContentInfo *cms, X509_CRL *crl);
+STACK_OF(X509_CRL) *CMS_get1_crls(CMS_ContentInfo *cms);</synopsis>
+<synopsis format="linespecific"/>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.CMS_add0_cert.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      CMS_add0_cert() and CMS_add1_cert() add certificate <emphasis role="bold">cert</emphasis> to <emphasis role="bold">cms</emphasis>.
+      must be of type signed data or enveloped data.
+    </para>
+    <para>
+      CMS_get1_certs() returns all certificates in <emphasis role="bold">cms</emphasis>.
+    </para>
+    <para>
+      CMS_add0_crl() and CMS_add1_crl() add CRL <emphasis role="bold">crl</emphasis> to <emphasis role="bold">cms</emphasis>.
+      CMS_get1_crls() returns any CRLs in <emphasis role="bold">cms</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.CMS_add0_cert.pod:NOTES"><title>NOTES</title>
+    <para>
+      The CMS_ContentInfo structure <emphasis role="bold">cms</emphasis>
+      must be of type signed data or enveloped data or an error will be
+      returned.
+    </para>
+    <para>
+      For signed data certificates and CRLs are added to the <emphasis role="bold">certificates</emphasis> and <emphasis role="bold">crls</emphasis> fields of SignedData structure. For
+      enveloped data they are added to <emphasis role="bold">OriginatorInfo</emphasis>.
+    </para>
+    <para>
+      As the <emphasis role="bold">0</emphasis> implies CMS_add0_cert()
+      adds <emphasis role="bold">cert</emphasis> internally to <emphasis role="bold">cms</emphasis> and it must not be freed up after the call
+      as opposed to CMS_add1_cert() where <emphasis role="bold">cert</emphasis> must be freed up.
+    </para>
+    <para>
+      The same certificate or CRL must not be added to the same cms
+      structure more than once.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.CMS_add0_cert.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      CMS_add0_cert(), CMS_add1_cert() and CMS_add0_crl() and
+      CMS_add1_crl() return 1 for success and 0 for failure.
+    </para>
+    <para>
+      CMS_get1_certs() and CMS_get1_crls() return the STACK of certificates
+      or CRLs or NULL if there are none or an error occurs. The only error
+      which will occur in practice is if the <emphasis role="bold">cms</emphasis> type is invalid.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.CMS_add0_cert.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ERR_get_error(3), CMS_sign(3), CMS_encrypt(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.CMS_add0_cert.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      CMS_add0_cert(), CMS_add1_cert(), CMS_get1_certs(), CMS_add0_crl()
+      and CMS_get1_crls() were all first added to OpenSSL 0.9.8
+    </para>
+  </refsection>
+</refentry>

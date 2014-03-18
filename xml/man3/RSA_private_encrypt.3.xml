@@ -1,0 +1,87 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>RSA_private_encrypt.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>RSA_private_encrypt, RSA_public_decrypt</refname>
+<refpurpose>low level signature operations</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/rsa.h&gt;</synopsis>
+<synopsis format="linespecific">int RSA_private_encrypt(int flen, unsigned char *from,
+   unsigned char *to, RSA *rsa, int padding);</synopsis>
+<synopsis format="linespecific">int RSA_public_decrypt(int flen, unsigned char *from, 
+   unsigned char *to, RSA *rsa, int padding);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_private_encrypt.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      These functions handle RSA signatures at a low level.
+    </para>
+    <para>
+      RSA_private_encrypt() signs the <emphasis role="bold">flen</emphasis>
+      bytes at <emphasis role="bold">from</emphasis> (usually a message
+      digest with an algorithm identifier) using the private key <emphasis role="bold">rsa</emphasis> and stores the signature in <emphasis role="bold">to</emphasis>. <emphasis role="bold">to</emphasis> must
+      point to <emphasis role="bold">RSA_size(rsa)</emphasis> bytes of
+      memory.
+    </para>
+    <para>
+      <emphasis role="bold">padding</emphasis> denotes one of the following
+      modes:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.RSA_private_encrypt.pod:RSA_PKCS1_PADDING"/>RSA_PKCS1_PADDING</term>
+          <listitem>
+            <para>
+	      PKCS #1 v1.5 padding. This function does not handle the
+	      <emphasis role="bold">algorithmIdentifier</emphasis>
+	      specified in PKCS #1. When generating or verifying PKCS #1
+	      signatures, RSA_sign(3) and RSA_verify(3) should be used.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.RSA_private_encrypt.pod:RSA_NO_PADDING"/>RSA_NO_PADDING</term>
+          <listitem>
+            <para>
+	      Raw RSA signature. This mode should <emphasis role="italic">only</emphasis> be used to implement
+	      cryptographically sound padding modes in the application
+	      code. Signing user data directly with RSA is insecure.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+    <para>
+      RSA_public_decrypt() recovers the message digest from the <emphasis role="bold">flen</emphasis> bytes long signature at <emphasis role="bold">from</emphasis> using the signer's public key <emphasis role="bold">rsa</emphasis>. <emphasis role="bold">to</emphasis> must
+      point to a memory section large enough to hold the message digest
+      (which is smaller than <emphasis role="bold">RSA_size(rsa) -
+      11</emphasis>). <emphasis role="bold">padding</emphasis> is the
+      padding mode that was used to sign the data.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_private_encrypt.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      RSA_private_encrypt() returns the size of the signature (i.e.,
+      RSA_size(rsa)). RSA_public_decrypt() returns the size of the
+      recovered message digest.
+    </para>
+    <para>
+      On error, -1 is returned; the error codes can be obtained by
+      ERR_get_error(3).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_private_encrypt.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ERR_get_error(3), rsa(3), RSA_sign(3), RSA_verify(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_private_encrypt.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      The <emphasis role="bold">padding</emphasis> argument was added in
+      SSLeay 0.8. RSA_NO_PADDING is available since SSLeay 0.9.0.
+    </para>
+  </refsection>
+</refentry>

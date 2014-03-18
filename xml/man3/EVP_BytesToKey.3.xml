@@ -1,0 +1,82 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>EVP_BytesToKey.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>EVP_BytesToKey</refname>
+<refpurpose>password based encryption routine</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis format="linespecific">int EVP_BytesToKey(const EVP_CIPHER *type,const EVP_MD *md,
+                      const unsigned char *salt,
+                      const unsigned char *data, int datal, int count,
+                      unsigned char *key,unsigned char *iv);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_BytesToKey.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      EVP_BytesToKey() derives a key and IV from various parameters.
+      <emphasis role="bold">type</emphasis> is the cipher to derive the key
+      and IV for. <emphasis role="bold">md</emphasis> is the message digest
+      to use. The <emphasis role="bold">salt</emphasis> parameter is used
+      as a salt in the derivation: it should point to an 8 byte buffer or
+      NULL if no salt is used. <emphasis role="bold">data</emphasis> is a
+      buffer containing <emphasis role="bold">datal</emphasis> bytes which
+      is used to derive the keying data. <emphasis role="bold">count</emphasis> is the iteration count to use. The
+      derived key and IV will be written to <emphasis role="bold">key</emphasis> and <emphasis role="bold">iv</emphasis>
+      respectively.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_BytesToKey.pod:NOTES"><title>NOTES</title>
+    <para>
+      A typical application of this function is to derive keying material
+      for an encryption algorithm from a password in the <emphasis role="bold">data</emphasis> parameter.
+    </para>
+    <para>
+      Increasing the <emphasis role="bold">count</emphasis> parameter slows
+      down the algorithm which makes it harder for an attacker to peform a
+      brute force attack using a large number of candidate passwords.
+    </para>
+    <para>
+      If the total key and IV length is less than the digest length and
+      <emphasis role="bold">MD5</emphasis> is used then the derivation
+      algorithm is compatible with PKCS#5 v1.5 otherwise a non standard
+      extension is used to derive the extra data.
+    </para>
+    <para>
+      Newer applications should use more standard algorithms such as PBKDF2
+      as defined in PKCS#5v2.1 for key derivation.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_BytesToKey.pod:KEY_DERIVATION_ALGORITHM"><title>KEY DERIVATION ALGORITHM</title>
+    <para>
+      The key and IV is derived by concatenating D_1, D_2, etc until enough
+      data is available for the key and IV. D_i is defined as:
+    </para>
+    <screen>D_i = HASH^count(D_(i-1) || data || salt)</screen>
+    <para>
+      where || denotes concatentaion, D_0 is empty, HASH is the digest
+      algorithm in use, HASH^1(data) is simply HASH(data), HASH^2(data) is
+      HASH(HASH(data)) and so on.
+    </para>
+    <para>
+      The initial bytes are used for the key and the subsequent bytes for
+      the IV.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_BytesToKey.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      EVP_BytesToKey() returns the size of the derived key in bytes, or 0
+      on error.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_BytesToKey.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      evp(3), rand(3), EVP_EncryptInit(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_BytesToKey.pod:HISTORY"><title>HISTORY</title>
+    <para/>
+  </refsection>
+</refentry>

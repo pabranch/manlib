@@ -1,0 +1,76 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_get_ex_data_X509_STORE_CTX_idx.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_get_ex_data_X509_STORE_CTX_idx</refname>
+<refpurpose>get ex_data index to access SSL structure
+from X509_STORE_CTX</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">int SSL_get_ex_data_X509_STORE_CTX_idx(void);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_ex_data_X509_STORE_CTX_idx.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_get_ex_data_X509_STORE_CTX_idx() returns the index number under
+      which the pointer to the SSL object is stored into the X509_STORE_CTX
+      object.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_ex_data_X509_STORE_CTX_idx.pod:NOTES"><title>NOTES</title>
+    <para>
+      Whenever a X509_STORE_CTX object is created for the verification of
+      the peers certificate during a handshake, a pointer to the SSL object
+      is stored into the X509_STORE_CTX object to identify the connection
+      affected. To retrieve this pointer the X509_STORE_CTX_get_ex_data()
+      function can be used with the correct index. This index is globally
+      the same for all X509_STORE_CTX objects and can be retrieved using
+      SSL_get_ex_data_X509_STORE_CTX_idx(). The index value is set when
+      SSL_get_ex_data_X509_STORE_CTX_idx() is first called either by the
+      application program directly or indirectly during other SSL setup
+      functions or during the handshake.
+    </para>
+    <para>
+      The value depends on other index values defined for X509_STORE_CTX
+      objects before the SSL index is created.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_ex_data_X509_STORE_CTX_idx.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_ex_data_X509_STORE_CTX_idx.pod:gt0"/>&gt;=0</term>
+          <listitem>
+            <para>
+	      The index value to access the pointer.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_ex_data_X509_STORE_CTX_idx.pod:lt0"/>&lt;0</term>
+          <listitem>
+            <para>
+	      An error occurred, check the error stack for a detailed error
+	      message.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_ex_data_X509_STORE_CTX_idx.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      The index returned from SSL_get_ex_data_X509_STORE_CTX_idx() allows
+      to access the SSL object for the connection to be accessed during the
+      verify_callback() when checking the peers certificate. Please check
+      the example in SSL_CTX_set_verify(3),
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_ex_data_X509_STORE_CTX_idx.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_CTX_set_verify(3), CRYPTO_set_ex_data(3)
+    </para>
+  </refsection>
+</refentry>

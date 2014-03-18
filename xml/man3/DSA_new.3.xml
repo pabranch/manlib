@@ -1,0 +1,48 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>DSA_new.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>DSA_new, DSA_free</refname>
+<refpurpose>allocate and free DSA objects</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/dsa.h&gt;</synopsis>
+<synopsis format="linespecific">DSA* DSA_new(void);</synopsis>
+<synopsis format="linespecific">void DSA_free(DSA *dsa);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.DSA_new.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      DSA_new() allocates and initializes a <emphasis role="bold">DSA</emphasis> structure. It is equivalent to calling
+      DSA_new_method(NULL).
+    </para>
+    <para>
+      DSA_free() frees the <emphasis role="bold">DSA</emphasis> structure
+      and its components. The values are erased before the memory is
+      returned to the system.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.DSA_new.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      If the allocation fails, DSA_new() returns <emphasis role="bold">NULL</emphasis> and sets an error code that can be
+      obtained by ERR_get_error(3). Otherwise it returns a pointer to the
+      newly allocated structure.
+    </para>
+    <para>
+      DSA_free() returns no value.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.DSA_new.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      dsa(3), ERR_get_error(3), DSA_generate_parameters(3),
+      DSA_generate_key(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.DSA_new.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      DSA_new() and DSA_free() are available in all versions of SSLeay and
+      OpenSSL.
+    </para>
+  </refsection>
+</refentry>

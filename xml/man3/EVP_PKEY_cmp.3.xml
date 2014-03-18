@@ -1,0 +1,71 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>EVP_PKEY_cmp.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>EVP_PKEY_copy_parameters, EVP_PKEY_missing_parameters, EVP_PKEY_cmp_parameters, EVP_PKEY_cmp</refname>
+<refpurpose>public key parameter and comparison functions</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis format="linespecific">int EVP_PKEY_missing_parameters(const EVP_PKEY *pkey);
+int EVP_PKEY_copy_parameters(EVP_PKEY *to, const EVP_PKEY *from);</synopsis>
+<synopsis format="linespecific">int EVP_PKEY_cmp_parameters(const EVP_PKEY *a, const EVP_PKEY *b);
+int EVP_PKEY_cmp(const EVP_PKEY *a, const EVP_PKEY *b);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_cmp.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The function EVP_PKEY_missing_parameters() returns 1 if the public
+      key parameters of <emphasis role="bold">pkey</emphasis> are missing
+      and 0 if they are present or the algorithm doesn't use parameters.
+    </para>
+    <para>
+      The function EVP_PKEY_copy_parameters() copies the parameters from
+      key <emphasis role="bold">from</emphasis> to key <emphasis role="bold">to</emphasis>.
+    </para>
+    <para>
+      The function EVP_PKEY_cmp_parameters() compares the parameters of
+      keys <emphasis role="bold">a</emphasis> and <emphasis role="bold">b</emphasis>.
+    </para>
+    <para>
+      The function EVP_PKEY_cmp() compares the public key components and
+      paramters (if present) of keys <emphasis role="bold">a</emphasis> and
+      <emphasis role="bold">b</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_cmp.pod:NOTES"><title>NOTES</title>
+    <para>
+      The main purpose of the functions EVP_PKEY_missing_parameters() and
+      EVP_PKEY_copy_parameters() is to handle public keys in certificates
+      where the parameters are sometimes omitted from a public key if they
+      are inherited from the CA that signed it.
+    </para>
+    <para>
+      Since OpenSSL private keys contain public key components too the
+      function EVP_PKEY_cmp() can also be used to determine if a private
+      key matches a public key.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_cmp.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      The function EVP_PKEY_missing_parameters() returns 1 if the public
+      key parameters of <emphasis role="bold">pkey</emphasis> are missing
+      and 0 if they are present or the algorithm doesn't use parameters.
+    </para>
+    <para>
+      These functions EVP_PKEY_copy_parameters() returns 1 for success and
+      0 for failure.
+    </para>
+    <para>
+      The function EVP_PKEY_cmp_parameters() and EVP_PKEY_cmp() return 1 if
+      the keys match, 0 if they don't match, -1 if the key types are
+      different and -2 if the operation is not supported.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_cmp.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      EVP_PKEY_CTX_new(3), EVP_PKEY_keygen(3)
+    </para>
+  </refsection>
+</refentry>

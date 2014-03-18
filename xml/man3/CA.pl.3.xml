@@ -1,0 +1,247 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>CA.pl.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>CA.pl</refname>
+<refpurpose>friendlier interface for OpenSSL certificate programs</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific"><emphasis role="bold">CA.pl</emphasis>
+[<emphasis role="bold">-?</emphasis>]
+[<emphasis role="bold">-h</emphasis>]
+[<emphasis role="bold">-help</emphasis>]
+[<emphasis role="bold">-newcert</emphasis>]
+[<emphasis role="bold">-newreq</emphasis>]
+[<emphasis role="bold">-newreq-nodes</emphasis>]
+[<emphasis role="bold">-newca</emphasis>]
+[<emphasis role="bold">-xsign</emphasis>]
+[<emphasis role="bold">-sign</emphasis>]
+[<emphasis role="bold">-signreq</emphasis>]
+[<emphasis role="bold">-signcert</emphasis>]
+[<emphasis role="bold">-verify</emphasis>]
+[<emphasis role="bold">files</emphasis>]</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.apps.CA.pl.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The <emphasis role="bold">CA.pl</emphasis> script is a perl script
+      that supplies the relevant command line arguments to the <emphasis role="bold">openssl</emphasis> command for some common certificate
+      operations. It is intended to simplify the process of certificate
+      creation and management by the use of some simple options.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.CA.pl.pod:COMMAND_OPTIONS"><title>COMMAND OPTIONS</title>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.CA.pl.pod:_-h_-help"/><emphasis role="bold">?</emphasis>, <emphasis role="bold">-h</emphasis>, <emphasis role="bold">-help</emphasis></term>
+          <listitem>
+            <para>
+	      prints a usage message.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.CA.pl.pod:-newcert"/><emphasis role="bold">-newcert</emphasis></term>
+          <listitem>
+            <para>
+	      creates a new self signed certificate. The private key is
+	      written to the file "newkey.pem" and the request written to
+	      the file "newreq.pem".
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.CA.pl.pod:-newreq"/><emphasis role="bold">-newreq</emphasis></term>
+          <listitem>
+            <para>
+	      creates a new certificate request. The private key is written
+	      to the file "newkey.pem" and the request written to the file
+	      "newreq.pem".
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.CA.pl.pod:-newreq-nodes"/><emphasis role="bold">-newreq-nodes</emphasis></term>
+          <listitem>
+            <para>
+	      is like <emphasis role="bold">-newreq</emphasis> except that
+	      the private key will not be encrypted.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.CA.pl.pod:-newca"/><emphasis role="bold">-newca</emphasis></term>
+          <listitem>
+            <para>
+	      creates a new CA hierarchy for use with the <emphasis role="bold">ca</emphasis> program (or the <emphasis role="bold">-signcert</emphasis> and <emphasis role="bold">-xsign</emphasis> options). The user is prompted
+	      to enter the filename of the CA certificates (which should
+	      also contain the private key) or by hitting ENTER details of
+	      the CA will be prompted for. The relevant files and
+	      directories are created in a directory called "demoCA" in the
+	      current directory.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.CA.pl.pod:-pkcs12"/><emphasis role="bold">-pkcs12</emphasis></term>
+          <listitem>
+            <para>
+	      create a PKCS#12 file containing the user certificate,
+	      private key and CA certificate. It expects the user
+	      certificate and private key to be in the file "newcert.pem"
+	      and the CA certificate to be in the file demoCA/cacert.pem,
+	      it creates a file "newcert.p12". This command can thus be
+	      called after the <emphasis role="bold">-sign</emphasis>
+	      option. The PKCS#12 file can be imported directly into a
+	      browser. If there is an additional argument on the command
+	      line it will be used as the "friendly name" for the
+	      certificate (which is typically displayed in the browser list
+	      box), otherwise the name "My Certificate" is used.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.CA.pl.pod:-sign_-signreq_-xsign"/><emphasis role="bold">-sign</emphasis>, <emphasis role="bold">-signreq</emphasis>, <emphasis role="bold">-xsign</emphasis></term>
+          <listitem>
+            <para>
+	      calls the <emphasis role="bold">ca</emphasis> program to sign
+	      a certificate request. It expects the request to be in the
+	      file "newreq.pem". The new certificate is written to the file
+	      "newcert.pem" except in the case of the <emphasis role="bold">-xsign</emphasis> option when it is written to
+	      standard output.
+            </para>
+            <screen></screen>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.CA.pl.pod:-signCA"/><emphasis role="bold">-signCA</emphasis></term>
+          <listitem>
+            <para>
+	      this option is the same as the <emphasis role="bold">-signreq</emphasis> option except it uses the
+	      configuration file section <emphasis role="bold">v3_ca</emphasis> and so makes the signed request
+	      a valid CA certificate. This is useful when creating
+	      intermediate CA from a root CA.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.CA.pl.pod:-signcert"/><emphasis role="bold">-signcert</emphasis></term>
+          <listitem>
+            <para>
+	      this option is the same as <emphasis role="bold">-sign</emphasis> except it expects a self signed
+	      certificate to be present in the file "newreq.pem".
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.CA.pl.pod:-verify"/><emphasis role="bold">-verify</emphasis></term>
+          <listitem>
+            <para>
+	      verifies certificates against the CA certificate for
+	      "demoCA". If no certificates are specified on the command
+	      line it tries to verify the file "newcert.pem".
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.CA.pl.pod:files"/><emphasis role="bold">files</emphasis></term>
+          <listitem>
+            <para>
+	      one or more optional certificate file names for use with the
+	      <emphasis role="bold">-verify</emphasis> command.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.CA.pl.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      Create a CA hierarchy:
+    </para>
+    <screen>CA.pl -newca</screen>
+    <para>
+      Complete certificate creation example: create a CA, create a request,
+      sign the request and finally create a PKCS#12 file containing it.
+    </para>
+    <screen>CA.pl -newca
+CA.pl -newreq
+CA.pl -signreq
+CA.pl -pkcs12 "My Test Certificate"</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.CA.pl.pod:DSA_CERTIFICATES"><title>DSA CERTIFICATES</title>
+    <para>
+      Although the <emphasis role="bold">CA.pl</emphasis> creates RSA CAs
+      and requests it is still possible to use it with DSA certificates and
+      requests using the req(1) command directly. The following example
+      shows the steps that would typically be taken.
+    </para>
+    <para>
+      Create some DSA parameters:
+    </para>
+    <screen>openssl dsaparam -out dsap.pem 1024</screen>
+    <para>
+      Create a DSA CA certificate and private key:
+    </para>
+    <screen>openssl req -x509 -newkey dsa:dsap.pem -keyout cacert.pem -out cacert.pem</screen>
+    <para>
+      Create the CA directories and files:
+    </para>
+    <screen>CA.pl -newca</screen>
+    <para>
+      enter cacert.pem when prompted for the CA file name.
+    </para>
+    <para>
+      Create a DSA certificate request and private key (a different set of
+      parameters can optionally be created first):
+    </para>
+    <screen>openssl req -out newreq.pem -newkey dsa:dsap.pem</screen>
+    <para>
+      Sign the request:
+    </para>
+    <screen>CA.pl -signreq</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.CA.pl.pod:NOTES"><title>NOTES</title>
+    <para>
+      Most of the filenames mentioned can be modified by editing the
+      <emphasis role="bold">CA.pl</emphasis> script.
+    </para>
+    <para>
+      If the demoCA directory already exists then the <emphasis role="bold">-newca</emphasis> command will not overwrite it and will
+      do nothing. This can happen if a previous call using the <emphasis role="bold">-newca</emphasis> option terminated abnormally. To get
+      the correct behaviour delete the demoCA directory if it already
+      exists.
+    </para>
+    <para>
+      Under some environments it may not be possible to run the <emphasis role="bold">CA.pl</emphasis> script directly (for example Win32) and
+      the default configuration file location may be wrong. In this case
+      the command:
+    </para>
+    <screen>perl -S CA.pl</screen>
+    <para>
+      can be used and the <emphasis role="bold">OPENSSL_CONF</emphasis>
+      environment variable changed to point to the correct path of the
+      configuration file "openssl.cnf". 
+    </para>
+    <para>
+      The script is intended as a simple front end for the <emphasis role="bold">openssl</emphasis> program for use by a beginner. Its
+      behaviour isn't always what is wanted. For more control over the
+      behaviour of the certificate commands call the <emphasis role="bold">openssl</emphasis> command directly.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.CA.pl.pod:ENVIRONMENT_VARIABLES"><title>ENVIRONMENT VARIABLES</title>
+    <para>
+      The variable <emphasis role="bold">OPENSSL_CONF</emphasis> if defined
+      allows an alternative configuration file location to be specified, it
+      should contain the full path to the configuration file, not just its
+      directory.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.CA.pl.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      x509(1), ca(1), req(1), pkcs12(1), config(5)
+    </para>
+  </refsection>
+</refentry>

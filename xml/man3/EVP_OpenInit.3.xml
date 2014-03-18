@@ -1,0 +1,72 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>EVP_OpenInit.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>EVP_OpenInit, EVP_OpenUpdate, EVP_OpenFinal</refname>
+<refpurpose>EVP envelope decryption</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis format="linespecific">int EVP_OpenInit(EVP_CIPHER_CTX *ctx,EVP_CIPHER *type,unsigned char *ek,
+               int ekl,unsigned char *iv,EVP_PKEY *priv);
+int EVP_OpenUpdate(EVP_CIPHER_CTX *ctx, unsigned char *out,
+        int *outl, unsigned char *in, int inl);
+int EVP_OpenFinal(EVP_CIPHER_CTX *ctx, unsigned char *out,
+        int *outl);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_OpenInit.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The EVP envelope routines are a high level interface to envelope
+      decryption. They decrypt a public key encrypted symmetric key and
+      then decrypt data using it.
+    </para>
+    <para>
+      EVP_OpenInit() initializes a cipher context <emphasis role="bold">ctx</emphasis> for decryption with cipher <emphasis role="bold">type</emphasis>. It decrypts the encrypted symmetric key
+      of length <emphasis role="bold">ekl</emphasis> bytes passed in the
+      <emphasis role="bold">ek</emphasis> parameter using the private key
+      <emphasis role="bold">priv</emphasis>. The IV is supplied in the
+      <emphasis role="bold">iv</emphasis> parameter.
+    </para>
+    <para>
+      EVP_OpenUpdate() and EVP_OpenFinal() have exactly the same properties
+      as the EVP_DecryptUpdate() and EVP_DecryptFinal() routines, as
+      documented on the EVP_EncryptInit(3) manual page. 
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_OpenInit.pod:NOTES"><title>NOTES</title>
+    <para>
+      It is possible to call EVP_OpenInit() twice in the same way as
+      EVP_DecryptInit(). The first call should have <emphasis role="bold">priv</emphasis> set to NULL and (after setting any cipher
+      parameters) it should be called again with <emphasis role="bold">type</emphasis> set to NULL.
+    </para>
+    <para>
+      If the cipher passed in the <emphasis role="bold">type</emphasis>
+      parameter is a variable length cipher then the key length will be set
+      to the value of the recovered key length. If the cipher is a fixed
+      length cipher then the recovered key length must match the fixed
+      cipher length.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_OpenInit.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      EVP_OpenInit() returns 0 on error or a non zero integer (actually the
+      recovered secret key size) if successful.
+    </para>
+    <para>
+      EVP_OpenUpdate() returns 1 for success or 0 for failure.
+    </para>
+    <para>
+      EVP_OpenFinal() returns 0 if the decrypt failed or 1 for success.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_OpenInit.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      evp(3), rand(3), EVP_EncryptInit(3), EVP_SealInit(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_OpenInit.pod:HISTORY"><title>HISTORY</title>
+    <para/>
+  </refsection>
+</refentry>

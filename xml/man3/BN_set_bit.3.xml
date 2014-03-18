@@ -1,0 +1,83 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>BN_set_bit.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>BN_set_bit, BN_clear_bit, BN_is_bit_set, BN_mask_bits, BN_lshift,
+BN_lshift1, BN_rshift, BN_rshift1</refname>
+<refpurpose>bit operations on BIGNUMs</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis format="linespecific">int BN_set_bit(BIGNUM *a, int n);
+int BN_clear_bit(BIGNUM *a, int n);</synopsis>
+<synopsis format="linespecific">int BN_is_bit_set(const BIGNUM *a, int n);</synopsis>
+<synopsis format="linespecific">int BN_mask_bits(BIGNUM *a, int n);</synopsis>
+<synopsis format="linespecific">int BN_lshift(BIGNUM *r, const BIGNUM *a, int n);
+int BN_lshift1(BIGNUM *r, BIGNUM *a);</synopsis>
+<synopsis format="linespecific">int BN_rshift(BIGNUM *r, BIGNUM *a, int n);
+int BN_rshift1(BIGNUM *r, BIGNUM *a);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_set_bit.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      BN_set_bit() sets bit <emphasis role="bold">n</emphasis> in <emphasis role="bold">a</emphasis> to 1 (<literal role="code">a|=(1&amp;lt;&amp;lt;n)</literal>). The number is
+      expanded if necessary.
+    </para>
+    <para>
+      BN_clear_bit() sets bit <emphasis role="bold">n</emphasis> in
+      <emphasis role="bold">a</emphasis> to 0 (<literal role="code">a&amp;amp;=~(1&amp;lt;&amp;lt;n)</literal>). An error
+      occurs if <emphasis role="bold">a</emphasis> is shorter than
+      <emphasis role="bold">n</emphasis> bits.
+    </para>
+    <para>
+      BN_is_bit_set() tests if bit <emphasis role="bold">n</emphasis> in
+      <emphasis role="bold">a</emphasis> is set.
+    </para>
+    <para>
+      BN_mask_bits() truncates <emphasis role="bold">a</emphasis> to an
+      <emphasis role="bold">n</emphasis> bit number (<literal role="code">a&amp;amp;=~((~0)&amp;gt;&amp;gt;n)</literal>).  An error
+      occurs if <emphasis role="bold">a</emphasis> already is shorter than
+      <emphasis role="bold">n</emphasis> bits.
+    </para>
+    <para>
+      BN_lshift() shifts <emphasis role="bold">a</emphasis> left by
+      <emphasis role="bold">n</emphasis> bits and places the result in
+      <emphasis role="bold">r</emphasis> (<literal role="code">r=a*2^n</literal>). BN_lshift1() shifts
+      <emphasis role="bold">a</emphasis> left by one and places the result
+      in <emphasis role="bold">r</emphasis> (<literal role="code">r=2*a</literal>).
+    </para>
+    <para>
+      BN_rshift() shifts <emphasis role="bold">a</emphasis> right by
+      <emphasis role="bold">n</emphasis> bits and places the result in
+      <emphasis role="bold">r</emphasis> (<literal role="code">r=a/2^n</literal>). BN_rshift1() shifts
+      <emphasis role="bold">a</emphasis> right by one and places the result
+      in <emphasis role="bold">r</emphasis> (<literal role="code">r=a/2</literal>).
+    </para>
+    <para>
+      For the shift functions, <emphasis role="bold">r</emphasis> and
+      <emphasis role="bold">a</emphasis> may be the same variable.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_set_bit.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      BN_is_bit_set() returns 1 if the bit is set, 0 otherwise.
+    </para>
+    <para>
+      All other functions return 1 for success, 0 on error. The error codes
+      can be obtained by ERR_get_error(3).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_set_bit.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      bn(3), BN_num_bytes(3), BN_add(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_set_bit.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      BN_set_bit(), BN_clear_bit(), BN_is_bit_set(), BN_mask_bits(),
+      BN_lshift(), BN_lshift1(), BN_rshift(), and BN_rshift1() are
+      available in all versions of SSLeay and OpenSSL.
+    </para>
+  </refsection>
+</refentry>

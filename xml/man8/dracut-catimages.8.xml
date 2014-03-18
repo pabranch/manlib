@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry lang="en">
+<refentryinfo>
+    <title>DRACUT-CATIMAGES(8)</title>
+</refentryinfo>
+<refmeta>
+<refentrytitle>dracut-catimages</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo class="source">dracut</refmiscinfo>
+<refmiscinfo class="manual">dracut</refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>dracut-catimages</refname>
+    <refpurpose>creates initial ramdisk image by concatenating images</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis role="strong">dracut-catimages</emphasis> [<emphasis>OPTION</emphasis>&#8230;] <emphasis>&lt;initramfs base image&gt;</emphasis> [<emphasis>&lt;image&gt;</emphasis>&#8230;]</simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>dracut-catimages creates an initial ramdisk image by concatenating several
+images from the command line and /boot/dracut/*.img</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">-f, --force</emphasis>
+</term>
+<listitem>
+<simpara>
+    overwrite existing initramfs file.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-i, --imagedir</emphasis>
+</term>
+<listitem>
+<simpara>
+    Directory with additional images to add (default: /boot/dracut/)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-o, --overlaydir</emphasis>
+</term>
+<listitem>
+<simpara>
+    Overlay directory, which contains additional files that will be used to
+    create an additional image
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--nooverlay</emphasis>
+</term>
+<listitem>
+<simpara>
+Do not use the overlay directory
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--noimagedir</emphasis>
+</term>
+<listitem>
+<simpara>
+Do not use the additional image directory
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-h, --help</emphasis>
+</term>
+<listitem>
+<simpara>
+display help text and exit.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--debug</emphasis>
+</term>
+<listitem>
+<simpara>
+output debug information of the build process
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-v, --verbose</emphasis>
+</term>
+<listitem>
+<simpara>
+verbose output during the build process
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_files">
+<title>FILES</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis>/boot/dracut/*.img</emphasis>
+</term>
+<listitem>
+<simpara>
+    images to work with
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_authors">
+<title>AUTHORS</title>
+<simpara>Harald Hoyer</simpara>
+</refsect1>
+<refsect1 id="_availability">
+<title>AVAILABILITY</title>
+<simpara>The dracut-catimages command is part of the dracut package and is available from
+<ulink url="https://dracut.wiki.kernel.org">https://dracut.wiki.kernel.org</ulink></simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><emphasis role="strong">dracut</emphasis>(8)</simpara>
+</refsect1>
+</refentry>

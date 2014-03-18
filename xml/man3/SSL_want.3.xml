@@ -1,0 +1,101 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_want.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_want, SSL_want_nothing, SSL_want_read, SSL_want_write, SSL_want_x509_lookup</refname>
+<refpurpose>obtain state information TLS/SSL I/O operation</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">int SSL_want(const SSL *ssl);
+int SSL_want_nothing(const SSL *ssl);
+int SSL_want_read(const SSL *ssl);
+int SSL_want_write(const SSL *ssl);
+int SSL_want_x509_lookup(const SSL *ssl);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_want.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_want() returns state information for the SSL object <emphasis role="bold">ssl</emphasis>.
+    </para>
+    <para>
+      The other SSL_want_*() calls are shortcuts for the possible states
+      returned by SSL_want().
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_want.pod:NOTES"><title>NOTES</title>
+    <para>
+      SSL_want() examines the internal state information of the SSL object.
+      Its return values are similar to that of SSL_get_error(3). Unlike
+      SSL_get_error(3), which also evaluates the error queue, the results
+      are obtained by examining an internal state flag only. The
+      information must therefore only be used for normal operation under
+      non-blocking I/O. Error conditions are not handled and must be
+      treated using SSL_get_error(3).
+    </para>
+    <para>
+      The result returned by SSL_want() should always be consistent with
+      the result of SSL_get_error(3).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_want.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      The following return values can currently occur for SSL_want():
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_want.pod:SSL_NOTHING"/>SSL_NOTHING</term>
+          <listitem>
+            <para>
+	      There is no data to be written or to be read.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_want.pod:SSL_WRITING"/>SSL_WRITING</term>
+          <listitem>
+            <para>
+	      There are data in the SSL buffer that must be written to the
+	      underlying <emphasis role="bold">BIO</emphasis> layer in
+	      order to complete the actual SSL_*() operation. A call to
+	      SSL_get_error(3) should return SSL_ERROR_WANT_WRITE.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_want.pod:SSL_READING"/>SSL_READING</term>
+          <listitem>
+            <para>
+	      More data must be read from the underlying <emphasis role="bold">BIO</emphasis> layer in order to complete the
+	      actual SSL_*() operation. A call to SSL_get_error(3) should
+	      return SSL_ERROR_WANT_READ.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_want.pod:SSL_X509_LOOKUP"/>SSL_X509_LOOKUP</term>
+          <listitem>
+            <para>
+	      The operation did not complete because an application
+	      callback set by SSL_CTX_set_client_cert_cb() has asked to be
+	      called again. A call to SSL_get_error(3) should return
+	      SSL_ERROR_WANT_X509_LOOKUP.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+    <para>
+      SSL_want_nothing(), SSL_want_read(), SSL_want_write(),
+      SSL_want_x509_lookup() return 1, when the corresponding condition is
+      true or 0 otherwise.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_want.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), err(3), SSL_get_error(3)
+    </para>
+  </refsection>
+</refentry>

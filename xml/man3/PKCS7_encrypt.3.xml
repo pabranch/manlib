@@ -1,0 +1,103 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>PKCS7_encrypt.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>PKCS7_encrypt</refname>
+<refpurpose>create a PKCS#7 envelopedData structure</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/pkcs7.h&gt;</synopsis>
+<synopsis format="linespecific">PKCS7 *PKCS7_encrypt(STACK_OF(X509) *certs, BIO *in, const EVP_CIPHER *cipher, int flags);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_encrypt.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      PKCS7_encrypt() creates and returns a PKCS#7 envelopedData structure.
+      <emphasis role="bold">certs</emphasis> is a list of recipient
+      certificates. <emphasis role="bold">in</emphasis> is the content to
+      be encrypted. <emphasis role="bold">cipher</emphasis> is the
+      symmetric cipher to use. <emphasis role="bold">flags</emphasis> is an
+      optional set of flags.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_encrypt.pod:NOTES"><title>NOTES</title>
+    <para>
+      Only RSA keys are supported in PKCS#7 and envelopedData so the
+      recipient certificates supplied to this function must all contain RSA
+      public keys, though they do not have to be signed using the RSA
+      algorithm.
+    </para>
+    <para>
+      EVP_des_ede3_cbc() (triple DES) is the algorithm of choice for S/MIME
+      use because most clients will support it.
+    </para>
+    <para>
+      Some old "export grade" clients may only support weak encryption
+      using 40 or 64 bit RC2. These can be used by passing EVP_rc2_40_cbc()
+      and EVP_rc2_64_cbc() respectively.
+    </para>
+    <para>
+      The algorithm passed in the <emphasis role="bold">cipher</emphasis>
+      parameter must support ASN1 encoding of its parameters.
+    </para>
+    <para>
+      Many browsers implement a "sign and encrypt" option which is simply
+      an S/MIME envelopedData containing an S/MIME signed message. This can
+      be readily produced by storing the S/MIME signed message in a memory
+      BIO and passing it to PKCS7_encrypt().
+    </para>
+    <para>
+      The following flags can be passed in the <emphasis role="bold">flags</emphasis> parameter.
+    </para>
+    <para>
+      If the <emphasis role="bold">PKCS7_TEXT</emphasis> flag is set MIME
+      headers for type <emphasis role="bold">text/plain</emphasis> are
+      prepended to the data.
+    </para>
+    <para>
+      Normally the supplied content is translated into MIME canonical
+      format (as required by the S/MIME specifications) if <emphasis role="bold">PKCS7_BINARY</emphasis> is set no translation occurs.
+      This option should be used if the supplied data is in binary format
+      otherwise the translation will corrupt it. If <emphasis role="bold">PKCS7_BINARY</emphasis> is set then <emphasis role="bold">PKCS7_TEXT</emphasis> is ignored.
+    </para>
+    <para>
+      If the <emphasis role="bold">PKCS7_STREAM</emphasis> flag is set a
+      partial <emphasis role="bold">PKCS7</emphasis> structure is output
+      suitable for streaming I/O: no data is read from the BIO <emphasis role="bold">in</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_encrypt.pod:NOTES_i1"><title>NOTES</title>
+    <para>
+      If the flag <emphasis role="bold">PKCS7_STREAM</emphasis> is set the
+      returned <emphasis role="bold">PKCS7</emphasis> structure is
+      <emphasis role="bold">not</emphasis> complete and outputting its
+      contents via a function that does not properly finalize the <emphasis role="bold">PKCS7</emphasis> structure will give unpredictable
+      results. 
+    </para>
+    <para>
+      Several functions including SMIME_write_PKCS7(),
+      i2d_PKCS7_bio_stream(), PEM_write_bio_PKCS7_stream() finalize the
+      structure. Alternatively finalization can be performed by obtaining
+      the streaming ASN1 <emphasis role="bold">BIO</emphasis> directly
+      using BIO_new_PKCS7().
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_encrypt.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      PKCS7_encrypt() returns either a PKCS7 structure or NULL if an error
+      occurred. The error can be obtained from ERR_get_error(3).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_encrypt.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ERR_get_error(3), PKCS7_decrypt(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_encrypt.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      PKCS7_decrypt() was added to OpenSSL 0.9.5 The <emphasis role="bold">PKCS7_STREAM</emphasis> flag was first supported in
+      OpenSSL 1.0.0.
+    </para>
+  </refsection>
+</refentry>

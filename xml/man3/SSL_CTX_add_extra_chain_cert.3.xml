@@ -1,0 +1,56 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_add_extra_chain_cert.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_add_extra_chain_cert</refname>
+<refpurpose>add certificate to chain</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">long SSL_CTX_add_extra_chain_cert(SSL_CTX ctx, X509 *x509)</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add_extra_chain_cert.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_CTX_add_extra_chain_cert() adds the certificate <emphasis role="bold">x509</emphasis> to the certificate chain presented
+      together with the certificate. Several certificates can be added one
+      after the other.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add_extra_chain_cert.pod:NOTES"><title>NOTES</title>
+    <para>
+      When constructing the certificate chain, the chain will be formed
+      from these certificates explicitly specified. If no chain is
+      specified, the library will try to complete the chain from the
+      available CA certificates in the trusted CA storage, see
+      SSL_CTX_load_verify_locations(3).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add_extra_chain_cert.pod:RESTRICTIONS"><title>RESTRICTIONS</title>
+    <para>
+      Only one set of extra chain certificates can be specified per SSL_CTX
+      structure. Different chains for different certificates (for example
+      if both RSA and DSA certificates are specified by the same server) or
+      different SSL structures with the same parent SSL_CTX cannot be
+      specified using this function. For more flexibility functions such as
+      SSL_add1_chain_cert() should be used instead.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add_extra_chain_cert.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      SSL_CTX_add_extra_chain_cert() returns 1 on success. Check out the
+      error stack to find out the reason for failure otherwise.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add_extra_chain_cert.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_CTX_use_certificate(3), SSL_CTX_set_client_cert_cb(3),
+      SSL_CTX_load_verify_locations(3) SSL_CTX_set0_chain(3)
+      SSL_CTX_set1_chain(3) SSL_CTX_add0_chain_cert(3)
+      SSL_CTX_add1_chain_cert(3) SSL_set0_chain(3) SSL_set1_chain(3)
+      SSL_add0_chain_cert(3) SSL_add1_chain_cert(3)
+      SSL_CTX_build_cert_chain(3) SSL_build_cert_chain(3)
+    </para>
+  </refsection>
+</refentry>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry lang="en">
+<refentryinfo>
+    <title>LSINITRD(1)</title>
+</refentryinfo>
+<refmeta>
+<refentrytitle>lsinitrd</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">dracut</refmiscinfo>
+<refmiscinfo class="manual">dracut</refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>lsinitrd</refname>
+    <refpurpose>tool to show the contents of an initramfs image</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis role="strong">lsinitrd</emphasis> [<emphasis>OPTION&#8230;</emphasis>] [&lt;image&gt; [&lt;filename&gt; [&lt;filename&gt; [&#8230;] ]]]</simpara>
+<simpara><emphasis role="strong">lsinitrd</emphasis> [<emphasis>OPTION&#8230;</emphasis>] -k &lt;kernel-version&gt;</simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>lsinitrd shows the contents of an initramfs image. if &lt;image&gt; is omitted, then
+lsinitrd uses the default image <emphasis>/boot/&lt;machine-id&gt;/&lt;kernel-version&gt;/initrd</emphasis> or
+<emphasis>/boot/initramfs-&lt;kernel-version&gt;.img</emphasis>.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">-h, --help</emphasis>
+</term>
+<listitem>
+<simpara>
+    print a help message and exit.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-s, --size</emphasis>
+</term>
+<listitem>
+<simpara>
+    sort the contents of the initramfs by size.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-f, --file</emphasis> <emphasis>&lt;filename&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    print the contents of &lt;filename&gt;.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-k, --kver</emphasis> <emphasis>&lt;kernel version&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    inspect the initramfs of &lt;kernel version&gt;.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_availability">
+<title>AVAILABILITY</title>
+<simpara>The lsinitrd command is part of the dracut package and is available from
+<ulink url="https://dracut.wiki.kernel.org">https://dracut.wiki.kernel.org</ulink></simpara>
+</refsect1>
+<refsect1 id="_authors">
+<title>AUTHORS</title>
+<simpara>Harald Hoyer</simpara>
+<simpara>Amerigo Wang</simpara>
+<simpara>Nikoli</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><emphasis role="strong">dracut</emphasis>(8)</simpara>
+</refsect1>
+</refentry>

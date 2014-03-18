@@ -1,0 +1,123 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>X509_NAME_get_index_by_NID.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>X509_NAME_get_index_by_NID, X509_NAME_get_index_by_OBJ, X509_NAME_get_entry,
+X509_NAME_entry_count, X509_NAME_get_text_by_NID, X509_NAME_get_text_by_OBJ</refname>
+<refpurpose>X509_NAME lookup and enumeration functions</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/x509.h&gt;</synopsis>
+<synopsis format="linespecific">int X509_NAME_get_index_by_NID(X509_NAME *name,int nid,int lastpos);
+int X509_NAME_get_index_by_OBJ(X509_NAME *name,ASN1_OBJECT *obj, int lastpos);</synopsis>
+<synopsis format="linespecific">int X509_NAME_entry_count(X509_NAME *name);
+X509_NAME_ENTRY *X509_NAME_get_entry(X509_NAME *name, int loc);</synopsis>
+<synopsis format="linespecific">int X509_NAME_get_text_by_NID(X509_NAME *name, int nid, char *buf,int len);
+int X509_NAME_get_text_by_OBJ(X509_NAME *name, ASN1_OBJECT *obj, char *buf,int len);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_get_index_by_NID.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      These functions allow an <emphasis role="bold">X509_NAME</emphasis>
+      structure to be examined. The <emphasis role="bold">X509_NAME</emphasis> structure is the same as the
+      <emphasis role="bold">Name</emphasis> type defined in RFC2459 (and
+      elsewhere) and used for example in certificate subject and issuer
+      names.
+    </para>
+    <para>
+      X509_NAME_get_index_by_NID() and X509_NAME_get_index_by_OBJ()
+      retrieve the next index matching <emphasis role="bold">nid</emphasis>
+      or <emphasis role="bold">obj</emphasis> after <emphasis role="bold">lastpos</emphasis>. <emphasis role="bold">lastpos</emphasis> should initially be set to -1. If
+      there are no more entries -1 is returned.
+    </para>
+    <para>
+      X509_NAME_entry_count() returns the total number of entries in
+      <emphasis role="bold">name</emphasis>.
+    </para>
+    <para>
+      X509_NAME_get_entry() retrieves the <emphasis role="bold">X509_NAME_ENTRY</emphasis> from <emphasis role="bold">name</emphasis> corresponding to index <emphasis role="bold">loc</emphasis>. Acceptable values for <emphasis role="bold">loc</emphasis> run from 0 to (X509_NAME_entry_count(name)
+      - 1). The value returned is an internal pointer which must not be
+      freed.
+    </para>
+    <para>
+      X509_NAME_get_text_by_NID(), X509_NAME_get_text_by_OBJ() retrieve the
+      "text" from the first entry in <emphasis role="bold">name</emphasis>
+      which matches <emphasis role="bold">nid</emphasis> or <emphasis role="bold">obj</emphasis>, if no such entry exists -1 is returned.
+      At most <emphasis role="bold">len</emphasis> bytes will be written
+      and the text written to <emphasis role="bold">buf</emphasis> will be
+      null terminated. The length of the output string written is returned
+      excluding the terminating null. If <emphasis role="bold">buf</emphasis> is &lt;NULL&gt; then the amount of space
+      needed in <emphasis role="bold">buf</emphasis> (excluding the final
+      null) is returned.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_get_index_by_NID.pod:NOTES"><title>NOTES</title>
+    <para>
+      X509_NAME_get_text_by_NID() and X509_NAME_get_text_by_OBJ() are
+      legacy functions which have various limitations which make them of
+      minimal use in practice. They can only find the first matching entry
+      and will copy the contents of the field verbatim: this can be highly
+      confusing if the target is a muticharacter string type like a
+      BMPString or a UTF8String.
+    </para>
+    <para>
+      For a more general solution X509_NAME_get_index_by_NID() or
+      X509_NAME_get_index_by_OBJ() should be used followed by
+      X509_NAME_get_entry() on any matching indices and then the various
+      <emphasis role="bold">X509_NAME_ENTRY</emphasis> utility functions on
+      the result.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_get_index_by_NID.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      Process all entries:
+    </para>
+    <screen>int i;
+X509_NAME_ENTRY *e;
+
+for (i = 0; i &lt; X509_NAME_entry_count(nm); i++)
+       {
+       e = X509_NAME_get_entry(nm, i);
+       /* Do something with e */
+       }</screen>
+    <para>
+      Process all commonName entries:
+    </para>
+    <screen>int loc;
+X509_NAME_ENTRY *e;
+
+loc = -1;
+for (;;)
+       {
+       lastpos = X509_NAME_get_index_by_NID(nm, NID_commonName, lastpos);
+       if (lastpos == -1)
+               break;
+       e = X509_NAME_get_entry(nm, lastpos);
+       /* Do something with e */
+       }</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_get_index_by_NID.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      X509_NAME_get_index_by_NID() and X509_NAME_get_index_by_OBJ() return
+      the index of the next matching entry or -1 if not found.
+    </para>
+    <para>
+      X509_NAME_entry_count() returns the total number of entries.
+    </para>
+    <para>
+      X509_NAME_get_entry() returns an <emphasis role="bold">X509_NAME</emphasis> pointer to the requested entry or
+      <emphasis role="bold">NULL</emphasis> if the index is invalid.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_get_index_by_NID.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ERR_get_error(3), d2i_X509_NAME(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_get_index_by_NID.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      TBA
+    </para>
+  </refsection>
+</refentry>

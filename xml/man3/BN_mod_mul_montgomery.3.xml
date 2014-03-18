@@ -1,0 +1,117 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>BN_mod_mul_montgomery.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>BN_mod_mul_montgomery, BN_MONT_CTX_new, BN_MONT_CTX_init,
+BN_MONT_CTX_free, BN_MONT_CTX_set, BN_MONT_CTX_copy,
+BN_from_montgomery, BN_to_montgomery</refname>
+<refpurpose>Montgomery multiplication</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis format="linespecific">BN_MONT_CTX *BN_MONT_CTX_new(void);
+void BN_MONT_CTX_init(BN_MONT_CTX *ctx);
+void BN_MONT_CTX_free(BN_MONT_CTX *mont);</synopsis>
+<synopsis format="linespecific">int BN_MONT_CTX_set(BN_MONT_CTX *mont, const BIGNUM *m, BN_CTX *ctx);
+BN_MONT_CTX *BN_MONT_CTX_copy(BN_MONT_CTX *to, BN_MONT_CTX *from);</synopsis>
+<synopsis format="linespecific">int BN_mod_mul_montgomery(BIGNUM *r, BIGNUM *a, BIGNUM *b,
+        BN_MONT_CTX *mont, BN_CTX *ctx);</synopsis>
+<synopsis format="linespecific">int BN_from_montgomery(BIGNUM *r, BIGNUM *a, BN_MONT_CTX *mont,
+        BN_CTX *ctx);</synopsis>
+<synopsis format="linespecific">int BN_to_montgomery(BIGNUM *r, BIGNUM *a, BN_MONT_CTX *mont,
+        BN_CTX *ctx);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_montgomery.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      These functions implement Montgomery multiplication. They are used
+      automatically when BN_mod_exp(3) is called with suitable input, but
+      they may be useful when several operations are to be performed using
+      the same modulus.
+    </para>
+    <para>
+      BN_MONT_CTX_new() allocates and initializes a <emphasis role="bold">BN_MONT_CTX</emphasis> structure. BN_MONT_CTX_init()
+      initializes an existing uninitialized <emphasis role="bold">BN_MONT_CTX</emphasis>.
+    </para>
+    <para>
+      BN_MONT_CTX_set() sets up the <emphasis role="italic">mont</emphasis>
+      structure from the modulus <emphasis role="italic">m</emphasis> by
+      precomputing its inverse and a value R.
+    </para>
+    <para>
+      BN_MONT_CTX_copy() copies the <emphasis role="bold">BN_MONT_CTX</emphasis> <emphasis role="italic">from</emphasis> to <emphasis role="italic">to</emphasis>.
+    </para>
+    <para>
+      BN_MONT_CTX_free() frees the components of the <emphasis role="bold">BN_MONT_CTX</emphasis>, and, if it was created by
+      BN_MONT_CTX_new(), also the structure itself.
+    </para>
+    <para>
+      BN_mod_mul_montgomery() computes Mont(<emphasis role="italic">a</emphasis>,<emphasis role="italic">b</emphasis>):=<emphasis role="italic">a</emphasis>*<emphasis role="italic">b</emphasis>*R^-1
+      and places the result in <emphasis role="italic">r</emphasis>.
+    </para>
+    <para>
+      BN_from_montgomery() performs the Montgomery reduction <emphasis role="italic">r</emphasis> = <emphasis role="italic">a</emphasis>*R^-1.
+    </para>
+    <para>
+      BN_to_montgomery() computes Mont(<emphasis role="italic">a</emphasis>,R^2), i.e. <emphasis role="italic">a</emphasis>*R. Note that <emphasis role="italic">a</emphasis> must be non-negative and smaller than the
+      modulus.
+    </para>
+    <para>
+      For all functions, <emphasis role="italic">ctx</emphasis> is a
+      previously allocated <emphasis role="bold">BN_CTX</emphasis> used for
+      temporary variables.
+    </para>
+    <para>
+      The <emphasis role="bold">BN_MONT_CTX</emphasis> structure is defined
+      as follows:
+    </para>
+    <screen>typedef struct bn_mont_ctx_st
+       {
+       int ri;         /* number of bits in R */
+       BIGNUM RR;      /* R^2 (used to convert to Montgomery form) */
+       BIGNUM N;       /* The modulus */
+       BIGNUM Ni;      /* R*(1/R mod N) - N*Ni = 1
+                        * (Ni is only stored for bignum algorithm) */
+       BN_ULONG n0;    /* least significant word of Ni */
+       int flags;
+       } BN_MONT_CTX;</screen>
+    <para>
+      BN_to_montgomery() is a macro.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_montgomery.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      BN_MONT_CTX_new() returns the newly allocated <emphasis role="bold">BN_MONT_CTX</emphasis>, and NULL on error.
+    </para>
+    <para>
+      BN_MONT_CTX_init() and BN_MONT_CTX_free() have no return values.
+    </para>
+    <para>
+      For the other functions, 1 is returned for success, 0 on error. The
+      error codes can be obtained by ERR_get_error(3).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_montgomery.pod:WARNING"><title>WARNING</title>
+    <para>
+      The inputs must be reduced modulo <emphasis role="bold">m</emphasis>,
+      otherwise the result will be outside the expected range.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_montgomery.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      bn(3), ERR_get_error(3), BN_add(3), BN_CTX_new(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_montgomery.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      BN_MONT_CTX_new(), BN_MONT_CTX_free(), BN_MONT_CTX_set(),
+      BN_mod_mul_montgomery(), BN_from_montgomery() and BN_to_montgomery()
+      are available in all versions of SSLeay and OpenSSL.
+    </para>
+    <para>
+      BN_MONT_CTX_init() and BN_MONT_CTX_copy() were added in SSLeay
+      0.9.1b.
+    </para>
+  </refsection>
+</refentry>

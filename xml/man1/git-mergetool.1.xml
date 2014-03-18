@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>git-mergetool</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">Git</refmiscinfo>
+<refmiscinfo class="manual">Git Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>git-mergetool</refname>
+  <refpurpose>Run merge conflict resolution tools to resolve merge conflicts</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<blockquote>
+<literallayout><emphasis>git mergetool</emphasis> [--tool=&lt;tool&gt;] [-y | --[no-]prompt] [&lt;file&gt;&#8230;]</literallayout>
+</blockquote>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>Use <literal>git mergetool</literal> to run one of several merge utilities to resolve
+merge conflicts.  It is typically run after <emphasis>git merge</emphasis>.</simpara>
+<simpara>If one or more &lt;file&gt; parameters are given, the merge tool program will
+be run to resolve differences on each file (skipping those without
+conflicts).  Specifying a directory will include all unresolved files in
+that path.  If no &lt;file&gt; names are specified, <emphasis>git mergetool</emphasis> will run
+the merge tool program on every file with merge conflicts.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-t &lt;tool&gt;
+</term>
+<term>
+--tool=&lt;tool&gt;
+</term>
+<listitem>
+<simpara>
+        Use the merge resolution program specified by &lt;tool&gt;.
+        Valid values include emerge, gvimdiff, kdiff3,
+        meld, vimdiff, and tortoisemerge. Run <literal>git mergetool --tool-help</literal>
+        for the list of valid &lt;tool&gt; settings.
+</simpara>
+<simpara>If a merge resolution program is not specified, <emphasis>git mergetool</emphasis>
+will use the configuration variable <literal>merge.tool</literal>.  If the
+configuration variable <literal>merge.tool</literal> is not set, <emphasis>git mergetool</emphasis>
+will pick a suitable default.</simpara>
+<simpara>You can explicitly provide a full path to the tool by setting the
+configuration variable <literal>mergetool.&lt;tool&gt;.path</literal>. For example, you
+can configure the absolute path to kdiff3 by setting
+<literal>mergetool.kdiff3.path</literal>. Otherwise, <emphasis>git mergetool</emphasis> assumes the
+tool is available in PATH.</simpara>
+<simpara>Instead of running one of the known merge tool programs,
+<emphasis>git mergetool</emphasis> can be customized to run an alternative program
+by specifying the command line to invoke in a configuration
+variable <literal>mergetool.&lt;tool&gt;.cmd</literal>.</simpara>
+<simpara>When <emphasis>git mergetool</emphasis> is invoked with this tool (either through the
+<literal>-t</literal> or <literal>--tool</literal> option or the <literal>merge.tool</literal> configuration
+variable) the configured command line will be invoked with <literal>$BASE</literal>
+set to the name of a temporary file containing the common base for
+the merge, if available; <literal>$LOCAL</literal> set to the name of a temporary
+file containing the contents of the file on the current branch;
+<literal>$REMOTE</literal> set to the name of a temporary file containing the
+contents of the file to be merged, and <literal>$MERGED</literal> set to the name
+of the file to which the merge tool should write the result of the
+merge resolution.</simpara>
+<simpara>If the custom merge tool correctly indicates the success of a
+merge resolution with its exit code, then the configuration
+variable <literal>mergetool.&lt;tool&gt;.trustExitCode</literal> can be set to <literal>true</literal>.
+Otherwise, <emphasis>git mergetool</emphasis> will prompt the user to indicate the
+success of the resolution after the custom tool has exited.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--tool-help
+</term>
+<listitem>
+<simpara>
+        Print a list of merge tools that may be used with <literal>--tool</literal>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-y
+</term>
+<term>
+--no-prompt
+</term>
+<listitem>
+<simpara>
+        Don&#8217;t prompt before each invocation of the merge resolution
+        program.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--prompt
+</term>
+<listitem>
+<simpara>
+        Prompt before each invocation of the merge resolution program.
+        This is the default behaviour; the option is provided to
+        override any configuration settings.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_temporary_files">
+<title>TEMPORARY FILES</title>
+<simpara><literal>git mergetool</literal> creates <literal>*.orig</literal> backup files while resolving merges.
+These are safe to remove once a file has been merged and its
+<literal>git mergetool</literal> session has completed.</simpara>
+<simpara>Setting the <literal>mergetool.keepBackup</literal> configuration variable to <literal>false</literal>
+causes <literal>git mergetool</literal> to automatically remove the backup as files
+are successfully merged.</simpara>
+</refsect1>
+<refsect1 id="_git">
+<title>GIT</title>
+<simpara>Part of the <citerefentry>
+<refentrytitle>git</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> suite</simpara>
+</refsect1>
+</refentry>

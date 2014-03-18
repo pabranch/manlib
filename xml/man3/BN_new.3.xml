@@ -1,0 +1,56 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>BN_new.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>BN_new, BN_init, BN_clear, BN_free, BN_clear_free</refname>
+<refpurpose>allocate and free BIGNUMs</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis format="linespecific">BIGNUM *BN_new(void);</synopsis>
+<synopsis format="linespecific">void BN_init(BIGNUM *);</synopsis>
+<synopsis format="linespecific">void BN_clear(BIGNUM *a);</synopsis>
+<synopsis format="linespecific">void BN_free(BIGNUM *a);</synopsis>
+<synopsis format="linespecific">void BN_clear_free(BIGNUM *a);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_new.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      BN_new() allocates and initializes a <emphasis role="bold">BIGNUM</emphasis> structure. BN_init() initializes an
+      existing uninitialized <emphasis role="bold">BIGNUM</emphasis>.
+    </para>
+    <para>
+      BN_clear() is used to destroy sensitive data such as keys when they
+      are no longer needed. It erases the memory used by <emphasis role="bold">a</emphasis> and sets it to the value 0.
+    </para>
+    <para>
+      BN_free() frees the components of the <emphasis role="bold">BIGNUM</emphasis>, and if it was created by BN_new(),
+      also the structure itself. BN_clear_free() additionally overwrites
+      the data before the memory is returned to the system.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_new.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      BN_new() returns a pointer to the <emphasis role="bold">BIGNUM</emphasis>. If the allocation fails, it returns
+      <emphasis role="bold">NULL</emphasis> and sets an error code that can
+      be obtained by ERR_get_error(3).
+    </para>
+    <para>
+      BN_init(), BN_clear(), BN_free() and BN_clear_free() have no return
+      values.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_new.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      bn(3), ERR_get_error(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_new.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      BN_new(), BN_clear(), BN_free() and BN_clear_free() are available in
+      all versions on SSLeay and OpenSSL.  BN_init() was added in SSLeay
+      0.9.1b.
+    </para>
+  </refsection>
+</refentry>

@@ -1,0 +1,61 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>RAND_load_file.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>RAND_load_file, RAND_write_file, RAND_file_name</refname>
+<refpurpose>PRNG seed file</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/rand.h&gt;</synopsis>
+<synopsis format="linespecific">const char *RAND_file_name(char *buf, size_t num);</synopsis>
+<synopsis format="linespecific">int RAND_load_file(const char *filename, long max_bytes);</synopsis>
+<synopsis format="linespecific">int RAND_write_file(const char *filename);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.RAND_load_file.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      RAND_file_name() generates a default path for the random seed file.
+      <emphasis role="bold">buf</emphasis> points to a buffer of size
+      <emphasis role="bold">num</emphasis> in which to store the filename.
+      The seed file is $RANDFILE if that environment variable is set,
+      $HOME/.rnd otherwise. If $HOME is not set either, or <emphasis role="bold">num</emphasis> is too small for the path name, an error
+      occurs.
+    </para>
+    <para>
+      RAND_load_file() reads a number of bytes from file <emphasis role="bold">filename</emphasis> and adds them to the PRNG. If
+      <emphasis role="bold">max_bytes</emphasis> is non-negative, up to to
+      <emphasis role="bold">max_bytes</emphasis> are read; starting with
+      OpenSSL 0.9.5, if <emphasis role="bold">max_bytes</emphasis> is -1,
+      the complete file is read.
+    </para>
+    <para>
+      RAND_write_file() writes a number of random bytes (currently 1024) to
+      file <emphasis role="bold">filename</emphasis> which can be used to
+      initialize the PRNG by calling RAND_load_file() in a later session.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RAND_load_file.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      RAND_load_file() returns the number of bytes read.
+    </para>
+    <para>
+      RAND_write_file() returns the number of bytes written, and -1 if the
+      bytes written were generated without appropriate seed.
+    </para>
+    <para>
+      RAND_file_name() returns a pointer to <emphasis role="bold">buf</emphasis> on success, and NULL on error.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RAND_load_file.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      rand(3), RAND_add(3), RAND_cleanup(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RAND_load_file.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      RAND_load_file(), RAND_write_file() and RAND_file_name() are
+      available in all versions of SSLeay and OpenSSL.
+    </para>
+  </refsection>
+</refentry>

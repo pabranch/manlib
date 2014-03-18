@@ -1,0 +1,45 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>PEM_write_bio_PKCS7_stream.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>PEM_write_bio_PKCS7_stream</refname>
+<refpurpose>output PKCS7 structure in PEM format.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/pkcs7.h&gt;
+#include &lt;openssl/pem.h&gt;</synopsis>
+<synopsis format="linespecific">int PEM_write_bio_PKCS7_stream(BIO *out, PKCS7 *p7, BIO *data, int flags);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.PEM_write_bio_PKCS7_stream.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      PEM_write_bio_PKCS7_stream() outputs a PKCS7 structure in PEM format.
+    </para>
+    <para>
+      It is otherwise identical to the function SMIME_write_PKCS7().
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PEM_write_bio_PKCS7_stream.pod:NOTES"><title>NOTES</title>
+    <para>
+      This function is effectively a version of the PEM_write_bio_PKCS7()
+      supporting streaming.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PEM_write_bio_PKCS7_stream.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      PEM_write_bio_PKCS7_stream() returns 1 for success or 0 for failure.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PEM_write_bio_PKCS7_stream.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ERR_get_error(3), PKCS7_sign(3), PKCS7_verify(3), PKCS7_encrypt(3)
+      PKCS7_decrypt(3), SMIME_write_PKCS7(3), i2d_PKCS7_bio_stream(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PEM_write_bio_PKCS7_stream.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      PEM_write_bio_PKCS7_stream() was added to OpenSSL 1.0.0
+    </para>
+  </refsection>
+</refentry>

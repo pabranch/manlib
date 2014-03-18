@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>git-cat-file</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">Git</refmiscinfo>
+<refmiscinfo class="manual">Git Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>git-cat-file</refname>
+  <refpurpose>Provide content or type and size information for repository objects</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<blockquote>
+<literallayout><emphasis>git cat-file</emphasis> (-t | -s | -e | -p | &lt;type&gt; | --textconv ) &lt;object&gt;
+<emphasis>git cat-file</emphasis> (--batch | --batch-check) &lt; &lt;list-of-objects&gt;</literallayout>
+</blockquote>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>In its first form, the command provides the content or the type of an object in
+the repository. The type is required unless <emphasis>-t</emphasis> or <emphasis>-p</emphasis> is used to find the
+object type, or <emphasis>-s</emphasis> is used to find the object size, or <emphasis>--textconv</emphasis> is used
+(which implies type "blob").</simpara>
+<simpara>In the second form, a list of objects (separated by linefeeds) is provided on
+stdin, and the SHA-1, type, and size of each object is printed on stdout.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+&lt;object&gt;
+</term>
+<listitem>
+<simpara>
+        The name of the object to show.
+        For a more complete list of ways to spell object names, see
+        the "SPECIFYING REVISIONS" section in <citerefentry>
+<refentrytitle>gitrevisions</refentrytitle><manvolnum>7</manvolnum>
+</citerefentry>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-t
+</term>
+<listitem>
+<simpara>
+        Instead of the content, show the object type identified by
+        &lt;object&gt;.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-s
+</term>
+<listitem>
+<simpara>
+        Instead of the content, show the object size identified by
+        &lt;object&gt;.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-e
+</term>
+<listitem>
+<simpara>
+        Suppress all output; instead exit with zero status if &lt;object&gt;
+        exists and is a valid object.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-p
+</term>
+<listitem>
+<simpara>
+        Pretty-print the contents of &lt;object&gt; based on its type.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+&lt;type&gt;
+</term>
+<listitem>
+<simpara>
+        Typically this matches the real type of &lt;object&gt; but asking
+        for a type that can trivially be dereferenced from the given
+        &lt;object&gt; is also permitted.  An example is to ask for a
+        "tree" with &lt;object&gt; being a commit object that contains it,
+        or to ask for a "blob" with &lt;object&gt; being a tag object that
+        points at it.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--textconv
+</term>
+<listitem>
+<simpara>
+        Show the content as transformed by a textconv filter. In this case,
+        &lt;object&gt; has be of the form &lt;tree-ish&gt;:&lt;path&gt;, or :&lt;path&gt; in order
+        to apply the filter to the content recorded in the index at &lt;path&gt;.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--batch
+</term>
+<term>
+--batch=&lt;format&gt;
+</term>
+<listitem>
+<simpara>
+        Print object information and contents for each object provided
+        on stdin.  May not be combined with any other options or arguments.
+        See the section <literal>BATCH OUTPUT</literal> below for details.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--batch-check
+</term>
+<term>
+--batch-check=&lt;format&gt;
+</term>
+<listitem>
+<simpara>
+        Print object information for each object provided on stdin.  May
+        not be combined with any other options or arguments.  See the
+        section <literal>BATCH OUTPUT</literal> below for details.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_output">
+<title>OUTPUT</title>
+<simpara>If <emphasis>-t</emphasis> is specified, one of the &lt;type&gt;.</simpara>
+<simpara>If <emphasis>-s</emphasis> is specified, the size of the &lt;object&gt; in bytes.</simpara>
+<simpara>If <emphasis>-e</emphasis> is specified, no output.</simpara>
+<simpara>If <emphasis>-p</emphasis> is specified, the contents of &lt;object&gt; are pretty-printed.</simpara>
+<simpara>If &lt;type&gt; is specified, the raw (though uncompressed) contents of the &lt;object&gt;
+will be returned.</simpara>
+</refsect1>
+<refsect1 id="_batch_output">
+<title>BATCH OUTPUT</title>
+<simpara>If <literal>--batch</literal> or <literal>--batch-check</literal> is given, <literal>cat-file</literal> will read objects
+from stdin, one per line, and print information about them. By default,
+the whole line is considered as an object, as if it were fed to
+<citerefentry>
+<refentrytitle>git-rev-parse</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>.</simpara>
+<simpara>You can specify the information shown for each object by using a custom
+<literal>&lt;format&gt;</literal>. The <literal>&lt;format&gt;</literal> is copied literally to stdout for each
+object, with placeholders of the form <literal>%(atom)</literal> expanded, followed by a
+newline. The available atoms are:</simpara>
+<variablelist>
+<varlistentry>
+<term>
+<literal>objectname</literal>
+</term>
+<listitem>
+<simpara>
+        The 40-hex object name of the object.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<literal>objecttype</literal>
+</term>
+<listitem>
+<simpara>
+        The type of of the object (the same as <literal>cat-file -t</literal> reports).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<literal>objectsize</literal>
+</term>
+<listitem>
+<simpara>
+        The size, in bytes, of the object (the same as <literal>cat-file -s</literal>
+        reports).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<literal>objectsize:disk</literal>
+</term>
+<listitem>
+<simpara>
+        The size, in bytes, that the object takes up on disk. See the
+        note about on-disk sizes in the <literal>CAVEATS</literal> section below.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<literal>deltabase</literal>
+</term>
+<listitem>
+<simpara>
+        If the object is stored as a delta on-disk, this expands to the
+        40-hex sha1 of the delta base object. Otherwise, expands to the
+        null sha1 (40 zeroes). See <literal>CAVEATS</literal> below.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<literal>rest</literal>
+</term>
+<listitem>
+<simpara>
+        If this atom is used in the output string, input lines are split
+        at the first whitespace boundary. All characters before that
+        whitespace are considered to be the object name; characters
+        after that first run of whitespace (i.e., the "rest" of the
+        line) are output in place of the <literal>%(rest)</literal> atom.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+<simpara>If no format is specified, the default format is <literal>%(objectname)
+%(objecttype) %(objectsize)</literal>.</simpara>
+<simpara>If <literal>--batch</literal> is specified, the object information is followed by the
+object contents (consisting of <literal>%(objectsize)</literal> bytes), followed by a
+newline.</simpara>
+<simpara>For example, <literal>--batch</literal> without a custom format would produce:</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;&lt;sha1&gt; SP &lt;type&gt; SP &lt;size&gt; LF
+&lt;contents&gt; LF&#10;.ft&#10;
+</literallayout>
+<simpara>Whereas <literal>--batch-check='%(objectname) %(objecttype)'</literal> would produce:</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;&lt;sha1&gt; SP &lt;type&gt; LF&#10;.ft&#10;
+</literallayout>
+<simpara>If a name is specified on stdin that cannot be resolved to an object in
+the repository, then <literal>cat-file</literal> will ignore any custom format and print:</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;&lt;object&gt; SP missing LF&#10;.ft&#10;
+</literallayout>
+</refsect1>
+<refsect1 id="_caveats">
+<title>CAVEATS</title>
+<simpara>Note that the sizes of objects on disk are reported accurately, but care
+should be taken in drawing conclusions about which refs or objects are
+responsible for disk usage. The size of a packed non-delta object may be
+much larger than the size of objects which delta against it, but the
+choice of which object is the base and which is the delta is arbitrary
+and is subject to change during a repack.</simpara>
+<simpara>Note also that multiple copies of an object may be present in the object
+database; in this case, it is undefined which copy&#8217;s size or delta base
+will be reported.</simpara>
+</refsect1>
+<refsect1 id="_git">
+<title>GIT</title>
+<simpara>Part of the <citerefentry>
+<refentrytitle>git</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> suite</simpara>
+</refsect1>
+</refentry>

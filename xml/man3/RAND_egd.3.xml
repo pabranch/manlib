@@ -1,0 +1,104 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>RAND_egd.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>RAND_egd, RAND_egd_bytes, RAND_query_egd_bytes</refname>
+<refpurpose>query entropy gathering daemon</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/rand.h&gt;</synopsis>
+<synopsis format="linespecific">int RAND_egd(const char *path);
+int RAND_egd_bytes(const char *path, int bytes);</synopsis>
+<synopsis format="linespecific">int RAND_query_egd_bytes(const char *path, unsigned char *buf, int bytes);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.RAND_egd.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      RAND_egd() queries the entropy gathering daemon EGD on socket
+      <emphasis role="bold">path</emphasis>. It queries 255 bytes and uses
+      RAND_add(3) to seed the OpenSSL built-in PRNG. RAND_egd(path) is a
+      wrapper for RAND_egd_bytes(path, 255);
+    </para>
+    <para>
+      RAND_egd_bytes() queries the entropy gathering daemon EGD on socket
+      <emphasis role="bold">path</emphasis>. It queries <emphasis role="bold">bytes</emphasis> bytes and uses RAND_add(3) to seed the
+      OpenSSL built-in PRNG. This function is more flexible than
+      RAND_egd(). When only one secret key must be generated, it is not
+      necessary to request the full amount 255 bytes from the EGD socket.
+      This can be advantageous, since the amount of entropy that can be
+      retrieved from EGD over time is limited.
+    </para>
+    <para>
+      RAND_query_egd_bytes() performs the actual query of the EGD daemon on
+      socket <emphasis role="bold">path</emphasis>. If <emphasis role="bold">buf</emphasis> is given, <emphasis role="bold">bytes</emphasis> bytes are queried and written into
+      <emphasis role="bold">buf</emphasis>. If <emphasis role="bold">buf</emphasis> is NULL, <emphasis role="bold">bytes</emphasis> bytes are queried and used to seed the
+      OpenSSL built-in PRNG using RAND_add(3).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RAND_egd.pod:NOTES"><title>NOTES</title>
+    <para>
+      On systems without /dev/*random devices providing entropy from the
+      kernel, the EGD entropy gathering daemon can be used to collect
+      entropy. It provides a socket interface through which entropy can be
+      gathered in chunks up to 255 bytes. Several chunks can be queried
+      during one connection.
+    </para>
+    <para>
+      EGD is available from http://www.lothar.com/tech/crypto/ (<literal role="code">perl Makefile.PL; make; make
+      install</literal> to install). It is run as <emphasis role="bold">egd</emphasis> <emphasis role="italic">path</emphasis>,
+      where <emphasis role="italic">path</emphasis> is an absolute path
+      designating a socket. When RAND_egd() is called with that path as an
+      argument, it tries to read random bytes that EGD has collected.
+      RAND_egd() retrieves entropy from the daemon using the daemon's
+      "non-blocking read" command which shall be answered immediately by
+      the daemon without waiting for additional entropy to be collected.
+      The write and read socket operations in the communication are
+      blocking.
+    </para>
+    <para>
+      Alternatively, the EGD-interface compatible daemon PRNGD can be used.
+      It is available from http://prngd.sourceforge.net/ . PRNGD does
+      employ an internal PRNG itself and can therefore never run out of
+      entropy.
+    </para>
+    <para>
+      OpenSSL automatically queries EGD when entropy is requested via
+      RAND_bytes() or the status is checked via RAND_status() for the first
+      time, if the socket is located at /var/run/egd-pool, /dev/egd-pool or
+      /etc/egd-pool.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RAND_egd.pod:RETURN_VALUE"><title>RETURN VALUE</title>
+    <para>
+      RAND_egd() and RAND_egd_bytes() return the number of bytes read from
+      the daemon on success, and -1 if the connection failed or the daemon
+      did not return enough data to fully seed the PRNG.
+    </para>
+    <para>
+      RAND_query_egd_bytes() returns the number of bytes read from the
+      daemon on success, and -1 if the connection failed. The PRNG state is
+      not considered.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RAND_egd.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      rand(3), RAND_add(3), RAND_cleanup(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RAND_egd.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      RAND_egd() is available since OpenSSL 0.9.5.
+    </para>
+    <para>
+      RAND_egd_bytes() is available since OpenSSL 0.9.6.
+    </para>
+    <para>
+      RAND_query_egd_bytes() is available since OpenSSL 0.9.7.
+    </para>
+    <para>
+      The automatic query of /var/run/egd-pool et al was added in OpenSSL
+      0.9.7.
+    </para>
+  </refsection>
+</refentry>

@@ -1,0 +1,47 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>DSA_do_sign.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>DSA_do_sign, DSA_do_verify</refname>
+<refpurpose>raw DSA signature operations</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/dsa.h&gt;</synopsis>
+<synopsis format="linespecific">DSA_SIG *DSA_do_sign(const unsigned char *dgst, int dlen, DSA *dsa);</synopsis>
+<synopsis format="linespecific">int DSA_do_verify(const unsigned char *dgst, int dgst_len,
+            DSA_SIG *sig, DSA *dsa);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.DSA_do_sign.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      DSA_do_sign() computes a digital signature on the <emphasis role="bold">len</emphasis> byte message digest <emphasis role="bold">dgst</emphasis> using the private key <emphasis role="bold">dsa</emphasis> and returns it in a newly allocated
+      <emphasis role="bold">DSA_SIG</emphasis> structure.
+    </para>
+    <para>
+      DSA_sign_setup(3) may be used to precompute part of the signing
+      operation in case signature generation is time-critical.
+    </para>
+    <para>
+      DSA_do_verify() verifies that the signature <emphasis role="bold">sig</emphasis> matches a given message digest <emphasis role="bold">dgst</emphasis> of size <emphasis role="bold">len</emphasis>.  <emphasis role="bold">dsa</emphasis> is
+      the signer's public key.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.DSA_do_sign.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      DSA_do_sign() returns the signature, NULL on error.  DSA_do_verify()
+      returns 1 for a valid signature, 0 for an incorrect signature and -1
+      on error. The error codes can be obtained by ERR_get_error(3).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.DSA_do_sign.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      dsa(3), ERR_get_error(3), rand(3), DSA_SIG_new(3), DSA_sign(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.DSA_do_sign.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      DSA_do_sign() and DSA_do_verify() were added in OpenSSL 0.9.3.
+    </para>
+  </refsection>
+</refentry>

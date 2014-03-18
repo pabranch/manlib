@@ -1,0 +1,131 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>passwd.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>passwd</refname>
+<refpurpose>compute password hashes</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific"><emphasis role="bold">openssl passwd</emphasis>
+[<emphasis role="bold">-crypt</emphasis>]
+[<emphasis role="bold">-1</emphasis>]
+[<emphasis role="bold">-apr1</emphasis>]
+[<emphasis role="bold">-salt</emphasis> <emphasis role="italic">string</emphasis>]
+[<emphasis role="bold">-in</emphasis> <emphasis role="italic">file</emphasis>]
+[<emphasis role="bold">-stdin</emphasis>]
+[<emphasis role="bold">-noverify</emphasis>]
+[<emphasis role="bold">-quiet</emphasis>]
+[<emphasis role="bold">-table</emphasis>]
+{<emphasis role="italic">password</emphasis>}</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.apps.passwd.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The <emphasis role="bold">passwd</emphasis> command computes the hash
+      of a password typed at run-time or the hash of each password in a
+      list.  The password list is taken from the named file for option
+      <emphasis role="bold">-in file</emphasis>, from stdin for option
+      <emphasis role="bold">-stdin</emphasis>, or from the command line, or
+      from the terminal otherwise. The Unix standard algorithm <emphasis role="bold">crypt</emphasis> and the MD5-based BSD password algorithm
+      <emphasis role="bold">1</emphasis> and its Apache variant <emphasis role="bold">apr1</emphasis> are available.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.passwd.pod:OPTIONS"><title>OPTIONS</title>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.passwd.pod:-crypt"/><emphasis role="bold">-crypt</emphasis></term>
+          <listitem>
+            <para>
+	      Use the <emphasis role="bold">crypt</emphasis> algorithm
+	      (default).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.passwd.pod:-1"/><emphasis role="bold">-1</emphasis></term>
+          <listitem>
+            <para>
+	      Use the MD5 based BSD password algorithm <emphasis role="bold">1</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.passwd.pod:-apr1"/><emphasis role="bold">-apr1</emphasis></term>
+          <listitem>
+            <para>
+	      Use the <emphasis role="bold">apr1</emphasis> algorithm
+	      (Apache variant of the BSD algorithm).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.passwd.pod:-salt_string"/><emphasis role="bold">-salt</emphasis> <emphasis role="italic">string</emphasis></term>
+          <listitem>
+            <para>
+	      Use the specified salt. When reading a password from the
+	      terminal, this implies <emphasis role="bold">-noverify</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.passwd.pod:-in_file"/><emphasis role="bold">-in</emphasis> <emphasis role="italic">file</emphasis></term>
+          <listitem>
+            <para>
+	      Read passwords from <emphasis role="italic">file</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.passwd.pod:-stdin"/><emphasis role="bold">-stdin</emphasis></term>
+          <listitem>
+            <para>
+	      Read passwords from <emphasis role="bold">stdin</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.passwd.pod:-noverify"/><emphasis role="bold">-noverify</emphasis></term>
+          <listitem>
+            <para>
+	      Don't verify when reading a password from the terminal.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.passwd.pod:-quiet"/><emphasis role="bold">-quiet</emphasis></term>
+          <listitem>
+            <para>
+	      Don't output warnings when passwords given at the command
+	      line are truncated.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.passwd.pod:-table"/><emphasis role="bold">-table</emphasis></term>
+          <listitem>
+            <para>
+	      In the output list, prepend the cleartext password and a TAB
+	      character to each password hash.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.passwd.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      <emphasis role="bold">openssl passwd -crypt -salt xx
+      password</emphasis> prints <emphasis role="bold">xxj31ZMTZzkVA</emphasis>.
+    </para>
+    <para>
+      <emphasis role="bold">openssl passwd -1 -salt xxxxxxxx
+      password</emphasis> prints <emphasis role="bold">$1$xxxxxxxx$UYCIxa628.9qXjpQCjM4a.</emphasis>.
+    </para>
+    <para>
+      <emphasis role="bold">openssl passwd -apr1 -salt xxxxxxxx
+      password</emphasis> prints <emphasis role="bold">$apr1$xxxxxxxx$dxHfLAsjHkDRmG83UXe8K0</emphasis>.
+    </para>
+  </refsection>
+</refentry>

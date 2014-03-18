@@ -1,0 +1,79 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>CONF_modules_load_file.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>CONF_modules_load_file, CONF_modules_load</refname>
+    <refpurpose>OpenSSL configuration functions</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/conf.h&gt;</synopsis>
+<synopsis format="linespecific">int CONF_modules_load_file(const char *filename, const char *appname,
+                          unsigned long flags);
+int CONF_modules_load(const CONF *cnf, const char *appname,
+                     unsigned long flags);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.CONF_modules_load_file.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The function CONF_modules_load_file() configures OpenSSL using file
+      <emphasis role="bold">filename</emphasis> and application name
+      <emphasis role="bold">appname</emphasis>. If <emphasis role="bold">filename</emphasis> is NULL the standard OpenSSL
+      configuration file is used. If <emphasis role="bold">appname</emphasis> is NULL the standard OpenSSL
+      application name <emphasis role="bold">openssl_conf</emphasis> is
+      used. The behaviour can be cutomized using <emphasis role="bold">flags</emphasis>.
+    </para>
+    <para>
+      CONF_modules_load() is idential to CONF_modules_load_file() except it
+      read configuration information from <emphasis role="bold">cnf</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.CONF_modules_load_file.pod:NOTES"><title>NOTES</title>
+    <para>
+      The following <emphasis role="bold">flags</emphasis> are currently
+      recognized:
+    </para>
+    <para>
+      <emphasis role="bold">CONF_MFLAGS_IGNORE_ERRORS</emphasis> if set
+      errors returned by individual configuration modules are ignored. If
+      not set the first module error is considered fatal and no further
+      modules are loads.
+    </para>
+    <para>
+      Normally any modules errors will add error information to the error
+      queue. If <emphasis role="bold">CONF_MFLAGS_SILENT</emphasis> is set
+      no error information is added.
+    </para>
+    <para>
+      If <emphasis role="bold">CONF_MFLAGS_NO_DSO</emphasis> is set
+      configuration module loading from DSOs is disabled.
+    </para>
+    <para>
+      <emphasis role="bold">CONF_MFLAGS_IGNORE_MISSING_FILE</emphasis> if
+      set will make CONF_load_modules_file() ignore missing configuration
+      files. Normally a missing configuration file return an error.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.CONF_modules_load_file.pod:RETURN_VALUE"><title>RETURN VALUE</title>
+    <para>
+      These functions return 1 for success and a zero or negative value for
+      failure. If module errors are not ignored the return code will
+      reflect the return value of the failing module (this will always be
+      zero or negative).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.CONF_modules_load_file.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      conf(5), OPENSSL_config(3), <link linkend="sources.openssl.doc.crypto.CONF_modules_load_file.pod:CONF_free3_CONF_free3"><quote>CONF_free(3),
+      CONF_free(3)</quote></link>, <citerefentry>
+      <refentrytitle>err</refentrytitle> <manvolnum>3),err(3</manvolnum>
+      </citerefentry>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.CONF_modules_load_file.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      CONF_modules_load_file and CONF_modules_load first appeared in
+      OpenSSL 0.9.7.
+    </para>
+  </refsection>
+</refentry>

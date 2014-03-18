@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>git-replace</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">Git</refmiscinfo>
+<refmiscinfo class="manual">Git Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>git-replace</refname>
+  <refpurpose>Create, list, delete refs to replace objects</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<blockquote>
+<literallayout><emphasis>git replace</emphasis> [-f] &lt;object&gt; &lt;replacement&gt;
+<emphasis>git replace</emphasis> -d &lt;object&gt;&#8230;
+<emphasis>git replace</emphasis> [--format=&lt;format&gt;] [-l [&lt;pattern&gt;]]</literallayout>
+</blockquote>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>Adds a <emphasis>replace</emphasis> reference in <literal>refs/replace/</literal> namespace.</simpara>
+<simpara>The name of the <emphasis>replace</emphasis> reference is the SHA-1 of the object that is
+replaced. The content of the <emphasis>replace</emphasis> reference is the SHA-1 of the
+replacement object.</simpara>
+<simpara>The replaced object and the replacement object must be of the same type.
+This restriction can be bypassed using <literal>-f</literal>.</simpara>
+<simpara>Unless <literal>-f</literal> is given, the <emphasis>replace</emphasis> reference must not yet exist.</simpara>
+<simpara>There is no other restriction on the replaced and replacement objects.
+Merge commits can be replaced by non-merge commits and vice versa.</simpara>
+<simpara>Replacement references will be used by default by all Git commands
+except those doing reachability traversal (prune, pack transfer and
+fsck).</simpara>
+<simpara>It is possible to disable use of replacement references for any
+command using the <literal>--no-replace-objects</literal> option just after <emphasis>git</emphasis>.</simpara>
+<simpara>For example if commit <emphasis>foo</emphasis> has been replaced by commit <emphasis>bar</emphasis>:</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;$ git --no-replace-objects cat-file commit foo&#10;.ft&#10;
+</literallayout>
+<simpara>shows information about commit <emphasis>foo</emphasis>, while:</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;$ git cat-file commit foo&#10;.ft&#10;
+</literallayout>
+<simpara>shows information about commit <emphasis>bar</emphasis>.</simpara>
+<simpara>The <emphasis>GIT_NO_REPLACE_OBJECTS</emphasis> environment variable can be set to
+achieve the same effect as the <literal>--no-replace-objects</literal> option.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-f
+</term>
+<term>
+--force
+</term>
+<listitem>
+<simpara>
+        If an existing replace ref for the same object exists, it will
+        be overwritten (instead of failing).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-d
+</term>
+<term>
+--delete
+</term>
+<listitem>
+<simpara>
+        Delete existing replace refs for the given objects.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-l &lt;pattern&gt;
+</term>
+<term>
+--list &lt;pattern&gt;
+</term>
+<listitem>
+<simpara>
+        List replace refs for objects that match the given pattern (or
+        all if no pattern is given).
+        Typing "git replace" without arguments, also lists all replace
+        refs.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--format=&lt;format&gt;
+</term>
+<listitem>
+<simpara>
+        When listing, use the specified &lt;format&gt;, which can be one of
+        <emphasis>short</emphasis>, <emphasis>medium</emphasis> and <emphasis>long</emphasis>. When omitted, the format
+        defaults to <emphasis>short</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_formats">
+<title>FORMATS</title>
+<simpara>The following format are available:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+<emphasis>short</emphasis>:
+        &lt;replaced sha1&gt;
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<emphasis>medium</emphasis>:
+        &lt;replaced sha1&gt; &#8594; &lt;replacement sha1&gt;
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<emphasis>long</emphasis>:
+        &lt;replaced sha1&gt; (&lt;replaced type&gt;) &#8594; &lt;replacement sha1&gt; (&lt;replacement type&gt;)
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect1>
+<refsect1 id="_creating_replacement_objects">
+<title>CREATING REPLACEMENT OBJECTS</title>
+<simpara><citerefentry>
+<refentrytitle>git-filter-branch</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>, <citerefentry>
+<refentrytitle>git-hash-object</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> and
+<citerefentry>
+<refentrytitle>git-rebase</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>, among other git commands, can be used to create
+replacement objects from existing objects.</simpara>
+<simpara>If you want to replace many blobs, trees or commits that are part of a
+string of commits, you may just want to create a replacement string of
+commits and then only replace the commit at the tip of the target
+string of commits with the commit at the tip of the replacement string
+of commits.</simpara>
+</refsect1>
+<refsect1 id="_bugs">
+<title>BUGS</title>
+<simpara>Comparing blobs or trees that have been replaced with those that
+replace them will not work properly. And using <literal>git reset --hard</literal> to
+go back to a replaced commit will move the branch to the replacement
+commit instead of the replaced commit.</simpara>
+<simpara>There may be other problems when using <emphasis>git rev-list</emphasis> related to
+pending objects.</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><citerefentry>
+<refentrytitle>git-hash-object</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>
+<citerefentry>
+<refentrytitle>git-filter-branch</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>
+<citerefentry>
+<refentrytitle>git-rebase</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>
+<citerefentry>
+<refentrytitle>git-tag</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>
+<citerefentry>
+<refentrytitle>git-branch</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>
+<citerefentry>
+<refentrytitle>git</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry></simpara>
+</refsect1>
+<refsect1 id="_git">
+<title>GIT</title>
+<simpara>Part of the <citerefentry>
+<refentrytitle>git</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> suite</simpara>
+</refsect1>
+</refentry>

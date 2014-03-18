@@ -1,0 +1,64 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>BN_num_bytes.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>BN_num_bits, BN_num_bytes, BN_num_bits_word</refname>
+<refpurpose>get BIGNUM size</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis format="linespecific">int BN_num_bytes(const BIGNUM *a);</synopsis>
+<synopsis format="linespecific">int BN_num_bits(const BIGNUM *a);</synopsis>
+<synopsis format="linespecific">int BN_num_bits_word(BN_ULONG w);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_num_bytes.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      BN_num_bytes() returns the size of a <emphasis role="bold">BIGNUM</emphasis> in bytes.
+    </para>
+    <para>
+      BN_num_bits_word() returns the number of significant bits in a word.
+      If we take 0x00000432 as an example, it returns 11, not 16, not 32.
+      Basically, except for a zero, it returns <emphasis role="italic">floor(log2(w))+1</emphasis>.
+    </para>
+    <para>
+      BN_num_bits() returns the number of significant bits in a <emphasis role="bold">BIGNUM</emphasis>, following the same principle as
+      BN_num_bits_word().
+    </para>
+    <para>
+      BN_num_bytes() is a macro.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_num_bytes.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      The size.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_num_bytes.pod:NOTES"><title>NOTES</title>
+    <para>
+      Some have tried using BN_num_bits() on individual numbers in RSA
+      keys, DH keys and DSA keys, and found that they don't always come up
+      with the number of bits they expected (something like 512, 1024,
+      2048, ...).  This is because generating a number with some specific
+      number of bits doesn't always set the highest bits, thereby making
+      the number of <emphasis role="italic">significant</emphasis> bits a
+      little lower.  If you want to know the "key size" of such a key,
+      either use functions like RSA_size(), DH_size() and DSA_size(), or
+      use BN_num_bytes() and multiply with 8 (although there's no real
+      guarantee that will match the "key size", just a lot more
+      probability).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_num_bytes.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      bn(3), DH_size(3), DSA_size(3), RSA_size(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_num_bytes.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      BN_num_bytes(), BN_num_bits() and BN_num_bits_word() are available in
+      all versions of SSLeay and OpenSSL.
+    </para>
+  </refsection>
+</refentry>

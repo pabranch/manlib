@@ -1,0 +1,66 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_set_timeout.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_set_timeout, SSL_CTX_get_timeout</refname>
+<refpurpose>manipulate timeout values for session caching</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">long SSL_CTX_set_timeout(SSL_CTX *ctx, long t);
+long SSL_CTX_get_timeout(SSL_CTX *ctx);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_timeout.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_CTX_set_timeout() sets the timeout for newly created sessions for
+      <emphasis role="bold">ctx</emphasis> to <emphasis role="bold">t</emphasis>. The timeout value <emphasis role="bold">t</emphasis> must be given in seconds.
+    </para>
+    <para>
+      SSL_CTX_get_timeout() returns the currently set timeout value for
+      <emphasis role="bold">ctx</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_timeout.pod:NOTES"><title>NOTES</title>
+    <para>
+      Whenever a new session is created, it is assigned a maximum lifetime.
+      This lifetime is specified by storing the creation time of the
+      session and the timeout value valid at this time. If the actual time
+      is later than creation time plus timeout, the session is not reused.
+    </para>
+    <para>
+      Due to this realization, all sessions behave according to the timeout
+      value valid at the time of the session negotiation. Changes of the
+      timeout value do not affect already established sessions.
+    </para>
+    <para>
+      The expiration time of a single session can be modified using the
+      SSL_SESSION_get_time(3) family of functions.
+    </para>
+    <para>
+      Expired sessions are removed from the internal session cache,
+      whenever SSL_CTX_flush_sessions(3) is called, either directly by the
+      application or automatically (see SSL_CTX_set_session_cache_mode(3))
+    </para>
+    <para>
+      The default value for session timeout is decided on a per protocol
+      basis, see SSL_get_default_timeout(3). All currently supported
+      protocols have the same default timeout value of 300 seconds.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_timeout.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      SSL_CTX_set_timeout() returns the previously set timeout value.
+    </para>
+    <para>
+      SSL_CTX_get_timeout() returns the currently set timeout value.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_timeout.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_CTX_set_session_cache_mode(3), SSL_SESSION_get_time(3),
+      SSL_CTX_flush_sessions(3), SSL_get_default_timeout(3)
+    </para>
+  </refsection>
+</refentry>

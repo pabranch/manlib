@@ -1,0 +1,91 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>BN_mod_mul_reciprocal.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>BN_mod_mul_reciprocal,  BN_div_recp, BN_RECP_CTX_new, BN_RECP_CTX_init,
+BN_RECP_CTX_free, BN_RECP_CTX_set</refname>
+<refpurpose>modular multiplication using
+reciprocal</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis format="linespecific">BN_RECP_CTX *BN_RECP_CTX_new(void);
+void BN_RECP_CTX_init(BN_RECP_CTX *recp);
+void BN_RECP_CTX_free(BN_RECP_CTX *recp);</synopsis>
+<synopsis format="linespecific">int BN_RECP_CTX_set(BN_RECP_CTX *recp, const BIGNUM *m, BN_CTX *ctx);</synopsis>
+<synopsis format="linespecific">int BN_div_recp(BIGNUM *dv, BIGNUM *rem, BIGNUM *a, BN_RECP_CTX *recp,
+       BN_CTX *ctx);</synopsis>
+<synopsis format="linespecific">int BN_mod_mul_reciprocal(BIGNUM *r, BIGNUM *a, BIGNUM *b,
+       BN_RECP_CTX *recp, BN_CTX *ctx);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_reciprocal.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      BN_mod_mul_reciprocal() can be used to perform an efficient
+      BN_mod_mul(3) operation when the operation will be performed
+      repeatedly with the same modulus. It computes <emphasis role="bold">r</emphasis>=(<emphasis role="bold">a</emphasis>*<emphasis role="bold">b</emphasis>)%<emphasis role="bold">m</emphasis> using
+      <emphasis role="bold">recp</emphasis>=1/<emphasis role="bold">m</emphasis>, which is set as described below.  <emphasis role="bold">ctx</emphasis> is a previously allocated <emphasis role="bold">BN_CTX</emphasis> used for temporary variables.
+    </para>
+    <para>
+      BN_RECP_CTX_new() allocates and initializes a <emphasis role="bold">BN_RECP</emphasis> structure. BN_RECP_CTX_init()
+      initializes an existing uninitialized <emphasis role="bold">BN_RECP</emphasis>.
+    </para>
+    <para>
+      BN_RECP_CTX_free() frees the components of the <emphasis role="bold">BN_RECP</emphasis>, and, if it was created by
+      BN_RECP_CTX_new(), also the structure itself.
+    </para>
+    <para>
+      BN_RECP_CTX_set() stores <emphasis role="bold">m</emphasis> in
+      <emphasis role="bold">recp</emphasis> and sets it up for computing
+      1/<emphasis role="bold">m</emphasis> and shifting it left by
+      BN_num_bits(<emphasis role="bold">m</emphasis>)+1 to make it an
+      integer. The result and the number of bits it was shifted left will
+      later be stored in <emphasis role="bold">recp</emphasis>.
+    </para>
+    <para>
+      BN_div_recp() divides <emphasis role="bold">a</emphasis> by <emphasis role="bold">m</emphasis> using <emphasis role="bold">recp</emphasis>.
+      It places the quotient in <emphasis role="bold">dv</emphasis> and the
+      remainder in <emphasis role="bold">rem</emphasis>.
+    </para>
+    <para>
+      The <emphasis role="bold">BN_RECP_CTX</emphasis> structure is defined
+      as follows:
+    </para>
+    <screen>typedef struct bn_recp_ctx_st
+       {
+       BIGNUM N;       /* the divisor */
+       BIGNUM Nr;      /* the reciprocal */
+       int num_bits;
+       int shift;
+       int flags;
+       } BN_RECP_CTX;</screen>
+    <para>
+      It cannot be shared between threads.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_reciprocal.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      BN_RECP_CTX_new() returns the newly allocated <emphasis role="bold">BN_RECP_CTX</emphasis>, and NULL on error.
+    </para>
+    <para>
+      BN_RECP_CTX_init() and BN_RECP_CTX_free() have no return values.
+    </para>
+    <para>
+      For the other functions, 1 is returned for success, 0 on error. The
+      error codes can be obtained by ERR_get_error(3).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_reciprocal.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      bn(3), ERR_get_error(3), BN_add(3), BN_CTX_new(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_reciprocal.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      <emphasis role="bold">BN_RECP_CTX</emphasis> was added in SSLeay
+      0.9.0. Before that, the function BN_reciprocal() was used instead,
+      and the BN_mod_mul_reciprocal() arguments were different.
+    </para>
+  </refsection>
+</refentry>

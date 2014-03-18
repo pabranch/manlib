@@ -1,0 +1,67 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_get_client_CA_list.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_get_client_CA_list, SSL_CTX_get_client_CA_list</refname>
+<refpurpose>get list of client CAs</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">STACK_OF(X509_NAME) *SSL_get_client_CA_list(const SSL *s);
+STACK_OF(X509_NAME) *SSL_CTX_get_client_CA_list(const SSL_CTX *ctx);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_client_CA_list.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_CTX_get_client_CA_list() returns the list of client CAs
+      explicitly set for <emphasis role="bold">ctx</emphasis> using
+      SSL_CTX_set_client_CA_list(3).
+    </para>
+    <para>
+      SSL_get_client_CA_list() returns the list of client CAs explicitly
+      set for <emphasis role="bold">ssl</emphasis> using
+      SSL_set_client_CA_list() or <emphasis role="bold">ssl</emphasis>'s
+      SSL_CTX object with SSL_CTX_set_client_CA_list(3), when in server
+      mode. In client mode, SSL_get_client_CA_list returns the list of
+      client CAs sent from the server, if any.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_client_CA_list.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      SSL_CTX_set_client_CA_list() and SSL_set_client_CA_list() do not
+      return diagnostic information.
+    </para>
+    <para>
+      SSL_CTX_add_client_CA() and SSL_add_client_CA() have the following
+      return values:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_client_CA_list.pod:STACK_OFX509_NAMES"/>STACK_OF(X509_NAMES)</term>
+          <listitem>
+            <para>
+	      List of CA names explicitly set (for <emphasis role="bold">ctx</emphasis> or in server mode) or send by the
+	      server (client mode).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_client_CA_list.pod:NULL"/>NULL</term>
+          <listitem>
+            <para>
+	      No client CA list was explicitly set (for <emphasis role="bold">ctx</emphasis> or in server mode) or the server
+	      did not send a list of CAs (client mode).
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_client_CA_list.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_CTX_set_client_CA_list(3), SSL_CTX_set_client_cert_cb(3)
+    </para>
+  </refsection>
+</refentry>

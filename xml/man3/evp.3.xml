@@ -1,0 +1,116 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>evp.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>evp</refname>
+<refpurpose>high-level cryptographic functions</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.evp.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The EVP library provides a high-level interface to cryptographic
+      functions.
+    </para>
+    <para>
+      <emphasis role="bold">EVP_Seal</emphasis><emphasis role="italic">...</emphasis> and <emphasis role="bold">EVP_Open</emphasis><emphasis role="italic">...</emphasis>
+      provide public key encryption and decryption to implement digital
+      "envelopes".
+    </para>
+    <para>
+      The <emphasis role="bold">EVP_DigestSign</emphasis><emphasis role="italic">...</emphasis> and <emphasis role="bold">EVP_DigestVerify</emphasis><emphasis role="italic">...</emphasis> functions implement digital signatures
+      and Message Authentication Codes (MACs). Also see the older <emphasis role="bold">EVP_Sign</emphasis><emphasis role="italic">...</emphasis>
+      and <emphasis role="bold">EVP_Verify</emphasis><emphasis role="italic">...</emphasis> functions.
+    </para>
+    <para>
+      Symmetric encryption is available with the <emphasis role="bold">EVP_Encrypt</emphasis><emphasis role="italic">...</emphasis> functions.  The <emphasis role="bold">EVP_Digest</emphasis><emphasis role="italic">...</emphasis> functions provide message digests.
+    </para>
+    <para>
+      The <emphasis role="bold">EVP_PKEY</emphasis><emphasis role="italic">...</emphasis> functions provide a high level interface
+      to asymmetric algorithms. To create a new EVP_PKEY see
+      EVP_PKEY_new(3). EVP_PKEYs can be associated with a private key of a
+      particular algorithm by using the functions described on the
+      EVP_PKEY_set1_RSA(3) page, or new keys can be generated using
+      EVP_PKEY_keygen(3). EVP_PKEYs can be compared using EVP_PKEY_cmp(3),
+      or printed using EVP_PKEY_print_private(3).
+    </para>
+    <para>
+      The EVP_PKEY functions support the full range of asymmetric algorithm
+      operations:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.evp.pod:For_key_agreement_see_EVP_PKEY_derive3"/>For key agreement see EVP_PKEY_derive(3)</term>
+          <listitem>
+            <para/>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.evp.pod:For_signing_and_verifying_see_EVP_PKEY_sign3EVP_PKEY_verify3_and_EVP_PKEY_verify_recover3.However_note_thatthese_functions_do_not_perform_a_digest_of_the_data_to_be_signed._Thereforenormally_you_would_use_the_EVP_DigestSign...functions_for_this_purpose."/>For signing and verifying see EVP_PKEY_sign(3),
+EVP_PKEY_verify(3) and EVP_PKEY_verify_recover(3).
+However, note that
+these functions do not perform a digest of the data to be signed. Therefore
+normally you would use the <emphasis role="bold">EVP_DigestSign</emphasis><emphasis role="italic">...</emphasis>
+functions for this purpose.</term>
+          <listitem>
+            <para/>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.evp.pod:For_encryption_and_decryption_see_EVP_PKEY_encrypt3and_EVP_PKEY_decrypt3_respectively._However_note_thatthese_functions_perform_encryption_and_decryption_only._As_public_keyencryption_is_an_expensive_operation_normally_you_would_wrapan_encrypted_message_in_a_digital_envelope_using_the_EVP_Seal..._andEVP_Open..._functions."/>For encryption and decryption see EVP_PKEY_encrypt(3)
+and EVP_PKEY_decrypt(3) respectively. However, note that
+these functions perform encryption and decryption only. As public key
+encryption is an expensive operation, normally you would wrap
+an encrypted message in a "digital envelope" using the <emphasis role="bold">EVP_Seal</emphasis><emphasis role="italic">...</emphasis> and
+<emphasis role="bold">EVP_Open</emphasis><emphasis role="italic">...</emphasis> functions.</term>
+          <listitem>
+            <para/>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+    <para>
+      The EVP_BytesToKey(3) function provides some limited support for
+      password based encryption. Careful selection of the parameters will
+      provide a PKCS#5 PBKDF1 compatible implementation. However, new
+      applications should not typically use this (preferring, for example,
+      PBKDF2 from PCKS#5).
+    </para>
+    <para>
+      Algorithms are loaded with OpenSSL_add_all_algorithms(3).
+    </para>
+    <para>
+      All the symmetric algorithms (ciphers), digests and asymmetric
+      algorithms (public key algorithms) can be replaced by ENGINE modules
+      providing alternative implementations. If ENGINE implementations of
+      ciphers or digests are registered as defaults, then the various EVP
+      functions will automatically use those implementations automatically
+      in preference to built in software implementations. For more
+      information, consult the engine(3) man page.
+    </para>
+    <para>
+      Although low level algorithm specific functions exist for many
+      algorithms their use is discouraged. They cannot be used with an
+      ENGINE and ENGINE versions of new algorithms cannot be accessed using
+      the low level functions. Also makes code harder to adapt to new
+      algorithms and some options are not cleanly supported at the low
+      level and some operations are more efficient using the high level
+      interface. 
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.evp.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      EVP_DigestInit(3), EVP_EncryptInit(3), EVP_OpenInit(3),
+      EVP_SealInit(3), EVP_DigestSignInit(3), EVP_SignInit(3),
+      EVP_VerifyInit(3), EVP_PKEY_new(3), EVP_PKEY_set1_RSA(3),
+      EVP_PKEY_keygen(3), EVP_PKEY_print_private(3), EVP_PKEY_decrypt(3),
+      EVP_PKEY_encrypt(3), EVP_PKEY_sign(3), EVP_PKEY_verify(3),
+      EVP_PKEY_verify_recover(3), EVP_PKEY_derive(3), EVP_BytesToKey(3),
+      OpenSSL_add_all_algorithms(3), engine(3)
+    </para>
+  </refsection>
+</refentry>

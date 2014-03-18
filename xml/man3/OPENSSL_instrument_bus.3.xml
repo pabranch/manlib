@@ -1,0 +1,50 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>OPENSSL_instrument_bus.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>OPENSSL_instrument_bus, OPENSSL_instrument_bus2</refname>
+<refpurpose>instrument references to memory bus</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#ifdef OPENSSL_CPUID_OBJ
+size_t OPENSSL_instrument_bus (int *vector,size_t num);
+size_t OPENSSL_instrument_bus2(int *vector,size_t num,size_t max);
+#endif</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.OPENSSL_instrument_bus.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      It was empirically found that timings of references to primary memory
+      are subject to irregular, apparently non-deterministic variations.
+      The subroutines in question instrument these references for purposes
+      of gathering entropy for random number generator. In order to make it
+      bus-bound a 'flush cache line' instruction is used between probes. In
+      addition probes are added to <emphasis role="bold">vector</emphasis>
+      elements in atomic or interlocked manner, which should contribute
+      additional noise on multi-processor systems. This also means that
+      <emphasis role="bold">vector[num]</emphasis> should be zeroed upon
+      invocation (if you want to retrieve actual probe values).
+    </para>
+    <para>
+      OPENSSL_instrument_bus performs <emphasis role="bold">num</emphasis>
+      probes and records the number of oscillator cycles every probe took.
+    </para>
+    <para>
+      OPENSSL_instrument_bus2 on the other hand <emphasis role="bold">accumulates</emphasis> consecutive probes with the same
+      value, i.e. in a way it records duration of periods when probe values
+      appeared deterministic. The subroutine performs at most <emphasis role="bold">max</emphasis> probes in attempt to fill the <emphasis role="bold">vector[num]</emphasis>, with <emphasis role="bold">max</emphasis> value of 0 meaning "as many as it takes."
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.OPENSSL_instrument_bus.pod:RETURN_VALUE"><title>RETURN VALUE</title>
+    <para>
+      Return value of 0 indicates that CPU is not capable of performing the
+      benchmark, either because oscillator counter or 'flush cache line' is
+      not available on current platform. For reference, on x86 'flush cache
+      line' was introduced with the SSE2 extensions.
+    </para>
+    <para>
+      Otherwise number of recorded values is returned.
+    </para>
+  </refsection>
+</refentry>

@@ -1,0 +1,51 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>RSA_print.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>RSA_print, RSA_print_fp,
+DSAparams_print, DSAparams_print_fp, DSA_print, DSA_print_fp,
+DHparams_print, DHparams_print_fp</refname>
+<refpurpose>print cryptographic parameters</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/rsa.h&gt;</synopsis>
+<synopsis format="linespecific">int RSA_print(BIO *bp, RSA *x, int offset);
+int RSA_print_fp(FILE *fp, RSA *x, int offset);</synopsis>
+<synopsis format="linespecific">#include &lt;openssl/dsa.h&gt;</synopsis>
+<synopsis format="linespecific">int DSAparams_print(BIO *bp, DSA *x);
+int DSAparams_print_fp(FILE *fp, DSA *x);
+int DSA_print(BIO *bp, DSA *x, int offset);
+int DSA_print_fp(FILE *fp, DSA *x, int offset);</synopsis>
+<synopsis format="linespecific">#include &lt;openssl/dh.h&gt;</synopsis>
+<synopsis format="linespecific">int DHparams_print(BIO *bp, DH *x);
+int DHparams_print_fp(FILE *fp, DH *x);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_print.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      A human-readable hexadecimal output of the components of the RSA key,
+      DSA parameters or key or DH parameters is printed to <emphasis role="bold">bp</emphasis> or <emphasis role="bold">fp</emphasis>.
+    </para>
+    <para>
+      The output lines are indented by <emphasis role="bold">offset</emphasis> spaces.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_print.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      These functions return 1 on success, 0 on error.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_print.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      dh(3), dsa(3), rsa(3), BN_bn2bin(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_print.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      RSA_print(), RSA_print_fp(), DSA_print(), DSA_print_fp(), DH_print(),
+      DH_print_fp() are available in all versions of SSLeay and OpenSSL.
+      DSAparams_print() and DSAparams_print_fp() were added in SSLeay 0.8.
+    </para>
+  </refsection>
+</refentry>

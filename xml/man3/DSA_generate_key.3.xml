@@ -1,0 +1,40 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>DSA_generate_key.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>DSA_generate_key</refname>
+<refpurpose>generate DSA key pair</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/dsa.h&gt;</synopsis>
+<synopsis format="linespecific">int DSA_generate_key(DSA *a);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.DSA_generate_key.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      DSA_generate_key() expects <emphasis role="bold">a</emphasis> to
+      contain DSA parameters. It generates a new key pair and stores it in
+      <emphasis role="bold">a-&gt;pub_key</emphasis> and <emphasis role="bold">a-&gt;priv_key</emphasis>.
+    </para>
+    <para>
+      The PRNG must be seeded prior to calling DSA_generate_key().
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.DSA_generate_key.pod:RETURN_VALUE"><title>RETURN VALUE</title>
+    <para>
+      DSA_generate_key() returns 1 on success, 0 otherwise. The error codes
+      can be obtained by ERR_get_error(3).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.DSA_generate_key.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      dsa(3), ERR_get_error(3), rand(3), DSA_generate_parameters(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.DSA_generate_key.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      DSA_generate_key() is available since SSLeay 0.8.
+    </para>
+  </refsection>
+</refentry>

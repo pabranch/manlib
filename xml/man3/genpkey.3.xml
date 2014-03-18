@@ -1,0 +1,319 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>genpkey.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>genpkey</refname>
+<refpurpose>generate a private key</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific"><emphasis role="bold">openssl</emphasis> <emphasis role="bold">genpkey</emphasis>
+[<emphasis role="bold">-out filename</emphasis>]
+[<emphasis role="bold">-outform PEM|DER</emphasis>]
+[<emphasis role="bold">-pass arg</emphasis>]
+[<emphasis role="bold">-cipher</emphasis>]
+[<emphasis role="bold">-engine id</emphasis>]
+[<emphasis role="bold">-paramfile file</emphasis>]
+[<emphasis role="bold">-algorithm alg</emphasis>]
+[<emphasis role="bold">-pkeyopt opt:value</emphasis>]
+[<emphasis role="bold">-genparam</emphasis>]
+[<emphasis role="bold">-text</emphasis>]</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.apps.genpkey.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The <emphasis role="bold">genpkey</emphasis> command generates a
+      private key.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.genpkey.pod:OPTIONS"><title>OPTIONS</title>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genpkey.pod:-out_filename"/><emphasis role="bold">-out filename</emphasis></term>
+          <listitem>
+            <para>
+	      the output filename. If this argument is not specified then
+	      standard output is used.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genpkey.pod:-outform_DERPEM"/><emphasis role="bold">-outform DER|PEM</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the output format DER or PEM.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genpkey.pod:-pass_arg"/><emphasis role="bold">-pass arg</emphasis></term>
+          <listitem>
+            <para>
+	      the output file password source. For more information about
+	      the format of <emphasis role="bold">arg</emphasis> see the
+	      <emphasis role="bold">PASS PHRASE ARGUMENTS</emphasis>
+	      section in openssl(1).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genpkey.pod:-cipher"/><emphasis role="bold">-cipher</emphasis></term>
+          <listitem>
+            <para>
+	      This option encrypts the private key with the supplied
+	      cipher. Any algorithm name accepted by EVP_get_cipherbyname()
+	      is acceptable such as <emphasis role="bold">des3</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genpkey.pod:-engine_id"/><emphasis role="bold">-engine id</emphasis></term>
+          <listitem>
+            <para>
+	      specifying an engine (by its unique <emphasis role="bold">id</emphasis> string) will cause <emphasis role="bold">genpkey</emphasis> to attempt to obtain a
+	      functional reference to the specified engine, thus
+	      initialising it if needed. The engine will then be set as the
+	      default for all available algorithms. If used this option
+	      should precede all other options.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genpkey.pod:-algorithm_alg"/><emphasis role="bold">-algorithm alg</emphasis></term>
+          <listitem>
+            <para>
+	      public key algorithm to use such as RSA, DSA or DH. If used
+	      this option must precede any <emphasis role="bold">-pkeyopt</emphasis> options. The options
+	      <emphasis role="bold">-paramfile</emphasis> and <emphasis role="bold">-algorithm</emphasis> are mutually exclusive.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genpkey.pod:-pkeyopt_opt:value"/><emphasis role="bold">-pkeyopt opt:value</emphasis></term>
+          <listitem>
+            <para>
+	      set the public key algorithm option <emphasis role="bold">opt</emphasis> to <emphasis role="bold">value</emphasis>. The precise set of options
+	      supported depends on the public key algorithm used and its
+	      implementation. See <emphasis role="bold">KEY GENERATION
+	      OPTIONS</emphasis> below for more details.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genpkey.pod:-genparam"/><emphasis role="bold">-genparam</emphasis></term>
+          <listitem>
+            <para>
+	      generate a set of parameters instead of a private key. If
+	      used this option must precede and <emphasis role="bold">-algorithm</emphasis>, <emphasis role="bold">-paramfile</emphasis> or <emphasis role="bold">-pkeyopt</emphasis> options.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genpkey.pod:-paramfile_filename"/><emphasis role="bold">-paramfile filename</emphasis></term>
+          <listitem>
+            <para>
+	      Some public key algorithms generate a private key based on a
+	      set of parameters. They can be supplied using this option. If
+	      this option is used the public key algorithm used is
+	      determined by the parameters. If used this option must
+	      precede and <emphasis role="bold">-pkeyopt</emphasis>
+	      options. The options <emphasis role="bold">-paramfile</emphasis> and <emphasis role="bold">-algorithm</emphasis> are mutually exclusive.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genpkey.pod:-text"/><emphasis role="bold">-text</emphasis></term>
+          <listitem>
+            <para>
+	      Print an (unencrypted) text representation of private and
+	      public keys and parameters along with the PEM or DER
+	      structure.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.genpkey.pod:KEY_GENERATION_OPTIONS"><title>KEY GENERATION OPTIONS</title>
+    <para>
+      The options supported by each algorith and indeed each implementation
+      of an algorithm can vary. The options for the OpenSSL implementations
+      are detailed below.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.genpkey.pod:RSA_KEY_GENERATION_OPTIONS"><title>RSA KEY GENERATION OPTIONS</title>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genpkey.pod:rsa_keygen_bits:numbits"/><emphasis role="bold">rsa_keygen_bits:numbits</emphasis></term>
+          <listitem>
+            <para>
+	      The number of bits in the generated key. If not specified
+	      1024 is used.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genpkey.pod:rsa_keygen_pubexp:value"/><emphasis role="bold">rsa_keygen_pubexp:value</emphasis></term>
+          <listitem>
+            <para>
+	      The RSA public exponent value. This can be a large decimal or
+	      hexadecimal value if preceded by <emphasis role="bold">0x</emphasis>. Default value is 65537.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.genpkey.pod:DSA_PARAMETER_GENERATION_OPTIONS"><title>DSA PARAMETER GENERATION OPTIONS</title>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genpkey.pod:dsa_paramgen_bits:numbits"/><emphasis role="bold">dsa_paramgen_bits:numbits</emphasis></term>
+          <listitem>
+            <para>
+	      The number of bits in the generated parameters. If not
+	      specified 1024 is used.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.genpkey.pod:DH_PARAMETER_GENERATION_OPTIONS"><title>DH PARAMETER GENERATION OPTIONS</title>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genpkey.pod:dh_paramgen_prime_len:numbits"/><emphasis role="bold">dh_paramgen_prime_len:numbits</emphasis></term>
+          <listitem>
+            <para>
+	      The number of bits in the prime parameter <emphasis role="bold">p</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genpkey.pod:dh_paramgen_generator:value"/><emphasis role="bold">dh_paramgen_generator:value</emphasis></term>
+          <listitem>
+            <para>
+	      The value to use for the generator <emphasis role="bold">g</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genpkey.pod:dh_rfc5114:num"/><emphasis role="bold">dh_rfc5114:num</emphasis></term>
+          <listitem>
+            <para>
+	      If this option is set then the appropriate RFC5114 parameters
+	      are used instead of generating new parameters. The value
+	      <emphasis role="bold">num</emphasis> can take the values 1, 2
+	      or 3 corresponding to RFC5114 DH parameters consisting of
+	      1024 bit group with 160 bit subgroup, 2048 bit group with 224
+	      bit subgroup and 2048 bit group with 256 bit subgroup as
+	      mentioned in RFC5114 sections 2.1, 2.2 and 2.3 respectively.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.genpkey.pod:EC_PARAMETER_GENERATION_OPTIONS"><title>EC PARAMETER GENERATION OPTIONS</title>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genpkey.pod:ec_paramgen_curve:curve"/><emphasis role="bold">ec_paramgen_curve:curve</emphasis></term>
+          <listitem>
+            <para>
+	      the EC curve to use.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.genpkey.pod:GOST2001_KEY_GENERATION_AND_PARAMETER_OPTIONS"><title>GOST2001 KEY GENERATION AND PARAMETER OPTIONS</title>
+    <para>
+      Gost 2001 support is not enabled by default. To enable this
+      algorithm, one should load the ccgost engine in the OpenSSL
+      configuration file. See README.gost file in the engines/ccgost
+      directiry of the source distribution for more details.
+    </para>
+    <para>
+      Use of a parameter file for the GOST R 34.10 algorithm is optional.
+      Parameters can be specified during key generation directly as well as
+      during generation of parameter file.
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genpkey.pod:paramset:name"/><emphasis role="bold">paramset:name</emphasis></term>
+          <listitem>
+            <para>
+	      Specifies GOST R 34.10-2001 parameter set according to RFC
+	      4357. Parameter set can be specified using abbreviated name,
+	      object short name or numeric OID. Following parameter sets
+	      are supported:
+            </para>
+            <screen>paramset   OID               Usage
+A          1.2.643.2.2.35.1  Signature
+B          1.2.643.2.2.35.2  Signature
+C          1.2.643.2.2.35.3  Signature
+XA         1.2.643.2.2.36.0  Key exchange
+XB         1.2.643.2.2.36.1  Key exchange
+test       1.2.643.2.2.35.0  Test purposes</screen>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+    <screen>
+
+</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.genpkey.pod:NOTES"><title>NOTES</title>
+    <para>
+      The use of the genpkey program is encouraged over the algorithm
+      specific utilities because additional algorithm options and ENGINE
+      provided algorithms can be used.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.genpkey.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      Generate an RSA private key using default parameters:
+    </para>
+    <screen>openssl genpkey -algorithm RSA -out key.pem</screen>
+    <para>
+      Encrypt output private key using 128 bit AES and the passphrase
+      "hello":
+    </para>
+    <screen>openssl genpkey -algorithm RSA -out key.pem -aes-128-cbc -pass pass:hello</screen>
+    <para>
+      Generate a 2048 bit RSA key using 3 as the public exponent:
+    </para>
+    <screen>openssl genpkey -algorithm RSA -out key.pem -pkeyopt rsa_keygen_bits:2048 \
+                                               -pkeyopt rsa_keygen_pubexp:3</screen>
+    <para>
+      Generate 1024 bit DSA parameters:
+    </para>
+    <screen>openssl genpkey -genparam -algorithm DSA -out dsap.pem \
+                                               -pkeyopt dsa_paramgen_bits:1024</screen>
+    <para>
+      Generate DSA key from parameters:
+    </para>
+    <screen>openssl genpkey -paramfile dsap.pem -out dsakey.pem</screen>
+    <para>
+      Generate 1024 bit DH parameters:
+    </para>
+    <screen>openssl genpkey -genparam -algorithm DH -out dhp.pem \
+                                       -pkeyopt dh_paramgen_prime_len:1024</screen>
+    <para>
+      Output RFC5114 2048 bit DH parameters with 224 bit subgroup:
+    </para>
+    <screen>openssl genpkey -genparam -algorithm DH -out dhp.pem -pkeyopt dh_rfc5114:2</screen>
+    <para>
+      Generate DH key from parameters:
+    </para>
+    <screen>openssl genpkey -paramfile dhp.pem -out dhkey.pem
+
+</screen>
+  </refsection>
+</refentry>

@@ -1,0 +1,81 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>BIO_new.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>BIO_new, BIO_set, BIO_free, BIO_vfree, BIO_free_all</refname>
+<refpurpose>BIO allocation and freeing functions</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/bio.h&gt;</synopsis>
+<synopsis format="linespecific">BIO *  BIO_new(BIO_METHOD *type);
+int    BIO_set(BIO *a,BIO_METHOD *type);
+int    BIO_free(BIO *a);
+void   BIO_vfree(BIO *a);
+void   BIO_free_all(BIO *a);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_new.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The BIO_new() function returns a new BIO using method <emphasis role="bold">type</emphasis>.
+    </para>
+    <para>
+      BIO_set() sets the method of an already existing BIO.
+    </para>
+    <para>
+      BIO_free() frees up a single BIO, BIO_vfree() also frees up a single
+      BIO but it does not return a value. Calling BIO_free() may also have
+      some effect on the underlying I/O structure, for example it may close
+      the file being referred to under certain circumstances. For more
+      details see the individual BIO_METHOD descriptions.
+    </para>
+    <para>
+      BIO_free_all() frees up an entire BIO chain, it does not halt if an
+      error occurs freeing up an individual BIO in the chain.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_new.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      BIO_new() returns a newly created BIO or NULL if the call fails.
+    </para>
+    <para>
+      BIO_set(), BIO_free() return 1 for success and 0 for failure.
+    </para>
+    <para>
+      BIO_free_all() and BIO_vfree() do not return values.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_new.pod:NOTES"><title>NOTES</title>
+    <para>
+      Some BIOs (such as memory BIOs) can be used immediately after calling
+      BIO_new(). Others (such as file BIOs) need some additional
+      initialization, and frequently a utility function exists to create
+      and initialize such BIOs.
+    </para>
+    <para>
+      If BIO_free() is called on a BIO chain it will only free one BIO
+      resulting in a memory leak.
+    </para>
+    <para>
+      Calling BIO_free_all() a single BIO has the same effect as calling
+      BIO_free() on it other than the discarded return value.
+    </para>
+    <para>
+      Normally the <emphasis role="bold">type</emphasis> argument is
+      supplied by a function which returns a pointer to a BIO_METHOD. There
+      is a naming convention for such functions: a source/sink BIO is
+      normally called BIO_s_*() and a filter BIO BIO_f_*();
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_new.pod:EXAMPLE"><title>EXAMPLE</title>
+    <para>
+      Create a memory BIO:
+    </para>
+    <screen>BIO *mem = BIO_new(BIO_s_mem());</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_new.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      TBA
+    </para>
+  </refsection>
+</refentry>

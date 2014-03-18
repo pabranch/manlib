@@ -1,0 +1,118 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_set_mode.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_set_mode, SSL_set_mode, SSL_CTX_get_mode, SSL_get_mode</refname>
+<refpurpose>manipulate SSL engine mode</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">long SSL_CTX_set_mode(SSL_CTX *ctx, long mode);
+long SSL_set_mode(SSL *ssl, long mode);</synopsis>
+<synopsis format="linespecific">long SSL_CTX_get_mode(SSL_CTX *ctx);
+long SSL_get_mode(SSL *ssl);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_mode.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_CTX_set_mode() adds the mode set via bitmask in <emphasis role="bold">mode</emphasis> to <emphasis role="bold">ctx</emphasis>.
+      Options already set before are not cleared.
+    </para>
+    <para>
+      SSL_set_mode() adds the mode set via bitmask in <emphasis role="bold">mode</emphasis> to <emphasis role="bold">ssl</emphasis>.
+      Options already set before are not cleared.
+    </para>
+    <para>
+      SSL_CTX_get_mode() returns the mode set for <emphasis role="bold">ctx</emphasis>.
+    </para>
+    <para>
+      SSL_get_mode() returns the mode set for <emphasis role="bold">ssl</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_mode.pod:NOTES"><title>NOTES</title>
+    <para>
+      The following mode changes are available:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_mode.pod:SSL_MODE_ENABLE_PARTIAL_WRITE"/>SSL_MODE_ENABLE_PARTIAL_WRITE</term>
+          <listitem>
+            <para>
+	      Allow SSL_write(..., n) to return r with 0 &lt; r &lt; n
+	      (i.e. report success when just a single record has been
+	      written). When not set (the default), SSL_write() will only
+	      report success once the complete chunk was written. Once
+	      SSL_write() returns with r, r bytes have been successfully
+	      written and the next call to SSL_write() must only send the
+	      n-r bytes left, imitating the behaviour of write().
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_mode.pod:SSL_MODE_ACCEPT_MOVING_WRITE_BUFFER"/>SSL_MODE_ACCEPT_MOVING_WRITE_BUFFER</term>
+          <listitem>
+            <para>
+	      Make it possible to retry SSL_write() with changed buffer
+	      location (the buffer contents must stay the same). This is
+	      not the default to avoid the misconception that non-blocking
+	      SSL_write() behaves like non-blocking write().
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_mode.pod:SSL_MODE_AUTO_RETRY"/>SSL_MODE_AUTO_RETRY</term>
+          <listitem>
+            <para>
+	      Never bother the application with retries if the transport is
+	      blocking. If a renegotiation take place during normal
+	      operation, a SSL_read(3) or SSL_write(3) would return with -1
+	      and indicate the need to retry with SSL_ERROR_WANT_READ. In a
+	      non-blocking environment applications must be prepared to
+	      handle incomplete read/write operations. In a blocking
+	      environment, applications are not always prepared to deal
+	      with read/write operations returning without success report.
+	      The flag SSL_MODE_AUTO_RETRY will cause read/write operations
+	      to only return after the handshake and successful completion.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_mode.pod:SSL_MODE_RELEASE_BUFFERS"/>SSL_MODE_RELEASE_BUFFERS</term>
+          <listitem>
+            <para>
+	      When we no longer need a read buffer or a write buffer for a
+	      given SSL, then release the memory we were using to hold it. 
+	      Released memory is either appended to a list of unused RAM
+	      chunks on the SSL_CTX, or simply freed if the list of unused
+	      chunks would become longer than SSL_CTX-&gt;freelist_max_len,
+	      which defaults to 32.  Using this flag can save around 34k
+	      per idle SSL connection. This flag has no effect on SSL v2
+	      connections, or on DTLS connections. 
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_mode.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      SSL_CTX_set_mode() and SSL_set_mode() return the new mode bitmask
+      after adding <emphasis role="bold">mode</emphasis>.
+    </para>
+    <para>
+      SSL_CTX_get_mode() and SSL_get_mode() return the current bitmask.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_mode.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_read(3), SSL_write(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_mode.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      SSL_MODE_AUTO_RETRY as been added in OpenSSL 0.9.6.
+    </para>
+  </refsection>
+</refentry>

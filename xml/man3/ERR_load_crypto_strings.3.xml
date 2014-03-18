@@ -1,0 +1,51 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>ERR_load_crypto_strings.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>ERR_load_crypto_strings, SSL_load_error_strings, ERR_free_strings</refname>
+<refpurpose>load and free error strings</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/err.h&gt;</synopsis>
+<synopsis format="linespecific">void ERR_load_crypto_strings(void);
+void ERR_free_strings(void);</synopsis>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">void SSL_load_error_strings(void);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.ERR_load_crypto_strings.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      ERR_load_crypto_strings() registers the error strings for all
+      <emphasis role="bold">libcrypto</emphasis> functions.
+      SSL_load_error_strings() does the same, but also registers the
+      <emphasis role="bold">libssl</emphasis> error strings.
+    </para>
+    <para>
+      One of these functions should be called before generating textual
+      error messages. However, this is not required when memory usage is an
+      issue.
+    </para>
+    <para>
+      ERR_free_strings() frees all previously loaded error strings.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ERR_load_crypto_strings.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      ERR_load_crypto_strings(), SSL_load_error_strings() and
+      ERR_free_strings() return no values.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ERR_load_crypto_strings.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      err(3), ERR_error_string(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ERR_load_crypto_strings.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      ERR_load_error_strings(), SSL_load_error_strings() and
+      ERR_free_strings() are available in all versions of SSLeay and
+      OpenSSL.
+    </para>
+  </refsection>
+</refentry>

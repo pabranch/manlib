@@ -1,0 +1,83 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_rstate_string.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_rstate_string, SSL_rstate_string_long</refname>
+<refpurpose>get textual description of state of an SSL object during read operation</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">const char *SSL_rstate_string(SSL *ssl);
+const char *SSL_rstate_string_long(SSL *ssl);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_rstate_string.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_rstate_string() returns a 2 letter string indicating the current
+      read state of the SSL object <emphasis role="bold">ssl</emphasis>.
+    </para>
+    <para>
+      SSL_rstate_string_long() returns a string indicating the current read
+      state of the SSL object <emphasis role="bold">ssl</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_rstate_string.pod:NOTES"><title>NOTES</title>
+    <para>
+      When performing a read operation, the SSL/TLS engine must parse the
+      record, consisting of header and body. When working in a blocking
+      environment, SSL_rstate_string[_long]() should always return
+      "RD"/"read done".
+    </para>
+    <para>
+      This function should only seldom be needed in applications.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_rstate_string.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      SSL_rstate_string() and SSL_rstate_string_long() can return the
+      following values:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_rstate_string.pod:RH.read_header"/>"RH"/"read header"</term>
+          <listitem>
+            <para>
+	      The header of the record is being evaluated.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_rstate_string.pod:RB.read_body"/>"RB"/"read body"</term>
+          <listitem>
+            <para>
+	      The body of the record is being evaluated.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_rstate_string.pod:RD.read_done"/>"RD"/"read done"</term>
+          <listitem>
+            <para>
+	      The record has been completely processed.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_rstate_string.pod:unknown.unknown"/>"unknown"/"unknown"</term>
+          <listitem>
+            <para>
+	      The read state is unknown. This should never happen.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_rstate_string.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3)
+    </para>
+  </refsection>
+</refentry>

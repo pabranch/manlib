@@ -1,0 +1,52 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_get_rbio.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_get_rbio, SSL_get_wbio</refname>
+<refpurpose>get BIO linked to an SSL object</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">BIO *SSL_get_rbio(SSL *ssl);
+BIO *SSL_get_wbio(SSL *ssl);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_rbio.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_get_rbio() and SSL_get_wbio() return pointers to the BIOs for the
+      read or the write channel, which can be different. The reference
+      count of the BIO is not incremented.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_rbio.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      The following return values can occur:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_rbio.pod:NULL"/>NULL</term>
+          <listitem>
+            <para>
+	      No BIO was connected to the SSL object
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_rbio.pod:Any_other_pointer"/>Any other pointer</term>
+          <listitem>
+            <para>
+	      The BIO linked to <emphasis role="bold">ssl</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_rbio.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      SSL_set_bio(3), ssl(3) , bio(3)
+    </para>
+  </refsection>
+</refentry>

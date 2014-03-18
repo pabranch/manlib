@@ -1,0 +1,95 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>RSA_generate_key.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>RSA_generate_key_ex, RSA_generate_key</refname>
+<refpurpose>generate RSA key pair</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/rsa.h&gt;</synopsis>
+<synopsis format="linespecific">int RSA_generate_key_ex(RSA *rsa, int bits, BIGNUM *e, BN_GENCB *cb);</synopsis>
+<synopsis format="linespecific">Deprecated:</synopsis>
+<synopsis format="linespecific">RSA *RSA_generate_key(int num, unsigned long e,
+   void (*callback)(int,int,void *), void *cb_arg);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_generate_key.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      RSA_generate_key_ex() generates a key pair and stores it in the
+      <emphasis role="bold">RSA</emphasis> structure provided in <emphasis role="bold">rsa</emphasis>. The pseudo-random number generator must
+      be seeded prior to calling RSA_generate_key_ex().
+    </para>
+    <para>
+      The modulus size will be of length <emphasis role="bold">bits</emphasis>, and the public exponent will be
+      <emphasis role="bold">e</emphasis>. Key sizes with <emphasis role="bold">num</emphasis> &lt; 1024 should be considered insecure.
+      The exponent is an odd number, typically 3, 17 or 65537.
+    </para>
+    <para>
+      A callback function may be used to provide feedback about the
+      progress of the key generation. If <emphasis role="bold">cb</emphasis> is not <emphasis role="bold">NULL</emphasis>, it will be called as follows using the
+      BN_GENCB_call() function described on the BN_generate_prime(3) page.
+    </para>
+    <para>
+      <itemizedlist>
+        <listitem>
+          <para>
+	    While a random prime number is generated, it is called as
+	    described in BN_generate_prime(3).
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+	    When the n-th randomly generated prime is rejected as not
+	    suitable for the key, <emphasis role="bold">BN_GENCB_call(cb,
+	    2, n)</emphasis> is called.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+	    When a random p has been found with p-1 relatively prime to
+	    <emphasis role="bold">e</emphasis>, it is called as <emphasis role="bold">BN_GENCB_call(cb, 3, 0)</emphasis>.
+          </para>
+        </listitem>
+      </itemizedlist>
+    </para>
+    <para>
+      The process is then repeated for prime q with <emphasis role="bold">BN_GENCB_call(cb, 3, 1)</emphasis>.
+    </para>
+    <para>
+      RSA_generate_key is deprecated (new applications should use
+      RSA_generate_key_ex instead). RSA_generate_key works in the same was
+      as RSA_generate_key_ex except it uses "old style" call backs. See
+      BN_generate_prime(3) for further details.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_generate_key.pod:RETURN_VALUE"><title>RETURN VALUE</title>
+    <para>
+      If key generation fails, RSA_generate_key() returns <emphasis role="bold">NULL</emphasis>.
+    </para>
+    <para>
+      The error codes can be obtained by ERR_get_error(3).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_generate_key.pod:BUGS"><title>BUGS</title>
+    <para>
+      <emphasis role="bold">BN_GENCB_call(cb, 2, x)</emphasis> is used with
+      two different meanings.
+    </para>
+    <para>
+      RSA_generate_key() goes into an infinite loop for illegal input
+      values.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_generate_key.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ERR_get_error(3), rand(3), rsa(3), RSA_free(3), BN_generate_prime(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_generate_key.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      The <emphasis role="bold">cb_arg</emphasis> argument was added in
+      SSLeay 0.9.0.
+    </para>
+  </refsection>
+</refentry>

@@ -1,0 +1,57 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>BN_CTX_start.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>BN_CTX_start, BN_CTX_get, BN_CTX_end</refname>
+<refpurpose>use temporary BIGNUM variables</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis format="linespecific">void BN_CTX_start(BN_CTX *ctx);</synopsis>
+<synopsis format="linespecific">BIGNUM *BN_CTX_get(BN_CTX *ctx);</synopsis>
+<synopsis format="linespecific">void BN_CTX_end(BN_CTX *ctx);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_CTX_start.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      These functions are used to obtain temporary <emphasis role="bold">BIGNUM</emphasis> variables from a <emphasis role="bold">BN_CTX</emphasis> (which can been created by using
+      BN_CTX_new(3)) in order to save the overhead of repeatedly creating
+      and freeing <emphasis role="bold">BIGNUM</emphasis>s in functions
+      that are called from inside a loop.
+    </para>
+    <para>
+      A function must call BN_CTX_start() first. Then, BN_CTX_get() may be
+      called repeatedly to obtain temporary <emphasis role="bold">BIGNUM</emphasis>s. All BN_CTX_get() calls must be made
+      before calling any other functions that use the <emphasis role="bold">ctx</emphasis> as an argument.
+    </para>
+    <para>
+      Finally, BN_CTX_end() must be called before returning from the
+      function. When BN_CTX_end() is called, the <emphasis role="bold">BIGNUM</emphasis> pointers obtained from BN_CTX_get()
+      become invalid.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_CTX_start.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      BN_CTX_start() and BN_CTX_end() return no values.
+    </para>
+    <para>
+      BN_CTX_get() returns a pointer to the <emphasis role="bold">BIGNUM</emphasis>, or <emphasis role="bold">NULL</emphasis> on error. Once BN_CTX_get() has failed,
+      the subsequent calls will return <emphasis role="bold">NULL</emphasis> as well, so it is sufficient to check the
+      return value of the last BN_CTX_get() call. In case of an error, an
+      error code is set, which can be obtained by ERR_get_error(3).
+    </para>
+    <screen></screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_CTX_start.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      BN_CTX_new(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_CTX_start.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      BN_CTX_start(), BN_CTX_get() and BN_CTX_end() were added in OpenSSL
+      0.9.5.
+    </para>
+  </refsection>
+</refentry>

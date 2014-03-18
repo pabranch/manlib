@@ -1,0 +1,77 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>rc4.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>RC4_set_key, RC4</refname>
+<refpurpose>RC4 encryption</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/rc4.h&gt;</synopsis>
+<synopsis format="linespecific">void RC4_set_key(RC4_KEY *key, int len, const unsigned char *data);</synopsis>
+<synopsis format="linespecific">void RC4(RC4_KEY *key, unsigned long len, const unsigned char *indata,
+         unsigned char *outdata);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.rc4.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      This library implements the Alleged RC4 cipher, which is described
+      for example in <emphasis role="italic">Applied
+      Cryptography</emphasis>.	It is believed to be compatible with
+      RC4[TM], a proprietary cipher of RSA Security Inc.
+    </para>
+    <para>
+      RC4 is a stream cipher with variable key length.	Typically, 128 bit
+      (16 byte) keys are used for strong encryption, but shorter insecure
+      key sizes have been widely used due to export restrictions.
+    </para>
+    <para>
+      RC4 consists of a key setup phase and the actual encryption or
+      decryption phase.
+    </para>
+    <para>
+      RC4_set_key() sets up the <emphasis role="bold">RC4_KEY</emphasis>
+      <emphasis role="bold">key</emphasis> using the <emphasis role="bold">len</emphasis> bytes long key at <emphasis role="bold">data</emphasis>.
+    </para>
+    <para>
+      RC4() encrypts or decrypts the <emphasis role="bold">len</emphasis>
+      bytes of data at <emphasis role="bold">indata</emphasis> using
+      <emphasis role="bold">key</emphasis> and places the result at
+      <emphasis role="bold">outdata</emphasis>.  Repeated RC4() calls with
+      the same <emphasis role="bold">key</emphasis> yield a continuous key
+      stream.
+    </para>
+    <para>
+      Since RC4 is a stream cipher (the input is XORed with a pseudo-random
+      key stream to produce the output), decryption uses the same function
+      calls as encryption.
+    </para>
+    <para>
+      Applications should use the higher level functions EVP_EncryptInit(3)
+      etc. instead of calling the RC4 functions directly.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.rc4.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      RC4_set_key() and RC4() do not return values.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.rc4.pod:NOTE"><title>NOTE</title>
+    <para>
+      Certain conditions have to be observed to securely use stream
+      ciphers. It is not permissible to perform multiple encryptions using
+      the same key stream.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.rc4.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      blowfish(3), des(3), rc2(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.rc4.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      RC4_set_key() and RC4() are available in all versions of SSLeay and
+      OpenSSL.
+    </para>
+  </refsection>
+</refentry>

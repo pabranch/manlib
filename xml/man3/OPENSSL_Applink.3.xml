@@ -1,0 +1,24 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>OPENSSL_Applink.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>OPENSSL_Applink</refname>
+<refpurpose>glue between OpenSSL BIO and Win32 compiler run-time</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">__declspec(dllexport) void **OPENSSL_Applink();</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.OPENSSL_Applink.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      OPENSSL_Applink is application-side interface which provides a glue
+      between OpenSSL BIO layer and Win32 compiler run-time environment.
+      Even though it appears at application side, it's essentially OpenSSL
+      private interface. For this reason application developers are not
+      expected to implement it, but to compile provided module with
+      compiler of their choice and link it into the target application. The
+      referred module is available as &lt;openssl&gt;/ms/applink.c.
+    </para>
+  </refsection>
+</refentry>

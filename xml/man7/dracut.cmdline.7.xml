@@ -1,0 +1,2288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry lang="en">
+<refentryinfo>
+    <title>DRACUT.CMDLINE(7)</title>
+</refentryinfo>
+<refmeta>
+<refentrytitle>dracut.cmdline</refentrytitle>
+<manvolnum>7</manvolnum>
+<refmiscinfo class="source">dracut</refmiscinfo>
+<refmiscinfo class="manual">dracut</refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>dracut.cmdline</refname>
+    <refpurpose>dracut kernel command line options</refpurpose>
+</refnamediv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>The root device used by the kernel is specified in the boot configuration
+file on the kernel command line, as always.</simpara>
+<simpara>The traditional <emphasis>root=/dev/sda1</emphasis> style device specification is allowed, but not
+encouraged. The root device should better be identified by LABEL or UUID. If a
+label is used, as in <emphasis>root=LABEL=&lt;label_of_root&gt;</emphasis> the initramfs will search all
+available devices for a filesystem with the appropriate label, and mount that
+device as the root filesystem. <emphasis>root=UUID=&lt;uuidnumber&gt;</emphasis> will mount the partition
+with that UUID as the root filesystem.</simpara>
+<simpara>In the following all kernel command line parameters, which are processed by
+dracut, are described.</simpara>
+<simpara>"rd.*" parameters mentioned without "=" are boolean parameters. They can be
+turned on/off by setting them to {0|1}. If the assignment with "=" is missing
+"=1" is implied. For example <emphasis>rd.info</emphasis> can be turned off with <emphasis>rd.info=0</emphasis> or
+turned on with <emphasis>rd.info=1</emphasis> or <emphasis>rd.info</emphasis>. The last value in the kernel command
+line is the value, which is honored.</simpara>
+<refsect2 id="_standard">
+<title>Standard</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">init=</emphasis><emphasis>&lt;path to real init&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    specify the path to the init programm to be started after the initramfs has
+    finished
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">root=</emphasis><emphasis>&lt;path to blockdevice&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    specify the block device to use as the root filesystem.
+</simpara>
+<formalpara><title>Example</title><para>
+<screen>root=/dev/sda1
+root=/dev/disk/by-path/pci-0000:00:1f.1-scsi-0:0:1:0-part1
+root=/dev/disk/by-label/Root
+root=LABEL=Root
+root=/dev/disk/by-uuid/3f5ad593-4546-4a94-a374-bcfb68aa11f7
+root=UUID=3f5ad593-4546-4a94-a374-bcfb68aa11f7
+root=PARTUUID=3f5ad593-4546-4a94-a374-bcfb68aa11f7</screen>
+</para></formalpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rootfstype=</emphasis><emphasis>&lt;filesystem type&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+"auto" if not specified.
+</simpara>
+<formalpara><title>Example</title><para>
+<screen>rootfstype=ext3</screen>
+</para></formalpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rootflags=</emphasis><emphasis>&lt;mount options&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    specify additional mount options for the root filesystem. If not set,
+    <emphasis>/etc/fstab</emphasis> of the real root will be parsed for special mount options and
+    mounted accordingly.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">ro</emphasis>
+</term>
+<listitem>
+<simpara>
+    force mounting <emphasis>/</emphasis> and <emphasis>/usr</emphasis> (if it is a separate device) read-only.  If
+    none of ro and rw is present, both are mounted according to <emphasis>/etc/fstab</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rw</emphasis>
+</term>
+<listitem>
+<simpara>
+    force mounting <emphasis>/</emphasis> and <emphasis>/usr</emphasis> (if it is a separate device) read-write.
+    See also ro option.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rootfallback=</emphasis><emphasis>&lt;path to blockdevice&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    specify the block device to use as the root filesystem, if the normal root
+    cannot be found. This can only be a simple block device with a simple file
+    system, for which the filesystem driver is either compiled in, or added
+    manually to the initramfs. This parameter can be specified multiple times.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.auto</emphasis> <emphasis role="strong">rd.auto=1</emphasis>
+</term>
+<listitem>
+<simpara>
+    enable autoassembly of special devices like cryptoLUKS, dmraid, mdraid or
+    lvm. Default is off as of dracut version &gt;= 024.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.fstab=0</emphasis>
+</term>
+<listitem>
+<simpara>
+    do not honor special mount options for the root filesystem found in
+    <emphasis>/etc/fstab</emphasis> of the real root.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">resume=</emphasis><emphasis>&lt;path to resume partition&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    resume from a swap partition
+</simpara>
+<formalpara><title>Example</title><para>
+<screen>resume=/dev/disk/by-path/pci-0000:00:1f.1-scsi-0:0:1:0-part1
+resume=/dev/disk/by-uuid/3f5ad593-4546-4a94-a374-bcfb68aa11f7
+resume=UUID=3f5ad593-4546-4a94-a374-bcfb68aa11f7</screen>
+</para></formalpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.skipfsck</emphasis>
+</term>
+<listitem>
+<simpara>
+    skip fsck for rootfs and <emphasis>/usr</emphasis>.  If you&#8217;re mounting <emphasis>/usr</emphasis> read-only and
+    the init system performs fsck before remount, you might want to use this
+    option to avoid duplication.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+<refsect2 id="_misc">
+<title>Misc</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.driver.blacklist=</emphasis><emphasis>&lt;drivername&gt;</emphasis>[,<emphasis>&lt;drivername&gt;</emphasis>,&#8230;]
+</term>
+<listitem>
+<simpara>
+    do not load kernel module &lt;drivername&gt;. This parameter can be specified
+    multiple times.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.driver.pre=</emphasis><emphasis>&lt;drivername&gt;</emphasis>[,<emphasis>&lt;drivername&gt;</emphasis>,&#8230;]
+</term>
+<listitem>
+<simpara>
+    force loading kernel module &lt;drivername&gt;. This parameter can be specified
+    multiple times.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.driver.post=</emphasis><emphasis>&lt;drivername&gt;</emphasis>[,<emphasis>&lt;drivername&gt;</emphasis>,&#8230;]
+</term>
+<listitem>
+<simpara>
+    force loading kernel module &lt;drivername&gt; after all automatic loading modules
+    have been loaded. This parameter can be specified multiple times.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.retry=</emphasis><emphasis>&lt;seconds&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    specify how long dracut should wait for devices to appear.
+    The default is 30 seconds. After 2/3 of the time, degraded raids are force
+    started. If you have hardware, which takes a very long time to announce its
+    drives, you might want to extend this value.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.noverifyssl</emphasis>
+</term>
+<listitem>
+<simpara>
+    accept self-signed certificates for ssl downloads.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.ctty=</emphasis><emphasis>&lt;terminal device&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+   specify the controlling terminal for the console.
+   This is useful, if you have multiple "console=" arguments.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+<refsect2 id="dracutkerneldebug">
+<title>Debug</title>
+<simpara>If you are dropped to an emergency shell, the file
+<emphasis>/run/initramfs/rdsosreport.txt</emphasis> is created, which can be safed to a (to be
+mounted by hand) partition (usually /boot) or a USB stick. Additional debugging
+info can be produced by adding <emphasis role="strong">rd.debug</emphasis> to the kernel command line.
+<emphasis>/run/initramfs/rdsosreport.txt</emphasis> contains all logs and the output of some tools.
+It should be attached to any report about dracut problems.</simpara>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.info</emphasis>
+</term>
+<listitem>
+<simpara>
+    print informational output though "quiet" is set
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.shell</emphasis>
+</term>
+<listitem>
+<simpara>
+    allow dropping to a shell, if root mounting fails
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.debug</emphasis>
+</term>
+<listitem>
+<simpara>
+    set -x for the dracut shell.
+    If systemd is active in the initramfs, all output is logged to the systemd
+    journal, which you can inspect with "journalctl -ab".
+    If systemd is not active, the logs are written to dmesg and
+    <emphasis>/run/initramfs/init.log</emphasis>.
+    If "quiet" is set, it also logs to the console.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.memdebug=[0-3]</emphasis>
+</term>
+<listitem>
+<simpara>
+    Print memory usage info at various points, set the verbose level from 0 to 3.
+</simpara>
+<literallayout class="monospaced">Higher level means more debugging output:</literallayout>
+<screen>    0 - no output
+    1 - partial /proc/meminfo
+    2 - /proc/meminfo
+    3 - /proc/meminfo + /proc/slabinfo</screen>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.break</emphasis>
+</term>
+<listitem>
+<simpara>
+    drop to a shell at the end
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.break=</emphasis><emphasis>{cmdline|pre-udev|pre-trigger|initqueue|pre-mount|mount|pre-pivot|cleanup}</emphasis>
+</term>
+<listitem>
+<simpara>
+    drop to a shell on defined breakpoint
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.udev.info</emphasis>
+</term>
+<listitem>
+<simpara>
+    set udev to loglevel info
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.udev.debug</emphasis>
+</term>
+<listitem>
+<simpara>
+    set udev to loglevel debug
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+<refsect2 id="_i18n">
+<title>I18N</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.vconsole.keymap=</emphasis><emphasis>&lt;keymap base file name&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    keyboard translation table loaded by loadkeys; taken from keymaps directory;
+    will be written as KEYMAP to <emphasis>/etc/vconsole.conf</emphasis> in the initramfs.
+</simpara>
+<formalpara><title>Example</title><para>
+<screen>rd.vconsole.keymap=de-latin1-nodeadkeys</screen>
+</para></formalpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.vconsole.keymap.ext=</emphasis><emphasis>&lt;list of keymap base file names&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    list of extra keymaps to bo loaded (sep. by space); will be written as
+    EXT_KEYMAP to <emphasis>/etc/vconsole.conf</emphasis> in the initramfs
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.vconsole.unicode</emphasis>
+</term>
+<listitem>
+<simpara>
+    boolean, indicating UTF-8 mode; will be written as UNICODE to
+    <emphasis>/etc/vconsole.conf</emphasis> in the initramfs
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.vconsole.font=</emphasis><emphasis>&lt;font base file name&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    console font; taken from consolefonts directory; will be written as FONT to
+    <emphasis>/etc/vconsole.conf</emphasis> in the initramfs.
+</simpara>
+<formalpara><title>Example</title><para>
+<screen>rd.vconsole.font=LatArCyrHeb-16</screen>
+</para></formalpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.vconsole.font.map=</emphasis><emphasis>&lt;console map base file name&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    see description of <emphasis>-m</emphasis> parameter in setfont manual; taken from consoletrans
+    directory; will be written as FONT_MAP to <emphasis>/etc/vconsole.conf</emphasis> in the
+    initramfs
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.vconsole.font.unimap=</emphasis><emphasis>&lt;unicode table base file name&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    see description of <emphasis>-u</emphasis> parameter in setfont manual; taken from unimaps
+    directory; will be written as FONT_UNIMAP to <emphasis>/etc/vconsole.conf</emphasis> in the
+    initramfs
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.locale.LANG=</emphasis><emphasis>&lt;locale&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    taken from the environment; if no UNICODE is defined we set its value in
+    basis of LANG value (whether it ends with ".utf8" (or similar) or not); will
+    be written as LANG to <emphasis>/etc/locale.conf</emphasis> in the initramfs.
+</simpara>
+<formalpara><title>Example</title><para>
+<screen>rd.locale.LANG=pl_PL.utf8</screen>
+</para></formalpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.locale.LC_ALL=</emphasis><emphasis>&lt;locale&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    taken from the environment; will be written as LC_ALL to <emphasis>/etc/locale.conf</emphasis>
+    in the initramfs
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+<refsect2 id="_lvm">
+<title>LVM</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.lvm=0</emphasis>
+</term>
+<listitem>
+<simpara>
+    disable LVM detection
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.lvm.vg=</emphasis><emphasis>&lt;volume group name&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    only activate the volume groups with the given name. rd.lvm.vg can be
+    specified multiple times on the kernel command line.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.lvm.lv=</emphasis><emphasis>&lt;logical volume name&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    only activate the logical volumes with the given name. rd.lvm.lv can be
+    specified multiple times on the kernel command line.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.lvm.conf=0</emphasis>
+</term>
+<listitem>
+<simpara>
+    remove any <emphasis>/etc/lvm/lvm.conf</emphasis>, which may exist in the initramfs
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+<refsect2 id="_crypto_luks">
+<title>crypto LUKS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.luks=0</emphasis>
+</term>
+<listitem>
+<simpara>
+    disable crypto LUKS detection
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.luks.uuid=</emphasis><emphasis>&lt;luks uuid&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    only activate the LUKS partitions with the given UUID. Any "luks-" of the
+    LUKS UUID is removed before comparing to <emphasis>&lt;luks uuid&gt;</emphasis>.
+    The comparisons also matches, if <emphasis>&lt;luks uuid&gt;</emphasis> is only the beginning of the
+    LUKS UUID, so you don&#8217;t have to specify the full UUID.
+    This parameter can be specified multiple times.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.luks.allow-discards=</emphasis><emphasis>&lt;luks uuid&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    Allow  using  of discards (TRIM) requests for LUKS partitions with the given
+    UUID. Any "luks-" of the LUKS UUID is removed before comparing to
+    <emphasis>&lt;luks uuid&gt;</emphasis>. The comparisons also matches, if <emphasis>&lt;luks uuid&gt;</emphasis> is only the
+    beginning of the LUKS UUID, so you don&#8217;t have to specify the full UUID.
+    This parameter can be specified multiple times.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.luks.allow-discards</emphasis>
+</term>
+<listitem>
+<simpara>
+    Allow  using  of discards (TRIM) requests on all LUKS partitions.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.luks.crypttab=0</emphasis>
+</term>
+<listitem>
+<simpara>
+    do not check, if LUKS partition is in <emphasis>/etc/crypttab</emphasis>
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+<refsect2 id="_crypto_luks_key_on_removable_device_support">
+<title>crypto LUKS - key on removable device support</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.luks.key=</emphasis><emphasis>&lt;keypath&gt;</emphasis>:<emphasis>&lt;keydev&gt;</emphasis>:<emphasis>&lt;luksdev&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    <emphasis>keypath</emphasis> is a path to key file to look for. It&#8217;s REQUIRED. When <emphasis>keypath</emphasis>
+    ends with <emphasis>.gpg</emphasis> it&#8217;s considered to be key encrypted symmetrically with GPG.
+    You will be prompted for password on boot. GPG support comes with
+    <emphasis>crypt-gpg</emphasis> module which needs to be added explicitly.
+</simpara>
+<simpara><emphasis>keydev</emphasis> is a device on which key file resides. It might be kernel name of
+devices (should start with "/dev/"), UUID (prefixed with "UUID=") or label
+(prefix with "LABEL="). You don&#8217;t have to specify full UUID. Just its beginning
+will suffice, even if its ambiguous. All matching devices will be probed.
+This parameter is recommended, but not required. If not present, all block
+devices will be probed, which may significantly increase boot time.</simpara>
+<simpara>If <emphasis>luksdev</emphasis> is given, the specified key will only be applied for that LUKS
+device. Possible values are the same as for <emphasis>keydev</emphasis>. Unless you have several
+LUKS devices, you don&#8217;t have to specify this parameter. The simplest usage is:</simpara>
+<formalpara><title>Example</title><para>
+<screen>rd.luks.key=/foo/bar.key</screen>
+</para></formalpara>
+<simpara>As you see, you can skip colons in such a case.</simpara>
+<note>
+<simpara>dracut pipes key to cryptsetup with <emphasis>-d -</emphasis> argument, therefore you need to pipe
+to crypsetup luksFormat with <emphasis>-d -</emphasis>, too!</simpara>
+<simpara>Here follows example for key encrypted with GPG:</simpara>
+<screen>gpg --quiet --decrypt rootkey.gpg | \
+cryptsetup -d - -v --cipher serpent-cbc-essiv:sha256 \
+--key-size 256 luksFormat /dev/sda3</screen>
+<simpara>If you use plain keys, just add path to <emphasis>-d</emphasis> option:</simpara>
+<screen>cryptsetup -d rootkey.key -v --cipher serpent-cbc-essiv:sha256 \
+ --key-size 256 luksFormat /dev/sda3</screen>
+</note>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+<refsect2 id="_md_raid">
+<title>MD RAID</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.md=0</emphasis>
+</term>
+<listitem>
+<simpara>
+    disable MD RAID detection
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.md.imsm=0</emphasis>
+</term>
+<listitem>
+<simpara>
+    disable MD RAID for imsm/isw raids, use DM RAID instead
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.md.ddf=0</emphasis>
+</term>
+<listitem>
+<simpara>
+    disable MD RAID for SNIA ddf raids, use DM RAID instead
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.md.conf=0</emphasis>
+</term>
+<listitem>
+<simpara>
+    ignore mdadm.conf included in initramfs
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.md.waitclean=1</emphasis>
+</term>
+<listitem>
+<simpara>
+    wait for any resync, recovery, or reshape activity to finish before
+    continuing
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.md.uuid=</emphasis><emphasis>&lt;md raid uuid&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    only activate the raid sets with the given UUID. This parameter can be
+    specified multiple times.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+<refsect2 id="_dm_raid">
+<title>DM RAID</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.dm=0</emphasis>
+</term>
+<listitem>
+<simpara>
+    disable DM RAID detection
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.dm.uuid=</emphasis><emphasis>&lt;dm raid uuid&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+   only activate the raid sets with the given UUID. This parameter can be
+   specified multiple times.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+<refsect2 id="_fips">
+<title>FIPS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.fips</emphasis>
+</term>
+<listitem>
+<simpara>
+    enable FIPS
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">boot=</emphasis><emphasis>&lt;boot device&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    specify the device, where /boot is located.
+</simpara>
+<formalpara><title>Example</title><para>
+<screen>boot=/dev/sda1
+boot=/dev/disk/by-path/pci-0000:00:1f.1-scsi-0:0:1:0-part1
+boot=UUID=&lt;uuid&gt;
+boot=LABEL=&lt;label&gt;</screen>
+</para></formalpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.fips.skipkernel</emphasis>
+</term>
+<listitem>
+<simpara>
+    skip checksum check of the kernel image. Useful, if the kernel image is not
+    in a separate boot partition.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+<refsect2 id="_network">
+<title>Network</title>
+<important>
+<simpara>It is recommended to either bind an interface to a MAC with the <emphasis role="strong">ifname</emphasis>
+argument, or to use the systemd-udevd predictable network interface names.</simpara>
+<simpara>Predictable network interface device names based on:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+firmware/bios-provided index numbers for on-board devices
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+firmware-provided pci-express hotplug slot index number
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+physical/geographical location of the hardware
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+the interface&#8217;s MAC address
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara>See:
+<ulink url="http://www.freedesktop.org/wiki/Software/systemd/PredictableNetworkInterfaceNames">http://www.freedesktop.org/wiki/Software/systemd/PredictableNetworkInterfaceNames</ulink></simpara>
+<simpara>Two character prefixes based on the type of interface:</simpara>
+<variablelist>
+<varlistentry>
+<term>
+en
+</term>
+<listitem>
+<simpara>
+ethernet
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+wl
+</term>
+<listitem>
+<simpara>
+wlan
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+ww
+</term>
+<listitem>
+<simpara>
+wwan
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+<simpara>Type of names:</simpara>
+<variablelist>
+<varlistentry>
+<term>
+o&lt;index&gt;
+</term>
+<listitem>
+<simpara>
+on-board device index number
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+s&lt;slot&gt;[f&lt;function&gt;][d&lt;dev_id&gt;]
+</term>
+<listitem>
+<simpara>
+hotplug slot index number
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+x&lt;MAC&gt;
+</term>
+<listitem>
+<simpara>
+MAC address
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+[P&lt;domain&gt;]p&lt;bus&gt;s&lt;slot&gt;[f&lt;function&gt;][d&lt;dev_id&gt;]
+</term>
+<listitem>
+<simpara>
+PCI geographical location
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+[P&lt;domain&gt;]p&lt;bus&gt;s&lt;slot&gt;[f&lt;function&gt;][u&lt;port&gt;][..][c&lt;config&gt;][i&lt;interface&gt;]
+</term>
+<listitem>
+<simpara>
+USB port number chain
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+<simpara>All multi-function PCI devices will carry the [f&lt;function&gt;] number in the
+device name, including the function 0 device.</simpara>
+<simpara>When using PCI geography, The PCI domain is only prepended when it is not 0.</simpara>
+<simpara>For USB devices the full chain of port numbers of hubs is composed. If the
+name gets longer than the maximum number of 15 characters, the name is not
+exported.
+The usual USB configuration == 1 and interface == 0 values are suppressed.</simpara>
+<variablelist>
+<varlistentry>
+<term>
+PCI ethernet card with firmware index "1"
+</term>
+<listitem>
+<itemizedlist>
+<listitem>
+<simpara>
+eno1
+</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+PCI ethernet card in hotplug slot with firmware index number
+</term>
+<listitem>
+<itemizedlist>
+<listitem>
+<simpara>
+ens1
+</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+PCI ethernet multi-function card with 2 ports
+</term>
+<listitem>
+<itemizedlist>
+<listitem>
+<simpara>
+enp2s0f0
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+enp2s0f1
+</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+PCI wlan card
+</term>
+<listitem>
+<itemizedlist>
+<listitem>
+<simpara>
+wlp3s0
+</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+USB built-in 3G modem
+</term>
+<listitem>
+<itemizedlist>
+<listitem>
+<simpara>
+wwp0s29u1u4i6
+</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+USB Android phone
+</term>
+<listitem>
+<itemizedlist>
+<listitem>
+<simpara>
+enp0s29u1u2
+</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+</varlistentry>
+</variablelist>
+</important>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">ip=</emphasis><emphasis>{dhcp|on|any|dhcp6|auto6|ibft}</emphasis>
+</term>
+<listitem>
+<variablelist>
+<varlistentry>
+<term>
+dhcp|on|any
+</term>
+<listitem>
+<simpara>
+get ip from dhcp server from all interfaces. If root=dhcp,
+    loop sequentially through all interfaces (eth0, eth1, &#8230;) and use the first
+    with a valid DHCP root-path.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+auto6
+</term>
+<listitem>
+<simpara>
+IPv6 autoconfiguration
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+dhcp6
+</term>
+<listitem>
+<simpara>
+IPv6 DHCP
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+ibft
+</term>
+<listitem>
+<simpara>
+iBFT autoconfiguration
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">ip=</emphasis><emphasis>&lt;interface&gt;</emphasis>:<emphasis>{dhcp|on|any|dhcp6|auto6}</emphasis>[:[<emphasis>&lt;mtu&gt;</emphasis>][:<emphasis>&lt;macaddr&gt;</emphasis>]]
+</term>
+<listitem>
+<simpara>
+    This parameter can be specified multiple times.
+</simpara>
+<informalexample>
+<variablelist>
+<varlistentry>
+<term>
+dhcp|on|any|dhcp6
+</term>
+<listitem>
+<simpara>
+get ip from dhcp server on a specific interface
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+auto6
+</term>
+<listitem>
+<simpara>
+do IPv6 autoconfiguration
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+&lt;macaddr&gt;
+</term>
+<listitem>
+<simpara>
+optionally <emphasis role="strong">set</emphasis> &lt;macaddr&gt; on the &lt;interface&gt;. This
+cannot be used in conjunction with the <emphasis role="strong">ifname</emphasis> argument for the
+same &lt;interface&gt;.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</informalexample>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">ip=</emphasis><emphasis>&lt;client-IP&gt;</emphasis>:[<emphasis>&lt;peer&gt;</emphasis>]:<emphasis>&lt;gateway-IP&gt;</emphasis>:<emphasis>&lt;netmask&gt;</emphasis>:<emphasis>&lt;client_hostname&gt;</emphasis>:<emphasis>&lt;interface&gt;</emphasis>:<emphasis>{none|off|dhcp|on|any|dhcp6|auto6|ibft}</emphasis>:[:[<emphasis>&lt;mtu&gt;</emphasis>][:<emphasis>&lt;macaddr&gt;</emphasis>]]
+</term>
+<listitem>
+<simpara>
+    explicit network configuration. If you want do define a IPv6 address, put it
+    in brackets (e.g. [2001:DB8::1]). This parameter can be specified multiple
+    times. <emphasis>&lt;peer&gt;</emphasis> is optional and is the address of the remote endpoint
+    for pointopoint interfaces and it may be followed by a slash and a decimal
+    number, encoding the network prefix length.
+</simpara>
+<informalexample>
+<variablelist>
+<varlistentry>
+<term>
+&lt;macaddr&gt;
+</term>
+<listitem>
+<simpara>
+optionally <emphasis role="strong">set</emphasis> &lt;macaddr&gt; on the &lt;interface&gt;. This
+cannot be used in conjunction with the <emphasis role="strong">ifname</emphasis> argument for the
+same &lt;interface&gt;.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</informalexample>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">ip=</emphasis><emphasis>&lt;client-IP&gt;</emphasis>:[<emphasis>&lt;peer&gt;</emphasis>]:<emphasis>&lt;gateway-IP&gt;</emphasis>:<emphasis>&lt;netmask&gt;</emphasis>:<emphasis>&lt;client_hostname&gt;</emphasis>:<emphasis>&lt;interface&gt;</emphasis>:<emphasis>{none|off|dhcp|on|any|dhcp6|auto6|ibft}</emphasis>[:[<emphasis>&lt;dns1&gt;</emphasis>][:<emphasis>&lt;dns2&gt;</emphasis>]]
+</term>
+<listitem>
+<simpara>
+    explicit network configuration. If you want do define a IPv6 address, put it
+    in brackets (e.g. [2001:DB8::1]). This parameter can be specified multiple
+    times. <emphasis>&lt;peer&gt;</emphasis> is optional and is the address of the remote endpoint
+    for pointopoint interfaces and it may be followed by a slash and a decimal
+    number, encoding the network prefix length.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">ifname=</emphasis><emphasis>&lt;interface&gt;</emphasis>:<emphasis>&lt;MAC&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    Assign network device name &lt;interface&gt; (ie "bootnet") to the NIC with
+    MAC &lt;MAC&gt;.
+</simpara>
+<warning><simpara>Do <emphasis role="strong">not</emphasis> use the default kernel naming scheme for the interface name,
+as it can conflict with the kernel names. So, don&#8217;t use "eth[0-9]+" for the
+interface name. Better name it "bootnet" or "bluesocket".</simpara></warning>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">bootdev=</emphasis><emphasis>&lt;interface&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    specify network interface to use routing and netroot information from.
+    Required if multiple ip= lines are used.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">BOOTIF=</emphasis><emphasis>&lt;MAC&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    specify network interface to use routing and netroot information from.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.bootif=0</emphasis>
+</term>
+<listitem>
+<simpara>
+    Disable BOOTIF parsing, which is provided by PXE
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">nameserver=</emphasis><emphasis>&lt;IP&gt;</emphasis> [<emphasis role="strong">nameserver=</emphasis><emphasis>&lt;IP&gt;</emphasis> &#8230;]
+</term>
+<listitem>
+<simpara>
+    specify nameserver(s) to use
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">biosdevname=0</emphasis>
+</term>
+<listitem>
+<simpara>
+    boolean, turn off biosdevname network interface renaming
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.neednet=1</emphasis>
+</term>
+<listitem>
+<simpara>
+    boolean, bring up network even without netroot set
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">vlan=</emphasis><emphasis>&lt;vlanname&gt;</emphasis>:<emphasis>&lt;phydevice&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    Setup vlan device named &lt;vlanname&gt; on &lt;phydeivce&gt;.
+    We support the four styles of vlan names: VLAN_PLUS_VID (vlan0005),
+    VLAN_PLUS_VID_NO_PAD (vlan5), DEV_PLUS_VID (eth0.0005),
+    DEV_PLUS_VID_NO_PAD (eth0.5)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">bond=</emphasis><emphasis>&lt;bondname&gt;</emphasis>[:<emphasis>&lt;bondslaves&gt;</emphasis>:[:<emphasis>&lt;options&gt;</emphasis>]]
+</term>
+<listitem>
+<simpara>
+    Setup bonding device &lt;bondname&gt; on top of &lt;bondslaves&gt;.
+    &lt;bondslaves&gt; is a comma-separated list of physical (ethernet) interfaces.
+    &lt;options&gt; is a comma-separated list on bonding options (modinfo bonding for
+    details) in format compatible with initscripts. If &lt;options&gt; includes
+    multi-valued arp_ip_target option, then its values should be separated by
+    semicolon. Bond without parameters assumes
+    bond=bond0:eth0,eth1:mode=balance-rr
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">team=</emphasis><emphasis>&lt;teammaster&gt;</emphasis>:<emphasis>&lt;teamslaves&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    Setup team device &lt;teammaster&gt; on top of &lt;teamslaves&gt;.
+    &lt;teamslaves&gt; is a comma-separated list of physical (ethernet) interfaces.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">bridge=</emphasis><emphasis>&lt;bridgename&gt;</emphasis>:<emphasis>&lt;ethnames&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    Setup bridge &lt;bridgename&gt; with &lt;ethnames&gt;. &lt;ethnames&gt; is a comma-separated
+    list of physical (ethernet) interfaces. Bridge without parameters assumes
+    bridge=br0:eth0
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+<refsect2 id="_nfs">
+<title>NFS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">root=</emphasis>[<emphasis>&lt;server-ip&gt;</emphasis>:]<emphasis>&lt;root-dir&gt;</emphasis>[:<emphasis>&lt;nfs-options&gt;</emphasis>]
+</term>
+<listitem>
+<simpara>
+    mount nfs share from &lt;server-ip&gt;:/&lt;root-dir&gt;, if no server-ip is given, use
+    dhcp next_server. if server-ip is an IPv6 address it has to be put in
+    brackets, e.g. [2001:DB8::1]. NFS options can be appended with the prefix
+    ":" or "," and are seperated by ",".
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">root=</emphasis>nfs:[<emphasis>&lt;server-ip&gt;</emphasis>:]<emphasis>&lt;root-dir&gt;</emphasis>[:<emphasis>&lt;nfs-options&gt;</emphasis>], <emphasis role="strong">root=</emphasis>nfs4:[<emphasis>&lt;server-ip&gt;</emphasis>:]<emphasis>&lt;root-dir&gt;</emphasis>[:<emphasis>&lt;nfs-options&gt;</emphasis>], <emphasis role="strong">root=</emphasis><emphasis>{dhcp|dhcp6}</emphasis>
+</term>
+<listitem>
+<simpara>
+    root=dhcp alone directs initrd to look at the DHCP root-path where NFS
+    options can be specified.
+</simpara>
+<formalpara><title>Example</title><para>
+<screen>    root-path=&lt;server-ip&gt;:&lt;root-dir&gt;[,&lt;nfs-options&gt;]
+    root-path=nfs:&lt;server-ip&gt;:&lt;root-dir&gt;[,&lt;nfs-options&gt;]
+    root-path=nfs4:&lt;server-ip&gt;:&lt;root-dir&gt;[,&lt;nfs-options&gt;]</screen>
+</para></formalpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">root=</emphasis><emphasis>/dev/nfs</emphasis> nfsroot=[<emphasis>&lt;server-ip&gt;</emphasis>:]<emphasis>&lt;root-dir&gt;</emphasis>[:<emphasis>&lt;nfs-options&gt;</emphasis>]
+</term>
+<listitem>
+<simpara>
+    <emphasis>Deprecated!</emphasis> kernel Documentation_/filesystems/nfsroot.txt_ defines this
+    method. This is supported by dracut, but not recommended.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.nfs.domain=</emphasis><emphasis>&lt;NFSv4 domain name&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    Set the NFSv4 domain name. Will overwrite the settings in <emphasis>/etc/idmap.conf</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+<refsect2 id="_cifs">
+<title>CIFS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">root=</emphasis>cifs://[<emphasis>&lt;username&gt;</emphasis>[:<emphasis>&lt;password&gt;</emphasis>]@]<emphasis>&lt;server-ip&gt;</emphasis>:<emphasis>&lt;root-dir&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    mount cifs share from &lt;server-ip&gt;:/&lt;root-dir&gt;, if no server-ip is given, use
+    dhcp next_server. if server-ip is an IPv6 address it has to be put in
+    brackets, e.g. [2001:DB8::1]. If a username or password are not specified
+as part of the root, then they must be passed on the command line through
+cifsuser/cifspass.
+</simpara>
+<warning><simpara>Passwords specified on the kernel command line are visible for all
+users via the file <emphasis>/proc/cmdline</emphasis> and via dmesg or can be sniffed on the
+network, when using DHCP with DHCP root-path.</simpara></warning>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">cifsuser</emphasis>=<emphasis>&lt;username&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    Set the cifs username, if not specified as part of the root.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">cifspass</emphasis>=<emphasis>&lt;password&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    Set the cifs password, if not specified as part of the root.
+</simpara>
+<warning><simpara>Passwords specified on the kernel command line are visible for all
+users via the file <emphasis>/proc/cmdline</emphasis> and via dmesg or can be sniffed on the
+network, when using DHCP with DHCP root-path.</simpara></warning>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+<refsect2 id="_iscsi">
+<title>iSCSI</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">root=</emphasis>iscsi:[<emphasis>&lt;username&gt;</emphasis>:<emphasis>&lt;password&gt;</emphasis>[:<emphasis>&lt;reverse&gt;</emphasis>:<emphasis>&lt;password&gt;</emphasis>]@][<emphasis>&lt;servername&gt;</emphasis>]:[<emphasis>&lt;protocol&gt;</emphasis>]:[<emphasis>&lt;port&gt;</emphasis>][:[<emphasis>&lt;iscsi_iface_name&gt;</emphasis>]:[<emphasis>&lt;netdev_name&gt;</emphasis>]]:[<emphasis>&lt;LUN&gt;</emphasis>]:<emphasis>&lt;targetname&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    protocol defaults to "6", LUN defaults to "0". If the "servername" field is
+    provided by BOOTP or DHCP, then that field is used in conjunction with other
+    associated fields to contact the boot server in the Boot stage. However, if
+    the "servername" field is not provided, then the "targetname" field is then
+    used in the Discovery Service stage in conjunction with other associated
+    fields. See
+    <ulink url="http://tools.ietf.org/html/rfc4173#section-5">rfc4173</ulink>.
+</simpara>
+<warning><simpara>Passwords specified on the kernel command line are visible for all
+users via the file <emphasis>/proc/cmdline</emphasis> and via dmesg or can be sniffed on the
+network, when using DHCP with DHCP root-path.</simpara></warning>
+<formalpara><title>Example</title><para>
+<screen>root=iscsi:192.168.50.1::::iqn.2009-06.dracut:target0</screen>
+</para></formalpara>
+<simpara>If servername is an IPv6 address, it has to be put in brackets:</simpara>
+<formalpara><title>Example</title><para>
+<screen>root=iscsi:[2001:DB8::1]::::iqn.2009-06.dracut:target0</screen>
+</para></formalpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">root=</emphasis><emphasis>???</emphasis> <emphasis role="strong">netroot=</emphasis>iscsi:[<emphasis>&lt;username&gt;</emphasis>:<emphasis>&lt;password&gt;</emphasis>[:<emphasis>&lt;reverse&gt;</emphasis>:<emphasis>&lt;password&gt;</emphasis>]@][<emphasis>&lt;servername&gt;</emphasis>]:[<emphasis>&lt;protocol&gt;</emphasis>]:[<emphasis>&lt;port&gt;</emphasis>][:[<emphasis>&lt;iscsi_iface_name&gt;</emphasis>]:[<emphasis>&lt;netdev_name&gt;</emphasis>]]:[<emphasis>&lt;LUN&gt;</emphasis>]:<emphasis>&lt;targetname&gt;</emphasis> &#8230;
+</term>
+<listitem>
+<simpara>
+    multiple netroot options allow setting up multiple iscsi disks:
+</simpara>
+<formalpara><title>Example</title><para>
+<screen>root=UUID=12424547
+netroot=iscsi:192.168.50.1::::iqn.2009-06.dracut:target0
+netroot=iscsi:192.168.50.1::::iqn.2009-06.dracut:target1</screen>
+</para></formalpara>
+<simpara>If servername is an IPv6 address, it has to be put in brackets:</simpara>
+<formalpara><title>Example</title><para>
+<screen>netroot=iscsi:[2001:DB8::1]::::iqn.2009-06.dracut:target0</screen>
+</para></formalpara>
+<warning><simpara>Passwords specified on the kernel command line are visible for all
+users via the file <emphasis>/proc/cmdline</emphasis> and via dmesg or can be sniffed on the
+network, when using DHCP with DHCP root-path.
+You may want to use rd.iscsi.firmware.</simpara></warning>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">root=</emphasis><emphasis>???</emphasis> <emphasis role="strong">rd.iscsi.initiator=</emphasis><emphasis>&lt;initiator&gt;</emphasis> <emphasis role="strong">rd.iscsi.target.name=</emphasis><emphasis>&lt;target name&gt;</emphasis>  <emphasis role="strong">rd.iscsi.target.ip=</emphasis><emphasis>&lt;target ip&gt;</emphasis> <emphasis role="strong">rd.iscsi.target.port=</emphasis><emphasis>&lt;target port&gt;</emphasis> <emphasis role="strong">rd.iscsi.target.group=</emphasis><emphasis>&lt;target group&gt;</emphasis> <emphasis role="strong">rd.iscsi.username=</emphasis><emphasis>&lt;username&gt;</emphasis> <emphasis role="strong">rd.iscsi.password=</emphasis><emphasis>&lt;password&gt;</emphasis> <emphasis role="strong">rd.iscsi.in.username=</emphasis><emphasis>&lt;in username&gt;</emphasis> <emphasis role="strong">rd.iscsi.in.password=</emphasis><emphasis>&lt;in password&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    manually specify all iscsistart parameter (see <emphasis role="strong"><literal>iscsistart --help</literal></emphasis>)
+</simpara>
+<warning><simpara>Passwords specified on the kernel command line are visible for all
+users via the file <emphasis>/proc/cmdline</emphasis> and via dmesg or can be sniffed on the
+network, when using DHCP with DHCP root-path.
+You may want to use rd.iscsi.firmware.</simpara></warning>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">root=</emphasis><emphasis>???</emphasis> <emphasis role="strong">netroot=</emphasis>iscsi <emphasis role="strong">rd.iscsi.firmware=1</emphasis>
+</term>
+<listitem>
+<simpara>
+ will read the iscsi parameter from the BIOS firmware
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.iscsi.param=</emphasis><emphasis>&lt;param&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    &lt;param&gt; will be passed as "--param &lt;param&gt;" to iscsistart.
+    This parameter can be specified multiple times.
+</simpara>
+<formalpara><title>Example</title><para>
+<screen>"netroot=iscsi rd.iscsi.firmware=1 rd.iscsi.param=node.session.timeo.replacement_timeout=30"</screen>
+</para></formalpara>
+<simpara>will result in</simpara>
+<screen>iscsistart -b --param node.session.timeo.replacement_timeout=30</screen>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+<refsect2 id="_fcoe">
+<title>FCoE</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">fcoe=</emphasis><emphasis>&lt;edd|interface|MAC&gt;</emphasis>:<emphasis>{dcb|nodcb}</emphasis>
+</term>
+<listitem>
+<simpara>
+    Try to connect to a FCoE SAN through the NIC specified by <emphasis>&lt;interface&gt;</emphasis> or
+    <emphasis>&lt;MAC&gt;</emphasis> or EDD settings. For the second argument, currently only nodcb is
+    supported. This parameter can be specified multiple times.
+</simpara>
+<note><simpara>letters in the MAC-address must be lowercase!</simpara></note>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+<refsect2 id="_nbd">
+<title>NBD</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">root=</emphasis>??? <emphasis role="strong">netroot=</emphasis>nbd:<emphasis>&lt;server&gt;</emphasis>:<emphasis>&lt;port&gt;</emphasis>[:<emphasis>&lt;fstype&gt;</emphasis>[:<emphasis>&lt;mountopts&gt;</emphasis>[:<emphasis>&lt;nbdopts&gt;</emphasis>]]]
+</term>
+<listitem>
+<simpara>
+    mount nbd share from &lt;server&gt;
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">root=dhcp</emphasis> with <emphasis role="strong">dhcp</emphasis> <emphasis role="strong">root-path=</emphasis>nbd:<emphasis>&lt;server&gt;</emphasis>:<emphasis>&lt;port&gt;</emphasis>[:<emphasis>&lt;fstype&gt;</emphasis>[:<emphasis>&lt;mountopts&gt;</emphasis>[:<emphasis>&lt;nbdopts&gt;</emphasis>]]]
+</term>
+<listitem>
+<simpara>
+    root=dhcp alone directs initrd to look at the DHCP root-path where NBD
+    options can be specified. This syntax is only usable in cases where you are
+    directly mounting the volume as the rootfs.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+<refsect2 id="_dasd">
+<title>DASD</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.dasd=</emphasis>&#8230;.
+</term>
+<listitem>
+<simpara>
+    same syntax as the kernel module parameter (s390 only)
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+<refsect2 id="_zfcp">
+<title>ZFCP</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.zfcp=</emphasis><emphasis>&lt;zfcp adaptor device bus ID&gt;</emphasis>,<emphasis>&lt;WWPN&gt;</emphasis>,<emphasis>&lt;FCPLUN&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    rd.zfcp can be specified multiple times on the kernel command line.
+</simpara>
+<formalpara><title>Example</title><para>
+<screen>rd.zfcp=0.0.4000,0x5005076300C213e9,0x5022000000000000</screen>
+</para></formalpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.zfcp.conf=0</emphasis>
+</term>
+<listitem>
+<simpara>
+    ignore zfcp.conf included in the initramfs
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+<refsect2 id="_znet">
+<title>ZNET</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.znet=</emphasis><emphasis>&lt;nettype&gt;</emphasis>,<emphasis>&lt;subchannels&gt;</emphasis>,<emphasis>&lt;options&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    rd.znet can be specified multiple times on the kernel command line.
+</simpara>
+<formalpara><title>Example</title><para>
+<screen>rd.znet=qeth,0.0.0600,0.0.0601,0.0.0602,layer2=1,portname=foo
+rd.znet=ctc,0.0.0600,0.0.0601,protocol=bar</screen>
+</para></formalpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+<refsect2 id="_plymouth_boot_splash">
+<title>Plymouth Boot Splash</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">plymouth.enable=0</emphasis>
+</term>
+<listitem>
+<simpara>
+    disable the plymouth bootsplash completly.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.plymouth=0</emphasis>
+</term>
+<listitem>
+<simpara>
+    disable the plymouth bootsplash only for the initramfs.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+<refsect2 id="_kernel_keys">
+<title>Kernel keys</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">masterkey=</emphasis><emphasis>&lt;kernel master key path name&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    Set the path name of the kernel master key.
+</simpara>
+<formalpara><title>Example</title><para>
+<screen>masterkey=/etc/keys/kmk-trusted.blob</screen>
+</para></formalpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">masterkeytype=</emphasis><emphasis>&lt;kernel master key type&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    Set the type of the kernel master key.
+</simpara>
+<formalpara><title>Example</title><para>
+<screen>masterkeytype=trusted</screen>
+</para></formalpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">evmkey=</emphasis><emphasis>&lt;EVM key path name&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    Set the path name of the EVM key.
+</simpara>
+<formalpara><title>Example</title><para>
+<screen>evmkey=/etc/keys/evm-trusted.blob</screen>
+</para></formalpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">ecryptfskey=</emphasis><emphasis>&lt;eCryptfs key path name&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    Set the path name of the eCryptfs key.
+</simpara>
+<formalpara><title>Example</title><para>
+<screen>ecryptfskey=/etc/keys/ecryptfs-trusted.blob</screen>
+</para></formalpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+<refsect2 id="_deprecated_renamed_options">
+<title>Deprecated, renamed Options</title>
+<simpara>Here is a list of options, which were used in dracut prior to version 008, and
+their new replacement.</simpara>
+<variablelist>
+<varlistentry>
+<term>
+rdbreak
+</term>
+<listitem>
+<simpara>
+rd.break
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_CCW
+</term>
+<listitem>
+<simpara>
+rd.ccw
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_DASD_MOD
+</term>
+<listitem>
+<simpara>
+rd.dasd
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_DASD
+</term>
+<listitem>
+<simpara>
+rd.dasd
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rdinitdebug rdnetdebug
+</term>
+<listitem>
+<simpara>
+rd.debug
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_NO_DM
+</term>
+<listitem>
+<simpara>
+rd.dm=0
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_DM_UUID
+</term>
+<listitem>
+<simpara>
+rd.dm.uuid
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rdblacklist
+</term>
+<listitem>
+<simpara>
+rd.driver.blacklist
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rdinsmodpost
+</term>
+<listitem>
+<simpara>
+rd.driver.post
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rdloaddriver
+</term>
+<listitem>
+<simpara>
+rd.driver.pre
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_NO_FSTAB
+</term>
+<listitem>
+<simpara>
+rd.fstab=0
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rdinfo
+</term>
+<listitem>
+<simpara>
+rd.info
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+check
+</term>
+<listitem>
+<simpara>
+rd.live.check
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rdlivedebug
+</term>
+<listitem>
+<simpara>
+rd.live.debug
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+live_dir
+</term>
+<listitem>
+<simpara>
+rd.live.dir
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+liveimg
+</term>
+<listitem>
+<simpara>
+rd.live.image
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+overlay
+</term>
+<listitem>
+<simpara>
+rd.live.overlay
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+readonly_overlay
+</term>
+<listitem>
+<simpara>
+rd.live.overlay.readonly
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+reset_overlay
+</term>
+<listitem>
+<simpara>
+rd.live.overlay.reset
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+live_ram
+</term>
+<listitem>
+<simpara>
+rd.live.ram
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_NO_CRYPTTAB
+</term>
+<listitem>
+<simpara>
+rd.luks.crypttab=0
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_LUKS_KEYDEV_UUID
+</term>
+<listitem>
+<simpara>
+rd.luks.keydev.uuid
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_LUKS_KEYPATH
+</term>
+<listitem>
+<simpara>
+rd.luks.keypath
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_NO_LUKS
+</term>
+<listitem>
+<simpara>
+rd.luks=0
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_LUKS_UUID
+</term>
+<listitem>
+<simpara>
+rd.luks.uuid
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_NO_LVMCONF
+</term>
+<listitem>
+<simpara>
+rd.lvm.conf
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_LVM_LV
+</term>
+<listitem>
+<simpara>
+rd.lvm.lv
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_NO_LVM
+</term>
+<listitem>
+<simpara>
+rd.lvm=0
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_LVM_SNAPSHOT
+</term>
+<listitem>
+<simpara>
+rd.lvm.snapshot
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_LVM_SNAPSIZE
+</term>
+<listitem>
+<simpara>
+rd.lvm.snapsize
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_LVM_VG
+</term>
+<listitem>
+<simpara>
+rd.lvm.vg
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_NO_MDADMCONF
+</term>
+<listitem>
+<simpara>
+rd.md.conf=0
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_NO_MDIMSM
+</term>
+<listitem>
+<simpara>
+rd.md.imsm=0
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_NO_MD
+</term>
+<listitem>
+<simpara>
+rd.md=0
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_MD_UUID
+</term>
+<listitem>
+<simpara>
+rd.md.uuid
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_NFS_DOMAIN
+</term>
+<listitem>
+<simpara>
+rd.nfs.domain
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+iscsi_initiator
+</term>
+<listitem>
+<simpara>
+rd.iscsi.initiator
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+iscsi_target_name
+</term>
+<listitem>
+<simpara>
+rd.iscsi.target.name
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+iscsi_target_ip
+</term>
+<listitem>
+<simpara>
+rd.iscsi.target.ip
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+iscsi_target_port
+</term>
+<listitem>
+<simpara>
+rd.iscsi.target.port
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+iscsi_target_group
+</term>
+<listitem>
+<simpara>
+rd.iscsi.target.group
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+iscsi_username
+</term>
+<listitem>
+<simpara>
+rd.iscsi.username
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+iscsi_password
+</term>
+<listitem>
+<simpara>
+rd.iscsi.password
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+iscsi_in_username
+</term>
+<listitem>
+<simpara>
+rd.iscsi.in.username
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+iscsi_in_password
+</term>
+<listitem>
+<simpara>
+rd.iscsi.in.password
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+iscsi_firmware
+</term>
+<listitem>
+<simpara>
+rd.iscsi.firmware=0
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_NO_PLYMOUTH
+</term>
+<listitem>
+<simpara>
+rd.plymouth=0
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_retry
+</term>
+<listitem>
+<simpara>
+rd.retry
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rdshell
+</term>
+<listitem>
+<simpara>
+rd.shell
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_NO_SPLASH
+</term>
+<listitem>
+<simpara>
+rd.splash
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rdudevdebug
+</term>
+<listitem>
+<simpara>
+rd.udev.debug
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rdudevinfo
+</term>
+<listitem>
+<simpara>
+rd.udev.info
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_NO_ZFCPCONF
+</term>
+<listitem>
+<simpara>
+rd.zfcp.conf=0
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_ZFCP
+</term>
+<listitem>
+<simpara>
+rd.zfcp
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rd_ZNET
+</term>
+<listitem>
+<simpara>
+rd.znet
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+KEYMAP
+</term>
+<listitem>
+<simpara>
+vconsole.keymap
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+KEYTABLE
+</term>
+<listitem>
+<simpara>
+vconsole.keymap
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+SYSFONT
+</term>
+<listitem>
+<simpara>
+vconsole.font
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+CONTRANS
+</term>
+<listitem>
+<simpara>
+vconsole.font.map
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+UNIMAP
+</term>
+<listitem>
+<simpara>
+vconsole.font.unimap
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+UNICODE
+</term>
+<listitem>
+<simpara>
+vconsole.unicode
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+EXT_KEYMAP
+</term>
+<listitem>
+<simpara>
+vconsole.keymap.ext
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+<refsect2 id="_configuration_in_the_initramfs">
+<title>Configuration in the Initramfs</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis>/etc/conf.d/</emphasis>
+</term>
+<listitem>
+<simpara>
+    Any files found in <emphasis>/etc/conf.d/</emphasis> will be sourced in the initramfs to
+    set initial values. Command line options will override these values
+    set in the configuration files.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis>/etc/cmdline</emphasis>
+</term>
+<listitem>
+<simpara>
+    Can contain additional command line options. Deprecated, better use
+    /etc/cmdline.d/*.conf.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis>/etc/cmdline.d/*.conf</emphasis>
+</term>
+<listitem>
+<simpara>
+    Can contain additional command line options.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+</refsect1>
+<refsect1 id="_author">
+<title>AUTHOR</title>
+<simpara>Harald Hoyer</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><emphasis role="strong">dracut</emphasis>(8) <emphasis role="strong">dracut.conf</emphasis>(5)</simpara>
+</refsect1>
+</refentry>

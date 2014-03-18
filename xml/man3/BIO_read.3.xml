@@ -1,0 +1,84 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>BIO_read.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>BIO_read, BIO_write, BIO_gets, BIO_puts</refname>
+<refpurpose>BIO I/O functions</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/bio.h&gt;</synopsis>
+<synopsis format="linespecific">int    BIO_read(BIO *b, void *buf, int len);
+int    BIO_gets(BIO *b,char *buf, int size);
+int    BIO_write(BIO *b, const void *buf, int len);
+int    BIO_puts(BIO *b,const char *buf);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_read.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      BIO_read() attempts to read <emphasis role="bold">len</emphasis>
+      bytes from BIO <emphasis role="bold">b</emphasis> and places the data
+      in <emphasis role="bold">buf</emphasis>.
+    </para>
+    <para>
+      BIO_gets() performs the BIOs "gets" operation and places the data in
+      <emphasis role="bold">buf</emphasis>. Usually this operation will
+      attempt to read a line of data from the BIO of maximum length
+      <emphasis role="bold">len</emphasis>. There are exceptions to this
+      however, for example BIO_gets() on a digest BIO will calculate and
+      return the digest and other BIOs may not support BIO_gets() at all.
+    </para>
+    <para>
+      BIO_write() attempts to write <emphasis role="bold">len</emphasis>
+      bytes from <emphasis role="bold">buf</emphasis> to BIO <emphasis role="bold">b</emphasis>.
+    </para>
+    <para>
+      BIO_puts() attempts to write a null terminated string <emphasis role="bold">buf</emphasis> to BIO <emphasis role="bold">b</emphasis>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_read.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      All these functions return either the amount of data successfully
+      read or written (if the return value is positive) or that no data was
+      successfully read or written if the result is 0 or -1. If the return
+      value is -2 then the operation is not implemented in the specific BIO
+      type.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_read.pod:NOTES"><title>NOTES</title>
+    <para>
+      A 0 or -1 return is not necessarily an indication of an error. In
+      particular when the source/sink is non-blocking or of a certain type
+      it may merely be an indication that no data is currently available
+      and that the application should retry the operation later.
+    </para>
+    <para>
+      One technique sometimes used with blocking sockets is to use a system
+      call (such as select(), poll() or equivalent) to determine when data
+      is available and then call read() to read the data. The equivalent
+      with BIOs (that is call select() on the underlying I/O structure and
+      then call BIO_read() to read the data) should <emphasis role="bold">not</emphasis> be used because a single call to
+      BIO_read() can cause several reads (and writes in the case of SSL
+      BIOs) on the underlying I/O structure and may block as a result.
+      Instead select() (or equivalent) should be combined with non blocking
+      I/O so successive reads will request a retry instead of blocking.
+    </para>
+    <para>
+      See BIO_should_retry(3) for details of how to determine the cause of
+      a retry and other I/O issues.
+    </para>
+    <para>
+      If the BIO_gets() function is not supported by a BIO then it possible
+      to work around this by adding a buffering BIO BIO_f_buffer(3) to the
+      chain.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_read.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      BIO_should_retry(3)
+    </para>
+    <para>
+      TBA
+    </para>
+  </refsection>
+</refentry>

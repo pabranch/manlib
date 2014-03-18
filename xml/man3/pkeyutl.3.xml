@@ -1,0 +1,331 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>pkeyutl.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>pkeyutl</refname>
+<refpurpose>public key algorithm utility</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific"><emphasis role="bold">openssl</emphasis> <emphasis role="bold">pkeyutl</emphasis>
+[<emphasis role="bold">-in file</emphasis>]
+[<emphasis role="bold">-out file</emphasis>]
+[<emphasis role="bold">-sigfile file</emphasis>]
+[<emphasis role="bold">-inkey file</emphasis>]
+[<emphasis role="bold">-keyform PEM|DER</emphasis>]
+[<emphasis role="bold">-passin arg</emphasis>]
+[<emphasis role="bold">-peerkey file</emphasis>]
+[<emphasis role="bold">-peerform PEM|DER</emphasis>]
+[<emphasis role="bold">-pubin</emphasis>]
+[<emphasis role="bold">-certin</emphasis>]
+[<emphasis role="bold">-rev</emphasis>]
+[<emphasis role="bold">-sign</emphasis>]
+[<emphasis role="bold">-verify</emphasis>]
+[<emphasis role="bold">-verifyrecover</emphasis>]
+[<emphasis role="bold">-encrypt</emphasis>]
+[<emphasis role="bold">-decrypt</emphasis>]
+[<emphasis role="bold">-derive</emphasis>]
+[<emphasis role="bold">-pkeyopt opt:value</emphasis>]
+[<emphasis role="bold">-hexdump</emphasis>]
+[<emphasis role="bold">-asn1parse</emphasis>]
+[<emphasis role="bold">-engine id</emphasis>]</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.apps.pkeyutl.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The <emphasis role="bold">pkeyutl</emphasis> command can be used to
+      perform public key operations using any supported algorithm.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.pkeyutl.pod:COMMAND_OPTIONS"><title>COMMAND OPTIONS</title>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkeyutl.pod:-in_filename"/><emphasis role="bold">-in filename</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the input filename to read data from or
+	      standard input if this option is not specified.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkeyutl.pod:-out_filename"/><emphasis role="bold">-out filename</emphasis></term>
+          <listitem>
+            <para>
+	      specifies the output filename to write to or standard output
+	      by default.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkeyutl.pod:-inkey_file"/><emphasis role="bold">-inkey file</emphasis></term>
+          <listitem>
+            <para>
+	      the input key file, by default it should be a private key.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkeyutl.pod:-keyform_PEMDER"/><emphasis role="bold">-keyform PEM|DER</emphasis></term>
+          <listitem>
+            <para>
+	      the key format PEM, DER or ENGINE.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkeyutl.pod:-passin_arg"/><emphasis role="bold">-passin arg</emphasis></term>
+          <listitem>
+            <para>
+	      the input key password source. For more information about the
+	      format of <emphasis role="bold">arg</emphasis> see the
+	      <emphasis role="bold">PASS PHRASE ARGUMENTS</emphasis>
+	      section in openssl(1).
+            </para>
+            <screen></screen>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkeyutl.pod:-peerkey_file"/><emphasis role="bold">-peerkey file</emphasis></term>
+          <listitem>
+            <para>
+	      the peer key file, used by key derivation (agreement)
+	      operations.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkeyutl.pod:-peerform_PEMDER"/><emphasis role="bold">-peerform PEM|DER</emphasis></term>
+          <listitem>
+            <para>
+	      the peer key format PEM, DER or ENGINE.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkeyutl.pod:-engine_id"/><emphasis role="bold">-engine id</emphasis></term>
+          <listitem>
+            <para>
+	      specifying an engine (by its unique <emphasis role="bold">id</emphasis> string) will cause <emphasis role="bold">pkeyutl</emphasis> to attempt to obtain a
+	      functional reference to the specified engine, thus
+	      initialising it if needed. The engine will then be set as the
+	      default for all available algorithms.
+            </para>
+            <screen></screen>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkeyutl.pod:-pubin"/><emphasis role="bold">-pubin</emphasis></term>
+          <listitem>
+            <para>
+	      the input file is a public key.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkeyutl.pod:-certin"/><emphasis role="bold">-certin</emphasis></term>
+          <listitem>
+            <para>
+	      the input is a certificate containing a public key.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkeyutl.pod:-rev"/><emphasis role="bold">-rev</emphasis></term>
+          <listitem>
+            <para>
+	      reverse the order of the input buffer. This is useful for
+	      some libraries (such as CryptoAPI) which represent the buffer
+	      in little endian format.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkeyutl.pod:-sign"/><emphasis role="bold">-sign</emphasis></term>
+          <listitem>
+            <para>
+	      sign the input data and output the signed result. This
+	      requires a private key.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkeyutl.pod:-verify"/><emphasis role="bold">-verify</emphasis></term>
+          <listitem>
+            <para>
+	      verify the input data against the signature file and indicate
+	      if the verification succeeded or failed.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkeyutl.pod:-verifyrecover"/><emphasis role="bold">-verifyrecover</emphasis></term>
+          <listitem>
+            <para>
+	      verify the input data and output the recovered data.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkeyutl.pod:-encrypt"/><emphasis role="bold">-encrypt</emphasis></term>
+          <listitem>
+            <para>
+	      encrypt the input data using a public key.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkeyutl.pod:-decrypt"/><emphasis role="bold">-decrypt</emphasis></term>
+          <listitem>
+            <para>
+	      decrypt the input data using a private key.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkeyutl.pod:-derive"/><emphasis role="bold">-derive</emphasis></term>
+          <listitem>
+            <para>
+	      derive a shared secret using the peer key.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkeyutl.pod:-hexdump"/><emphasis role="bold">-hexdump</emphasis></term>
+          <listitem>
+            <para>
+	      hex dump the output data.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkeyutl.pod:-asn1parse"/><emphasis role="bold">-asn1parse</emphasis></term>
+          <listitem>
+            <para>
+	      asn1parse the output data, this is useful when combined with
+	      the <emphasis role="bold">-verifyrecover</emphasis> option
+	      when an ASN1 structure is signed.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.pkeyutl.pod:NOTES"><title>NOTES</title>
+    <para>
+      The operations and options supported vary according to the key
+      algorithm and its implementation. The OpenSSL operations and options
+      are indicated below.
+    </para>
+    <para>
+      Unless otherwise mentioned all algorithms support the <emphasis role="bold">digest:alg</emphasis> option which specifies the digest
+      in use for sign, verify and verifyrecover operations. The value
+      <emphasis role="bold">alg</emphasis> should represent a digest name
+      as used in the EVP_get_digestbyname() function for example <emphasis role="bold">sha1</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.pkeyutl.pod:RSA_ALGORITHM"><title>RSA ALGORITHM</title>
+    <para>
+      The RSA algorithm supports encrypt, decrypt, sign, verify and
+      verifyrecover operations in general. Some padding modes only support
+      some of these operations however. 
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkeyutl.pod:-rsa_padding_mode:mode"/>-<emphasis role="bold">rsa_padding_mode:mode</emphasis></term>
+          <listitem>
+            <para>
+	      This sets the RSA padding mode. Acceptable values for
+	      <emphasis role="bold">mode</emphasis> are <emphasis role="bold">pkcs1</emphasis> for PKCS#1 padding, <emphasis role="bold">sslv23</emphasis> for SSLv23 padding, <emphasis role="bold">none</emphasis> for no padding, <emphasis role="bold">oaep</emphasis> for <emphasis role="bold">OAEP</emphasis> mode, <emphasis role="bold">x931</emphasis> for X9.31 mode and <emphasis role="bold">pss</emphasis> for PSS.
+            </para>
+            <para>
+	      In PKCS#1 padding if the message digest is not set then the
+	      supplied data is signed or verified directly instead of using
+	      a <emphasis role="bold">DigestInfo</emphasis> structure. If a
+	      digest is set then the a <emphasis role="bold">DigestInfo</emphasis> structure is used and its
+	      the length must correspond to the digest type. 
+            </para>
+            <para>
+	      For <emphasis role="bold">oeap</emphasis> mode only
+	      encryption and decryption is supported.
+            </para>
+            <para>
+	      For <emphasis role="bold">x931</emphasis> if the digest type
+	      is set it is used to format the block data otherwise the
+	      first byte is used to specify the X9.31 digest ID. Sign,
+	      verify and verifyrecover are can be performed in this mode.
+            </para>
+            <para>
+	      For <emphasis role="bold">pss</emphasis> mode only sign and
+	      verify are supported and the digest type must be specified.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkeyutl.pod:rsa_pss_saltlen:len"/><emphasis role="bold">rsa_pss_saltlen:len</emphasis></term>
+          <listitem>
+            <para>
+	      For <emphasis role="bold">pss</emphasis> mode only this
+	      option specifies the salt length. Two special values are
+	      supported: -1 sets the salt length to the digest length. When
+	      signing -2 sets the salt length to the maximum permissible
+	      value. When verifying -2 causes the salt length to be
+	      automatically determined based on the <emphasis role="bold">PSS</emphasis> block structure.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.pkeyutl.pod:DSA_ALGORITHM"><title>DSA ALGORITHM</title>
+    <para>
+      The DSA algorithm supports signing and verification operations only.
+      Currently there are no additional options other than <emphasis role="bold">digest</emphasis>. Only the SHA1 digest can be used and
+      this digest is assumed by default.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.pkeyutl.pod:DH_ALGORITHM"><title>DH ALGORITHM</title>
+    <para>
+      The DH algorithm only supports the derivation operation and no
+      additional options.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.pkeyutl.pod:EC_ALGORITHM"><title>EC ALGORITHM</title>
+    <para>
+      The EC algorithm supports sign, verify and derive operations. The
+      sign and verify operations use ECDSA and derive uses ECDH. Currently
+      there are no additional options other than <emphasis role="bold">digest</emphasis>. Only the SHA1 digest can be used and
+      this digest is assumed by default.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.pkeyutl.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      Sign some data using a private key:
+    </para>
+    <screen>openssl pkeyutl -sign -in file -inkey key.pem -out sig</screen>
+    <para>
+      Recover the signed data (e.g. if an RSA key is used):
+    </para>
+    <screen>openssl pkeyutl -verifyrecover -in sig -inkey key.pem</screen>
+    <para>
+      Verify the signature (e.g. a DSA key):
+    </para>
+    <screen>openssl pkeyutl -verify -in file -sigfile sig -inkey key.pem</screen>
+    <para>
+      Sign data using a message digest value (this is currently only valid
+      for RSA):
+    </para>
+    <screen>openssl pkeyutl -sign -in file -inkey key.pem -out sig -pkeyopt digest:sha256</screen>
+    <para>
+      Derive a shared secret value:
+    </para>
+    <screen>openssl pkeyutl -derive -inkey key.pem -peerkey pubkey.pem -out secret</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.pkeyutl.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      genpkey(1), pkey(1), rsautl(1) dgst(1), rsa(1), genrsa(1)
+    </para>
+  </refsection>
+</refentry>

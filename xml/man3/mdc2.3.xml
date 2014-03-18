@@ -1,0 +1,77 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>mdc2.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>MDC2, MDC2_Init, MDC2_Update, MDC2_Final</refname>
+<refpurpose>MDC2 hash function</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/mdc2.h&gt;</synopsis>
+<synopsis format="linespecific">unsigned char *MDC2(const unsigned char *d, unsigned long n,
+                 unsigned char *md);</synopsis>
+<synopsis format="linespecific">int MDC2_Init(MDC2_CTX *c);
+int MDC2_Update(MDC2_CTX *c, const unsigned char *data,
+                 unsigned long len);
+int MDC2_Final(unsigned char *md, MDC2_CTX *c);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.mdc2.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      MDC2 is a method to construct hash functions with 128 bit output from
+      block ciphers.  These functions are an implementation of MDC2 with
+      DES.
+    </para>
+    <para>
+      MDC2() computes the MDC2 message digest of the <emphasis role="bold">n</emphasis> bytes at <emphasis role="bold">d</emphasis>
+      and places it in <emphasis role="bold">md</emphasis> (which must have
+      space for MDC2_DIGEST_LENGTH == 16 bytes of output). If <emphasis role="bold">md</emphasis> is NULL, the digest is placed in a static
+      array.
+    </para>
+    <para>
+      The following functions may be used if the message is not completely
+      stored in memory:
+    </para>
+    <para>
+      MDC2_Init() initializes a <emphasis role="bold">MDC2_CTX</emphasis>
+      structure.
+    </para>
+    <para>
+      MDC2_Update() can be called repeatedly with chunks of the message to
+      be hashed (<emphasis role="bold">len</emphasis> bytes at <emphasis role="bold">data</emphasis>).
+    </para>
+    <para>
+      MDC2_Final() places the message digest in <emphasis role="bold">md</emphasis>, which must have space for
+      MDC2_DIGEST_LENGTH == 16 bytes of output, and erases the <emphasis role="bold">MDC2_CTX</emphasis>.
+    </para>
+    <para>
+      Applications should use the higher level functions EVP_DigestInit(3)
+      etc. instead of calling the hash functions directly.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.mdc2.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      MDC2() returns a pointer to the hash value.
+    </para>
+    <para>
+      MDC2_Init(), MDC2_Update() and MDC2_Final() return 1 for success, 0
+      otherwise.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.mdc2.pod:CONFORMING_TO"><title>CONFORMING TO</title>
+    <para>
+      ISO/IEC 10118-2, with DES
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.mdc2.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      sha(3), EVP_DigestInit(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.mdc2.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      MDC2(), MDC2_Init(), MDC2_Update() and MDC2_Final() are available
+      since SSLeay 0.8.
+    </para>
+  </refsection>
+</refentry>

@@ -1,0 +1,74 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>d2i_SSL_SESSION.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>d2i_SSL_SESSION, i2d_SSL_SESSION</refname>
+<refpurpose>convert SSL_SESSION object from/to ASN1 representation</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">SSL_SESSION *d2i_SSL_SESSION(SSL_SESSION **a, const unsigned char **pp, long length);
+int i2d_SSL_SESSION(SSL_SESSION *in, unsigned char **pp);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.d2i_SSL_SESSION.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      d2i_SSL_SESSION() transforms the external ASN1 representation of an
+      SSL/TLS session, stored as binary data at location <emphasis role="bold">pp</emphasis> with length <emphasis role="bold">length</emphasis>, into an SSL_SESSION object.
+    </para>
+    <para>
+      i2d_SSL_SESSION() transforms the SSL_SESSION object <emphasis role="bold">in</emphasis> into the ASN1 representation and stores it
+      into the memory location pointed to by <emphasis role="bold">pp</emphasis>. The length of the resulting ASN1
+      representation is returned. If <emphasis role="bold">pp</emphasis> is
+      the NULL pointer, only the length is calculated and returned.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.d2i_SSL_SESSION.pod:NOTES"><title>NOTES</title>
+    <para>
+      The SSL_SESSION object is built from several malloc()ed parts, it can
+      therefore not be moved, copied or stored directly. In order to store
+      session data on disk or into a database, it must be transformed into
+      a binary ASN1 representation.
+    </para>
+    <para>
+      When using d2i_SSL_SESSION(), the SSL_SESSION object is automatically
+      allocated. The reference count is 1, so that the session must be
+      explicitly removed using SSL_SESSION_free(3), unless the SSL_SESSION
+      object is completely taken over, when being called inside the
+      get_session_cb() (see SSL_CTX_sess_set_get_cb(3)).
+    </para>
+    <para>
+      SSL_SESSION objects keep internal link information about the session
+      cache list, when being inserted into one SSL_CTX object's session
+      cache. One SSL_SESSION object, regardless of its reference count,
+      must therefore only be used with one SSL_CTX object (and the SSL
+      objects created from this SSL_CTX object).
+    </para>
+    <para>
+      When using i2d_SSL_SESSION(), the memory location pointed to by
+      <emphasis role="bold">pp</emphasis> must be large enough to hold the
+      binary representation of the session. There is no known limit on the
+      size of the created ASN1 representation, so the necessary amount of
+      space should be obtained by first calling i2d_SSL_SESSION() with
+      <emphasis role="bold">pp=NULL</emphasis>, and obtain the size needed,
+      then allocate the memory and call i2d_SSL_SESSION() again.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.d2i_SSL_SESSION.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      d2i_SSL_SESSION() returns a pointer to the newly allocated
+      SSL_SESSION object. In case of failure the NULL-pointer is returned
+      and the error message can be retrieved from the error stack.
+    </para>
+    <para>
+      i2d_SSL_SESSION() returns the size of the ASN1 representation in
+      bytes. When the session is not valid, <emphasis role="bold">0</emphasis> is returned and no operation is performed.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.d2i_SSL_SESSION.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_SESSION_free(3), SSL_CTX_sess_set_get_cb(3)
+    </para>
+  </refsection>
+</refentry>

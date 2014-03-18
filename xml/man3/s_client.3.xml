@@ -1,0 +1,557 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>s_client.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>s_client</refname>
+<refpurpose>SSL/TLS client program</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific"><emphasis role="bold">openssl</emphasis> <emphasis role="bold">s_client</emphasis>
+[<emphasis role="bold">-connect host:port</emphasis>]
+[<emphasis role="bold">-verify depth</emphasis>]
+[<emphasis role="bold">-cert filename</emphasis>]
+[<emphasis role="bold">-certform DER|PEM</emphasis>]
+[<emphasis role="bold">-key filename</emphasis>]
+[<emphasis role="bold">-keyform DER|PEM</emphasis>]
+[<emphasis role="bold">-pass arg</emphasis>]
+[<emphasis role="bold">-CApath directory</emphasis>]
+[<emphasis role="bold">-CAfile filename</emphasis>]
+[<emphasis role="bold">-reconnect</emphasis>]
+[<emphasis role="bold">-pause</emphasis>]
+[<emphasis role="bold">-showcerts</emphasis>]
+[<emphasis role="bold">-debug</emphasis>]
+[<emphasis role="bold">-msg</emphasis>]
+[<emphasis role="bold">-nbio_test</emphasis>]
+[<emphasis role="bold">-state</emphasis>]
+[<emphasis role="bold">-nbio</emphasis>]
+[<emphasis role="bold">-crlf</emphasis>]
+[<emphasis role="bold">-ign_eof</emphasis>]
+[<emphasis role="bold">-quiet</emphasis>]
+[<emphasis role="bold">-ssl2</emphasis>]
+[<emphasis role="bold">-ssl3</emphasis>]
+[<emphasis role="bold">-tls1</emphasis>]
+[<emphasis role="bold">-no_ssl2</emphasis>]
+[<emphasis role="bold">-no_ssl3</emphasis>]
+[<emphasis role="bold">-no_tls1</emphasis>]
+[<emphasis role="bold">-bugs</emphasis>]
+[<emphasis role="bold">-cipher cipherlist</emphasis>]
+[<emphasis role="bold">-starttls protocol</emphasis>]
+[<emphasis role="bold">-xmpphost hostname</emphasis>]
+[<emphasis role="bold">-engine id</emphasis>]
+[<emphasis role="bold">-tlsextdebug</emphasis>]
+[<emphasis role="bold">-no_ticket</emphasis>]
+[<emphasis role="bold">-sess_out filename</emphasis>]
+[<emphasis role="bold">-sess_in filename</emphasis>]
+[<emphasis role="bold">-rand file(s)</emphasis>]
+[<emphasis role="bold">-serverinfo types</emphasis>]
+[<emphasis role="bold">-auth</emphasis>]
+[<emphasis role="bold">-auth_require_reneg</emphasis>]</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.apps.s_client.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The <emphasis role="bold">s_client</emphasis> command implements a
+      generic SSL/TLS client which connects to a remote host using SSL/TLS.
+      It is a <emphasis role="italic">very</emphasis> useful diagnostic
+      tool for SSL servers.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.s_client.pod:OPTIONS"><title>OPTIONS</title>
+    <para>
+      In addition to the options below the <emphasis role="bold">s_client</emphasis> utility also supports the common and
+      client only options documented in the in the SSL_CONF_cmd(3) manual
+      page.
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-connect_host:port"/><emphasis role="bold">-connect host:port</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the host and optional port to connect to. If
+	      not specified then an attempt is made to connect to the local
+	      host on port 4433.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-cert_certname"/><emphasis role="bold">-cert certname</emphasis></term>
+          <listitem>
+            <para>
+	      The certificate to use, if one is requested by the server.
+	      The default is not to use a certificate.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-certform_format"/><emphasis role="bold">-certform format</emphasis></term>
+          <listitem>
+            <para>
+	      The certificate format to use: DER or PEM. PEM is the
+	      default.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-key_keyfile"/><emphasis role="bold">-key keyfile</emphasis></term>
+          <listitem>
+            <para>
+	      The private key to use. If not specified then the certificate
+	      file will be used.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-keyform_format"/><emphasis role="bold">-keyform format</emphasis></term>
+          <listitem>
+            <para>
+	      The private format to use: DER or PEM. PEM is the default.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-pass_arg"/><emphasis role="bold">-pass arg</emphasis></term>
+          <listitem>
+            <para>
+	      the private key password source. For more information about
+	      the format of <emphasis role="bold">arg</emphasis> see the
+	      <emphasis role="bold">PASS PHRASE ARGUMENTS</emphasis>
+	      section in openssl(1).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-verify_depth"/><emphasis role="bold">-verify depth</emphasis></term>
+          <listitem>
+            <para>
+	      The verify depth to use. This specifies the maximum length of
+	      the server certificate chain and turns on server certificate
+	      verification. Currently the verify operation continues after
+	      errors so all the problems with a certificate chain can be
+	      seen. As a side effect the connection will never fail due to
+	      a server certificate verify failure.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-CApath_directory"/><emphasis role="bold">-CApath directory</emphasis></term>
+          <listitem>
+            <para>
+	      The directory to use for server certificate verification.
+	      This directory must be in "hash format", see <emphasis role="bold">verify</emphasis> for more information. These are
+	      also used when building the client certificate chain.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-CAfile_file"/><emphasis role="bold">-CAfile file</emphasis></term>
+          <listitem>
+            <para>
+	      A file containing trusted certificates to use during server
+	      authentication and to use when attempting to build the client
+	      certificate chain.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-purpose_-ignore_critical_-issuer_checks_-crl_check_-crl_check_all_-policy_check_-extended_crl_-x509_strict_-policy_-check_ss_sig"/><emphasis role="bold">-purpose, -ignore_critical, -issuer_checks, -crl_check, -crl_check_all, -policy_check, -extended_crl, -x509_strict, -policy -check_ss_sig</emphasis></term>
+          <listitem>
+            <para>
+	      Set various certificate chain valiadition option. See the
+	      <emphasis role="bold">verify</emphasis> manual page for
+	      details.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-reconnect"/><emphasis role="bold">-reconnect</emphasis></term>
+          <listitem>
+            <para>
+	      reconnects to the same server 5 times using the same session
+	      ID, this can be used as a test that session caching is
+	      working.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-pause"/><emphasis role="bold">-pause</emphasis></term>
+          <listitem>
+            <para>
+	      pauses 1 second between each read and write call.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-showcerts"/><emphasis role="bold">-showcerts</emphasis></term>
+          <listitem>
+            <para>
+	      display the whole server certificate chain: normally only the
+	      server certificate itself is displayed.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-prexit"/><emphasis role="bold">-prexit</emphasis></term>
+          <listitem>
+            <para>
+	      print session information when the program exits. This will
+	      always attempt to print out information even if the
+	      connection fails. Normally information will only be printed
+	      out once if the connection succeeds. This option is useful
+	      because the cipher in use may be renegotiated or the
+	      connection may fail because a client certificate is required
+	      or is requested only after an attempt is made to access a
+	      certain URL. Note: the output produced by this option is not
+	      always accurate because a connection might never have been
+	      established.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-state"/><emphasis role="bold">-state</emphasis></term>
+          <listitem>
+            <para>
+	      prints out the SSL session states.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-debug"/><emphasis role="bold">-debug</emphasis></term>
+          <listitem>
+            <para>
+	      print extensive debugging information including a hex dump of
+	      all traffic.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-msg"/><emphasis role="bold">-msg</emphasis></term>
+          <listitem>
+            <para>
+	      show all protocol messages with hex dump.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-trace"/><emphasis role="bold">-trace</emphasis></term>
+          <listitem>
+            <para>
+	      show verbose trace output of protocol messages. OpenSSL needs
+	      to be compiled with <emphasis role="bold">enable-ssl-trace</emphasis> for this option to
+	      work.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-msgfile"/><emphasis role="bold">-msgfile</emphasis></term>
+          <listitem>
+            <para>
+	      file to send output of <emphasis role="bold">-msg</emphasis>
+	      or <emphasis role="bold">-trace</emphasis> to, default
+	      standard output.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-nbio_test"/><emphasis role="bold">-nbio_test</emphasis></term>
+          <listitem>
+            <para>
+	      tests non-blocking I/O
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-nbio"/><emphasis role="bold">-nbio</emphasis></term>
+          <listitem>
+            <para>
+	      turns on non-blocking I/O
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-crlf"/><emphasis role="bold">-crlf</emphasis></term>
+          <listitem>
+            <para>
+	      this option translated a line feed from the terminal into
+	      CR+LF as required by some servers.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-ign_eof"/><emphasis role="bold">-ign_eof</emphasis></term>
+          <listitem>
+            <para>
+	      inhibit shutting down the connection when end of file is
+	      reached in the input.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-quiet"/><emphasis role="bold">-quiet</emphasis></term>
+          <listitem>
+            <para>
+	      inhibit printing of session and certificate information. 
+	      This implicitly turns on <emphasis role="bold">-ign_eof</emphasis> as well.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-psk_identity_identity"/><emphasis role="bold">-psk_identity identity</emphasis></term>
+          <listitem>
+            <para>
+	      Use the PSK identity <emphasis role="bold">identity</emphasis> when using a PSK cipher
+	      suite.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-psk_key"/><emphasis role="bold">-psk key</emphasis></term>
+          <listitem>
+            <para>
+	      Use the PSK key <emphasis role="bold">key</emphasis> when
+	      using a PSK cipher suite. The key is given as a hexadecimal
+	      number without leading 0x, for example -psk 1a2b3c4d.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-ssl2_-ssl3_-tls1_-no_ssl2_-no_ssl3_-no_tls1"/><emphasis role="bold">-ssl2</emphasis>, <emphasis role="bold">-ssl3</emphasis>, <emphasis role="bold">-tls1</emphasis>, <emphasis role="bold">-no_ssl2</emphasis>, <emphasis role="bold">-no_ssl3</emphasis>, <emphasis role="bold">-no_tls1</emphasis></term>
+          <listitem>
+            <para>
+	      these options disable the use of certain SSL or TLS
+	      protocols. By default the initial handshake uses a method
+	      which should be compatible with all servers and permit them
+	      to use SSL v3, SSL v2 or TLS as appropriate.
+            </para>
+            <para>
+	      Unfortunately there are a lot of ancient and broken servers
+	      in use which cannot handle this technique and will fail to
+	      connect. Some servers only work if TLS is turned off with the
+	      <emphasis role="bold">-no_tls</emphasis> option others will
+	      only support SSL v2 and may need the <emphasis role="bold">-ssl2</emphasis> option.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-bugs"/><emphasis role="bold">-bugs</emphasis></term>
+          <listitem>
+            <para>
+	      there are several known bug in SSL and TLS implementations.
+	      Adding this option enables various workarounds.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-brief"/><emphasis role="bold">-brief</emphasis></term>
+          <listitem>
+            <para>
+	      only provide a brief summary of connection parameters instead
+	      of the normal verbose output.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-cipher_cipherlist"/><emphasis role="bold">-cipher cipherlist</emphasis></term>
+          <listitem>
+            <para>
+	      this allows the cipher list sent by the client to be
+	      modified. Although the server determines which cipher suite
+	      is used it should take the first supported cipher in the list
+	      sent by the client. See the <emphasis role="bold">ciphers</emphasis> command for more information.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-starttls_protocol"/><emphasis role="bold">-starttls protocol</emphasis></term>
+          <listitem>
+            <para>
+	      send the protocol-specific message(s) to switch to TLS for
+	      communication. <emphasis role="bold">protocol</emphasis> is a
+	      keyword for the intended protocol.  Currently, the only
+	      supported keywords are "smtp", "pop3", "imap", "ftp" and
+	      "xmpp".
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-xmpphost_hostname"/><emphasis role="bold">-xmpphost hostname</emphasis></term>
+          <listitem>
+            <para>
+	      This option, when used with "-starttls xmpp", specifies the
+	      host for the "to" attribute of the stream element. If this
+	      option is not specified, then the host specified with
+	      "-connect" will be used.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-tlsextdebug"/><emphasis role="bold">-tlsextdebug</emphasis></term>
+          <listitem>
+            <para>
+	      print out a hex dump of any TLS extensions received from the
+	      server.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-no_ticket"/><emphasis role="bold">-no_ticket</emphasis></term>
+          <listitem>
+            <para>
+	      disable RFC4507bis session ticket support.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-sess_out_filename"/><emphasis role="bold">-sess_out filename</emphasis></term>
+          <listitem>
+            <para>
+	      output SSL session to <emphasis role="bold">filename</emphasis>
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-sess_in_sess.pem"/><emphasis role="bold">-sess_in sess.pem</emphasis></term>
+          <listitem>
+            <para>
+	      load SSL session from <emphasis role="bold">filename</emphasis>. The client will attempt to
+	      resume a connection from this session.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-engine_id"/><emphasis role="bold">-engine id</emphasis></term>
+          <listitem>
+            <para>
+	      specifying an engine (by its unique <emphasis role="bold">id</emphasis> string) will cause <emphasis role="bold">s_client</emphasis> to attempt to obtain a
+	      functional reference to the specified engine, thus
+	      initialising it if needed. The engine will then be set as the
+	      default for all available algorithms.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-rand_files"/><emphasis role="bold">-rand file(s)</emphasis></term>
+          <listitem>
+            <para>
+	      a file or files containing random data used to seed the
+	      random number generator, or an EGD socket (see RAND_egd(3)).
+	      Multiple files can be specified separated by a OS-dependent
+	      character. The separator is <emphasis role="bold">;</emphasis> for MS-Windows, <emphasis role="bold">,</emphasis> for OpenVMS, and <emphasis role="bold">:</emphasis> for all others.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-serverinfo_types"/><emphasis role="bold">-serverinfo types</emphasis></term>
+          <listitem>
+            <para>
+	      a list of comma-separated TLS Extension Types (numbers
+	      between 0 and 65535).  Each type will be sent as an empty
+	      ClientHello TLS Extension. The server's response (if any)
+	      will be encoded and displayed as a PEM file. 
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-auth"/><emphasis role="bold">-auth</emphasis></term>
+          <listitem>
+            <para>
+	      send RFC 5878 client and server authorization extensions in
+	      the Client Hello as well as supplemental data if the server
+	      also sent the authorization extensions in the Server Hello.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-auth_require_reneg"/><emphasis role="bold">-auth_require_reneg</emphasis></term>
+          <listitem>
+            <para>
+	      only send RFC 5878 client and server authorization extensions
+	      during renegotiation.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.s_client.pod:CONNECTED_COMMANDS"><title>CONNECTED COMMANDS</title>
+    <para>
+      If a connection is established with an SSL server then any data
+      received from the server is displayed and any key presses will be
+      sent to the server. When used interactively (which means neither
+      <emphasis role="bold">-quiet</emphasis> nor <emphasis role="bold">-ign_eof</emphasis> have been given), the session will be
+      renegotiated if the line begins with an <emphasis role="bold">R</emphasis>, and if the line begins with a <emphasis role="bold">Q</emphasis> or if end of file is reached, the connection
+      will be closed down.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.s_client.pod:NOTES"><title>NOTES</title>
+    <para>
+      <emphasis role="bold">s_client</emphasis> can be used to debug SSL
+      servers. To connect to an SSL HTTP server the command:
+    </para>
+    <screen>openssl s_client -connect servername:443</screen>
+    <para>
+      would typically be used (https uses port 443). If the connection
+      succeeds then an HTTP command can be given such as "GET /" to
+      retrieve a web page.
+    </para>
+    <para>
+      If the handshake fails then there are several possible causes, if it
+      is nothing obvious like no client certificate then the <emphasis role="bold">-bugs</emphasis>, <emphasis role="bold">-ssl2</emphasis>,
+      <emphasis role="bold">-ssl3</emphasis>, <emphasis role="bold">-tls1</emphasis>, <emphasis role="bold">-no_ssl2</emphasis>, <emphasis role="bold">-no_ssl3</emphasis>, <emphasis role="bold">-no_tls1</emphasis> options can be tried in case it is a
+      buggy server. In particular you should play with these options
+      <emphasis role="bold">before</emphasis> submitting a bug report to an
+      OpenSSL mailing list.
+    </para>
+    <para>
+      A frequent problem when attempting to get client certificates working
+      is that a web client complains it has no certificates or gives an
+      empty list to choose from. This is normally because the server is not
+      sending the clients certificate authority in its "acceptable CA list"
+      when it requests a certificate. By using <emphasis role="bold">s_client</emphasis> the CA list can be viewed and
+      checked. However some servers only request client authentication
+      after a specific URL is requested. To obtain the list in this case it
+      is necessary to use the <emphasis role="bold">-prexit</emphasis>
+      option and send an HTTP request for an appropriate page.
+    </para>
+    <para>
+      If a certificate is specified on the command line using the <emphasis role="bold">-cert</emphasis> option it will not be used unless the
+      server specifically requests a client certificate. Therefor merely
+      including a client certificate on the command line is no guarantee
+      that the certificate works.
+    </para>
+    <para>
+      If there are problems verifying a server certificate then the
+      <emphasis role="bold">-showcerts</emphasis> option can be used to
+      show the whole chain.
+    </para>
+    <para>
+      Since the SSLv23 client hello cannot include compression methods or
+      extensions these will only be supported if its use is disabled, for
+      example by using the <emphasis role="bold">-no_sslv2</emphasis>
+      option.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.s_client.pod:BUGS"><title>BUGS</title>
+    <para>
+      Because this program has a lot of options and also because some of
+      the techniques used are rather old, the C source of s_client is
+      rather hard to read and not a model of how things should be done. A
+      typical SSL client program would be much simpler.
+    </para>
+    <para>
+      The <emphasis role="bold">-verify</emphasis> option should really
+      exit if the server verification fails.
+    </para>
+    <para>
+      The <emphasis role="bold">-prexit</emphasis> option is a bit of a
+      hack. We should really report information whenever a session is
+      renegotiated.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.s_client.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      sess_id(1), s_server(1), ciphers(1)
+    </para>
+  </refsection>
+</refentry>

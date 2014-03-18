@@ -1,0 +1,1134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>gitattributes</refentrytitle>
+<manvolnum>5</manvolnum>
+<refmiscinfo class="source">Git</refmiscinfo>
+<refmiscinfo class="manual">Git Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>gitattributes</refname>
+  <refpurpose>defining attributes per path</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara>$GIT_DIR/info/attributes, .gitattributes</simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>A <literal>gitattributes</literal> file is a simple text file that gives
+<literal>attributes</literal> to pathnames.</simpara>
+<simpara>Each line in <literal>gitattributes</literal> file is of form:</simpara>
+<literallayout class="monospaced">pattern attr1 attr2 ...</literallayout>
+<simpara>That is, a pattern followed by an attributes list,
+separated by whitespaces.  When the pattern matches the
+path in question, the attributes listed on the line are given to
+the path.</simpara>
+<simpara>Each attribute can be in one of these states for a given path:</simpara>
+<variablelist>
+<varlistentry>
+<term>
+Set
+</term>
+<listitem>
+<simpara>
+        The path has the attribute with special value "true";
+        this is specified by listing only the name of the
+        attribute in the attribute list.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+Unset
+</term>
+<listitem>
+<simpara>
+        The path has the attribute with special value "false";
+        this is specified by listing the name of the attribute
+        prefixed with a dash <literal>-</literal> in the attribute list.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+Set to a value
+</term>
+<listitem>
+<simpara>
+        The path has the attribute with specified string value;
+        this is specified by listing the name of the attribute
+        followed by an equal sign <literal>=</literal> and its value in the
+        attribute list.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+Unspecified
+</term>
+<listitem>
+<simpara>
+        No pattern matches the path, and nothing says if
+        the path has or does not have the attribute, the
+        attribute for the path is said to be Unspecified.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+<simpara>When more than one pattern matches the path, a later line
+overrides an earlier line.  This overriding is done per
+attribute.  The rules how the pattern matches paths are the
+same as in <literal>.gitignore</literal> files; see <citerefentry>
+<refentrytitle>gitignore</refentrytitle><manvolnum>5</manvolnum>
+</citerefentry>.
+Unlike <literal>.gitignore</literal>, negative patterns are forbidden.</simpara>
+<simpara>When deciding what attributes are assigned to a path, Git
+consults <literal>$GIT_DIR/info/attributes</literal> file (which has the highest
+precedence), <literal>.gitattributes</literal> file in the same directory as the
+path in question, and its parent directories up to the toplevel of the
+work tree (the further the directory that contains <literal>.gitattributes</literal>
+is from the path in question, the lower its precedence). Finally
+global and system-wide files are considered (they have the lowest
+precedence).</simpara>
+<simpara>When the <literal>.gitattributes</literal> file is missing from the work tree, the
+path in the index is used as a fall-back.  During checkout process,
+<literal>.gitattributes</literal> in the index is used and then the file in the
+working tree is used as a fall-back.</simpara>
+<simpara>If you wish to affect only a single repository (i.e., to assign
+attributes to files that are particular to
+one user&#8217;s workflow for that repository), then
+attributes should be placed in the <literal>$GIT_DIR/info/attributes</literal> file.
+Attributes which should be version-controlled and distributed to other
+repositories (i.e., attributes of interest to all users) should go into
+<literal>.gitattributes</literal> files. Attributes that should affect all repositories
+for a single user should be placed in a file specified by the
+<literal>core.attributesfile</literal> configuration option (see <citerefentry>
+<refentrytitle>git-config</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>).
+Its default value is $XDG_CONFIG_HOME/git/attributes. If $XDG_CONFIG_HOME
+is either not set or empty, $HOME/.config/git/attributes is used instead.
+Attributes for all users on a system should be placed in the
+<literal>$(prefix)/etc/gitattributes</literal> file.</simpara>
+<simpara>Sometimes you would need to override an setting of an attribute
+for a path to <literal>Unspecified</literal> state.  This can be done by listing
+the name of the attribute prefixed with an exclamation point <literal>!</literal>.</simpara>
+</refsect1>
+<refsect1 id="_effects">
+<title>EFFECTS</title>
+<simpara>Certain operations by Git can be influenced by assigning
+particular attributes to a path.  Currently, the following
+operations are attributes-aware.</simpara>
+<refsect2 id="_checking_out_and_checking_in">
+<title>Checking-out and checking-in</title>
+<simpara>These attributes affect how the contents stored in the
+repository are copied to the working tree files when commands
+such as <emphasis>git checkout</emphasis> and <emphasis>git merge</emphasis> run.  They also affect how
+Git stores the contents you prepare in the working tree in the
+repository upon <emphasis>git add</emphasis> and <emphasis>git commit</emphasis>.</simpara>
+<refsect3 id="_literal_text_literal">
+<title><literal>text</literal></title>
+<simpara>This attribute enables and controls end-of-line normalization.  When a
+text file is normalized, its line endings are converted to LF in the
+repository.  To control what line ending style is used in the working
+directory, use the <literal>eol</literal> attribute for a single file and the
+<literal>core.eol</literal> configuration variable for all text files.</simpara>
+<variablelist>
+<varlistentry>
+<term>
+Set
+</term>
+<listitem>
+<simpara>
+        Setting the <literal>text</literal> attribute on a path enables end-of-line
+        normalization and marks the path as a text file.  End-of-line
+        conversion takes place without guessing the content type.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+Unset
+</term>
+<listitem>
+<simpara>
+        Unsetting the <literal>text</literal> attribute on a path tells Git not to
+        attempt any end-of-line conversion upon checkin or checkout.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+Set to string value "auto"
+</term>
+<listitem>
+<simpara>
+        When <literal>text</literal> is set to "auto", the path is marked for automatic
+        end-of-line normalization.  If Git decides that the content is
+        text, its line endings are normalized to LF on checkin.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+Unspecified
+</term>
+<listitem>
+<simpara>
+        If the <literal>text</literal> attribute is unspecified, Git uses the
+        <literal>core.autocrlf</literal> configuration variable to determine if the
+        file should be converted.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+<simpara>Any other value causes Git to act as if <literal>text</literal> has been left
+unspecified.</simpara>
+</refsect3>
+<refsect3 id="_literal_eol_literal">
+<title><literal>eol</literal></title>
+<simpara>This attribute sets a specific line-ending style to be used in the
+working directory.  It enables end-of-line normalization without any
+content checks, effectively setting the <literal>text</literal> attribute.</simpara>
+<variablelist>
+<varlistentry>
+<term>
+Set to string value "crlf"
+</term>
+<listitem>
+<simpara>
+        This setting forces Git to normalize line endings for this
+        file on checkin and convert them to CRLF when the file is
+        checked out.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+Set to string value "lf"
+</term>
+<listitem>
+<simpara>
+        This setting forces Git to normalize line endings to LF on
+        checkin and prevents conversion to CRLF when the file is
+        checked out.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect3>
+<refsect3 id="_backwards_compatibility_with_literal_crlf_literal_attribute">
+<title>Backwards compatibility with <literal>crlf</literal> attribute</title>
+<simpara>For backwards compatibility, the <literal>crlf</literal> attribute is interpreted as
+follows:</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;crlf            text
+-crlf           -text
+crlf=input      eol=lf&#10;.ft&#10;
+</literallayout>
+</refsect3>
+<refsect3 id="_end_of_line_conversion">
+<title>End-of-line conversion</title>
+<simpara>While Git normally leaves file contents alone, it can be configured to
+normalize line endings to LF in the repository and, optionally, to
+convert them to CRLF when files are checked out.</simpara>
+<simpara>Here is an example that will make Git normalize .txt, .vcproj and .sh
+files, ensure that .vcproj files have CRLF and .sh files have LF in
+the working directory, and prevent .jpg files from being normalized
+regardless of their content.</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;*.txt           text
+*.vcproj        eol=crlf
+*.sh            eol=lf
+*.jpg           -text&#10;.ft&#10;
+</literallayout>
+<simpara>Other source code management systems normalize all text files in their
+repositories, and there are two ways to enable similar automatic
+normalization in Git.</simpara>
+<simpara>If you simply want to have CRLF line endings in your working directory
+regardless of the repository you are working with, you can set the
+config variable "core.autocrlf" without changing any attributes.</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;[core]
+        autocrlf = true&#10;.ft&#10;
+</literallayout>
+<simpara>This does not force normalization of all text files, but does ensure
+that text files that you introduce to the repository have their line
+endings normalized to LF when they are added, and that files that are
+already normalized in the repository stay normalized.</simpara>
+<simpara>If you want to interoperate with a source code management system that
+enforces end-of-line normalization, or you simply want all text files
+in your repository to be normalized, you should instead set the <literal>text</literal>
+attribute to "auto" for <emphasis>all</emphasis> files.</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;*       text=auto&#10;.ft&#10;
+</literallayout>
+<simpara>This ensures that all files that Git considers to be text will have
+normalized (LF) line endings in the repository.  The <literal>core.eol</literal>
+configuration variable controls which line endings Git will use for
+normalized files in your working directory; the default is to use the
+native line ending for your platform, or CRLF if <literal>core.autocrlf</literal> is
+set.</simpara>
+<note><simpara>When <literal>text=auto</literal> normalization is enabled in an existing
+repository, any text files containing CRLFs should be normalized.  If
+they are not they will be normalized the next time someone tries to
+change them, causing unfortunate misattribution.  From a clean working
+directory:</simpara></note>
+<literallayout class="monospaced">
+&#10;.ft C&#10;$ echo "* text=auto" &gt;&gt;.gitattributes
+$ rm .git/index     # Remove the index to force Git to
+$ git reset         # re-scan the working directory
+$ git status        # Show files that will be normalized
+$ git add -u
+$ git add .gitattributes
+$ git commit -m "Introduce end-of-line normalization"&#10;.ft&#10;
+</literallayout>
+<simpara>If any files that should not be normalized show up in <emphasis>git status</emphasis>,
+unset their <literal>text</literal> attribute before running <emphasis>git add -u</emphasis>.</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;manual.pdf      -text&#10;.ft&#10;
+</literallayout>
+<simpara>Conversely, text files that Git does not detect can have normalization
+enabled manually.</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;weirdchars.txt  text&#10;.ft&#10;
+</literallayout>
+<simpara>If <literal>core.safecrlf</literal> is set to "true" or "warn", Git verifies if
+the conversion is reversible for the current setting of
+<literal>core.autocrlf</literal>.  For "true", Git rejects irreversible
+conversions; for "warn", Git only prints a warning but accepts
+an irreversible conversion.  The safety triggers to prevent such
+a conversion done to the files in the work tree, but there are a
+few exceptions.  Even though&#8230;</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+<emphasis>git add</emphasis> itself does not touch the files in the work tree, the
+  next checkout would, so the safety triggers;
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<emphasis>git apply</emphasis> to update a text file with a patch does touch the files
+  in the work tree, but the operation is about text files and CRLF
+  conversion is about fixing the line ending inconsistencies, so the
+  safety does not trigger;
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<emphasis>git diff</emphasis> itself does not touch the files in the work tree, it is
+  often run to inspect the changes you intend to next <emphasis>git add</emphasis>.  To
+  catch potential problems early, safety triggers.
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect3>
+<refsect3 id="_literal_ident_literal">
+<title><literal>ident</literal></title>
+<simpara>When the attribute <literal>ident</literal> is set for a path, Git replaces
+<literal>$Id$</literal> in the blob object with <literal>$Id:</literal>, followed by the
+40-character hexadecimal blob object name, followed by a dollar
+sign <literal>$</literal> upon checkout.  Any byte sequence that begins with
+<literal>$Id:</literal> and ends with <literal>$</literal> in the worktree file is replaced
+with <literal>$Id$</literal> upon check-in.</simpara>
+</refsect3>
+<refsect3 id="_literal_filter_literal">
+<title><literal>filter</literal></title>
+<simpara>A <literal>filter</literal> attribute can be set to a string value that names a
+filter driver specified in the configuration.</simpara>
+<simpara>A filter driver consists of a <literal>clean</literal> command and a <literal>smudge</literal>
+command, either of which can be left unspecified.  Upon
+checkout, when the <literal>smudge</literal> command is specified, the command is
+fed the blob object from its standard input, and its standard
+output is used to update the worktree file.  Similarly, the
+<literal>clean</literal> command is used to convert the contents of worktree file
+upon checkin.</simpara>
+<simpara>One use of the content filtering is to massage the content into a shape
+that is more convenient for the platform, filesystem, and the user to use.
+For this mode of operation, the key phrase here is "more convenient" and
+not "turning something unusable into usable".  In other words, the intent
+is that if someone unsets the filter driver definition, or does not have
+the appropriate filter program, the project should still be usable.</simpara>
+<simpara>Another use of the content filtering is to store the content that cannot
+be directly used in the repository (e.g. a UUID that refers to the true
+content stored outside Git, or an encrypted content) and turn it into a
+usable form upon checkout (e.g. download the external content, or decrypt
+the encrypted content).</simpara>
+<simpara>These two filters behave differently, and by default, a filter is taken as
+the former, massaging the contents into more convenient shape.  A missing
+filter driver definition in the config, or a filter driver that exits with
+a non-zero status, is not an error but makes the filter a no-op passthru.</simpara>
+<simpara>You can declare that a filter turns a content that by itself is unusable
+into a usable content by setting the filter.&lt;driver&gt;.required configuration
+variable to <literal>true</literal>.</simpara>
+<simpara>For example, in .gitattributes, you would assign the <literal>filter</literal>
+attribute for paths.</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;*.c     filter=indent&#10;.ft&#10;
+</literallayout>
+<simpara>Then you would define a "filter.indent.clean" and "filter.indent.smudge"
+configuration in your .git/config to specify a pair of commands to
+modify the contents of C programs when the source files are checked
+in ("clean" is run) and checked out (no change is made because the
+command is "cat").</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;[filter "indent"]
+        clean = indent
+        smudge = cat&#10;.ft&#10;
+</literallayout>
+<simpara>For best results, <literal>clean</literal> should not alter its output further if it is
+run twice ("clean&#8594;clean" should be equivalent to "clean"), and
+multiple <literal>smudge</literal> commands should not alter <literal>clean</literal>'s output
+("smudge&#8594;smudge&#8594;clean" should be equivalent to "clean").  See the
+section on merging below.</simpara>
+<simpara>The "indent" filter is well-behaved in this regard: it will not modify
+input that is already correctly indented.  In this case, the lack of a
+smudge filter means that the clean filter <emphasis>must</emphasis> accept its own output
+without modifying it.</simpara>
+<simpara>If a filter <emphasis>must</emphasis> succeed in order to make the stored contents usable,
+you can declare that the filter is <literal>required</literal>, in the configuration:</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;[filter "crypt"]
+        clean = openssl enc ...
+        smudge = openssl enc -d ...
+        required&#10;.ft&#10;
+</literallayout>
+<simpara>Sequence "%f" on the filter command line is replaced with the name of
+the file the filter is working on.  A filter might use this in keyword
+substitution.  For example:</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;[filter "p4"]
+        clean = git-p4-filter --clean %f
+        smudge = git-p4-filter --smudge %f&#10;.ft&#10;
+</literallayout>
+</refsect3>
+<refsect3 id="_interaction_between_checkin_checkout_attributes">
+<title>Interaction between checkin/checkout attributes</title>
+<simpara>In the check-in codepath, the worktree file is first converted
+with <literal>filter</literal> driver (if specified and corresponding driver
+defined), then the result is processed with <literal>ident</literal> (if
+specified), and then finally with <literal>text</literal> (again, if specified
+and applicable).</simpara>
+<simpara>In the check-out codepath, the blob content is first converted
+with <literal>text</literal>, and then <literal>ident</literal> and fed to <literal>filter</literal>.</simpara>
+</refsect3>
+<refsect3 id="_merging_branches_with_differing_checkin_checkout_attributes">
+<title>Merging branches with differing checkin/checkout attributes</title>
+<simpara>If you have added attributes to a file that cause the canonical
+repository format for that file to change, such as adding a
+clean/smudge filter or text/eol/ident attributes, merging anything
+where the attribute is not in place would normally cause merge
+conflicts.</simpara>
+<simpara>To prevent these unnecessary merge conflicts, Git can be told to run a
+virtual check-out and check-in of all three stages of a file when
+resolving a three-way merge by setting the <literal>merge.renormalize</literal>
+configuration variable.  This prevents changes caused by check-in
+conversion from causing spurious merge conflicts when a converted file
+is merged with an unconverted file.</simpara>
+<simpara>As long as a "smudge&#8594;clean" results in the same output as a "clean"
+even on files that are already smudged, this strategy will
+automatically resolve all filter-related conflicts.  Filters that do
+not act in this way may cause additional merge conflicts that must be
+resolved manually.</simpara>
+</refsect3>
+</refsect2>
+<refsect2 id="_generating_diff_text">
+<title>Generating diff text</title>
+<refsect3 id="_literal_diff_literal">
+<title><literal>diff</literal></title>
+<simpara>The attribute <literal>diff</literal> affects how Git generates diffs for particular
+files. It can tell Git whether to generate a textual patch for the path
+or to treat the path as a binary file.  It can also affect what line is
+shown on the hunk header <literal>@@ -k,l +n,m @@</literal> line, tell Git to use an
+external command to generate the diff, or ask Git to convert binary
+files to a text format before generating the diff.</simpara>
+<variablelist>
+<varlistentry>
+<term>
+Set
+</term>
+<listitem>
+<simpara>
+        A path to which the <literal>diff</literal> attribute is set is treated
+        as text, even when they contain byte values that
+        normally never appear in text files, such as NUL.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+Unset
+</term>
+<listitem>
+<simpara>
+        A path to which the <literal>diff</literal> attribute is unset will
+        generate <literal>Binary files differ</literal> (or a binary patch, if
+        binary patches are enabled).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+Unspecified
+</term>
+<listitem>
+<simpara>
+        A path to which the <literal>diff</literal> attribute is unspecified
+        first gets its contents inspected, and if it looks like
+        text, it is treated as text.  Otherwise it would
+        generate <literal>Binary files differ</literal>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+String
+</term>
+<listitem>
+<simpara>
+        Diff is shown using the specified diff driver.  Each driver may
+        specify one or more options, as described in the following
+        section. The options for the diff driver "foo" are defined
+        by the configuration variables in the "diff.foo" section of the
+        Git config file.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect3>
+<refsect3 id="_defining_an_external_diff_driver">
+<title>Defining an external diff driver</title>
+<simpara>The definition of a diff driver is done in <literal>gitconfig</literal>, not
+<literal>gitattributes</literal> file, so strictly speaking this manual page is a
+wrong place to talk about it.  However&#8230;</simpara>
+<simpara>To define an external diff driver <literal>jcdiff</literal>, add a section to your
+<literal>$GIT_DIR/config</literal> file (or <literal>$HOME/.gitconfig</literal> file) like this:</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;[diff "jcdiff"]
+        command = j-c-diff&#10;.ft&#10;
+</literallayout>
+<simpara>When Git needs to show you a diff for the path with <literal>diff</literal>
+attribute set to <literal>jcdiff</literal>, it calls the command you specified
+with the above configuration, i.e. <literal>j-c-diff</literal>, with 7
+parameters, just like <literal>GIT_EXTERNAL_DIFF</literal> program is called.
+See <citerefentry>
+<refentrytitle>git</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> for details.</simpara>
+</refsect3>
+<refsect3 id="_defining_a_custom_hunk_header">
+<title>Defining a custom hunk-header</title>
+<simpara>Each group of changes (called a "hunk") in the textual diff output
+is prefixed with a line of the form:</simpara>
+<literallayout class="monospaced">@@ -k,l +n,m @@ TEXT</literallayout>
+<simpara>This is called a <emphasis>hunk header</emphasis>.  The "TEXT" portion is by default a line
+that begins with an alphabet, an underscore or a dollar sign; this
+matches what GNU <emphasis>diff -p</emphasis> output uses.  This default selection however
+is not suited for some contents, and you can use a customized pattern
+to make a selection.</simpara>
+<simpara>First, in .gitattributes, you would assign the <literal>diff</literal> attribute
+for paths.</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;*.tex   diff=tex&#10;.ft&#10;
+</literallayout>
+<simpara>Then, you would define a "diff.tex.xfuncname" configuration to
+specify a regular expression that matches a line that you would
+want to appear as the hunk header "TEXT". Add a section to your
+<literal>$GIT_DIR/config</literal> file (or <literal>$HOME/.gitconfig</literal> file) like this:</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;[diff "tex"]
+        xfuncname = "^(\\\\(sub)*section\\{.*)$"&#10;.ft&#10;
+</literallayout>
+<simpara>Note.  A single level of backslashes are eaten by the
+configuration file parser, so you would need to double the
+backslashes; the pattern above picks a line that begins with a
+backslash, and zero or more occurrences of <literal>sub</literal> followed by
+<literal>section</literal> followed by open brace, to the end of line.</simpara>
+<simpara>There are a few built-in patterns to make this easier, and <literal>tex</literal>
+is one of them, so you do not have to write the above in your
+configuration file (you still need to enable this with the
+attribute mechanism, via <literal>.gitattributes</literal>).  The following built in
+patterns are available:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+<literal>ada</literal> suitable for source code in the Ada language.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>bibtex</literal> suitable for files with BibTeX coded references.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>cpp</literal> suitable for source code in the C and C++ languages.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>csharp</literal> suitable for source code in the C# language.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>fortran</literal> suitable for source code in the Fortran language.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>html</literal> suitable for HTML/XHTML documents.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>java</literal> suitable for source code in the Java language.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>matlab</literal> suitable for source code in the MATLAB language.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>objc</literal> suitable for source code in the Objective-C language.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>pascal</literal> suitable for source code in the Pascal/Delphi language.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>perl</literal> suitable for source code in the Perl language.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>php</literal> suitable for source code in the PHP language.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>python</literal> suitable for source code in the Python language.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>ruby</literal> suitable for source code in the Ruby language.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>tex</literal> suitable for source code for LaTeX documents.
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect3>
+<refsect3 id="_customizing_word_diff">
+<title>Customizing word diff</title>
+<simpara>You can customize the rules that <literal>git diff --word-diff</literal> uses to
+split words in a line, by specifying an appropriate regular expression
+in the "diff.*.wordRegex" configuration variable.  For example, in TeX
+a backslash followed by a sequence of letters forms a command, but
+several such commands can be run together without intervening
+whitespace.  To separate them, use a regular expression in your
+<literal>$GIT_DIR/config</literal> file (or <literal>$HOME/.gitconfig</literal> file) like this:</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;[diff "tex"]
+        wordRegex = "\\\\[a-zA-Z]+|[{}]|\\\\.|[^\\{}[:space:]]+"&#10;.ft&#10;
+</literallayout>
+<simpara>A built-in pattern is provided for all languages listed in the
+previous section.</simpara>
+</refsect3>
+<refsect3 id="_performing_text_diffs_of_binary_files">
+<title>Performing text diffs of binary files</title>
+<simpara>Sometimes it is desirable to see the diff of a text-converted
+version of some binary files. For example, a word processor
+document can be converted to an ASCII text representation, and
+the diff of the text shown. Even though this conversion loses
+some information, the resulting diff is useful for human
+viewing (but cannot be applied directly).</simpara>
+<simpara>The <literal>textconv</literal> config option is used to define a program for
+performing such a conversion. The program should take a single
+argument, the name of a file to convert, and produce the
+resulting text on stdout.</simpara>
+<simpara>For example, to show the diff of the exif information of a
+file instead of the binary information (assuming you have the
+exif tool installed), add the following section to your
+<literal>$GIT_DIR/config</literal> file (or <literal>$HOME/.gitconfig</literal> file):</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;[diff "jpg"]
+        textconv = exif&#10;.ft&#10;
+</literallayout>
+<note><simpara>The text conversion is generally a one-way conversion;
+in this example, we lose the actual image contents and focus
+just on the text data. This means that diffs generated by
+textconv are <emphasis>not</emphasis> suitable for applying. For this reason,
+only <literal>git diff</literal> and the <literal>git log</literal> family of commands (i.e.,
+log, whatchanged, show) will perform text conversion. <literal>git
+format-patch</literal> will never generate this output. If you want to
+send somebody a text-converted diff of a binary file (e.g.,
+because it quickly conveys the changes you have made), you
+should generate it separately and send it as a comment <emphasis>in
+addition to</emphasis> the usual binary diff that you might send.</simpara></note>
+<simpara>Because text conversion can be slow, especially when doing a
+large number of them with <literal>git log -p</literal>, Git provides a mechanism
+to cache the output and use it in future diffs.  To enable
+caching, set the "cachetextconv" variable in your diff driver&#8217;s
+config. For example:</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;[diff "jpg"]
+        textconv = exif
+        cachetextconv = true&#10;.ft&#10;
+</literallayout>
+<simpara>This will cache the result of running "exif" on each blob
+indefinitely. If you change the textconv config variable for a
+diff driver, Git will automatically invalidate the cache entries
+and re-run the textconv filter. If you want to invalidate the
+cache manually (e.g., because your version of "exif" was updated
+and now produces better output), you can remove the cache
+manually with <literal>git update-ref -d refs/notes/textconv/jpg</literal> (where
+"jpg" is the name of the diff driver, as in the example above).</simpara>
+</refsect3>
+<refsect3 id="_choosing_textconv_versus_external_diff">
+<title>Choosing textconv versus external diff</title>
+<simpara>If you want to show differences between binary or specially-formatted
+blobs in your repository, you can choose to use either an external diff
+command, or to use textconv to convert them to a diff-able text format.
+Which method you choose depends on your exact situation.</simpara>
+<simpara>The advantage of using an external diff command is flexibility. You are
+not bound to find line-oriented changes, nor is it necessary for the
+output to resemble unified diff. You are free to locate and report
+changes in the most appropriate way for your data format.</simpara>
+<simpara>A textconv, by comparison, is much more limiting. You provide a
+transformation of the data into a line-oriented text format, and Git
+uses its regular diff tools to generate the output. There are several
+advantages to choosing this method:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>
+Ease of use. It is often much simpler to write a binary to text
+   transformation than it is to perform your own diff. In many cases,
+   existing programs can be used as textconv filters (e.g., exif,
+   odt2txt).
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Git diff features. By performing only the transformation step
+   yourself, you can still utilize many of Git&#8217;s diff features,
+   including colorization, word-diff, and combined diffs for merges.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Caching. Textconv caching can speed up repeated diffs, such as those
+   you might trigger by running <literal>git log -p</literal>.
+</simpara>
+</listitem>
+</orderedlist>
+</refsect3>
+<refsect3 id="_marking_files_as_binary">
+<title>Marking files as binary</title>
+<simpara>Git usually guesses correctly whether a blob contains text or binary
+data by examining the beginning of the contents. However, sometimes you
+may want to override its decision, either because a blob contains binary
+data later in the file, or because the content, while technically
+composed of text characters, is opaque to a human reader. For example,
+many postscript files contain only ascii characters, but produce noisy
+and meaningless diffs.</simpara>
+<simpara>The simplest way to mark a file as binary is to unset the diff
+attribute in the <literal>.gitattributes</literal> file:</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;*.ps -diff&#10;.ft&#10;
+</literallayout>
+<simpara>This will cause Git to generate <literal>Binary files differ</literal> (or a binary
+patch, if binary patches are enabled) instead of a regular diff.</simpara>
+<simpara>However, one may also want to specify other diff driver attributes. For
+example, you might want to use <literal>textconv</literal> to convert postscript files to
+an ascii representation for human viewing, but otherwise treat them as
+binary files. You cannot specify both <literal>-diff</literal> and <literal>diff=ps</literal> attributes.
+The solution is to use the <literal>diff.*.binary</literal> config option:</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;[diff "ps"]
+  textconv = ps2ascii
+  binary = true&#10;.ft&#10;
+</literallayout>
+</refsect3>
+</refsect2>
+<refsect2 id="_performing_a_three_way_merge">
+<title>Performing a three-way merge</title>
+<refsect3 id="_literal_merge_literal">
+<title><literal>merge</literal></title>
+<simpara>The attribute <literal>merge</literal> affects how three versions of a file are
+merged when a file-level merge is necessary during <literal>git merge</literal>,
+and other commands such as <literal>git revert</literal> and <literal>git cherry-pick</literal>.</simpara>
+<variablelist>
+<varlistentry>
+<term>
+Set
+</term>
+<listitem>
+<simpara>
+        Built-in 3-way merge driver is used to merge the
+        contents in a way similar to <emphasis>merge</emphasis> command of <literal>RCS</literal>
+        suite.  This is suitable for ordinary text files.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+Unset
+</term>
+<listitem>
+<simpara>
+        Take the version from the current branch as the
+        tentative merge result, and declare that the merge has
+        conflicts.  This is suitable for binary files that do
+        not have a well-defined merge semantics.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+Unspecified
+</term>
+<listitem>
+<simpara>
+        By default, this uses the same built-in 3-way merge
+        driver as is the case when the <literal>merge</literal> attribute is set.
+        However, the <literal>merge.default</literal> configuration variable can name
+        different merge driver to be used with paths for which the
+        <literal>merge</literal> attribute is unspecified.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+String
+</term>
+<listitem>
+<simpara>
+        3-way merge is performed using the specified custom
+        merge driver.  The built-in 3-way merge driver can be
+        explicitly specified by asking for "text" driver; the
+        built-in "take the current branch" driver can be
+        requested with "binary".
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect3>
+<refsect3 id="_built_in_merge_drivers">
+<title>Built-in merge drivers</title>
+<simpara>There are a few built-in low-level merge drivers defined that
+can be asked for via the <literal>merge</literal> attribute.</simpara>
+<variablelist>
+<varlistentry>
+<term>
+text
+</term>
+<listitem>
+<simpara>
+        Usual 3-way file level merge for text files.  Conflicted
+        regions are marked with conflict markers <literal>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</literal>,
+        <literal>=======</literal> and <literal>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</literal>.  The version from your branch
+        appears before the <literal>=======</literal> marker, and the version
+        from the merged branch appears after the <literal>=======</literal>
+        marker.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+binary
+</term>
+<listitem>
+<simpara>
+        Keep the version from your branch in the work tree, but
+        leave the path in the conflicted state for the user to
+        sort out.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+union
+</term>
+<listitem>
+<simpara>
+        Run 3-way file level merge for text files, but take
+        lines from both versions, instead of leaving conflict
+        markers.  This tends to leave the added lines in the
+        resulting file in random order and the user should
+        verify the result. Do not use this if you do not
+        understand the implications.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect3>
+<refsect3 id="_defining_a_custom_merge_driver">
+<title>Defining a custom merge driver</title>
+<simpara>The definition of a merge driver is done in the <literal>.git/config</literal>
+file, not in the <literal>gitattributes</literal> file, so strictly speaking this
+manual page is a wrong place to talk about it.  However&#8230;</simpara>
+<simpara>To define a custom merge driver <literal>filfre</literal>, add a section to your
+<literal>$GIT_DIR/config</literal> file (or <literal>$HOME/.gitconfig</literal> file) like this:</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;[merge "filfre"]
+        name = feel-free merge driver
+        driver = filfre %O %A %B
+        recursive = binary&#10;.ft&#10;
+</literallayout>
+<simpara>The <literal>merge.*.name</literal> variable gives the driver a human-readable
+name.</simpara>
+<simpara>The &#8216;merge.*.driver` variable&#8217;s value is used to construct a
+command to run to merge ancestor&#8217;s version (<literal>%O</literal>), current
+version (<literal>%A</literal>) and the other branches&#8217; version (<literal>%B</literal>).  These
+three tokens are replaced with the names of temporary files that
+hold the contents of these versions when the command line is
+built. Additionally, %L will be replaced with the conflict marker
+size (see below).</simpara>
+<simpara>The merge driver is expected to leave the result of the merge in
+the file named with <literal>%A</literal> by overwriting it, and exit with zero
+status if it managed to merge them cleanly, or non-zero if there
+were conflicts.</simpara>
+<simpara>The <literal>merge.*.recursive</literal> variable specifies what other merge
+driver to use when the merge driver is called for an internal
+merge between common ancestors, when there are more than one.
+When left unspecified, the driver itself is used for both
+internal merge and the final merge.</simpara>
+</refsect3>
+<refsect3 id="_literal_conflict_marker_size_literal">
+<title><literal>conflict-marker-size</literal></title>
+<simpara>This attribute controls the length of conflict markers left in
+the work tree file during a conflicted merge.  Only setting to
+the value to a positive integer has any meaningful effect.</simpara>
+<simpara>For example, this line in <literal>.gitattributes</literal> can be used to tell the merge
+machinery to leave much longer (instead of the usual 7-character-long)
+conflict markers when merging the file <literal>Documentation/git-merge.txt</literal>
+results in a conflict.</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;Documentation/git-merge.txt     conflict-marker-size=32&#10;.ft&#10;
+</literallayout>
+</refsect3>
+</refsect2>
+<refsect2 id="_checking_whitespace_errors">
+<title>Checking whitespace errors</title>
+<refsect3 id="_literal_whitespace_literal">
+<title><literal>whitespace</literal></title>
+<simpara>The <literal>core.whitespace</literal> configuration variable allows you to define what
+<emphasis>diff</emphasis> and <emphasis>apply</emphasis> should consider whitespace errors for all paths in
+the project (See <citerefentry>
+<refentrytitle>git-config</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>).  This attribute gives you finer
+control per path.</simpara>
+<variablelist>
+<varlistentry>
+<term>
+Set
+</term>
+<listitem>
+<simpara>
+        Notice all types of potential whitespace errors known to Git.
+        The tab width is taken from the value of the <literal>core.whitespace</literal>
+        configuration variable.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+Unset
+</term>
+<listitem>
+<simpara>
+        Do not notice anything as error.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+Unspecified
+</term>
+<listitem>
+<simpara>
+        Use the value of the <literal>core.whitespace</literal> configuration variable to
+        decide what to notice as error.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+String
+</term>
+<listitem>
+<simpara>
+        Specify a comma separate list of common whitespace problems to
+        notice in the same format as the <literal>core.whitespace</literal> configuration
+        variable.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect3>
+</refsect2>
+<refsect2 id="_creating_an_archive">
+<title>Creating an archive</title>
+<refsect3 id="_literal_export_ignore_literal">
+<title><literal>export-ignore</literal></title>
+<simpara>Files and directories with the attribute <literal>export-ignore</literal> won&#8217;t be added to
+archive files.</simpara>
+</refsect3>
+<refsect3 id="_literal_export_subst_literal">
+<title><literal>export-subst</literal></title>
+<simpara>If the attribute <literal>export-subst</literal> is set for a file then Git will expand
+several placeholders when adding this file to an archive.  The
+expansion depends on the availability of a commit ID, i.e., if
+<citerefentry>
+<refentrytitle>git-archive</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> has been given a tree instead of a commit or a
+tag then no replacement will be done.  The placeholders are the same
+as those for the option <literal>--pretty=format:</literal> of <citerefentry>
+<refentrytitle>git-log</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>,
+except that they need to be wrapped like this: <literal>$Format:PLACEHOLDERS$</literal>
+in the file.  E.g. the string <literal>$Format:%H$</literal> will be replaced by the
+commit hash.</simpara>
+</refsect3>
+</refsect2>
+<refsect2 id="_packing_objects">
+<title>Packing objects</title>
+<refsect3 id="_literal_delta_literal">
+<title><literal>delta</literal></title>
+<simpara>Delta compression will not be attempted for blobs for paths with the
+attribute <literal>delta</literal> set to false.</simpara>
+</refsect3>
+</refsect2>
+<refsect2 id="_viewing_files_in_gui_tools">
+<title>Viewing files in GUI tools</title>
+<refsect3 id="_literal_encoding_literal">
+<title><literal>encoding</literal></title>
+<simpara>The value of this attribute specifies the character encoding that should
+be used by GUI tools (e.g. <citerefentry>
+<refentrytitle>gitk</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> and <citerefentry>
+<refentrytitle>git-gui</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>) to
+display the contents of the relevant file. Note that due to performance
+considerations <citerefentry>
+<refentrytitle>gitk</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> does not use this attribute unless you
+manually enable per-file encodings in its options.</simpara>
+<simpara>If this attribute is not set or has an invalid value, the value of the
+<literal>gui.encoding</literal> configuration variable is used instead
+(See <citerefentry>
+<refentrytitle>git-config</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>).</simpara>
+</refsect3>
+</refsect2>
+</refsect1>
+<refsect1 id="_using_macro_attributes">
+<title>USING MACRO ATTRIBUTES</title>
+<simpara>You do not want any end-of-line conversions applied to, nor textual diffs
+produced for, any binary file you track.  You would need to specify e.g.</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;*.jpg -text -diff&#10;.ft&#10;
+</literallayout>
+<simpara>but that may become cumbersome, when you have many attributes.  Using
+macro attributes, you can define an attribute that, when set, also
+sets or unsets a number of other attributes at the same time.  The
+system knows a built-in macro attribute, <literal>binary</literal>:</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;*.jpg binary&#10;.ft&#10;
+</literallayout>
+<simpara>Setting the "binary" attribute also unsets the "text" and "diff"
+attributes as above.  Note that macro attributes can only be "Set",
+though setting one might have the effect of setting or unsetting other
+attributes or even returning other attributes to the "Unspecified"
+state.</simpara>
+</refsect1>
+<refsect1 id="_defining_macro_attributes">
+<title>DEFINING MACRO ATTRIBUTES</title>
+<simpara>Custom macro attributes can be defined only in top-level gitattributes
+files (<literal>$GIT_DIR/info/attributes</literal>, the <literal>.gitattributes</literal> file at the
+top level of the working tree, or the global or system-wide
+gitattributes files), not in <literal>.gitattributes</literal> files in working tree
+subdirectories.  The built-in macro attribute "binary" is equivalent
+to:</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;[attr]binary -diff -merge -text&#10;.ft&#10;
+</literallayout>
+</refsect1>
+<refsect1 id="_example">
+<title>EXAMPLE</title>
+<simpara>If you have these three <literal>gitattributes</literal> file:</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;(in $GIT_DIR/info/attributes)
+
+a*      foo !bar -baz
+
+(in .gitattributes)
+abc     foo bar baz
+
+(in t/.gitattributes)
+ab*     merge=filfre
+abc     -foo -bar
+*.c     frotz&#10;.ft&#10;
+</literallayout>
+<simpara>the attributes given to path <literal>t/abc</literal> are computed as follows:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>
+By examining <literal>t/.gitattributes</literal> (which is in the same
+   directory as the path in question), Git finds that the first
+   line matches.  <literal>merge</literal> attribute is set.  It also finds that
+   the second line matches, and attributes <literal>foo</literal> and <literal>bar</literal>
+   are unset.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Then it examines <literal>.gitattributes</literal> (which is in the parent
+   directory), and finds that the first line matches, but
+   <literal>t/.gitattributes</literal> file already decided how <literal>merge</literal>, <literal>foo</literal>
+   and <literal>bar</literal> attributes should be given to this path, so it
+   leaves <literal>foo</literal> and <literal>bar</literal> unset.  Attribute <literal>baz</literal> is set.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Finally it examines <literal>$GIT_DIR/info/attributes</literal>.  This file
+   is used to override the in-tree settings.  The first line is
+   a match, and <literal>foo</literal> is set, <literal>bar</literal> is reverted to unspecified
+   state, and <literal>baz</literal> is unset.
+</simpara>
+</listitem>
+</orderedlist>
+<simpara>As the result, the attributes assignment to <literal>t/abc</literal> becomes:</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;foo     set to true
+bar     unspecified
+baz     set to false
+merge   set to string value "filfre"
+frotz   unspecified&#10;.ft&#10;
+</literallayout>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><citerefentry>
+<refentrytitle>git-check-attr</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>.</simpara>
+</refsect1>
+<refsect1 id="_git">
+<title>GIT</title>
+<simpara>Part of the <citerefentry>
+<refentrytitle>git</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> suite</simpara>
+</refsect1>
+</refentry>

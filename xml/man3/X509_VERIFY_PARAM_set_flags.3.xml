@@ -1,0 +1,215 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>X509_VERIFY_PARAM_set_flags.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>X509_VERIFY_PARAM_set_flags, X509_VERIFY_PARAM_clear_flags, X509_VERIFY_PARAM_get_flags, X509_VERIFY_PARAM_set_purpose, X509_VERIFY_PARAM_set_trust, X509_VERIFY_PARAM_set_depth, X509_VERIFY_PARAM_get_depth, X509_VERIFY_PARAM_set_time, X509_VERIFY_PARAM_add0_policy, X509_VERIFY_PARAM_set1_policies</refname>
+<refpurpose>X509 verification parameters</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/x509_vfy.h&gt;</synopsis>
+<synopsis format="linespecific">int X509_VERIFY_PARAM_set_flags(X509_VERIFY_PARAM *param, unsigned long flags);
+int X509_VERIFY_PARAM_clear_flags(X509_VERIFY_PARAM *param,
+                                                       unsigned long flags);
+unsigned long X509_VERIFY_PARAM_get_flags(X509_VERIFY_PARAM *param);</synopsis>
+<synopsis format="linespecific">int X509_VERIFY_PARAM_set_purpose(X509_VERIFY_PARAM *param, int purpose);
+int X509_VERIFY_PARAM_set_trust(X509_VERIFY_PARAM *param, int trust);</synopsis>
+<synopsis format="linespecific">void X509_VERIFY_PARAM_set_time(X509_VERIFY_PARAM *param, time_t t);</synopsis>
+<synopsis format="linespecific">int X509_VERIFY_PARAM_add0_policy(X509_VERIFY_PARAM *param,
+                                               ASN1_OBJECT *policy);
+int X509_VERIFY_PARAM_set1_policies(X509_VERIFY_PARAM *param, 
+                                       STACK_OF(ASN1_OBJECT) *policies);</synopsis>
+<synopsis format="linespecific">void X509_VERIFY_PARAM_set_depth(X509_VERIFY_PARAM *param, int depth);
+int X509_VERIFY_PARAM_get_depth(const X509_VERIFY_PARAM *param);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_VERIFY_PARAM_set_flags.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      These functions manipulate the <emphasis role="bold">X509_VERIFY_PARAM</emphasis> structure associated with a
+      certificate verification operation.
+    </para>
+    <para>
+      The X509_VERIFY_PARAM_set_flags() function sets the flags in
+      <emphasis role="bold">param</emphasis> by oring it with <emphasis role="bold">flags</emphasis>. See the <emphasis role="bold">VERIFICATION FLAGS</emphasis> section for a complete
+      description of values the <emphasis role="bold">flags</emphasis>
+      parameter can take.
+    </para>
+    <para>
+      X509_VERIFY_PARAM_get_flags() returns the flags in <emphasis role="bold">param</emphasis>.
+    </para>
+    <para>
+      X509_VERIFY_PARAM_clear_flags() clears the flags <emphasis role="bold">flags</emphasis> in <emphasis role="bold">param</emphasis>.
+    </para>
+    <para>
+      X509_VERIFY_PARAM_set_purpose() sets the verification purpose in
+      <emphasis role="bold">param</emphasis> to <emphasis role="bold">purpose</emphasis>. This determines the acceptable
+      purpose of the certificate chain, for example SSL client or SSL
+      server.
+    </para>
+    <para>
+      X509_VERIFY_PARAM_set_trust() sets the trust setting in <emphasis role="bold">param</emphasis> to <emphasis role="bold">trust</emphasis>. 
+    </para>
+    <para>
+      X509_VERIFY_PARAM_set_time() sets the verification time in <emphasis role="bold">param</emphasis> to <emphasis role="bold">t</emphasis>.
+      Normally the current time is used.
+    </para>
+    <para>
+      X509_VERIFY_PARAM_add0_policy() enables policy checking (it is
+      disabled by default) and adds <emphasis role="bold">policy</emphasis>
+      to the acceptable policy set.
+    </para>
+    <para>
+      X509_VERIFY_PARAM_set1_policies() enables policy checking (it is
+      disabled by default) and sets the acceptable policy set to <emphasis role="bold">policies</emphasis>. Any existing policy set is cleared.
+      The <emphasis role="bold">policies</emphasis> parameter can be
+      <emphasis role="bold">NULL</emphasis> to clear an existing policy
+      set.
+    </para>
+    <para>
+      X509_VERIFY_PARAM_set_depth() sets the maximum verification depth to
+      <emphasis role="bold">depth</emphasis>. That is the maximum number of
+      untrusted CA certificates that can appear in a chain.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_VERIFY_PARAM_set_flags.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      X509_VERIFY_PARAM_set_flags(), X509_VERIFY_PARAM_clear_flags(),
+      X509_VERIFY_PARAM_set_purpose(), X509_VERIFY_PARAM_set_trust(),
+      X509_VERIFY_PARAM_add0_policy() and X509_VERIFY_PARAM_set1_policies()
+      return 1 for success and 0 for failure. 
+    </para>
+    <para>
+      X509_VERIFY_PARAM_get_flags() returns the current verification flags.
+    </para>
+    <para>
+      X509_VERIFY_PARAM_set_time() and X509_VERIFY_PARAM_set_depth() do not
+      return values.
+    </para>
+    <para>
+      X509_VERIFY_PARAM_get_depth() returns the current verification depth.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_VERIFY_PARAM_set_flags.pod:VERIFICATION_FLAGS"><title>VERIFICATION FLAGS</title>
+    <para>
+      The verification flags consists of zero or more of the following
+      flags ored together.
+    </para>
+    <para>
+      <emphasis role="bold">X509_V_FLAG_CRL_CHECK</emphasis> enables CRL
+      checking for the certificate chain leaf certificate. An error occurs
+      if a suitable CRL cannot be found.
+    </para>
+    <para>
+      <emphasis role="bold">X509_V_FLAG_CRL_CHECK_ALL</emphasis> enables
+      CRL checking for the entire certificate chain.
+    </para>
+    <para>
+      <emphasis role="bold">X509_V_FLAG_IGNORE_CRITICAL</emphasis> disabled
+      critical extension checking. By default any unhandled critical
+      extensions in certificates or (if checked) CRLs results in a fatal
+      error. If this flag is set unhandled critical extensions are ignored.
+      <emphasis role="bold">WARNING</emphasis> setting this option for
+      anything other than debugging purposes can be a security risk. Finer
+      control over which extensions are supported can be performed in the
+      verification callback.
+    </para>
+    <para>
+      THe <emphasis role="bold">X509_V_FLAG_X509_STRICT</emphasis> flag
+      disables workarounds for some broken certificates and makes the
+      verification strictly apply <emphasis role="bold">X509</emphasis>
+      rules.
+    </para>
+    <para>
+      <emphasis role="bold">X509_V_FLAG_ALLOW_PROXY_CERTS</emphasis>
+      enables proxy certificate verification.
+    </para>
+    <para>
+      <emphasis role="bold">X509_V_FLAG_POLICY_CHECK</emphasis> enables
+      certificate policy checking, by default no policy checking is
+      peformed. Additional information is sent to the verification callback
+      relating to policy checking. 
+    </para>
+    <para>
+      <emphasis role="bold">X509_V_FLAG_EXPLICIT_POLICY</emphasis>,
+      <emphasis role="bold">X509_V_FLAG_INHIBIT_ANY</emphasis> and
+      <emphasis role="bold">X509_V_FLAG_INHIBIT_MAP</emphasis> set the
+      <emphasis role="bold">require explicit policy</emphasis>, <emphasis role="bold">inhibit any policy</emphasis> and <emphasis role="bold">inhibit policy mapping</emphasis> flags respectively as
+      defined in <emphasis role="bold">RFC3280</emphasis>. Policy checking
+      is automatically enabled if any of these flags are set.
+    </para>
+    <para>
+      If <emphasis role="bold">X509_V_FLAG_NOTIFY_POLICY</emphasis> is set
+      and the policy checking is successful a special status code is set to
+      the verification callback. This permits it to examine the valid
+      policy tree and perform additional checks or simply log it for
+      debugging purposes.
+    </para>
+    <para>
+      By default some additional features such as indirect CRLs and CRLs
+      signed by different keys are disabled. If <emphasis role="bold">X509_V_FLAG_EXTENDED_CRL_SUPPORT</emphasis> is set they
+      are enabled.
+    </para>
+    <para>
+      If <emphasis role="bold">X509_V_FLAG_USE_DELTAS</emphasis> ise set
+      delta CRLs (if present) are used to determine certificate status. If
+      not set deltas are ignored.
+    </para>
+    <para>
+      <emphasis role="bold">X509_V_FLAG_CHECK_SS_SIGNATURE</emphasis>
+      enables checking of the root CA self signed cerificate signature. By
+      default this check is disabled because it doesn't add any additional
+      security but in some cases applications might want to check the
+      signature anyway. A side effect of not checking the root CA signature
+      is that disabled or unsupported message digests on the root CA are
+      not treated as fatal errors.
+    </para>
+    <para>
+      The <emphasis role="bold">X509_V_FLAG_CB_ISSUER_CHECK</emphasis> flag
+      enables debugging of certificate issuer checks. It is <emphasis role="bold">not</emphasis> needed unless you are logging certificate
+      verification. If this flag is set then additional status codes will
+      be sent to the verification callback and it <emphasis role="bold">must</emphasis> be prepared to handle such cases without
+      assuming they are hard errors.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_VERIFY_PARAM_set_flags.pod:NOTES"><title>NOTES</title>
+    <para>
+      The above functions should be used to manipulate verification
+      parameters instead of legacy functions which work in specific
+      structures such as X509_STORE_CTX_set_flags().
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_VERIFY_PARAM_set_flags.pod:BUGS"><title>BUGS</title>
+    <para>
+      Delta CRL checking is currently primitive. Only a single delta can be
+      used and (partly due to limitations of <emphasis role="bold">X509_STORE</emphasis>) constructed CRLs are not
+      maintained. 
+    </para>
+    <para>
+      If CRLs checking is enable CRLs are expected to be available in the
+      corresponding <emphasis role="bold">X509_STORE</emphasis> structure.
+      No attempt is made to download CRLs from the CRL distribution points
+      extension.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_VERIFY_PARAM_set_flags.pod:EXAMPLE"><title>EXAMPLE</title>
+    <para>
+      Enable CRL checking when performing certificate verification during
+      SSL connections associated with an <emphasis role="bold">SSL_CTX</emphasis> structure <emphasis role="bold">ctx</emphasis>: 
+    </para>
+    <screen>X509_VERIFY_PARAM *param;
+param = X509_VERIFY_PARAM_new();
+X509_VERIFY_PARAM_set_flags(param, X509_V_FLAG_CRL_CHECK);
+SSL_CTX_set1_param(ctx, param);
+X509_VERIFY_PARAM_free(param);</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_VERIFY_PARAM_set_flags.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      X509_verify_cert(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_VERIFY_PARAM_set_flags.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      TBA
+    </para>
+  </refsection>
+</refentry>

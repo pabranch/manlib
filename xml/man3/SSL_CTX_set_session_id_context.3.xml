@@ -1,0 +1,101 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_set_session_id_context.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_set_session_id_context, SSL_set_session_id_context</refname>
+<refpurpose>set context within which session can be reused (server side only)</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">int SSL_CTX_set_session_id_context(SSL_CTX *ctx, const unsigned char *sid_ctx,
+                                   unsigned int sid_ctx_len);
+int SSL_set_session_id_context(SSL *ssl, const unsigned char *sid_ctx,
+                               unsigned int sid_ctx_len);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_id_context.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_CTX_set_session_id_context() sets the context <emphasis role="bold">sid_ctx</emphasis> of length <emphasis role="bold">sid_ctx_len</emphasis> within which a session can be
+      reused for the <emphasis role="bold">ctx</emphasis> object.
+    </para>
+    <para>
+      SSL_set_session_id_context() sets the context <emphasis role="bold">sid_ctx</emphasis> of length <emphasis role="bold">sid_ctx_len</emphasis> within which a session can be
+      reused for the <emphasis role="bold">ssl</emphasis> object.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_id_context.pod:NOTES"><title>NOTES</title>
+    <para>
+      Sessions are generated within a certain context. When
+      exporting/importing sessions with <emphasis role="bold">i2d_SSL_SESSION</emphasis>/<emphasis role="bold">d2i_SSL_SESSION</emphasis> it would be possible, to
+      re-import a session generated from another context (e.g. another
+      application), which might lead to malfunctions. Therefore each
+      application must set its own session id context <emphasis role="bold">sid_ctx</emphasis> which is used to distinguish the
+      contexts and is stored in exported sessions. The <emphasis role="bold">sid_ctx</emphasis> can be any kind of binary data with a
+      given length, it is therefore possible to use e.g. the name of the
+      application and/or the hostname and/or service name ...
+    </para>
+    <para>
+      The session id context becomes part of the session. The session id
+      context is set by the SSL/TLS server. The
+      SSL_CTX_set_session_id_context() and SSL_set_session_id_context()
+      functions are therefore only useful on the server side.
+    </para>
+    <para>
+      OpenSSL clients will check the session id context returned by the
+      server when reusing a session.
+    </para>
+    <para>
+      The maximum length of the <emphasis role="bold">sid_ctx</emphasis> is
+      limited to <emphasis role="bold">SSL_MAX_SSL_SESSION_ID_LENGTH</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_id_context.pod:WARNINGS"><title>WARNINGS</title>
+    <para>
+      If the session id context is not set on an SSL/TLS server and client
+      certificates are used, stored sessions will not be reused but a fatal
+      error will be flagged and the handshake will fail.
+    </para>
+    <para>
+      If a server returns a different session id context to an OpenSSL
+      client when reusing a session, an error will be flagged and the
+      handshake will fail. OpenSSL servers will always return the correct
+      session id context, as an OpenSSL server checks the session id
+      context itself before reusing a session as described above.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_id_context.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      SSL_CTX_set_session_id_context() and SSL_set_session_id_context()
+      return the following values:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_id_context.pod:0"/>0</term>
+          <listitem>
+            <para>
+	      The length <emphasis role="bold">sid_ctx_len</emphasis> of
+	      the session id context <emphasis role="bold">sid_ctx</emphasis> exceeded the maximum allowed
+	      length of <emphasis role="bold">SSL_MAX_SSL_SESSION_ID_LENGTH</emphasis>. The
+	      error is logged to the error stack.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_id_context.pod:1"/>1</term>
+          <listitem>
+            <para>
+	      The operation succeeded.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_id_context.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3)
+    </para>
+  </refsection>
+</refentry>

@@ -1,0 +1,53 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>ASN1_STRING_new.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>ASN1_STRING_new, ASN1_STRING_type_new, ASN1_STRING_free</refname>
+<refpurpose>ASN1_STRING allocation functions</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/asn1.h&gt;</synopsis>
+<synopsis format="linespecific">ASN1_STRING * ASN1_STRING_new(void);
+ASN1_STRING * ASN1_STRING_type_new(int type);
+void ASN1_STRING_free(ASN1_STRING *a);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.ASN1_STRING_new.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      ASN1_STRING_new() returns an allocated <emphasis role="bold">ASN1_STRING</emphasis> structure. Its type is undefined.
+    </para>
+    <para>
+      ASN1_STRING_type_new() returns an allocated <emphasis role="bold">ASN1_STRING</emphasis> structure of type <emphasis role="bold">type</emphasis>.
+    </para>
+    <para>
+      ASN1_STRING_free() frees up <emphasis role="bold">a</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ASN1_STRING_new.pod:NOTES"><title>NOTES</title>
+    <para>
+      Other string types call the <emphasis role="bold">ASN1_STRING</emphasis> functions. For example
+      ASN1_OCTET_STRING_new() calls ASN1_STRING_type(V_ASN1_OCTET_STRING).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ASN1_STRING_new.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      ASN1_STRING_new() and ASN1_STRING_type_new() return a valid
+      ASN1_STRING structure or <emphasis role="bold">NULL</emphasis> if an
+      error occurred.
+    </para>
+    <para>
+      ASN1_STRING_free() does not return a value.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ASN1_STRING_new.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ERR_get_error(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ASN1_STRING_new.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      TBA
+    </para>
+  </refsection>
+</refentry>

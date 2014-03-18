@@ -1,0 +1,148 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_new.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_new, SSLv2_method, SSLv2_server_method, SSLv2_client_method, SSLv3_method, SSLv3_server_method, SSLv3_client_method, TLSv1_method(void), TLSv1_server_method(void), TLSv1_client_method, TLSv1_1_method, TLSv1_1_server_method, TLSv1_1_client_method, SSLv23_method, SSLv23_server_method, SSLv23_client_method</refname>
+<refpurpose>create a new SSL_CTX object as framework for TLS/SSL enabled functions</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">SSL_CTX *SSL_CTX_new(const SSL_METHOD *method);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_CTX_new() creates a new <emphasis role="bold">SSL_CTX</emphasis>
+      object as framework to establish TLS/SSL enabled connections.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:NOTES"><title>NOTES</title>
+    <para>
+      The SSL_CTX object uses <emphasis role="bold">method</emphasis> as
+      connection method. The methods exist in a generic type (for client
+      and server use), a server only type, and a client only type.
+      <emphasis role="bold">method</emphasis> can be of the following
+      types:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:SSLv2_methodvoid_SSLv2_server_methodvoid_SSLv2_client_methodvoid"/>SSLv2_method(void), SSLv2_server_method(void), SSLv2_client_method(void)</term>
+          <listitem>
+            <para>
+	      A TLS/SSL connection established with these methods will only
+	      understand the SSLv2 protocol. A client will send out SSLv2
+	      client hello messages and will also indicate that it only
+	      understand SSLv2. A server will only understand SSLv2 client
+	      hello messages. The SSLv2 protocol is deprecated and very
+	      broken: its use is <emphasis role="bold">strongly</emphasis>
+	      discouraged. 
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:SSLv3_methodvoid_SSLv3_server_methodvoid_SSLv3_client_methodvoid"/>SSLv3_method(void), SSLv3_server_method(void), SSLv3_client_method(void)</term>
+          <listitem>
+            <para>
+	      A TLS/SSL connection established with these methods will only
+	      understand the SSLv3 protocol. A client will send out SSLv3
+	      client hello messages and will indicate that it only
+	      understands SSLv3. A server will only understand SSLv3 client
+	      hello messages. This especially means, that it will not
+	      understand SSLv2 client hello messages which are widely used
+	      for compatibility reasons, see SSLv23_*_method().
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:TLSv1_methodvoid_TLSv1_server_methodvoid_TLSv1_client_methodvoid"/>TLSv1_method(void), TLSv1_server_method(void), TLSv1_client_method(void)</term>
+          <listitem>
+            <para>
+	      A TLS/SSL connection established with these methods will only
+	      understand the TLSv1 protocol. A client will send out TLSv1
+	      client hello messages and will indicate that it only
+	      understands TLSv1. A server will only understand TLSv1 client
+	      hello messages. This especially means, that it will not
+	      understand SSLv2 client hello messages which are widely used
+	      for compatibility reasons, see SSLv23_*_method(). It will
+	      also not understand SSLv3 client hello messages.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:TLSv1_1_methodvoid_TLSv1_1_server_methodvoid_TLSv1_1_client_methodvoid"/>TLSv1_1_method(void), TLSv1_1_server_method(void), TLSv1_1_client_method(void)</term>
+          <listitem>
+            <para>
+	      A TLS/SSL connection established with these methods will only
+	      understand the TLSv1.1 protocol. A client will send out
+	      TLSv1.1 client hello messages and will indicate that it only
+	      understands TLSv1.1. A server will only understand TLSv1.1
+	      client hello messages. This especially means, that it will
+	      not understand SSLv2 client hello messages which are widely
+	      used for compatibility reasons, see SSLv23_*_method(). It
+	      will also not understand SSLv3 client hello messages.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:SSLv23_methodvoid_SSLv23_server_methodvoid_SSLv23_client_methodvoid"/>SSLv23_method(void), SSLv23_server_method(void), SSLv23_client_method(void)</term>
+          <listitem>
+            <para>
+	      A TLS/SSL connection established with these methods will
+	      understand the SSLv2, SSLv3, and TLSv1 protocol. A client
+	      will send out SSLv2 client hello messages and will indicate
+	      that it also understands SSLv3 and TLSv1. A server will
+	      understand SSLv2, SSLv3, and TLSv1 client hello messages.
+	      This is the best choice when compatibility is a concern.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+    <para>
+      The list of protocols available can later be limited using the
+      SSL_OP_NO_SSLv2, SSL_OP_NO_SSLv3, SSL_OP_NO_TLSv1 options of the
+      <emphasis role="bold">SSL_CTX_set_options()</emphasis> or <emphasis role="bold">SSL_set_options()</emphasis> functions. Using these
+      options it is possible to choose e.g. SSLv23_server_method() and be
+      able to negotiate with all possible clients, but to only allow newer
+      protocols like SSLv3 or TLSv1.
+    </para>
+    <para>
+      SSL_CTX_new() initializes the list of ciphers, the session cache
+      setting, the callbacks, the keys and certificates, and the options to
+      its default values.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      The following return values can occur:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:NULL"/>NULL</term>
+          <listitem>
+            <para>
+	      The creation of a new SSL_CTX object failed. Check the error
+	      stack to find out the reason.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:Pointer_to_an_SSL_CTX_object"/>Pointer to an SSL_CTX object</term>
+          <listitem>
+            <para>
+	      The return value points to an allocated SSL_CTX object.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      SSL_CTX_free(3), SSL_accept(3), ssl(3),  SSL_set_connect_state(3)
+    </para>
+  </refsection>
+</refentry>

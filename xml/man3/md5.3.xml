@@ -1,0 +1,111 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>md5.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>MD2, MD4, MD5, MD2_Init, MD2_Update, MD2_Final, MD4_Init, MD4_Update,
+MD4_Final, MD5_Init, MD5_Update, MD5_Final</refname>
+<refpurpose>MD2, MD4, and MD5 hash functions</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/md2.h&gt;</synopsis>
+<synopsis format="linespecific">unsigned char *MD2(const unsigned char *d, unsigned long n,
+                 unsigned char *md);</synopsis>
+<synopsis format="linespecific">int MD2_Init(MD2_CTX *c);
+int MD2_Update(MD2_CTX *c, const unsigned char *data,
+                 unsigned long len);
+int MD2_Final(unsigned char *md, MD2_CTX *c);</synopsis>
+<synopsis format="linespecific"/>
+<synopsis format="linespecific">#include &lt;openssl/md4.h&gt;</synopsis>
+<synopsis format="linespecific">unsigned char *MD4(const unsigned char *d, unsigned long n,
+                 unsigned char *md);</synopsis>
+<synopsis format="linespecific">int MD4_Init(MD4_CTX *c);
+int MD4_Update(MD4_CTX *c, const void *data,
+                 unsigned long len);
+int MD4_Final(unsigned char *md, MD4_CTX *c);</synopsis>
+<synopsis format="linespecific"/>
+<synopsis format="linespecific">#include &lt;openssl/md5.h&gt;</synopsis>
+<synopsis format="linespecific">unsigned char *MD5(const unsigned char *d, unsigned long n,
+                 unsigned char *md);</synopsis>
+<synopsis format="linespecific">int MD5_Init(MD5_CTX *c);
+int MD5_Update(MD5_CTX *c, const void *data,
+                 unsigned long len);
+int MD5_Final(unsigned char *md, MD5_CTX *c);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.md5.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      MD2, MD4, and MD5 are cryptographic hash functions with a 128 bit
+      output.
+    </para>
+    <para>
+      MD2(), MD4(), and MD5() compute the MD2, MD4, and MD5 message digest
+      of the <emphasis role="bold">n</emphasis> bytes at <emphasis role="bold">d</emphasis> and place it in <emphasis role="bold">md</emphasis> (which must have space for
+      MD2_DIGEST_LENGTH == MD4_DIGEST_LENGTH == MD5_DIGEST_LENGTH == 16
+      bytes of output). If <emphasis role="bold">md</emphasis> is NULL, the
+      digest is placed in a static array.
+    </para>
+    <para>
+      The following functions may be used if the message is not completely
+      stored in memory:
+    </para>
+    <para>
+      MD2_Init() initializes a <emphasis role="bold">MD2_CTX</emphasis>
+      structure.
+    </para>
+    <para>
+      MD2_Update() can be called repeatedly with chunks of the message to
+      be hashed (<emphasis role="bold">len</emphasis> bytes at <emphasis role="bold">data</emphasis>).
+    </para>
+    <para>
+      MD2_Final() places the message digest in <emphasis role="bold">md</emphasis>, which must have space for
+      MD2_DIGEST_LENGTH == 16 bytes of output, and erases the <emphasis role="bold">MD2_CTX</emphasis>.
+    </para>
+    <para>
+      MD4_Init(), MD4_Update(), MD4_Final(), MD5_Init(), MD5_Update(), and
+      MD5_Final() are analogous using an <emphasis role="bold">MD4_CTX</emphasis> and <emphasis role="bold">MD5_CTX</emphasis> structure.
+    </para>
+    <para>
+      Applications should use the higher level functions EVP_DigestInit(3)
+      etc. instead of calling the hash functions directly.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.md5.pod:NOTE"><title>NOTE</title>
+    <para>
+      MD2, MD4, and MD5 are recommended only for compatibility with
+      existing applications. In new applications, SHA-1 or RIPEMD-160
+      should be preferred.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.md5.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      MD2(), MD4(), and MD5() return pointers to the hash value.
+    </para>
+    <para>
+      MD2_Init(), MD2_Update(), MD2_Final(), MD4_Init(), MD4_Update(),
+      MD4_Final(), MD5_Init(), MD5_Update(), and MD5_Final() return 1 for
+      success, 0 otherwise.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.md5.pod:CONFORMING_TO"><title>CONFORMING TO</title>
+    <para>
+      RFC 1319, RFC 1320, RFC 1321
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.md5.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      sha(3), ripemd(3), EVP_DigestInit(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.md5.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      MD2(), MD2_Init(), MD2_Update() MD2_Final(), MD5(), MD5_Init(),
+      MD5_Update() and MD5_Final() are available in all versions of SSLeay
+      and OpenSSL.
+    </para>
+    <para>
+      MD4(), MD4_Init(), and MD4_Update() are available in OpenSSL 0.9.6
+      and above.
+    </para>
+  </refsection>
+</refentry>

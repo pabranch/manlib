@@ -1,0 +1,135 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>genrsa.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>genrsa</refname>
+<refpurpose>generate an RSA private key</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific"><emphasis role="bold">openssl</emphasis> <emphasis role="bold">genrsa</emphasis>
+[<emphasis role="bold">-out filename</emphasis>]
+[<emphasis role="bold">-passout arg</emphasis>]
+[<emphasis role="bold">-des</emphasis>]
+[<emphasis role="bold">-des3</emphasis>]
+[<emphasis role="bold">-idea</emphasis>]
+[<emphasis role="bold">-f4</emphasis>]
+[<emphasis role="bold">-3</emphasis>]
+[<emphasis role="bold">-rand file(s)</emphasis>]
+[<emphasis role="bold">-engine id</emphasis>]
+[<emphasis role="bold">numbits</emphasis>]</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.apps.genrsa.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The <emphasis role="bold">genrsa</emphasis> command generates an RSA
+      private key.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.genrsa.pod:OPTIONS"><title>OPTIONS</title>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genrsa.pod:-out_filename"/><emphasis role="bold">-out filename</emphasis></term>
+          <listitem>
+            <para>
+	      the output filename. If this argument is not specified then
+	      standard output is used.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genrsa.pod:-passout_arg"/><emphasis role="bold">-passout arg</emphasis></term>
+          <listitem>
+            <para>
+	      the output file password source. For more information about
+	      the format of <emphasis role="bold">arg</emphasis> see the
+	      <emphasis role="bold">PASS PHRASE ARGUMENTS</emphasis>
+	      section in openssl(1).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genrsa.pod:-des-des3-idea"/><emphasis role="bold">-des|-des3|-idea</emphasis></term>
+          <listitem>
+            <para>
+	      These options encrypt the private key with the DES, triple
+	      DES, or the IDEA ciphers respectively before outputting it.
+	      If none of these options is specified no encryption is used.
+	      If encryption is used a pass phrase is prompted for if it is
+	      not supplied via the <emphasis role="bold">-passout</emphasis> argument. 
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genrsa.pod:-F4-3"/><emphasis role="bold">-F4|-3</emphasis></term>
+          <listitem>
+            <para>
+	      the public exponent to use, either 65537 or 3. The default is
+	      65537.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genrsa.pod:-rand_files"/><emphasis role="bold">-rand file(s)</emphasis></term>
+          <listitem>
+            <para>
+	      a file or files containing random data used to seed the
+	      random number generator, or an EGD socket (see RAND_egd(3)).
+	      Multiple files can be specified separated by a OS-dependent
+	      character. The separator is <emphasis role="bold">;</emphasis> for MS-Windows, <emphasis role="bold">,</emphasis> for OpenVMS, and <emphasis role="bold">:</emphasis> for all others.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genrsa.pod:-engine_id"/><emphasis role="bold">-engine id</emphasis></term>
+          <listitem>
+            <para>
+	      specifying an engine (by its unique <emphasis role="bold">id</emphasis> string) will cause <emphasis role="bold">genrsa</emphasis> to attempt to obtain a
+	      functional reference to the specified engine, thus
+	      initialising it if needed. The engine will then be set as the
+	      default for all available algorithms.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genrsa.pod:numbits"/><emphasis role="bold">numbits</emphasis></term>
+          <listitem>
+            <para>
+	      the size of the private key to generate in bits. This must be
+	      the last option specified. The default is 512.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.genrsa.pod:NOTES"><title>NOTES</title>
+    <para>
+      RSA private key generation essentially involves the generation of two
+      prime numbers. When generating a private key various symbols will be
+      output to indicate the progress of the generation. A <emphasis role="bold">.</emphasis> represents each number which has passed an
+      initial sieve test, <emphasis role="bold">+</emphasis> means a number
+      has passed a single round of the Miller-Rabin primality test. A
+      newline means that the number has passed all the prime tests (the
+      actual number depends on the key size).
+    </para>
+    <para>
+      Because key generation is a random process the time taken to generate
+      a key may vary somewhat.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.genrsa.pod:BUGS"><title>BUGS</title>
+    <para>
+      A quirk of the prime generation algorithm is that it cannot generate
+      small primes. Therefore the number of bits should not be less that
+      64. For typical private keys this will not matter because for
+      security reasons they will be much larger (typically 1024 bits).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.genrsa.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      gendsa(1)
+    </para>
+  </refsection>
+</refentry>

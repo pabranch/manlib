@@ -1,0 +1,57 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_session_reused.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_session_reused</refname>
+<refpurpose>query whether a reused session was negotiated during handshake</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">int SSL_session_reused(SSL *ssl);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_session_reused.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      Query, whether a reused session was negotiated during the handshake.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_session_reused.pod:NOTES"><title>NOTES</title>
+    <para>
+      During the negotiation, a client can propose to reuse a session. The
+      server then looks up the session in its cache. If both client and
+      server agree on the session, it will be reused and a flag is being
+      set that can be queried by the application.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_session_reused.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      The following return values can occur:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_session_reused.pod:0"/>0</term>
+          <listitem>
+            <para>
+	      A new session was negotiated.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_session_reused.pod:1"/>1</term>
+          <listitem>
+            <para>
+	      A session was reused.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_session_reused.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_set_session(3), SSL_CTX_set_session_cache_mode(3)
+    </para>
+  </refsection>
+</refentry>

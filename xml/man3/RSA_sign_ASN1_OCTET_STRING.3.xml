@@ -1,0 +1,67 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>RSA_sign_ASN1_OCTET_STRING.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>RSA_sign_ASN1_OCTET_STRING, RSA_verify_ASN1_OCTET_STRING</refname>
+<refpurpose>RSA signatures</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/rsa.h&gt;</synopsis>
+<synopsis format="linespecific">int RSA_sign_ASN1_OCTET_STRING(int dummy, unsigned char *m,
+   unsigned int m_len, unsigned char *sigret, unsigned int *siglen,
+   RSA *rsa);</synopsis>
+<synopsis format="linespecific">int RSA_verify_ASN1_OCTET_STRING(int dummy, unsigned char *m,
+   unsigned int m_len, unsigned char *sigbuf, unsigned int siglen,
+   RSA *rsa);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_sign_ASN1_OCTET_STRING.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      RSA_sign_ASN1_OCTET_STRING() signs the octet string <emphasis role="bold">m</emphasis> of size <emphasis role="bold">m_len</emphasis> using the private key <emphasis role="bold">rsa</emphasis> represented in DER using PKCS #1 padding.
+      It stores the signature in <emphasis role="bold">sigret</emphasis>
+      and the signature size in <emphasis role="bold">siglen</emphasis>.
+      <emphasis role="bold">sigret</emphasis> must point to <emphasis role="bold">RSA_size(rsa)</emphasis> bytes of memory.
+    </para>
+    <para>
+      <emphasis role="bold">dummy</emphasis> is ignored.
+    </para>
+    <para>
+      The random number generator must be seeded prior to calling
+      RSA_sign_ASN1_OCTET_STRING().
+    </para>
+    <para>
+      RSA_verify_ASN1_OCTET_STRING() verifies that the signature <emphasis role="bold">sigbuf</emphasis> of size <emphasis role="bold">siglen</emphasis> is the DER representation of a given
+      octet string <emphasis role="bold">m</emphasis> of size <emphasis role="bold">m_len</emphasis>. <emphasis role="bold">dummy</emphasis>
+      is ignored. <emphasis role="bold">rsa</emphasis> is the signer's
+      public key.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_sign_ASN1_OCTET_STRING.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      RSA_sign_ASN1_OCTET_STRING() returns 1 on success, 0 otherwise.
+      RSA_verify_ASN1_OCTET_STRING() returns 1 on successful verification,
+      0 otherwise.
+    </para>
+    <para>
+      The error codes can be obtained by ERR_get_error(3).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_sign_ASN1_OCTET_STRING.pod:BUGS"><title>BUGS</title>
+    <para>
+      These functions serve no recognizable purpose.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_sign_ASN1_OCTET_STRING.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ERR_get_error(3), objects(3), rand(3), rsa(3), RSA_sign(3),
+      RSA_verify(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_sign_ASN1_OCTET_STRING.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      RSA_sign_ASN1_OCTET_STRING() and RSA_verify_ASN1_OCTET_STRING() were
+      added in SSLeay 0.8.
+    </para>
+  </refsection>
+</refentry>

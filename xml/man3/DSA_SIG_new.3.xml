@@ -1,0 +1,45 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>DSA_SIG_new.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>DSA_SIG_new, DSA_SIG_free</refname>
+<refpurpose>allocate and free DSA signature objects</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/dsa.h&gt;</synopsis>
+<synopsis format="linespecific">DSA_SIG *DSA_SIG_new(void);</synopsis>
+<synopsis format="linespecific">void   DSA_SIG_free(DSA_SIG *a);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.DSA_SIG_new.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      DSA_SIG_new() allocates and initializes a <emphasis role="bold">DSA_SIG</emphasis> structure.
+    </para>
+    <para>
+      DSA_SIG_free() frees the <emphasis role="bold">DSA_SIG</emphasis>
+      structure and its components. The values are erased before the memory
+      is returned to the system.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.DSA_SIG_new.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      If the allocation fails, DSA_SIG_new() returns <emphasis role="bold">NULL</emphasis> and sets an error code that can be
+      obtained by ERR_get_error(3). Otherwise it returns a pointer to the
+      newly allocated structure.
+    </para>
+    <para>
+      DSA_SIG_free() returns no value.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.DSA_SIG_new.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      dsa(3), ERR_get_error(3), DSA_do_sign(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.DSA_SIG_new.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      DSA_SIG_new() and DSA_SIG_free() were added in OpenSSL 0.9.3.
+    </para>
+  </refsection>
+</refentry>

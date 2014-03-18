@@ -1,0 +1,50 @@
+.\" yum-builddep
+.TH "yum-builddep" "1" "17 July 2005 " "Panu Matilainen" ""
+.SH "NAME"
+yum-builddep \- install missing dependencies for building an RPM package
+.SH "SYNOPSIS"
+\fByum-builddep\fP package
+.SH "DESCRIPTION"
+.PP 
+\fByum-builddep\fP is a program which installs the RPMs needed to build
+the specified package.  The source RPM for the specified package must
+be available in a Yum repository (which will be automatically enabled, if it is
+disabled) or it can be a local source RPM or a spec file.
+.PP 
+.SH "EXAMPLES"
+.IP "Download and install all the RPMs needed to build the kernel RPM:"
+\fByum-builddep kernel\fP
+.PP 
+.SH "FILES"
+As yum-builddep uses YUM libraries for retrieving all the information, it
+relies on YUM configuration for its default values like which repositories
+to use. Consult YUM documentation for details:
+.PP
+.nf 
+/etc/yum.conf
+/etc/yum/repos.d/
+/var/cache/yum/
+.fi 
+
+.PP 
+.SH "SEE ALSO"
+.nf
+.I yum.conf (5)
+http://yum.baseurl.org/
+.fi 
+
+.PP 
+.SH "AUTHORS"
+.nf 
+See the Authors file included with this program.
+.fi 
+
+.PP 
+.SH "BUGS"
+There are of course no bugs, but should you find any, you should first
+consult the FAQ section on http://yum.baseurl.org/wiki/Faq and if unsuccessful
+in finding a resolution contact the mailing list: yum-devel@lists.baseurl.org.
+To file a bug use http://bugzilla.redhat.com for Fedora/RHEL/Centos
+related bugs and http://yum.baseurl.org/report for all other bugs.
+
+.fi

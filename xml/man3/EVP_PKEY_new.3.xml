@@ -1,0 +1,55 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>EVP_PKEY_new.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>EVP_PKEY_new, EVP_PKEY_free</refname>
+<refpurpose>private key allocation functions.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis format="linespecific">EVP_PKEY *EVP_PKEY_new(void);
+void EVP_PKEY_free(EVP_PKEY *key);</synopsis>
+<synopsis format="linespecific"/>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_new.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The EVP_PKEY_new() function allocates an empty <emphasis role="bold">EVP_PKEY</emphasis> structure which is used by OpenSSL to
+      store private keys. 
+    </para>
+    <para>
+      EVP_PKEY_free() frees up the private key <emphasis role="bold">key</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_new.pod:NOTES"><title>NOTES</title>
+    <para>
+      The <emphasis role="bold">EVP_PKEY</emphasis> structure is used by
+      various OpenSSL functions which require a general private key without
+      reference to any particular algorithm.
+    </para>
+    <para>
+      The structure returned by EVP_PKEY_new() is empty. To add a private
+      key to this empty structure the functions described in
+      EVP_PKEY_set1_RSA(3) should be used.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_new.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      EVP_PKEY_new() returns either the newly allocated <emphasis role="bold">EVP_PKEY</emphasis> structure of <emphasis role="bold">NULL</emphasis> if an error occurred.
+    </para>
+    <para>
+      EVP_PKEY_free() does not return a value.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_new.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      EVP_PKEY_set1_RSA(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_new.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      TBA
+    </para>
+  </refsection>
+</refentry>

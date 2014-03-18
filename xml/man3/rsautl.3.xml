@@ -1,0 +1,245 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>rsautl.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>rsautl</refname>
+<refpurpose>RSA utility</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific"><emphasis role="bold">openssl</emphasis> <emphasis role="bold">rsautl</emphasis>
+[<emphasis role="bold">-in file</emphasis>]
+[<emphasis role="bold">-out file</emphasis>]
+[<emphasis role="bold">-inkey file</emphasis>]
+[<emphasis role="bold">-pubin</emphasis>]
+[<emphasis role="bold">-certin</emphasis>]
+[<emphasis role="bold">-sign</emphasis>]
+[<emphasis role="bold">-verify</emphasis>]
+[<emphasis role="bold">-encrypt</emphasis>]
+[<emphasis role="bold">-decrypt</emphasis>]
+[<emphasis role="bold">-pkcs</emphasis>]
+[<emphasis role="bold">-ssl</emphasis>]
+[<emphasis role="bold">-raw</emphasis>]
+[<emphasis role="bold">-hexdump</emphasis>]
+[<emphasis role="bold">-asn1parse</emphasis>]</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.apps.rsautl.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The <emphasis role="bold">rsautl</emphasis> command can be used to
+      sign, verify, encrypt and decrypt data using the RSA algorithm.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.rsautl.pod:COMMAND_OPTIONS"><title>COMMAND OPTIONS</title>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.rsautl.pod:-in_filename"/><emphasis role="bold">-in filename</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the input filename to read data from or
+	      standard input if this option is not specified.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.rsautl.pod:-out_filename"/><emphasis role="bold">-out filename</emphasis></term>
+          <listitem>
+            <para>
+	      specifies the output filename to write to or standard output
+	      by default.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.rsautl.pod:-inkey_file"/><emphasis role="bold">-inkey file</emphasis></term>
+          <listitem>
+            <para>
+	      the input key file, by default it should be an RSA private
+	      key.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.rsautl.pod:-pubin"/><emphasis role="bold">-pubin</emphasis></term>
+          <listitem>
+            <para>
+	      the input file is an RSA public key.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.rsautl.pod:-certin"/><emphasis role="bold">-certin</emphasis></term>
+          <listitem>
+            <para>
+	      the input is a certificate containing an RSA public key.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.rsautl.pod:-sign"/><emphasis role="bold">-sign</emphasis></term>
+          <listitem>
+            <para>
+	      sign the input data and output the signed result. This
+	      requires and RSA private key.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.rsautl.pod:-verify"/><emphasis role="bold">-verify</emphasis></term>
+          <listitem>
+            <para>
+	      verify the input data and output the recovered data.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.rsautl.pod:-encrypt"/><emphasis role="bold">-encrypt</emphasis></term>
+          <listitem>
+            <para>
+	      encrypt the input data using an RSA public key.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.rsautl.pod:-decrypt"/><emphasis role="bold">-decrypt</emphasis></term>
+          <listitem>
+            <para>
+	      decrypt the input data using an RSA private key.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.rsautl.pod:-pkcs_-oaep_-ssl_-raw"/><emphasis role="bold">-pkcs, -oaep, -ssl, -raw</emphasis></term>
+          <listitem>
+            <para>
+	      the padding to use: PKCS#1 v1.5 (the default), PKCS#1 OAEP,
+	      special padding used in SSL v2 backwards compatible
+	      handshakes, or no padding, respectively. For signatures, only
+	      <emphasis role="bold">-pkcs</emphasis> and <emphasis role="bold">-raw</emphasis> can be used.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.rsautl.pod:-hexdump"/><emphasis role="bold">-hexdump</emphasis></term>
+          <listitem>
+            <para>
+	      hex dump the output data.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.rsautl.pod:-asn1parse"/><emphasis role="bold">-asn1parse</emphasis></term>
+          <listitem>
+            <para>
+	      asn1parse the output data, this is useful when combined with
+	      the <emphasis role="bold">-verify</emphasis> option.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.rsautl.pod:NOTES"><title>NOTES</title>
+    <para>
+      <emphasis role="bold">rsautl</emphasis> because it uses the RSA
+      algorithm directly can only be used to sign or verify small pieces of
+      data.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.rsautl.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      Sign some data using a private key:
+    </para>
+    <screen>openssl rsautl -sign -in file -inkey key.pem -out sig</screen>
+    <para>
+      Recover the signed data
+    </para>
+    <screen>openssl rsautl -verify -in sig -inkey key.pem</screen>
+    <para>
+      Examine the raw signed data:
+    </para>
+    <screen>openssl rsautl -verify -in file -inkey key.pem -raw -hexdump
+
+0000 - 00 01 ff ff ff ff ff ff-ff ff ff ff ff ff ff ff   ................
+0010 - ff ff ff ff ff ff ff ff-ff ff ff ff ff ff ff ff   ................
+0020 - ff ff ff ff ff ff ff ff-ff ff ff ff ff ff ff ff   ................
+0030 - ff ff ff ff ff ff ff ff-ff ff ff ff ff ff ff ff   ................
+0040 - ff ff ff ff ff ff ff ff-ff ff ff ff ff ff ff ff   ................
+0050 - ff ff ff ff ff ff ff ff-ff ff ff ff ff ff ff ff   ................
+0060 - ff ff ff ff ff ff ff ff-ff ff ff ff ff ff ff ff   ................
+0070 - ff ff ff ff 00 68 65 6c-6c 6f 20 77 6f 72 6c 64   .....hello world</screen>
+    <para>
+      The PKCS#1 block formatting is evident from this. If this was done
+      using encrypt and decrypt the block would have been of type 2 (the
+      second byte) and random padding data visible instead of the 0xff
+      bytes.
+    </para>
+    <para>
+      It is possible to analyse the signature of certificates using this
+      utility in conjunction with <emphasis role="bold">asn1parse</emphasis>. Consider the self signed example in
+      certs/pca-cert.pem . Running <emphasis role="bold">asn1parse</emphasis> as follows yields:
+    </para>
+    <screen>openssl asn1parse -in pca-cert.pem
+
+  0:d=0  hl=4 l= 742 cons: SEQUENCE          
+  4:d=1  hl=4 l= 591 cons:  SEQUENCE          
+  8:d=2  hl=2 l=   3 cons:   cont [ 0 ]        
+ 10:d=3  hl=2 l=   1 prim:    INTEGER           :02
+ 13:d=2  hl=2 l=   1 prim:   INTEGER           :00
+ 16:d=2  hl=2 l=  13 cons:   SEQUENCE          
+ 18:d=3  hl=2 l=   9 prim:    OBJECT            :md5WithRSAEncryption
+ 29:d=3  hl=2 l=   0 prim:    NULL              
+ 31:d=2  hl=2 l=  92 cons:   SEQUENCE          
+ 33:d=3  hl=2 l=  11 cons:    SET               
+ 35:d=4  hl=2 l=   9 cons:     SEQUENCE          
+ 37:d=5  hl=2 l=   3 prim:      OBJECT            :countryName
+ 42:d=5  hl=2 l=   2 prim:      PRINTABLESTRING   :AU
+....
+599:d=1  hl=2 l=  13 cons:  SEQUENCE          
+601:d=2  hl=2 l=   9 prim:   OBJECT            :md5WithRSAEncryption
+612:d=2  hl=2 l=   0 prim:   NULL              
+614:d=1  hl=3 l= 129 prim:  BIT STRING
+
+</screen>
+    <para>
+      The final BIT STRING contains the actual signature. It can be
+      extracted with:
+    </para>
+    <screen>openssl asn1parse -in pca-cert.pem -out sig -noout -strparse 614</screen>
+    <para>
+      The certificate public key can be extracted with:
+    </para>
+    <screen>openssl x509 -in test/testx509.pem -pubkey -noout &gt;pubkey.pem</screen>
+    <para>
+      The signature can be analysed with:
+    </para>
+    <screen>openssl rsautl -in sig -verify -asn1parse -inkey pubkey.pem -pubin
+
+ 0:d=0  hl=2 l=  32 cons: SEQUENCE          
+ 2:d=1  hl=2 l=  12 cons:  SEQUENCE          
+ 4:d=2  hl=2 l=   8 prim:   OBJECT            :md5
+14:d=2  hl=2 l=   0 prim:   NULL              
+16:d=1  hl=2 l=  16 prim:  OCTET STRING      
+   0000 - f3 46 9e aa 1a 4a 73 c9-37 ea 93 00 48 25 08 b5   .F...Js.7...H%..</screen>
+    <para>
+      This is the parsed version of an ASN1 DigestInfo structure. It can be
+      seen that the digest used was md5. The actual part of the certificate
+      that was signed can be extracted with:
+    </para>
+    <screen>openssl asn1parse -in pca-cert.pem -out tbs -noout -strparse 4</screen>
+    <para>
+      and its digest computed with:
+    </para>
+    <screen>openssl md5 -c tbs
+MD5(tbs)= f3:46:9e:aa:1a:4a:73:c9:37:ea:93:00:48:25:08:b5</screen>
+    <para>
+      which it can be seen agrees with the recovered value above.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.rsautl.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      dgst(1), rsa(1), genrsa(1)
+    </para>
+  </refsection>
+</refentry>

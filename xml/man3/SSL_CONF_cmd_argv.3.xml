@@ -1,0 +1,48 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CONF_cmd_argv.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CONF_cmd_argv</refname>
+<refpurpose>SSL configuration command line processing.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">int SSL_CONF_cmd_argv(SSL_CONF_CTX *cctx, int *pargc, char ***pargv);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd_argv.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The function SSL_CONF_cmd_argv() processes at most two command line
+      arguments from <emphasis role="bold">pargv</emphasis> and <emphasis role="bold">pargc</emphasis>. The values of <emphasis role="bold">pargv</emphasis> and <emphasis role="bold">pargc</emphasis> are updated to reflect the number of
+      command options procesed. The <emphasis role="bold">pargc</emphasis>
+      argument can be set to <emphasis role="bold">NULL</emphasis> is it is
+      not used.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd_argv.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      SSL_CONF_cmd_argv() returns the number of command arguments
+      processed: 0, 1, 2 or a negative error code.
+    </para>
+    <para>
+      If -2 is returned then an argument for a command is missing.
+    </para>
+    <para>
+      If -1 is returned the command is recognised but couldn't be processed
+      due to an error: for example a syntax error in the argument.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd_argv.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      SSL_CONF_CTX_new(3), SSL_CONF_CTX_set_flags(3),
+      SSL_CONF_CTX_set1_prefix(3), SSL_CONF_CTX_set_ssl_ctx(3),
+      SSL_CONF_cmd(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd_argv.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      These functions were first added to OpenSSL 1.0.2
+    </para>
+  </refsection>
+</refentry>

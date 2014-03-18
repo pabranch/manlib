@@ -1,0 +1,64 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>d2i_PKCS8PrivateKey.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>d2i_PKCS8PrivateKey_bio, d2i_PKCS8PrivateKey_fp,
+i2d_PKCS8PrivateKey_bio, i2d_PKCS8PrivateKey_fp,
+i2d_PKCS8PrivateKey_nid_bio, i2d_PKCS8PrivateKey_nid_fp</refname>
+<refpurpose>PKCS#8 format private key functions</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis format="linespecific">EVP_PKEY *d2i_PKCS8PrivateKey_bio(BIO *bp, EVP_PKEY **x, pem_password_cb *cb, void *u);
+EVP_PKEY *d2i_PKCS8PrivateKey_fp(FILE *fp, EVP_PKEY **x, pem_password_cb *cb, void *u);</synopsis>
+<synopsis format="linespecific">int i2d_PKCS8PrivateKey_bio(BIO *bp, EVP_PKEY *x, const EVP_CIPHER *enc,
+                                 char *kstr, int klen,
+                                 pem_password_cb *cb, void *u);</synopsis>
+<synopsis format="linespecific">int i2d_PKCS8PrivateKey_fp(FILE *fp, EVP_PKEY *x, const EVP_CIPHER *enc,
+                                 char *kstr, int klen,
+                                 pem_password_cb *cb, void *u);</synopsis>
+<synopsis format="linespecific">int i2d_PKCS8PrivateKey_nid_bio(BIO *bp, EVP_PKEY *x, int nid,
+                                 char *kstr, int klen,
+                                 pem_password_cb *cb, void *u);</synopsis>
+<synopsis format="linespecific">int i2d_PKCS8PrivateKey_nid_fp(FILE *fp, EVP_PKEY *x, int nid,
+                                 char *kstr, int klen,
+                                 pem_password_cb *cb, void *u);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.d2i_PKCS8PrivateKey.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The PKCS#8 functions encode and decode private keys in PKCS#8 format
+      using both PKCS#5 v1.5 and PKCS#5 v2.0 password based encryption
+      algorithms.
+    </para>
+    <para>
+      Other than the use of DER as opposed to PEM these functions are
+      identical to the corresponding <emphasis role="bold">PEM</emphasis>
+      function as described in the pem(3) manual page.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.d2i_PKCS8PrivateKey.pod:NOTES"><title>NOTES</title>
+    <para>
+      Before using these functions OpenSSL_add_all_algorithms(3) should be
+      called to initialize the internal algorithm lookup tables otherwise
+      errors about unknown algorithms will occur if an attempt is made to
+      decrypt a private key.
+    </para>
+    <para>
+      These functions are currently the only way to store encrypted private
+      keys using DER format.
+    </para>
+    <para>
+      Currently all the functions use BIOs or FILE pointers, there are no
+      functions which work directly on memory: this can be readily worked
+      around by converting the buffers to memory BIOs, see BIO_s_mem(3) for
+      details.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.d2i_PKCS8PrivateKey.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      pem(3)
+    </para>
+  </refsection>
+</refentry>

@@ -1,0 +1,78 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>BIO_s_socket.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>BIO_s_socket, BIO_new_socket</refname>
+<refpurpose>socket BIO</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/bio.h&gt;</synopsis>
+<synopsis format="linespecific">BIO_METHOD *BIO_s_socket(void);</synopsis>
+<synopsis format="linespecific">long BIO_set_fd(BIO *b, int fd, long close_flag);
+long BIO_get_fd(BIO *b, int *c);</synopsis>
+<synopsis format="linespecific">BIO *BIO_new_socket(int sock, int close_flag);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_socket.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      BIO_s_socket() returns the socket BIO method. This is a wrapper round
+      the platform's socket routines.
+    </para>
+    <para>
+      BIO_read() and BIO_write() read or write the underlying socket.
+      BIO_puts() is supported but BIO_gets() is not.
+    </para>
+    <para>
+      If the close flag is set then the socket is shut down and closed when
+      the BIO is freed.
+    </para>
+    <para>
+      BIO_set_fd() sets the socket of BIO <emphasis role="bold">b</emphasis> to <emphasis role="bold">fd</emphasis> and
+      the close flag to <emphasis role="bold">close_flag</emphasis>.
+    </para>
+    <para>
+      BIO_get_fd() places the socket in <emphasis role="bold">c</emphasis>
+      if it is not NULL, it also returns the socket. If <emphasis role="bold">c</emphasis> is not NULL it should be of type (int *).
+    </para>
+    <para>
+      BIO_new_socket() returns a socket BIO using <emphasis role="bold">sock</emphasis> and <emphasis role="bold">close_flag</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_socket.pod:NOTES"><title>NOTES</title>
+    <para>
+      Socket BIOs also support any relevant functionality of file
+      descriptor BIOs.
+    </para>
+    <para>
+      The reason for having separate file descriptor and socket BIOs is
+      that on some platforms sockets are not file descriptors and use
+      distinct I/O routines, Windows is one such platform. Any code mixing
+      the two will not work on all platforms.
+    </para>
+    <para>
+      BIO_set_fd() and BIO_get_fd() are macros.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_socket.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      BIO_s_socket() returns the socket BIO method.
+    </para>
+    <para>
+      BIO_set_fd() always returns 1.
+    </para>
+    <para>
+      BIO_get_fd() returns the socket or -1 if the BIO has not been
+      initialized.
+    </para>
+    <para>
+      BIO_new_socket() returns the newly allocated BIO or NULL is an error
+      occurred.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_socket.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      TBA
+    </para>
+  </refsection>
+</refentry>

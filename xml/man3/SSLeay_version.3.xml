@@ -1,0 +1,114 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSLeay_version.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSLeay_version</refname>
+<refpurpose>retrieve version/build information about OpenSSL library</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/crypto.h&gt;</synopsis>
+<synopsis format="linespecific">const char *SSLeay_version(int type);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.SSLeay_version.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSLeay_version() returns a pointer to a constant string describing
+      the version of the OpenSSL library or giving information about the
+      library build.
+    </para>
+    <para>
+      The following <emphasis role="bold">type</emphasis> values are
+      supported:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.SSLeay_version.pod:SSLEAY_VERSION"/>SSLEAY_VERSION</term>
+          <listitem>
+            <para>
+	      The version of the OpenSSL library including the release
+	      date.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.SSLeay_version.pod:SSLEAY_CFLAGS"/>SSLEAY_CFLAGS</term>
+          <listitem>
+            <para>
+	      The compiler flags set for the compilation process in the
+	      form "compiler: ..."  if available or "compiler: information
+	      not available" otherwise.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.SSLeay_version.pod:SSLEAY_BUILT_ON"/>SSLEAY_BUILT_ON</term>
+          <listitem>
+            <para>
+	      The date of the build process in the form "built on: ..." if
+	      available or "built on: date not available" otherwise.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.SSLeay_version.pod:SSLEAY_PLATFORM"/>SSLEAY_PLATFORM</term>
+          <listitem>
+            <para>
+	      The "Configure" target of the library build in the form
+	      "platform: ..." if available or "platform: information not
+	      available" otherwise.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.SSLeay_version.pod:SSLEAY_DIR"/>SSLEAY_DIR</term>
+          <listitem>
+            <para>
+	      The "OPENSSLDIR" setting of the library build in the form
+	      "OPENSSLDIR: "..."" if available or "OPENSSLDIR: N/A"
+	      otherwise.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.SSLeay_version.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      The following return values can occur:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.SSLeay_version.pod:not_available"/>"not available"</term>
+          <listitem>
+            <para>
+	      An invalid value for <emphasis role="bold">type</emphasis>
+	      was given.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.SSLeay_version.pod:Pointer_to_constant_string"/>Pointer to constant string</term>
+          <listitem>
+            <para>
+	      Textual description.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.SSLeay_version.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      crypto(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.SSLeay_version.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      <emphasis role="bold">SSLEAY_DIR</emphasis> was added in OpenSSL
+      0.9.7.
+    </para>
+  </refsection>
+</refentry>

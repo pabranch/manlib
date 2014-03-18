@@ -1,0 +1,314 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>des_modes.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>des_modes</refname>
+<refpurpose>the variants of DES and other crypto algorithms of OpenSSL</refpurpose>
+  </refnamediv>
+  <refsection xml:id="sources.openssl.doc.crypto.des_modes.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      Several crypto algorithms for OpenSSL can be used in a number of
+      modes.  Those are used for using block ciphers in a way similar to
+      stream ciphers, among other things.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.des_modes.pod:OVERVIEW"><title>OVERVIEW</title>
+    <refsection xml:id="sources.openssl.doc.crypto.des_modes.pod:Electronic_Codebook_Mode_ECB"><title>Electronic Codebook Mode (ECB)</title>
+      <para>
+	Normally, this is found as the function <emphasis role="italic">algorithm</emphasis>_ecb_encrypt().
+      </para>
+      <para>
+        <itemizedlist>
+          <listitem>
+            <para>
+	      64 bits are enciphered at a time.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      The order of the blocks can be rearranged without detection.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      The same plaintext block always produces the same ciphertext
+	      block (for the same key) making it vulnerable to a
+	      'dictionary attack'.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      An error will only affect one ciphertext block.
+            </para>
+          </listitem>
+        </itemizedlist>
+      </para>
+    </refsection>
+    <refsection xml:id="sources.openssl.doc.crypto.des_modes.pod:Cipher_Block_Chaining_Mode_CBC"><title>Cipher Block Chaining Mode (CBC)</title>
+      <para>
+	Normally, this is found as the function <emphasis role="italic">algorithm</emphasis>_cbc_encrypt(). Be aware that
+	des_cbc_encrypt() is not really DES CBC (it does not update the
+	IV); use des_ncbc_encrypt() instead.
+      </para>
+      <para>
+        <itemizedlist>
+          <listitem>
+            <para>
+	      a multiple of 64 bits are enciphered at a time.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      The CBC mode produces the same ciphertext whenever the same
+	      plaintext is encrypted using the same key and starting
+	      variable.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      The chaining operation makes the ciphertext blocks dependent
+	      on the current and all preceding plaintext blocks and
+	      therefore blocks can not be rearranged.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      The use of different starting variables prevents the same
+	      plaintext enciphering to the same ciphertext.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      An error will affect the current and the following ciphertext
+	      blocks.
+            </para>
+          </listitem>
+        </itemizedlist>
+      </para>
+    </refsection>
+    <refsection xml:id="sources.openssl.doc.crypto.des_modes.pod:Cipher_Feedback_Mode_CFB"><title>Cipher Feedback Mode (CFB)</title>
+      <para>
+	Normally, this is found as the function <emphasis role="italic">algorithm</emphasis>_cfb_encrypt().
+      </para>
+      <para>
+        <itemizedlist>
+          <listitem>
+            <para>
+	      a number of bits (j) &lt;= 64 are enciphered at a time.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      The CFB mode produces the same ciphertext whenever the same
+	      plaintext is encrypted using the same key and starting
+	      variable.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      The chaining operation makes the ciphertext variables
+	      dependent on the current and all preceding variables and
+	      therefore j-bit variables are chained together and can not be
+	      rearranged.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      The use of different starting variables prevents the same
+	      plaintext enciphering to the same ciphertext.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      The strength of the CFB mode depends on the size of k
+	      (maximal if j == k).  In my implementation this is always the
+	      case.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      Selection of a small value for j will require more cycles
+	      through the encipherment algorithm per unit of plaintext and
+	      thus cause greater processing overheads.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      Only multiples of j bits can be enciphered.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      An error will affect the current and the following ciphertext
+	      variables.
+            </para>
+          </listitem>
+        </itemizedlist>
+      </para>
+    </refsection>
+    <refsection xml:id="sources.openssl.doc.crypto.des_modes.pod:Output_Feedback_Mode_OFB"><title>Output Feedback Mode (OFB)</title>
+      <para>
+	Normally, this is found as the function <emphasis role="italic">algorithm</emphasis>_ofb_encrypt().
+      </para>
+      <blockquote>
+        <screen></screen>
+      </blockquote>
+      <para>
+        <itemizedlist>
+          <listitem>
+            <para>
+	      a number of bits (j) &lt;= 64 are enciphered at a time.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      The OFB mode produces the same ciphertext whenever the same
+	      plaintext enciphered using the same key and starting
+	      variable.  More over, in the OFB mode the same key stream is
+	      produced when the same key and start variable are used. 
+	      Consequently, for security reasons a specific start variable
+	      should be used only once for a given key.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      The absence of chaining makes the OFB more vulnerable to
+	      specific attacks.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      The use of different start variables values prevents the same
+	      plaintext enciphering to the same ciphertext, by producing
+	      different key streams.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      Selection of a small value for j will require more cycles
+	      through the encipherment algorithm per unit of plaintext and
+	      thus cause greater processing overheads.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      Only multiples of j bits can be enciphered.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      OFB mode of operation does not extend ciphertext errors in
+	      the resultant plaintext output.  Every bit error in the
+	      ciphertext causes only one bit to be in error in the
+	      deciphered plaintext.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      OFB mode is not self-synchronizing.  If the two operation of
+	      encipherment and decipherment get out of synchronism, the
+	      system needs to be re-initialized.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      Each re-initialization should use a value of the start
+	      variable different from the start variable values used before
+	      with the same key.  The reason for this is that an identical
+	      bit stream would be produced each time from the same
+	      parameters.  This would be susceptible to a 'known plaintext'
+	      attack.
+            </para>
+          </listitem>
+        </itemizedlist>
+      </para>
+    </refsection>
+    <refsection xml:id="sources.openssl.doc.crypto.des_modes.pod:Triple_ECB_Mode"><title>Triple ECB Mode</title>
+      <para>
+	Normally, this is found as the function <emphasis role="italic">algorithm</emphasis>_ecb3_encrypt().
+      </para>
+      <para>
+        <itemizedlist>
+          <listitem>
+            <para>
+	      Encrypt with key1, decrypt with key2 and encrypt with key3
+	      again.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      As for ECB encryption but increases the key length to 168
+	      bits. There are theoretic attacks that can be used that make
+	      the effective key length 112 bits, but this attack also
+	      requires 2^56 blocks of memory, not very likely, even for the
+	      NSA.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      If both keys are the same it is equivalent to encrypting once
+	      with just one key.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      If the first and last key are the same, the key length is 112
+	      bits. There are attacks that could reduce the effective key
+	      strength to only slightly more than 56 bits, but these
+	      require a lot of memory.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      If all 3 keys are the same, this is effectively the same as
+	      normal ecb mode.
+            </para>
+          </listitem>
+        </itemizedlist>
+      </para>
+    </refsection>
+    <refsection xml:id="sources.openssl.doc.crypto.des_modes.pod:Triple_CBC_Mode"><title>Triple CBC Mode</title>
+      <para>
+	Normally, this is found as the function <emphasis role="italic">algorithm</emphasis>_ede3_cbc_encrypt().
+      </para>
+      <blockquote>
+        <screen></screen>
+      </blockquote>
+      <para>
+        <itemizedlist>
+          <listitem>
+            <para>
+	      Encrypt with key1, decrypt with key2 and then encrypt with
+	      key3.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+	      As for CBC encryption but increases the key length to 168
+	      bits with the same restrictions as for triple ecb mode.
+            </para>
+          </listitem>
+        </itemizedlist>
+      </para>
+    </refsection>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.des_modes.pod:NOTES"><title>NOTES</title>
+    <para>
+      This text was been written in large parts by Eric Young in his
+      original documentation for SSLeay, the predecessor of OpenSSL.  In
+      turn, he attributed it to:
+    </para>
+    <screen>AS 2805.5.2
+Australian Standard
+Electronic funds transfer - Requirements for interfaces,
+Part 5.2: Modes of operation for an n-bit block cipher algorithm
+Appendix A</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.des_modes.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      blowfish(3), des(3), idea(3), rc2(3)
+    </para>
+  </refsection>
+</refentry>

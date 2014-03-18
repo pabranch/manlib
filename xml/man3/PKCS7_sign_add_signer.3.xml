@@ -1,0 +1,105 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>PKCS7_sign_add_signer.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>PKCS7_sign_add_signer</refname>
+<refpurpose>add a signer PKCS7 signed data structure.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/pkcs7.h&gt;</synopsis>
+<synopsis format="linespecific">PKCS7_SIGNER_INFO *PKCS7_sign_add_signer(PKCS7 *p7, X509 *signcert, EVP_PKEY *pkey, const EVP_MD *md, int flags);</synopsis>
+<synopsis format="linespecific"/>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_sign_add_signer.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      PKCS7_sign_add_signer() adds a signer with certificate <emphasis role="bold">signcert</emphasis> and private key <emphasis role="bold">pkey</emphasis> using message digest <emphasis role="bold">md</emphasis> to a PKCS7 signed data structure <emphasis role="bold">p7</emphasis>.
+    </para>
+    <para>
+      The PKCS7 structure should be obtained from an initial call to
+      PKCS7_sign() with the flag <emphasis role="bold">PKCS7_PARTIAL</emphasis> set or in the case or re-signing
+      a valid PKCS7 signed data structure.
+    </para>
+    <para>
+      If the <emphasis role="bold">md</emphasis> parameter is <emphasis role="bold">NULL</emphasis> then the default digest for the public
+      key algorithm will be used.
+    </para>
+    <para>
+      Unless the <emphasis role="bold">PKCS7_REUSE_DIGEST</emphasis> flag
+      is set the returned PKCS7 structure is not complete and must be
+      finalized either by streaming (if applicable) or a call to
+      PKCS7_final().
+    </para>
+    <screen></screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_sign_add_signer.pod:NOTES"><title>NOTES</title>
+    <para>
+      The main purpose of this function is to provide finer control over a
+      PKCS#7 signed data structure where the simpler PKCS7_sign() function
+      defaults are not appropriate. For example if multiple signers or non
+      default digest algorithms are needed.
+    </para>
+    <para>
+      Any of the following flags (ored together) can be passed in the
+      <emphasis role="bold">flags</emphasis> parameter.
+    </para>
+    <para>
+      If <emphasis role="bold">PKCS7_REUSE_DIGEST</emphasis> is set then an
+      attempt is made to copy the content digest value from the PKCS7
+      struture: to add a signer to an existing structure. An error occurs
+      if a matching digest value cannot be found to copy. The returned
+      PKCS7 structure will be valid and finalized when this flag is set.
+    </para>
+    <para>
+      If <emphasis role="bold">PKCS7_PARTIAL</emphasis> is set in addition
+      to <emphasis role="bold">PKCS7_REUSE_DIGEST</emphasis> then the
+      <emphasis role="bold">PKCS7_SIGNER_INO</emphasis> structure will not
+      be finalized so additional attributes can be added. In this case an
+      explicit call to PKCS7_SIGNER_INFO_sign() is needed to finalize it. 
+    </para>
+    <para>
+      If <emphasis role="bold">PKCS7_NOCERTS</emphasis> is set the signer's
+      certificate will not be included in the PKCS7 structure, the signer's
+      certificate must still be supplied in the <emphasis role="bold">signcert</emphasis> parameter though. This can reduce the
+      size of the signature if the signers certificate can be obtained by
+      other means: for example a previously signed message.
+    </para>
+    <para>
+      The signedData structure includes several PKCS#7
+      autenticatedAttributes including the signing time, the PKCS#7 content
+      type and the supported list of ciphers in an SMIMECapabilities
+      attribute. If <emphasis role="bold">PKCS7_NOATTR</emphasis> is set
+      then no authenticatedAttributes will be used. If <emphasis role="bold">PKCS7_NOSMIMECAP</emphasis> is set then just the
+      SMIMECapabilities are omitted.
+    </para>
+    <para>
+      If present the SMIMECapabilities attribute indicates support for the
+      following algorithms: triple DES, 128 bit RC2, 64 bit RC2, DES and 40
+      bit RC2. If any of these algorithms is disabled then it will not be
+      included.
+    </para>
+    <screen></screen>
+    <para>
+      PKCS7_sign_add_signers() returns an internal pointer to the
+      PKCS7_SIGNER_INFO structure just added, this can be used to set
+      additional attributes before it is finalized. 
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_sign_add_signer.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      PKCS7_sign_add_signers() returns an internal pointer to the
+      PKCS7_SIGNER_INFO structure just added or NULL if an error occurs.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_sign_add_signer.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ERR_get_error(3), PKCS7_sign(3), PKCS7_final(3),
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_sign_add_signer.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      PPKCS7_sign_add_signer() was added to OpenSSL 1.0.0
+    </para>
+  </refsection>
+</refentry>

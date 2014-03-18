@@ -1,0 +1,981 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>req.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>req</refname>
+<refpurpose>PKCS#10 certificate request and certificate generating utility.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific"><emphasis role="bold">openssl</emphasis> <emphasis role="bold">req</emphasis>
+[<emphasis role="bold">-inform PEM|DER</emphasis>]
+[<emphasis role="bold">-outform PEM|DER</emphasis>]
+[<emphasis role="bold">-in filename</emphasis>]
+[<emphasis role="bold">-passin arg</emphasis>]
+[<emphasis role="bold">-out filename</emphasis>]
+[<emphasis role="bold">-passout arg</emphasis>]
+[<emphasis role="bold">-text</emphasis>]
+[<emphasis role="bold">-pubkey</emphasis>]
+[<emphasis role="bold">-noout</emphasis>]
+[<emphasis role="bold">-verify</emphasis>]
+[<emphasis role="bold">-modulus</emphasis>]
+[<emphasis role="bold">-new</emphasis>]
+[<emphasis role="bold">-rand file(s)</emphasis>]
+[<emphasis role="bold">-newkey rsa:bits</emphasis>]
+[<emphasis role="bold">-newkey alg:file</emphasis>]
+[<emphasis role="bold">-nodes</emphasis>]
+[<emphasis role="bold">-key filename</emphasis>]
+[<emphasis role="bold">-keyform PEM|DER</emphasis>]
+[<emphasis role="bold">-keyout filename</emphasis>]
+[<emphasis role="bold">-keygen_engine id</emphasis>]
+[<emphasis role="bold">-[digest]</emphasis>]
+[<emphasis role="bold">-config filename</emphasis>]
+[<emphasis role="bold">-subj arg</emphasis>]
+[<emphasis role="bold">-multivalue-rdn</emphasis>]
+[<emphasis role="bold">-x509</emphasis>]
+[<emphasis role="bold">-days n</emphasis>]
+[<emphasis role="bold">-set_serial n</emphasis>]
+[<emphasis role="bold">-asn1-kludge</emphasis>]
+[<emphasis role="bold">-no-asn1-kludge</emphasis>]
+[<emphasis role="bold">-newhdr</emphasis>]
+[<emphasis role="bold">-extensions section</emphasis>]
+[<emphasis role="bold">-reqexts section</emphasis>]
+[<emphasis role="bold">-utf8</emphasis>]
+[<emphasis role="bold">-nameopt</emphasis>]
+[<emphasis role="bold">-reqopt</emphasis>]
+[<emphasis role="bold">-subject</emphasis>]
+[<emphasis role="bold">-subj arg</emphasis>]
+[<emphasis role="bold">-batch</emphasis>]
+[<emphasis role="bold">-verbose</emphasis>]
+[<emphasis role="bold">-engine id</emphasis>]</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.apps.req.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The <emphasis role="bold">req</emphasis> command primarily creates
+      and processes certificate requests in PKCS#10 format. It can
+      additionally create self signed certificates for use as root CAs for
+      example.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.req.pod:COMMAND_OPTIONS"><title>COMMAND OPTIONS</title>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-inform_DERPEM"/><emphasis role="bold">-inform DER|PEM</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the input format. The <emphasis role="bold">DER</emphasis> option uses an ASN1 DER encoded
+	      form compatible with the PKCS#10. The <emphasis role="bold">PEM</emphasis> form is the default format: it
+	      consists of the <emphasis role="bold">DER</emphasis> format
+	      base64 encoded with additional header and footer lines.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-outform_DERPEM"/><emphasis role="bold">-outform DER|PEM</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the output format, the options have the same
+	      meaning as the <emphasis role="bold">-inform</emphasis>
+	      option. 
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-in_filename"/><emphasis role="bold">-in filename</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the input filename to read a request from or
+	      standard input if this option is not specified. A request is
+	      only read if the creation options (<emphasis role="bold">-new</emphasis> and <emphasis role="bold">-newkey</emphasis>) are not specified.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-passin_arg"/><emphasis role="bold">-passin arg</emphasis></term>
+          <listitem>
+            <para>
+	      the input file password source. For more information about
+	      the format of <emphasis role="bold">arg</emphasis> see the
+	      <emphasis role="bold">PASS PHRASE ARGUMENTS</emphasis>
+	      section in openssl(1).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-out_filename"/><emphasis role="bold">-out filename</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the output filename to write to or standard
+	      output by default.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-passout_arg"/><emphasis role="bold">-passout arg</emphasis></term>
+          <listitem>
+            <para>
+	      the output file password source. For more information about
+	      the format of <emphasis role="bold">arg</emphasis> see the
+	      <emphasis role="bold">PASS PHRASE ARGUMENTS</emphasis>
+	      section in openssl(1).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-text"/><emphasis role="bold">-text</emphasis></term>
+          <listitem>
+            <para>
+	      prints out the certificate request in text form.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-subject"/><emphasis role="bold">-subject</emphasis></term>
+          <listitem>
+            <para>
+	      prints out the request subject (or certificate subject if
+	      <emphasis role="bold">-x509</emphasis> is specified)
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-pubkey"/><emphasis role="bold">-pubkey</emphasis></term>
+          <listitem>
+            <para>
+	      outputs the public key.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-noout"/><emphasis role="bold">-noout</emphasis></term>
+          <listitem>
+            <para>
+	      this option prevents output of the encoded version of the
+	      request.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-modulus"/><emphasis role="bold">-modulus</emphasis></term>
+          <listitem>
+            <para>
+	      this option prints out the value of the modulus of the public
+	      key contained in the request.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-verify"/><emphasis role="bold">-verify</emphasis></term>
+          <listitem>
+            <para>
+	      verifies the signature on the request.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-new"/><emphasis role="bold">-new</emphasis></term>
+          <listitem>
+            <para>
+	      this option generates a new certificate request. It will
+	      prompt the user for the relevant field values. The actual
+	      fields prompted for and their maximum and minimum sizes are
+	      specified in the configuration file and any requested
+	      extensions.
+            </para>
+            <para>
+	      If the <emphasis role="bold">-key</emphasis> option is not
+	      used it will generate a new RSA private key using information
+	      specified in the configuration file.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-subj_arg"/><emphasis role="bold">-subj arg</emphasis></term>
+          <listitem>
+            <para>
+	      Replaces subject field of input request with specified data
+	      and outputs modified request. The arg must be formatted as
+	      <emphasis role="italic">/type0=value0/type1=value1/type2=...</emphasis>,
+	      characters may be escaped by \ (backslash), no spaces are
+	      skipped.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-rand_files"/><emphasis role="bold">-rand file(s)</emphasis></term>
+          <listitem>
+            <para>
+	      a file or files containing random data used to seed the
+	      random number generator, or an EGD socket (see RAND_egd(3)).
+	      Multiple files can be specified separated by a OS-dependent
+	      character. The separator is <emphasis role="bold">;</emphasis> for MS-Windows, <emphasis role="bold">,</emphasis> for OpenVMS, and <emphasis role="bold">:</emphasis> for all others.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-newkey_arg"/><emphasis role="bold">-newkey arg</emphasis></term>
+          <listitem>
+            <para>
+	      this option creates a new certificate request and a new
+	      private key. The argument takes one of several forms.
+	      <emphasis role="bold">rsa:nbits</emphasis>, where <emphasis role="bold">nbits</emphasis> is the number of bits, generates
+	      an RSA key <emphasis role="bold">nbits</emphasis> in size. If
+	      <emphasis role="bold">nbits</emphasis> is omitted, i.e.
+	      <emphasis role="bold">-newkey rsa</emphasis> specified, the
+	      default key size, specified in the configuration file is
+	      used.
+            </para>
+            <para>
+	      All other algorithms support the <emphasis role="bold">-newkey alg:file</emphasis> form, where file may
+	      be an algorithm parameter file, created by the <emphasis role="bold">genpkey -genparam</emphasis> command or and X.509
+	      certificate for a key with approriate algorithm.
+            </para>
+            <para>
+	      <emphasis role="bold">param:file</emphasis> generates a key
+	      using the parameter file or certificate <emphasis role="bold">file</emphasis>, the algorithm is determined by
+	      the parameters. <emphasis role="bold">algname:file</emphasis>
+	      use algorithm <emphasis role="bold">algname</emphasis> and
+	      parameter file <emphasis role="bold">file</emphasis>: the two
+	      algorithms must match or an error occurs. <emphasis role="bold">algname</emphasis> just uses algorithm <emphasis role="bold">algname</emphasis>, and parameters, if necessary
+	      should be specified via <emphasis role="bold">-pkeyopt</emphasis> parameter.
+            </para>
+            <para>
+	      <emphasis role="bold">dsa:filename</emphasis> generates a DSA
+	      key using the parameters in the file <emphasis role="bold">filename</emphasis>. <emphasis role="bold">ec:filename</emphasis> generates EC key (usable
+	      both with ECDSA or ECDH algorithms), <emphasis role="bold">gost2001:filename</emphasis> generates GOST R
+	      34.10-2001 key (requires <emphasis role="bold">ccgost</emphasis> engine configured in the
+	      configuration file). If just <emphasis role="bold">gost2001</emphasis> is specified a parameter set
+	      should be specified by <emphasis role="bold">-pkeyopt
+	      paramset:X</emphasis>
+            </para>
+            <screen></screen>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-pkeyopt_opt:value"/><emphasis role="bold">-pkeyopt opt:value</emphasis></term>
+          <listitem>
+            <para>
+	      set the public key algorithm option <emphasis role="bold">opt</emphasis> to <emphasis role="bold">value</emphasis>. The precise set of options
+	      supported depends on the public key algorithm used and its
+	      implementation. See <emphasis role="bold">KEY GENERATION
+	      OPTIONS</emphasis> in the <emphasis role="bold">genpkey</emphasis> manual page for more details.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-key_filename"/><emphasis role="bold">-key filename</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the file to read the private key from. It also
+	      accepts PKCS#8 format private keys for PEM format files.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-keyform_PEMDER"/><emphasis role="bold">-keyform PEM|DER</emphasis></term>
+          <listitem>
+            <para>
+	      the format of the private key file specified in the <emphasis role="bold">-key</emphasis> argument. PEM is the default.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-keyout_filename"/><emphasis role="bold">-keyout filename</emphasis></term>
+          <listitem>
+            <para>
+	      this gives the filename to write the newly created private
+	      key to. If this option is not specified then the filename
+	      present in the configuration file is used.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-nodes"/><emphasis role="bold">-nodes</emphasis></term>
+          <listitem>
+            <para>
+	      if this option is specified then if a private key is created
+	      it will not be encrypted.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-digest"/><emphasis role="bold">-[digest]</emphasis></term>
+          <listitem>
+            <para>
+	      this specifies the message digest to sign the request with
+	      (such as <emphasis role="bold">-md5</emphasis>, <emphasis role="bold">-sha1</emphasis>). This overrides the digest
+	      algorithm specified in the configuration file.
+            </para>
+            <para>
+	      Some public key algorithms may override this choice. For
+	      instance, DSA signatures always use SHA1, GOST R 34.10
+	      signatures always use GOST R 34.11-94 (<emphasis role="bold">-md_gost94</emphasis>).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-config_filename"/><emphasis role="bold">-config filename</emphasis></term>
+          <listitem>
+            <para>
+	      this allows an alternative configuration file to be
+	      specified, this overrides the compile time filename or any
+	      specified in the <emphasis role="bold">OPENSSL_CONF</emphasis> environment variable.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-subj_arg_i1"/><emphasis role="bold">-subj arg</emphasis></term>
+          <listitem>
+            <para>
+	      sets subject name for new request or supersedes the subject
+	      name when processing a request. The arg must be formatted as
+	      <emphasis role="italic">/type0=value0/type1=value1/type2=...</emphasis>,
+	      characters may be escaped by \ (backslash), no spaces are
+	      skipped.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-multivalue-rdn"/><emphasis role="bold">-multivalue-rdn</emphasis></term>
+          <listitem>
+            <para>
+	      this option causes the -subj argument to be interpreted with
+	      full support for multivalued RDNs. Example:
+            </para>
+            <para>
+	      <emphasis role="italic">/DC=org/DC=OpenSSL/DC=users/UID=123456+CN=John
+	      Doe</emphasis>
+            </para>
+            <para>
+	      If -multi-rdn is not used then the UID value is <emphasis role="italic">123456+CN=John Doe</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-x509"/><emphasis role="bold">-x509</emphasis></term>
+          <listitem>
+            <para>
+	      this option outputs a self signed certificate instead of a
+	      certificate request. This is typically used to generate a
+	      test certificate or a self signed root CA. The extensions
+	      added to the certificate (if any) are specified in the
+	      configuration file. Unless specified using the <emphasis role="bold">set_serial</emphasis> option <emphasis role="bold">0</emphasis> will be used for the serial number.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-days_n"/><emphasis role="bold">-days n</emphasis></term>
+          <listitem>
+            <para>
+	      when the <emphasis role="bold">-x509</emphasis> option is
+	      being used this specifies the number of days to certify the
+	      certificate for. The default is 30 days.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-set_serial_n"/><emphasis role="bold">-set_serial n</emphasis></term>
+          <listitem>
+            <para>
+	      serial number to use when outputting a self signed
+	      certificate. This may be specified as a decimal value or a
+	      hex value if preceded by <emphasis role="bold">0x</emphasis>.
+	      It is possible to use negative serial numbers but this is not
+	      recommended.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-extensions_section"/><emphasis role="bold">-extensions section</emphasis></term>
+          <listitem>
+            <para/>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-reqexts_section"/><emphasis role="bold">-reqexts section</emphasis></term>
+          <listitem>
+            <para>
+	      these options specify alternative sections to include
+	      certificate extensions (if the <emphasis role="bold">-x509</emphasis> option is present) or
+	      certificate request extensions. This allows several different
+	      sections to be used in the same configuration file to specify
+	      requests for a variety of purposes.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-utf8"/><emphasis role="bold">-utf8</emphasis></term>
+          <listitem>
+            <para>
+	      this option causes field values to be interpreted as UTF8
+	      strings, by default they are interpreted as ASCII. This means
+	      that the field values, whether prompted from a terminal or
+	      obtained from a configuration file, must be valid UTF8
+	      strings. 
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-nameopt_option"/><emphasis role="bold">-nameopt option</emphasis></term>
+          <listitem>
+            <para>
+	      option which determines how the subject or issuer names are
+	      displayed. The <emphasis role="bold">option</emphasis>
+	      argument can be a single option or multiple options separated
+	      by commas.  Alternatively the <emphasis role="bold">-nameopt</emphasis> switch may be used more than
+	      once to set multiple options. See the x509(1) manual page for
+	      details.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-reqopt"/><emphasis role="bold">-reqopt</emphasis></term>
+          <listitem>
+            <para>
+	      customise the output format used with <emphasis role="bold">-text</emphasis>. The <emphasis role="bold">option</emphasis> argument can be a single option
+	      or multiple options separated by commas.
+            </para>
+            <para>
+	      See discission of the  <emphasis role="bold">-certopt</emphasis> parameter in the <emphasis role="bold">x509</emphasis> command.
+            </para>
+            <screen></screen>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-asn1-kludge"/><emphasis role="bold">-asn1-kludge</emphasis></term>
+          <listitem>
+            <para>
+	      by default the <emphasis role="bold">req</emphasis> command
+	      outputs certificate requests containing no attributes in the
+	      correct PKCS#10 format. However certain CAs will only accept
+	      requests containing no attributes in an invalid form: this
+	      option produces this invalid format.
+            </para>
+            <para>
+	      More precisely the <emphasis role="bold">Attributes</emphasis> in a PKCS#10 certificate
+	      request are defined as a <emphasis role="bold">SET OF
+	      Attribute</emphasis>. They are <emphasis role="bold">not
+	      OPTIONAL</emphasis> so if no attributes are present then they
+	      should be encoded as an empty <emphasis role="bold">SET
+	      OF</emphasis>. The invalid form does not include the empty
+	      <emphasis role="bold">SET OF</emphasis> whereas the correct
+	      form does.
+            </para>
+            <para>
+	      It should be noted that very few CAs still require the use of
+	      this option.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-no-asn1-kludge"/><emphasis role="bold">-no-asn1-kludge</emphasis></term>
+          <listitem>
+            <para>
+	      Reverses effect of <emphasis role="bold">-asn1-kludge</emphasis>
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-newhdr"/><emphasis role="bold">-newhdr</emphasis></term>
+          <listitem>
+            <para>
+	      Adds the word <emphasis role="bold">NEW</emphasis> to the PEM
+	      file header and footer lines on the outputted request. Some
+	      software (Netscape certificate server) and some CAs need
+	      this.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-batch"/><emphasis role="bold">-batch</emphasis></term>
+          <listitem>
+            <para>
+	      non-interactive mode.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-verbose"/><emphasis role="bold">-verbose</emphasis></term>
+          <listitem>
+            <para>
+	      print extra details about the operations being performed.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-engine_id"/><emphasis role="bold">-engine id</emphasis></term>
+          <listitem>
+            <para>
+	      specifying an engine (by its unique <emphasis role="bold">id</emphasis> string) will cause <emphasis role="bold">req</emphasis> to attempt to obtain a functional
+	      reference to the specified engine, thus initialising it if
+	      needed. The engine will then be set as the default for all
+	      available algorithms.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-keygen_engine_id"/><emphasis role="bold">-keygen_engine id</emphasis></term>
+          <listitem>
+            <para>
+	      specifies an engine (by its unique <emphasis role="bold">id</emphasis> string) which would be used for key
+	      generation operations.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.req.pod:CONFIGURATION_FILE_FORMAT"><title>CONFIGURATION FILE FORMAT</title>
+    <para>
+      The configuration options are specified in the <emphasis role="bold">req</emphasis> section of the configuration file. As with
+      all configuration files if no value is specified in the specific
+      section (i.e. <emphasis role="bold">req</emphasis>) then the initial
+      unnamed or <emphasis role="bold">default</emphasis> section is
+      searched too.
+    </para>
+    <para>
+      The options available are described in detail below.
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:input_password_output_password"/><emphasis role="bold">input_password output_password</emphasis></term>
+          <listitem>
+            <para>
+	      The passwords for the input private key file (if present) and
+	      the output private key file (if one will be created). The
+	      command line options <emphasis role="bold">passin</emphasis>
+	      and <emphasis role="bold">passout</emphasis> override the
+	      configuration file values.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:default_bits"/><emphasis role="bold">default_bits</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the default key size in bits. If not specified
+	      then 512 is used. It is used if the <emphasis role="bold">-new</emphasis> option is used. It can be
+	      overridden by using the <emphasis role="bold">-newkey</emphasis> option.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:default_keyfile"/><emphasis role="bold">default_keyfile</emphasis></term>
+          <listitem>
+            <para>
+	      This is the default filename to write a private key to. If
+	      not specified the key is written to standard output. This can
+	      be overridden by the <emphasis role="bold">-keyout</emphasis>
+	      option.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:oid_file"/><emphasis role="bold">oid_file</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies a file containing additional <emphasis role="bold">OBJECT IDENTIFIERS</emphasis>. Each line of the
+	      file should consist of the numerical form of the object
+	      identifier followed by white space then the short name
+	      followed by white space and finally the long name.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:oid_section"/><emphasis role="bold">oid_section</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies a section in the configuration file containing
+	      extra object identifiers. Each line should consist of the
+	      short name of the object identifier followed by <emphasis role="bold">=</emphasis> and the numerical form. The short
+	      and long names are the same when this option is used.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:RANDFILE"/><emphasis role="bold">RANDFILE</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies a filename in which random number seed
+	      information is placed and read from, or an EGD socket (see
+	      RAND_egd(3)). It is used for private key generation.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:encrypt_key"/><emphasis role="bold">encrypt_key</emphasis></term>
+          <listitem>
+            <para>
+	      If this is set to <emphasis role="bold">no</emphasis> then if
+	      a private key is generated it is <emphasis role="bold">not</emphasis> encrypted. This is equivalent to
+	      the <emphasis role="bold">-nodes</emphasis> command line
+	      option. For compatibility <emphasis role="bold">encrypt_rsa_key</emphasis> is an equivalent
+	      option.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:default_md"/><emphasis role="bold">default_md</emphasis></term>
+          <listitem>
+            <para>
+	      This option specifies the digest algorithm to use. Possible
+	      values include <emphasis role="bold">md5 sha1
+	      mdc2</emphasis>. If not present then MD5 is used. This option
+	      can be overridden on the command line.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:string_mask"/><emphasis role="bold">string_mask</emphasis></term>
+          <listitem>
+            <para>
+	      This option masks out the use of certain string types in
+	      certain fields. Most users will not need to change this
+	      option.
+            </para>
+            <para>
+	      It can be set to several values <emphasis role="bold">default</emphasis> which is also the default
+	      option uses PrintableStrings, T61Strings and BMPStrings if
+	      the <emphasis role="bold">pkix</emphasis> value is used then
+	      only PrintableStrings and BMPStrings will be used. This
+	      follows the PKIX recommendation in RFC2459. If the <emphasis role="bold">utf8only</emphasis> option is used then only
+	      UTF8Strings will be used: this is the PKIX recommendation in
+	      RFC2459 after 2003. Finally the <emphasis role="bold">nombstr</emphasis> option just uses
+	      PrintableStrings and T61Strings: certain software has
+	      problems with BMPStrings and UTF8Strings: in particular
+	      Netscape. 
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:req_extensions"/><emphasis role="bold">req_extensions</emphasis></term>
+          <listitem>
+            <para>
+	      this specifies the configuration file section containing a
+	      list of extensions to add to the certificate request. It can
+	      be overridden by the <emphasis role="bold">-reqexts</emphasis> command line switch. See the
+	      x509v3_config(5) manual page for details of the extension
+	      section format. 
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:x509_extensions"/><emphasis role="bold">x509_extensions</emphasis></term>
+          <listitem>
+            <para>
+	      this specifies the configuration file section containing a
+	      list of extensions to add to certificate generated when the
+	      <emphasis role="bold">-x509</emphasis> switch is used. It can
+	      be overridden by the <emphasis role="bold">-extensions</emphasis> command line switch.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:prompt"/><emphasis role="bold">prompt</emphasis></term>
+          <listitem>
+            <para>
+	      if set to the value <emphasis role="bold">no</emphasis> this
+	      disables prompting of certificate fields and just takes
+	      values from the config file directly. It also changes the
+	      expected format of the <emphasis role="bold">distinguished_name</emphasis> and <emphasis role="bold">attributes</emphasis> sections.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:utf8"/><emphasis role="bold">utf8</emphasis></term>
+          <listitem>
+            <para>
+	      if set to the value <emphasis role="bold">yes</emphasis> then
+	      field values to be interpreted as UTF8 strings, by default
+	      they are interpreted as ASCII. This means that the field
+	      values, whether prompted from a terminal or obtained from a
+	      configuration file, must be valid UTF8 strings.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:attributes"/><emphasis role="bold">attributes</emphasis></term>
+          <listitem>
+            <para>
+	      this specifies the section containing any request attributes:
+	      its format is the same as <emphasis role="bold">distinguished_name</emphasis>. Typically these
+	      may contain the challengePassword or unstructuredName types.
+	      They are currently ignored by OpenSSL's request signing
+	      utilities but some CAs might want them.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:distinguished_name"/><emphasis role="bold">distinguished_name</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the section containing the distinguished name
+	      fields to prompt for when generating a certificate or
+	      certificate request. The format is described in the next
+	      section.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.req.pod:DISTINGUISHED_NAME_AND_ATTRIBUTE_SECTION_FORMAT"><title>DISTINGUISHED NAME AND ATTRIBUTE SECTION FORMAT</title>
+    <para>
+      There are two separate formats for the distinguished name and
+      attribute sections. If the <emphasis role="bold">prompt</emphasis>
+      option is set to <emphasis role="bold">no</emphasis> then these
+      sections just consist of field names and values: for example,
+    </para>
+    <screen>CN=My Name
+OU=My Organization
+emailAddress=someone@somewhere.org</screen>
+    <para>
+      This allows external programs (e.g. GUI based) to generate a template
+      file with all the field names and values and just pass it to
+      <emphasis role="bold">req</emphasis>. An example of this kind of
+      configuration file is contained in the <emphasis role="bold">EXAMPLES</emphasis> section.
+    </para>
+    <para>
+      Alternatively if the <emphasis role="bold">prompt</emphasis> option
+      is absent or not set to <emphasis role="bold">no</emphasis> then the
+      file contains field prompting information. It consists of lines of
+      the form:
+    </para>
+    <screen>fieldName="prompt"
+fieldName_default="default field value"
+fieldName_min= 2
+fieldName_max= 4</screen>
+    <para>
+      "fieldName" is the field name being used, for example commonName (or
+      CN). The "prompt" string is used to ask the user to enter the
+      relevant details. If the user enters nothing then the default value
+      is used if no default value is present then the field is omitted. A
+      field can still be omitted if a default value is present if the user
+      just enters the '.' character.
+    </para>
+    <para>
+      The number of characters entered must be between the fieldName_min
+      and fieldName_max limits: there may be additional restrictions based
+      on the field being used (for example countryName can only ever be two
+      characters long and must fit in a PrintableString).
+    </para>
+    <para>
+      Some fields (such as organizationName) can be used more than once in
+      a DN. This presents a problem because configuration files will not
+      recognize the same name occurring twice. To avoid this problem if the
+      fieldName contains some characters followed by a full stop they will
+      be ignored. So for example a second organizationName can be input by
+      calling it "1.organizationName".
+    </para>
+    <para>
+      The actual permitted field names are any object identifier short or
+      long names. These are compiled into OpenSSL and include the usual
+      values such as commonName, countryName, localityName,
+      organizationName, organizationUnitName, stateOrProvinceName.
+      Additionally emailAddress is include as well as name, surname,
+      givenName initials and dnQualifier.
+    </para>
+    <para>
+      Additional object identifiers can be defined with the <emphasis role="bold">oid_file</emphasis> or <emphasis role="bold">oid_section</emphasis> options in the configuration file.
+      Any additional fields will be treated as though they were a
+      DirectoryString.
+    </para>
+    <screen></screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.req.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      Examine and verify certificate request:
+    </para>
+    <screen>openssl req -in req.pem -text -verify -noout</screen>
+    <para>
+      Create a private key and then generate a certificate request from it:
+    </para>
+    <screen>openssl genrsa -out key.pem 1024
+openssl req -new -key key.pem -out req.pem</screen>
+    <para>
+      The same but just using req:
+    </para>
+    <screen>openssl req -newkey rsa:1024 -keyout key.pem -out req.pem</screen>
+    <para>
+      Generate a self signed root certificate:
+    </para>
+    <screen>openssl req -x509 -newkey rsa:1024 -keyout key.pem -out req.pem</screen>
+    <para>
+      Example of a file pointed to by the <emphasis role="bold">oid_file</emphasis> option:
+    </para>
+    <screen>1.2.3.4        shortName       A longer Name
+1.2.3.6        otherName       Other longer Name</screen>
+    <para>
+      Example of a section pointed to by <emphasis role="bold">oid_section</emphasis> making use of variable expansion:
+    </para>
+    <screen>testoid1=1.2.3.5
+testoid2=${testoid1}.6</screen>
+    <para>
+      Sample configuration file prompting for field values:
+    </para>
+    <screen>[ req ]
+default_bits           = 1024
+default_keyfile        = privkey.pem
+distinguished_name     = req_distinguished_name
+attributes             = req_attributes
+x509_extensions        = v3_ca
+
+dirstring_type = nobmp
+
+[ req_distinguished_name ]
+countryName                    = Country Name (2 letter code)
+countryName_default            = AU
+countryName_min                = 2
+countryName_max                = 2
+
+localityName                   = Locality Name (eg, city)
+
+organizationalUnitName         = Organizational Unit Name (eg, section)
+
+commonName                     = Common Name (eg, YOUR name)
+commonName_max                 = 64
+
+emailAddress                   = Email Address
+emailAddress_max               = 40
+
+[ req_attributes ]
+challengePassword              = A challenge password
+challengePassword_min          = 4
+challengePassword_max          = 20
+
+[ v3_ca ]
+
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid:always,issuer:always
+basicConstraints = CA:true</screen>
+    <para>
+      Sample configuration containing all field values:
+    </para>
+    <screen>
+
+RANDFILE               = $ENV::HOME/.rnd
+
+[ req ]
+default_bits           = 1024
+default_keyfile        = keyfile.pem
+distinguished_name     = req_distinguished_name
+attributes             = req_attributes
+prompt                 = no
+output_password        = mypass
+
+[ req_distinguished_name ]
+C                      = GB
+ST                     = Test State or Province
+L                      = Test Locality
+O                      = Organization Name
+OU                     = Organizational Unit Name
+CN                     = Common Name
+emailAddress           = test@email.address
+
+[ req_attributes ]
+challengePassword              = A challenge password
+
+</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.req.pod:NOTES"><title>NOTES</title>
+    <para>
+      The header and footer lines in the <emphasis role="bold">PEM</emphasis> format are normally:
+    </para>
+    <screen>-----BEGIN CERTIFICATE REQUEST-----
+-----END CERTIFICATE REQUEST-----</screen>
+    <para>
+      some software (some versions of Netscape certificate server) instead
+      needs:
+    </para>
+    <screen>-----BEGIN NEW CERTIFICATE REQUEST-----
+-----END NEW CERTIFICATE REQUEST-----</screen>
+    <para>
+      which is produced with the <emphasis role="bold">-newhdr</emphasis>
+      option but is otherwise compatible. Either form is accepted
+      transparently on input.
+    </para>
+    <para>
+      The certificate requests generated by <emphasis role="bold">Xenroll</emphasis> with MSIE have extensions added. It
+      includes the <emphasis role="bold">keyUsage</emphasis> extension
+      which determines the type of key (signature only or general purpose)
+      and any additional OIDs entered by the script in an extendedKeyUsage
+      extension.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.req.pod:DIAGNOSTICS"><title>DIAGNOSTICS</title>
+    <para>
+      The following messages are frequently asked about:
+    </para>
+    <screen>Using configuration from /some/path/openssl.cnf
+Unable to load config info</screen>
+    <para>
+      This is followed some time later by...
+    </para>
+    <screen>unable to find 'distinguished_name' in config
+problems making Certificate Request</screen>
+    <para>
+      The first error message is the clue: it can't find the configuration
+      file! Certain operations (like examining a certificate request) don't
+      need a configuration file so its use isn't enforced. Generation of
+      certificates or requests however does need a configuration file. This
+      could be regarded as a bug.
+    </para>
+    <para>
+      Another puzzling message is this:
+    </para>
+    <screen>Attributes:
+    a0:00</screen>
+    <para>
+      this is displayed when no attributes are present and the request
+      includes the correct empty <emphasis role="bold">SET OF</emphasis>
+      structure (the DER encoding of which is 0xa0 0x00). If you just see:
+    </para>
+    <screen>Attributes:</screen>
+    <para>
+      then the <emphasis role="bold">SET OF</emphasis> is missing and the
+      encoding is technically invalid (but it is tolerated). See the
+      description of the command line option <emphasis role="bold">-asn1-kludge</emphasis> for more information.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.req.pod:ENVIRONMENT_VARIABLES"><title>ENVIRONMENT VARIABLES</title>
+    <para>
+      The variable <emphasis role="bold">OPENSSL_CONF</emphasis> if defined
+      allows an alternative configuration file location to be specified, it
+      will be overridden by the <emphasis role="bold">-config</emphasis>
+      command line switch if it is present. For compatibility reasons the
+      <emphasis role="bold">SSLEAY_CONF</emphasis> environment variable
+      serves the same purpose but its use is discouraged.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.req.pod:BUGS"><title>BUGS</title>
+    <para>
+      OpenSSL's handling of T61Strings (aka TeletexStrings) is broken: it
+      effectively treats them as ISO-8859-1 (Latin 1), Netscape and MSIE
+      have similar behaviour. This can cause problems if you need
+      characters that aren't available in PrintableStrings and you don't
+      want to or can't use BMPStrings.
+    </para>
+    <para>
+      As a consequence of the T61String handling the only correct way to
+      represent accented characters in OpenSSL is to use a BMPString:
+      unfortunately Netscape currently chokes on these. If you have to use
+      accented characters with Netscape and MSIE then you currently need to
+      use the invalid T61String form.
+    </para>
+    <para>
+      The current prompting is not very friendly. It doesn't allow you to
+      confirm what you've just entered. Other things like extensions in
+      certificate requests are statically defined in the configuration
+      file. Some of these: like an email address in subjectAltName should
+      be input by the user.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.req.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      x509(1), ca(1), genrsa(1), gendsa(1), config(5), x509v3_config(5)
+    </para>
+  </refsection>
+</refentry>

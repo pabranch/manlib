@@ -1,0 +1,55 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_get_fd.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_get_fd, SSL_get_rfd, SSL_get_wfd</refname>
+<refpurpose>get file descriptor linked to an SSL object</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">int SSL_get_fd(const SSL *ssl);
+int SSL_get_rfd(const SSL *ssl);
+int SSL_get_wfd(const SSL *ssl);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_fd.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_get_fd() returns the file descriptor which is linked to <emphasis role="bold">ssl</emphasis>. SSL_get_rfd() and SSL_get_wfd() return
+      the file descriptors for the read or the write channel, which can be
+      different. If the read and the write channel are different,
+      SSL_get_fd() will return the file descriptor of the read channel.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_fd.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      The following return values can occur:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_fd.pod:-1"/>-1</term>
+          <listitem>
+            <para>
+	      The operation failed, because the underlying BIO is not of
+	      the correct type (suitable for file descriptors).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_fd.pod:gt0"/>&gt;=0</term>
+          <listitem>
+            <para>
+	      The file descriptor linked to <emphasis role="bold">ssl</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_fd.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      SSL_set_fd(3), ssl(3) , bio(3)
+    </para>
+  </refsection>
+</refentry>

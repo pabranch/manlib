@@ -1,0 +1,79 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>OpenSSL_add_all_algorithms.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>OpenSSL_add_all_algorithms, OpenSSL_add_all_ciphers, OpenSSL_add_all_digests, EVP_cleanup</refname>
+<refpurpose>add algorithms to internal table</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis format="linespecific">void OpenSSL_add_all_algorithms(void);
+void OpenSSL_add_all_ciphers(void);
+void OpenSSL_add_all_digests(void);</synopsis>
+<synopsis format="linespecific">void EVP_cleanup(void);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.OpenSSL_add_all_algorithms.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      OpenSSL keeps an internal table of digest algorithms and ciphers. It
+      uses this table to lookup ciphers via functions such as
+      EVP_get_cipher_byname().
+    </para>
+    <para>
+      OpenSSL_add_all_digests() adds all digest algorithms to the table.
+    </para>
+    <para>
+      OpenSSL_add_all_algorithms() adds all algorithms to the table
+      (digests and ciphers).
+    </para>
+    <para>
+      OpenSSL_add_all_ciphers() adds all encryption algorithms to the table
+      including password based encryption algorithms.
+    </para>
+    <para>
+      EVP_cleanup() removes all ciphers and digests from the table.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.OpenSSL_add_all_algorithms.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      None of the functions return a value.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.OpenSSL_add_all_algorithms.pod:NOTES"><title>NOTES</title>
+    <para>
+      A typical application will call OpenSSL_add_all_algorithms()
+      initially and EVP_cleanup() before exiting.
+    </para>
+    <para>
+      An application does not need to add algorithms to use them
+      explicitly, for example by EVP_sha1(). It just needs to add them if
+      it (or any of the functions it calls) needs to lookup algorithms.
+    </para>
+    <para>
+      The cipher and digest lookup functions are used in many parts of the
+      library. If the table is not initialized several functions will
+      misbehave and complain they cannot find algorithms. This includes the
+      PEM, PKCS#12, SSL and S/MIME libraries. This is a common query in the
+      OpenSSL mailing lists.
+    </para>
+    <para>
+      Calling OpenSSL_add_all_algorithms() links in all algorithms: as a
+      result a statically linked executable can be quite large. If this is
+      important it is possible to just add the required ciphers and
+      digests.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.OpenSSL_add_all_algorithms.pod:BUGS"><title>BUGS</title>
+    <para>
+      Although the functions do not return error codes it is possible for
+      them to fail. This will only happen as a result of a memory
+      allocation failure so this is not too much of a problem in practice.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.OpenSSL_add_all_algorithms.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      evp(3), EVP_DigestInit(3), EVP_EncryptInit(3)
+    </para>
+  </refsection>
+</refentry>

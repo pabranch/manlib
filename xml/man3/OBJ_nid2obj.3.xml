@@ -1,0 +1,172 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>OBJ_nid2obj.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>OBJ_nid2obj, OBJ_nid2ln, OBJ_nid2sn, OBJ_obj2nid, OBJ_txt2nid, OBJ_ln2nid, OBJ_sn2nid,
+OBJ_cmp, OBJ_dup, OBJ_txt2obj, OBJ_obj2txt, OBJ_create, OBJ_cleanup</refname>
+<refpurpose>ASN1 object utility
+functions</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/objects.h&gt;</synopsis>
+<synopsis format="linespecific">ASN1_OBJECT * OBJ_nid2obj(int n);
+const char *  OBJ_nid2ln(int n);
+const char *  OBJ_nid2sn(int n);</synopsis>
+<synopsis format="linespecific">int OBJ_obj2nid(const ASN1_OBJECT *o);
+int OBJ_ln2nid(const char *ln);
+int OBJ_sn2nid(const char *sn);</synopsis>
+<synopsis format="linespecific">int OBJ_txt2nid(const char *s);</synopsis>
+<synopsis format="linespecific">ASN1_OBJECT * OBJ_txt2obj(const char *s, int no_name);
+int OBJ_obj2txt(char *buf, int buf_len, const ASN1_OBJECT *a, int no_name);</synopsis>
+<synopsis format="linespecific">int OBJ_cmp(const ASN1_OBJECT *a,const ASN1_OBJECT *b);
+ASN1_OBJECT * OBJ_dup(const ASN1_OBJECT *o);</synopsis>
+<synopsis format="linespecific">int OBJ_create(const char *oid,const char *sn,const char *ln);
+void OBJ_cleanup(void);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.OBJ_nid2obj.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The ASN1 object utility functions process ASN1_OBJECT structures
+      which are a representation of the ASN1 OBJECT IDENTIFIER (OID) type.
+    </para>
+    <para>
+      OBJ_nid2obj(), OBJ_nid2ln() and OBJ_nid2sn() convert the NID
+      <emphasis role="bold">n</emphasis> to an ASN1_OBJECT structure, its
+      long name and its short name respectively, or <emphasis role="bold">NULL</emphasis> is an error occurred. 
+    </para>
+    <para>
+      OBJ_obj2nid(), OBJ_ln2nid(), OBJ_sn2nid() return the corresponding
+      NID for the object <emphasis role="bold">o</emphasis>, the long name
+      &lt;ln&gt; or the short name &lt;sn&gt; respectively or NID_undef if
+      an error occurred.
+    </para>
+    <para>
+      OBJ_txt2nid() returns NID corresponding to text string &lt;s&gt;.
+      <emphasis role="bold">s</emphasis> can be a long name, a short name
+      or the numerical respresentation of an object.
+    </para>
+    <para>
+      OBJ_txt2obj() converts the text string <emphasis role="bold">s</emphasis> into an ASN1_OBJECT structure. If <emphasis role="bold">no_name</emphasis> is 0 then long names and short names
+      will be interpreted as well as numerical forms. If <emphasis role="bold">no_name</emphasis> is 1 only the numerical form is
+      acceptable.
+    </para>
+    <para>
+      OBJ_obj2txt() converts the <emphasis role="bold">ASN1_OBJECT</emphasis> <emphasis role="bold">a</emphasis>
+      into a textual representation. The representation is written as a
+      null terminated string to <emphasis role="bold">buf</emphasis> at
+      most <emphasis role="bold">buf_len</emphasis> bytes are written,
+      truncating the result if necessary. The total amount of space
+      required is returned. If <emphasis role="bold">no_name</emphasis> is
+      0 then if the object has a long or short name then that will be used,
+      otherwise the numerical form will be used. If <emphasis role="bold">no_name</emphasis> is 1 then the numerical form will
+      always be used.
+    </para>
+    <para>
+      OBJ_cmp() compares <emphasis role="bold">a</emphasis> to <emphasis role="bold">b</emphasis>. If the two are identical 0 is returned.
+    </para>
+    <para>
+      OBJ_dup() returns a copy of <emphasis role="bold">o</emphasis>.
+    </para>
+    <para>
+      OBJ_create() adds a new object to the internal table. <emphasis role="bold">oid</emphasis> is the numerical form of the object,
+      <emphasis role="bold">sn</emphasis> the short name and <emphasis role="bold">ln</emphasis> the long name. A new NID is returned for
+      the created object. 
+    </para>
+    <para>
+      OBJ_cleanup() cleans up OpenSSLs internal object table: this should
+      be called before an application exits if any new objects were added
+      using OBJ_create().
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.OBJ_nid2obj.pod:NOTES"><title>NOTES</title>
+    <para>
+      Objects in OpenSSL can have a short name, a long name and a numerical
+      identifier (NID) associated with them. A standard set of objects is
+      represented in an internal table. The appropriate values are defined
+      in the header file <emphasis role="bold">objects.h</emphasis>.
+    </para>
+    <para>
+      For example the OID for commonName has the following definitions:
+    </para>
+    <screen>#define SN_commonName                   "CN"
+#define LN_commonName                   "commonName"
+#define NID_commonName                  13</screen>
+    <para>
+      New objects can be added by calling OBJ_create().
+    </para>
+    <para>
+      Table objects have certain advantages over other objects: for example
+      their NIDs can be used in a C language switch statement. They are
+      also static constant structures which are shared: that is there is
+      only a single constant structure for each table object.
+    </para>
+    <para>
+      Objects which are not in the table have the NID value NID_undef.
+    </para>
+    <para>
+      Objects do not need to be in the internal tables to be processed, the
+      functions OBJ_txt2obj() and OBJ_obj2txt() can process the numerical
+      form of an OID.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.OBJ_nid2obj.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      Create an object for <emphasis role="bold">commonName</emphasis>:
+    </para>
+    <screen>ASN1_OBJECT *o;
+o = OBJ_nid2obj(NID_commonName);</screen>
+    <para>
+      Check if an object is <emphasis role="bold">commonName</emphasis>
+    </para>
+    <screen>if (OBJ_obj2nid(obj) == NID_commonName)
+       /* Do something */</screen>
+    <para>
+      Create a new NID and initialize an object from it:
+    </para>
+    <screen>int new_nid;
+ASN1_OBJECT *obj;
+new_nid = OBJ_create("1.2.3.4", "NewOID", "New Object Identifier");
+
+obj = OBJ_nid2obj(new_nid);</screen>
+    <para>
+      Create a new object directly:
+    </para>
+    <screen>obj = OBJ_txt2obj("1.2.3.4", 1);</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.OBJ_nid2obj.pod:BUGS"><title>BUGS</title>
+    <para>
+      OBJ_obj2txt() is awkward and messy to use: it doesn't follow the
+      convention of other OpenSSL functions where the buffer can be set to
+      <emphasis role="bold">NULL</emphasis> to determine the amount of data
+      that should be written. Instead <emphasis role="bold">buf</emphasis>
+      must point to a valid buffer and <emphasis role="bold">buf_len</emphasis> should be set to a positive value. A
+      buffer length of 80 should be more than enough to handle any OID
+      encountered in practice. 
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.OBJ_nid2obj.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      OBJ_nid2obj() returns an <emphasis role="bold">ASN1_OBJECT</emphasis>
+      structure or <emphasis role="bold">NULL</emphasis> is an error
+      occurred.
+    </para>
+    <para>
+      OBJ_nid2ln() and OBJ_nid2sn() returns a valid string or <emphasis role="bold">NULL</emphasis> on error.
+    </para>
+    <para>
+      OBJ_obj2nid(), OBJ_ln2nid(), OBJ_sn2nid() and OBJ_txt2nid() return a
+      NID or <emphasis role="bold">NID_undef</emphasis> on error.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.OBJ_nid2obj.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ERR_get_error(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.OBJ_nid2obj.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      TBA
+    </para>
+  </refsection>
+</refentry>

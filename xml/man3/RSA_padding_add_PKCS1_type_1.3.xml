@@ -1,0 +1,148 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>RSA_padding_add_PKCS1_type_1.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>RSA_padding_add_PKCS1_type_1, RSA_padding_check_PKCS1_type_1,
+RSA_padding_add_PKCS1_type_2, RSA_padding_check_PKCS1_type_2,
+RSA_padding_add_PKCS1_OAEP, RSA_padding_check_PKCS1_OAEP,
+RSA_padding_add_SSLv23, RSA_padding_check_SSLv23,
+RSA_padding_add_none, RSA_padding_check_none</refname>
+<refpurpose>asymmetric encryption
+padding</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/rsa.h&gt;</synopsis>
+<synopsis format="linespecific">int RSA_padding_add_PKCS1_type_1(unsigned char *to, int tlen,
+   unsigned char *f, int fl);</synopsis>
+<synopsis format="linespecific">int RSA_padding_check_PKCS1_type_1(unsigned char *to, int tlen,
+   unsigned char *f, int fl, int rsa_len);</synopsis>
+<synopsis format="linespecific">int RSA_padding_add_PKCS1_type_2(unsigned char *to, int tlen,
+   unsigned char *f, int fl);</synopsis>
+<synopsis format="linespecific">int RSA_padding_check_PKCS1_type_2(unsigned char *to, int tlen,
+   unsigned char *f, int fl, int rsa_len);</synopsis>
+<synopsis format="linespecific">int RSA_padding_add_PKCS1_OAEP(unsigned char *to, int tlen,
+   unsigned char *f, int fl, unsigned char *p, int pl);</synopsis>
+<synopsis format="linespecific">int RSA_padding_check_PKCS1_OAEP(unsigned char *to, int tlen,
+   unsigned char *f, int fl, int rsa_len, unsigned char *p, int pl);</synopsis>
+<synopsis format="linespecific">int RSA_padding_add_SSLv23(unsigned char *to, int tlen,
+   unsigned char *f, int fl);</synopsis>
+<synopsis format="linespecific">int RSA_padding_check_SSLv23(unsigned char *to, int tlen,
+   unsigned char *f, int fl, int rsa_len);</synopsis>
+<synopsis format="linespecific">int RSA_padding_add_none(unsigned char *to, int tlen,
+   unsigned char *f, int fl);</synopsis>
+<synopsis format="linespecific">int RSA_padding_check_none(unsigned char *to, int tlen,
+   unsigned char *f, int fl, int rsa_len);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_padding_add_PKCS1_type_1.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The RSA_padding_xxx_xxx() functions are called from the RSA encrypt,
+      decrypt, sign and verify functions. Normally they should not be
+      called from application programs.
+    </para>
+    <para>
+      However, they can also be called directly to implement padding for
+      other asymmetric ciphers. RSA_padding_add_PKCS1_OAEP() and
+      RSA_padding_check_PKCS1_OAEP() may be used in an application combined
+      with <emphasis role="bold">RSA_NO_PADDING</emphasis> in order to
+      implement OAEP with an encoding parameter.
+    </para>
+    <para>
+      RSA_padding_add_xxx() encodes <emphasis role="bold">fl</emphasis>
+      bytes from <emphasis role="bold">f</emphasis> so as to fit into
+      <emphasis role="bold">tlen</emphasis> bytes and stores the result at
+      <emphasis role="bold">to</emphasis>. An error occurs if <emphasis role="bold">fl</emphasis> does not meet the size requirements of the
+      encoding method.
+    </para>
+    <para>
+      The following encoding methods are implemented:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.RSA_padding_add_PKCS1_type_1.pod:PKCS1_type_1"/>PKCS1_type_1</term>
+          <listitem>
+            <para>
+	      PKCS #1 v2.0 EMSA-PKCS1-v1_5 (PKCS #1 v1.5 block type 1);
+	      used for signatures
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.RSA_padding_add_PKCS1_type_1.pod:PKCS1_type_2"/>PKCS1_type_2</term>
+          <listitem>
+            <para>
+	      PKCS #1 v2.0 EME-PKCS1-v1_5 (PKCS #1 v1.5 block type 2)
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.RSA_padding_add_PKCS1_type_1.pod:PKCS1_OAEP"/>PKCS1_OAEP</term>
+          <listitem>
+            <para>
+	      PKCS #1 v2.0 EME-OAEP
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.RSA_padding_add_PKCS1_type_1.pod:SSLv23"/>SSLv23</term>
+          <listitem>
+            <para>
+	      PKCS #1 EME-PKCS1-v1_5 with SSL-specific modification
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.RSA_padding_add_PKCS1_type_1.pod:none"/>none</term>
+          <listitem>
+            <para>
+	      simply copy the data
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+    <para>
+      The random number generator must be seeded prior to calling
+      RSA_padding_add_xxx().
+    </para>
+    <para>
+      RSA_padding_check_xxx() verifies that the <emphasis role="bold">fl</emphasis> bytes at <emphasis role="bold">f</emphasis>
+      contain a valid encoding for a <emphasis role="bold">rsa_len</emphasis> byte RSA key in the respective
+      encoding method and stores the recovered data of at most <emphasis role="bold">tlen</emphasis> bytes (for <emphasis role="bold">RSA_NO_PADDING</emphasis>: of size <emphasis role="bold">tlen</emphasis>) at <emphasis role="bold">to</emphasis>.
+    </para>
+    <para>
+      For RSA_padding_xxx_OAEP(), <emphasis role="bold">p</emphasis> points
+      to the encoding parameter of length <emphasis role="bold">pl</emphasis>. <emphasis role="bold">p</emphasis> may be
+      <emphasis role="bold">NULL</emphasis> if <emphasis role="bold">pl</emphasis> is 0.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_padding_add_PKCS1_type_1.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      The RSA_padding_add_xxx() functions return 1 on success, 0 on error.
+      The RSA_padding_check_xxx() functions return the length of the
+      recovered data, -1 on error. Error codes can be obtained by calling
+      ERR_get_error(3).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_padding_add_PKCS1_type_1.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      RSA_public_encrypt(3), RSA_private_decrypt(3), RSA_sign(3),
+      RSA_verify(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_padding_add_PKCS1_type_1.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      RSA_padding_add_PKCS1_type_1(), RSA_padding_check_PKCS1_type_1(),
+      RSA_padding_add_PKCS1_type_2(), RSA_padding_check_PKCS1_type_2(),
+      RSA_padding_add_SSLv23(), RSA_padding_check_SSLv23(),
+      RSA_padding_add_none() and RSA_padding_check_none() appeared in
+      SSLeay 0.9.0.
+    </para>
+    <para>
+      RSA_padding_add_PKCS1_OAEP() and RSA_padding_check_PKCS1_OAEP() were
+      added in OpenSSL 0.9.2b.
+    </para>
+  </refsection>
+</refentry>

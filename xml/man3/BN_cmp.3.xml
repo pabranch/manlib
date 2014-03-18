@@ -1,0 +1,56 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>BN_cmp.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>BN_cmp, BN_ucmp, BN_is_zero, BN_is_one, BN_is_word, BN_is_odd</refname>
+<refpurpose>BIGNUM comparison and test functions</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis format="linespecific">int BN_cmp(BIGNUM *a, BIGNUM *b);
+int BN_ucmp(BIGNUM *a, BIGNUM *b);</synopsis>
+<synopsis format="linespecific">int BN_is_zero(BIGNUM *a);
+int BN_is_one(BIGNUM *a);
+int BN_is_word(BIGNUM *a, BN_ULONG w);
+int BN_is_odd(BIGNUM *a);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_cmp.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      BN_cmp() compares the numbers <emphasis role="bold">a</emphasis> and
+      <emphasis role="bold">b</emphasis>. BN_ucmp() compares their absolute
+      values.
+    </para>
+    <para>
+      BN_is_zero(), BN_is_one() and BN_is_word() test if <emphasis role="bold">a</emphasis> equals 0, 1, or <emphasis role="bold">w</emphasis> respectively. BN_is_odd() tests if a is odd.
+    </para>
+    <para>
+      BN_is_zero(), BN_is_one(), BN_is_word() and BN_is_odd() are macros.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_cmp.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      BN_cmp() returns -1 if <emphasis role="bold">a</emphasis> &lt;
+      <emphasis role="bold">b</emphasis>, 0 if <emphasis role="bold">a</emphasis> == <emphasis role="bold">b</emphasis> and 1
+      if <emphasis role="bold">a</emphasis> &gt; <emphasis role="bold">b</emphasis>. BN_ucmp() is the same using the absolute
+      values of <emphasis role="bold">a</emphasis> and <emphasis role="bold">b</emphasis>.
+    </para>
+    <para>
+      BN_is_zero(), BN_is_one() BN_is_word() and BN_is_odd() return 1 if
+      the condition is true, 0 otherwise.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_cmp.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      bn(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_cmp.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      BN_cmp(), BN_ucmp(), BN_is_zero(), BN_is_one() and BN_is_word() are
+      available in all versions of SSLeay and OpenSSL. BN_is_odd() was
+      added in SSLeay 0.8.
+    </para>
+  </refsection>
+</refentry>

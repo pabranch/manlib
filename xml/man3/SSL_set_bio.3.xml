@@ -1,0 +1,41 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_set_bio.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_set_bio</refname>
+<refpurpose>connect the SSL object with a BIO</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">void SSL_set_bio(SSL *ssl, BIO *rbio, BIO *wbio);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_set_bio.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_set_bio() connects the BIOs <emphasis role="bold">rbio</emphasis>
+      and <emphasis role="bold">wbio</emphasis> for the read and write
+      operations of the TLS/SSL (encrypted) side of <emphasis role="bold">ssl</emphasis>.
+    </para>
+    <para>
+      The SSL engine inherits the behaviour of <emphasis role="bold">rbio</emphasis> and <emphasis role="bold">wbio</emphasis>, respectively. If a BIO is non-blocking,
+      the <emphasis role="bold">ssl</emphasis> will also have non-blocking
+      behaviour.
+    </para>
+    <para>
+      If there was already a BIO connected to <emphasis role="bold">ssl</emphasis>, BIO_free() will be called (for both the
+      reading and writing side, if different).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_set_bio.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      SSL_set_bio() cannot fail.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_set_bio.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      SSL_get_rbio(3), SSL_connect(3), SSL_accept(3), SSL_shutdown(3),
+      ssl(3), bio(3)
+    </para>
+  </refsection>
+</refentry>

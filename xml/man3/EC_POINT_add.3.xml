@@ -1,0 +1,109 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>EC_POINT_add.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>EC_POINT_add, EC_POINT_dbl, EC_POINT_invert, EC_POINT_is_at_infinity, EC_POINT_is_on_curve, EC_POINT_cmp, EC_POINT_make_affine, EC_POINTs_make_affine, EC_POINTs_mul, EC_POINT_mul, EC_GROUP_precompute_mult, EC_GROUP_have_precompute_mult</refname>
+<refpurpose>Functions for performing mathematical operations and tests on <emphasis role="bold">EC_POINT</emphasis> objects.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ec.h&gt;
+#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis format="linespecific">int EC_POINT_add(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a, const EC_POINT *b, BN_CTX *ctx);
+int EC_POINT_dbl(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a, BN_CTX *ctx);
+int EC_POINT_invert(const EC_GROUP *group, EC_POINT *a, BN_CTX *ctx);
+int EC_POINT_is_at_infinity(const EC_GROUP *group, const EC_POINT *p);
+int EC_POINT_is_on_curve(const EC_GROUP *group, const EC_POINT *point, BN_CTX *ctx);
+int EC_POINT_cmp(const EC_GROUP *group, const EC_POINT *a, const EC_POINT *b, BN_CTX *ctx);
+int EC_POINT_make_affine(const EC_GROUP *group, EC_POINT *point, BN_CTX *ctx);
+int EC_POINTs_make_affine(const EC_GROUP *group, size_t num, EC_POINT *points[], BN_CTX *ctx);
+int EC_POINTs_mul(const EC_GROUP *group, EC_POINT *r, const BIGNUM *n, size_t num, const EC_POINT *p[], const BIGNUM *m[], BN_CTX *ctx);
+int EC_POINT_mul(const EC_GROUP *group, EC_POINT *r, const BIGNUM *n, const EC_POINT *q, const BIGNUM *m, BN_CTX *ctx);
+int EC_GROUP_precompute_mult(EC_GROUP *group, BN_CTX *ctx);
+int EC_GROUP_have_precompute_mult(const EC_GROUP *group);</synopsis>
+<synopsis format="linespecific"/>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.EC_POINT_add.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      EC_POINT_add adds the two points <emphasis role="bold">a</emphasis>
+      and <emphasis role="bold">b</emphasis> and places the result in
+      <emphasis role="bold">r</emphasis>. Similarly EC_POINT_dbl doubles
+      the point <emphasis role="bold">a</emphasis> and places the result in
+      <emphasis role="bold">r</emphasis>. In both cases it is valid for
+      <emphasis role="bold">r</emphasis> to be one of <emphasis role="bold">a</emphasis> or <emphasis role="bold">b</emphasis>.
+    </para>
+    <para>
+      EC_POINT_invert calculates the inverse of the supplied point
+      <emphasis role="bold">a</emphasis>. The result is placed back in
+      <emphasis role="bold">a</emphasis>.
+    </para>
+    <para>
+      The function EC_POINT_is_at_infinity tests whether the supplied point
+      is at infinity or not.
+    </para>
+    <para>
+      EC_POINT_is_on_curve tests whether the supplied point is on the curve
+      or not.
+    </para>
+    <para>
+      EC_POINT_cmp compares the two supplied points and tests whether or
+      not they are equal.
+    </para>
+    <para>
+      The functions EC_POINT_make_affine and EC_POINTs_make_affine force
+      the internal representation of the EC_POINT(s) into the affine
+      co-ordinate system. In the case of EC_POINTs_make_affine the value
+      <emphasis role="bold">num</emphasis> provides the number of points in
+      the array <emphasis role="bold">points</emphasis> to be forced.
+    </para>
+    <para>
+      EC_POINT_mul calculates the value generator * <emphasis role="bold">n</emphasis> + <emphasis role="bold">q</emphasis> *
+      <emphasis role="bold">m</emphasis> and stores the result in <emphasis role="bold">r</emphasis>. The value <emphasis role="bold">n</emphasis> may be NULL in which case the result is just
+      <emphasis role="bold">q</emphasis> * <emphasis role="bold">m</emphasis>.
+    </para>
+    <para>
+      EC_POINTs_mul calculates the value generator * <emphasis role="bold">n</emphasis> + <emphasis role="bold">q[0]</emphasis> *
+      <emphasis role="bold">m[0]</emphasis> + ... + <emphasis role="bold">q[num-1]</emphasis> * <emphasis role="bold">m[num-1]</emphasis>. As for EC_POINT_mul the value
+      <emphasis role="bold">n</emphasis> may be NULL.
+    </para>
+    <para>
+      The function EC_GROUP_precompute_mult stores multiples of the
+      generator for faster point multiplication, whilst
+      EC_GROUP_have_precompute_mult tests whether precomputation has
+      already been done. See EC_GROUP_copy(3) for information about the
+      generator.
+    </para>
+    <screen></screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EC_POINT_add.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      The following functions return 1 on success or 0 on error:
+      EC_POINT_add, EC_POINT_dbl, EC_POINT_invert, EC_POINT_make_affine,
+      EC_POINTs_make_affine, EC_POINTs_make_affine, EC_POINT_mul,
+      EC_POINTs_mul and EC_GROUP_precompute_mult.
+    </para>
+    <para>
+      EC_POINT_is_at_infinity returns 1 if the point is at infinity, or 0
+      otherwise.
+    </para>
+    <para>
+      EC_POINT_is_on_curve returns 1 if the point is on the curve, 0 if
+      not, or -1 on error.
+    </para>
+    <para>
+      EC_POINT_cmp returns 1 if the points are not equal, 0 if they are, or
+      -1 on error.
+    </para>
+    <para>
+      EC_GROUP_have_precompute_mult return 1 if a precomputation has been
+      done, or 0 if not.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EC_POINT_add.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      crypto(3), ec(3), EC_GROUP_new(3), EC_GROUP_copy(3), EC_POINT_new(3),
+      EC_KEY_new(3), EC_GFp_simple_method(3), d2i_ECPKParameters(3)
+    </para>
+  </refsection>
+</refentry>

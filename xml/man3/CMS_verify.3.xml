@@ -1,0 +1,161 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>CMS_verify.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>CMS_verify, CMS_get0_signers</refname>
+<refpurpose>verify a CMS SignedData structure</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/cms.h&gt;</synopsis>
+<synopsis format="linespecific">int CMS_verify(CMS_ContentInfo *cms, STACK_OF(X509) *certs, X509_STORE *store, BIO *indata, BIO *out, unsigned int flags);</synopsis>
+<synopsis format="linespecific">STACK_OF(X509) *CMS_get0_signers(CMS_ContentInfo *cms);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.CMS_verify.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      CMS_verify() verifies a CMS SignedData structure. <emphasis role="bold">cms</emphasis> is the CMS_ContentInfo structure to
+      verify. <emphasis role="bold">certs</emphasis> is a set of
+      certificates in which to search for the signing certificate(s).
+      <emphasis role="bold">store</emphasis> is a trusted certificate store
+      used for chain verification. <emphasis role="bold">indata</emphasis>
+      is the detached content if the content is not present in <emphasis role="bold">cms</emphasis>. The content is written to <emphasis role="bold">out</emphasis> if it is not NULL.
+    </para>
+    <para>
+      <emphasis role="bold">flags</emphasis> is an optional set of flags,
+      which can be used to modify the verify operation.
+    </para>
+    <para>
+      CMS_get0_signers() retrieves the signing certificate(s) from
+      <emphasis role="bold">cms</emphasis>, it must be called after a
+      successful CMS_verify() operation.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.CMS_verify.pod:VERIFY_PROCESS"><title>VERIFY PROCESS</title>
+    <para>
+      Normally the verify process proceeds as follows.
+    </para>
+    <para>
+      Initially some sanity checks are performed on <emphasis role="bold">cms</emphasis>. The type of <emphasis role="bold">cms</emphasis> must be SignedData. There must be at least
+      one signature on the data and if the content is detached <emphasis role="bold">indata</emphasis> cannot be <emphasis role="bold">NULL</emphasis>.
+    </para>
+    <para>
+      An attempt is made to locate all the signing certificate(s), first
+      looking in the <emphasis role="bold">certs</emphasis> parameter (if
+      it is not NULL) and then looking in any certificates contained in the
+      <emphasis role="bold">cms</emphasis> structure itself. If any signing
+      certificate cannot be located the operation fails.
+    </para>
+    <para>
+      Each signing certificate is chain verified using the <emphasis role="bold">smimesign</emphasis> purpose and the supplied trusted
+      certificate store. Any internal certificates in the message are used
+      as untrusted CAs. If CRL checking is enabled in <emphasis role="bold">store</emphasis> any internal CRLs are used in addition
+      to attempting to look them up in <emphasis role="bold">store</emphasis>. If any chain verify fails an error code
+      is returned.
+    </para>
+    <para>
+      Finally the signed content is read (and written to <emphasis role="bold">out</emphasis> is it is not NULL) and the signature's
+      checked.
+    </para>
+    <para>
+      If all signature's verify correctly then the function is successful.
+    </para>
+    <para>
+      Any of the following flags (ored together) can be passed in the
+      <emphasis role="bold">flags</emphasis> parameter to change the
+      default verify behaviour.
+    </para>
+    <para>
+      If <emphasis role="bold">CMS_NOINTERN</emphasis> is set the
+      certificates in the message itself are not searched when locating the
+      signing certificate(s). This means that all the signing certificates
+      must be in the <emphasis role="bold">certs</emphasis> parameter.
+    </para>
+    <para>
+      If <emphasis role="bold">CMS_NOCRL</emphasis> is set and CRL checking
+      is enabled in <emphasis role="bold">store</emphasis> then any CRLs in
+      the message itself are ignored.
+    </para>
+    <para>
+      If the <emphasis role="bold">CMS_TEXT</emphasis> flag is set MIME
+      headers for type <emphasis role="bold">text/plain</emphasis> are
+      deleted from the content. If the content is not of type <emphasis role="bold">text/plain</emphasis> then an error is returned.
+    </para>
+    <para>
+      If <emphasis role="bold">CMS_NO_SIGNER_CERT_VERIFY</emphasis> is set
+      the signing certificates are not verified.
+    </para>
+    <para>
+      If <emphasis role="bold">CMS_NO_ATTR_VERIFY</emphasis> is set the
+      signed attributes signature is not verified. 
+    </para>
+    <para>
+      If <emphasis role="bold">CMS_NO_CONTENT_VERIFY</emphasis> is set then
+      the content digest is not checked.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.CMS_verify.pod:NOTES"><title>NOTES</title>
+    <para>
+      One application of <emphasis role="bold">CMS_NOINTERN</emphasis> is
+      to only accept messages signed by a small number of certificates. The
+      acceptable certificates would be passed in the <emphasis role="bold">certs</emphasis> parameter. In this case if the signer is
+      not one of the certificates supplied in <emphasis role="bold">certs</emphasis> then the verify will fail because the
+      signer cannot be found.
+    </para>
+    <para>
+      In some cases the standard techniques for looking up and validating
+      certificates are not appropriate: for example an application may wish
+      to lookup certificates in a database or perform customised
+      verification. This can be achieved by setting and verifying the
+      signers certificates manually using the signed data utility
+      functions. 
+    </para>
+    <para>
+      Care should be taken when modifying the default verify behaviour, for
+      example setting <emphasis role="bold">CMS_NO_CONTENT_VERIFY</emphasis> will totally disable all
+      content verification and any modified content will be considered
+      valid. This combination is however useful if one merely wishes to
+      write the content to <emphasis role="bold">out</emphasis> and its
+      validity is not considered important. 
+    </para>
+    <para>
+      Chain verification should arguably be performed using the signing
+      time rather than the current time. However since the signing time is
+      supplied by the signer it cannot be trusted without additional
+      evidence (such as a trusted timestamp).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.CMS_verify.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      CMS_verify() returns 1 for a successful verification and zero if an
+      error occurred.
+    </para>
+    <para>
+      CMS_get0_signers() returns all signers or NULL if an error occurred.
+    </para>
+    <para>
+      The error can be obtained from ERR_get_error(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.CMS_verify.pod:BUGS"><title>BUGS</title>
+    <para>
+      The trusted certificate store is not searched for the signing
+      certificate, this is primarily due to the inadequacies of the current
+      <emphasis role="bold">X509_STORE</emphasis> functionality.
+    </para>
+    <para>
+      The lack of single pass processing means that the signed content must
+      all be held in memory if it is not detached.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.CMS_verify.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ERR_get_error(3), CMS_sign(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.CMS_verify.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      CMS_verify() was added to OpenSSL 0.9.8
+    </para>
+  </refsection>
+</refentry>

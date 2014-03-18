@@ -1,0 +1,130 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>X509_NAME_add_entry_by_txt.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>X509_NAME_add_entry_by_txt, X509_NAME_add_entry_by_OBJ, X509_NAME_add_entry_by_NID,
+X509_NAME_add_entry, X509_NAME_delete_entry</refname>
+<refpurpose>X509_NAME modification functions</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/x509.h&gt;</synopsis>
+<synopsis format="linespecific">int X509_NAME_add_entry_by_txt(X509_NAME *name, const char *field, int type, const unsigned char *bytes, int len, int loc, int set);</synopsis>
+<synopsis format="linespecific">int X509_NAME_add_entry_by_OBJ(X509_NAME *name, ASN1_OBJECT *obj, int type, unsigned char *bytes, int len, int loc, int set);</synopsis>
+<synopsis format="linespecific">int X509_NAME_add_entry_by_NID(X509_NAME *name, int nid, int type, unsigned char *bytes, int len, int loc, int set);</synopsis>
+<synopsis format="linespecific">int X509_NAME_add_entry(X509_NAME *name,X509_NAME_ENTRY *ne, int loc, int set);</synopsis>
+<synopsis format="linespecific">X509_NAME_ENTRY *X509_NAME_delete_entry(X509_NAME *name, int loc);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_add_entry_by_txt.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      X509_NAME_add_entry_by_txt(), X509_NAME_add_entry_by_OBJ() and
+      X509_NAME_add_entry_by_NID() add a field whose name is defined by a
+      string <emphasis role="bold">field</emphasis>, an object <emphasis role="bold">obj</emphasis> or a NID <emphasis role="bold">nid</emphasis> respectively. The field value to be added
+      is in <emphasis role="bold">bytes</emphasis> of length <emphasis role="bold">len</emphasis>. If <emphasis role="bold">len</emphasis>
+      is -1 then the field length is calculated internally using
+      strlen(bytes).
+    </para>
+    <para>
+      The type of field is determined by <emphasis role="bold">type</emphasis> which can either be a definition of the
+      type of <emphasis role="bold">bytes</emphasis> (such as <emphasis role="bold">MBSTRING_ASC</emphasis>) or a standard ASN1 type (such as
+      <emphasis role="bold">V_ASN1_IA5STRING</emphasis>). The new entry is
+      added to a position determined by <emphasis role="bold">loc</emphasis> and <emphasis role="bold">set</emphasis>.
+    </para>
+    <para>
+      X509_NAME_add_entry() adds a copy of <emphasis role="bold">X509_NAME_ENTRY</emphasis> structure <emphasis role="bold">ne</emphasis> to <emphasis role="bold">name</emphasis>.
+      The new entry is added to a position determined by <emphasis role="bold">loc</emphasis> and <emphasis role="bold">set</emphasis>.
+      Since a copy of <emphasis role="bold">ne</emphasis> is added
+      <emphasis role="bold">ne</emphasis> must be freed up after the call.
+    </para>
+    <para>
+      X509_NAME_delete_entry() deletes an entry from <emphasis role="bold">name</emphasis> at position <emphasis role="bold">loc</emphasis>. The deleted entry is returned and must be
+      freed up.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_add_entry_by_txt.pod:NOTES"><title>NOTES</title>
+    <para>
+      The use of string types such as <emphasis role="bold">MBSTRING_ASC</emphasis> or <emphasis role="bold">MBSTRING_UTF8</emphasis> is strongly recommended for the
+      <emphasis role="bold">type</emphasis> parameter. This allows the
+      internal code to correctly determine the type of the field and to
+      apply length checks according to the relevant standards. This is done
+      using ASN1_STRING_set_by_NID().
+    </para>
+    <para>
+      If instead an ASN1 type is used no checks are performed and the
+      supplied data in <emphasis role="bold">bytes</emphasis> is used
+      directly.
+    </para>
+    <para>
+      In X509_NAME_add_entry_by_txt() the <emphasis role="bold">field</emphasis> string represents the field name using
+      OBJ_txt2obj(field, 0).
+    </para>
+    <para>
+      The <emphasis role="bold">loc</emphasis> and <emphasis role="bold">set</emphasis> parameters determine where a new entry
+      should be added. For almost all applications <emphasis role="bold">loc</emphasis> can be set to -1 and <emphasis role="bold">set</emphasis> to 0. This adds a new entry to the end of
+      <emphasis role="bold">name</emphasis> as a single valued
+      RelativeDistinguishedName (RDN).
+    </para>
+    <para>
+      <emphasis role="bold">loc</emphasis> actually determines the index
+      where the new entry is inserted: if it is -1 it is appended.
+    </para>
+    <para>
+      <emphasis role="bold">set</emphasis> determines how the new type is
+      added. If it is zero a new RDN is created.
+    </para>
+    <para>
+      If <emphasis role="bold">set</emphasis> is -1 or 1 it is added to the
+      previous or next RDN structure respectively. This will then be a
+      multivalued RDN: since multivalues RDNs are very seldom used
+      <emphasis role="bold">set</emphasis> is almost always set to zero.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_add_entry_by_txt.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      Create an <emphasis role="bold">X509_NAME</emphasis> structure:
+    </para>
+    <para>
+      "C=UK, O=Disorganized Organization, CN=Joe Bloggs"
+    </para>
+    <screen>X509_NAME *nm;
+nm = X509_NAME_new();
+if (nm == NULL)
+       /* Some error */
+if (!X509_NAME_add_entry_by_txt(nm, MBSTRING_ASC,
+                       "C", "UK", -1, -1, 0))
+       /* Error */
+if (!X509_NAME_add_entry_by_txt(nm, MBSTRING_ASC,
+                       "O", "Disorganized Organization", -1, -1, 0))
+       /* Error */
+if (!X509_NAME_add_entry_by_txt(nm, MBSTRING_ASC,
+                       "CN", "Joe Bloggs", -1, -1, 0))
+       /* Error */</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_add_entry_by_txt.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      X509_NAME_add_entry_by_txt(), X509_NAME_add_entry_by_OBJ(),
+      X509_NAME_add_entry_by_NID() and X509_NAME_add_entry() return 1 for
+      success of 0 if an error occurred.
+    </para>
+    <para>
+      X509_NAME_delete_entry() returns either the deleted <emphasis role="bold">X509_NAME_ENTRY</emphasis> structure of <emphasis role="bold">NULL</emphasis> if an error occurred.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_add_entry_by_txt.pod:BUGS"><title>BUGS</title>
+    <para>
+      <emphasis role="bold">type</emphasis> can still be set to <emphasis role="bold">V_ASN1_APP_CHOOSE</emphasis> to use a different algorithm
+      to determine field types. Since this form does not understand
+      multicharacter types, performs no length checks and can result in
+      invalid field types its use is strongly discouraged.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_add_entry_by_txt.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ERR_get_error(3), d2i_X509_NAME(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_add_entry_by_txt.pod:HISTORY"><title>HISTORY</title>
+    <para/>
+  </refsection>
+</refentry>

@@ -1,0 +1,187 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>spkac.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>spkac</refname>
+<refpurpose>SPKAC printing and generating utility</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific"><emphasis role="bold">openssl</emphasis> <emphasis role="bold">spkac</emphasis>
+[<emphasis role="bold">-in filename</emphasis>]
+[<emphasis role="bold">-out filename</emphasis>]
+[<emphasis role="bold">-key keyfile</emphasis>]
+[<emphasis role="bold">-passin arg</emphasis>]
+[<emphasis role="bold">-challenge string</emphasis>]
+[<emphasis role="bold">-pubkey</emphasis>]
+[<emphasis role="bold">-spkac spkacname</emphasis>]
+[<emphasis role="bold">-spksect section</emphasis>]
+[<emphasis role="bold">-noout</emphasis>]
+[<emphasis role="bold">-verify</emphasis>]
+[<emphasis role="bold">-engine id</emphasis>]</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.apps.spkac.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The <emphasis role="bold">spkac</emphasis> command processes Netscape
+      signed public key and challenge (SPKAC) files. It can print out their
+      contents, verify the signature and produce its own SPKACs from a
+      supplied private key.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.spkac.pod:COMMAND_OPTIONS"><title>COMMAND OPTIONS</title>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.spkac.pod:-in_filename"/><emphasis role="bold">-in filename</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the input filename to read from or standard
+	      input if this option is not specified. Ignored if the
+	      <emphasis role="bold">-key</emphasis> option is used.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.spkac.pod:-out_filename"/><emphasis role="bold">-out filename</emphasis></term>
+          <listitem>
+            <para>
+	      specifies the output filename to write to or standard output
+	      by default.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.spkac.pod:-key_keyfile"/><emphasis role="bold">-key keyfile</emphasis></term>
+          <listitem>
+            <para>
+	      create an SPKAC file using the private key in <emphasis role="bold">keyfile</emphasis>. The <emphasis role="bold">-in</emphasis>, <emphasis role="bold">-noout</emphasis>, <emphasis role="bold">-spksect</emphasis> and <emphasis role="bold">-verify</emphasis> options are ignored if
+	      present.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.spkac.pod:-passin_password"/><emphasis role="bold">-passin password</emphasis></term>
+          <listitem>
+            <para>
+	      the input file password source. For more information about
+	      the format of <emphasis role="bold">arg</emphasis> see the
+	      <emphasis role="bold">PASS PHRASE ARGUMENTS</emphasis>
+	      section in openssl(1).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.spkac.pod:-challenge_string"/><emphasis role="bold">-challenge string</emphasis></term>
+          <listitem>
+            <para>
+	      specifies the challenge string if an SPKAC is being created.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.spkac.pod:-spkac_spkacname"/><emphasis role="bold">-spkac spkacname</emphasis></term>
+          <listitem>
+            <para>
+	      allows an alternative name form the variable containing the
+	      SPKAC. The default is "SPKAC". This option affects both
+	      generated and input SPKAC files.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.spkac.pod:-spksect_section"/><emphasis role="bold">-spksect section</emphasis></term>
+          <listitem>
+            <para>
+	      allows an alternative name form the section containing the
+	      SPKAC. The default is the default section.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.spkac.pod:-noout"/><emphasis role="bold">-noout</emphasis></term>
+          <listitem>
+            <para>
+	      don't output the text version of the SPKAC (not used if an
+	      SPKAC is being created).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.spkac.pod:-pubkey"/><emphasis role="bold">-pubkey</emphasis></term>
+          <listitem>
+            <para>
+	      output the public key of an SPKAC (not used if an SPKAC is
+	      being created).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.spkac.pod:-verify"/><emphasis role="bold">-verify</emphasis></term>
+          <listitem>
+            <para>
+	      verifies the digital signature on the supplied SPKAC.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.spkac.pod:-engine_id"/><emphasis role="bold">-engine id</emphasis></term>
+          <listitem>
+            <para>
+	      specifying an engine (by its unique <emphasis role="bold">id</emphasis> string) will cause <emphasis role="bold">spkac</emphasis> to attempt to obtain a
+	      functional reference to the specified engine, thus
+	      initialising it if needed. The engine will then be set as the
+	      default for all available algorithms.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.spkac.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      Print out the contents of an SPKAC:
+    </para>
+    <screen>openssl spkac -in spkac.cnf</screen>
+    <para>
+      Verify the signature of an SPKAC:
+    </para>
+    <screen>openssl spkac -in spkac.cnf -noout -verify</screen>
+    <para>
+      Create an SPKAC using the challenge string "hello":
+    </para>
+    <screen>openssl spkac -key key.pem -challenge hello -out spkac.cnf</screen>
+    <para>
+      Example of an SPKAC, (long lines split up for clarity):
+    </para>
+    <screen>SPKAC=MIG5MGUwXDANBgkqhkiG9w0BAQEFAANLADBIAkEA1cCoq2Wa3Ixs47uI7F\
+PVwHVIPDx5yso105Y6zpozam135a8R0CpoRvkkigIyXfcCjiVi5oWk+6FfPaD03u\
+PFoQIDAQABFgVoZWxsbzANBgkqhkiG9w0BAQQFAANBAFpQtY/FojdwkJh1bEIYuc\
+2EeM2KHTWPEepWYeawvHD0gQ3DngSC75YCWnnDdq+NQ3F+X4deMx9AaEglZtULwV\
+4=</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.spkac.pod:NOTES"><title>NOTES</title>
+    <para>
+      A created SPKAC with suitable DN components appended can be fed into
+      the <emphasis role="bold">ca</emphasis> utility.
+    </para>
+    <para>
+      SPKACs are typically generated by Netscape when a form is submitted
+      containing the <emphasis role="bold">KEYGEN</emphasis> tag as part of
+      the certificate enrollment process.
+    </para>
+    <para>
+      The challenge string permits a primitive form of proof of possession
+      of private key. By checking the SPKAC signature and a random
+      challenge string some guarantee is given that the user knows the
+      private key corresponding to the public key being certified. This is
+      important in some applications. Without this it is possible for a
+      previous SPKAC to be used in a "replay attack".
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.spkac.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ca(1)
+    </para>
+  </refsection>
+</refentry>

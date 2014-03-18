@@ -1,0 +1,198 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>pkey.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>pkey</refname>
+<refpurpose>public or private key processing tool</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific"><emphasis role="bold">openssl</emphasis> <emphasis role="bold">pkey</emphasis>
+[<emphasis role="bold">-inform PEM|DER</emphasis>]
+[<emphasis role="bold">-outform PEM|DER</emphasis>]
+[<emphasis role="bold">-in filename</emphasis>]
+[<emphasis role="bold">-passin arg</emphasis>]
+[<emphasis role="bold">-out filename</emphasis>]
+[<emphasis role="bold">-passout arg</emphasis>]
+[<emphasis role="bold">-cipher</emphasis>]
+[<emphasis role="bold">-text</emphasis>]
+[<emphasis role="bold">-text_pub</emphasis>]
+[<emphasis role="bold">-noout</emphasis>]
+[<emphasis role="bold">-pubin</emphasis>]
+[<emphasis role="bold">-pubout</emphasis>]
+[<emphasis role="bold">-engine id</emphasis>]</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.apps.pkey.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The <emphasis role="bold">pkey</emphasis> command processes public or
+      private keys. They can be converted between various forms and their
+      components printed out.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.pkey.pod:COMMAND_OPTIONS"><title>COMMAND OPTIONS</title>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkey.pod:-inform_DERPEM"/><emphasis role="bold">-inform DER|PEM</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the input format DER or PEM.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkey.pod:-outform_DERPEM"/><emphasis role="bold">-outform DER|PEM</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the output format, the options have the same
+	      meaning as the <emphasis role="bold">-inform</emphasis>
+	      option. 
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkey.pod:-in_filename"/><emphasis role="bold">-in filename</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the input filename to read a key from or
+	      standard input if this option is not specified. If the key is
+	      encrypted a pass phrase will be prompted for.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkey.pod:-passin_arg"/><emphasis role="bold">-passin arg</emphasis></term>
+          <listitem>
+            <para>
+	      the input file password source. For more information about
+	      the format of <emphasis role="bold">arg</emphasis> see the
+	      <emphasis role="bold">PASS PHRASE ARGUMENTS</emphasis>
+	      section in openssl(1).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkey.pod:-out_filename"/><emphasis role="bold">-out filename</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the output filename to write a key to or
+	      standard output if this option is not specified. If any
+	      encryption options are set then a pass phrase will be
+	      prompted for. The output filename should <emphasis role="bold">not</emphasis> be the same as the input filename.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkey.pod:-passout_password"/><emphasis role="bold">-passout password</emphasis></term>
+          <listitem>
+            <para>
+	      the output file password source. For more information about
+	      the format of <emphasis role="bold">arg</emphasis> see the
+	      <emphasis role="bold">PASS PHRASE ARGUMENTS</emphasis>
+	      section in openssl(1).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkey.pod:-cipher"/><emphasis role="bold">-cipher</emphasis></term>
+          <listitem>
+            <para>
+	      These options encrypt the private key with the supplied
+	      cipher. Any algorithm name accepted by EVP_get_cipherbyname()
+	      is acceptable such as <emphasis role="bold">des3</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkey.pod:-text"/><emphasis role="bold">-text</emphasis></term>
+          <listitem>
+            <para>
+	      prints out the various public or private key components in
+	      plain text in addition to the encoded version.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkey.pod:-text_pub"/><emphasis role="bold">-text_pub</emphasis></term>
+          <listitem>
+            <para>
+	      print out only public key components even if a private key is
+	      being processed.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkey.pod:-noout"/><emphasis role="bold">-noout</emphasis></term>
+          <listitem>
+            <para>
+	      do not output the encoded version of the key.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkey.pod:-pubin"/><emphasis role="bold">-pubin</emphasis></term>
+          <listitem>
+            <para>
+	      by default a private key is read from the input file: with
+	      this option a public key is read instead.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkey.pod:-pubout"/><emphasis role="bold">-pubout</emphasis></term>
+          <listitem>
+            <para>
+	      by default a private key is output: with this option a public
+	      key will be output instead. This option is automatically set
+	      if the input is a public key.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkey.pod:-engine_id"/><emphasis role="bold">-engine id</emphasis></term>
+          <listitem>
+            <para>
+	      specifying an engine (by its unique <emphasis role="bold">id</emphasis> string) will cause <emphasis role="bold">pkey</emphasis> to attempt to obtain a functional
+	      reference to the specified engine, thus initialising it if
+	      needed. The engine will then be set as the default for all
+	      available algorithms.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.pkey.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      To remove the pass phrase on an RSA private key:
+    </para>
+    <screen>openssl pkey -in key.pem -out keyout.pem</screen>
+    <para>
+      To encrypt a private key using triple DES:
+    </para>
+    <screen>openssl pkey -in key.pem -des3 -out keyout.pem</screen>
+    <para>
+      To convert a private key from PEM to DER format:
+    </para>
+    <screen>openssl pkey -in key.pem -outform DER -out keyout.der</screen>
+    <para>
+      To print out the components of a private key to standard output:
+    </para>
+    <screen>openssl pkey -in key.pem -text -noout</screen>
+    <para>
+      To print out the public components of a private key to standard
+      output:
+    </para>
+    <screen>openssl pkey -in key.pem -text_pub -noout</screen>
+    <para>
+      To just output the public part of a private key:
+    </para>
+    <screen>openssl pkey -in key.pem -pubout -out pubkey.pem</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.pkey.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      genpkey(1), rsa(1), pkcs8(1), dsa(1), genrsa(1), gendsa(1)
+    </para>
+  </refsection>
+</refentry>

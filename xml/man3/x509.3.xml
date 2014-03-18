@@ -1,0 +1,67 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>x509.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>x509</refname>
+<refpurpose>X.509 certificate handling</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/x509.h&gt;</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.x509.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      A X.509 certificate is a structured grouping of information about an
+      individual, a device, or anything one can imagine.  A X.509 CRL
+      (certificate revocation list) is a tool to help determine if a
+      certificate is still valid.  The exact definition of those can be
+      found in the X.509 document from ITU-T, or in RFC3280 from PKIX. In
+      OpenSSL, the type X509 is used to express such a certificate, and the
+      type X509_CRL is used to express a CRL.
+    </para>
+    <para>
+      A related structure is a certificate request, defined in PKCS#10 from
+      RSA Security, Inc, also reflected in RFC2896.  In OpenSSL, the type
+      X509_REQ is used to express such a certificate request.
+    </para>
+    <para>
+      To handle some complex parts of a certificate, there are the types
+      X509_NAME (to express a certificate name), X509_ATTRIBUTE (to express
+      a certificate attributes), X509_EXTENSION (to express a certificate
+      extension) and a few more.
+    </para>
+    <para>
+      Finally, there's the supertype X509_INFO, which can contain a CRL, a
+      certificate and a corresponding private key.
+    </para>
+    <para>
+      <emphasis role="bold">X509_</emphasis><emphasis role="italic">...</emphasis>, <emphasis role="bold">d2i_X509_</emphasis><emphasis role="italic">...</emphasis> and <emphasis role="bold">i2d_X509_</emphasis><emphasis role="italic">...</emphasis> handle X.509 certificates, with some
+      exceptions, shown below.
+    </para>
+    <para>
+      <emphasis role="bold">X509_CRL_</emphasis><emphasis role="italic">...</emphasis>, <emphasis role="bold">d2i_X509_CRL_</emphasis><emphasis role="italic">...</emphasis> and <emphasis role="bold">i2d_X509_CRL_</emphasis><emphasis role="italic">...</emphasis> handle X.509 CRLs.
+    </para>
+    <para>
+      <emphasis role="bold">X509_REQ_</emphasis><emphasis role="italic">...</emphasis>, <emphasis role="bold">d2i_X509_REQ_</emphasis><emphasis role="italic">...</emphasis> and <emphasis role="bold">i2d_X509_REQ_</emphasis><emphasis role="italic">...</emphasis> handle PKCS#10 certificate requests.
+    </para>
+    <para>
+      <emphasis role="bold">X509_NAME_</emphasis><emphasis role="italic">...</emphasis> handle certificate names.
+    </para>
+    <para>
+      <emphasis role="bold">X509_ATTRIBUTE_</emphasis><emphasis role="italic">...</emphasis> handle certificate attributes.
+    </para>
+    <para>
+      <emphasis role="bold">X509_EXTENSION_</emphasis><emphasis role="italic">...</emphasis> handle certificate extensions.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.x509.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      X509_NAME_ENTRY_get_object(3), X509_NAME_add_entry_by_txt(3),
+      X509_NAME_add_entry_by_NID(3), X509_NAME_print_ex(3),
+      X509_NAME_new(3), d2i_X509(3), d2i_X509_ALGOR(3), d2i_X509_CRL(3),
+      d2i_X509_NAME(3), d2i_X509_REQ(3), d2i_X509_SIG(3), crypto(3),
+      x509v3(3)
+    </para>
+  </refsection>
+</refentry>

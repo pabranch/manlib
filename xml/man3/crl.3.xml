@@ -1,0 +1,174 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>crl.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>crl</refname>
+<refpurpose>CRL utility</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific"><emphasis role="bold">openssl</emphasis> <emphasis role="bold">crl</emphasis>
+[<emphasis role="bold">-inform PEM|DER</emphasis>]
+[<emphasis role="bold">-outform PEM|DER</emphasis>]
+[<emphasis role="bold">-text</emphasis>]
+[<emphasis role="bold">-in filename</emphasis>]
+[<emphasis role="bold">-out filename</emphasis>]
+[<emphasis role="bold">-noout</emphasis>]
+[<emphasis role="bold">-hash</emphasis>]
+[<emphasis role="bold">-issuer</emphasis>]
+[<emphasis role="bold">-lastupdate</emphasis>]
+[<emphasis role="bold">-nextupdate</emphasis>]
+[<emphasis role="bold">-CAfile file</emphasis>]
+[<emphasis role="bold">-CApath dir</emphasis>]</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.apps.crl.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The <emphasis role="bold">crl</emphasis> command processes CRL files
+      in DER or PEM format.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.crl.pod:COMMAND_OPTIONS"><title>COMMAND OPTIONS</title>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.crl.pod:-inform_DERPEM"/><emphasis role="bold">-inform DER|PEM</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the input format. <emphasis role="bold">DER</emphasis> format is DER encoded CRL
+	      structure. <emphasis role="bold">PEM</emphasis> (the default)
+	      is a base64 encoded version of the DER form with header and
+	      footer lines.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.crl.pod:-outform_DERPEM"/><emphasis role="bold">-outform DER|PEM</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the output format, the options have the same
+	      meaning as the <emphasis role="bold">-inform</emphasis>
+	      option. 
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.crl.pod:-in_filename"/><emphasis role="bold">-in filename</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the input filename to read from or standard
+	      input if this option is not specified.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.crl.pod:-out_filename"/><emphasis role="bold">-out filename</emphasis></term>
+          <listitem>
+            <para>
+	      specifies the output filename to write to or standard output
+	      by default.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.crl.pod:-text"/><emphasis role="bold">-text</emphasis></term>
+          <listitem>
+            <para>
+	      print out the CRL in text form.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.crl.pod:-noout"/><emphasis role="bold">-noout</emphasis></term>
+          <listitem>
+            <para>
+	      don't output the encoded version of the CRL.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.crl.pod:-hash"/><emphasis role="bold">-hash</emphasis></term>
+          <listitem>
+            <para>
+	      output a hash of the issuer name. This can be use to lookup
+	      CRLs in a directory by issuer name.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.crl.pod:-issuer"/><emphasis role="bold">-issuer</emphasis></term>
+          <listitem>
+            <para>
+	      output the issuer name.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.crl.pod:-lastupdate"/><emphasis role="bold">-lastupdate</emphasis></term>
+          <listitem>
+            <para>
+	      output the lastUpdate field.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.crl.pod:-nextupdate"/><emphasis role="bold">-nextupdate</emphasis></term>
+          <listitem>
+            <para>
+	      output the nextUpdate field.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.crl.pod:-CAfile_file"/><emphasis role="bold">-CAfile file</emphasis></term>
+          <listitem>
+            <para>
+	      verify the signature on a CRL by looking up the issuing
+	      certificate in <emphasis role="bold">file</emphasis>
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.crl.pod:-CApath_dir"/><emphasis role="bold">-CApath dir</emphasis></term>
+          <listitem>
+            <para>
+	      verify the signature on a CRL by looking up the issuing
+	      certificate in <emphasis role="bold">dir</emphasis>. This
+	      directory must be a standard certificate directory: that is a
+	      hash of each subject name (using <emphasis role="bold">x509
+	      -hash</emphasis>) should be linked to each certificate.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.crl.pod:NOTES"><title>NOTES</title>
+    <para>
+      The PEM CRL format uses the header and footer lines:
+    </para>
+    <screen>-----BEGIN X509 CRL-----
+-----END X509 CRL-----</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.crl.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      Convert a CRL file from PEM to DER:
+    </para>
+    <screen>openssl crl -in crl.pem -outform DER -out crl.der</screen>
+    <para>
+      Output the text form of a DER encoded certificate:
+    </para>
+    <screen>openssl crl -in crl.der -text -noout</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.crl.pod:BUGS"><title>BUGS</title>
+    <para>
+      Ideally it should be possible to create a CRL using appropriate
+      options and files too.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.crl.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      crl2pkcs7(1), ca(1), x509(1)
+    </para>
+  </refsection>
+</refentry>

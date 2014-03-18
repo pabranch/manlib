@@ -1,0 +1,354 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>ASN1_generate_nconf.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>ASN1_generate_nconf, ASN1_generate_v3</refname>
+<refpurpose>ASN1 generation functions</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/asn1.h&gt;</synopsis>
+<synopsis format="linespecific">ASN1_TYPE *ASN1_generate_nconf(char *str, CONF *nconf);
+ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      These functions generate the ASN1 encoding of a string in an
+      <emphasis role="bold">ASN1_TYPE</emphasis> structure.
+    </para>
+    <para>
+      <emphasis role="bold">str</emphasis> contains the string to encode
+      <emphasis role="bold">nconf</emphasis> or <emphasis role="bold">cnf</emphasis> contains the optional configuration
+      information where additional strings will be read from. <emphasis role="bold">nconf</emphasis> will typically come from a config file
+      wherease <emphasis role="bold">cnf</emphasis> is obtained from an
+      <emphasis role="bold">X509V3_CTX</emphasis> structure which will
+      typically be used by X509 v3 certificate extension functions.
+      <emphasis role="bold">cnf</emphasis> or <emphasis role="bold">nconf</emphasis> can be set to <emphasis role="bold">NULL</emphasis> if no additional configuration will be
+      used.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:GENERATION_STRING_FORMAT"><title>GENERATION STRING FORMAT</title>
+    <para>
+      The actual data encoded is determined by the string <emphasis role="bold">str</emphasis> and the configuration information. The
+      general format of the string is:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:modifiertype:value"/><emphasis role="bold">[modifier,]type[:value]</emphasis></term>
+          <listitem>
+            <para/>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+    <para>
+      That is zero or more comma separated modifiers followed by a type
+      followed by an optional colon and a value. The formats of <emphasis role="bold">type</emphasis>, <emphasis role="bold">value</emphasis>
+      and <emphasis role="bold">modifier</emphasis> are explained below.
+    </para>
+    <refsection xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:SUPPORTED_TYPES"><title>SUPPORTED TYPES</title>
+      <para>
+	The supported types are listed below. Unless otherwise specified
+	only the <emphasis role="bold">ASCII</emphasis> format is
+	permissible.
+      </para>
+      <para>
+        <variablelist>
+          <varlistentry>
+            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:BOOLEAN_BOOL"/><emphasis role="bold">BOOLEAN</emphasis>, <emphasis role="bold">BOOL</emphasis></term>
+            <listitem>
+              <para>
+		This encodes a boolean type. The <emphasis role="bold">value</emphasis> string is mandatory and should
+		be <emphasis role="bold">TRUE</emphasis> or <emphasis role="bold">FALSE</emphasis>. Additionally <emphasis role="bold">TRUE</emphasis>, <emphasis role="bold">true</emphasis>, <emphasis role="bold">Y</emphasis>, <emphasis role="bold">y</emphasis>, <emphasis role="bold">YES</emphasis>, <emphasis role="bold">yes</emphasis>, <emphasis role="bold">FALSE</emphasis>, <emphasis role="bold">false</emphasis>, <emphasis role="bold">N</emphasis>, <emphasis role="bold">n</emphasis>, <emphasis role="bold">NO</emphasis> and <emphasis role="bold">no</emphasis> are acceptable.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:NULL"/><emphasis role="bold">NULL</emphasis></term>
+            <listitem>
+              <para>
+		Encode the <emphasis role="bold">NULL</emphasis> type, the
+		<emphasis role="bold">value</emphasis> string must not be
+		present.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:INTEGER_INT"/><emphasis role="bold">INTEGER</emphasis>, <emphasis role="bold">INT</emphasis></term>
+            <listitem>
+              <para>
+		Encodes an ASN1 <emphasis role="bold">INTEGER</emphasis>
+		type. The <emphasis role="bold">value</emphasis> string
+		represents the value of the integer, it can be preceded by
+		a minus sign and is normally interpreted as a decimal value
+		unless the prefix <emphasis role="bold">0x</emphasis> is
+		included.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:ENUMERATED_ENUM"/><emphasis role="bold">ENUMERATED</emphasis>, <emphasis role="bold">ENUM</emphasis></term>
+            <listitem>
+              <para>
+		Encodes the ASN1 <emphasis role="bold">ENUMERATED</emphasis> type, it is otherwise
+		identical to <emphasis role="bold">INTEGER</emphasis>.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:OBJECT_OID"/><emphasis role="bold">OBJECT</emphasis>, <emphasis role="bold">OID</emphasis></term>
+            <listitem>
+              <para>
+		Encodes an ASN1 <emphasis role="bold">OBJECT
+		IDENTIFIER</emphasis>, the <emphasis role="bold">value</emphasis> string can be a short name, a
+		long name or numerical format.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:UTCTIME_UTC"/><emphasis role="bold">UTCTIME</emphasis>, <emphasis role="bold">UTC</emphasis></term>
+            <listitem>
+              <para>
+		Encodes an ASN1 <emphasis role="bold">UTCTime</emphasis>
+		structure, the value should be in the format <emphasis role="bold">YYMMDDHHMMSSZ</emphasis>.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:GENERALIZEDTIME_GENTIME"/><emphasis role="bold">GENERALIZEDTIME</emphasis>, <emphasis role="bold">GENTIME</emphasis></term>
+            <listitem>
+              <para>
+		Encodes an ASN1 <emphasis role="bold">GeneralizedTime</emphasis> structure, the value
+		should be in the format <emphasis role="bold">YYYYMMDDHHMMSSZ</emphasis>.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:OCTETSTRING_OCT"/><emphasis role="bold">OCTETSTRING</emphasis>, <emphasis role="bold">OCT</emphasis></term>
+            <listitem>
+              <para>
+		Encodes an ASN1 <emphasis role="bold">OCTET
+		STRING</emphasis>. <emphasis role="bold">value</emphasis>
+		represents the contents of this structure, the format
+		strings <emphasis role="bold">ASCII</emphasis> and
+		<emphasis role="bold">HEX</emphasis> can be used to specify
+		the format of <emphasis role="bold">value</emphasis>.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:BITSTRING_BITSTR"/><emphasis role="bold">BITSTRING</emphasis>, <emphasis role="bold">BITSTR</emphasis></term>
+            <listitem>
+              <para>
+		Encodes an ASN1 <emphasis role="bold">BIT
+		STRING</emphasis>. <emphasis role="bold">value</emphasis>
+		represents the contents of this structure, the format
+		strings <emphasis role="bold">ASCII</emphasis>, <emphasis role="bold">HEX</emphasis> and <emphasis role="bold">BITLIST</emphasis> can be used to specify the
+		format of <emphasis role="bold">value</emphasis>.
+              </para>
+              <para>
+		If the format is anything other than <emphasis role="bold">BITLIST</emphasis> the number of unused bits is
+		set to zero.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:UNIVERSALSTRING_UNIV_IA5_IA5STRING_UTF8UTF8String_BMP_BMPSTRING_VISIBLESTRINGVISIBLE_PRINTABLESTRING_PRINTABLE_T61T61STRING_TELETEXSTRING_GeneralString_NUMERICSTRINGNUMERIC"/><emphasis role="bold">UNIVERSALSTRING</emphasis>, <emphasis role="bold">UNIV</emphasis>, <emphasis role="bold">IA5</emphasis>, <emphasis role="bold">IA5STRING</emphasis>, <emphasis role="bold">UTF8</emphasis>,
+<emphasis role="bold">UTF8String</emphasis>, <emphasis role="bold">BMP</emphasis>, <emphasis role="bold">BMPSTRING</emphasis>, <emphasis role="bold">VISIBLESTRING</emphasis>,
+<emphasis role="bold">VISIBLE</emphasis>, <emphasis role="bold">PRINTABLESTRING</emphasis>, <emphasis role="bold">PRINTABLE</emphasis>, <emphasis role="bold">T61</emphasis>,
+<emphasis role="bold">T61STRING</emphasis>, <emphasis role="bold">TELETEXSTRING</emphasis>, <emphasis role="bold">GeneralString</emphasis>, <emphasis role="bold">NUMERICSTRING</emphasis>,
+<emphasis role="bold">NUMERIC</emphasis></term>
+            <listitem>
+              <para>
+		These encode the corresponding string types. <emphasis role="bold">value</emphasis> represents the contents of
+		this structure. The format can be <emphasis role="bold">ASCII</emphasis> or <emphasis role="bold">UTF8</emphasis>.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:SEQUENCE_SEQ_SET"/><emphasis role="bold">SEQUENCE</emphasis>, <emphasis role="bold">SEQ</emphasis>, <emphasis role="bold">SET</emphasis></term>
+            <listitem>
+              <para>
+		Formats the result as an ASN1 <emphasis role="bold">SEQUENCE</emphasis> or <emphasis role="bold">SET</emphasis> type. <emphasis role="bold">value</emphasis> should be a section name which
+		will contain the contents. The field names in the section
+		are ignored and the values are in the generated string
+		format. If <emphasis role="bold">value</emphasis> is absent
+		then an empty SEQUENCE will be encoded.
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </para>
+    </refsection>
+    <refsection xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:MODIFIERS"><title>MODIFIERS</title>
+      <para>
+	Modifiers affect the following structure, they can be used to add
+	EXPLICIT or IMPLICIT tagging, add wrappers or to change the string
+	format of the final type and value. The supported formats are
+	documented below.
+      </para>
+      <para>
+        <variablelist>
+          <varlistentry>
+            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:EXPLICIT_EXP"/><emphasis role="bold">EXPLICIT</emphasis>, <emphasis role="bold">EXP</emphasis></term>
+            <listitem>
+              <para>
+		Add an explicit tag to the following structure. This string
+		should be followed by a colon and the tag value to use as a
+		decimal value.
+              </para>
+              <para>
+		By following the number with <emphasis role="bold">U</emphasis>, <emphasis role="bold">A</emphasis>, <emphasis role="bold">P</emphasis> or <emphasis role="bold">C</emphasis> UNIVERSAL, APPLICATION, PRIVATE or
+		CONTEXT SPECIFIC tagging can be used, the default is
+		CONTEXT SPECIFIC.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:IMPLICIT_IMP"/><emphasis role="bold">IMPLICIT</emphasis>, <emphasis role="bold">IMP</emphasis></term>
+            <listitem>
+              <para>
+		This is the same as <emphasis role="bold">EXPLICIT</emphasis> except IMPLICIT tagging is
+		used instead.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:OCTWRAP_SEQWRAP_SETWRAP_BITWRAP"/><emphasis role="bold">OCTWRAP</emphasis>, <emphasis role="bold">SEQWRAP</emphasis>, <emphasis role="bold">SETWRAP</emphasis>, <emphasis role="bold">BITWRAP</emphasis></term>
+            <listitem>
+              <para>
+		The following structure is surrounded by an OCTET STRING, a
+		SEQUENCE, a SET or a BIT STRING respectively. For a BIT
+		STRING the number of unused bits is set to zero.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:FORMAT"/><emphasis role="bold">FORMAT</emphasis></term>
+            <listitem>
+              <para>
+		This specifies the format of the ultimate value. It should
+		be followed by a colon and one of the strings <emphasis role="bold">ASCII</emphasis>, <emphasis role="bold">UTF8</emphasis>, <emphasis role="bold">HEX</emphasis> or <emphasis role="bold">BITLIST</emphasis>.
+              </para>
+              <para>
+		If no format specifier is included then <emphasis role="bold">ASCII</emphasis> is used. If <emphasis role="bold">UTF8</emphasis> is specified then the value
+		string must be a valid <emphasis role="bold">UTF8</emphasis> string. For <emphasis role="bold">HEX</emphasis> the output must be a set of hex
+		digits. <emphasis role="bold">BITLIST</emphasis> (which is
+		only valid for a BIT STRING) is a comma separated list of
+		the indices of the set bits, all other bits are zero.
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </para>
+    </refsection>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      A simple IA5String:
+    </para>
+    <screen>IA5STRING:Hello World</screen>
+    <para>
+      An IA5String explicitly tagged:
+    </para>
+    <screen>EXPLICIT:0,IA5STRING:Hello World</screen>
+    <para>
+      An IA5String explicitly tagged using APPLICATION tagging:
+    </para>
+    <screen>EXPLICIT:0A,IA5STRING:Hello World</screen>
+    <para>
+      A BITSTRING with bits 1 and 5 set and all others zero:
+    </para>
+    <screen>FORMAT:BITLIST,BITSTRING:1,5</screen>
+    <para>
+      A more complex example using a config file to produce a SEQUENCE
+      consiting of a BOOL an OID and a UTF8String:
+    </para>
+    <screen>asn1 = SEQUENCE:seq_section
+
+[seq_section]
+
+field1 = BOOLEAN:TRUE
+field2 = OID:commonName
+field3 = UTF8:Third field</screen>
+    <para>
+      This example produces an RSAPrivateKey structure, this is the key
+      contained in the file client.pem in all OpenSSL distributions (note:
+      the field names such as 'coeff' are ignored and are present just for
+      clarity):
+    </para>
+    <screen>asn1=SEQUENCE:private_key
+[private_key]
+version=INTEGER:0
+
+n=INTEGER:0xBB6FE79432CC6EA2D8F970675A5A87BFBE1AFF0BE63E879F2AFFB93644\
+D4D2C6D000430DEC66ABF47829E74B8C5108623A1C0EE8BE217B3AD8D36D5EB4FCA1D9
+
+e=INTEGER:0x010001
+
+d=INTEGER:0x6F05EAD2F27FFAEC84BEC360C4B928FD5F3A9865D0FCAAD291E2A52F4A\
+F810DC6373278C006A0ABBA27DC8C63BF97F7E666E27C5284D7D3B1FFFE16B7A87B51D
+
+p=INTEGER:0xF3929B9435608F8A22C208D86795271D54EBDFB09DDEF539AB083DA912\
+D4BD57
+
+q=INTEGER:0xC50016F89DFF2561347ED1186A46E150E28BF2D0F539A1594BBD7FE467\
+46EC4F
+
+exp1=INTEGER:0x9E7D4326C924AFC1DEA40B45650134966D6F9DFA3A7F9D698CD4ABEA\
+9C0A39B9
+
+exp2=INTEGER:0xBA84003BB95355AFB7C50DF140C60513D0BA51D637272E355E397779\
+E7B2458F
+
+coeff=INTEGER:0x30B9E4F2AFA5AC679F920FC83F1F2DF1BAF1779CF989447FABC2F5\
+628657053A</screen>
+    <para>
+      This example is the corresponding public key in a
+      SubjectPublicKeyInfo structure:
+    </para>
+    <screen># Start with a SEQUENCE
+asn1=SEQUENCE:pubkeyinfo
+
+# pubkeyinfo contains an algorithm identifier and the public key wrapped
+# in a BIT STRING
+[pubkeyinfo]
+algorithm=SEQUENCE:rsa_alg
+pubkey=BITWRAP,SEQUENCE:rsapubkey
+
+# algorithm ID for RSA is just an OID and a NULL
+[rsa_alg]
+algorithm=OID:rsaEncryption
+parameter=NULL
+
+# Actual public key: modulus and exponent
+[rsapubkey]
+n=INTEGER:0xBB6FE79432CC6EA2D8F970675A5A87BFBE1AFF0BE63E879F2AFFB93644\
+D4D2C6D000430DEC66ABF47829E74B8C5108623A1C0EE8BE217B3AD8D36D5EB4FCA1D9
+
+e=INTEGER:0x010001</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      ASN1_generate_nconf() and ASN1_generate_v3() return the encoded data
+      as an <emphasis role="bold">ASN1_TYPE</emphasis> structure or
+      <emphasis role="bold">NULL</emphasis> if an error occurred.
+    </para>
+    <para>
+      The error codes that can be obtained by ERR_get_error(3).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ERR_get_error(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      ASN1_generate_nconf() and ASN1_generate_v3() were added to OpenSSL
+      0.9.8
+    </para>
+  </refsection>
+</refentry>

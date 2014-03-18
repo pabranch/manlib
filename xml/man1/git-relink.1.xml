@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>git-relink</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">Git</refmiscinfo>
+<refmiscinfo class="manual">Git Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>git-relink</refname>
+  <refpurpose>Hardlink common objects in local repositories</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<blockquote>
+<literallayout><emphasis>git relink</emphasis> [--safe] &lt;dir&gt;&#8230; &lt;master_dir&gt;</literallayout>
+</blockquote>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>This will scan 1 or more object repositories and look for objects in common
+with a master repository. Objects not already hardlinked to the master
+repository will be replaced with a hardlink to the master repository.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+--safe
+</term>
+<listitem>
+<simpara>
+        Stops if two objects with the same hash exist but have different sizes.
+        Default is to warn and continue.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+&lt;dir&gt;
+</term>
+<listitem>
+<simpara>
+        Directories containing a .git/objects/ subdirectory.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_git">
+<title>GIT</title>
+<simpara>Part of the <citerefentry>
+<refentrytitle>git</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> suite</simpara>
+</refsect1>
+</refentry>

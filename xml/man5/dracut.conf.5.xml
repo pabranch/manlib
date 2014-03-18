@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry lang="en">
+<refentryinfo>
+    <title>DRACUT.CONF(5)</title>
+</refentryinfo>
+<refmeta>
+<refentrytitle>dracut.conf</refentrytitle>
+<manvolnum>5</manvolnum>
+<refmiscinfo class="source">dracut</refmiscinfo>
+<refmiscinfo class="manual">dracut</refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>dracut.conf</refname>
+    <refpurpose>configuration file(s) for dracut</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis>/etc/dracut.conf</emphasis> <emphasis>/etc/dracut.conf.d/<emphasis role="strong">.conf</emphasis>
+<emphasis>/usr/lib/dracut/dracut.conf.d/</emphasis>.conf</emphasis></simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>Description</title>
+<simpara><emphasis>dracut.conf</emphasis> is loaded during the initialisation phase of dracut. Command line
+parameter will overwrite any values set here.</simpara>
+<simpara><emphasis>*.conf</emphasis> files are read from /usr/lib/dracut/dracut.conf.d and
+/etc/dracut.conf.d. Files with the same name in /etc/dracut.conf.d will replace
+files in /usr/lib/dracut/dracut.conf.d.
+The files are then read in alphanumerical order and will overwrite parameters
+set in <emphasis>/etc/dracut.conf</emphasis>. Each line specifies an attribute and a value. A <emphasis>#</emphasis>
+indicates the beginning of a comment; following characters, up to the end of the
+line are not interpreted.</simpara>
+<simpara>dracut command line options will overwrite any values set here.</simpara>
+<simpara>Configuration files must have the extension .conf; other extensions are ignored.</simpara>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">dracutmodules+=</emphasis>" <emphasis>&lt;dracut modules&gt;</emphasis> "
+</term>
+<listitem>
+<simpara>
+    Specify a space-separated list of dracut modules to call when building the
+    initramfs. Modules are located in <emphasis>/usr/lib/dracut/modules.d</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">omit_dracutmodules+=</emphasis>" <emphasis>&lt;dracut modules&gt;</emphasis> "
+</term>
+<listitem>
+<simpara>
+    Omit a space-separated list of dracut modules.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">add_dracutmodules+=</emphasis>" <emphasis>&lt;dracut modules&gt;</emphasis> "
+</term>
+<listitem>
+<simpara>
+    Add a space-separated list of dracut modules.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">drivers+=</emphasis>" <emphasis>&lt;kernel modules&gt;</emphasis> "
+</term>
+<listitem>
+<simpara>
+    Specify a space-separated list of kernel modules to exclusively include in
+    the initramfs. The kernel modules have to be specified without the ".ko"
+    suffix.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">add_drivers+=</emphasis>" <emphasis>&lt;kernel modules&gt;</emphasis> "
+</term>
+<listitem>
+<simpara>
+    Specify a space-separated list of kernel modules to add to the initramfs.
+    The kernel modules have to be specified without the ".ko" suffix.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">omit_drivers+=</emphasis>" <emphasis>&lt;kernel modules&gt;</emphasis> "
+</term>
+<listitem>
+<simpara>
+    Specify a space-separated list of kernel modules not to add to the
+    initramfs. The kernel modules have to be specified without the ".ko" suffix.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">filesystems+=</emphasis>" <emphasis>&lt;filesystem names&gt;</emphasis> "
+</term>
+<listitem>
+<simpara>
+    Specify a space-separated list of kernel filesystem modules to exclusively
+    include in the generic initramfs.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">drivers_dir=</emphasis>"<emphasis>&lt;kernel modules directory&gt;</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Specify the directory, where to look for kernel modules
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">fw_dir+=</emphasis>" :<emphasis>&lt;dir&gt;</emphasis>[:<emphasis>&lt;dir&gt;</emphasis> &#8230;] "
+</term>
+<listitem>
+<simpara>
+    Specify additional directories, where to look for firmwares, separated by :
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">install_items+=</emphasis>" <emphasis>&lt;file&gt;</emphasis>[ <emphasis>&lt;file&gt;</emphasis> &#8230;] "
+</term>
+<listitem>
+<simpara>
+    Specify additional files to include in the initramfs, separated by spaces.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">do_strip=</emphasis>"<emphasis>{yes|no}</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Strip binaries in the initramfs (default=yes)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">do_prelink=</emphasis>"<emphasis>{yes|no}</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Prelink binaries in the initramfs (default=yes)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">hostonly=</emphasis>"<emphasis>{yes|no}</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Host-Only mode: Install only what is needed for booting the local host
+    instead of a generic host and generate host-specific configuration.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">persistent_policy=</emphasis>"<emphasis>&lt;policy&gt;</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Use <emphasis>&lt;policy&gt;</emphasis> to address disks and partitions.
+    <emphasis>&lt;policy&gt;</emphasis> can be any directory name found in /dev/disk.
+    E.g. "by-uuid", "by-label"
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">tmpdir=</emphasis>"<emphasis>&lt;temporary directory&gt;</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Specify temporary directory to use.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+<warning>
+<simpara>If chrooted to another root other than the real root device, use --fstab and
+provide a valid <emphasis>/etc/fstab</emphasis>.</simpara>
+</warning>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">use_fstab=</emphasis>"<emphasis>{yes|no}</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Use <emphasis>/etc/fstab</emphasis> instead of <emphasis>/proc/self/mountinfo</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">add_fstab+=</emphasis>" <emphasis>&lt;filename&gt;</emphasis> "
+</term>
+<listitem>
+<simpara>
+    Add entries of <emphasis>&lt;filename&gt;</emphasis> to the initramfs /etc/fstab.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">add_device+=</emphasis>" <emphasis>&lt;device&gt;</emphasis> "
+</term>
+<listitem>
+<simpara>
+    Bring up <emphasis>&lt;device&gt;</emphasis> in initramfs, <emphasis>&lt;device&gt;</emphasis> should be the device name.
+    This can be useful in hostonly mode for resume support when your swap is on
+    LVM an encrypted partition.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">mdadmconf=</emphasis>"<emphasis>{yes|no}</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Include local <emphasis>/etc/mdadm.conf</emphasis> (default=yes)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">lvmconf=</emphasis>"<emphasis>{yes|no}</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Include local <emphasis>/etc/lvm/lvm.conf</emphasis> (default=yes)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">fscks=</emphasis>" <emphasis>&lt;fsck tools&gt;</emphasis> "
+</term>
+<listitem>
+<simpara>
+    Add a space-separated list of fsck tools. If nothing is specified, the
+    default is: "umount mount /sbin/fsck* xfs_db xfs_check xfs_repair e2fsck
+    jfs_fsck reiserfsck btrfsck". The installation is opportunistic
+    (non-existing tools are ignored).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">nofscks=</emphasis>"<emphasis>{yes|no}</emphasis>"
+</term>
+<listitem>
+<simpara>
+    If specified, inhibit installation of any fsck tools.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">ro_mnt=</emphasis>"<emphasis>{yes|no}</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Mount <emphasis>/</emphasis> and <emphasis>/usr</emphasis> read-only by default.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">kernel_cmdline=</emphasis>"<emphasis>parameters</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Specify default kernel command line parameters
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">kernel_only=</emphasis>"<emphasis>{yes|no}</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Only install kernel drivers and firmware files. (default=no)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">no_kernel=</emphasis>"<emphasis>{yes|no}</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Do not install kernel drivers and firmware files (default=no)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">acpi_override=</emphasis>"<emphasis>{yes|no}</emphasis>"
+</term>
+<listitem>
+<simpara>
+    [WARNING] ONLY USE THIS IF YOU KNOW WHAT YOU ARE DOING!<?asciidoc-br?>
+    Override BIOS provided ACPI tables. For further documentation read
+    Documentation/acpi/initrd_table_override.txt in the kernel sources.
+    Search for ACPI table files (must have .aml suffix) in acpi_table_dir=
+    directory (see below) and add them to a separate uncompressed cpio
+    archive. This cpio archive gets glued (concatenated, uncompressed one
+    must be the first one) to the compressed cpio archive. The first,
+    uncompressed cpio archive is for data which the kernel must be able
+    to access very early (and cannot make use of uncompress alogrithms yet)
+    like microcode or ACPI tables (default=no).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">acpi_table_dir=</emphasis>"<emphasis>&lt;dir&gt;</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Directory to search for ACPI tables if acpi_override= is set to yes.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">early_microcode=</emphasis>"{yes|no}"
+</term>
+<listitem>
+<simpara>
+    Combine early microcode with ramdisk (default=no)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">stdloglvl</emphasis>="<emphasis>{0-6}</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Set logging to standard error level.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">sysloglvl</emphasis>="<emphasis>{0-6}</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Set logging to syslog level.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">fileloglvl=</emphasis>"<emphasis>{0-6}</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Set logging to file level.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">logfile=</emphasis>"<emphasis>&lt;file&gt;</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Path to log file.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">show_modules=</emphasis>"<emphasis>{yes|no}</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Print the name of the included modules to standard output during build.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+*i18n_vars="<emphasis>&lt;variable mapping&gt;</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Distribution specific variable mapping.
+    See dracut/modules.d/10i18n/README for a detailed description.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">i18n_default_font=</emphasis>"<emphasis>&lt;fontname&gt;</emphasis>"
+</term>
+<listitem>
+<simpara>
+    The font &lt;fontname&gt; to install, if not specified otherwise.
+    Default is "LatArCyrHeb-16".
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">i18n_install_all=</emphasis>"<emphasis>{yes|no}</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Install everything regardless of generic or hostonly mode.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_files">
+<title>Files</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis>/etc/dracut.conf</emphasis>
+</term>
+<listitem>
+<simpara>
+    Old configuration file. You better use your own file in
+    <emphasis>/etc/dracut.conf.d/</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis>/etc/dracut.conf.d/</emphasis>
+</term>
+<listitem>
+<simpara>
+    Any <emphasis>/etc/dracut.conf.d/*.conf</emphasis> file can overwrite the values in
+    <emphasis>/etc/dracut.conf</emphasis>. The configuration files are read in alphanumerical
+    order.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_author">
+<title>AUTHOR</title>
+<simpara>Harald Hoyer</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>See Also</title>
+<simpara><emphasis role="strong">dracut</emphasis>(8) <emphasis role="strong">dracut.cmdline</emphasis>(7)</simpara>
+</refsect1>
+</refentry>

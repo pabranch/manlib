@@ -1,0 +1,59 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>ERR_GET_LIB.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>ERR_GET_LIB, ERR_GET_FUNC, ERR_GET_REASON</refname>
+<refpurpose>get library, function and
+reason code</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/err.h&gt;</synopsis>
+<synopsis format="linespecific">int ERR_GET_LIB(unsigned long e);</synopsis>
+<synopsis format="linespecific">int ERR_GET_FUNC(unsigned long e);</synopsis>
+<synopsis format="linespecific">int ERR_GET_REASON(unsigned long e);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.ERR_GET_LIB.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The error code returned by ERR_get_error() consists of a library
+      number, function code and reason code. ERR_GET_LIB(), ERR_GET_FUNC()
+      and ERR_GET_REASON() can be used to extract these.
+    </para>
+    <para>
+      The library number and function code describe where the error
+      occurred, the reason code is the information about what went wrong.
+    </para>
+    <para>
+      Each sub-library of OpenSSL has a unique library number; function and
+      reason codes are unique within each sub-library.	Note that different
+      libraries may use the same value to signal different functions and
+      reasons.
+    </para>
+    <para>
+      <emphasis role="bold">ERR_R_...</emphasis> reason codes such as
+      <emphasis role="bold">ERR_R_MALLOC_FAILURE</emphasis> are globally
+      unique. However, when checking for sub-library specific reason codes,
+      be sure to also compare the library number.
+    </para>
+    <para>
+      ERR_GET_LIB(), ERR_GET_FUNC() and ERR_GET_REASON() are macros.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ERR_GET_LIB.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      The library number, function code and reason code respectively.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ERR_GET_LIB.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      err(3), ERR_get_error(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ERR_GET_LIB.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      ERR_GET_LIB(), ERR_GET_FUNC() and ERR_GET_REASON() are available in
+      all versions of SSLeay and OpenSSL.
+    </para>
+  </refsection>
+</refentry>

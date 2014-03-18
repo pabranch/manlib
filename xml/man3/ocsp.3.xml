@@ -1,0 +1,574 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>ocsp.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>ocsp</refname>
+<refpurpose>Online Certificate Status Protocol utility</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific"><emphasis role="bold">openssl</emphasis> <emphasis role="bold">ocsp</emphasis>
+[<emphasis role="bold">-out file</emphasis>]
+[<emphasis role="bold">-issuer file</emphasis>]
+[<emphasis role="bold">-cert file</emphasis>]
+[<emphasis role="bold">-serial n</emphasis>]
+[<emphasis role="bold">-signer file</emphasis>]
+[<emphasis role="bold">-signkey file</emphasis>]
+[<emphasis role="bold">-sign_other file</emphasis>]
+[<emphasis role="bold">-no_certs</emphasis>]
+[<emphasis role="bold">-req_text</emphasis>]
+[<emphasis role="bold">-resp_text</emphasis>]
+[<emphasis role="bold">-text</emphasis>]
+[<emphasis role="bold">-reqout file</emphasis>]
+[<emphasis role="bold">-respout file</emphasis>]
+[<emphasis role="bold">-reqin file</emphasis>]
+[<emphasis role="bold">-respin file</emphasis>]
+[<emphasis role="bold">-nonce</emphasis>]
+[<emphasis role="bold">-no_nonce</emphasis>]
+[<emphasis role="bold">-url URL</emphasis>]
+[<emphasis role="bold">-host host:n</emphasis>]
+[<emphasis role="bold">-path</emphasis>]
+[<emphasis role="bold">-CApath dir</emphasis>]
+[<emphasis role="bold">-CAfile file</emphasis>]
+[<emphasis role="bold">-VAfile file</emphasis>]
+[<emphasis role="bold">-validity_period n</emphasis>]
+[<emphasis role="bold">-status_age n</emphasis>]
+[<emphasis role="bold">-noverify</emphasis>]
+[<emphasis role="bold">-verify_other file</emphasis>]
+[<emphasis role="bold">-trust_other</emphasis>]
+[<emphasis role="bold">-no_intern</emphasis>]
+[<emphasis role="bold">-no_signature_verify</emphasis>]
+[<emphasis role="bold">-no_cert_verify</emphasis>]
+[<emphasis role="bold">-no_chain</emphasis>]
+[<emphasis role="bold">-no_cert_checks</emphasis>]
+[<emphasis role="bold">-port num</emphasis>]
+[<emphasis role="bold">-index file</emphasis>]
+[<emphasis role="bold">-CA file</emphasis>]
+[<emphasis role="bold">-rsigner file</emphasis>]
+[<emphasis role="bold">-rkey file</emphasis>]
+[<emphasis role="bold">-rother file</emphasis>]
+[<emphasis role="bold">-resp_no_certs</emphasis>]
+[<emphasis role="bold">-nmin n</emphasis>]
+[<emphasis role="bold">-ndays n</emphasis>]
+[<emphasis role="bold">-resp_key_id</emphasis>]
+[<emphasis role="bold">-nrequest n</emphasis>]
+[<emphasis role="bold">-md5|-sha1|...</emphasis>]</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.apps.ocsp.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The Online Certificate Status Protocol (OCSP) enables applications to
+      determine the (revocation) state of an identified certificate (RFC
+      2560).
+    </para>
+    <para>
+      The <emphasis role="bold">ocsp</emphasis> command performs many
+      common OCSP tasks. It can be used to print out requests and
+      responses, create requests and send queries to an OCSP responder and
+      behave like a mini OCSP server itself.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.ocsp.pod:OCSP_CLIENT_OPTIONS"><title>OCSP CLIENT OPTIONS</title>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-out_filename"/><emphasis role="bold">-out filename</emphasis></term>
+          <listitem>
+            <para>
+	      specify output filename, default is standard output.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-issuer_filename"/><emphasis role="bold">-issuer filename</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the current issuer certificate. This option
+	      can be used multiple times. The certificate specified in
+	      <emphasis role="bold">filename</emphasis> must be in PEM
+	      format. This option <emphasis role="bold">MUST</emphasis>
+	      come before any <emphasis role="bold">-cert</emphasis>
+	      options.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-cert_filename"/><emphasis role="bold">-cert filename</emphasis></term>
+          <listitem>
+            <para>
+	      Add the certificate <emphasis role="bold">filename</emphasis>
+	      to the request. The issuer certificate is taken from the
+	      previous <emphasis role="bold">issuer</emphasis> option, or
+	      an error occurs if no issuer certificate is specified.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-serial_num"/><emphasis role="bold">-serial num</emphasis></term>
+          <listitem>
+            <para>
+	      Same as the <emphasis role="bold">cert</emphasis> option
+	      except the certificate with serial number <emphasis role="bold">num</emphasis> is added to the request. The
+	      serial number is interpreted as a decimal integer unless
+	      preceded by <emphasis role="bold">0x</emphasis>. Negative
+	      integers can also be specified by preceding the value by a
+	      <emphasis role="bold">-</emphasis> sign.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-signer_filename_-signkey_filename"/><emphasis role="bold">-signer filename</emphasis>, <emphasis role="bold">-signkey filename</emphasis></term>
+          <listitem>
+            <para>
+	      Sign the OCSP request using the certificate specified in the
+	      <emphasis role="bold">signer</emphasis> option and the
+	      private key specified by the <emphasis role="bold">signkey</emphasis> option. If the <emphasis role="bold">signkey</emphasis> option is not present then the
+	      private key is read from the same file as the certificate. If
+	      neither option is specified then the OCSP request is not
+	      signed.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-sign_other_filename"/><emphasis role="bold">-sign_other filename</emphasis></term>
+          <listitem>
+            <para>
+	      Additional certificates to include in the signed request.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-nonce_-no_nonce"/><emphasis role="bold">-nonce</emphasis>, <emphasis role="bold">-no_nonce</emphasis></term>
+          <listitem>
+            <para>
+	      Add an OCSP nonce extension to a request or disable OCSP
+	      nonce addition. Normally if an OCSP request is input using
+	      the <emphasis role="bold">respin</emphasis> option no nonce
+	      is added: using the <emphasis role="bold">nonce</emphasis>
+	      option will force addition of a nonce. If an OCSP request is
+	      being created (using <emphasis role="bold">cert</emphasis>
+	      and <emphasis role="bold">serial</emphasis> options) a nonce
+	      is automatically added specifying <emphasis role="bold">no_nonce</emphasis> overrides this.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-req_text_-resp_text_-text"/><emphasis role="bold">-req_text</emphasis>, <emphasis role="bold">-resp_text</emphasis>, <emphasis role="bold">-text</emphasis></term>
+          <listitem>
+            <para>
+	      print out the text form of the OCSP request, response or both
+	      respectively.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-reqout_file_-respout_file"/><emphasis role="bold">-reqout file</emphasis>, <emphasis role="bold">-respout file</emphasis></term>
+          <listitem>
+            <para>
+	      write out the DER encoded certificate request or response to
+	      <emphasis role="bold">file</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-reqin_file_-respin_file"/><emphasis role="bold">-reqin file</emphasis>, <emphasis role="bold">-respin file</emphasis></term>
+          <listitem>
+            <para>
+	      read OCSP request or response file from <emphasis role="bold">file</emphasis>. These option are ignored if OCSP
+	      request or response creation is implied by other options (for
+	      example with <emphasis role="bold">serial</emphasis>,
+	      <emphasis role="bold">cert</emphasis> and <emphasis role="bold">host</emphasis> options).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-url_responder_url"/><emphasis role="bold">-url responder_url</emphasis></term>
+          <listitem>
+            <para>
+	      specify the responder URL. Both HTTP and HTTPS (SSL/TLS) URLs
+	      can be specified.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-host_hostname:port_-path_pathname"/><emphasis role="bold">-host hostname:port</emphasis>, <emphasis role="bold">-path pathname</emphasis></term>
+          <listitem>
+            <para>
+	      if the <emphasis role="bold">host</emphasis> option is
+	      present then the OCSP request is sent to the host <emphasis role="bold">hostname</emphasis> on port <emphasis role="bold">port</emphasis>. <emphasis role="bold">path</emphasis> specifies the HTTP path name to
+	      use or "/" by default.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-CAfile_file_-CApath_pathname"/><emphasis role="bold">-CAfile file</emphasis>, <emphasis role="bold">-CApath pathname</emphasis></term>
+          <listitem>
+            <para>
+	      file or pathname containing trusted CA certificates. These
+	      are used to verify the signature on the OCSP response.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-verify_other_file"/><emphasis role="bold">-verify_other file</emphasis></term>
+          <listitem>
+            <para>
+	      file containing additional certificates to search when
+	      attempting to locate the OCSP response signing certificate.
+	      Some responders omit the actual signer's certificate from the
+	      response: this option can be used to supply the necessary
+	      certificate in such cases.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-trust_other"/><emphasis role="bold">-trust_other</emphasis></term>
+          <listitem>
+            <para>
+	      the certificates specified by the <emphasis role="bold">-verify_other</emphasis> option should be
+	      explicitly trusted and no additional checks will be performed
+	      on them. This is useful when the complete responder
+	      certificate chain is not available or trusting a root CA is
+	      not appropriate.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-VAfile_file"/><emphasis role="bold">-VAfile file</emphasis></term>
+          <listitem>
+            <para>
+	      file containing explicitly trusted responder certificates.
+	      Equivalent to the <emphasis role="bold">-verify_other</emphasis> and <emphasis role="bold">-trust_other</emphasis> options.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-noverify"/><emphasis role="bold">-noverify</emphasis></term>
+          <listitem>
+            <para>
+	      don't attempt to verify the OCSP response signature or the
+	      nonce values. This option will normally only be used for
+	      debugging since it disables all verification of the
+	      responders certificate.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-no_intern"/><emphasis role="bold">-no_intern</emphasis></term>
+          <listitem>
+            <para>
+	      ignore certificates contained in the OCSP response when
+	      searching for the signers certificate. With this option the
+	      signers certificate must be specified with either the
+	      <emphasis role="bold">-verify_other</emphasis> or <emphasis role="bold">-VAfile</emphasis> options.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-no_signature_verify"/><emphasis role="bold">-no_signature_verify</emphasis></term>
+          <listitem>
+            <para>
+	      don't check the signature on the OCSP response. Since this
+	      option tolerates invalid signatures on OCSP responses it will
+	      normally only be used for testing purposes.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-no_cert_verify"/><emphasis role="bold">-no_cert_verify</emphasis></term>
+          <listitem>
+            <para>
+	      don't verify the OCSP response signers certificate at all.
+	      Since this option allows the OCSP response to be signed by
+	      any certificate it should only be used for testing purposes.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-no_chain"/><emphasis role="bold">-no_chain</emphasis></term>
+          <listitem>
+            <para>
+	      do not use certificates in the response as additional
+	      untrusted CA certificates.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-no_cert_checks"/><emphasis role="bold">-no_cert_checks</emphasis></term>
+          <listitem>
+            <para>
+	      don't perform any additional checks on the OCSP response
+	      signers certificate. That is do not make any checks to see if
+	      the signers certificate is authorised to provide the
+	      necessary status information: as a result this option should
+	      only be used for testing purposes.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-validity_period_nsec_-status_age_age"/><emphasis role="bold">-validity_period nsec</emphasis>, <emphasis role="bold">-status_age age</emphasis></term>
+          <listitem>
+            <para>
+	      these options specify the range of times, in seconds, which
+	      will be tolerated in an OCSP response. Each certificate
+	      status response includes a <emphasis role="bold">notBefore</emphasis> time and an optional
+	      <emphasis role="bold">notAfter</emphasis> time. The current
+	      time should fall between these two values, but the interval
+	      between the two times may be only a few seconds. In practice
+	      the OCSP responder and clients clocks may not be precisely
+	      synchronised and so such a check may fail. To avoid this the
+	      <emphasis role="bold">-validity_period</emphasis> option can
+	      be used to specify an acceptable error range in seconds, the
+	      default value is 5 minutes.
+            </para>
+            <para>
+	      If the <emphasis role="bold">notAfter</emphasis> time is
+	      omitted from a response then this means that new status
+	      information is immediately available. In this case the age of
+	      the <emphasis role="bold">notBefore</emphasis> field is
+	      checked to see it is not older than <emphasis role="bold">age</emphasis> seconds old. By default this
+	      additional check is not performed.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-md5-sha1-sha256-ripemod160..."/><emphasis role="bold">-md5|-sha1|-sha256|-ripemod160|...</emphasis></term>
+          <listitem>
+            <para>
+	      this option sets digest algorithm to use for certificate
+	      identification in the OCSP request. By default SHA-1 is used.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.ocsp.pod:OCSP_SERVER_OPTIONS"><title>OCSP SERVER OPTIONS</title>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-index_indexfile"/><emphasis role="bold">-index indexfile</emphasis></term>
+          <listitem>
+            <para>
+	      <emphasis role="bold">indexfile</emphasis> is a text index
+	      file in <emphasis role="bold">ca</emphasis> format containing
+	      certificate revocation information.
+            </para>
+            <para>
+	      If the <emphasis role="bold">index</emphasis> option is
+	      specified the <emphasis role="bold">ocsp</emphasis> utility
+	      is in responder mode, otherwise it is in client mode. The
+	      request(s) the responder processes can be either specified on
+	      the command line (using <emphasis role="bold">issuer</emphasis> and <emphasis role="bold">serial</emphasis> options), supplied in a file
+	      (using the <emphasis role="bold">respin</emphasis> option) or
+	      via external OCSP clients (if <emphasis role="bold">port</emphasis> or <emphasis role="bold">url</emphasis> is specified).
+            </para>
+            <para>
+	      If the <emphasis role="bold">index</emphasis> option is
+	      present then the <emphasis role="bold">CA</emphasis> and
+	      <emphasis role="bold">rsigner</emphasis> options must also be
+	      present.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-CA_file"/><emphasis role="bold">-CA file</emphasis></term>
+          <listitem>
+            <para>
+	      CA certificate corresponding to the revocation information in
+	      <emphasis role="bold">indexfile</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-rsigner_file"/><emphasis role="bold">-rsigner file</emphasis></term>
+          <listitem>
+            <para>
+	      The certificate to sign OCSP responses with.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-rother_file"/><emphasis role="bold">-rother file</emphasis></term>
+          <listitem>
+            <para>
+	      Additional certificates to include in the OCSP response.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-resp_no_certs"/><emphasis role="bold">-resp_no_certs</emphasis></term>
+          <listitem>
+            <para>
+	      Don't include any certificates in the OCSP response.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-resp_key_id"/><emphasis role="bold">-resp_key_id</emphasis></term>
+          <listitem>
+            <para>
+	      Identify the signer certificate using the key ID, default is
+	      to use the subject name.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-rkey_file"/><emphasis role="bold">-rkey file</emphasis></term>
+          <listitem>
+            <para>
+	      The private key to sign OCSP responses with: if not present
+	      the file specified in the <emphasis role="bold">rsigner</emphasis> option is used.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-port_portnum"/><emphasis role="bold">-port portnum</emphasis></term>
+          <listitem>
+            <para>
+	      Port to listen for OCSP requests on. The port may also be
+	      specified using the <emphasis role="bold">url</emphasis>
+	      option.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-nrequest_number"/><emphasis role="bold">-nrequest number</emphasis></term>
+          <listitem>
+            <para>
+	      The OCSP server will exit after receiving <emphasis role="bold">number</emphasis> requests, default unlimited.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-nmin_minutes_-ndays_days"/><emphasis role="bold">-nmin minutes</emphasis>, <emphasis role="bold">-ndays days</emphasis></term>
+          <listitem>
+            <para>
+	      Number of minutes or days when fresh revocation information
+	      is available: used in the <emphasis role="bold">nextUpdate</emphasis> field. If neither option is
+	      present then the <emphasis role="bold">nextUpdate</emphasis>
+	      field is omitted meaning fresh revocation information is
+	      immediately available. 
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.ocsp.pod:OCSP_Response_verification."><title>OCSP Response verification.</title>
+    <para>
+      OCSP Response follows the rules specified in RFC2560.
+    </para>
+    <para>
+      Initially the OCSP responder certificate is located and the signature
+      on the OCSP request checked using the responder certificate's public
+      key.
+    </para>
+    <para>
+      Then a normal certificate verify is performed on the OCSP responder
+      certificate building up a certificate chain in the process. The
+      locations of the trusted certificates used to build the chain can be
+      specified by the <emphasis role="bold">CAfile</emphasis> and
+      <emphasis role="bold">CApath</emphasis> options or they will be
+      looked for in the standard OpenSSL certificates directory.
+    </para>
+    <para>
+      If the initial verify fails then the OCSP verify process halts with
+      an error.
+    </para>
+    <para>
+      Otherwise the issuing CA certificate in the request is compared to
+      the OCSP responder certificate: if there is a match then the OCSP
+      verify succeeds.
+    </para>
+    <para>
+      Otherwise the OCSP responder certificate's CA is checked against the
+      issuing CA certificate in the request. If there is a match and the
+      OCSPSigning extended key usage is present in the OCSP responder
+      certificate then the OCSP verify succeeds.
+    </para>
+    <para>
+      Otherwise the root CA of the OCSP responders CA is checked to see if
+      it is trusted for OCSP signing. If it is the OCSP verify succeeds.
+    </para>
+    <para>
+      If none of these checks is successful then the OCSP verify fails.
+    </para>
+    <para>
+      What this effectively means if that if the OCSP responder certificate
+      is authorised directly by the CA it is issuing revocation information
+      about (and it is correctly configured) then verification will
+      succeed.
+    </para>
+    <para>
+      If the OCSP responder is a "global responder" which can give details
+      about multiple CAs and has its own separate certificate chain then
+      its root CA can be trusted for OCSP signing. For example:
+    </para>
+    <screen>openssl x509 -in ocspCA.pem -addtrust OCSPSigning -out trustedCA.pem</screen>
+    <para>
+      Alternatively the responder certificate itself can be explicitly
+      trusted with the <emphasis role="bold">-VAfile</emphasis> option.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.ocsp.pod:NOTES"><title>NOTES</title>
+    <para>
+      As noted, most of the verify options are for testing or debugging
+      purposes. Normally only the <emphasis role="bold">-CApath</emphasis>,
+      <emphasis role="bold">-CAfile</emphasis> and (if the responder is a
+      'global VA') <emphasis role="bold">-VAfile</emphasis> options need to
+      be used.
+    </para>
+    <para>
+      The OCSP server is only useful for test and demonstration purposes:
+      it is not really usable as a full OCSP responder. It contains only a
+      very simple HTTP request handling and can only handle the POST form
+      of OCSP queries. It also handles requests serially meaning it cannot
+      respond to new requests until it has processed the current one. The
+      text index file format of revocation is also inefficient for large
+      quantities of revocation data.
+    </para>
+    <para>
+      It is possible to run the <emphasis role="bold">ocsp</emphasis>
+      application in responder mode via a CGI script using the <emphasis role="bold">respin</emphasis> and <emphasis role="bold">respout</emphasis> options.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.ocsp.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      Create an OCSP request and write it to a file:
+    </para>
+    <screen>openssl ocsp -issuer issuer.pem -cert c1.pem -cert c2.pem -reqout req.der</screen>
+    <para>
+      Send a query to an OCSP responder with URL http://ocsp.myhost.com/
+      save the response to a file and print it out in text form 
+    </para>
+    <screen>openssl ocsp -issuer issuer.pem -cert c1.pem -cert c2.pem \
+    -url http://ocsp.myhost.com/ -resp_text -respout resp.der</screen>
+    <para>
+      Read in an OCSP response and print out text form:
+    </para>
+    <screen>openssl ocsp -respin resp.der -text</screen>
+    <para>
+      OCSP server on port 8888 using a standard <emphasis role="bold">ca</emphasis> configuration, and a separate responder
+      certificate. All requests and responses are printed to a file.
+    </para>
+    <screen>openssl ocsp -index demoCA/index.txt -port 8888 -rsigner rcert.pem -CA demoCA/cacert.pem
+       -text -out log.txt</screen>
+    <para>
+      As above but exit after processing one request:
+    </para>
+    <screen>openssl ocsp -index demoCA/index.txt -port 8888 -rsigner rcert.pem -CA demoCA/cacert.pem
+    -nrequest 1</screen>
+    <para>
+      Query status information using internally generated request:
+    </para>
+    <screen>openssl ocsp -index demoCA/index.txt -rsigner rcert.pem -CA demoCA/cacert.pem
+    -issuer demoCA/cacert.pem -serial 1</screen>
+    <para>
+      Query status information using request read from a file, write
+      response to a second file.
+    </para>
+    <screen>openssl ocsp -index demoCA/index.txt -rsigner rcert.pem -CA demoCA/cacert.pem
+    -reqin req.der -respout resp.der</screen>
+  </refsection>
+</refentry>

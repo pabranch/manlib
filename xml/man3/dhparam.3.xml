@@ -1,0 +1,209 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>dhparam.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>dhparam</refname>
+<refpurpose>DH parameter manipulation and generation</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific"><emphasis role="bold">openssl dhparam</emphasis>
+[<emphasis role="bold">-inform DER|PEM</emphasis>]
+[<emphasis role="bold">-outform DER|PEM</emphasis>]
+[<emphasis role="bold">-in</emphasis> <emphasis role="italic">filename</emphasis>]
+[<emphasis role="bold">-out</emphasis> <emphasis role="italic">filename</emphasis>]
+[<emphasis role="bold">-dsaparam</emphasis>]
+[<emphasis role="bold">-noout</emphasis>]
+[<emphasis role="bold">-text</emphasis>]
+[<emphasis role="bold">-C</emphasis>]
+[<emphasis role="bold">-2</emphasis>]
+[<emphasis role="bold">-5</emphasis>]
+[<emphasis role="bold">-rand</emphasis> <emphasis role="italic">file(s)</emphasis>]
+[<emphasis role="bold">-engine id</emphasis>]
+[<emphasis role="italic">numbits</emphasis>]</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.apps.dhparam.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      This command is used to manipulate DH parameter files.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.dhparam.pod:OPTIONS"><title>OPTIONS</title>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dhparam.pod:-inform_DERPEM"/><emphasis role="bold">-inform DER|PEM</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the input format. The <emphasis role="bold">DER</emphasis> option uses an ASN1 DER encoded
+	      form compatible with the PKCS#3 DHparameter structure. The
+	      PEM form is the default format: it consists of the <emphasis role="bold">DER</emphasis> format base64 encoded with
+	      additional header and footer lines.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dhparam.pod:-outform_DERPEM"/><emphasis role="bold">-outform DER|PEM</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the output format, the options have the same
+	      meaning as the <emphasis role="bold">-inform</emphasis>
+	      option. 
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dhparam.pod:-in_filename"/><emphasis role="bold">-in</emphasis> <emphasis role="italic">filename</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the input filename to read parameters from or
+	      standard input if this option is not specified.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dhparam.pod:-out_filename"/><emphasis role="bold">-out</emphasis> <emphasis role="italic">filename</emphasis></term>
+          <listitem>
+            <para>
+	      This specifies the output filename parameters to. Standard
+	      output is used if this option is not present. The output
+	      filename should <emphasis role="bold">not</emphasis> be the
+	      same as the input filename.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dhparam.pod:-dsaparam"/><emphasis role="bold">-dsaparam</emphasis></term>
+          <listitem>
+            <para>
+	      If this option is used, DSA rather than DH parameters are
+	      read or created; they are converted to DH format.  Otherwise,
+	      "strong" primes (such that (p-1)/2 is also prime) will be
+	      used for DH parameter generation.
+            </para>
+            <para>
+	      DH parameter generation with the <emphasis role="bold">-dsaparam</emphasis> option is much faster, and
+	      the recommended exponent length is shorter, which makes DH
+	      key exchange more efficient.  Beware that with such DSA-style
+	      DH parameters, a fresh DH key should be created for each use
+	      to avoid small-subgroup attacks that may be possible
+	      otherwise.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dhparam.pod:-2_-5"/><emphasis role="bold">-2</emphasis>, <emphasis role="bold">-5</emphasis></term>
+          <listitem>
+            <para>
+	      The generator to use, either 2 or 5. 2 is the default. If
+	      present then the input file is ignored and parameters are
+	      generated instead.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dhparam.pod:-rand_files"/><emphasis role="bold">-rand</emphasis> <emphasis role="italic">file(s)</emphasis></term>
+          <listitem>
+            <para>
+	      a file or files containing random data used to seed the
+	      random number generator, or an EGD socket (see RAND_egd(3)).
+	      Multiple files can be specified separated by a OS-dependent
+	      character. The separator is <emphasis role="bold">;</emphasis> for MS-Windows, <emphasis role="bold">,</emphasis> for OpenVMS, and <emphasis role="bold">:</emphasis> for all others.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dhparam.pod:numbits"/><emphasis role="italic">numbits</emphasis></term>
+          <listitem>
+            <para>
+	      this option specifies that a parameter set should be
+	      generated of size <emphasis role="italic">numbits</emphasis>.
+	      It must be the last option. If not present then a value of
+	      512 is used. If this option is present then the input file is
+	      ignored and parameters are generated instead. 
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dhparam.pod:-noout"/><emphasis role="bold">-noout</emphasis></term>
+          <listitem>
+            <para>
+	      this option inhibits the output of the encoded version of the
+	      parameters.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dhparam.pod:-text"/><emphasis role="bold">-text</emphasis></term>
+          <listitem>
+            <para>
+	      this option prints out the DH parameters in human readable
+	      form.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dhparam.pod:-C"/><emphasis role="bold">-C</emphasis></term>
+          <listitem>
+            <para>
+	      this option converts the parameters into C code. The
+	      parameters can then be loaded by calling the <emphasis role="bold">get_dh</emphasis><emphasis role="italic">numbits</emphasis><emphasis role="bold">()</emphasis> function.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dhparam.pod:-engine_id"/><emphasis role="bold">-engine id</emphasis></term>
+          <listitem>
+            <para>
+	      specifying an engine (by its unique <emphasis role="bold">id</emphasis> string) will cause <emphasis role="bold">dhparam</emphasis> to attempt to obtain a
+	      functional reference to the specified engine, thus
+	      initialising it if needed. The engine will then be set as the
+	      default for all available algorithms.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.dhparam.pod:WARNINGS"><title>WARNINGS</title>
+    <para>
+      The program <emphasis role="bold">dhparam</emphasis> combines the
+      functionality of the programs <emphasis role="bold">dh</emphasis> and
+      <emphasis role="bold">gendh</emphasis> in previous versions of
+      OpenSSL and SSLeay. The <emphasis role="bold">dh</emphasis> and
+      <emphasis role="bold">gendh</emphasis> programs are retained for now
+      but may have different purposes in future versions of OpenSSL. 
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.dhparam.pod:NOTES"><title>NOTES</title>
+    <para>
+      PEM format DH parameters use the header and footer lines:
+    </para>
+    <screen>-----BEGIN DH PARAMETERS-----
+-----END DH PARAMETERS-----</screen>
+    <para>
+      OpenSSL currently only supports the older PKCS#3 DH, not the newer
+      X9.42 DH.
+    </para>
+    <para>
+      This program manipulates DH parameters not keys.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.dhparam.pod:BUGS"><title>BUGS</title>
+    <para>
+      There should be a way to generate and manipulate DH keys.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.dhparam.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      dsaparam(1)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.dhparam.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      The <emphasis role="bold">dhparam</emphasis> command was added in
+      OpenSSL 0.9.5. The <emphasis role="bold">-dsaparam</emphasis> option
+      was added in OpenSSL 0.9.6.
+    </para>
+  </refsection>
+</refentry>

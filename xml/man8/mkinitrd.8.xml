@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry lang="en">
+<refentryinfo>
+    <title>MKINITRD(8)</title>
+</refentryinfo>
+<refmeta>
+<refentrytitle>mkinitrd</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo class="source">dracut</refmiscinfo>
+<refmiscinfo class="manual">dracut</refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>mkinitrd</refname>
+    <refpurpose>is a compat wrapper, which calls dracut to generate an initramfs</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis role="strong">mkinitrd</emphasis> [<emphasis>OPTION&#8230;</emphasis>] [&lt;initrd-image&gt;]  &lt;kernel-version&gt;</simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>mkinitrd creates an initramfs image &lt;initrd-image&gt; for the kernel with
+version &lt;kernel-version&gt; by calling "dracut".</simpara>
+<important><simpara>If a more fine grained control over the resulting image is needed,
+"dracut" should be called directly.</simpara></important>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">--version</emphasis>
+</term>
+<listitem>
+<simpara>
+    print info about the version
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-v, --verbose</emphasis>
+</term>
+<listitem>
+<simpara>
+    increase verbosity level
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-f, --force</emphasis>
+</term>
+<listitem>
+<simpara>
+    overwrite existing initramfs file.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">*--image-version</emphasis>
+</term>
+<listitem>
+<simpara>
+    append the kernel version to the target image
+    &lt;initrd-image&gt;-&lt;kernel-version&gt;.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--with=&lt;module&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+     add the kernel module &lt;module&gt; to the initramfs.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--preload=&lt;module&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+     preload the kernel module &lt;module&gt; in the initramfs before any other kernel
+     modules are loaded. This can be used to ensure a certain device naming,
+     which should in theory be avoided and the use of symbolic links in /dev is
+     encouraged.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--nocompress</emphasis>
+</term>
+<listitem>
+<simpara>
+     do not compress the resulting image.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--help</emphasis>
+</term>
+<listitem>
+<simpara>
+    print a help message and exit.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_availability">
+<title>AVAILABILITY</title>
+<simpara>The mkinitrd command is part of the dracut package and is available from
+<ulink url="https://dracut.wiki.kernel.org">https://dracut.wiki.kernel.org</ulink></simpara>
+</refsect1>
+<refsect1 id="_authors">
+<title>AUTHORS</title>
+<simpara>Harald Hoyer</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><emphasis role="strong">dracut</emphasis>(8)</simpara>
+</refsect1>
+</refentry>

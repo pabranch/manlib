@@ -1,0 +1,48 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>ERR_put_error.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>ERR_put_error, ERR_add_error_data</refname>
+<refpurpose>record an error</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/err.h&gt;</synopsis>
+<synopsis format="linespecific">void ERR_put_error(int lib, int func, int reason, const char *file,
+        int line);</synopsis>
+<synopsis format="linespecific">void ERR_add_error_data(int num, ...);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.ERR_put_error.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      ERR_put_error() adds an error code to the thread's error queue. It
+      signals that the error of reason code <emphasis role="bold">reason</emphasis> occurred in function <emphasis role="bold">func</emphasis> of library <emphasis role="bold">lib</emphasis>, in line number <emphasis role="bold">line</emphasis> of <emphasis role="bold">file</emphasis>.
+      This function is usually called by a macro.
+    </para>
+    <para>
+      ERR_add_error_data() associates the concatenation of its <emphasis role="bold">num</emphasis> string arguments with the error code added
+      last.
+    </para>
+    <para>
+      ERR_load_strings(3) can be used to register error strings so that the
+      application can a generate human-readable error messages for the
+      error code.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ERR_put_error.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      ERR_put_error() and ERR_add_error_data() return no values.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ERR_put_error.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      err(3), ERR_load_strings(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ERR_put_error.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      ERR_put_error() is available in all versions of SSLeay and OpenSSL.
+      ERR_add_error_data() was added in SSLeay 0.9.0.
+    </para>
+  </refsection>
+</refentry>

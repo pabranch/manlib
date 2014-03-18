@@ -1,0 +1,275 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>tsget.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>tsget</refname>
+<refpurpose>Time Stamping HTTP/HTTPS client</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific"><emphasis role="bold">tsget</emphasis>
+<emphasis role="bold">-h</emphasis> server_url
+[<emphasis role="bold">-e</emphasis> extension]
+[<emphasis role="bold">-o</emphasis> output]
+[<emphasis role="bold">-v</emphasis>]
+[<emphasis role="bold">-d</emphasis>]
+[<emphasis role="bold">-k</emphasis> private_key.pem]
+[<emphasis role="bold">-p</emphasis> key_password]
+[<emphasis role="bold">-c</emphasis> client_cert.pem]
+[<emphasis role="bold">-C</emphasis> CA_certs.pem]
+[<emphasis role="bold">-P</emphasis> CA_path]
+[<emphasis role="bold">-r</emphasis> file:file...]
+[<emphasis role="bold">-g</emphasis> EGD_socket]
+[request]...</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.apps.tsget.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The <emphasis role="bold">tsget</emphasis> command can be used for
+      sending a time stamp request, as specified in <emphasis role="bold">RFC 3161</emphasis>, to a time stamp server over HTTP or
+      HTTPS and storing the time stamp response in a file. This tool cannot
+      be used for creating the requests and verifying responses, you can
+      use the OpenSSL <emphasis role="bold">ts(1)</emphasis> command to do
+      that. <emphasis role="bold">tsget</emphasis> can send several
+      requests to the server without closing the TCP connection if more
+      than one requests are specified on the command line.
+    </para>
+    <para>
+      The tool sends the following HTTP request for each time stamp
+      request:
+    </para>
+    <screen>POST url HTTP/1.1
+User-Agent: OpenTSA tsget.pl/&lt;version&gt;
+Host: &lt;host&gt;:&lt;port&gt;
+Pragma: no-cache
+Content-Type: application/timestamp-query
+Accept: application/timestamp-reply
+Content-Length: length of body
+
+...binary request specified by the user...</screen>
+    <para>
+      <emphasis role="bold">tsget</emphasis> expects a response of type
+      application/timestamp-reply, which is written to a file without any
+      interpretation.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.tsget.pod:OPTIONS"><title>OPTIONS</title>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.tsget.pod:-h_server_url"/><emphasis role="bold">-h</emphasis> server_url</term>
+          <listitem>
+            <para>
+	      The URL of the HTTP/HTTPS server listening for time stamp
+	      requests.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.tsget.pod:-e_extension"/><emphasis role="bold">-e</emphasis> extension</term>
+          <listitem>
+            <para>
+	      If the <emphasis role="bold">-o</emphasis> option is not
+	      given this argument specifies the extension of the output
+	      files. The base name of the output file will be the same as
+	      those of the input files. Default extension is '.tsr'.
+	      (Optional)
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.tsget.pod:-o_output"/><emphasis role="bold">-o</emphasis> output</term>
+          <listitem>
+            <para>
+	      This option can be specified only when just one request is
+	      sent to the server. The time stamp response will be written
+	      to the given output file. '-' means standard output. In case
+	      of multiple time stamp requests or the absence of this
+	      argument the names of the output files will be derived from
+	      the names of the input files and the default or specified
+	      extension argument. (Optional)
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.tsget.pod:-v"/><emphasis role="bold">-v</emphasis></term>
+          <listitem>
+            <para>
+	      The name of the currently processed request is printed on
+	      standard error. (Optional)
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.tsget.pod:-d"/><emphasis role="bold">-d</emphasis></term>
+          <listitem>
+            <para>
+	      Switches on verbose mode for the underlying <emphasis role="bold">curl</emphasis> library. You can see detailed
+	      debug messages for the connection. (Optional)
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.tsget.pod:-k_private_key.pem"/><emphasis role="bold">-k</emphasis> private_key.pem</term>
+          <listitem>
+            <para>
+	      (HTTPS) In case of certificate-based client authentication
+	      over HTTPS &lt;private_key.pem&gt; must contain the private
+	      key of the user. The private key file can optionally be
+	      protected by a passphrase. The <emphasis role="bold">-c</emphasis> option must also be specified.
+	      (Optional)
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.tsget.pod:-p_key_password"/><emphasis role="bold">-p</emphasis> key_password</term>
+          <listitem>
+            <para>
+	      (HTTPS) Specifies the passphrase for the private key
+	      specified by the <emphasis role="bold">-k</emphasis>
+	      argument. If this option is omitted and the key is passphrase
+	      protected <emphasis role="bold">tsget</emphasis> will ask for
+	      it. (Optional)
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.tsget.pod:-c_client_cert.pem"/><emphasis role="bold">-c</emphasis> client_cert.pem</term>
+          <listitem>
+            <para>
+	      (HTTPS) In case of certificate-based client authentication
+	      over HTTPS &lt;client_cert.pem&gt; must contain the X.509
+	      certificate of the user.	The <emphasis role="bold">-k</emphasis> option must also be specified. If
+	      this option is not specified no certificate-based client
+	      authentication will take place. (Optional)
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.tsget.pod:-C_CA_certs.pem"/><emphasis role="bold">-C</emphasis> CA_certs.pem</term>
+          <listitem>
+            <para>
+	      (HTTPS) The trusted CA certificate store. The certificate
+	      chain of the peer's certificate must include one of the CA
+	      certificates specified in this file. Either option <emphasis role="bold">-C</emphasis> or option <emphasis role="bold">-P</emphasis> must be given in case of HTTPS.
+	      (Optional)
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.tsget.pod:-P_CA_path"/><emphasis role="bold">-P</emphasis> CA_path</term>
+          <listitem>
+            <para>
+	      (HTTPS) The path containing the trusted CA certificates to
+	      verify the peer's certificate. The directory must be prepared
+	      with the <emphasis role="bold">c_rehash</emphasis> OpenSSL
+	      utility. Either option <emphasis role="bold">-C</emphasis> or
+	      option <emphasis role="bold">-P</emphasis> must be given in
+	      case of HTTPS. (Optional)
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.tsget.pod:-rand_file:file..."/><emphasis role="bold">-rand</emphasis> file:file...</term>
+          <listitem>
+            <para>
+	      The files containing random data for seeding the random
+	      number generator. Multiple files can be specified, the
+	      separator is <emphasis role="bold">;</emphasis> for
+	      MS-Windows, <emphasis role="bold">,</emphasis> for VMS and
+	      <emphasis role="bold">:</emphasis> for all other platforms.
+	      (Optional)
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.tsget.pod:-g_EGD_socket"/><emphasis role="bold">-g</emphasis> EGD_socket</term>
+          <listitem>
+            <para>
+	      The name of an EGD socket to get random data from. (Optional)
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.tsget.pod:request..."/>[request]...</term>
+          <listitem>
+            <para>
+	      List of files containing <emphasis role="bold">RFC
+	      3161</emphasis> DER-encoded time stamp requests. If no
+	      requests are specified only one request will be sent to the
+	      server and it will be read from the standard input.
+	      (Optional)
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.tsget.pod:ENVIRONMENT_VARIABLES"><title>ENVIRONMENT VARIABLES</title>
+    <para>
+      The <emphasis role="bold">TSGET</emphasis> environment variable can
+      optionally contain default arguments. The content of this variable is
+      added to the list of command line arguments.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.tsget.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      The examples below presume that <emphasis role="bold">file1.tsq</emphasis> and <emphasis role="bold">file2.tsq</emphasis> contain valid time stamp requests,
+      tsa.opentsa.org listens at port 8080 for HTTP requests and at port
+      8443 for HTTPS requests, the TSA service is available at the /tsa
+      absolute path.
+    </para>
+    <para>
+      Get a time stamp response for file1.tsq over HTTP, output is written
+      to file1.tsr: 
+    </para>
+    <screen>tsget -h http://tsa.opentsa.org:8080/tsa file1.tsq</screen>
+    <para>
+      Get a time stamp response for file1.tsq and file2.tsq over HTTP
+      showing progress, output is written to file1.reply and file2.reply
+      respectively:
+    </para>
+    <screen>tsget -h http://tsa.opentsa.org:8080/tsa -v -e .reply \
+      file1.tsq file2.tsq</screen>
+    <para>
+      Create a time stamp request, write it to file3.tsq, send it to the
+      server and write the response to file3.tsr:
+    </para>
+    <screen>openssl ts -query -data file3.txt -cert | tee file3.tsq \
+      | tsget -h http://tsa.opentsa.org:8080/tsa \
+      -o file3.tsr</screen>
+    <para>
+      Get a time stamp response for file1.tsq over HTTPS without client
+      authentication:
+    </para>
+    <screen>tsget -h https://tsa.opentsa.org:8443/tsa \
+      -C cacerts.pem file1.tsq</screen>
+    <para>
+      Get a time stamp response for file1.tsq over HTTPS with
+      certificate-based client authentication (it will ask for the
+      passphrase if client_key.pem is protected):
+    </para>
+    <screen>tsget -h https://tsa.opentsa.org:8443/tsa -C cacerts.pem \
+      -k client_key.pem -c client_cert.pem file1.tsq</screen>
+    <para>
+      You can shorten the previous command line if you make use of the
+      <emphasis role="bold">TSGET</emphasis> environment variable. The
+      following commands do the same as the previous example:
+    </para>
+    <screen>TSGET='-h https://tsa.opentsa.org:8443/tsa -C cacerts.pem \
+      -k client_key.pem -c client_cert.pem'
+export TSGET
+tsget file1.tsq</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.tsget.pod:AUTHOR"><title>AUTHOR</title>
+    <para>
+      Zoltan Glozik &lt;zglozik@opentsa.org&gt;, OpenTSA project
+      (http://www.opentsa.org)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.tsget.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      openssl(1), ts(1), curl(1), <emphasis role="bold">RFC 3161</emphasis> 
+    </para>
+  </refsection>
+</refentry>

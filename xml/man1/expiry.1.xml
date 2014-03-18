@@ -1,0 +1,98 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="expiry.1">
+  <!-- $Id: expiry.1.xml 3742 2012-05-25 11:45:21Z nekral-guest $ -->
+  <info>
+    <author><personname><firstname>Julianne Frances</firstname><surname>Haugh</surname></personname><contrib>Creation, 1990</contrib></author>
+    <author><personname><firstname>Thomas</firstname><surname>Kłoczko</surname></personname><email>kloczek@pld.org.pl</email><contrib>shadow-utils maintainer, 2000 - 2007</contrib></author>
+    <author><personname><firstname>Nicolas</firstname><surname>François</surname></personname><email>nicolas.francois@centraliens.net</email><contrib>shadow-utils maintainer, 2007 - now</contrib></author>
+  </info>
+  <refmeta>
+    <refentrytitle>expiry</refentrytitle>
+    <manvolnum>1</manvolnum>
+    <refmiscinfo class="sectdesc">User Commands</refmiscinfo>
+    <refmiscinfo class="source">shadow-utils</refmiscinfo>
+    <refmiscinfo class="version">4.1.5.1</refmiscinfo>
+  </refmeta>
+  <refnamediv xml:id="name">
+    <refname>expiry</refname>
+    <refpurpose>check and enforce password expiration policy</refpurpose>
+  </refnamediv>
+  <!-- body begins here -->
+  <refsynopsisdiv xml:id="synopsis">
+    <cmdsynopsis sepchar=" ">
+      <command>expiry</command>
+      <arg choice="plain" rep="norepeat">
+	<replaceable>option</replaceable>
+      </arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1 xml:id="description">
+    <title>DESCRIPTION</title>
+    <para>
+      The <command>expiry</command> command checks (<option>-c</option>)
+      the current password expiration and forces (<option>-f</option>)
+      changes when required. It is callable as a normal user command.
+    </para>
+  </refsect1>
+
+  <refsect1 xml:id="options">
+    <title>OPTIONS</title>
+    <para>
+      The options which apply to the <command>expiry</command> command are:
+    </para>
+    <variablelist remap="IP">
+      <varlistentry>
+	<term><option>-c</option>, <option>--check</option></term>
+	<listitem>
+	  <para>Check the password expiration of the current user.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>-f</option>, <option>--force</option></term>
+	<listitem>
+	  <para>
+	    Force a password change if the current user has an expired
+	    password.
+	  </para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><option>-h</option>, <option>--help</option></term>
+	<listitem>
+	  <para>Display help message and exit.</para>
+	</listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1 xml:id="files">
+    <title>FILES</title>
+    <variablelist>
+      <varlistentry>
+	<term><filename>/etc/passwd</filename></term>
+	<listitem>
+	  <para>User account information.</para>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term><filename>/etc/shadow</filename></term>
+	<listitem>
+	  <para>Secure user account information.</para>
+	</listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1 xml:id="see_also">
+    <title>SEE ALSO</title>
+    <para>
+      <citerefentry>
+	<refentrytitle>passwd</refentrytitle><manvolnum>5</manvolnum>
+      </citerefentry>,
+      <citerefentry>
+	<refentrytitle>shadow</refentrytitle><manvolnum>5</manvolnum>
+      </citerefentry>.
+    </para>
+  </refsect1>
+</refentry>

@@ -1,0 +1,60 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_get_verify_mode.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_get_verify_mode, SSL_get_verify_mode, SSL_CTX_get_verify_depth, SSL_get_verify_depth, SSL_get_verify_callback, SSL_CTX_get_verify_callback</refname>
+<refpurpose>get currently set verification parameters</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">int SSL_CTX_get_verify_mode(const SSL_CTX *ctx);
+int SSL_get_verify_mode(const SSL *ssl);
+int SSL_CTX_get_verify_depth(const SSL_CTX *ctx);
+int SSL_get_verify_depth(const SSL *ssl);
+int (*SSL_CTX_get_verify_callback(const SSL_CTX *ctx))(int, X509_STORE_CTX *);
+int (*SSL_get_verify_callback(const SSL *ssl))(int, X509_STORE_CTX *);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_get_verify_mode.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_CTX_get_verify_mode() returns the verification mode currently set
+      in <emphasis role="bold">ctx</emphasis>.
+    </para>
+    <para>
+      SSL_get_verify_mode() returns the verification mode currently set in
+      <emphasis role="bold">ssl</emphasis>.
+    </para>
+    <para>
+      SSL_CTX_get_verify_depth() returns the verification depth limit
+      currently set in <emphasis role="bold">ctx</emphasis>. If no limit
+      has been explicitly set, -1 is returned and the default value will be
+      used.
+    </para>
+    <para>
+      SSL_get_verify_depth() returns the verification depth limit currently
+      set in <emphasis role="bold">ssl</emphasis>. If no limit has been
+      explicitly set, -1 is returned and the default value will be used.
+    </para>
+    <para>
+      SSL_CTX_get_verify_callback() returns a function pointer to the
+      verification callback currently set in <emphasis role="bold">ctx</emphasis>. If no callback was explicitly set, the
+      NULL pointer is returned and the default callback will be used.
+    </para>
+    <para>
+      SSL_get_verify_callback() returns a function pointer to the
+      verification callback currently set in <emphasis role="bold">ssl</emphasis>. If no callback was explicitly set, the
+      NULL pointer is returned and the default callback will be used.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_get_verify_mode.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      See DESCRIPTION
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_get_verify_mode.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_CTX_set_verify(3)
+    </para>
+  </refsection>
+</refentry>

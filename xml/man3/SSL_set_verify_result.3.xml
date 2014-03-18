@@ -1,0 +1,43 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_set_verify_result.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_set_verify_result</refname>
+<refpurpose>override result of peer certificate verification</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">void SSL_set_verify_result(SSL *ssl, long verify_result);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_set_verify_result.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_set_verify_result() sets <emphasis role="bold">verify_result</emphasis> of the object <emphasis role="bold">ssl</emphasis> to be the result of the verification of
+      the X509 certificate presented by the peer, if any.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_set_verify_result.pod:NOTES"><title>NOTES</title>
+    <para>
+      SSL_set_verify_result() overrides the verification result. It only
+      changes the verification result of the <emphasis role="bold">ssl</emphasis> object. It does not become part of the
+      established session, so if the session is to be reused later, the
+      original value will reappear.
+    </para>
+    <para>
+      The valid codes for <emphasis role="bold">verify_result</emphasis>
+      are documented in verify(1).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_set_verify_result.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      SSL_set_verify_result() does not provide a return value.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_set_verify_result.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_get_verify_result(3), SSL_get_peer_certificate(3),
+      verify(1)
+    </para>
+  </refsection>
+</refentry>

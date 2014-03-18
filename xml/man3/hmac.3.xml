@@ -1,0 +1,125 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>hmac.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>HMAC, HMAC_CTX_init, HMAC_Init, HMAC_Init_ex, HMAC_Update, HMAC_Final, HMAC_CTX_cleanup,
+HMAC_cleanup</refname>
+<refpurpose>HMAC message authentication code</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/hmac.h&gt;</synopsis>
+<synopsis format="linespecific">unsigned char *HMAC(const EVP_MD *evp_md, const void *key,
+              int key_len, const unsigned char *d, int n,
+              unsigned char *md, unsigned int *md_len);</synopsis>
+<synopsis format="linespecific">void HMAC_CTX_init(HMAC_CTX *ctx);</synopsis>
+<synopsis format="linespecific">int HMAC_Init(HMAC_CTX *ctx, const void *key, int key_len,
+              const EVP_MD *md);
+int HMAC_Init_ex(HMAC_CTX *ctx, const void *key, int key_len,
+                  const EVP_MD *md, ENGINE *impl);
+int HMAC_Update(HMAC_CTX *ctx, const unsigned char *data, int len);
+int HMAC_Final(HMAC_CTX *ctx, unsigned char *md, unsigned int *len);</synopsis>
+<synopsis format="linespecific">void HMAC_CTX_cleanup(HMAC_CTX *ctx);
+void HMAC_cleanup(HMAC_CTX *ctx);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.hmac.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      HMAC is a MAC (message authentication code), i.e. a keyed hash
+      function used for message authentication, which is based on a hash
+      function.
+    </para>
+    <para>
+      HMAC() computes the message authentication code of the <emphasis role="bold">n</emphasis> bytes at <emphasis role="bold">d</emphasis>
+      using the hash function <emphasis role="bold">evp_md</emphasis> and
+      the key <emphasis role="bold">key</emphasis> which is <emphasis role="bold">key_len</emphasis> bytes long.
+    </para>
+    <para>
+      It places the result in <emphasis role="bold">md</emphasis> (which
+      must have space for the output of the hash function, which is no more
+      than <emphasis role="bold">EVP_MAX_MD_SIZE</emphasis> bytes). If
+      <emphasis role="bold">md</emphasis> is NULL, the digest is placed in
+      a static array.  The size of the output is placed in <emphasis role="bold">md_len</emphasis>, unless it is <emphasis role="bold">NULL</emphasis>.
+    </para>
+    <para>
+      <emphasis role="bold">evp_md</emphasis> can be EVP_sha1(),
+      EVP_ripemd160() etc.
+    </para>
+    <para>
+      HMAC_CTX_init() initialises a <emphasis role="bold">HMAC_CTX</emphasis> before first use. It must be called.
+    </para>
+    <para>
+      HMAC_CTX_cleanup() erases the key and other data from the <emphasis role="bold">HMAC_CTX</emphasis> and releases any associated
+      resources. It must be called when an <emphasis role="bold">HMAC_CTX</emphasis> is no longer required.
+    </para>
+    <para>
+      HMAC_cleanup() is an alias for HMAC_CTX_cleanup() included for back
+      compatibility with 0.9.6b, it is deprecated.
+    </para>
+    <para>
+      The following functions may be used if the message is not completely
+      stored in memory:
+    </para>
+    <para>
+      HMAC_Init() initializes a <emphasis role="bold">HMAC_CTX</emphasis>
+      structure to use the hash function <emphasis role="bold">evp_md</emphasis> and the key <emphasis role="bold">key</emphasis> which is <emphasis role="bold">key_len</emphasis> bytes long. It is deprecated and only
+      included for backward compatibility with OpenSSL 0.9.6b.
+    </para>
+    <para>
+      HMAC_Init_ex() initializes or reuses a <emphasis role="bold">HMAC_CTX</emphasis> structure to use the function
+      <emphasis role="bold">evp_md</emphasis> and key <emphasis role="bold">key</emphasis>. Either can be NULL, in which case the
+      existing one will be reused. HMAC_CTX_init() must have been called
+      before the first use of an <emphasis role="bold">HMAC_CTX</emphasis>
+      in this function. <emphasis role="bold">N.B. HMAC_Init() had this
+      undocumented behaviour in previous versions of OpenSSL - failure to
+      switch to HMAC_Init_ex() in programs that expect it will cause them
+      to stop working</emphasis>.
+    </para>
+    <para>
+      HMAC_Update() can be called repeatedly with chunks of the message to
+      be authenticated (<emphasis role="bold">len</emphasis> bytes at
+      <emphasis role="bold">data</emphasis>).
+    </para>
+    <para>
+      HMAC_Final() places the message authentication code in <emphasis role="bold">md</emphasis>, which must have space for the hash
+      function output.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.hmac.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      HMAC() returns a pointer to the message authentication code or NULL
+      if an error occurred.
+    </para>
+    <para>
+      HMAC_Init_ex(), HMAC_Update() and HMAC_Final() return 1 for success
+      or 0 if an error occurred.
+    </para>
+    <para>
+      HMAC_CTX_init() and HMAC_CTX_cleanup() do not return values.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.hmac.pod:CONFORMING_TO"><title>CONFORMING TO</title>
+    <para>
+      RFC 2104
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.hmac.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      sha(3), evp(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.hmac.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      HMAC(), HMAC_Init(), HMAC_Update(), HMAC_Final() and HMAC_cleanup()
+      are available since SSLeay 0.9.0.
+    </para>
+    <para>
+      HMAC_CTX_init(), HMAC_Init_ex() and HMAC_CTX_cleanup() are available
+      since OpenSSL 0.9.7.
+    </para>
+    <para>
+      HMAC_Init_ex(), HMAC_Update() and HMAC_Final() did not return values
+      in versions of OpenSSL before 1.0.0.
+    </para>
+  </refsection>
+</refentry>

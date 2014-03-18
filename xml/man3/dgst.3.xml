@@ -1,0 +1,262 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>dgst.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>dgst, md5, md4, md2, sha1, sha, mdc2, ripemd160</refname>
+<refpurpose>message digests</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific"><emphasis role="bold">openssl</emphasis> <emphasis role="bold">dgst</emphasis>
+[<emphasis role="bold">-md5|-md4|-md2|-sha1|-sha|-mdc2|-ripemd160|-dss1</emphasis>]
+[<emphasis role="bold">-c</emphasis>]
+[<emphasis role="bold">-d</emphasis>]
+[<emphasis role="bold">-hex</emphasis>]
+[<emphasis role="bold">-binary</emphasis>]
+[<emphasis role="bold">-out filename</emphasis>]
+[<emphasis role="bold">-sign filename</emphasis>]
+[<emphasis role="bold">-keyform arg</emphasis>]
+[<emphasis role="bold">-passin arg</emphasis>]
+[<emphasis role="bold">-verify filename</emphasis>]
+[<emphasis role="bold">-prverify filename</emphasis>]
+[<emphasis role="bold">-signature filename</emphasis>]
+[<emphasis role="bold">-hmac key</emphasis>]
+[<emphasis role="bold">file...</emphasis>]
+
+</synopsis>
+<synopsis format="linespecific">[<emphasis role="bold">md5|md4|md2|sha1|sha|mdc2|ripemd160</emphasis>]
+[<emphasis role="bold">-c</emphasis>]
+[<emphasis role="bold">-d</emphasis>]
+[<emphasis role="bold">file...</emphasis>]</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.apps.dgst.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The digest functions output the message digest of a supplied file or
+      files in hexadecimal form. They can also be used for digital signing
+      and verification.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.dgst.pod:OPTIONS"><title>OPTIONS</title>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-c"/><emphasis role="bold">-c</emphasis></term>
+          <listitem>
+            <para>
+	      print out the digest in two digit groups separated by colons,
+	      only relevant if <emphasis role="bold">hex</emphasis> format
+	      output is used.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-d"/><emphasis role="bold">-d</emphasis></term>
+          <listitem>
+            <para>
+	      print out BIO debugging information.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-hex"/><emphasis role="bold">-hex</emphasis></term>
+          <listitem>
+            <para>
+	      digest is to be output as a hex dump. This is the default
+	      case for a "normal" digest as opposed to a digital signature.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-binary"/><emphasis role="bold">-binary</emphasis></term>
+          <listitem>
+            <para>
+	      output the digest or signature in binary form.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-out_filename"/><emphasis role="bold">-out filename</emphasis></term>
+          <listitem>
+            <para>
+	      filename to output to, or standard output by default.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-sign_filename"/><emphasis role="bold">-sign filename</emphasis></term>
+          <listitem>
+            <para>
+	      digitally sign the digest using the private key in
+	      "filename".
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-keyform_arg"/><emphasis role="bold">-keyform arg</emphasis></term>
+          <listitem>
+            <para>
+	      Specifies the key format to sign digest with. Only PEM and
+	      ENGINE formats are supported by the <emphasis role="bold">dgst</emphasis> command.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-engine_id"/><emphasis role="bold">-engine id</emphasis></term>
+          <listitem>
+            <para>
+	      Use engine <emphasis role="bold">id</emphasis> for operations
+	      (including private key storage). This engine is not used as
+	      source for digest algorithms, unless it is also specified in
+	      the configuration file.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-sigopt_nm:v"/><emphasis role="bold">-sigopt nm:v</emphasis></term>
+          <listitem>
+            <para>
+	      Pass options to the signature algorithm during sign or verify
+	      operations. Names and values of these options are
+	      algorithm-specific.
+            </para>
+            <screen></screen>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-passin_arg"/><emphasis role="bold">-passin arg</emphasis></term>
+          <listitem>
+            <para>
+	      the private key password source. For more information about
+	      the format of <emphasis role="bold">arg</emphasis> see the
+	      <emphasis role="bold">PASS PHRASE ARGUMENTS</emphasis>
+	      section in openssl(1).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-verify_filename"/><emphasis role="bold">-verify filename</emphasis></term>
+          <listitem>
+            <para>
+	      verify the signature using the the public key in "filename".
+	      The output is either "Verification OK" or "Verification
+	      Failure".
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-prverify_filename"/><emphasis role="bold">-prverify filename</emphasis></term>
+          <listitem>
+            <para>
+	      verify the signature using the  the private key in
+	      "filename".
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-signature_filename"/><emphasis role="bold">-signature filename</emphasis></term>
+          <listitem>
+            <para>
+	      the actual signature to verify.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-hmac_key"/><emphasis role="bold">-hmac key</emphasis></term>
+          <listitem>
+            <para>
+	      create a hashed MAC using "key".
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-mac_alg"/><emphasis role="bold">-mac alg</emphasis></term>
+          <listitem>
+            <para>
+	      create MAC (keyed Message Authentication Code). The most
+	      popular MAC algorithm is HMAC (hash-based MAC), but there are
+	      other MAC algorithms which are not based on hash, for
+	      instance <emphasis role="bold">gost-mac</emphasis> algorithm,
+	      supported by <emphasis role="bold">ccgost</emphasis> engine.
+	      MAC keys and other options should be set via <emphasis role="bold">-macopt</emphasis> parameter.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-macopt_nm:v"/><emphasis role="bold">-macopt nm:v</emphasis></term>
+          <listitem>
+            <para>
+	      Passes options to MAC algorithm, specified by <emphasis role="bold">-mac</emphasis> key. Following options are
+	      supported by both by <emphasis role="bold">HMAC</emphasis>
+	      and <emphasis role="bold">gost-mac</emphasis>:
+            </para>
+            <para>
+              <variablelist>
+                <varlistentry>
+                  <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:key:string"/><emphasis role="bold">key:string</emphasis></term>
+                  <listitem>
+                    <para>
+		      Specifies MAC key as alphnumeric string (use if key
+		      contain printable characters only). String length
+		      must conform to any restrictions of the MAC algorithm
+		      for example exactly 32 chars for gost-mac.
+                    </para>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:hexkey:string"/><emphasis role="bold">hexkey:string</emphasis></term>
+                  <listitem>
+                    <para>
+		      Specifies MAC key in hexadecimal form (two hex digits
+		      per byte). Key length must conform to any
+		      restrictions of the MAC algorithm for example exactly
+		      32 chars for gost-mac.
+                    </para>
+                  </listitem>
+                </varlistentry>
+              </variablelist>
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-rand_files"/><emphasis role="bold">-rand file(s)</emphasis></term>
+          <listitem>
+            <para>
+	      a file or files containing random data used to seed the
+	      random number generator, or an EGD socket (see RAND_egd(3)).
+	      Multiple files can be specified separated by a OS-dependent
+	      character. The separator is <emphasis role="bold">;</emphasis> for MS-Windows, <emphasis role="bold">,</emphasis> for OpenVMS, and <emphasis role="bold">:</emphasis> for all others.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:file..."/><emphasis role="bold">file...</emphasis></term>
+          <listitem>
+            <para>
+	      file or files to digest. If no files are specified then
+	      standard input is used.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.dgst.pod:NOTES"><title>NOTES</title>
+    <para>
+      The digest of choice for all new applications is SHA1. Other digests
+      are however still widely used.
+    </para>
+    <para>
+      If you wish to sign or verify data using the DSA algorithm then the
+      dss1 digest must be used.
+    </para>
+    <para>
+      A source of random numbers is required for certain signing
+      algorithms, in particular DSA.
+    </para>
+    <para>
+      The signing and verify options should only be used if a single file
+      is being signed or verified.
+    </para>
+  </refsection>
+</refentry>

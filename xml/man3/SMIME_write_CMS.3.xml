@@ -1,0 +1,79 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SMIME_write_CMS.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SMIME_write_CMS</refname>
+    <refpurpose>convert CMS structure to S/MIME format.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/cms.h&gt;</synopsis>
+<synopsis format="linespecific">int SMIME_write_CMS(BIO *out, CMS_ContentInfo *cms, BIO *data, int flags);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.SMIME_write_CMS.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SMIME_write_CMS() adds the appropriate MIME headers to a CMS
+      structure to produce an S/MIME message.
+    </para>
+    <para>
+      <emphasis role="bold">out</emphasis> is the BIO to write the data to.
+      <emphasis role="bold">cms</emphasis> is the appropriate <emphasis role="bold">CMS_ContentInfo</emphasis> structure. If streaming is
+      enabled then the content must be supplied in the <emphasis role="bold">data</emphasis> argument. <emphasis role="bold">flags</emphasis> is an optional set of flags.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.SMIME_write_CMS.pod:NOTES"><title>NOTES</title>
+    <para>
+      The following flags can be passed in the <emphasis role="bold">flags</emphasis> parameter.
+    </para>
+    <para>
+      If <emphasis role="bold">CMS_DETACHED</emphasis> is set then
+      cleartext signing will be used, this option only makes sense for
+      SignedData where <emphasis role="bold">CMS_DETACHED</emphasis> is
+      also set when CMS_sign() is called.
+    </para>
+    <para>
+      If the <emphasis role="bold">CMS_TEXT</emphasis> flag is set MIME
+      headers for type <emphasis role="bold">text/plain</emphasis> are
+      added to the content, this only makes sense if <emphasis role="bold">CMS_DETACHED</emphasis> is also set.
+    </para>
+    <para>
+      If the <emphasis role="bold">CMS_STREAM</emphasis> flag is set
+      streaming is performed. This flag should only be set if <emphasis role="bold">CMS_STREAM</emphasis> was also set in the previous call
+      to a CMS_ContentInfo creation function.
+    </para>
+    <para>
+      If cleartext signing is being used and <emphasis role="bold">CMS_STREAM</emphasis> not set then the data must be read
+      twice: once to compute the signature in CMS_sign() and once to output
+      the S/MIME message.
+    </para>
+    <para>
+      If streaming is performed the content is output in BER format using
+      indefinite length constructed encoding except in the case of signed
+      data with detached content where the content is absent and DER format
+      is used.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.SMIME_write_CMS.pod:BUGS"><title>BUGS</title>
+    <para>
+      SMIME_write_CMS() always base64 encodes CMS structures, there should
+      be an option to disable this.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.SMIME_write_CMS.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      SMIME_write_CMS() returns 1 for success or 0 for failure.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.SMIME_write_CMS.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ERR_get_error(3), CMS_sign(3), CMS_verify(3), CMS_encrypt(3)
+      CMS_decrypt(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.SMIME_write_CMS.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      SMIME_write_CMS() was added to OpenSSL 0.9.8
+    </para>
+  </refsection>
+</refentry>

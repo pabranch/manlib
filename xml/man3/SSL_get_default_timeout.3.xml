@@ -1,0 +1,45 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_get_default_timeout.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_get_default_timeout</refname>
+<refpurpose>get default session timeout value</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">long SSL_get_default_timeout(const SSL *ssl);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_default_timeout.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_get_default_timeout() returns the default timeout value assigned
+      to SSL_SESSION objects negotiated for the protocol valid for
+      <emphasis role="bold">ssl</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_default_timeout.pod:NOTES"><title>NOTES</title>
+    <para>
+      Whenever a new session is negotiated, it is assigned a timeout value,
+      after which it will not be accepted for session reuse. If the timeout
+      value was not explicitly set using SSL_CTX_set_timeout(3), the
+      hardcoded default timeout for the protocol will be used.
+    </para>
+    <para>
+      SSL_get_default_timeout() return this hardcoded value, which is 300
+      seconds for all currently supported protocols (SSLv2, SSLv3, and
+      TLSv1).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_default_timeout.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      See description.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_default_timeout.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_CTX_set_session_cache_mode(3), SSL_SESSION_get_time(3),
+      SSL_CTX_flush_sessions(3), SSL_get_default_timeout(3)
+    </para>
+  </refsection>
+</refentry>

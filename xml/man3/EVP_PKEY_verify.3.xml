@@ -1,0 +1,101 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>EVP_PKEY_verify.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>EVP_PKEY_verify_init, EVP_PKEY_verify</refname>
+<refpurpose>signature verification using a public key algorithm</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis format="linespecific">int EVP_PKEY_verify_init(EVP_PKEY_CTX *ctx);
+int EVP_PKEY_verify(EVP_PKEY_CTX *ctx,
+                       const unsigned char *sig, size_t siglen,
+                       const unsigned char *tbs, size_t tbslen);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_verify.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The EVP_PKEY_verify_init() function initializes a public key
+      algorithm context using key <emphasis role="bold">pkey</emphasis> for
+      a signature verification operation.
+    </para>
+    <para>
+      The EVP_PKEY_verify() function performs a public key verification
+      operation using <emphasis role="bold">ctx</emphasis>. The signature
+      is specified using the <emphasis role="bold">sig</emphasis> and
+      <emphasis role="bold">siglen</emphasis> parameters. The verified data
+      (i.e. the data believed originally signed) is specified using the
+      <emphasis role="bold">tbs</emphasis> and <emphasis role="bold">tbslen</emphasis> parameters.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_verify.pod:NOTES"><title>NOTES</title>
+    <para>
+      After the call to EVP_PKEY_verify_init() algorithm specific control
+      operations can be performed to set any appropriate parameters for the
+      operation.
+    </para>
+    <para>
+      The function EVP_PKEY_verify() can be called more than once on the
+      same context if several operations are performed using the same
+      parameters.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_verify.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      EVP_PKEY_verify_init() and EVP_PKEY_verify() return 1 if the
+      verification was successful and 0 if it failed. Unlike other
+      functions the return value 0 from EVP_PKEY_verify() only indicates
+      that the signature did not not verify successfully (that is tbs did
+      not match the original data or the signature was of invalid form) it
+      is not an indication of a more serious error.
+    </para>
+    <para>
+      A negative value indicates an error other that signature verification
+      failure. In particular a return value of -2 indicates the operation
+      is not supported by the public key algorithm.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_verify.pod:EXAMPLE"><title>EXAMPLE</title>
+    <para>
+      Verify signature using PKCS#1 and SHA256 digest:
+    </para>
+    <screen>#include &amp;lt;openssl/evp.h&amp;gt;
+#include &amp;lt;openssl/rsa.h&amp;gt;
+
+EVP_PKEY_CTX *ctx;
+unsigned char *md, *sig;
+size_t mdlen, siglen; 
+EVP_PKEY *verify_key;
+/* NB: assumes verify_key, sig, siglen md and mdlen are already set up
+ * and that verify_key is an RSA public key
+ */
+ctx = EVP_PKEY_CTX_new(verify_key);
+if (!ctx)
+       /* Error occurred */
+if (EVP_PKEY_verify_init(ctx) &lt;= 0)
+       /* Error */
+if (EVP_PKEY_CTX_set_rsa_padding(ctx, RSA_PKCS1_PADDING) &lt;= 0)
+       /* Error */
+if (EVP_PKEY_CTX_set_signature_md(ctx, EVP_sha256()) &lt;= 0)
+       /* Error */
+
+/* Perform operation */
+ret = EVP_PKEY_verify(ctx, sig, siglen, md, mdlen);
+
+/* ret == 1 indicates success, 0 verify failure and &lt; 0 for some
+ * other error.
+ */</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_verify.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      EVP_PKEY_CTX_new(3), EVP_PKEY_encrypt(3), EVP_PKEY_decrypt(3),
+      EVP_PKEY_sign(3), EVP_PKEY_verify_recover(3), EVP_PKEY_derive(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_verify.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      These functions were first added to OpenSSL 1.0.0.
+    </para>
+  </refsection>
+</refentry>

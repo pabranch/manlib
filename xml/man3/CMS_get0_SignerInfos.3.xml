@@ -1,0 +1,100 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>CMS_get0_SignerInfos.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>CMS_get0_SignerInfos, CMS_SignerInfo_get0_signer_id, CMS_SignerInfo_get0_signature, CMS_SignerInfo_cert_cmp, CMS_set1_signer_cert</refname>
+<refpurpose>CMS signedData signer functions.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/cms.h&gt;</synopsis>
+<synopsis format="linespecific">STACK_OF(CMS_SignerInfo) *CMS_get0_SignerInfos(CMS_ContentInfo *cms);</synopsis>
+<synopsis format="linespecific">int CMS_SignerInfo_get0_signer_id(CMS_SignerInfo *si, ASN1_OCTET_STRING **keyid, X509_NAME **issuer, ASN1_INTEGER **sno);
+ASN1_OCTET_STRING *CMS_SignerInfo_get0_signature(CMS_SignerInfo *si);
+int CMS_SignerInfo_cert_cmp(CMS_SignerInfo *si, X509 *cert);
+void CMS_SignerInfo_set1_signer_cert(CMS_SignerInfo *si, X509 *signer);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.CMS_get0_SignerInfos.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The function CMS_get0_SignerInfos() returns all the CMS_SignerInfo
+      structures associated with a CMS signedData structure.
+    </para>
+    <para>
+      CMS_SignerInfo_get0_signer_id() retrieves the certificate signer
+      identifier associated with a specific CMS_SignerInfo structure
+      <emphasis role="bold">si</emphasis>. Either the keyidentifier will be
+      set in <emphasis role="bold">keyid</emphasis> or <emphasis role="bold">both</emphasis> issuer name and serial number in
+      <emphasis role="bold">issuer</emphasis> and <emphasis role="bold">sno</emphasis>.
+    </para>
+    <para>
+      CMS_SignerInfo_get0_signature() retrieves the signature associated
+      with <emphasis role="bold">si</emphasis> in a pointer to an
+      ASN1_OCTET_STRING structure. This pointer returned corresponds to the
+      internal signature value if <emphasis role="bold">si</emphasis> so it
+      may be read or modified. 
+    </para>
+    <para>
+      CMS_SignerInfo_cert_cmp() compares the certificate <emphasis role="bold">cert</emphasis> against the signer identifier <emphasis role="bold">si</emphasis>. It returns zero if the comparison is
+      successful and non zero if not.
+    </para>
+    <para>
+      CMS_SignerInfo_set1_signer_cert() sets the signers certificate of
+      <emphasis role="bold">si</emphasis> to <emphasis role="bold">signer</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.CMS_get0_SignerInfos.pod:NOTES"><title>NOTES</title>
+    <para>
+      The main purpose of these functions is to enable an application to
+      lookup signers certificates using any appropriate technique when the
+      simpler method of CMS_verify() is not appropriate.
+    </para>
+    <para>
+      In typical usage and application will retrieve all CMS_SignerInfo
+      structures using CMS_get0_SignerInfo() and retrieve the identifier
+      information using CMS. It will then obtain the signer certificate by
+      some unspecified means (or return and error if it cannot be found)
+      and set it using CMS_SignerInfo_set1_signer_cert().
+    </para>
+    <para>
+      Once all signer certificates have been set CMS_verify() can be used.
+    </para>
+    <para>
+      Although CMS_get0_SignerInfos() can return NULL is an error occur
+      <emphasis role="bold">or</emphasis> if there are no signers this is
+      not a problem in practice because the only error which can occur is
+      if the <emphasis role="bold">cms</emphasis> structure is not of type
+      signedData due to application error.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.CMS_get0_SignerInfos.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      CMS_get0_SignerInfos() returns all CMS_SignerInfo structures, or NULL
+      there are no signers or an error occurs.
+    </para>
+    <para>
+      CMS_SignerInfo_get0_signer_id() returns 1 for success and 0 for
+      failure.
+    </para>
+    <para>
+      CMS_SignerInfo_cert_cmp() returns 0 for a successful comparison and
+      non zero otherwise.
+    </para>
+    <para>
+      CMS_SignerInfo_set1_signer_cert() does not return a value.
+    </para>
+    <para>
+      Any error can be obtained from ERR_get_error(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.CMS_get0_SignerInfos.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ERR_get_error(3), CMS_verify(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.CMS_get0_SignerInfos.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      These functions were first was added to OpenSSL 0.9.8
+    </para>
+  </refsection>
+</refentry>

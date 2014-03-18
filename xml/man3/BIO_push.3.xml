@@ -1,0 +1,87 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>BIO_push.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>BIO_push, BIO_pop</refname>
+<refpurpose>add and remove BIOs from a chain.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/bio.h&gt;</synopsis>
+<synopsis format="linespecific">BIO *  BIO_push(BIO *b,BIO *append);
+BIO *  BIO_pop(BIO *b);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_push.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The BIO_push() function appends the BIO <emphasis role="bold">append</emphasis> to <emphasis role="bold">b</emphasis>,
+      it returns <emphasis role="bold">b</emphasis>.
+    </para>
+    <para>
+      BIO_pop() removes the BIO <emphasis role="bold">b</emphasis> from a
+      chain and returns the next BIO in the chain, or NULL if there is no
+      next BIO. The removed BIO then becomes a single BIO with no
+      association with the original chain, it can thus be freed or attached
+      to a different chain.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_push.pod:NOTES"><title>NOTES</title>
+    <para>
+      The names of these functions are perhaps a little misleading.
+      BIO_push() joins two BIO chains whereas BIO_pop() deletes a single
+      BIO from a chain, the deleted BIO does not need to be at the end of a
+      chain.
+    </para>
+    <para>
+      The process of calling BIO_push() and BIO_pop() on a BIO may have
+      additional consequences (a control call is made to the affected BIOs)
+      any effects will be noted in the descriptions of individual BIOs.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_push.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      For these examples suppose <emphasis role="bold">md1</emphasis> and
+      <emphasis role="bold">md2</emphasis> are digest BIOs, <emphasis role="bold">b64</emphasis> is a base64 BIO and <emphasis role="bold">f</emphasis> is a file BIO.
+    </para>
+    <para>
+      If the call:
+    </para>
+    <screen>BIO_push(b64, f);</screen>
+    <para>
+      is made then the new chain will be <emphasis role="bold">b64-chain</emphasis>. After making the calls
+    </para>
+    <screen>BIO_push(md2, b64);
+BIO_push(md1, md2);</screen>
+    <para>
+      the new chain is <emphasis role="bold">md1-md2-b64-f</emphasis>. Data
+      written to <emphasis role="bold">md1</emphasis> will be digested by
+      <emphasis role="bold">md1</emphasis> and <emphasis role="bold">md2</emphasis>, <emphasis role="bold">base64</emphasis>
+      encoded and written to <emphasis role="bold">f</emphasis>.
+    </para>
+    <para>
+      It should be noted that reading causes data to pass in the reverse
+      direction, that is data is read from <emphasis role="bold">f</emphasis>, base64 <emphasis role="bold">decoded</emphasis> and digested by <emphasis role="bold">md1</emphasis> and <emphasis role="bold">md2</emphasis>.
+      If the call:
+    </para>
+    <screen>BIO_pop(md2);</screen>
+    <para>
+      The call will return <emphasis role="bold">b64</emphasis> and the new
+      chain will be <emphasis role="bold">md1-b64-f</emphasis> data can be
+      written to <emphasis role="bold">md1</emphasis> as before.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_push.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      BIO_push() returns the end of the chain, <emphasis role="bold">b</emphasis>.
+    </para>
+    <para>
+      BIO_pop() returns the next BIO in the chain, or NULL if there is no
+      next BIO.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_push.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      TBA
+    </para>
+  </refsection>
+</refentry>

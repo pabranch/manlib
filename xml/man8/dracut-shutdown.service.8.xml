@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry lang="en">
+<refentryinfo>
+    <title>DRACUT-SHUTDOWN.SERVICE(8)</title>
+</refentryinfo>
+<refmeta>
+<refentrytitle>dracut-shutdown.service</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo class="source">dracut</refmiscinfo>
+<refmiscinfo class="manual">dracut</refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>dracut-shutdown.service</refname>
+    <refpurpose>unpack the initramfs to /run/initramfs</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara>dracut-shutdown.service</simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>This service unpacks the initramfs image to /run/initramfs.
+systemd pivots into /run/initramfs at shutdown, so the root filesytem
+can be safely unmounted.</simpara>
+<simpara>The following steps are executed during a shutdown:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+systemd switches to the shutdown.target
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+systemd starts /lib/systemd/system/shutdown.target.wants/dracut-shutdown.service
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+dracut-shutdown.service executes /usr/lib/dracut/dracut-initramfs-restore which unpacks the initramfs to /run/initramfs
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+systemd finishes shutdown.target
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+systemd kills all processes
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+systemd tries to unmount everything and mounts the remaining read-only
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+systemd checks, if there is a /run/initramfs/shutdown executable
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+if yes, it does a pivot_root to /run/initramfs and executes ./shutdown. The old root is then mounted on /oldroot. /usr/lib/dracut/modules.d/99shutdown/shutdown.sh is the shutdown executable.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+shutdown will try to umount every /oldroot mount and calls the various shutdown hooks from the dracut modules
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara>This ensures, that all devices are disassembled and unmounted cleanly.</simpara>
+<simpara>To debug the shutdown process, you can get a shell in the shutdown procedure
+by injecting "rd.break=pre-shutdown rd.shell" or "rd.break=shutdown rd.shell".</simpara>
+<screen># mkdir -p /run/initramfs/etc/cmdline.d
+# echo "rd.break=pre-shutdown rd.shell" &gt; /run/initramfs/etc/cmdline.d/debug.conf
+# touch /run/initramfs/.need_shutdown</screen>
+</refsect1>
+<refsect1 id="_authors">
+<title>AUTHORS</title>
+<simpara>Harald Hoyer</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><emphasis role="strong">dracut</emphasis>(8)</simpara>
+</refsect1>
+</refentry>

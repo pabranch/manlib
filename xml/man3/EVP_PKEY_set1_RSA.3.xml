@@ -1,0 +1,87 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>EVP_PKEY_set1_RSA.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>EVP_PKEY_set1_RSA, EVP_PKEY_set1_DSA, EVP_PKEY_set1_DH, EVP_PKEY_set1_EC_KEY,
+EVP_PKEY_get1_RSA, EVP_PKEY_get1_DSA, EVP_PKEY_get1_DH, EVP_PKEY_get1_EC_KEY,
+EVP_PKEY_assign_RSA, EVP_PKEY_assign_DSA, EVP_PKEY_assign_DH, EVP_PKEY_assign_EC_KEY,
+EVP_PKEY_type</refname>
+<refpurpose>EVP_PKEY assignment functions.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis format="linespecific">int EVP_PKEY_set1_RSA(EVP_PKEY *pkey,RSA *key);
+int EVP_PKEY_set1_DSA(EVP_PKEY *pkey,DSA *key);
+int EVP_PKEY_set1_DH(EVP_PKEY *pkey,DH *key);
+int EVP_PKEY_set1_EC_KEY(EVP_PKEY *pkey,EC_KEY *key);</synopsis>
+<synopsis format="linespecific">RSA *EVP_PKEY_get1_RSA(EVP_PKEY *pkey);
+DSA *EVP_PKEY_get1_DSA(EVP_PKEY *pkey);
+DH *EVP_PKEY_get1_DH(EVP_PKEY *pkey);
+EC_KEY *EVP_PKEY_get1_EC_KEY(EVP_PKEY *pkey);</synopsis>
+<synopsis format="linespecific">int EVP_PKEY_assign_RSA(EVP_PKEY *pkey,RSA *key);
+int EVP_PKEY_assign_DSA(EVP_PKEY *pkey,DSA *key);
+int EVP_PKEY_assign_DH(EVP_PKEY *pkey,DH *key);
+int EVP_PKEY_assign_EC_KEY(EVP_PKEY *pkey,EC_KEY *key);</synopsis>
+<synopsis format="linespecific">int EVP_PKEY_type(int type);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_set1_RSA.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      EVP_PKEY_set1_RSA(), EVP_PKEY_set1_DSA(), EVP_PKEY_set1_DH() and
+      EVP_PKEY_set1_EC_KEY() set the key referenced by <emphasis role="bold">pkey</emphasis> to <emphasis role="bold">key</emphasis>.
+    </para>
+    <para>
+      EVP_PKEY_get1_RSA(), EVP_PKEY_get1_DSA(), EVP_PKEY_get1_DH() and
+      EVP_PKEY_get1_EC_KEY() return the referenced key in <emphasis role="bold">pkey</emphasis> or <emphasis role="bold">NULL</emphasis>
+      if the key is not of the correct type.
+    </para>
+    <para>
+      EVP_PKEY_assign_RSA() EVP_PKEY_assign_DSA(), EVP_PKEY_assign_DH() and
+      EVP_PKEY_assign_EC_KEY() also set the referenced key to <emphasis role="bold">key</emphasis> however these use the supplied <emphasis role="bold">key</emphasis> internally and so <emphasis role="bold">key</emphasis> will be freed when the parent <emphasis role="bold">pkey</emphasis> is freed.
+    </para>
+    <para>
+      EVP_PKEY_type() returns the type of key corresponding to the value
+      <emphasis role="bold">type</emphasis>. The type of a key can be
+      obtained with EVP_PKEY_type(pkey-&gt;type). The return value will be
+      EVP_PKEY_RSA, EVP_PKEY_DSA, EVP_PKEY_DH or EVP_PKEY_EC for the
+      corresponding key types or NID_undef if the key type is unassigned.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_set1_RSA.pod:NOTES"><title>NOTES</title>
+    <para>
+      In accordance with the OpenSSL naming convention the key obtained
+      from or assigned to the <emphasis role="bold">pkey</emphasis> using
+      the <emphasis role="bold">1</emphasis> functions must be freed as
+      well as <emphasis role="bold">pkey</emphasis>.
+    </para>
+    <para>
+      EVP_PKEY_assign_RSA() EVP_PKEY_assign_DSA(), EVP_PKEY_assign_DH()
+      EVP_PKEY_assign_EC_KEY() are implemented as macros.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_set1_RSA.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      EVP_PKEY_set1_RSA(), EVP_PKEY_set1_DSA(), EVP_PKEY_set1_DH() and
+      EVP_PKEY_set1_EC_KEY() return 1 for success or 0 for failure.
+    </para>
+    <para>
+      EVP_PKEY_get1_RSA(), EVP_PKEY_get1_DSA(), EVP_PKEY_get1_DH() and
+      EVP_PKEY_get1_EC_KEY() return the referenced key or <emphasis role="bold">NULL</emphasis> if an error occurred. 
+    </para>
+    <para>
+      EVP_PKEY_assign_RSA() EVP_PKEY_assign_DSA(), EVP_PKEY_assign_DH() and
+      EVP_PKEY_assign_EC_KEY() return 1 for success and 0 for failure.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_set1_RSA.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      EVP_PKEY_new(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_set1_RSA.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      TBA
+    </para>
+  </refsection>
+</refentry>

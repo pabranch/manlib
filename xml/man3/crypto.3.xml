@@ -1,0 +1,119 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>crypto.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>crypto</refname>
+<refpurpose>OpenSSL cryptographic library</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+    <synopsis format="linespecific"/>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.crypto.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The OpenSSL <emphasis role="bold">crypto</emphasis> library
+      implements a wide range of cryptographic algorithms used in various
+      Internet standards. The services provided by this library are used by
+      the OpenSSL implementations of SSL, TLS and S/MIME, and they have
+      also been used to implement SSH, OpenPGP, and other cryptographic
+      standards.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.crypto.pod:OVERVIEW"><title>OVERVIEW</title>
+    <para>
+      <emphasis role="bold">libcrypto</emphasis> consists of a number of
+      sub-libraries that implement the individual algorithms.
+    </para>
+    <para>
+      The functionality includes symmetric encryption, public key
+      cryptography and key agreement, certificate handling, cryptographic
+      hash functions and a cryptographic pseudo-random number generator.
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.crypto.pod:SYMMETRIC_CIPHERS"/>SYMMETRIC CIPHERS</term>
+          <listitem>
+            <para>
+	      blowfish(3), cast(3), des(3), idea(3), rc2(3), rc4(3), rc5(3)
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.crypto.pod:PUBLIC_KEY_CRYPTOGRAPHY_AND_KEY_AGREEMENT"/>PUBLIC KEY CRYPTOGRAPHY AND KEY AGREEMENT</term>
+          <listitem>
+            <para>
+	      dsa(3), dh(3), rsa(3)
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.crypto.pod:CERTIFICATES"/>CERTIFICATES</term>
+          <listitem>
+            <para>
+	      x509(3), x509v3(3)
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.crypto.pod:AUTHENTICATION_CODES_HASH_FUNCTIONS"/>AUTHENTICATION CODES, HASH FUNCTIONS</term>
+          <listitem>
+            <para>
+	      hmac(3), md2(3), md4(3), md5(3), mdc2(3), ripemd(3), sha(3)
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.crypto.pod:AUXILIARY_FUNCTIONS"/>AUXILIARY FUNCTIONS</term>
+          <listitem>
+            <para>
+	      err(3), threads(3), rand(3), OPENSSL_VERSION_NUMBER(3)
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.crypto.pod:INPUT.OUTPUT_DATA_ENCODING"/>INPUT/OUTPUT, DATA ENCODING</term>
+          <listitem>
+            <para>
+	      asn1(3), bio(3), evp(3), pem(3), pkcs7(3), pkcs12(3)
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.crypto.pod:INTERNAL_FUNCTIONS"/>INTERNAL FUNCTIONS</term>
+          <listitem>
+            <para>
+	      bn(3), buffer(3), ec(3), lhash(3), objects(3), stack(3),
+	      txt_db(3)
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.crypto.pod:NOTES"><title>NOTES</title>
+    <para>
+      Some of the newer functions follow a naming convention using the
+      numbers <emphasis role="bold">0</emphasis> and <emphasis role="bold">1</emphasis>. For example the functions:
+    </para>
+    <screen>int X509_CRL_add0_revoked(X509_CRL *crl, X509_REVOKED *rev);
+int X509_add1_trust_object(X509 *x, ASN1_OBJECT *obj);</screen>
+    <para>
+      The <emphasis role="bold">0</emphasis> version uses the supplied
+      structure pointer directly in the parent and it will be freed up when
+      the parent is freed. In the above example <emphasis role="bold">crl</emphasis> would be freed but <emphasis role="bold">rev</emphasis> would not.
+    </para>
+    <para>
+      The <emphasis role="bold">1</emphasis> function uses a copy of the
+      supplied structure pointer (or in some cases increases its link
+      count) in the parent and so both (<emphasis role="bold">x</emphasis>
+      and <emphasis role="bold">obj</emphasis> above) should be freed up.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.crypto.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      openssl(1), ssl(3)
+    </para>
+  </refsection>
+</refentry>

@@ -1,0 +1,181 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_use_certificate.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_use_certificate, SSL_CTX_use_certificate_ASN1, SSL_CTX_use_certificate_file, SSL_use_certificate, SSL_use_certificate_ASN1, SSL_use_certificate_file, SSL_CTX_use_certificate_chain_file, SSL_CTX_use_PrivateKey, SSL_CTX_use_PrivateKey_ASN1, SSL_CTX_use_PrivateKey_file, SSL_CTX_use_RSAPrivateKey, SSL_CTX_use_RSAPrivateKey_ASN1, SSL_CTX_use_RSAPrivateKey_file, SSL_use_PrivateKey_file, SSL_use_PrivateKey_ASN1, SSL_use_PrivateKey, SSL_use_RSAPrivateKey, SSL_use_RSAPrivateKey_ASN1, SSL_use_RSAPrivateKey_file, SSL_CTX_check_private_key, SSL_check_private_key</refname>
+<refpurpose>load certificate and key data</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">int SSL_CTX_use_certificate(SSL_CTX *ctx, X509 *x);
+int SSL_CTX_use_certificate_ASN1(SSL_CTX *ctx, int len, unsigned char *d);
+int SSL_CTX_use_certificate_file(SSL_CTX *ctx, const char *file, int type);
+int SSL_use_certificate(SSL *ssl, X509 *x);
+int SSL_use_certificate_ASN1(SSL *ssl, unsigned char *d, int len);
+int SSL_use_certificate_file(SSL *ssl, const char *file, int type);</synopsis>
+<synopsis format="linespecific">int SSL_CTX_use_certificate_chain_file(SSL_CTX *ctx, const char *file);</synopsis>
+<synopsis format="linespecific">int SSL_CTX_use_PrivateKey(SSL_CTX *ctx, EVP_PKEY *pkey);
+int SSL_CTX_use_PrivateKey_ASN1(int pk, SSL_CTX *ctx, unsigned char *d,
+                                long len);
+int SSL_CTX_use_PrivateKey_file(SSL_CTX *ctx, const char *file, int type);
+int SSL_CTX_use_RSAPrivateKey(SSL_CTX *ctx, RSA *rsa);
+int SSL_CTX_use_RSAPrivateKey_ASN1(SSL_CTX *ctx, unsigned char *d, long len);
+int SSL_CTX_use_RSAPrivateKey_file(SSL_CTX *ctx, const char *file, int type);
+int SSL_use_PrivateKey(SSL *ssl, EVP_PKEY *pkey);
+int SSL_use_PrivateKey_ASN1(int pk,SSL *ssl, unsigned char *d, long len);
+int SSL_use_PrivateKey_file(SSL *ssl, const char *file, int type);
+int SSL_use_RSAPrivateKey(SSL *ssl, RSA *rsa);
+int SSL_use_RSAPrivateKey_ASN1(SSL *ssl, unsigned char *d, long len);
+int SSL_use_RSAPrivateKey_file(SSL *ssl, const char *file, int type);</synopsis>
+<synopsis format="linespecific">int SSL_CTX_check_private_key(const SSL_CTX *ctx);
+int SSL_check_private_key(const SSL *ssl);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_use_certificate.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      These functions load the certificates and private keys into the
+      SSL_CTX or SSL object, respectively.
+    </para>
+    <para>
+      The SSL_CTX_* class of functions loads the certificates and keys into
+      the SSL_CTX object <emphasis role="bold">ctx</emphasis>. The
+      information is passed to SSL objects <emphasis role="bold">ssl</emphasis> created from <emphasis role="bold">ctx</emphasis> with SSL_new(3) by copying, so that
+      changes applied to <emphasis role="bold">ctx</emphasis> do not
+      propagate to already existing SSL objects.
+    </para>
+    <para>
+      The SSL_* class of functions only loads certificates and keys into a
+      specific SSL object. The specific information is kept, when
+      SSL_clear(3) is called for this SSL object.
+    </para>
+    <para>
+      SSL_CTX_use_certificate() loads the certificate <emphasis role="bold">x</emphasis> into <emphasis role="bold">ctx</emphasis>,
+      SSL_use_certificate() loads <emphasis role="bold">x</emphasis> into
+      <emphasis role="bold">ssl</emphasis>. The rest of the certificates
+      needed to form the complete certificate chain can be specified using
+      the SSL_CTX_add_extra_chain_cert(3) function.
+    </para>
+    <para>
+      SSL_CTX_use_certificate_ASN1() loads the ASN1 encoded certificate
+      from the memory location <emphasis role="bold">d</emphasis> (with
+      length <emphasis role="bold">len</emphasis>) into <emphasis role="bold">ctx</emphasis>, SSL_use_certificate_ASN1() loads the ASN1
+      encoded certificate into <emphasis role="bold">ssl</emphasis>.
+    </para>
+    <para>
+      SSL_CTX_use_certificate_file() loads the first certificate stored in
+      <emphasis role="bold">file</emphasis> into <emphasis role="bold">ctx</emphasis>. The formatting <emphasis role="bold">type</emphasis> of the certificate must be specified from
+      the known types SSL_FILETYPE_PEM, SSL_FILETYPE_ASN1.
+      SSL_use_certificate_file() loads the certificate from <emphasis role="bold">file</emphasis> into <emphasis role="bold">ssl</emphasis>. See the NOTES section on why
+      SSL_CTX_use_certificate_chain_file() should be preferred.
+    </para>
+    <para>
+      SSL_CTX_use_certificate_chain_file() loads a certificate chain from
+      <emphasis role="bold">file</emphasis> into <emphasis role="bold">ctx</emphasis>. The certificates must be in PEM format
+      and must be sorted starting with the subject's certificate (actual
+      client or server certificate), followed by intermediate CA
+      certificates if applicable, and ending at the highest level (root)
+      CA. There is no corresponding function working on a single SSL
+      object. 
+    </para>
+    <para>
+      SSL_CTX_use_PrivateKey() adds <emphasis role="bold">pkey</emphasis>
+      as private key to <emphasis role="bold">ctx</emphasis>.
+      SSL_CTX_use_RSAPrivateKey() adds the private key <emphasis role="bold">rsa</emphasis> of type RSA to <emphasis role="bold">ctx</emphasis>. SSL_use_PrivateKey() adds <emphasis role="bold">pkey</emphasis> as private key to <emphasis role="bold">ssl</emphasis>; SSL_use_RSAPrivateKey() adds <emphasis role="bold">rsa</emphasis> as private key of type RSA to <emphasis role="bold">ssl</emphasis>. If a certificate has already been set and
+      the private does not belong to the certificate an error is returned.
+      To change a certificate, private key pair the new certificate needs
+      to be set with SSL_use_certificate() or SSL_CTX_use_certificate()
+      before setting the private key with SSL_CTX_use_PrivateKey() or
+      SSL_use_PrivateKey().
+    </para>
+    <screen></screen>
+    <para>
+      SSL_CTX_use_PrivateKey_ASN1() adds the private key of type <emphasis role="bold">pk</emphasis> stored at memory location <emphasis role="bold">d</emphasis> (length <emphasis role="bold">len</emphasis>) to <emphasis role="bold">ctx</emphasis>.
+      SSL_CTX_use_RSAPrivateKey_ASN1() adds the private key of type RSA
+      stored at memory location <emphasis role="bold">d</emphasis> (length
+      <emphasis role="bold">len</emphasis>) to <emphasis role="bold">ctx</emphasis>. SSL_use_PrivateKey_ASN1() and
+      SSL_use_RSAPrivateKey_ASN1() add the private key to <emphasis role="bold">ssl</emphasis>.
+    </para>
+    <para>
+      SSL_CTX_use_PrivateKey_file() adds the first private key found in
+      <emphasis role="bold">file</emphasis> to <emphasis role="bold">ctx</emphasis>. The formatting <emphasis role="bold">type</emphasis> of the certificate must be specified from
+      the known types SSL_FILETYPE_PEM, SSL_FILETYPE_ASN1.
+      SSL_CTX_use_RSAPrivateKey_file() adds the first private RSA key found
+      in <emphasis role="bold">file</emphasis> to <emphasis role="bold">ctx</emphasis>. SSL_use_PrivateKey_file() adds the first
+      private key found in <emphasis role="bold">file</emphasis> to
+      <emphasis role="bold">ssl</emphasis>; SSL_use_RSAPrivateKey_file()
+      adds the first private RSA key found to <emphasis role="bold">ssl</emphasis>.
+    </para>
+    <para>
+      SSL_CTX_check_private_key() checks the consistency of a private key
+      with the corresponding certificate loaded into <emphasis role="bold">ctx</emphasis>. If more than one key/certificate pair
+      (RSA/DSA) is installed, the last item installed will be checked. If
+      e.g. the last item was a RSA certificate or key, the RSA
+      key/certificate pair will be checked. SSL_check_private_key()
+      performs the same check for <emphasis role="bold">ssl</emphasis>. If
+      no key/certificate was explicitly added for this <emphasis role="bold">ssl</emphasis>, the last item added into <emphasis role="bold">ctx</emphasis> will be checked.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_use_certificate.pod:NOTES"><title>NOTES</title>
+    <para>
+      The internal certificate store of OpenSSL can hold several private
+      key/certificate pairs at a time. The certificate used depends on the
+      cipher selected, see also SSL_CTX_set_cipher_list(3).
+    </para>
+    <para>
+      When reading certificates and private keys from file, files of type
+      SSL_FILETYPE_ASN1 (also known as <emphasis role="bold">DER</emphasis>, binary encoding) can only contain one
+      certificate or private key, consequently
+      SSL_CTX_use_certificate_chain_file() is only applicable to PEM
+      formatting. Files of type SSL_FILETYPE_PEM can contain more than one
+      item. 
+    </para>
+    <para>
+      SSL_CTX_use_certificate_chain_file() adds the first certificate found
+      in the file to the certificate store. The other certificates are
+      added to the store of chain certificates using
+      SSL_CTX_add1_chain_cert(3). Note: versions of OpenSSL before 1.0.2
+      only had a single certificate chain store for all certificate types,
+      OpenSSL 1.0.2 and later have a separate chain store for each type.
+      SSL_CTX_use_certificate_chain_file() should be used instead of the
+      SSL_CTX_use_certificate_file() function in order to allow the use of
+      complete certificate chains even when no trusted CA storage is used
+      or when the CA issuing the certificate shall not be added to the
+      trusted CA storage. 
+    </para>
+    <para>
+      If additional certificates are needed to complete the chain during
+      the TLS negotiation, CA certificates are additionally looked up in
+      the locations of trusted CA certificates, see
+      SSL_CTX_load_verify_locations(3).
+    </para>
+    <para>
+      The private keys loaded from file can be encrypted. In order to
+      successfully load encrypted keys, a function returning the passphrase
+      must have been supplied, see SSL_CTX_set_default_passwd_cb(3).
+      (Certificate files might be encrypted as well from the technical
+      point of view, it however does not make sense as the data in the
+      certificate is considered public anyway.)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_use_certificate.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      On success, the functions return 1. Otherwise check out the error
+      stack to find out the reason.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_use_certificate.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_new(3), SSL_clear(3), SSL_CTX_load_verify_locations(3),
+      SSL_CTX_set_default_passwd_cb(3), SSL_CTX_set_cipher_list(3),
+      SSL_CTX_set_client_cert_cb(3), SSL_CTX_add_extra_chain_cert(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_use_certificate.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      Support for DER encoded private keys (SSL_FILETYPE_ASN1) in
+      SSL_CTX_use_PrivateKey_file() and SSL_use_PrivateKey_file() was added
+      in 0.9.8 .
+    </para>
+  </refsection>
+</refentry>

@@ -1,0 +1,46 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_free.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_free</refname>
+<refpurpose>free an allocated SSL_CTX object</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">void SSL_CTX_free(SSL_CTX *ctx);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_free.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_CTX_free() decrements the reference count of <emphasis role="bold">ctx</emphasis>, and removes the SSL_CTX object pointed to
+      by <emphasis role="bold">ctx</emphasis> and frees up the allocated
+      memory if the the reference count has reached 0.
+    </para>
+    <para>
+      It also calls the free()ing procedures for indirectly affected items,
+      if applicable: the session cache, the list of ciphers, the list of
+      Client CAs, the certificates and keys.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_free.pod:WARNINGS"><title>WARNINGS</title>
+    <para>
+      If a session-remove callback is set (SSL_CTX_sess_set_remove_cb()),
+      this callback will be called for each session being freed from
+      <emphasis role="bold">ctx</emphasis>'s session cache. This implies,
+      that all corresponding sessions from an external session cache are
+      removed as well. If this is not desired, the user should explicitly
+      unset the callback by calling SSL_CTX_sess_set_remove_cb(<emphasis role="bold">ctx</emphasis>, NULL) prior to calling SSL_CTX_free().
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_free.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      SSL_CTX_free() does not provide diagnostic information.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_free.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      SSL_CTX_new(3), ssl(3), SSL_CTX_sess_set_get_cb(3)
+    </para>
+  </refsection>
+</refentry>

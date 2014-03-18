@@ -1,0 +1,135 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>OPENSSL_VERSION_NUMBER.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>OPENSSL_VERSION_NUMBER, SSLeay, SSLeay_version</refname>
+<refpurpose>get OpenSSL version number</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/opensslv.h&gt;
+#define OPENSSL_VERSION_NUMBER 0xnnnnnnnnnL</synopsis>
+<synopsis format="linespecific">#include &lt;openssl/crypto.h&gt;
+long SSLeay(void);
+const char *SSLeay_version(int t);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.OPENSSL_VERSION_NUMBER.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      OPENSSL_VERSION_NUMBER is a numeric release version identifier:
+    </para>
+    <screen>MMNNFFPPS: major minor fix patch status</screen>
+    <para>
+      The status nibble has one of the values 0 for development, 1 to e for
+      betas 1 to 14, and f for release.
+    </para>
+    <para>
+      for example
+    </para>
+    <screen>0x000906000 == 0.9.6 dev
+0x000906023 == 0.9.6b beta 3
+0x00090605f == 0.9.6e release</screen>
+    <para>
+      Versions prior to 0.9.3 have identifiers &lt; 0x0930. Versions
+      between 0.9.3 and 0.9.5 had a version identifier with this
+      interpretation:
+    </para>
+    <screen>MMNNFFRBB major minor fix final beta/patch</screen>
+    <para>
+      for example
+    </para>
+    <screen>0x000904100 == 0.9.4 release
+0x000905000 == 0.9.5 dev</screen>
+    <para>
+      Version 0.9.5a had an interim interpretation that is like the current
+      one, except the patch level got the highest bit set, to keep
+      continuity.  The number was therefore 0x0090581f.
+    </para>
+    <screen></screen>
+    <para>
+      For backward compatibility, SSLEAY_VERSION_NUMBER is also defined.
+    </para>
+    <para>
+      SSLeay() returns this number. The return value can be compared to the
+      macro to make sure that the correct version of the library has been
+      loaded, especially when using DLLs on Windows systems.
+    </para>
+    <para>
+      SSLeay_version() returns different strings depending on <emphasis role="bold">t</emphasis>:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.OPENSSL_VERSION_NUMBER.pod:SSLEAY_VERSION"/>SSLEAY_VERSION</term>
+          <listitem>
+            <para>
+	      The text variant of the version number and the release date. 
+	      For example, "OpenSSL 0.9.5a 1 Apr 2000".
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.OPENSSL_VERSION_NUMBER.pod:SSLEAY_CFLAGS"/>SSLEAY_CFLAGS</term>
+          <listitem>
+            <para>
+	      The compiler flags set for the compilation process in the
+	      form "compiler: ..."  if available or "compiler: information
+	      not available" otherwise.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.OPENSSL_VERSION_NUMBER.pod:SSLEAY_BUILT_ON"/>SSLEAY_BUILT_ON</term>
+          <listitem>
+            <para>
+	      The date of the build process in the form "built on: ..." if
+	      available or "built on: date not available" otherwise.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.OPENSSL_VERSION_NUMBER.pod:SSLEAY_PLATFORM"/>SSLEAY_PLATFORM</term>
+          <listitem>
+            <para>
+	      The "Configure" target of the library build in the form
+	      "platform: ..." if available or "platform: information not
+	      available" otherwise.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.OPENSSL_VERSION_NUMBER.pod:SSLEAY_DIR"/>SSLEAY_DIR</term>
+          <listitem>
+            <para>
+	      The "OPENSSLDIR" setting of the library build in the form
+	      "OPENSSLDIR: "..."" if available or "OPENSSLDIR: N/A"
+	      otherwise.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+    <para>
+      For an unknown <emphasis role="bold">t</emphasis>, the text "not
+      available" is returned.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.OPENSSL_VERSION_NUMBER.pod:RETURN_VALUE"><title>RETURN VALUE</title>
+    <para>
+      The version number.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.OPENSSL_VERSION_NUMBER.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      crypto(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.OPENSSL_VERSION_NUMBER.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      SSLeay() and SSLEAY_VERSION_NUMBER are available in all versions of
+      SSLeay and OpenSSL. OPENSSL_VERSION_NUMBER is available in all
+      versions of OpenSSL. <emphasis role="bold">SSLEAY_DIR</emphasis> was
+      added in OpenSSL 0.9.7.
+    </para>
+  </refsection>
+</refentry>

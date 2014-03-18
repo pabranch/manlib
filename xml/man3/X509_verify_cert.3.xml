@@ -1,0 +1,65 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>X509_verify_cert.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>X509_verify_cert</refname>
+<refpurpose>discover and verify X509 certificte chain</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/x509.h&gt;</synopsis>
+<synopsis format="linespecific">int X509_verify_cert(X509_STORE_CTX *ctx);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_verify_cert.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The X509_verify_cert() function attempts to discover and validate a
+      certificate chain based on parameters in <emphasis role="bold">ctx</emphasis>. A complete description of the process is
+      contained in the verify(1) manual page.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_verify_cert.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      If a complete chain can be built and validated this function returns
+      1, otherwise it return zero, in exceptional circumstances it can also
+      return a negative code.
+    </para>
+    <para>
+      If the function fails additional error information can be obtained by
+      examining <emphasis role="bold">ctx</emphasis> using, for example
+      X509_STORE_CTX_get_error().
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_verify_cert.pod:NOTES"><title>NOTES</title>
+    <para>
+      Applications rarely call this function directly but it is used by
+      OpenSSL internally for certificate validation, in both the S/MIME and
+      SSL/TLS code.
+    </para>
+    <para>
+      The negative return value from X509_verify_cert() can only occur if
+      no certificate is set in <emphasis role="bold">ctx</emphasis> (due to
+      a programming error) or if a retry operation is requested during
+      internal lookups (which never happens with standard lookup methods).
+      It is however recommended that application check for &lt;= 0 return
+      value on error.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_verify_cert.pod:BUGS"><title>BUGS</title>
+    <para>
+      This function uses the header <emphasis role="bold">x509.h</emphasis>
+      as opposed to most chain verification functiosn which use <emphasis role="bold">x509_vfy.h</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_verify_cert.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      X509_STORE_CTX_get_error(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_verify_cert.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      X509_verify_cert() is available in all versions of SSLeay and
+      OpenSSL.
+    </para>
+  </refsection>
+</refentry>

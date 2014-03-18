@@ -1,0 +1,61 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_set_connect_state.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_set_connect_state, SSL_set_accept_state</refname>
+<refpurpose>prepare SSL object to work in client or server mode</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">void SSL_set_connect_state(SSL *ssl);</synopsis>
+<synopsis format="linespecific">void SSL_set_accept_state(SSL *ssl);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_set_connect_state.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_set_connect_state() sets <emphasis role="bold">ssl</emphasis> to
+      work in client mode.
+    </para>
+    <para>
+      SSL_set_accept_state() sets <emphasis role="bold">ssl</emphasis> to
+      work in server mode.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_set_connect_state.pod:NOTES"><title>NOTES</title>
+    <para>
+      When the SSL_CTX object was created with SSL_CTX_new(3), it was
+      either assigned a dedicated client method, a dedicated server method,
+      or a generic method, that can be used for both client and server
+      connections. (The method might have been changed with
+      SSL_CTX_set_ssl_version(3) or SSL_set_ssl_method().)
+    </para>
+    <para>
+      When beginning a new handshake, the SSL engine must know whether it
+      must call the connect (client) or accept (server) routines. Even
+      though it may be clear from the method chosen, whether client or
+      server mode was requested, the handshake routines must be explicitly
+      set.
+    </para>
+    <para>
+      When using the SSL_connect(3) or SSL_accept(3) routines, the correct
+      handshake routines are automatically set. When performing a
+      transparent negotiation using SSL_write(3) or SSL_read(3), the
+      handshake routines must be explicitly set in advance using either
+      SSL_set_connect_state() or SSL_set_accept_state().
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_set_connect_state.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      SSL_set_connect_state() and SSL_set_accept_state() do not return
+      diagnostic information.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_set_connect_state.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_new(3), SSL_CTX_new(3), SSL_connect(3), SSL_accept(3),
+      SSL_write(3), SSL_read(3), SSL_do_handshake(3),
+      SSL_CTX_set_ssl_version(3)
+    </para>
+  </refsection>
+</refentry>

@@ -1,0 +1,56 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_flush_sessions.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_flush_sessions, SSL_flush_sessions</refname>
+<refpurpose>remove expired sessions</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">void SSL_CTX_flush_sessions(SSL_CTX *ctx, long tm);
+void SSL_flush_sessions(SSL_CTX *ctx, long tm);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_flush_sessions.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_CTX_flush_sessions() causes a run through the session cache of
+      <emphasis role="bold">ctx</emphasis> to remove sessions expired at
+      time <emphasis role="bold">tm</emphasis>.
+    </para>
+    <para>
+      SSL_flush_sessions() is a synonym for SSL_CTX_flush_sessions().
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_flush_sessions.pod:NOTES"><title>NOTES</title>
+    <para>
+      If enabled, the internal session cache will collect all sessions
+      established up to the specified maximum number (see
+      SSL_CTX_sess_set_cache_size()). As sessions will not be reused ones
+      they are expired, they should be removed from the cache to save
+      resources. This can either be done automatically whenever 255 new
+      sessions were established (see SSL_CTX_set_session_cache_mode(3)) or
+      manually by calling SSL_CTX_flush_sessions().
+    </para>
+    <para>
+      The parameter <emphasis role="bold">tm</emphasis> specifies the time
+      which should be used for the expiration test, in most cases the
+      actual time given by time(0) will be used.
+    </para>
+    <para>
+      SSL_CTX_flush_sessions() will only check sessions stored in the
+      internal cache. When a session is found and removed, the
+      remove_session_cb is however called to synchronize with the external
+      cache (see SSL_CTX_sess_set_get_cb(3)).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_flush_sessions.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para/>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_flush_sessions.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_CTX_set_session_cache_mode(3), SSL_CTX_set_timeout(3),
+      SSL_CTX_sess_set_get_cb(3)
+    </para>
+  </refsection>
+</refentry>

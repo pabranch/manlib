@@ -1,0 +1,82 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>sha.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SHA1, SHA1_Init, SHA1_Update, SHA1_Final</refname>
+<refpurpose>Secure Hash Algorithm</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/sha.h&gt;</synopsis>
+<synopsis format="linespecific">unsigned char *SHA1(const unsigned char *d, unsigned long n,
+                 unsigned char *md);</synopsis>
+<synopsis format="linespecific">int SHA1_Init(SHA_CTX *c);
+int SHA1_Update(SHA_CTX *c, const void *data,
+                 unsigned long len);
+int SHA1_Final(unsigned char *md, SHA_CTX *c);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.sha.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SHA-1 (Secure Hash Algorithm) is a cryptographic hash function with a
+      160 bit output.
+    </para>
+    <para>
+      SHA1() computes the SHA-1 message digest of the <emphasis role="bold">n</emphasis> bytes at <emphasis role="bold">d</emphasis>
+      and places it in <emphasis role="bold">md</emphasis> (which must have
+      space for SHA_DIGEST_LENGTH == 20 bytes of output). If <emphasis role="bold">md</emphasis> is NULL, the digest is placed in a static
+      array.
+    </para>
+    <para>
+      The following functions may be used if the message is not completely
+      stored in memory:
+    </para>
+    <para>
+      SHA1_Init() initializes a <emphasis role="bold">SHA_CTX</emphasis>
+      structure.
+    </para>
+    <para>
+      SHA1_Update() can be called repeatedly with chunks of the message to
+      be hashed (<emphasis role="bold">len</emphasis> bytes at <emphasis role="bold">data</emphasis>).
+    </para>
+    <para>
+      SHA1_Final() places the message digest in <emphasis role="bold">md</emphasis>, which must have space for
+      SHA_DIGEST_LENGTH == 20 bytes of output, and erases the <emphasis role="bold">SHA_CTX</emphasis>.
+    </para>
+    <para>
+      Applications should use the higher level functions EVP_DigestInit(3)
+      etc. instead of calling the hash functions directly.
+    </para>
+    <para>
+      The predecessor of SHA-1, SHA, is also implemented, but it should be
+      used only when backward compatibility is required.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.sha.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      SHA1() returns a pointer to the hash value.
+    </para>
+    <para>
+      SHA1_Init(), SHA1_Update() and SHA1_Final() return 1 for success, 0
+      otherwise.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.sha.pod:CONFORMING_TO"><title>CONFORMING TO</title>
+    <para>
+      SHA: US Federal Information Processing Standard FIPS PUB 180 (Secure
+      Hash Standard), SHA-1: US Federal Information Processing Standard
+      FIPS PUB 180-1 (Secure Hash Standard), ANSI X9.30
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.sha.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ripemd(3), hmac(3), EVP_DigestInit(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.sha.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      SHA1(), SHA1_Init(), SHA1_Update() and SHA1_Final() are available in
+      all versions of SSLeay and OpenSSL.
+    </para>
+  </refsection>
+</refentry>

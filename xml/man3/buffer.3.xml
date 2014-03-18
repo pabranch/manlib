@@ -1,0 +1,85 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>buffer.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>BUF_MEM_new, BUF_MEM_free, BUF_MEM_grow, BUF_strdup</refname>
+<refpurpose>simple
+character arrays structure</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/buffer.h&gt;</synopsis>
+<synopsis format="linespecific">BUF_MEM *BUF_MEM_new(void);</synopsis>
+<synopsis format="linespecific">void   BUF_MEM_free(BUF_MEM *a);</synopsis>
+<synopsis format="linespecific">int    BUF_MEM_grow(BUF_MEM *str, int len);</synopsis>
+<synopsis format="linespecific">char * BUF_strdup(const char *str);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.buffer.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The buffer library handles simple character arrays. Buffers are used
+      for various purposes in the library, most notably memory BIOs.
+    </para>
+    <para>
+      The library uses the BUF_MEM structure defined in buffer.h:
+    </para>
+    <screen>typedef struct buf_mem_st
+{
+       int length;     /* current number of bytes */
+       char *data;
+       int max;        /* size of buffer */
+} BUF_MEM;</screen>
+    <para>
+      <emphasis role="bold">length</emphasis> is the current size of the
+      buffer in bytes, <emphasis role="bold">max</emphasis> is the amount
+      of memory allocated to the buffer. There are three functions which
+      handle these and one "miscellaneous" function.
+    </para>
+    <para>
+      BUF_MEM_new() allocates a new buffer of zero size.
+    </para>
+    <para>
+      BUF_MEM_free() frees up an already existing buffer. The data is
+      zeroed before freeing up in case the buffer contains sensitive data.
+    </para>
+    <para>
+      BUF_MEM_grow() changes the size of an already existing buffer to
+      <emphasis role="bold">len</emphasis>. Any data already in the buffer
+      is preserved if it increases in size.
+    </para>
+    <para>
+      BUF_strdup() copies a null terminated string into a block of
+      allocated memory and returns a pointer to the allocated block. Unlike
+      the standard C library strdup() this function uses OPENSSL_malloc()
+      and so should be used in preference to the standard library strdup()
+      because it can be used for memory leak checking or replacing the
+      malloc() function.
+    </para>
+    <para>
+      The memory allocated from BUF_strdup() should be freed up using the
+      OPENSSL_free() function.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.buffer.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      BUF_MEM_new() returns the buffer or NULL on error.
+    </para>
+    <para>
+      BUF_MEM_free() has no return value.
+    </para>
+    <para>
+      BUF_MEM_grow() returns zero on error or the new size (i.e. <emphasis role="bold">len</emphasis>).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.buffer.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      bio(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.buffer.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      BUF_MEM_new(), BUF_MEM_free() and BUF_MEM_grow() are available in all
+      versions of SSLeay and OpenSSL. BUF_strdup() was added in SSLeay 0.8.
+    </para>
+  </refsection>
+</refentry>

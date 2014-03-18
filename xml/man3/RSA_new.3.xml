@@ -1,0 +1,47 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>RSA_new.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>RSA_new, RSA_free</refname>
+<refpurpose>allocate and free RSA objects</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/rsa.h&gt;</synopsis>
+<synopsis format="linespecific">RSA * RSA_new(void);</synopsis>
+<synopsis format="linespecific">void RSA_free(RSA *rsa);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_new.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      RSA_new() allocates and initializes an <emphasis role="bold">RSA</emphasis> structure. It is equivalent to calling
+      RSA_new_method(NULL).
+    </para>
+    <para>
+      RSA_free() frees the <emphasis role="bold">RSA</emphasis> structure
+      and its components. The key is erased before the memory is returned
+      to the system.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_new.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      If the allocation fails, RSA_new() returns <emphasis role="bold">NULL</emphasis> and sets an error code that can be
+      obtained by ERR_get_error(3). Otherwise it returns a pointer to the
+      newly allocated structure.
+    </para>
+    <para>
+      RSA_free() returns no value.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_new.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ERR_get_error(3), rsa(3), RSA_generate_key(3), RSA_new_method(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.RSA_new.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      RSA_new() and RSA_free() are available in all versions of SSLeay and
+      OpenSSL.
+    </para>
+  </refsection>
+</refentry>

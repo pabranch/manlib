@@ -1,0 +1,237 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>asn1parse.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>asn1parse</refname>
+<refpurpose>ASN.1 parsing tool</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific"><emphasis role="bold">openssl</emphasis> <emphasis role="bold">asn1parse</emphasis>
+[<emphasis role="bold">-inform PEM|DER</emphasis>]
+[<emphasis role="bold">-in filename</emphasis>]
+[<emphasis role="bold">-out filename</emphasis>]
+[<emphasis role="bold">-noout</emphasis>]
+[<emphasis role="bold">-offset number</emphasis>]
+[<emphasis role="bold">-length number</emphasis>]
+[<emphasis role="bold">-i</emphasis>]
+[<emphasis role="bold">-oid filename</emphasis>]
+[<emphasis role="bold">-strparse offset</emphasis>]
+[<emphasis role="bold">-genstr string</emphasis>]
+[<emphasis role="bold">-genconf file</emphasis>]</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.apps.asn1parse.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The <emphasis role="bold">asn1parse</emphasis> command is a
+      diagnostic utility that can parse ASN.1 structures. It can also be
+      used to extract data from ASN.1 formatted data.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.asn1parse.pod:OPTIONS"><title>OPTIONS</title>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.asn1parse.pod:-inform_DERPEM"/><emphasis role="bold">-inform</emphasis> <emphasis role="bold">DER|PEM</emphasis></term>
+          <listitem>
+            <para>
+	      the input format. <emphasis role="bold">DER</emphasis> is
+	      binary format and <emphasis role="bold">PEM</emphasis> (the
+	      default) is base64 encoded.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.asn1parse.pod:-in_filename"/><emphasis role="bold">-in filename</emphasis></term>
+          <listitem>
+            <para>
+	      the input file, default is standard input
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.asn1parse.pod:-out_filename"/><emphasis role="bold">-out filename</emphasis></term>
+          <listitem>
+            <para>
+	      output file to place the DER encoded data into. If this
+	      option is not present then no data will be output. This is
+	      most useful when combined with the <emphasis role="bold">-strparse</emphasis> option.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.asn1parse.pod:-noout"/><emphasis role="bold">-noout</emphasis></term>
+          <listitem>
+            <para>
+	      don't output the parsed version of the input file.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.asn1parse.pod:-offset_number"/><emphasis role="bold">-offset number</emphasis></term>
+          <listitem>
+            <para>
+	      starting offset to begin parsing, default is start of file.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.asn1parse.pod:-length_number"/><emphasis role="bold">-length number</emphasis></term>
+          <listitem>
+            <para>
+	      number of bytes to parse, default is until end of file.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.asn1parse.pod:-i"/><emphasis role="bold">-i</emphasis></term>
+          <listitem>
+            <para>
+	      indents the output according to the "depth" of the
+	      structures.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.asn1parse.pod:-oid_filename"/><emphasis role="bold">-oid filename</emphasis></term>
+          <listitem>
+            <para>
+	      a file containing additional OBJECT IDENTIFIERs (OIDs). The
+	      format of this file is described in the NOTES section below.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.asn1parse.pod:-strparse_offset"/><emphasis role="bold">-strparse offset</emphasis></term>
+          <listitem>
+            <para>
+	      parse the contents octets of the ASN.1 object starting at
+	      <emphasis role="bold">offset</emphasis>. This option can be
+	      used multiple times to "drill down" into a nested structure.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.asn1parse.pod:-genstr_string_-genconf_file"/><emphasis role="bold">-genstr string</emphasis>, <emphasis role="bold">-genconf file</emphasis></term>
+          <listitem>
+            <para>
+	      generate encoded data based on <emphasis role="bold">string</emphasis>, <emphasis role="bold">file</emphasis> or both using
+	      ASN1_generate_nconf(3) format. If <emphasis role="bold">file</emphasis> only is present then the string
+	      is obtained from the default section using the name <emphasis role="bold">asn1</emphasis>. The encoded data is passed
+	      through the ASN1 parser and printed out as though it came
+	      from a file, the contents can thus be examined and written to
+	      a file using the <emphasis role="bold">out</emphasis> option.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+    <refsection xml:id="sources.openssl.doc.apps.asn1parse.pod:OUTPUT"><title>OUTPUT</title>
+      <para>
+	The output will typically contain lines like this:
+      </para>
+      <screen>0:d=0  hl=4 l= 681 cons: SEQUENCE</screen>
+      <para>
+	.....
+      </para>
+      <screen>229:d=3  hl=3 l= 141 prim: BIT STRING        
+373:d=2  hl=3 l= 162 cons: cont [ 3 ]        
+376:d=3  hl=3 l= 159 cons: SEQUENCE          
+379:d=4  hl=2 l=  29 cons: SEQUENCE          
+381:d=5  hl=2 l=   3 prim: OBJECT            :X509v3 Subject Key Identifier
+386:d=5  hl=2 l=  22 prim: OCTET STRING      
+410:d=4  hl=2 l= 112 cons: SEQUENCE          
+412:d=5  hl=2 l=   3 prim: OBJECT            :X509v3 Authority Key Identifier
+417:d=5  hl=2 l= 105 prim: OCTET STRING      
+524:d=4  hl=2 l=  12 cons: SEQUENCE</screen>
+      <para>
+	.....
+      </para>
+      <para>
+	This example is part of a self signed certificate. Each line starts
+	with the offset in decimal. <emphasis role="bold">d=XX</emphasis>
+	specifies the current depth. The depth is increased within the
+	scope of any SET or SEQUENCE. <emphasis role="bold">hl=XX</emphasis> gives the header length (tag and
+	length octets) of the current type. <emphasis role="bold">l=XX</emphasis> gives the length of the contents
+	octets.
+      </para>
+      <para>
+	The <emphasis role="bold">-i</emphasis> option can be used to make
+	the output more readable.
+      </para>
+      <para>
+	Some knowledge of the ASN.1 structure is needed to interpret the
+	output.
+      </para>
+      <para>
+	In this example the BIT STRING at offset 229 is the certificate
+	public key. The contents octets of this will contain the public key
+	information. This can be examined using the option <emphasis role="bold">-strparse 229</emphasis> to yield:
+      </para>
+      <screen>  0:d=0  hl=3 l= 137 cons: SEQUENCE          
+  3:d=1  hl=3 l= 129 prim: INTEGER           :E5D21E1F5C8D208EA7A2166C7FAF9F6BDF2059669C60876DDB70840F1A5AAFA59699FE471F379F1DD6A487E7D5409AB6A88D4A9746E24B91D8CF55DB3521015460C8EDE44EE8A4189F7A7BE77D6CD3A9AF2696F486855CF58BF0EDF2B4068058C7A947F52548DDF7E15E96B385F86422BEA9064A3EE9E1158A56E4A6F47E5897
+135:d=1  hl=2 l=   3 prim: INTEGER           :010001</screen>
+    </refsection>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.asn1parse.pod:NOTES"><title>NOTES</title>
+    <para>
+      If an OID is not part of OpenSSL's internal table it will be
+      represented in numerical form (for example 1.2.3.4). The file passed
+      to the <emphasis role="bold">-oid</emphasis> option allows additional
+      OIDs to be included. Each line consists of three columns, the first
+      column is the OID in numerical format and should be followed by white
+      space. The second column is the "short name" which is a single word
+      followed by white space. The final column is the rest of the line and
+      is the "long name". <emphasis role="bold">asn1parse</emphasis>
+      displays the long name. Example: 
+    </para>
+    <para>
+      <literal role="code">1.2.3.4   shortName       A long
+      name</literal>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.asn1parse.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      Parse a file:
+    </para>
+    <screen>openssl asn1parse -in file.pem</screen>
+    <para>
+      Parse a DER file:
+    </para>
+    <screen>openssl asn1parse -inform DER -in file.der</screen>
+    <para>
+      Generate a simple UTF8String:
+    </para>
+    <screen>openssl asn1parse -genstr 'UTF8:Hello World'</screen>
+    <para>
+      Generate and write out a UTF8String, don't print parsed output:
+    </para>
+    <screen>openssl asn1parse -genstr 'UTF8:Hello World' -noout -out utf8.der</screen>
+    <para>
+      Generate using a config file:
+    </para>
+    <screen>openssl asn1parse -genconf asn1.cnf -noout -out asn1.der</screen>
+    <para>
+      Example config file:
+    </para>
+    <screen>asn1=SEQUENCE:seq_sect
+
+[seq_sect]
+
+field1=BOOL:TRUE
+field2=EXP:0, UTF8:some random string
+
+</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.asn1parse.pod:BUGS"><title>BUGS</title>
+    <para>
+      There should be options to change the format of output lines. The
+      output of some ASN.1 types is not well handled (if at all).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.asn1parse.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ASN1_generate_nconf(3)
+    </para>
+  </refsection>
+</refentry>

@@ -1,0 +1,102 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>EVP_PKEY_encrypt.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>EVP_PKEY_encrypt_init, EVP_PKEY_encrypt</refname>
+<refpurpose>encrypt using a public key algorithm</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis format="linespecific">int EVP_PKEY_encrypt_init(EVP_PKEY_CTX *ctx);
+int EVP_PKEY_encrypt(EVP_PKEY_CTX *ctx,
+                       unsigned char *out, size_t *outlen,
+                       const unsigned char *in, size_t inlen);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_encrypt.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The EVP_PKEY_encrypt_init() function initializes a public key
+      algorithm context using key <emphasis role="bold">pkey</emphasis> for
+      an encryption operation.
+    </para>
+    <para>
+      The EVP_PKEY_encrypt() function performs a public key encryption
+      operation using <emphasis role="bold">ctx</emphasis>. The data to be
+      encrypted is specified using the <emphasis role="bold">in</emphasis>
+      and <emphasis role="bold">inlen</emphasis> parameters. If <emphasis role="bold">out</emphasis> is <emphasis role="bold">NULL</emphasis>
+      then the maximum size of the output buffer is written to the
+      <emphasis role="bold">outlen</emphasis> parameter. If <emphasis role="bold">out</emphasis> is not <emphasis role="bold">NULL</emphasis> then before the call the <emphasis role="bold">outlen</emphasis> parameter should contain the length of
+      the <emphasis role="bold">out</emphasis> buffer, if the call is
+      successful the encrypted data is written to <emphasis role="bold">out</emphasis> and the amount of data written to
+      <emphasis role="bold">outlen</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_encrypt.pod:NOTES"><title>NOTES</title>
+    <para>
+      After the call to EVP_PKEY_encrypt_init() algorithm specific control
+      operations can be performed to set any appropriate parameters for the
+      operation.
+    </para>
+    <para>
+      The function EVP_PKEY_encrypt() can be called more than once on the
+      same context if several operations are performed using the same
+      parameters.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_encrypt.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      EVP_PKEY_encrypt_init() and EVP_PKEY_encrypt() return 1 for success
+      and 0 or a negative value for failure. In particular a return value
+      of -2 indicates the operation is not supported by the public key
+      algorithm.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_encrypt.pod:EXAMPLE"><title>EXAMPLE</title>
+    <para>
+      Encrypt data using OAEP (for RSA keys):
+    </para>
+    <screen>#include &amp;lt;openssl/evp.h&amp;gt;
+#include &amp;lt;openssl/rsa.h&amp;gt;
+
+EVP_PKEY_CTX *ctx;
+unsigned char *out, *in;
+size_t outlen, inlen; 
+EVP_PKEY *key;
+/* NB: assumes key in, inlen are already set up
+ * and that key is an RSA public key
+ */
+ctx = EVP_PKEY_CTX_new(key);
+if (!ctx)
+       /* Error occurred */
+if (EVP_PKEY_encrypt_init(ctx) &lt;= 0)
+       /* Error */
+if (EVP_PKEY_CTX_set_rsa_padding(ctx, RSA_OAEP_PADDING) &lt;= 0)
+       /* Error */
+
+/* Determine buffer length */
+if (EVP_PKEY_encrypt(ctx, NULL, &amp;outlen, in, inlen) &lt;= 0)
+       /* Error */
+
+out = OPENSSL_malloc(outlen);
+
+if (!out)
+       /* malloc failure */
+
+if (EVP_PKEY_encrypt(ctx, out, &amp;outlen, in, inlen) &lt;= 0)
+       /* Error */
+
+/* Encrypted data is outlen bytes written to buffer out */</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_encrypt.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      EVP_PKEY_CTX_new(3), EVP_PKEY_decrypt(3), EVP_PKEY_sign(3),
+      EVP_PKEY_verify(3), EVP_PKEY_verify_recover(3), EVP_PKEY_derive(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_encrypt.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      These functions were first added to OpenSSL 1.0.0.
+    </para>
+  </refsection>
+</refentry>

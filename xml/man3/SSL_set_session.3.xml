@@ -1,0 +1,72 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_set_session.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_set_session</refname>
+<refpurpose>set a TLS/SSL session to be used during TLS/SSL connect</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">int SSL_set_session(SSL *ssl, SSL_SESSION *session);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_set_session.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_set_session() sets <emphasis role="bold">session</emphasis> to be
+      used when the TLS/SSL connection is to be established.
+      SSL_set_session() is only useful for TLS/SSL clients. When the
+      session is set, the reference count of <emphasis role="bold">session</emphasis> is incremented by 1. If the session is
+      not reused, the reference count is decremented again during
+      SSL_connect(). Whether the session was reused can be queried with the
+      SSL_session_reused(3) call.
+    </para>
+    <para>
+      If there is already a session set inside <emphasis role="bold">ssl</emphasis> (because it was set with SSL_set_session()
+      before or because the same <emphasis role="bold">ssl</emphasis> was
+      already used for a connection), SSL_SESSION_free() will be called for
+      that session.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_set_session.pod:NOTES"><title>NOTES</title>
+    <para>
+      SSL_SESSION objects keep internal link information about the session
+      cache list, when being inserted into one SSL_CTX object's session
+      cache. One SSL_SESSION object, regardless of its reference count,
+      must therefore only be used with one SSL_CTX object (and the SSL
+      objects created from this SSL_CTX object).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_set_session.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      The following return values can occur:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_set_session.pod:0"/>0</term>
+          <listitem>
+            <para>
+	      The operation failed; check the error stack to find out the
+	      reason.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_set_session.pod:1"/>1</term>
+          <listitem>
+            <para>
+	      The operation succeeded.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_set_session.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_SESSION_free(3), SSL_get_session(3),
+      SSL_session_reused(3), SSL_CTX_set_session_cache_mode(3)
+    </para>
+  </refsection>
+</refentry>

@@ -1,0 +1,147 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>BIO_set_callback.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>BIO_set_callback, BIO_get_callback, BIO_set_callback_arg, BIO_get_callback_arg,
+BIO_debug_callback</refname>
+<refpurpose>BIO callback functions</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/bio.h&gt;</synopsis>
+<synopsis format="linespecific">#define BIO_set_callback(b,cb)         ((b)-&gt;callback=(cb))
+#define BIO_get_callback(b)            ((b)-&gt;callback)
+#define BIO_set_callback_arg(b,arg)    ((b)-&gt;cb_arg=(char *)(arg))
+#define BIO_get_callback_arg(b)                ((b)-&gt;cb_arg)</synopsis>
+<synopsis format="linespecific">long BIO_debug_callback(BIO *bio,int cmd,const char *argp,int argi,
+       long argl,long ret);</synopsis>
+<synopsis format="linespecific">typedef long (*callback)(BIO *b, int oper, const char *argp,
+                       int argi, long argl, long retvalue);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_set_callback.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      BIO_set_callback() and BIO_get_callback() set and retrieve the BIO
+      callback, they are both macros. The callback is called during most
+      high level BIO operations. It can be used for debugging purposes to
+      trace operations on a BIO or to modify its operation.
+    </para>
+    <para>
+      BIO_set_callback_arg() and BIO_get_callback_arg() are macros which
+      can be used to set and retrieve an argument for use in the callback.
+    </para>
+    <para>
+      BIO_debug_callback() is a standard debugging callback which prints
+      out information relating to each BIO operation. If the callback
+      argument is set if is interpreted as a BIO to send the information
+      to, otherwise stderr is used.
+    </para>
+    <para>
+      callback() is the callback function itself. The meaning of each
+      argument is described below.
+    </para>
+    <para>
+      The BIO the callback is attached to is passed in <emphasis role="bold">b</emphasis>.
+    </para>
+    <para>
+      <emphasis role="bold">oper</emphasis> is set to the operation being
+      performed. For some operations the callback is called twice, once
+      before and once after the actual operation, the latter case has
+      <emphasis role="bold">oper</emphasis> or'ed with BIO_CB_RETURN.
+    </para>
+    <para>
+      The meaning of the arguments <emphasis role="bold">argp</emphasis>,
+      <emphasis role="bold">argi</emphasis> and <emphasis role="bold">argl</emphasis> depends on the value of <emphasis role="bold">oper</emphasis>, that is the operation being performed.
+    </para>
+    <para>
+      <emphasis role="bold">retvalue</emphasis> is the return value that
+      would be returned to the application if no callback were present. The
+      actual value returned is the return value of the callback itself. In
+      the case of callbacks called before the actual BIO operation 1 is
+      placed in retvalue, if the return value is not positive it will be
+      immediately returned to the application and the BIO operation will
+      not be performed.
+    </para>
+    <para>
+      The callback should normally simply return <emphasis role="bold">retvalue</emphasis> when it has finished processing,
+      unless if specifically wishes to modify the value returned to the
+      application.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_set_callback.pod:CALLBACK_OPERATIONS"><title>CALLBACK OPERATIONS</title>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.BIO_set_callback.pod:BIO_freeb"/><emphasis role="bold">BIO_free(b)</emphasis></term>
+          <listitem>
+            <para>
+	      callback(b, BIO_CB_FREE, NULL, 0L, 0L, 1L) is called before
+	      the free operation.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.BIO_set_callback.pod:BIO_readb_out_outl"/><emphasis role="bold">BIO_read(b, out, outl)</emphasis></term>
+          <listitem>
+            <para>
+	      callback(b, BIO_CB_READ, out, outl, 0L, 1L) is called before
+	      the read and callback(b, BIO_CB_READ|BIO_CB_RETURN, out,
+	      outl, 0L, retvalue) after.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.BIO_set_callback.pod:BIO_writeb_in_inl"/><emphasis role="bold">BIO_write(b, in, inl)</emphasis></term>
+          <listitem>
+            <para>
+	      callback(b, BIO_CB_WRITE, in, inl, 0L, 1L) is called before
+	      the write and callback(b, BIO_CB_WRITE|BIO_CB_RETURN, in,
+	      inl, 0L, retvalue) after.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.BIO_set_callback.pod:BIO_getsb_out_outl"/><emphasis role="bold">BIO_gets(b, out, outl)</emphasis></term>
+          <listitem>
+            <para>
+	      callback(b, BIO_CB_GETS, out, outl, 0L, 1L) is called before
+	      the operation and callback(b, BIO_CB_GETS|BIO_CB_RETURN, out,
+	      outl, 0L, retvalue) after.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.BIO_set_callback.pod:BIO_putsb_in"/><emphasis role="bold">BIO_puts(b, in)</emphasis></term>
+          <listitem>
+            <para>
+	      callback(b, BIO_CB_WRITE, in, 0, 0L, 1L) is called before the
+	      operation and callback(b, BIO_CB_WRITE|BIO_CB_RETURN, in, 0,
+	      0L, retvalue) after.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.BIO_set_callback.pod:BIO_ctrlBIO_b_int_cmd_long_larg_void_parg"/><emphasis role="bold">BIO_ctrl(BIO *b, int cmd, long larg, void *parg)</emphasis></term>
+          <listitem>
+            <para>
+	      callback(b,BIO_CB_CTRL,parg,cmd,larg,1L) is called before the
+	      call and callback(b,BIO_CB_CTRL|BIO_CB_RETURN,parg,cmd,
+	      larg,ret) after.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_set_callback.pod:EXAMPLE"><title>EXAMPLE</title>
+    <para>
+      The BIO_debug_callback() function is a good example, its source is in
+      crypto/bio/bio_cb.c
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BIO_set_callback.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      TBA
+    </para>
+  </refsection>
+</refentry>

@@ -1,0 +1,44 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>BN_mod_inverse.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>BN_mod_inverse</refname>
+<refpurpose>compute inverse modulo n</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis format="linespecific">BIGNUM *BN_mod_inverse(BIGNUM *r, BIGNUM *a, const BIGNUM *n,
+          BN_CTX *ctx);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_inverse.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      BN_mod_inverse() computes the inverse of <emphasis role="bold">a</emphasis> modulo <emphasis role="bold">n</emphasis>
+      places the result in <emphasis role="bold">r</emphasis> (<literal role="code">(a*r)%n==1</literal>). If <emphasis role="bold">r</emphasis> is NULL, a new <emphasis role="bold">BIGNUM</emphasis> is created.
+    </para>
+    <para>
+      <emphasis role="bold">ctx</emphasis> is a previously allocated
+      <emphasis role="bold">BN_CTX</emphasis> used for temporary variables.
+      <emphasis role="bold">r</emphasis> may be the same <emphasis role="bold">BIGNUM</emphasis> as <emphasis role="bold">a</emphasis>
+      or <emphasis role="bold">n</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_inverse.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      BN_mod_inverse() returns the <emphasis role="bold">BIGNUM</emphasis>
+      containing the inverse, and NULL on error. The error codes can be
+      obtained by ERR_get_error(3).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_inverse.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      bn(3), ERR_get_error(3), BN_add(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_inverse.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      BN_mod_inverse() is available in all versions of SSLeay and OpenSSL.
+    </para>
+  </refsection>
+</refentry>
