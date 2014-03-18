@@ -1,0 +1,577 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="vmod_std">
+  <title>vmod_std</title>
+  <section xml:id="varnish-standard-module">
+    <title>Varnish Standard Module</title>
+    <variablelist>
+      <varlistentry>
+        <term>
+          Author
+        </term>
+        <listitem>
+          <para>
+            Per Buer
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Date
+        </term>
+        <listitem>
+          <para>
+            2011-05-19
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Version
+        </term>
+        <listitem>
+          <para>
+            1.0
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Manual section
+        </term>
+        <listitem>
+          <para>
+            3
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+    <section xml:id="synopsis">
+      <title>SYNOPSIS</title>
+      <para>
+        import std
+      </para>
+    </section>
+    <section xml:id="description">
+      <title>DESCRIPTION</title>
+      <para>
+        The Varnish standard module contains useful, generic function
+        that don't quite fit in the VCL core, but are still considered
+        very useful to a broad audience.
+      </para>
+    </section>
+    <section xml:id="functions">
+      <title>FUNCTIONS</title>
+      <section xml:id="toupper">
+        <title>toupper</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                toupper(STRING s)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Return value
+            </term>
+            <listitem>
+              <para>
+                String
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Converts the string <emphasis>s</emphasis> to upper
+                case.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Example
+            </term>
+            <listitem>
+              <para>
+                set beresp.http.x-scream =
+                std.toupper("yes!");
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="tolower">
+        <title>tolower</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                tolower(STRING s)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Return value
+            </term>
+            <listitem>
+              <para>
+                String
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Converts the string <emphasis>s</emphasis> to lower
+                case.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Example
+            </term>
+            <listitem>
+              <para>
+                set beresp.http.x-nice = std.tolower("VerY");
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="set_ip_tos">
+        <title>set_ip_tos</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                set_ip_tos(INT i)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Return value
+            </term>
+            <listitem>
+              <para>
+                Void
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Sets the Type-of-Service flag for the current session.
+                Please note that the TOS flag is not removed by the end
+                of the request so probably want to set it on every
+                request should you utilize it.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Example
+            </term>
+            <listitem>
+              <para>
+                if (req.url ~ ^/slow/) {<literallayout>
+</literallayout>   std.set_ip_tos(0x0);<literallayout>
+</literallayout>}
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="random">
+        <title>random</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                random(REAL a, REAL b)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Return value
+            </term>
+            <listitem>
+              <para>
+                Real
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Returns a random REAL number between
+                <emphasis>a</emphasis> and <emphasis>b</emphasis>.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Example
+            </term>
+            <listitem>
+              <para>
+                set beresp.http.x-random-number = std.random(1, 100);
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="log">
+        <title>log</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                log(STRING string)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Return value
+            </term>
+            <listitem>
+              <para>
+                Void
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Logs <emphasis>string</emphasis> to the shared memory
+                log.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Example
+            </term>
+            <listitem>
+              <para>
+                std.log("Something fishy is going on with the vhost
+                " + req.host);
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="syslog">
+        <title>syslog</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                syslog(INT priority, STRING string)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Return value
+            </term>
+            <listitem>
+              <para>
+                Void
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Logs <emphasis>string</emphasis> to syslog marked with
+                <emphasis>priority</emphasis>.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Example
+            </term>
+            <listitem>
+              <para>
+                std.syslog( LOG_USER|LOG_ALERT, "There is serious
+                troble");
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="fileread">
+        <title>fileread</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                fileread(STRING filename)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Return value
+            </term>
+            <listitem>
+              <para>
+                String
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Reads a file and returns a string with the content.
+                Please note that it is not recommended to send variables
+                to this function the caching in the function doesn't
+                take this into account. Also, files are not re-read.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Example
+            </term>
+            <listitem>
+              <para>
+                set beresp.http.x-served-by =
+                std.fileread("/etc/hostname");
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="duration">
+        <title>duration</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                duration(STRING s, DURATION fallback)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Return value
+            </term>
+            <listitem>
+              <para>
+                Duration
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Converts the string <emphasis>s</emphasis> to seconds.
+                <emphasis>s</emphasis> can be quantified with the usual
+                s (seconds), m (minutes), h (hours), d (days) and w
+                (weeks) units. If <emphasis>s</emphasis> fails to parse,
+                <emphasis>fallback</emphasis> will be used.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Example
+            </term>
+            <listitem>
+              <para>
+                set beresp.ttl = std.duration("1w", 3600s);
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="integer">
+        <title>integer</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                integer(STRING s, INT fallback)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Return value
+            </term>
+            <listitem>
+              <para>
+                Int
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Converts the string <emphasis>s</emphasis> to an
+                integer. If <emphasis>s</emphasis> fails to parse,
+                <emphasis>fallback</emphasis> will be used
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Example
+            </term>
+            <listitem>
+              <para>
+                if (std.integer(beresp.http.x-foo, 0) &gt; 5) { ... }
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="collect">
+        <title>collect</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                collect(HEADER header)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Return value
+            </term>
+            <listitem>
+              <para>
+                Void
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Collapses the header, joining the headers into one.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Example
+            </term>
+            <listitem>
+              <para>
+                std.collect(req.http.cookie); This will collapse several
+                Cookie: headers into one, long cookie header.
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+    </section>
+    <section xml:id="see-also">
+      <title>SEE ALSO</title>
+      <itemizedlist>
+        <listitem>
+          <para>
+            vcl(7)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            varnishd(1)
+          </para>
+        </listitem>
+      </itemizedlist>
+    </section>
+    <section xml:id="history">
+      <title>HISTORY</title>
+      <para>
+        The Varnish standard module was released along with Varnish
+        Cache 3.0. This manual page was written by Per Buer with help
+        from Martin Blix Grydeland.
+      </para>
+    </section>
+    <section xml:id="copyright">
+      <title>COPYRIGHT</title>
+      <para>
+        This document is licensed under the same licence as Varnish
+        itself. See LICENCE for details.
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+            Copyright (c) 2011 Varnish Software
+          </para>
+        </listitem>
+      </itemizedlist>
+    </section>
+  </section>
+</section>

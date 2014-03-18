@@ -1,0 +1,758 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="varnishd">
+  <title>varnishd</title>
+  <section xml:id="http-accelerator-daemon">
+    <title>HTTP accelerator daemon</title>
+    <variablelist>
+      <varlistentry>
+        <term>
+          Author
+        </term>
+        <listitem>
+          <para>
+            Dag-Erling Smørgrav
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Author
+        </term>
+        <listitem>
+          <para>
+            Stig Sandbeck Mathisen
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Author
+        </term>
+        <listitem>
+          <para>
+            Per Buer
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Date
+        </term>
+        <listitem>
+          <para>
+            2010-05-31
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Version
+        </term>
+        <listitem>
+          <para>
+            1.0
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Manual section
+        </term>
+        <listitem>
+          <para>
+            1
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+    <section xml:id="synopsis">
+      <title>SYNOPSIS</title>
+      <variablelist>
+        <varlistentry>
+          <term>
+            varnishd [-a address[:port]] [-b host[:port]] [-d] [-F] [-f
+            config]
+          </term>
+          <listitem>
+            <para>
+              [-g group] [-h type[,options]] [-i identity] [-l
+              shmlogsize] [-n name] [-P file] [-p param=value] [-s
+              type[,options]] [-T address[:port]] [-t ttl] [-u user]
+              [-V] [-w min[,max[,timeout]]]
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+    <section xml:id="description">
+      <title>DESCRIPTION</title>
+      <para>
+        The varnishd daemon accepts HTTP requests from clients, passes
+        them on to a backend server and caches the returned documents to
+        better satisfy future requests for the same document.
+      </para>
+    </section>
+    <section xml:id="options">
+      <title>OPTIONS</title>
+      <variablelist>
+        <varlistentry>
+          <term>
+            -a address[:port][,address[:port][...]
+          </term>
+          <listitem>
+            <variablelist>
+              <varlistentry>
+                <term>
+                  Listen for client requests on the specified address
+                  and port. The address can be a host
+                </term>
+                <listitem>
+                  <para>
+                    name (“localhost”), an IPv4 dotted-quad
+                    (“127.0.0.1”), or an IPv6 address enclosed in square
+                    brackets (“[::1]”). If address is not specified,
+                    varnishd will listen on all available IPv4 and IPv6
+                    interfaces. If port is not specified, the default
+                    HTTP port as listed in /etc/services is used.
+                    Multiple listening addresses and ports can be speci‐
+                    fied as a whitespace- or comma-separated list.
+                  </para>
+                </listitem>
+              </varlistentry>
+            </variablelist>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -b host[:port]
+          </term>
+          <listitem>
+            <para>
+              Use the specified host as backend server. If port is not
+              specified,
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      <blockquote>
+        <para>
+          the default is 8080.
+        </para>
+      </blockquote>
+      <variablelist>
+        <varlistentry>
+          <term>
+            -C Print VCL code compiled to C language and exit. Specify
+            the VCL file
+          </term>
+          <listitem>
+            <para>
+              to compile with the -f option.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -d Enables debugging mode: The parent process runs in the
+            foreground with a CLI connection
+          </term>
+          <listitem>
+            <para>
+              on stdin/stdout, and the child process must be started
+              explicitly with a CLI command. Terminating the parent
+              process will also terminate the child.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      <para>
+        -F Run in the foreground.
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term>
+            -f config Use the specified VCL configuration file instead
+            of the
+          </term>
+          <listitem>
+            <para>
+              builtin default. See vcl(7) for details on VCL syntax.
+              When no configuration is supplied varnishd will not start
+              the cache process.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -g group Specifies the name of an unprivileged group to
+            which the child process should switch
+          </term>
+          <listitem>
+            <para>
+              before it starts accepting connections. This is a shortcut
+              for specifying the group run-time parameter.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -h type[,options]
+          </term>
+          <listitem>
+            <para>
+              Specifies the hash algorithm. See Hash Algorithms for a
+              list of supported algorithms.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -i identity
+          </term>
+          <listitem>
+            <para>
+              Specify the identity of the varnish server. This can be
+              accessed using server.identity from VCL
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -l shmlogsize
+          </term>
+          <listitem>
+            <para>
+              Specify size of shmlog file. Scaling suffixes like 'k',
+              'm' can be used up to (e)tabytes. Default is 80 Megabytes.
+              Specifying less than 8 Megabytes is unwise.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -n name Specify a name for this instance. Amonst other
+            things, this name is used to construct
+          </term>
+          <listitem>
+            <para>
+              the name of the directory in which varnishd keeps
+              temporary files and persistent state. If the specified
+              name begins with a forward slash, it is interpreted as the
+              absolute path to the directory which should be used for
+              this purpose.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      <para>
+        -P file Write the process's PID to the specified file.
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term>
+            -p param=value
+          </term>
+          <listitem>
+            <para>
+              Set the parameter specified by param to the specified
+              value. See Run-Time
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            Parameters for a list of parameters. This option can be used
+            multiple
+          </term>
+          <listitem>
+            <para>
+              times to specify multiple parameters.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      <para>
+        -S file Path to a file containing a secret used for authorizing
+        access to the management port.
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term>
+            -s [name=]type[,options]
+          </term>
+          <listitem>
+            <para>
+              Use the specified storage backend. See Storage Types for a
+              list of supported storage types. This option can be used
+              multiple times to specify multiple storage files. You
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            can name the different backends. Varnish will then reference
+            that backend with the
+          </term>
+          <listitem>
+            <para>
+              given name in logs, statistics, etc.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -T address[:port]
+          </term>
+          <listitem>
+            <para>
+              Offer a management interface on the specified address and
+              port. See Management Interface for a list of management
+              commands.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -M address:port
+          </term>
+          <listitem>
+            <para>
+              Connect to this port and offer the command line interface.
+              Think of it as a reverse shell. When running with
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -M and there is no backend defined the child process (the
+            cache)
+          </term>
+          <listitem>
+            <para>
+              will not start initially.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -t ttl
+          </term>
+          <listitem>
+            <variablelist>
+              <varlistentry>
+                <term>
+                  Specifies a hard minimum time to live for cached
+                </term>
+                <listitem>
+                  <para>
+                    documents. This is a shortcut for specifying the
+                    default_ttl run-time parameter.
+                  </para>
+                </listitem>
+              </varlistentry>
+            </variablelist>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -u user Specifies the name of an unprivileged user to which
+            the child
+          </term>
+          <listitem>
+            <para>
+              process should switch before it starts accepting
+              connections. This is a shortcut for specifying the user
+              run- time parameter.
+            </para>
+            <para>
+              If specifying both a user and a group, the user should be
+              specified first.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      <para>
+        -V Display the version number and exit.
+      </para>
+      <para>
+        -w min[,max[,timeout]]
+      </para>
+      <blockquote>
+        <para>
+          Start at least min but no more than max worker threads with
+          the specified idle timeout. This is a shortcut for specifying
+          the thread_pool_min, thread_pool_max and thread_pool_timeout
+          run-time parameters.
+        </para>
+        <para>
+          If only one number is specified, thread_pool_min and
+          thread_pool_max are both set to this number, and
+          thread_pool_timeout has no effect.
+        </para>
+      </blockquote>
+      <section xml:id="hash-algorithms">
+        <title>Hash Algorithms</title>
+        <para>
+          The following hash algorithms are available:
+        </para>
+        <variablelist>
+          <varlistentry>
+            <term>
+              simple_list
+            </term>
+            <listitem>
+              <para>
+                A simple doubly-linked list. Not recommended for
+                production use.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              classic[,buckets]
+            </term>
+            <listitem>
+              <para>
+                A standard hash table. This is the default. The hash key
+                is the CRC32 of the object's URL modulo the size of the
+                hash table. Each table entry points to a list of
+                elements which share the same hash key. The buckets
+                parameter specifies the number of entries in the hash
+                table. The default is 16383.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              critbit
+            </term>
+            <listitem>
+              <para>
+                A self-scaling tree structure. The default hash
+                algorithm in 2.1. In comparison to a more traditional B
+                tree the critbit tree is almost completely lockless.
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="storage-types">
+        <title>Storage Types</title>
+        <para>
+          The following storage types are available:
+        </para>
+        <para>
+          malloc[,size]
+        </para>
+        <blockquote>
+          <para>
+            Malloc is a memory based backend. Each object will be
+            allocated from memory. If your system runs low on memory
+            swap will be used. Be aware that the size limitation only
+            limits the actual storage and that approximately 1k of
+            memory per object will be used for various internal
+            structures.
+          </para>
+          <para>
+            The size parameter specifies the maximum amount of memory
+            varnishd will allocate. The size is assumed to be in bytes,
+            unless followed by one of the following suffixes:
+          </para>
+          <para>
+            K, k The size is expressed in kibibytes.
+          </para>
+          <para>
+            M, m The size is expressed in mebibytes.
+          </para>
+          <para>
+            G, g The size is expressed in gibibytes.
+          </para>
+          <para>
+            T, t The size is expressed in tebibytes.
+          </para>
+          <para>
+            The default size is unlimited.
+          </para>
+          <para>
+            Mallocs performance is bound by memory speed so it is very
+            fast.
+          </para>
+        </blockquote>
+        <para>
+          file[,path[,size[,granularity]]]
+        </para>
+        <blockquote>
+          <para>
+            The file backend stores objects in memory backed by a file
+            on disk with mmap. This is the default storage backend and
+            unless you specify another storage this one will used along
+            with Transient storage.
+          </para>
+          <para>
+            The path parameter specifies either the path to the backing
+            file or the path to a directory in which varnishd will
+            create the backing file. The default is /tmp.
+          </para>
+          <para>
+            The size parameter specifies the size of the backing file.
+            The size is assumed to be in bytes, unless fol‐ lowed by one
+            of the following suffixes:
+          </para>
+          <para>
+            K, k The size is expressed in kibibytes.
+          </para>
+          <para>
+            M, m The size is expressed in mebibytes.
+          </para>
+          <para>
+            G, g The size is expressed in gibibytes.
+          </para>
+          <para>
+            T, t The size is expressed in tebibytes.
+          </para>
+          <variablelist>
+            <varlistentry>
+              <term>
+                % The size is expressed as a percentage of the free
+                space on the
+              </term>
+              <listitem>
+                <para>
+                  file system where it resides.
+                </para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
+          <para>
+            The default size is 50%.
+          </para>
+          <para>
+            If the backing file already exists, it will be truncated or
+            expanded to the specified size.
+          </para>
+          <para>
+            Note that if varnishd has to create or expand the file, it
+            will not pre-allocate the added space, leading to
+            fragmentation, which may adversely impact performance.
+            Pre-creating the storage file using dd(1) will reduce
+            fragmentation to a minimum.
+          </para>
+          <para>
+            The granularity parameter specifies the granularity of
+            allocation. All allocations are rounded up to this size. The
+            size is assumed to be in bytes, unless followed by one of
+            the suffixes described for size except for %.
+          </para>
+          <para>
+            The default size is the VM page size. The size should be
+            reduced if you have many small objects.
+          </para>
+          <para>
+            File performance is typically limited by the write speed of
+            the device, and depending on use, the seek time.
+          </para>
+        </blockquote>
+        <para>
+          persistent,path,size {experimental}
+        </para>
+        <blockquote>
+          <para>
+            Persistent storage. Varnish will store objects in a file in
+            a manner that will secure the survival of
+            <emphasis>most</emphasis> of the objects in the event of a
+            planned or unplanned shutdown of Varnish.
+          </para>
+          <para>
+            The path parameter specifies the path to the backing file.
+            If the file doesn't exist Varnish will create it.
+          </para>
+          <para>
+            The size parameter specifies the size of the backing file.
+            The size is assumed to be in bytes, unless followed by one
+            of the following suffixes:
+          </para>
+          <para>
+            K, k The size is expressed in kibibytes.
+          </para>
+          <para>
+            M, m The size is expressed in mebibytes.
+          </para>
+          <para>
+            G, g The size is expressed in gibibytes.
+          </para>
+          <para>
+            T, t The size is expressed in tebibytes.
+          </para>
+          <para>
+            Varnish will split the file into logical
+            <emphasis>silos</emphasis> and write to the silos in the
+            manner of a circular buffer. Only one silo will be kept open
+            at any given point in time. Full silos are
+            <emphasis>sealed</emphasis>. When Varnish starts after a
+            shutdown it will discard the content of any silo that isn't
+            sealed.
+          </para>
+        </blockquote>
+      </section>
+      <section xml:id="transient-storage">
+        <title>Transient Storage</title>
+        <blockquote>
+          <para>
+            If you name any of your storage backend
+            "Transient" it will be used for transient (short
+            lived) objects. By default Varnish would use an unlimited
+            malloc backend for this.
+          </para>
+        </blockquote>
+      </section>
+      <section xml:id="management-interface">
+        <title>Management Interface</title>
+        <para>
+          If the -T option was specified, varnishd will offer a
+          command-line management interface on the specified address and
+          port. The recommended way of connecting to the command-line
+          management interface is through varnishadm(1).
+        </para>
+        <para>
+          The commands available are documented in varnish(7).
+        </para>
+      </section>
+      <section xml:id="run-time-parameters">
+        <title>Run-Time Parameters</title>
+        <para>
+          Runtime parameters are marked with shorthand flags to avoid
+          repeating the same text over and over in the table below. The
+          meaning of the flags are:
+        </para>
+        <variablelist>
+          <varlistentry>
+            <term>
+              experimental
+            </term>
+            <listitem>
+              <para>
+                We have no solid information about good/bad/optimal
+                values for this parameter. Feedback with experience and
+                observations are most welcome.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              delayed
+            </term>
+            <listitem>
+              <para>
+                This parameter can be changed on the fly, but will not
+                take effect immediately.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              restart
+            </term>
+            <listitem>
+              <para>
+                The worker process must be stopped and restarted, before
+                this parameter takes effect.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              reload
+            </term>
+            <listitem>
+              <para>
+                The VCL programs must be reloaded for this parameter to
+                take effect.
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+        <para>
+          Here is a list of all parameters, current as of last time we
+          remembered to update the manual page. This text is produced
+          from the same text you will find in the CLI if you use the
+          param.show command, so should there be a new parameter which
+          is not listed here, you can find the description using the CLI
+          commands.
+        </para>
+        <para>
+          Be aware that on 32 bit systems, certain default values, such
+          as workspace_client (=16k), thread_pool_workspace (=16k),
+          http_resp_size (=8k), http_req_size (=12k), gzip_stack_buffer
+          (=4k) and thread_pool_stack (=64k) are reduced relative to the
+          values listed here, in order to conserve VM space.
+        </para>
+      </section>
+    </section>
+    <section xml:id="see-also">
+      <title>SEE ALSO</title>
+      <itemizedlist>
+        <listitem>
+          <para>
+            varnish-cli(7)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            varnishlog(1)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            varnishhist(1)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            varnishncsa(1)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            varnishstat(1)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            varnishtop(1)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            vcl(7)
+          </para>
+        </listitem>
+      </itemizedlist>
+    </section>
+    <section xml:id="history">
+      <title>HISTORY</title>
+      <para>
+        The varnishd daemon was developed by Poul-Henning Kamp in
+        cooperation with Verdens Gang AS, Varnish Software AS and
+        Varnish Software.
+      </para>
+      <para>
+        This manual page was written by Dag-Erling Smørgrav with updates
+        by Stig Sandbeck Mathisen ⟨ssm@debian.org⟩
+      </para>
+    </section>
+    <section xml:id="copyright">
+      <title>COPYRIGHT</title>
+      <para>
+        This document is licensed under the same licence as Varnish
+        itself. See LICENCE for details.
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+            Copyright (c) 2007-2011 Varnish Software AS
+          </para>
+        </listitem>
+      </itemizedlist>
+    </section>
+  </section>
+</section>

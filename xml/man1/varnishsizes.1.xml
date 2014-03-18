@@ -1,0 +1,268 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="varnishsizes">
+  <title>varnishsizes</title>
+  <section xml:id="varnish-object-size-request-histogram">
+    <title>Varnish object size request histogram</title>
+    <variablelist>
+      <varlistentry>
+        <term>
+          Author
+        </term>
+        <listitem>
+          <para>
+            Dag Erling Smørgrav
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Author
+        </term>
+        <listitem>
+          <para>
+            Kristian Lyngstøl
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Author
+        </term>
+        <listitem>
+          <para>
+            Per Buer
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Date
+        </term>
+        <listitem>
+          <para>
+            2010-05-31
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Version
+        </term>
+        <listitem>
+          <para>
+            1.0
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Manual section
+        </term>
+        <listitem>
+          <para>
+            1
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+    <section xml:id="synopsis">
+      <title>SYNOPSIS</title>
+      <variablelist>
+        <varlistentry>
+          <term>
+            varnishsizes [-b] [-C] [-c] [-d] [-I regex] [-i tag] [-m
+            <ulink url="tag:regex">tag:regex</ulink> ...]
+          </term>
+          <listitem>
+            <para>
+              [-n varnish_name] [-r file] [-V] [-w delay] [-X regex] [-x
+              tag]
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </section>
+    <section xml:id="description">
+      <title>DESCRIPTION</title>
+      <para>
+        The varnishsizes utility reads varnishd(1) shared memory logs
+        and presents a continuously updated histogram showing the
+        distribution of the last N requests by their processing. The
+        value of N and the vertical scale are displayed in the top left
+        corner. The horizontal scale is a logarithmic representation of
+        bytes. Hits are marked with a pipe character ("|"),
+        and misses are marked with a hash character ("#").
+      </para>
+      <para>
+        The following options are available:
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term>
+            -b Include log entries which result from communication with
+            a backend server.
+          </term>
+          <listitem>
+            <para>
+              If neither -b nor -c is specified, varnishsizes acts as if
+              they both were.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      <para>
+        -C Ignore case when matching regular expressions.
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term>
+            -c Include log entries which result from communication with
+            a client.
+          </term>
+          <listitem>
+            <para>
+              If neither -b nor -c is specified, varnishsizes acts as if
+              they both were.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -d Process old log entries on startup. Normally,
+            varnishsizes will only
+          </term>
+          <listitem>
+            <para>
+              process entries which are written to the log after it
+              starts.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -I regex Include log entries which match the specified
+            regular expression.
+          </term>
+          <listitem>
+            <para>
+              If neither -I nor -i is specified, all log entries are
+              included.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -i tag Include log entries with the specified tag. If
+            neither -I nor -i
+          </term>
+          <listitem>
+            <para>
+              is specified, all log entries are included.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -m <ulink url="tag:regex">tag:regex</ulink> only list record
+            where tag matches regex. Multiple -m
+          </term>
+          <listitem>
+            <para>
+              options are AND-ed together.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -n Specifies the name of the varnishd instance to get logs
+            from.
+          </term>
+          <listitem>
+            <para>
+              If -n is not specified, the host name is used.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      <para>
+        -r file Read log entries from file instead of shared memory.
+      </para>
+      <para>
+        -V Display the version number and exit.
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term>
+            -w delay Wait at least delay seconds between each update.
+            The default is 1.
+          </term>
+          <listitem>
+            <para>
+              file instead of displaying them. The file will be
+              overwritten unless the -a option was specified.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      <para>
+        -X regex Exclude log entries which match the specified regular
+        expression.
+      </para>
+      <para>
+        -x tag Exclude log entries with the specified tag.
+      </para>
+    </section>
+    <section xml:id="see-also">
+      <title>SEE ALSO</title>
+      <itemizedlist>
+        <listitem>
+          <para>
+            varnishd(1)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            varnishlog(1)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            varnishncsa(1)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            varnishstat(1)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            varnishtop(1)
+          </para>
+        </listitem>
+      </itemizedlist>
+    </section>
+    <section xml:id="history">
+      <title>HISTORY</title>
+      <para>
+        The varnishsizes utility was developed by Kristian Lyngstøl
+        based on varnishhist. This manual page was written by Kristian
+        Lyngstøl, Dag-Erling Smørgrav and Per Buer.
+      </para>
+    </section>
+    <section xml:id="copyright">
+      <title>COPYRIGHT</title>
+      <para>
+        This document is licensed under the same licence as Varnish
+        itself. See LICENCE for details.
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+            Copyright (c) 2010 Varnish Software AS
+          </para>
+        </listitem>
+      </itemizedlist>
+    </section>
+  </section>
+</section>

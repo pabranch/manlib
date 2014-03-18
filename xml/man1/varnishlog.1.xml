@@ -1,0 +1,566 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="varnishlog">
+  <title>varnishlog</title>
+  <section xml:id="display-varnish-logs">
+    <title>Display Varnish logs</title>
+    <variablelist>
+      <varlistentry>
+        <term>
+          Author
+        </term>
+        <listitem>
+          <para>
+            Dag-Erling Smørgrav
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Author
+        </term>
+        <listitem>
+          <para>
+            Per Buer
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Date
+        </term>
+        <listitem>
+          <para>
+            2010-05-31
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Version
+        </term>
+        <listitem>
+          <para>
+            0.2
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Manual section
+        </term>
+        <listitem>
+          <para>
+            1
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+    <section xml:id="synopsis">
+      <title>SYNOPSIS</title>
+      <para>
+        varnishlog [-a] [-b] [-C] [-c] [-D] [-d] [-I regex] [-i tag] [-k
+        keep] [-n varnish_name] [-o] [-O] [-m
+        <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="tag:regex">tag:regex</link> ...] [-P file] [-r
+        file] [-s num] [-u] [-V] [-w file] [-X regex] [-x tag]
+      </para>
+    </section>
+    <section xml:id="description">
+      <title>DESCRIPTION</title>
+      <para>
+        The varnishlog utility reads and presents varnishd(1) shared
+        memory logs.
+      </para>
+      <para>
+        The following options are available:
+      </para>
+      <para>
+        -a When writing to a file, append to it rather than overwrite
+        it.
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term>
+            -b Include log entries which result from communication with
+            a backend server.
+          </term>
+          <listitem>
+            <para>
+              If neither -b nor -c is specified, varnishlog acts as if
+              they both were.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      <para>
+        -C Ignore case when matching regular expressions.
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term>
+            -c Include log entries which result from communication with
+            a client.
+          </term>
+          <listitem>
+            <para>
+              If neither -b nor -c is specified, varnishlog acts as if
+              they both were.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      <para>
+        -D Daemonize.
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term>
+            -d Process old log entries on startup. Normally, varnishlog
+            will only process entries
+          </term>
+          <listitem>
+            <para>
+              which are written to the log after it starts.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -I regex Include log entries which match the specified
+            regular expression. If
+          </term>
+          <listitem>
+            <para>
+              neither -I nor -i is specified, all log entries are
+              included.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -i tag Include log entries with the specified tag. If
+            neither -I nor -i is specified,
+          </term>
+          <listitem>
+            <para>
+              all log entries are included.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      <para>
+        -k num Only show the first num log records.
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term>
+            -m <ulink url="tag:regex">tag:regex</ulink> only list
+            transactions where tag matches regex. Multiple
+          </term>
+          <listitem>
+            <para>
+              -m options are AND-ed together. Can not be combined with
+              -O
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -n Specifies the name of the varnishd instance to get logs
+            from. If -n is not
+          </term>
+          <listitem>
+            <para>
+              specified, the host name is used.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      <para>
+        -o Ignored for compatibility with earlier versions.
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term>
+            -O Do not group log entries by request ID. Can not be
+          </term>
+          <listitem>
+            <para>
+              combined with -m.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      <para>
+        -P file Write the process's PID to the specified file.
+      </para>
+      <para>
+        -r file Read log entries from file instead of shared memory.
+      </para>
+      <para>
+        -s num Skip the first num log records.
+      </para>
+      <para>
+        -u Unbuffered output.
+      </para>
+      <para>
+        -V Display the version number and exit.
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term>
+            -w file Write log entries to file instead of displaying
+            them. The file
+          </term>
+          <listitem>
+            <para>
+              will be overwritten unless the -a option was specified. If
+              varnishlog receives a SIGHUP while writing to a file, it
+              will reopen the file, allowing the old one to be rotated
+              away.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      <para>
+        -X regex Exclude log entries which match the specified regular
+        expression.
+      </para>
+      <para>
+        -x tag Exclude log entries with the specified tag.
+      </para>
+    </section>
+    <section xml:id="tags">
+      <title>TAGS</title>
+      <para>
+        The following log entry tags are currently defined:
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+            Backend
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            BackendClose
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            BackendOpen
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            BackendReuse
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            BackendXID
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            CLI
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            ClientAddr
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Debug
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Error
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            ExpBan
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            ExpKill
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            ExpPick
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Hit
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            HitPass
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            HttpError
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            HttpGarbage
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Length
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            ObjHeader
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            ObjLostHeader
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            ObjProtocol
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            ObjRequest
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            ObjResponse
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            ObjStatus
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            ObjURL
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            ReqEnd
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            ReqStart
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            RxHeader
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            RxLostHeader
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            RxProtocol
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            RxRequest
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            RxResponse
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            RxStatus
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            RxURL
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            SessionClose
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            SessionOpen
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            StatAddr
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            StatSess
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            TTL
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            TxHeader
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            TxLostHeader
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            TxProtocol
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            TxRequest
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            TxResponse
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            TxStatus
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            TxURL
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            VCL_acl
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            VCL_call
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            VCL_return
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            VCL_trace
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            WorkThread
+          </para>
+        </listitem>
+      </itemizedlist>
+    </section>
+    <section xml:id="examples">
+      <title>EXAMPLES</title>
+      <para>
+        The following command line simply copies all log entries to a
+        log file:
+      </para>
+      <programlisting>
+$ varnishlog -w /var/log/varnish.log
+</programlisting>
+      <para>
+        The following command line reads that same log file and displays
+        requests for the front page:
+      </para>
+      <programlisting>
+$ varnishlog -r /var/log/varnish.log -c -m 'RxURL:^/$'
+</programlisting>
+    </section>
+    <section xml:id="see-also">
+      <title>SEE ALSO</title>
+      <itemizedlist>
+        <listitem>
+          <para>
+            varnishd(1)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            varnishhist(1)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            varnishncsa(1)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            varnishstat(1)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            varnishtop(1)
+          </para>
+        </listitem>
+      </itemizedlist>
+    </section>
+    <section xml:id="history">
+      <title>HISTORY</title>
+      <para>
+        The varnishlog utility was developed by Poul-Henning Kamp
+        ⟨phk@phk.freebsd.dk⟩ in cooperation with Verdens Gang AS,
+        Varnish Software AS and Varnish Software. This manual page was
+        initially written by Dag-Erling Smørgrav.
+      </para>
+    </section>
+    <section xml:id="copyright">
+      <title>COPYRIGHT</title>
+      <para>
+        This document is licensed under the same licence as Varnish
+        itself. See LICENCE for details.
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+            Copyright (c) 2006 Verdens Gang AS
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Copyright (c) 2006-2011 Varnish Software AS
+          </para>
+        </listitem>
+      </itemizedlist>
+    </section>
+  </section>
+</section>

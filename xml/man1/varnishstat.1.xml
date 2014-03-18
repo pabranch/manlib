@@ -1,0 +1,288 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="varnishstat">
+  <title>varnishstat</title>
+  <section xml:id="varnish-cache-statistics">
+    <title>Varnish Cache statistics</title>
+    <variablelist>
+      <varlistentry>
+        <term>
+          Author
+        </term>
+        <listitem>
+          <para>
+            Dag-Erling Smørgrav
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Author
+        </term>
+        <listitem>
+          <para>
+            Per Buer
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Author
+        </term>
+        <listitem>
+          <para>
+            Lasse Karstensen
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Date
+        </term>
+        <listitem>
+          <para>
+            2011-11-07
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Version
+        </term>
+        <listitem>
+          <para>
+            1.1
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Manual section
+        </term>
+        <listitem>
+          <para>
+            1
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+    <section xml:id="synopsis">
+      <title>SYNOPSIS</title>
+      <para>
+        varnishstat [-1] [-x] [-j] [-f field_list] [-l] [-n
+        varnish_name] [-V] [-w delay]
+      </para>
+    </section>
+    <section xml:id="description">
+      <title>DESCRIPTION</title>
+      <para>
+        The varnishstat utility displays statistics from a running
+        varnishd(1) instance.
+      </para>
+      <para>
+        The following options are available:
+      </para>
+      <para>
+        -1 Instead of presenting of a continuously updated display,
+        print the statistics to stdout.
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term>
+            -f A comma separated list of the fields to display. If it
+            starts with '^' it is used as an exclusion
+          </term>
+          <listitem>
+            <para>
+              list.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      <para>
+        -l Lists the available fields to use with the -f option.
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term>
+            -n Specifies the name of the varnishd instance to get logs
+            from. If -n is not specified, the host name
+          </term>
+          <listitem>
+            <para>
+              is used.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      <para>
+        -V Display the version number and exit.
+      </para>
+      <para>
+        -w delay Wait delay seconds between updates. The default is 1.
+        Can also be used with -1, -x or -j for repeated output.
+      </para>
+      <para>
+        -x Displays the result as XML.
+      </para>
+      <para>
+        -j Displays the result as JSON.
+      </para>
+      <para>
+        The columns in the main display are, from left to right:
+      </para>
+      <orderedlist numeration="arabic">
+        <listitem>
+          <para>
+            Value
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Per-second average in the period since last update, or a
+            period if the value can not be averaged
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Per-second average over process lifetime, or a period if the
+            value can not be averaged
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Descriptive text
+          </para>
+        </listitem>
+      </orderedlist>
+      <para>
+        When using the -1 option, the columns in the output are, from
+        left to right:
+      </para>
+      <orderedlist numeration="arabic">
+        <listitem>
+          <para>
+            Symbolic entry name
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Value
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Per-second average over process lifetime, or a period if the
+            value can not be averaged
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Descriptive text
+          </para>
+        </listitem>
+      </orderedlist>
+      <para>
+        When using the -x option, the output is:
+      </para>
+      <programlisting>
+&lt;stat&gt; 
+  &lt;name&gt;FIELD NAME&lt;/name&gt; 
+  &lt;value&gt;FIELD VALUE&lt;/value&gt; 
+  &lt;description&gt;FIELD DESCRIPTION&lt;/description&gt; 
+&lt;/stat&gt; 
+</programlisting>
+      <para>
+        With -j the output format is:
+      </para>
+      <programlisting>
+{
+  "timestamp": "YYYY-MM-DDTHH:mm:SS",
+  "client_conn": {
+  "value": 0, "flag": "a", 
+  "description": "Client connections accepted"
+  },
+  "client_drop": {
+  "value": 0, "flag": "a", 
+  "description": "Connection dropped, no sess/wrk"
+  },
+  "LCK.backend.creat": {
+  "type": "LCK", "ident": "backend", "value": 1, 
+  "flag": "a", "description": "Created locks"
+  },
+  [..]
+}
+</programlisting>
+      <para>
+        Timestamp is the time when the report was generated by
+        varnishstat.
+      </para>
+      <para>
+        Repeated output with -1, -x or -j will have a single empty line
+        (\n) between each block of output.
+      </para>
+    </section>
+    <section xml:id="see-also">
+      <title>SEE ALSO</title>
+      <itemizedlist>
+        <listitem>
+          <para>
+            varnishd(1)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            varnishhist(1)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            varnishlog(1)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            varnishncsa(1)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            varnishtop(1)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            curses(3)
+          </para>
+        </listitem>
+      </itemizedlist>
+    </section>
+    <section xml:id="history">
+      <title>HISTORY</title>
+      <para>
+        The varnishstat utility was originally developed by Poul-Henning
+        Kamp ⟨phk@phk.freebsd.dk⟩ in cooperation with Verdens Gang AS,
+        Varnish Software AS and Varnish Software. Manual page written by
+        Dag-Erling Smørgrav, and Per Buer.
+      </para>
+    </section>
+    <section xml:id="copyright">
+      <title>COPYRIGHT</title>
+      <para>
+        This document is licensed under the same licence as Varnish
+        itself. See LICENCE for details.
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+            Copyright (c) 2006 Verdens Gang AS
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Copyright (c) 2006-2011 Varnish Software AS
+          </para>
+        </listitem>
+      </itemizedlist>
+    </section>
+  </section>
+</section>

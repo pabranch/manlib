@@ -1,0 +1,509 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="varnishncsa">
+  <title>varnishncsa</title>
+  <section xml:id="display-varnish-logs-in-apache-ncsa-combined-log-format">
+    <title>Display Varnish logs in Apache / NCSA combined log
+    format</title>
+    <variablelist>
+      <varlistentry>
+        <term>
+          Author
+        </term>
+        <listitem>
+          <para>
+            Dag-Erling Smørgrav
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Date
+        </term>
+        <listitem>
+          <para>
+            2010-05-31
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Version
+        </term>
+        <listitem>
+          <para>
+            1.0
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>
+          Manual section
+        </term>
+        <listitem>
+          <para>
+            1
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+    <section xml:id="synopsis">
+      <title>SYNOPSIS</title>
+      <para>
+        varnishncsa [-a] [-C] [-D] [-d] [-f] [-F format] [-I regex] [-i
+        tag] [-n varnish_name] [-m
+        <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="tag:regex">tag:regex</link> ...] [-P file] [-r
+        file] [-V] [-w file] [-X regex] [-x tag]
+      </para>
+    </section>
+    <section xml:id="description">
+      <title>DESCRIPTION</title>
+      <para>
+        The varnishncsa utility reads varnishd(1) shared memory logs and
+        presents them in the Apache / NCSA "combined" log
+        format.
+      </para>
+      <para>
+        The following options are available:
+      </para>
+      <para>
+        -a When writing to a file, append to it rather than overwrite
+        it.
+      </para>
+      <para>
+        -C Ignore case when matching regular expressions.
+      </para>
+      <para>
+        -D Daemonize.
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term>
+            -d Process old log entries on startup. Normally, varnishncsa
+          </term>
+          <listitem>
+            <para>
+              will only process entries which are written to the log
+              after it starts.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -f Prefer the X-Forwarded-For HTTP header over client.ip in
+          </term>
+          <listitem>
+            <para>
+              the log output.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -F format Specify the log format used. If no format is
+            specified the
+          </term>
+          <listitem>
+            <para>
+              default log format is used. Currently it is:
+            </para>
+            <blockquote>
+              <para>
+                %h %l %u %t "%r" %s %b "%{Referer}i"
+                "%{User-agent}i"
+              </para>
+            </blockquote>
+            <para>
+              Escape sequences \n and \t are supported.
+            </para>
+            <para>
+              Supported formatters are:
+            </para>
+            <blockquote>
+              <variablelist>
+                <varlistentry>
+                  <term>
+                    %b
+                  </term>
+                  <listitem>
+                    <para>
+                      Size of response in bytes, excluding HTTP headers.
+                      In CLF format, i.e. a '-' rather than a 0 when no
+                      bytes are sent.
+                    </para>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term>
+                    %H
+                  </term>
+                  <listitem>
+                    <variablelist>
+                      <varlistentry>
+                        <term>
+                          The request protocol. Defaults to HTTP/1.0 if
+                          not
+                        </term>
+                        <listitem>
+                          <para>
+                            known.
+                          </para>
+                        </listitem>
+                      </varlistentry>
+                    </variablelist>
+                    <blockquote>
+                      <para>
+                        %h
+                      </para>
+                    </blockquote>
+                    <variablelist>
+                      <varlistentry>
+                        <term>
+                          Remote host. Defaults to '-' if not known.
+                        </term>
+                        <listitem>
+                          <para>
+                            Defaults to 127.0.0.1 for backend requests.
+                          </para>
+                        </listitem>
+                      </varlistentry>
+                    </variablelist>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term>
+                    %{X}i
+                  </term>
+                  <listitem>
+                    <para>
+                      The contents of request header X.
+                    </para>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term>
+                    %l
+                  </term>
+                  <listitem>
+                    <para>
+                      Remote logname (always '-')
+                    </para>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term>
+                    %m
+                  </term>
+                  <listitem>
+                    <para>
+                      Request method. Defaults to '-' if not known.
+                    </para>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term>
+                    %q
+                  </term>
+                  <listitem>
+                    <variablelist>
+                      <varlistentry>
+                        <term>
+                          The query string, if no query string exists,
+                          an
+                        </term>
+                        <listitem>
+                          <para>
+                            empty string.
+                          </para>
+                        </listitem>
+                      </varlistentry>
+                    </variablelist>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term>
+                    %{X}o
+                  </term>
+                  <listitem>
+                    <para>
+                      The contents of response header X.
+                    </para>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term>
+                    %r
+                  </term>
+                  <listitem>
+                    <variablelist>
+                      <varlistentry>
+                        <term>
+                          The first line of the request. Synthesized
+                          from other
+                        </term>
+                        <listitem>
+                          <para>
+                            fields, so it may not be the request
+                            verbatim.
+                          </para>
+                        </listitem>
+                      </varlistentry>
+                    </variablelist>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term>
+                    %s
+                  </term>
+                  <listitem>
+                    <para>
+                      Status sent to the client
+                    </para>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term>
+                    %t
+                  </term>
+                  <listitem>
+                    <para>
+                      Time when the request was received, in HTTP
+                      date/time format.
+                    </para>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term>
+                    %{X}t
+                  </term>
+                  <listitem>
+                    <para>
+                      Time when the request was received, in the format
+                    </para>
+                  </listitem>
+                </varlistentry>
+              </variablelist>
+            </blockquote>
+            <blockquote>
+              <para>
+                specified by X. The time specification format is the
+                same as for strftime(3).
+              </para>
+              <blockquote>
+                <variablelist>
+                  <varlistentry>
+                    <term>
+                      %U
+                    </term>
+                    <listitem>
+                      <variablelist>
+                        <varlistentry>
+                          <term>
+                            The request URL without any query string.
+                            Defaults to
+                          </term>
+                          <listitem>
+                            <para>
+                              '-' if not known.
+                            </para>
+                          </listitem>
+                        </varlistentry>
+                      </variablelist>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>
+                      %u
+                    </term>
+                    <listitem>
+                      <para>
+                        Remote user from auth
+                      </para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>
+                      %{X}x
+                    </term>
+                    <listitem>
+                      <para>
+                        Extended variables. Supported variables are:
+                      </para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>
+                      Varnish:time_firstbyte
+                    </term>
+                    <listitem>
+                      <para>
+                        Time to the first byte from the backend arrived
+                      </para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>
+                      Varnish:hitmiss
+                    </term>
+                    <listitem>
+                      <para>
+                        Whether the request was a cache hit or miss.
+                        Pipe and pass are considered misses.
+                      </para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>
+                      Varnish:handling
+                    </term>
+                    <listitem>
+                      <para>
+                        How the request was handled, whether it was a
+                        cache hit, miss, pass, pipe or error.
+                      </para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>
+                      VCL_Log:key
+                    </term>
+                    <listitem>
+                      <para>
+                        Output value set by
+                        std.log("key:value") in VCL.
+                      </para>
+                    </listitem>
+                  </varlistentry>
+                </variablelist>
+              </blockquote>
+            </blockquote>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -m <ulink url="tag:regex">tag:regex</ulink> only list
+            records where tag matches regex. Multiple
+          </term>
+          <listitem>
+            <para>
+              -m options are AND-ed together.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -n Specifies the name of the varnishd instance to get logs
+          </term>
+          <listitem>
+            <para>
+              from. If -n is not specified, the host name is used.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      <para>
+        -P file Write the process's PID to the specified file.
+      </para>
+      <para>
+        -r file Read log entries from file instead of shared memory.
+      </para>
+      <para>
+        -V Display the version number and exit.
+      </para>
+      <variablelist>
+        <varlistentry>
+          <term>
+            -w file Write log entries to file instead of displaying
+            them.
+          </term>
+          <listitem>
+            <para>
+              The file will be overwritten unless the -a option was
+              specified.
+            </para>
+            <para>
+              If varnishncsa receives a SIGHUP while writing to a file,
+              it will reopen the file, allowing the old one to be
+              rotated away.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>
+            -X regex Exclude log entries which match the specified
+          </term>
+          <listitem>
+            <para>
+              regular expression.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      <para>
+        -x tag Exclude log entries with the specified tag.
+      </para>
+      <para>
+        If the -o option was specified, a tag and a regex argument must
+        be given. varnishncsa will then only log for request groups
+        which include that tag and the regular expression matches on
+        that tag.
+      </para>
+    </section>
+    <section xml:id="see-also">
+      <title>SEE ALSO</title>
+      <itemizedlist>
+        <listitem>
+          <para>
+            varnishd(1)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            varnishhist(1)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            varnishlog(1)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            varnishstat(1)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            varnishtop(1)
+          </para>
+        </listitem>
+      </itemizedlist>
+    </section>
+    <section xml:id="history">
+      <title>HISTORY</title>
+      <para>
+        The varnishncsa utility was developed by Poul-Henning Kamp in
+        cooperation with Verdens Gang AS and Varnish Software AS. This
+        manual page was written by Dag-Erling Smørgrav ⟨des@des.no⟩.
+      </para>
+    </section>
+    <section xml:id="copyright">
+      <title>COPYRIGHT</title>
+      <para>
+        This document is licensed under the same licence as Varnish
+        itself. See LICENCE for details.
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+            Copyright (c) 2006 Verdens Gang AS
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            Copyright (c) 2006-2011 Varnish Software AS
+          </para>
+        </listitem>
+      </itemizedlist>
+    </section>
+  </section>
+</section>
