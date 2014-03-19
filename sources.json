@@ -291,6 +291,12 @@ find sources/selinux/ -name \\*.5 -exec cp {} man/man5/ \\;;
 find sources/selinux/ -name \\*.8 -exec cp {} man/man8/ \\;"
   },
 
+  "selinux-refpolicy": {
+    "type": "git",
+    "url": "http://oss.tresys.com/git/refpolicy.git",
+    "cmd": "cp sources/selinux-refpolicy/man/man8/*.8 man/man8/" /* (cd sources/selinux-refpolicy; git submodule init; git submodule update) */
+  },
+
   "shadow-utils": {
     "type": "svn",
     "url": "svn://anonscm.debian.org/pkg-shadow/upstream/trunk",
