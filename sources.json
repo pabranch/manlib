@@ -168,8 +168,8 @@ cp sources/libcap/doc/*.8 man/man8/"
     "type": "git",
     "url": "https://git.fedorahosted.org/git/linux-pam.git",
     "cmd": "(cd sources/linux-pam/; ./autogen.sh; ./configure);
-cp sources/linux-pam/doc/man/*.3.xml xml/man3/;
-cp sources/linux-pam/doc/man/*.8.xml xml/man8/"
+for f in sources/linux-pam/doc/man/*.3.xml; do xsltproc -o xml/man3/$(basename $f) --xinclude utils/db4-upgrade.xsl $f; done;
+for f in sources/linux-pam/doc/man/*.8.xml; do xsltproc -o xml/man8/$(basename $f) --xinclude utils/db4-upgrade.xsl $f; done;"
   },
 
   "ltrace": {
