@@ -73,22 +73,6 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
 
     <variablelist>
       <varlistentry>
-        <term><option>-h</option></term>
-        <term><option>--help</option></term>
-
-        <listitem><para>Prints a short help
-        text and exits.</para></listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term><option>--version</option></term>
-
-        <listitem>
-          <para>Prints a short version string and exits.</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
         <term><option>-t</option></term>
         <term><option>--type=</option></term>
 
@@ -148,6 +132,18 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
       </varlistentry>
 
       <varlistentry>
+        <term><option>-r</option></term>
+        <term><option>--recursive</option></term>
+
+        <listitem>
+          <para>When listing units, also show units of local
+          containers. Units of local containers will be prefixed with
+          the container name, separated by a single colon character
+          (<literal>:</literal>).</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
         <term><option>--reverse</option></term>
 
         <listitem>
@@ -161,12 +157,27 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
 
       <varlistentry>
         <term><option>--after</option></term>
+
+        <listitem>
+          <para>With <command>list-dependencies</command>, show the
+          units that are ordered before the specified unit. In other
+          words, list the units that are in the <varname>After=</varname>
+          directive of the specified unit, have the specified unit in
+          their <varname>Before=</varname> directive, or are otherwise
+          implicit dependencies of the specified unit.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
         <term><option>--before</option></term>
 
         <listitem>
-          <para>Show which units are started after or before
-          with <command>list-dependencies</command>, respectively.
-          </para>
+          <para>With <command>list-dependencies</command>, show the
+          units that are ordered after the specified unit. In other
+          words, list the units that are in the <varname>Before=</varname>
+          directive of the specified unit, have the specified unit in
+          their <varname>After=</varname> directive, or otherwise depend
+          on the specified unit.</para>
         </listitem>
       </varlistentry>
 
@@ -301,30 +312,8 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
         </listitem>
       </varlistentry>
 
-      <varlistentry>
-        <term><option>--no-pager</option></term>
-
-        <listitem>
-          <para>Do not pipe output into a pager.</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term><option>--system</option></term>
-
-        <listitem>
-          <para>Talk to the systemd system manager. (Default)</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-        <term><option>--user</option></term>
-
-        <listitem>
-          <para>Talk to the systemd manager of the calling
-          user.</para>
-        </listitem>
-      </varlistentry>
+      <xi:include href="user-system-options.xml" xpointer="user" />
+      <xi:include href="user-system-options.xml" xpointer="system" />
 
       <varlistentry>
         <term><option>--no-wall</option></term>
@@ -461,27 +450,6 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
       </varlistentry>
 
       <varlistentry>
-        <term><option>-H</option></term>
-        <term><option>--host</option></term>
-
-        <listitem>
-          <para>Execute the operation remotely. Specify a hostname, or
-          username and hostname separated by <literal>@</literal>, to
-          connect to. This will use SSH to talk to the remote systemd
-          instance.</para>
-        </listitem>
-      </varlistentry>
-
-      <varlistentry>
-          <term><option>-M</option></term>
-          <term><option>--machine=</option></term>
-
-          <listitem><para>Execute the operation on a local
-          container. Specify a container name to connect
-          to.</para></listitem>
-      </varlistentry>
-
-      <varlistentry>
         <term><option>-n</option></term>
         <term><option>--lines=</option></term>
 
@@ -515,6 +483,12 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
         </listitem>
       </varlistentry>
 
+      <xi:include href="user-system-options.xml" xpointer="host" />
+      <xi:include href="user-system-options.xml" xpointer="machine" />
+
+      <xi:include href="standard-options.xml" xpointer="help" />
+      <xi:include href="standard-options.xml" xpointer="version" />
+      <xi:include href="standard-options.xml" xpointer="no-pager" />
     </variablelist>
   </refsect1>
 
@@ -725,10 +699,11 @@ kobject-uevent 1 systemd-udevd-kernel.socket systemd-udevd.service
           <listitem>
             <para>Show terse runtime status information about one or
             more units, followed by most recent log data from the
-            journal. If no units are specified, show all units (subject
-            to limitations specified with <option>-t</option>). If a PID
-            is passed, show information about the unit the process
-            belongs to.</para>
+            journal. If no units are specified, show system status. If
+            combined with <option>--all</option> also shows status of
+            all units (subject to limitations specified with
+            <option>-t</option>). If a PID is passed, show information
+            about the unit the process belongs to.</para>
 
             <para>This function is intended to generate human-readable
             output. If you are looking for computer-parsable output,
@@ -1089,6 +1064,24 @@ kobject-uevent 1 systemd-udevd-kernel.socket systemd-udevd.service
           <listitem>
             <para>Set the default target to boot into. Command links
             <filename>default.target</filename> to the given unit.</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Machine Commands</title>
+
+      <variablelist>
+        <varlistentry>
+          <term><command>list-machines <optional><replaceable>PATTERN</replaceable>...</optional></command></term>
+
+          <listitem>
+            <para>List the host and all running local containers with
+            their state. If one or more
+            <replaceable>PATTERN</replaceable>s are specified, only
+            containers matching one of them are shown.
+            </para>
           </listitem>
         </varlistentry>
       </variablelist>

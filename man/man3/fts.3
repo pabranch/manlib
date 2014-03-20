@@ -37,7 +37,7 @@
 .\"
 .\" 2007-12-08, mtk, Converted from mdoc to man macros
 .\"
-.TH FTS 3 2012-10-25 "Linux" "Linux Programmer's Manual"
+.TH FTS 3 2014-03-18 "Linux" "Linux Programmer's Manual"
 .SH NAME
 fts, fts_open, fts_read, fts_children, fts_set, fts_close \- \
 traverse a file hierarchy
@@ -774,6 +774,12 @@ The options were invalid.
 These functions are available in Linux since glibc2.
 .SH CONFORMING TO
 4.4BSD.
+.SH BUGS
+All of the APIs described in this man page are not safe when compiling
+a program using the LFS APIs (e.g., when compiling with
+.IR -D_FILE_OFFSET_BITS=64 ).
+.\" https://sourceware.org/bugzilla/show_bug.cgi?id=15838
+.\" https://sourceware.org/bugzilla/show_bug.cgi?id=11460
 .\" The following statement is years old, and seems no closer to
 .\" being true -- mtk
 .\" The

@@ -26,6 +26,46 @@ other end over the Git protocol.</simpara>
 for the protocol is on the <emphasis>git archive</emphasis> side, and the program pair
 is meant to be used to get an archive from a remote repository.</simpara>
 </refsect1>
+<refsect1 id="_security">
+<title>SECURITY</title>
+<simpara>In order to protect the privacy of objects that have been removed from
+history but may not yet have been pruned, <literal>git-upload-archive</literal> avoids
+serving archives for commits and trees that are not reachable from the
+repository&#8217;s refs.  However, because calculating object reachability is
+computationally expensive, <literal>git-upload-archive</literal> implements a stricter
+but easier-to-check set of rules:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>
+Clients may request a commit or tree that is pointed to directly by
+     a ref. E.g., <literal>git archive --remote=origin v1.0</literal>.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Clients may request a sub-tree within a commit or tree using the
+     <literal>ref:path</literal> syntax. E.g., <literal>git archive --remote=origin v1.0:Documentation</literal>.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Clients may <emphasis>not</emphasis> use other sha1 expressions, even if the end
+     result is reachable. E.g., neither a relative commit like <literal>master^</literal>
+     nor a literal sha1 like <literal>abcd1234</literal> is allowed, even if the result
+     is reachable from the refs.
+</simpara>
+</listitem>
+</orderedlist>
+<simpara>Note that rule 3 disallows many cases that do not have any privacy
+implications. These rules are subject to change in future versions of
+git, and the server accessed by <literal>git archive --remote</literal> may or may not
+follow these exact rules.</simpara>
+<simpara>If the config option <literal>uploadArchive.allowUnreachable</literal> is true, these
+rules are ignored, and clients may use arbitrary sha1 expressions.
+This is useful if you do not care about the privacy of unreachable
+objects, or if your object database is already publicly available for
+access via non-smart-http.</simpara>
+</refsect1>
 <refsect1 id="_options">
 <title>OPTIONS</title>
 <variablelist>

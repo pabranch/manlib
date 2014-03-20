@@ -63,8 +63,14 @@ commit.</simpara>
         Files to add content from.  Fileglobs (e.g. <literal>*.c</literal>) can
         be given to add all matching files.  Also a
         leading directory name (e.g. <literal>dir</literal> to add <literal>dir/file1</literal>
-        and <literal>dir/file2</literal>) can be given to add all files in the
-        directory, recursively.
+        and <literal>dir/file2</literal>) can be given to update the index to
+        match the current state of the directory as a whole (e.g.
+        specifying <literal>dir</literal> will record not just a file <literal>dir/file1</literal>
+        modified in the working tree, a file <literal>dir/file2</literal> added to
+        the working tree, but also a file <literal>dir/file3</literal> removed from
+        the working tree.  Note that older versions of Git used
+        to ignore removed files; use <literal>--no-all</literal> option if you want
+        to add modified or new files but ignore removed ones.
 </simpara>
 </listitem>
 </varlistentry>
@@ -173,10 +179,10 @@ apply to the index. See EDITING PATCHES below.</simpara>
         &lt;pathspec&gt;.  This removes as well as modifies index entries to
         match the working tree, but adds no new files.
 </simpara>
-<simpara>If no &lt;pathspec&gt; is given, the current version of Git defaults to
-"."; in other words, update all tracked files in the current directory
-and its subdirectories. This default will change in a future version
-of Git, hence the form without &lt;pathspec&gt; should not be used.</simpara>
+<simpara>If no &lt;pathspec&gt; is given when <literal>-u</literal> option is used, all
+tracked files in the entire working tree are updated (old versions
+of Git used to limit the update to the current directory and its
+subdirectories).</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -196,10 +202,10 @@ of Git, hence the form without &lt;pathspec&gt; should not be used.</simpara>
         entry.  This adds, modifies, and removes index entries to
         match the working tree.
 </simpara>
-<simpara>If no &lt;pathspec&gt; is given, the current version of Git defaults to
-"."; in other words, update all files in the current directory
-and its subdirectories. This default will change in a future version
-of Git, hence the form without &lt;pathspec&gt; should not be used.</simpara>
+<simpara>If no &lt;pathspec&gt; is given when <literal>-A</literal> option is used, all
+files in the entire working tree are updated (old versions
+of Git used to limit the update to the current directory and its
+subdirectories).</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -216,11 +222,9 @@ of Git, hence the form without &lt;pathspec&gt; should not be used.</simpara>
         files that have been removed from the working tree.  This
         option is a no-op when no &lt;pathspec&gt; is used.
 </simpara>
-<simpara>This option is primarily to help the current users of Git, whose
-"git add &lt;pathspec&gt;&#8230;" ignores removed files.  In future versions
-of Git, "git add &lt;pathspec&gt;&#8230;" will be a synonym to "git add -A
-&lt;pathspec&gt;&#8230;" and "git add --ignore-removal &lt;pathspec&gt;&#8230;" will behave like
-today&#8217;s "git add &lt;pathspec&gt;&#8230;", ignoring removed files.</simpara>
+<simpara>This option is primarily to help users who are used to older
+versions of Git, whose "git add &lt;pathspec&gt;&#8230;" was a synonym
+for "git add --no-all &lt;pathspec&gt;&#8230;", i.e. ignored removed files.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>

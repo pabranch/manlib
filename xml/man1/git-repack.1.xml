@@ -15,7 +15,7 @@
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
 <blockquote>
-<literallayout><emphasis>git repack</emphasis> [-a] [-A] [-d] [-f] [-F] [-l] [-n] [-q] [--window=&lt;n&gt;] [--depth=&lt;n&gt;]</literallayout>
+<literallayout><emphasis>git repack</emphasis> [-a] [-A] [-d] [-f] [-F] [-l] [-n] [-q] [-b] [--window=&lt;n&gt;] [--depth=&lt;n&gt;]</literallayout>
 </blockquote>
 </refsynopsisdiv>
 <refsect1 id="_description">
@@ -201,6 +201,38 @@ other objects in that pack they already have locally.</simpara>
         If specified,  multiple packfiles may be created.
         The default is unlimited, unless the config variable
         <literal>pack.packSizeLimit</literal> is set.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-b
+</term>
+<term>
+--write-bitmap-index
+</term>
+<listitem>
+<simpara>
+        Write a reachability bitmap index as part of the repack. This
+        only makes sense when used with <literal>-a</literal> or <literal>-A</literal>, as the bitmaps
+        must be able to refer to all reachable objects. This option
+        overrides the setting of <literal>pack.writebitmaps</literal>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--pack-kept-objects
+</term>
+<listitem>
+<simpara>
+        Include objects in <literal>.keep</literal> files when repacking.  Note that we
+        still do not delete <literal>.keep</literal> packs after <literal>pack-objects</literal> finishes.
+        This means that we may duplicate objects, but this makes the
+        option safe to use when there are concurrent pushes or fetches.
+        This option is generally only useful if you are writing bitmaps
+        with <literal>-b</literal> or <literal>pack.writebitmaps</literal>, as it ensures that the
+        bitmapped packfile has the necessary objects.
 </simpara>
 </listitem>
 </varlistentry>

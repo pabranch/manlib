@@ -115,9 +115,9 @@ image. So, you could completly change your root partition (move it inside a md
 raid with encryption and LVM on top), as long as you specify the correct
 filesystem LABEL or UUID on the kernel command line for your root device, dracut
 will find it and boot from it.</simpara>
-<simpara>The kernel command line usually can be configured in <emphasis>/boot/grub/grub.conf</emphasis>, if
-grub is your bootloader and it also can be edited in the real boot process in
-the grub menu.</simpara>
+<simpara>The kernel command line usually can be configured in <emphasis>/boot/grub/grub.conf</emphasis> or
+<emphasis>/boot/grub2/grub.cfg</emphasis>, if grub is your bootloader and it also can be edited in
+the real boot process in the grub menu.</simpara>
 <simpara>The kernel command line can also be provided by the dhcp server with the
 root-path option. See <xref linkend="NetworkBoot"/>.</simpara>
 <simpara>For a full reference of all kernel command line parameters,
@@ -1070,6 +1070,12 @@ provide a valid <emphasis>/etc/fstab</emphasis>.</simpara>
 </simpara>
 </listitem>
 </varlistentry>
+</variablelist>
+<simpara><emphasis role="strong">--hostonly-cmdline</emphasis>:
+    Store kernel command line arguments needed in the initramfs</simpara>
+<simpara><emphasis role="strong">--no-hostonly-cmdline</emphasis>:
+    Do not store kernel command line arguments needed in the initramfs</simpara>
+<variablelist>
 <varlistentry>
 <term>
 <emphasis role="strong">--persistent-policy</emphasis> <emphasis>&lt;policy&gt;</emphasis>
@@ -1104,12 +1110,16 @@ provide a valid <emphasis>/etc/fstab</emphasis>.</simpara>
 </varlistentry>
 <varlistentry>
 <term>
-<emphasis role="strong">--mount</emphasis> "<emphasis>&lt;device&gt;</emphasis> <emphasis>&lt;mountpoint&gt;</emphasis> <emphasis>&lt;filesystem type&gt;</emphasis> <emphasis>&lt;filesystem options&gt;</emphasis>"
+<emphasis role="strong">--mount</emphasis> "<emphasis>&lt;device&gt;</emphasis> <emphasis>&lt;mountpoint&gt;</emphasis> <emphasis>&lt;filesystem type&gt;</emphasis> [<emphasis>&lt;filesystem options&gt;</emphasis> [<emphasis>&lt;dump frequency&gt;</emphasis> [<emphasis>&lt;fsck order&gt;</emphasis>]]]"
 </term>
 <listitem>
 <simpara>
-    Mount <emphasis>&lt;device&gt;</emphasis> on <emphasis>&lt;mountpoint&gt;</emphasis> with <emphasis>&lt;filesystem type&gt;</emphasis> and <emphasis>&lt;filesystem
-    options&gt;</emphasis> in the initramfs
+    Mount <emphasis>&lt;device&gt;</emphasis> on <emphasis>&lt;mountpoint&gt;</emphasis> with <emphasis>&lt;filesystem type&gt;</emphasis> in the
+    initramfs. <emphasis>&lt;filesystem options&gt;</emphasis>, <emphasis>&lt;dump options&gt;</emphasis> and <emphasis>&lt;fsck order&gt;</emphasis> can
+    be specified, see fstab manpage for the details.
+    The default <emphasis>&lt;filesystem options&gt;</emphasis> is "defaults".
+    The default <emphasis>&lt;dump frequency&gt;</emphasis> is "0".
+    the default <emphasis>&lt;fsck order&gt;</emphasis> is "2".
 </simpara>
 </listitem>
 </varlistentry>

@@ -20,7 +20,7 @@
          [--ignore-date] [--ignore-space-change | --ignore-whitespace]
          [--whitespace=&lt;option&gt;] [-C&lt;n&gt;] [-p&lt;n&gt;] [--directory=&lt;dir&gt;]
          [--exclude=&lt;path&gt;] [--include=&lt;path&gt;] [--reject] [-q | --quiet]
-         [--[no-]scissors]
+         [--[no-]scissors] [-S[&lt;keyid&gt;]]
          [(&lt;mbox&gt; | &lt;Maildir&gt;)&#8230;]
 <emphasis>git am</emphasis> (--continue | --skip | --abort)</literallayout>
 </blockquote>
@@ -288,6 +288,19 @@ default.   You can use <literal>--no-utf8</literal> to override this.</simpara>
 </varlistentry>
 <varlistentry>
 <term>
+-S[&lt;keyid&gt;]
+</term>
+<term>
+--gpg-sign[=&lt;keyid&gt;]
+</term>
+<listitem>
+<simpara>
+        GPG-sign commits.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 --continue
 </term>
 <term>
@@ -395,6 +408,14 @@ current branch.  This is useful if you have problems with multiple
 commits, like running <emphasis>git am</emphasis> on the wrong branch or an error in the
 commits that is more easily fixed by changing the mailbox (e.g.
 errors in the "From:" lines).</simpara>
+</refsect1>
+<refsect1 id="_hooks">
+<title>HOOKS</title>
+<simpara>This command can run <literal>applypatch-msg</literal>, <literal>pre-applypatch</literal>,
+and <literal>post-applypatch</literal> hooks.  See <citerefentry>
+<refentrytitle>githooks</refentrytitle><manvolnum>5</manvolnum>
+</citerefentry> for more
+information.</simpara>
 </refsect1>
 <refsect1 id="_see_also">
 <title>SEE ALSO</title>

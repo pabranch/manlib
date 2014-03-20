@@ -17,7 +17,7 @@
 <blockquote>
 <literallayout><emphasis>git reset</emphasis> [-q] [&lt;tree-ish&gt;] [--] &lt;paths&gt;&#8230;
 <emphasis>git reset</emphasis> (--patch | -p) [&lt;tree-ish&gt;] [--] [&lt;paths&gt;&#8230;]
-<emphasis>git reset</emphasis> [--soft | --mixed | --hard | --merge | --keep] [-q] [&lt;commit&gt;]</literallayout>
+<emphasis>git reset</emphasis> [--soft | --mixed [-N] | --hard | --merge | --keep] [-q] [&lt;commit&gt;]</literallayout>
 </blockquote>
 </refsynopsisdiv>
 <refsect1 id="_description">
@@ -103,6 +103,10 @@ section of <citerefentry>
         are preserved but not marked for commit) and reports what has not
         been updated. This is the default action.
 </simpara>
+<simpara>If <literal>-N</literal> is specified, removed paths are marked as intent-to-add (see
+<citerefentry>
+<refentrytitle>git-add</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>).</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>

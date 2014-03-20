@@ -61,6 +61,7 @@
              [ --reverse ]
              [ --walk-reflogs ]
              [ --no-walk ] [ --do-walk ]
+             [ --use-bitmap-index ]
              &lt;commit&gt;&#8230; [ -- &lt;paths&gt;&#8230; ]</literallayout>
 </blockquote>
 </refsynopsisdiv>
@@ -618,6 +619,18 @@ See also <citerefentry>
 <simpara>
         Output excluded boundary commits. Boundary commits are
         prefixed with <literal>-</literal>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--use-bitmap-index
+</term>
+<listitem>
+<simpara>
+        Try to speed up the traversal using the pack bitmap index (if
+        one is available). Note that when traversing with <literal>--objects</literal>,
+        trees and blobs will not have their associated path printed.
 </simpara>
 </listitem>
 </varlistentry>

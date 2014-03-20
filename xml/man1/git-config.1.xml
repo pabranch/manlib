@@ -752,7 +752,7 @@ pushUpdateRejected
 <listitem>
 <simpara>
                 Set this variable to <emphasis>false</emphasis> if you want to disable
-                <emphasis>pushNonFFCurrent</emphasis>, <emphasis>pushNonFFDefault</emphasis>,
+                <emphasis>pushNonFFCurrent</emphasis>,
                 <emphasis>pushNonFFMatching</emphasis>, <emphasis>pushAlreadyExists</emphasis>,
                 <emphasis>pushFetchFirst</emphasis>, and <emphasis>pushNeedsForce</emphasis>
                 simultaneously.
@@ -769,22 +769,6 @@ pushNonFFCurrent
 <refentrytitle>git-push</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry> fails due to a
                 non-fast-forward update to the current branch.
-</simpara>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
-pushNonFFDefault
-</term>
-<listitem>
-<simpara>
-                Advice to set <emphasis>push.default</emphasis> to <emphasis>upstream</emphasis> or <emphasis>current</emphasis>
-                when you ran <citerefentry>
-<refentrytitle>git-push</refentrytitle><manvolnum>1</manvolnum>
-</citerefentry> and pushed <emphasis>matching
-                refs</emphasis> by default (i.e. you did not provide an explicit
-                refspec, and no <emphasis>push.default</emphasis> configuration was set)
-                and it resulted in a non-fast-forward error.
 </simpara>
 </listitem>
 </varlistentry>
@@ -2473,6 +2457,20 @@ commit.cleanup
 </varlistentry>
 <varlistentry>
 <term>
+commit.gpgsign
+</term>
+<listitem>
+<simpara>
+        A boolean to specify whether all commits should be GPG signed.
+        Use of this option when doing operations such as rebase can
+        result in a large number of commits being signed. It may be
+        convenient to use an agent to avoid typing your GPG passphrase
+        several times.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 commit.status
 </term>
 <listitem>
@@ -3343,6 +3341,17 @@ gc.autopacklimit
         marked with <literal>*.keep</literal> file in the repository, <literal>git gc
         --auto</literal> consolidates them into one larger pack.  The
         default value is 50.  Setting this to 0 disables it.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+gc.autodetach
+</term>
+<listitem>
+<simpara>
+        Make <literal>git gc --auto</literal> return immediately andrun in background
+        if the system supports it. Default is true.
 </simpara>
 </listitem>
 </varlistentry>
@@ -4342,6 +4351,17 @@ imap
 </varlistentry>
 <varlistentry>
 <term>
+index.version
+</term>
+<listitem>
+<simpara>
+        Specify the version with which new index files should be
+        initialized.  This does not affect existing repositories.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 init.templatedir
 </term>
 <listitem>
@@ -4441,7 +4461,7 @@ interactive.singlekey
 <refentrytitle>git-stash</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry>. Note that this
         setting is silently ignored if portable keystroke input
-        is not available.
+        is not available; requires the Perl module Term::ReadKey.
 </simpara>
 </listitem>
 </varlistentry>
@@ -5088,6 +5108,52 @@ pack.packSizeLimit
 </varlistentry>
 <varlistentry>
 <term>
+pack.useBitmaps
+</term>
+<listitem>
+<simpara>
+        When true, git will use pack bitmaps (if available) when packing
+        to stdout (e.g., during the server side of a fetch). Defaults to
+        true. You should not generally need to turn this off unless
+        you are debugging pack bitmaps.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+pack.writebitmaps
+</term>
+<listitem>
+<simpara>
+        When true, git will write a bitmap index when packing all
+        objects to disk (e.g., when <literal>git repack -a</literal> is run).  This
+        index can speed up the "counting objects" phase of subsequent
+        packs created for clones and fetches, at the cost of some disk
+        space and extra time spent on the initial repack.  Defaults to
+        false.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+pack.writeBitmapHashCache
+</term>
+<listitem>
+<simpara>
+        When true, git will include a "hash cache" section in the bitmap
+        index (if one is written). This cache can be used to feed git&#8217;s
+        delta heuristics, potentially leading to better deltas between
+        bitmapped and non-bitmapped objects (e.g., when serving a fetch
+        between an older, bitmapped pack and objects that have been
+        pushed since the last gc). The downside is that it consumes 4
+        bytes per object of disk space, and that JGit&#8217;s bitmap
+        implementation does not understand it, causing it to complain if
+        Git and JGit are used on the same repository. Defaults to false.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 pager.&lt;cmd&gt;
 </term>
 <listitem>
@@ -5118,6 +5184,23 @@ pretty.&lt;name&gt;
         to be equivalent to running <literal>git log "--pretty=format:* %H %s"</literal>.
         Note that an alias with the same name as a built-in format
         will be silently ignored.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+pull.ff
+</term>
+<listitem>
+<simpara>
+        By default, Git does not create an extra merge commit when merging
+        a commit that is a descendant of the current commit. Instead, the
+        tip of the current branch is fast-forwarded. When set to <literal>false</literal>,
+        this variable tells Git to create an extra merge commit in such
+        a case (equivalent to giving the <literal>--no-ff</literal> option from the command
+        line). When set to <literal>only</literal>, only such fast-forward merges are
+        allowed (equivalent to giving the <literal>--ff-only</literal> option from the
+        command line).
 </simpara>
 </listitem>
 </varlistentry>
@@ -5208,7 +5291,7 @@ push.default
 <simpara>When pushing to a remote that is different from the remote you normally
 pull from, work as <literal>current</literal>.  This is the safest option and is suited
 for beginners.</simpara>
-<simpara>This mode will become the default in Git 2.0.</simpara>
+<simpara>This mode has become the default in Git 2.0.</simpara>
 </listitem>
 <listitem>
 <simpara>
@@ -5228,8 +5311,8 @@ unfinished, this mode is not for you.  Also this mode is not
 suitable for pushing into a shared central repository, as other
 people may add new branches there, or update the tip of existing
 branches outside your control.</simpara>
-<simpara>This is currently the default, but Git 2.0 will change the default
-to <literal>simple</literal>.</simpara>
+<simpara>This used to be the default, but not since Git 2.0 (<literal>simple</literal> is the
+new default).</simpara>
 </listitem>
 </itemizedlist>
 </listitem>
@@ -5622,6 +5705,22 @@ repack.usedeltabaseoffset
         protocol such as http, then you need to set this option to
         "false" and repack. Access from old Git versions over the
         native protocol are unaffected by this option.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+repack.packKeptObjects
+</term>
+<listitem>
+<simpara>
+        If set to true, makes <literal>git repack</literal> act as if
+        <literal>--pack-kept-objects</literal> was passed. See <citerefentry>
+<refentrytitle>git-repack</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> for
+        details. Defaults to <literal>false</literal> normally, but <literal>true</literal> if a bitmap
+        index is being written (either via <literal>--write-bitmap-index</literal> or
+        <literal>pack.writeBitmaps</literal>).
 </simpara>
 </listitem>
 </varlistentry>
@@ -6070,6 +6169,22 @@ transfer.unpackLimit
         When <literal>fetch.unpackLimit</literal> or <literal>receive.unpackLimit</literal> are
         not set, the value of this variable is used instead.
         The default value is 100.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+uploadarchive.allowUnreachable
+</term>
+<listitem>
+<simpara>
+        If true, allow clients to use <literal>git archive --remote</literal> to request
+        any tree, whether reachable from the ref tips or not. See the
+        discussion in the <literal>SECURITY</literal> section of
+        <citerefentry>
+<refentrytitle>git-upload-archive</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> for more details. Defaults to
+        <literal>false</literal>.
 </simpara>
 </listitem>
 </varlistentry>

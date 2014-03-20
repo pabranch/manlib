@@ -21,7 +21,8 @@
   along with systemd; If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<refentry id="systemd-nspawn">
+<refentry id="systemd-nspawn"
+          xmlns:xi="http://www.w3.org/2001/XInclude">
 
         <refentryinfo>
                 <title>systemd-nspawn</title>
@@ -159,40 +160,43 @@
 
                 <variablelist>
                         <varlistentry>
-                                <term><option>-h</option></term>
-                                <term><option>--help</option></term>
-
-                                <listitem><para>Prints a short help
-                                text and exits.</para></listitem>
-                        </varlistentry>
-
-                        <varlistentry>
-                                <term><option>--version</option></term>
-
-                                <listitem><para>Prints a version string
-                                and exits.</para></listitem>
-                        </varlistentry>
-
-                        <varlistentry>
-                                <term><option>-q</option></term>
-                                <term><option>--quiet</option></term>
-
-                                <listitem><para>Turns off any status
-                                output by the tool itself. When this
-                                switch is used, the only output
-                                from nspawn will be the console output
-                                of the container OS itself.</para></listitem>
-                        </varlistentry>
-
-                        <varlistentry>
                                 <term><option>-D</option></term>
                                 <term><option>--directory=</option></term>
 
                                 <listitem><para>Directory to use as
-                                file system root for the namespace
-                                container. If omitted, the current
-                                directory will be
-                                used.</para></listitem>
+                                file system root for the container. If
+                                neither <option>--directory=</option>
+                                nor <option>--image=</option> are
+                                specified, the current directory will
+                                be used. May not be specified together with
+                                <option>--image=</option>.</para></listitem>
+                        </varlistentry>
+
+                        <varlistentry>
+                                <term><option>-i</option></term>
+                                <term><option>--image=</option></term>
+
+                                <listitem><para>Disk image to mount
+                                the root directory for the container
+                                from. Takes a path to a regular file
+                                or to a block device node. The file or
+                                block device must contain a GUID
+                                Partition Table with a root partition
+                                which is mounted as the root directory
+                                of the container. Optionally, it may
+                                contain a home and/or a server data
+                                partition which are mounted to the
+                                appropriate places in the
+                                container. All these partitions must
+                                be identified by the partition types
+                                defined by the <ulink
+                                url="http://www.freedesktop.org/wiki/Specifications/DiscoverablePartitionsSpec/">Discoverable
+                                Partitions Specification</ulink>. Any
+                                other partitions, such as foreign
+                                partitions, swap partitions or EFI
+                                system partitions are not mounted. May
+                                not be specified together with
+                                <option>--directory=</option>.</para></listitem>
                         </varlistentry>
 
                         <varlistentry>
@@ -215,13 +219,15 @@
                                 <term><option>-u</option></term>
                                 <term><option>--user=</option></term>
 
-                                <listitem><para>Run the command
-                                under specified user, create home
-                                directory and cd into it. As rest
-                                of systemd-nspawn, this is not
-                                the security feature and limits
-                                against accidental changes only.
-                                </para></listitem>
+                                <listitem><para>After transitioning
+                                into the container, change to the
+                                specified user defined in the
+                                container's user database. Like all
+                                other systemd-nspawn features, this is
+                                not a security feature and provides
+                                protection against accidental
+                                destructive operations
+                                only.</para></listitem>
                         </varlistentry>
 
                         <varlistentry>
@@ -285,7 +291,7 @@
 
                                 <listitem><para>Assign the specified
                                 network interface to the
-                                container. This will move the
+                                container. This will remove the
                                 specified interface from the calling
                                 namespace and place it in the
                                 container. When the container
@@ -300,11 +306,35 @@
                         </varlistentry>
 
                         <varlistentry>
+                                <term><option>--network-macvlan=</option></term>
+
+                                <listitem><para>Create a
+                                <literal>macvlan</literal> interface
+                                of the specified Ethernet network
+                                interface and add it to the
+                                container. A
+                                <literal>macvlan</literal> interface
+                                is a virtual interface that adds a
+                                second MAC address to an existing
+                                physical Ethernet link. The interface
+                                in the container will be named after
+                                the interface on the host, prefixed
+                                with <literal>mv-</literal>. Note that
+                                <option>--network-macvlan=</option>
+                                implies
+                                <option>--private-network</option>. This
+                                option may be used more than once to
+                                add multiple network interfaces to the
+                                container.</para></listitem>
+                        </varlistentry>
+
+                        <varlistentry>
                                 <term><option>--network-veth</option></term>
 
                                 <listitem><para>Create a virtual
-                                Ethernet link between host and
-                                container. The host side of the
+                                Ethernet link
+                                (<literal>veth</literal>) between host
+                                and container. The host side of the
                                 Ethernet link will be available as a
                                 network interface named after the
                                 container's name (as specified with
@@ -321,13 +351,17 @@
                         <varlistentry>
                                 <term><option>--network-bridge=</option></term>
 
-                                <listitem><para>Adds the host side of the
-                                Ethernet link created with
-                                <option>--network-veth</option>
-                                to the specified bridge. Note that
-                                <option>--network-bridge</option>
+                                <listitem><para>Adds the host side of
+                                the Ethernet link created with
+                                <option>--network-veth</option> to the
+                                specified bridge. Note that
+                                <option>--network-bridge=</option>
                                 implies
-                                <option>--network-veth</option>.</para></listitem>
+                                <option>--network-veth</option>. If
+                                this option is used the host side of
+                                the Ethernet link will use the
+                                <literal>vb-</literal> prefix instead
+                                of <literal>ve-</literal>.</para></listitem>
                         </varlistentry>
 
                         <varlistentry>
@@ -466,7 +500,7 @@
                                 destination in the container. The
                                 <option>--bind-ro=</option> option
                                 creates read-only bind
-                                mount.</para></listitem>
+                                mounts.</para></listitem>
                         </varlistentry>
 
                         <varlistentry>
@@ -555,6 +589,38 @@
                                 session.</para></listitem>
                         </varlistentry>
 
+                        <varlistentry>
+                                <term><option>--personality=</option></term>
+
+                                <listitem><para>Control the
+                                architecture ("personality") reported
+                                by
+                                <citerefentry><refentrytitle>uname</refentrytitle><manvolnum>2</manvolnum></citerefentry>
+                                in the container. Currently, only
+                                <literal>x86</literal> and
+                                <literal>x86-64</literal> are
+                                supported. This is useful when running
+                                a 32bit container on a 64bit
+                                host. If this setting is not used
+                                the personality reported in the
+                                container is the same as the one
+                                reported on the
+                                host.</para></listitem>
+                        </varlistentry>
+
+                        <varlistentry>
+                                <term><option>-q</option></term>
+                                <term><option>--quiet</option></term>
+
+                                <listitem><para>Turns off any status
+                                output by the tool itself. When this
+                                switch is used, the only output
+                                from nspawn will be the console output
+                                of the container OS itself.</para></listitem>
+                        </varlistentry>
+
+                        <xi:include href="standard-options.xml" xpointer="help" />
+                        <xi:include href="standard-options.xml" xpointer="version" />
                 </variablelist>
 
         </refsect1>

@@ -1534,6 +1534,12 @@ after a SIGSEGV or SIGABRT in unmanaged code.
 This option will suspend the program when a native SIGSEGV is received.
 This is useful for debugging crashes which do not happen under gdb,
 since a live process contains more information than a core file.
+.TP
+\fBcheck-pinvoke-callconv\fR
+This option causes the runtime to check for calling convention
+mismatches when using pinvoke, i.e. mixing cdecl/stdcall. It only
+works on windows. If a mismatch is detected, an
+ExecutionEngineException is thrown.
 .ne
 .RE
 .TP
@@ -1638,6 +1644,12 @@ method.
 \fBMONO_VERBOSE_HWCAP\fR
 If set, makes the JIT output information about detected CPU features
 (such as SSE, CMOV, FCMOV, etc) to stdout.
+.TP
+\fBMONO_CONSERVATIVE_HWCAP\fR
+If set, the JIT will not perform any hardware capability detection. This
+may be useful to pinpoint the cause of JIT issues. This is the default
+when Mono is built as an AOT cross compiler, so that the generated code
+will run on most hardware.
 .SH VALGRIND
 If you want to use Valgrind, you will find the file `mono.supp'
 useful, it contains the suppressions for the GC which trigger
