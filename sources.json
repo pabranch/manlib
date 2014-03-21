@@ -120,7 +120,7 @@ rsync -a --exclude=Makefile --exclude=\\*.in --exclude=.gitignore sources/iprout
     "type": "git",
     "url": "git://git.code.sf.net/p/iputils/code",
     "sparse": "doc/",
-    "cmd": "find sources/iputils/doc -name \\*.sgml -exec bash -c 'osx -xlower {} > xml/man8/$(basename -s .sgml {}).8.xml {}' \\;"
+    "cmd": "find sources/iputils/doc -name \\*.sgml -exec bash -c 'osx -xlower {} 2> /dev/null | xsltproc utils/db4-upgrade.xsl - > xml/man8/$(basename -s .sgml {}).8.xml {}' \\;"
   },
 
   "kernel_man_pages": {

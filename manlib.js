@@ -128,6 +128,9 @@ function extract (sourceName, sourceDets, specified) {
       if (error !== null) {
         console.log(sourceDets.cmd + ' - error: ' + error);
       }
+      /*if (stderr !== null) {
+        console.log(sourceDets.cmd + ' - stderr: ' + stderr);
+      }*/
     }
   );
 

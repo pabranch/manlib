@@ -1,645 +1,142 @@
-<?xml version="1.0"?>
-<refentry
-id="arping"
->
-<refmeta
-><refentrytitle
->arping</refentrytitle>
-<manvolnum
->8</manvolnum>
-<refmiscinfo
->iputils-</refmiscinfo></refmeta>
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="arping">
+<refmeta><refentrytitle>arping</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo>iputils-</refmiscinfo></refmeta>
 
 
-<refnamediv
-><refname
->arping</refname>
-<refpurpose
->send ARP REQUEST to a neighbour host</refpurpose></refnamediv>
+<refnamediv><refname>arping</refname>
+<refpurpose>send ARP REQUEST to a neighbour host</refpurpose></refnamediv>
 
-<refsynopsisdiv
-><cmdsynopsis
-><command
->arping</command>
-<arg
-choice="opt"
-><option
->-AbDfhqUV</option></arg>
-<arg
-choice="opt"
->-c <replaceable
->count</replaceable></arg>
-<arg
-choice="opt"
->-w <replaceable
->deadline</replaceable></arg>
-<arg
-choice="opt"
->-s <replaceable
->source</replaceable></arg>
-<arg
-choice="req"
->-I <replaceable
->interface</replaceable></arg>
-<arg
-choice="req"
-><replaceable
->destination</replaceable></arg></cmdsynopsis></refsynopsisdiv>
+<refsynopsisdiv><cmdsynopsis><command>arping</command>
+<arg choice="opt"><option>-AbDfhqUV</option></arg>
+<arg choice="opt">-c <replaceable>count</replaceable></arg>
+<arg choice="opt">-w <replaceable>deadline</replaceable></arg>
+<arg choice="opt">-s <replaceable>source</replaceable></arg>
+<arg choice="req">-I <replaceable>interface</replaceable></arg>
+<arg choice="req"><replaceable>destination</replaceable></arg></cmdsynopsis></refsynopsisdiv>
 
-<refsect1
-><title
->DESCRIPTION</title>
-<para
->Ping <replaceable
->destination</replaceable> on device <replaceable
->interface</replaceable> by ARP packets,
-using source address <replaceable
->source</replaceable>.</para></refsect1>
+<refsect1><title>DESCRIPTION</title>
+<para>Ping <replaceable>destination</replaceable> on device <replaceable>interface</replaceable> by ARP packets,
+using source address <replaceable>source</replaceable>.</para></refsect1>
 
-<refsect1
-><title
->OPTIONS</title>
+<refsect1><title>OPTIONS</title>
 
-<variablelist
->
- <varlistentry
->  <term
-><option
->-A</option></term>
-  <listitem
-><para
->The same as <option
->-U</option>, but ARP REPLY packets used instead
+<variablelist>
+ <varlistentry>  <term><option>-A</option></term>
+  <listitem><para>The same as <option>-U</option>, but ARP REPLY packets used instead
 of ARP REQUEST.
   </para></listitem>
  </varlistentry>
 
- <varlistentry
->  <term
-><option
->-b</option></term>
-  <listitem
-><para
->Send only MAC level broadcasts. Normally <command
->arping</command> starts
+ <varlistentry>  <term><option>-b</option></term>
+  <listitem><para>Send only MAC level broadcasts. Normally <command>arping</command> starts
 from sending broadcast, and switch to unicast after reply received.
   </para></listitem>
  </varlistentry>
 
 
- <varlistentry
->  <term
-><option
-><anchor
-id="arping.count"
->-c <replaceable
->count</replaceable></anchor></option></term>
-  <listitem
-><para
->Stop after sending <replaceable
->count</replaceable> ARP REQUEST
+ <varlistentry>  <term><option><anchor xml:id="arping.count">-c <replaceable>count</replaceable></anchor></option></term>
+  <listitem><para>Stop after sending <replaceable>count</replaceable> ARP REQUEST
 packets. With 
-<link
-linkend="arping.deadline"
-><replaceable
->deadline</replaceable></link>
-option, <command
->arping</command> waits for
-<replaceable
->count</replaceable> ARP REPLY packets, until the timeout expires.
+<link linkend="arping.deadline"><replaceable>deadline</replaceable></link>
+option, <command>arping</command> waits for
+<replaceable>count</replaceable> ARP REPLY packets, until the timeout expires.
   </para></listitem>
  </varlistentry>
 
- <varlistentry
->  <term
-><option
->-D</option></term>
-  <listitem
-><para
->Duplicate address detection mode (DAD). See 
-<ulink
-url="http://tools.ietf.org/rfc/rfc2131.txt"
->RFC2131, 4.4.1</ulink>.
+ <varlistentry>  <term><option>-D</option></term>
+  <listitem><para>Duplicate address detection mode (DAD). See 
+<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://tools.ietf.org/rfc/rfc2131.txt">RFC2131, 4.4.1</link>.
 Returns 0, if DAD succeeded i.e. no replies are received
   </para></listitem>
  </varlistentry>
 
- <varlistentry
->  <term
-><option
->-f</option></term>
-  <listitem
-><para
->Finish after the first reply confirming that target is alive.
+ <varlistentry>  <term><option>-f</option></term>
+  <listitem><para>Finish after the first reply confirming that target is alive.
   </para></listitem>
  </varlistentry>
 
- <varlistentry
->  <term
-><option
-><anchor
-id="opt.interface"
->-I <replaceable
->interface</replaceable></anchor></option></term>
-  <listitem
-><para
->Name of network device where to send ARP REQUEST packets.
+ <varlistentry>  <term><option><anchor xml:id="opt.interface">-I <replaceable>interface</replaceable></anchor></option></term>
+  <listitem><para>Name of network device where to send ARP REQUEST packets.
   </para></listitem>
  </varlistentry>
 
- <varlistentry
->  <term
-><option
->-h</option></term>
-  <listitem
-><para
->Print help page and exit.
+ <varlistentry>  <term><option>-h</option></term>
+  <listitem><para>Print help page and exit.
   </para></listitem>
  </varlistentry>
 
 
- <varlistentry
->  <term
-><option
->-q</option></term>
-  <listitem
-><para
->Quiet output. Nothing is displayed.
+ <varlistentry>  <term><option>-q</option></term>
+  <listitem><para>Quiet output. Nothing is displayed.
   </para></listitem>
  </varlistentry>
 
- <varlistentry
->  <term
-><option
-><anchor
-id="opt.source"
->-s <replaceable
->source</replaceable></anchor></option></term>
-  <listitem
-><para
->IP source address to use in ARP packets.
+ <varlistentry>  <term><option><anchor xml:id="opt.source">-s <replaceable>source</replaceable></anchor></option></term>
+  <listitem><para>IP source address to use in ARP packets.
 If this option is absent, source address is:
-   <itemizedlist
->    <listitem
-><para
->In DAD mode (with option <option
->-D</option>) set to 0.0.0.0.
+   <itemizedlist>    <listitem><para>In DAD mode (with option <option>-D</option>) set to 0.0.0.0.
     </para></listitem>
-    <listitem
-><para
->In Unsolicited ARP mode (with options <option
->-U</option> or <option
->-A</option>)
-set to <replaceable
->destination</replaceable>.
+    <listitem><para>In Unsolicited ARP mode (with options <option>-U</option> or <option>-A</option>)
+set to <replaceable>destination</replaceable>.
     </para></listitem>
-    <listitem
-><para
->Otherwise, it is calculated from routing tables.
+    <listitem><para>Otherwise, it is calculated from routing tables.
     </para></listitem>
    </itemizedlist>
   </para></listitem>
  </varlistentry>
 
- <varlistentry
->  <term
-><option
->-U</option></term>
-  <listitem
-><para
->Unsolicited ARP mode to update neighbours' ARP caches.
+ <varlistentry>  <term><option>-U</option></term>
+  <listitem><para>Unsolicited ARP mode to update neighbours' ARP caches.
 No replies are expected.
   </para></listitem>
  </varlistentry>
 
- <varlistentry
->  <term
-><option
->-V</option></term>
-  <listitem
-><para
->Print version of the program and exit.
+ <varlistentry>  <term><option>-V</option></term>
+  <listitem><para>Print version of the program and exit.
   </para></listitem>
  </varlistentry>
 
 
- <varlistentry
->  <term
-><option
-><anchor
-id="arping.deadline"
->-w <replaceable
->deadline</replaceable></anchor></option></term>
-  <listitem
-><para
->Specify a timeout, in seconds, before
-<command
->arping</command>
+ <varlistentry>  <term><option><anchor xml:id="arping.deadline">-w <replaceable>deadline</replaceable></anchor></option></term>
+  <listitem><para>Specify a timeout, in seconds, before
+<command>arping</command>
 exits regardless of how many
 packets have been sent or received. In this case
-<command
->arping</command>
+<command>arping</command>
 does not stop after
-<link
-linkend="arping.count"
-><replaceable
->count</replaceable></link>
+<link linkend="arping.count"><replaceable>count</replaceable></link>
 packet are sent, it waits either for
-<link
-linkend="arping.deadline"
-><replaceable
->deadline</replaceable></link>
+<link linkend="arping.deadline"><replaceable>deadline</replaceable></link>
 expire or until
-<link
-linkend="arping.count"
-><replaceable
->count</replaceable></link>
+<link linkend="arping.count"><replaceable>count</replaceable></link>
 probes are answered.
   </para></listitem>
  </varlistentry></variablelist></refsect1>
 
-<refsect1
-><title
->SEE ALSO</title>
-<para
-><link
-linkend="ping"
-><citerefentry
-><refentrytitle
->ping</refentrytitle><manvolnum
->8</manvolnum></citerefentry></link>,
-<link
-linkend="clockdiff"
-><citerefentry
-><refentrytitle
->clockdiff</refentrytitle><manvolnum
->8</manvolnum></citerefentry></link>,
-<link
-linkend="tracepath"
-><citerefentry
-><refentrytitle
->tracepath</refentrytitle><manvolnum
->8</manvolnum></citerefentry></link>.</para></refsect1>
+<refsect1><title>SEE ALSO</title>
+<para><link linkend="ping"><citerefentry><refentrytitle>ping</refentrytitle><manvolnum>8</manvolnum></citerefentry></link>,
+<link linkend="clockdiff"><citerefentry><refentrytitle>clockdiff</refentrytitle><manvolnum>8</manvolnum></citerefentry></link>,
+<link linkend="tracepath"><citerefentry><refentrytitle>tracepath</refentrytitle><manvolnum>8</manvolnum></citerefentry></link>.</para></refsect1>
 
-<refsect1
-><title
->AUTHOR</title>
-<para
-><command
->arping</command> was written by
-<ulink
-url="mailto:kuznet@ms2.inr.ac.ru"
->Alexey Kuznetsov
-kuznet@ms2.inr.ac.ru</ulink>.
+<refsect1><title>AUTHOR</title>
+<para><command>arping</command> was written by
+<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="mailto:kuznet@ms2.inr.ac.ru">Alexey Kuznetsov
+kuznet@ms2.inr.ac.ru</link>.
 It is now maintained by
-<ulink
-url="mailto:yoshfuji@skbuff.net"
->YOSHIFUJI Hideaki
-yoshfuji@skbuff.net</ulink>.</para></refsect1>
+<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="mailto:yoshfuji@skbuff.net">YOSHIFUJI Hideaki
+yoshfuji@skbuff.net</link>.</para></refsect1>
 
-<refsect1
-><title
->SECURITY</title>
-<para
-><command
->arping</command> requires <constant
->CAP_NET_RAW</constant> capability
+<refsect1><title>SECURITY</title>
+<para><command>arping</command> requires <constant>CAP_NET_RAW</constant> capability
 to be executed. It is not recommended to be used as set-uid root,
 because it allows user to modify ARP caches of neighbour hosts.</para></refsect1>
 
-<refsect1
-><title
->AVAILABILITY</title>
-<para
-><command
->arping</command> is part of <filename
->iputils</filename> package
+<refsect1><title>AVAILABILITY</title>
+<para><command>arping</command> is part of <filename>iputils</filename> package
 and the latest versions are  available in source form at
-<ulink
-url="http://www.skbuff.net/iputils/iputils-current.tar.bz2"
->http://www.skbuff.net/iputils/iputils-current.tar.bz2</ulink>.</para></refsect1>
-
-
-
-</refentry><refentry
-id="arping"
->
-<refmeta
-><refentrytitle
->arping</refentrytitle>
-<manvolnum
->8</manvolnum>
-<refmiscinfo
->iputils-</refmiscinfo></refmeta>
-
-
-<refnamediv
-><refname
->arping</refname>
-<refpurpose
->send ARP REQUEST to a neighbour host</refpurpose></refnamediv>
-
-<refsynopsisdiv
-><cmdsynopsis
-><command
->arping</command>
-<arg
-choice="opt"
-><option
->-AbDfhqUV</option></arg>
-<arg
-choice="opt"
->-c <replaceable
->count</replaceable></arg>
-<arg
-choice="opt"
->-w <replaceable
->deadline</replaceable></arg>
-<arg
-choice="opt"
->-s <replaceable
->source</replaceable></arg>
-<arg
-choice="req"
->-I <replaceable
->interface</replaceable></arg>
-<arg
-choice="req"
-><replaceable
->destination</replaceable></arg></cmdsynopsis></refsynopsisdiv>
-
-<refsect1
-><title
->DESCRIPTION</title>
-<para
->Ping <replaceable
->destination</replaceable> on device <replaceable
->interface</replaceable> by ARP packets,
-using source address <replaceable
->source</replaceable>.</para></refsect1>
-
-<refsect1
-><title
->OPTIONS</title>
-
-<variablelist
->
- <varlistentry
->  <term
-><option
->-A</option></term>
-  <listitem
-><para
->The same as <option
->-U</option>, but ARP REPLY packets used instead
-of ARP REQUEST.
-  </para></listitem>
- </varlistentry>
-
- <varlistentry
->  <term
-><option
->-b</option></term>
-  <listitem
-><para
->Send only MAC level broadcasts. Normally <command
->arping</command> starts
-from sending broadcast, and switch to unicast after reply received.
-  </para></listitem>
- </varlistentry>
-
-
- <varlistentry
->  <term
-><option
-><anchor
-id="arping.count"
->-c <replaceable
->count</replaceable></anchor></option></term>
-  <listitem
-><para
->Stop after sending <replaceable
->count</replaceable> ARP REQUEST
-packets. With 
-<link
-linkend="arping.deadline"
-><replaceable
->deadline</replaceable></link>
-option, <command
->arping</command> waits for
-<replaceable
->count</replaceable> ARP REPLY packets, until the timeout expires.
-  </para></listitem>
- </varlistentry>
-
- <varlistentry
->  <term
-><option
->-D</option></term>
-  <listitem
-><para
->Duplicate address detection mode (DAD). See 
-<ulink
-url="http://tools.ietf.org/rfc/rfc2131.txt"
->RFC2131, 4.4.1</ulink>.
-Returns 0, if DAD succeeded i.e. no replies are received
-  </para></listitem>
- </varlistentry>
-
- <varlistentry
->  <term
-><option
->-f</option></term>
-  <listitem
-><para
->Finish after the first reply confirming that target is alive.
-  </para></listitem>
- </varlistentry>
-
- <varlistentry
->  <term
-><option
-><anchor
-id="opt.interface"
->-I <replaceable
->interface</replaceable></anchor></option></term>
-  <listitem
-><para
->Name of network device where to send ARP REQUEST packets.
-  </para></listitem>
- </varlistentry>
-
- <varlistentry
->  <term
-><option
->-h</option></term>
-  <listitem
-><para
->Print help page and exit.
-  </para></listitem>
- </varlistentry>
-
-
- <varlistentry
->  <term
-><option
->-q</option></term>
-  <listitem
-><para
->Quiet output. Nothing is displayed.
-  </para></listitem>
- </varlistentry>
-
- <varlistentry
->  <term
-><option
-><anchor
-id="opt.source"
->-s <replaceable
->source</replaceable></anchor></option></term>
-  <listitem
-><para
->IP source address to use in ARP packets.
-If this option is absent, source address is:
-   <itemizedlist
->    <listitem
-><para
->In DAD mode (with option <option
->-D</option>) set to 0.0.0.0.
-    </para></listitem>
-    <listitem
-><para
->In Unsolicited ARP mode (with options <option
->-U</option> or <option
->-A</option>)
-set to <replaceable
->destination</replaceable>.
-    </para></listitem>
-    <listitem
-><para
->Otherwise, it is calculated from routing tables.
-    </para></listitem>
-   </itemizedlist>
-  </para></listitem>
- </varlistentry>
-
- <varlistentry
->  <term
-><option
->-U</option></term>
-  <listitem
-><para
->Unsolicited ARP mode to update neighbours' ARP caches.
-No replies are expected.
-  </para></listitem>
- </varlistentry>
-
- <varlistentry
->  <term
-><option
->-V</option></term>
-  <listitem
-><para
->Print version of the program and exit.
-  </para></listitem>
- </varlistentry>
-
-
- <varlistentry
->  <term
-><option
-><anchor
-id="arping.deadline"
->-w <replaceable
->deadline</replaceable></anchor></option></term>
-  <listitem
-><para
->Specify a timeout, in seconds, before
-<command
->arping</command>
-exits regardless of how many
-packets have been sent or received. In this case
-<command
->arping</command>
-does not stop after
-<link
-linkend="arping.count"
-><replaceable
->count</replaceable></link>
-packet are sent, it waits either for
-<link
-linkend="arping.deadline"
-><replaceable
->deadline</replaceable></link>
-expire or until
-<link
-linkend="arping.count"
-><replaceable
->count</replaceable></link>
-probes are answered.
-  </para></listitem>
- </varlistentry></variablelist></refsect1>
-
-<refsect1
-><title
->SEE ALSO</title>
-<para
-><link
-linkend="ping"
-><citerefentry
-><refentrytitle
->ping</refentrytitle><manvolnum
->8</manvolnum></citerefentry></link>,
-<link
-linkend="clockdiff"
-><citerefentry
-><refentrytitle
->clockdiff</refentrytitle><manvolnum
->8</manvolnum></citerefentry></link>,
-<link
-linkend="tracepath"
-><citerefentry
-><refentrytitle
->tracepath</refentrytitle><manvolnum
->8</manvolnum></citerefentry></link>.</para></refsect1>
-
-<refsect1
-><title
->AUTHOR</title>
-<para
-><command
->arping</command> was written by
-<ulink
-url="mailto:kuznet@ms2.inr.ac.ru"
->Alexey Kuznetsov
-kuznet@ms2.inr.ac.ru</ulink>.
-It is now maintained by
-<ulink
-url="mailto:yoshfuji@skbuff.net"
->YOSHIFUJI Hideaki
-yoshfuji@skbuff.net</ulink>.</para></refsect1>
-
-<refsect1
-><title
->SECURITY</title>
-<para
-><command
->arping</command> requires <constant
->CAP_NET_RAW</constant> capability
-to be executed. It is not recommended to be used as set-uid root,
-because it allows user to modify ARP caches of neighbour hosts.</para></refsect1>
-
-<refsect1
-><title
->AVAILABILITY</title>
-<para
-><command
->arping</command> is part of <filename
->iputils</filename> package
-and the latest versions are  available in source form at
-<ulink
-url="http://www.skbuff.net/iputils/iputils-current.tar.bz2"
->http://www.skbuff.net/iputils/iputils-current.tar.bz2</ulink>.</para></refsect1>
+<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.skbuff.net/iputils/iputils-current.tar.bz2">http://www.skbuff.net/iputils/iputils-current.tar.bz2</link>.</para></refsect1>
 
 
 

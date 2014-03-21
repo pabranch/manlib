@@ -1,407 +1,90 @@
-<?xml version="1.0"?>
-<refentry
-id="clockdiff"
->
-<refmeta
-><refentrytitle
->clockdiff</refentrytitle>
-<manvolnum
->8</manvolnum>
-<refmiscinfo
->iputils-</refmiscinfo></refmeta>
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="clockdiff">
+<refmeta><refentrytitle>clockdiff</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo>iputils-</refmiscinfo></refmeta>
 
-<refnamediv
-><refname
->clockdiff</refname>
-<refpurpose
->measure clock difference between hosts</refpurpose></refnamediv>
+<refnamediv><refname>clockdiff</refname>
+<refpurpose>measure clock difference between hosts</refpurpose></refnamediv>
 
-<refsynopsisdiv
-><cmdsynopsis
-><command
->clockdiff</command>
-<arg
-choice="opt"
-><option
->-o</option></arg>
-<arg
-choice="opt"
-><option
->-o1</option></arg>
-<arg
-choice="req"
-><replaceable
->destination</replaceable></arg></cmdsynopsis></refsynopsisdiv>
+<refsynopsisdiv><cmdsynopsis><command>clockdiff</command>
+<arg choice="opt"><option>-o</option></arg>
+<arg choice="opt"><option>-o1</option></arg>
+<arg choice="req"><replaceable>destination</replaceable></arg></cmdsynopsis></refsynopsisdiv>
 
-<refsect1
-><title
->DESCRIPTION</title>
-<para
-><command
->clockdiff</command> Measures clock difference between us and
-<replaceable
->destination</replaceable> with 1 msec resolution using ICMP TIMESTAMP
-<link
-linkend="clockdiff.icmp-timestamp"
->[2]</link>
+<refsect1><title>DESCRIPTION</title>
+<para><command>clockdiff</command> Measures clock difference between us and
+<replaceable>destination</replaceable> with 1 msec resolution using ICMP TIMESTAMP
+<link linkend="clockdiff.icmp-timestamp">[2]</link>
 packets or, optionally, IP TIMESTAMP option
-<link
-linkend="clockdiff.ip-timestamp"
->[3]</link>
+<link linkend="clockdiff.ip-timestamp">[3]</link>
 option added to ICMP ECHO.
-<link
-linkend="clockdiff.icmp-echo"
->[1]</link></para></refsect1>
+<link linkend="clockdiff.icmp-echo">[1]</link></para></refsect1>
 
-<refsect1
-><title
->OPTIONS</title>
+<refsect1><title>OPTIONS</title>
 
-<variablelist
->
- <varlistentry
->  <term
-><option
->-o</option></term>
-  <listitem
-><para
->Use IP TIMESTAMP with ICMP ECHO instead of ICMP TIMESTAMP
+<variablelist>
+ <varlistentry>  <term><option>-o</option></term>
+  <listitem><para>Use IP TIMESTAMP with ICMP ECHO instead of ICMP TIMESTAMP
 messages. It is useful with some destinations, which do not support
 ICMP TIMESTAMP (f.e. Solaris 2.4).
   </para></listitem>
  </varlistentry>
 
- <varlistentry
->  <term
-><option
->-o1</option></term>
-  <listitem
-><para
->Slightly different form of <option
->-o</option>, namely it uses three-term
+ <varlistentry>  <term><option>-o1</option></term>
+  <listitem><para>Slightly different form of <option>-o</option>, namely it uses three-term
 IP TIMESTAMP with prespecified hop addresses instead of four term one.
 What flavor works better depends on target host. Particularly,
-<option
->-o</option> is better for Linux.
+<option>-o</option> is better for Linux.
   </para></listitem>
  </varlistentry>
 </variablelist>
 </refsect1>
 
-<refsect1
-><title
->WARNINGS</title>
-<itemizedlist
-> <listitem
-><para
->Some nodes (Cisco) use non-standard timestamps, which is allowed
+<refsect1><title>WARNINGS</title>
+<itemizedlist> <listitem><para>Some nodes (Cisco) use non-standard timestamps, which is allowed
 by RFC, but makes timestamps mostly useless.
  </para></listitem>
- <listitem
-><para
->Some nodes generate messed timestamps (Solaris2.4), when
-run <command
->xntpd</command>. Seems, its IP stack uses a corrupted clock source,
+ <listitem><para>Some nodes generate messed timestamps (Solaris2.4), when
+run <command>xntpd</command>. Seems, its IP stack uses a corrupted clock source,
 which is synchronized to time-of-day clock periodically and jumps
 randomly making timestamps mostly useless. Good news is that you can
 use NTP in this case, which is even better.
  </para></listitem>
- <listitem
-><para
-><command
->clockdiff</command> shows difference in time modulo 24 days.
+ <listitem><para><command>clockdiff</command> shows difference in time modulo 24 days.
  </para></listitem></itemizedlist>
 </refsect1>
 
-<refsect1
-><title
->SEE ALSO</title>
-<para
-><link
-linkend="ping"
-><citerefentry
-><refentrytitle
->ping</refentrytitle><manvolnum
->8</manvolnum></citerefentry></link>,
-<link
-linkend="arping"
-><citerefentry
-><refentrytitle
->arping</refentrytitle><manvolnum
->8</manvolnum></citerefentry></link>,
-<link
-linkend="tracepath"
-><citerefentry
-><refentrytitle
->tracepath</refentrytitle><manvolnum
->8</manvolnum></citerefentry></link>.</para></refsect1>
+<refsect1><title>SEE ALSO</title>
+<para><link linkend="ping"><citerefentry><refentrytitle>ping</refentrytitle><manvolnum>8</manvolnum></citerefentry></link>,
+<link linkend="arping"><citerefentry><refentrytitle>arping</refentrytitle><manvolnum>8</manvolnum></citerefentry></link>,
+<link linkend="tracepath"><citerefentry><refentrytitle>tracepath</refentrytitle><manvolnum>8</manvolnum></citerefentry></link>.</para></refsect1>
 
-<refsect1
-><title
->REFERENCES</title>
-<para
->[1] <anchor
-id="clockdiff.icmp-echo"
->ICMP ECHO,
-<ulink
-url="http://tools.ietf.org/rfc/rfc792.txt"
->RFC0792, page 14</ulink>.</anchor></para>
-<para
->[2] <anchor
-id="clockdiff.icmp-timestamp"
->ICMP TIMESTAMP,
-<ulink
-url="http://tools.ietf.org/rfc/rfc792.txt"
->RFC0792, page 16</ulink>.</anchor></para>
-<para
->[3] <anchor
-id="clockdiff.ip-timestamp"
->IP TIMESTAMP option,
-<ulink
-url="http://tools.ietf.org/rfc/rfc791.txt"
->RFC0791, 3.1, page 16</ulink>.</anchor></para></refsect1>
+<refsect1><title>REFERENCES</title>
+<para>[1] <anchor xml:id="clockdiff.icmp-echo">ICMP ECHO,
+<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://tools.ietf.org/rfc/rfc792.txt">RFC0792, page 14</link>.</anchor></para>
+<para>[2] <anchor xml:id="clockdiff.icmp-timestamp">ICMP TIMESTAMP,
+<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://tools.ietf.org/rfc/rfc792.txt">RFC0792, page 16</link>.</anchor></para>
+<para>[3] <anchor xml:id="clockdiff.ip-timestamp">IP TIMESTAMP option,
+<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://tools.ietf.org/rfc/rfc791.txt">RFC0791, 3.1, page 16</link>.</anchor></para></refsect1>
 
-<refsect1
-><title
->AUTHOR</title>
-<para
-><command
->clockdiff</command> was compiled by
-<ulink
-url="mailto:kuznet@ms2.inr.ac.ru"
->Alexey Kuznetsov
-kuznet@ms2.inr.ac.ru</ulink>. It was based on code borrowed
-from BSD <command
->timed</command> daemon.
+<refsect1><title>AUTHOR</title>
+<para><command>clockdiff</command> was compiled by
+<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="mailto:kuznet@ms2.inr.ac.ru">Alexey Kuznetsov
+kuznet@ms2.inr.ac.ru</link>. It was based on code borrowed
+from BSD <command>timed</command> daemon.
 It is now maintained by
-<ulink
-url="mailto:yoshfuji@skbuff.net"
->YOSHIFUJI Hideaki
-yoshfuji@skbuff.net</ulink>.</para></refsect1>
+<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="mailto:yoshfuji@skbuff.net">YOSHIFUJI Hideaki
+yoshfuji@skbuff.net</link>.</para></refsect1>
 
-<refsect1
-><title
->SECURITY</title>
-<para
-><command
->clockdiff</command> requires <constant
->CAP_NET_RAW</constant> capability
+<refsect1><title>SECURITY</title>
+<para><command>clockdiff</command> requires <constant>CAP_NET_RAW</constant> capability
 to be executed. It is safe to be used as set-uid root.</para></refsect1>
 
-<refsect1
-><title
->AVAILABILITY</title>
-<para
-><command
->clockdiff</command> is part of <filename
->iputils</filename> package
+<refsect1><title>AVAILABILITY</title>
+<para><command>clockdiff</command> is part of <filename>iputils</filename> package
 and the latest versions are  available in source form at
-<ulink
-url="http://www.skbuff.net/iputils/iputils-current.tar.bz2"
->http://www.skbuff.net/iputils/iputils-current.tar.bz2</ulink>.</para></refsect1>
-
-
-
-</refentry><refentry
-id="clockdiff"
->
-<refmeta
-><refentrytitle
->clockdiff</refentrytitle>
-<manvolnum
->8</manvolnum>
-<refmiscinfo
->iputils-</refmiscinfo></refmeta>
-
-<refnamediv
-><refname
->clockdiff</refname>
-<refpurpose
->measure clock difference between hosts</refpurpose></refnamediv>
-
-<refsynopsisdiv
-><cmdsynopsis
-><command
->clockdiff</command>
-<arg
-choice="opt"
-><option
->-o</option></arg>
-<arg
-choice="opt"
-><option
->-o1</option></arg>
-<arg
-choice="req"
-><replaceable
->destination</replaceable></arg></cmdsynopsis></refsynopsisdiv>
-
-<refsect1
-><title
->DESCRIPTION</title>
-<para
-><command
->clockdiff</command> Measures clock difference between us and
-<replaceable
->destination</replaceable> with 1 msec resolution using ICMP TIMESTAMP
-<link
-linkend="clockdiff.icmp-timestamp"
->[2]</link>
-packets or, optionally, IP TIMESTAMP option
-<link
-linkend="clockdiff.ip-timestamp"
->[3]</link>
-option added to ICMP ECHO.
-<link
-linkend="clockdiff.icmp-echo"
->[1]</link></para></refsect1>
-
-<refsect1
-><title
->OPTIONS</title>
-
-<variablelist
->
- <varlistentry
->  <term
-><option
->-o</option></term>
-  <listitem
-><para
->Use IP TIMESTAMP with ICMP ECHO instead of ICMP TIMESTAMP
-messages. It is useful with some destinations, which do not support
-ICMP TIMESTAMP (f.e. Solaris 2.4).
-  </para></listitem>
- </varlistentry>
-
- <varlistentry
->  <term
-><option
->-o1</option></term>
-  <listitem
-><para
->Slightly different form of <option
->-o</option>, namely it uses three-term
-IP TIMESTAMP with prespecified hop addresses instead of four term one.
-What flavor works better depends on target host. Particularly,
-<option
->-o</option> is better for Linux.
-  </para></listitem>
- </varlistentry>
-</variablelist>
-</refsect1>
-
-<refsect1
-><title
->WARNINGS</title>
-<itemizedlist
-> <listitem
-><para
->Some nodes (Cisco) use non-standard timestamps, which is allowed
-by RFC, but makes timestamps mostly useless.
- </para></listitem>
- <listitem
-><para
->Some nodes generate messed timestamps (Solaris2.4), when
-run <command
->xntpd</command>. Seems, its IP stack uses a corrupted clock source,
-which is synchronized to time-of-day clock periodically and jumps
-randomly making timestamps mostly useless. Good news is that you can
-use NTP in this case, which is even better.
- </para></listitem>
- <listitem
-><para
-><command
->clockdiff</command> shows difference in time modulo 24 days.
- </para></listitem></itemizedlist>
-</refsect1>
-
-<refsect1
-><title
->SEE ALSO</title>
-<para
-><link
-linkend="ping"
-><citerefentry
-><refentrytitle
->ping</refentrytitle><manvolnum
->8</manvolnum></citerefentry></link>,
-<link
-linkend="arping"
-><citerefentry
-><refentrytitle
->arping</refentrytitle><manvolnum
->8</manvolnum></citerefentry></link>,
-<link
-linkend="tracepath"
-><citerefentry
-><refentrytitle
->tracepath</refentrytitle><manvolnum
->8</manvolnum></citerefentry></link>.</para></refsect1>
-
-<refsect1
-><title
->REFERENCES</title>
-<para
->[1] <anchor
-id="clockdiff.icmp-echo"
->ICMP ECHO,
-<ulink
-url="http://tools.ietf.org/rfc/rfc792.txt"
->RFC0792, page 14</ulink>.</anchor></para>
-<para
->[2] <anchor
-id="clockdiff.icmp-timestamp"
->ICMP TIMESTAMP,
-<ulink
-url="http://tools.ietf.org/rfc/rfc792.txt"
->RFC0792, page 16</ulink>.</anchor></para>
-<para
->[3] <anchor
-id="clockdiff.ip-timestamp"
->IP TIMESTAMP option,
-<ulink
-url="http://tools.ietf.org/rfc/rfc791.txt"
->RFC0791, 3.1, page 16</ulink>.</anchor></para></refsect1>
-
-<refsect1
-><title
->AUTHOR</title>
-<para
-><command
->clockdiff</command> was compiled by
-<ulink
-url="mailto:kuznet@ms2.inr.ac.ru"
->Alexey Kuznetsov
-kuznet@ms2.inr.ac.ru</ulink>. It was based on code borrowed
-from BSD <command
->timed</command> daemon.
-It is now maintained by
-<ulink
-url="mailto:yoshfuji@skbuff.net"
->YOSHIFUJI Hideaki
-yoshfuji@skbuff.net</ulink>.</para></refsect1>
-
-<refsect1
-><title
->SECURITY</title>
-<para
-><command
->clockdiff</command> requires <constant
->CAP_NET_RAW</constant> capability
-to be executed. It is safe to be used as set-uid root.</para></refsect1>
-
-<refsect1
-><title
->AVAILABILITY</title>
-<para
-><command
->clockdiff</command> is part of <filename
->iputils</filename> package
-and the latest versions are  available in source form at
-<ulink
-url="http://www.skbuff.net/iputils/iputils-current.tar.bz2"
->http://www.skbuff.net/iputils/iputils-current.tar.bz2</ulink>.</para></refsect1>
+<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.skbuff.net/iputils/iputils-current.tar.bz2">http://www.skbuff.net/iputils/iputils-current.tar.bz2</link>.</para></refsect1>
 
 
 
