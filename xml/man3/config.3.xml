@@ -1,0 +1,323 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>config.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>config</refname>
+<refpurpose>OpenSSL CONF library configuration files</refpurpose>
+  </refnamediv>
+  <refsection xml:id="sources.openssl.doc.apps.config.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The OpenSSL CONF library can be used to read configuration files. It
+      is used for the OpenSSL master configuration file <emphasis role="bold">openssl.cnf</emphasis> and in a few other places like
+      <emphasis role="bold">SPKAC</emphasis> files and certificate
+      extension files for the <emphasis role="bold">x509</emphasis>
+      utility. OpenSSL applications can also use the CONF library for their
+      own purposes.
+    </para>
+    <para>
+      A configuration file is divided into a number of sections. Each
+      section starts with a line <emphasis role="bold">[ section_name
+      ]</emphasis> and ends when a new section is started or end of file is
+      reached. A section name can consist of alphanumeric characters and
+      underscores.
+    </para>
+    <para>
+      The first section of a configuration file is special and is referred
+      to as the <emphasis role="bold">default</emphasis> section this is
+      usually unnamed and is from the start of file until the first named
+      section. When a name is being looked up it is first looked up in a
+      named section (if any) and then the default section.
+    </para>
+    <para>
+      The environment is mapped onto a section called <emphasis role="bold">ENV</emphasis>.
+    </para>
+    <para>
+      Comments can be included by preceding them with the <emphasis role="bold">#</emphasis> character
+    </para>
+    <para>
+      Each section in a configuration file consists of a number of name and
+      value pairs of the form <emphasis role="bold">name=value</emphasis>
+    </para>
+    <para>
+      The <emphasis role="bold">name</emphasis> string can contain any
+      alphanumeric characters as well as a few punctuation symbols such as
+      <emphasis role="bold">.</emphasis> <emphasis role="bold">,</emphasis>
+      <emphasis role="bold">;</emphasis> and <emphasis role="bold">_</emphasis>.
+    </para>
+    <para>
+      The <emphasis role="bold">value</emphasis> string consists of the
+      string following the <emphasis role="bold">=</emphasis> character
+      until end of line with any leading and trailing white space removed.
+    </para>
+    <para>
+      The value string undergoes variable expansion. This can be done by
+      including the form <emphasis role="bold">$var</emphasis> or <emphasis role="bold">${var}</emphasis>: this will substitute the value of the
+      named variable in the current section. It is also possible to
+      substitute a value from another section using the syntax <emphasis role="bold">$section::name</emphasis> or <emphasis role="bold">${section::name}</emphasis>. By using the form <emphasis role="bold">$ENV::name</emphasis> environment variables can be
+      substituted. It is also possible to assign values to environment
+      variables by using the name <emphasis role="bold">ENV::name</emphasis>, this will work if the program looks
+      up environment variables using the <emphasis role="bold">CONF</emphasis> library instead of calling <emphasis role="bold">getenv()</emphasis> directly.
+    </para>
+    <para>
+      It is possible to escape certain characters by using any kind of
+      quote or the <emphasis role="bold">\</emphasis> character. By making
+      the last character of a line a <emphasis role="bold">\</emphasis> a
+      <emphasis role="bold">value</emphasis> string can be spread across
+      multiple lines. In addition the sequences <emphasis role="bold">\n</emphasis>, <emphasis role="bold">\r</emphasis>,
+      <emphasis role="bold">\b</emphasis> and <emphasis role="bold">\t</emphasis> are recognized.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.config.pod:OPENSSL_LIBRARY_CONFIGURATION"><title>OPENSSL LIBRARY CONFIGURATION</title>
+    <para>
+      In OpenSSL 0.9.7 and later applications can automatically configure
+      certain aspects of OpenSSL using the master OpenSSL configuration
+      file, or optionally an alternative configuration file. The <emphasis role="bold">openssl</emphasis> utility includes this functionality:
+      any sub command uses the master OpenSSL configuration file unless an
+      option is used in the sub command to use an alternative configuration
+      file.
+    </para>
+    <para>
+      To enable library configuration the default section needs to contain
+      an appropriate line which points to the main configuration section.
+      The default name is <emphasis role="bold">openssl_conf</emphasis>
+      which is used by the <emphasis role="bold">openssl</emphasis>
+      utility. Other applications may use an alternative name such as
+      <emphasis role="bold">myapplicaton_conf</emphasis>. 
+    </para>
+    <para>
+      The configuration section should consist of a set of name value pairs
+      which contain specific module configuration information. The
+      <emphasis role="bold">name</emphasis> represents the name of the
+      <emphasis role="italic">configuration module</emphasis> the meaning
+      of the <emphasis role="bold">value</emphasis> is module specific: it
+      may, for example, represent a further configuration section
+      containing configuration module specific information. E.g. 
+    </para>
+    <screen>openssl_conf = openssl_init
+
+[openssl_init]
+
+oid_section = new_oids
+engines = engine_section
+
+[new_oids]
+
+... new oids here ...
+
+[engine_section]
+
+... engine stuff here ...</screen>
+    <para>
+      Currently there are two configuration modules. One for ASN1 objects
+      another for ENGINE configuration.
+    </para>
+    <refsection xml:id="sources.openssl.doc.apps.config.pod:ASN1_OBJECT_CONFIGURATION_MODULE"><title>ASN1 OBJECT CONFIGURATION MODULE</title>
+      <para>
+	This module has the name <emphasis role="bold">oid_section</emphasis>. The value of this variable
+	points to a section containing name value pairs of OIDs: the name
+	is the OID short and long name, the value is the numerical form of
+	the OID. Although some of the <emphasis role="bold">openssl</emphasis> utility sub commands already have
+	their own ASN1 OBJECT section functionality not all do. By using
+	the ASN1 OBJECT configuration module <emphasis role="bold">all</emphasis> the <emphasis role="bold">openssl</emphasis> utility sub commands can see the new
+	objects as well as any compliant applications. For example:
+      </para>
+      <screen>[new_oids]
+
+some_new_oid = 1.2.3.4
+some_other_oid = 1.2.3.5</screen>
+      <para>
+	In OpenSSL 0.9.8 it is also possible to set the value to the long
+	name followed by a comma and the numerical OID form. For example:
+      </para>
+      <screen>shortName = some object long name, 1.2.3.4</screen>
+    </refsection>
+    <refsection xml:id="sources.openssl.doc.apps.config.pod:ENGINE_CONFIGURATION_MODULE"><title>ENGINE CONFIGURATION MODULE</title>
+      <para>
+	This ENGINE configuration module has the name <emphasis role="bold">engines</emphasis>. The value of this variable points
+	to a section containing further ENGINE configuration information.
+      </para>
+      <para>
+	The section pointed to by <emphasis role="bold">engines</emphasis>
+	is a table of engine names (though see <emphasis role="bold">engine_id</emphasis> below) and further sections
+	containing configuration information specific to each ENGINE.
+      </para>
+      <para>
+	Each ENGINE specific section is used to set default algorithms,
+	load dynamic, perform initialization and send ctrls. The actual
+	operation performed depends on the <emphasis role="italic">command</emphasis> name which is the name of the name
+	value pair. The currently supported commands are listed below.
+      </para>
+      <para>
+	For example:
+      </para>
+      <screen>[engine_section]
+
+# Configure ENGINE named "foo"
+foo = foo_section
+# Configure ENGINE named "bar"
+bar = bar_section
+
+[foo_section]
+... foo ENGINE specific commands ...
+
+[bar_section]
+... "bar" ENGINE specific commands ...</screen>
+      <para>
+	The command <emphasis role="bold">engine_id</emphasis> is used to
+	give the ENGINE name. If used this command must be first. For
+	example: 
+      </para>
+      <screen>[engine_section]
+# This would normally handle an ENGINE named "foo"
+foo = foo_section
+
+[foo_section]
+# Override default name and use "myfoo" instead.
+engine_id = myfoo</screen>
+      <para>
+	The command <emphasis role="bold">dynamic_path</emphasis> loads and
+	adds an ENGINE from the given path. It is equivalent to sending the
+	ctrls <emphasis role="bold">SO_PATH</emphasis> with the path
+	argument followed by <emphasis role="bold">LIST_ADD</emphasis> with
+	value 2 and <emphasis role="bold">LOAD</emphasis> to the dynamic
+	ENGINE. If this is not the required behaviour then alternative
+	ctrls can be sent directly to the dynamic ENGINE using ctrl
+	commands.
+      </para>
+      <para>
+	The command <emphasis role="bold">init</emphasis> determines
+	whether to initialize the ENGINE. If the value is <emphasis role="bold">0</emphasis> the ENGINE will not be initialized, if
+	<emphasis role="bold">1</emphasis> and attempt it made to
+	initialized the ENGINE immediately. If the <emphasis role="bold">init</emphasis> command is not present then an attempt
+	will be made to initialize the ENGINE after all commands in its
+	section have been processed.
+      </para>
+      <para>
+	The command <emphasis role="bold">default_algorithms</emphasis>
+	sets the default algorithms an ENGINE will supply using the
+	functions <emphasis role="bold">ENGINE_set_default_string()</emphasis>
+      </para>
+      <para>
+	If the name matches none of the above command names it is assumed
+	to be a ctrl command which is sent to the ENGINE. The value of the
+	command is the argument to the ctrl command. If the value is the
+	string <emphasis role="bold">EMPTY</emphasis> then no value is sent
+	to the command. 
+      </para>
+      <para>
+	For example:
+      </para>
+      <screen>
+
+[engine_section]
+
+# Configure ENGINE named "foo"
+foo = foo_section
+
+[foo_section]
+# Load engine from DSO
+dynamic_path = /some/path/fooengine.so
+# A foo specific ctrl.
+some_ctrl = some_value
+# Another ctrl that doesn't take a value.
+other_ctrl = EMPTY
+# Supply all default algorithms
+default_algorithms = ALL</screen>
+    </refsection>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.config.pod:NOTES"><title>NOTES</title>
+    <para>
+      If a configuration file attempts to expand a variable that doesn't
+      exist then an error is flagged and the file will not load. This can
+      happen if an attempt is made to expand an environment variable that
+      doesn't exist. For example in a previous version of OpenSSL the
+      default OpenSSL master configuration file used the value of <emphasis role="bold">HOME</emphasis> which may not be defined on non Unix
+      systems and would cause an error.
+    </para>
+    <para>
+      This can be worked around by including a <emphasis role="bold">default</emphasis> section to provide a default value:
+      then if the environment lookup fails the default value will be used
+      instead. For this to work properly the default value must be defined
+      earlier in the configuration file than the expansion. See the
+      <emphasis role="bold">EXAMPLES</emphasis> section for an example of
+      how to do this.
+    </para>
+    <para>
+      If the same variable exists in the same section then all but the last
+      value will be silently ignored. In certain circumstances such as with
+      DNs the same field may occur multiple times. This is usually worked
+      around by ignoring any characters before an initial <emphasis role="bold">.</emphasis> e.g.
+    </para>
+    <screen>1.OU="My first OU"
+2.OU="My Second OU"</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.config.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      Here is a sample configuration file using some of the features
+      mentioned above.
+    </para>
+    <screen># This is the default section.
+
+HOME=/temp
+RANDFILE= ${ENV::HOME}/.rnd
+configdir=$ENV::HOME/config
+
+[ section_one ]
+
+# We are now in section one.
+
+# Quotes permit leading and trailing whitespace
+any = " any variable name "
+
+other = A string that can \
+cover several lines \
+by including \\ characters
+
+message = Hello World\n
+
+[ section_two ]
+
+greeting = $section_one::message</screen>
+    <para>
+      This next example shows how to expand environment variables safely.
+    </para>
+    <para>
+      Suppose you want a variable called <emphasis role="bold">tmpfile</emphasis> to refer to a temporary filename. The
+      directory it is placed in can determined by the the <emphasis role="bold">TEMP</emphasis> or <emphasis role="bold">TMP</emphasis>
+      environment variables but they may not be set to any value at all. If
+      you just include the environment variable names and the variable
+      doesn't exist then this will cause an error when an attempt is made
+      to load the configuration file. By making use of the default section
+      both values can be looked up with <emphasis role="bold">TEMP</emphasis> taking priority and <emphasis role="bold">/tmp</emphasis> used if neither is defined: 
+    </para>
+    <screen>TMP=/tmp
+# The above value is used if TMP isn't in the environment
+TEMP=$ENV::TMP
+# The above value is used if TEMP isn't in the environment
+tmpfile=${ENV::TEMP}/tmp.filename</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.config.pod:BUGS"><title>BUGS</title>
+    <para>
+      Currently there is no way to include characters using the octal
+      <emphasis role="bold">\nnn</emphasis> form. Strings are all null
+      terminated so nulls cannot form part of the value.
+    </para>
+    <para>
+      The escaping isn't quite right: if you want to use sequences like
+      <emphasis role="bold">\n</emphasis> you can't use any quote escaping
+      on the same line.
+    </para>
+    <para>
+      Files are loaded in a single pass. This means that an variable
+      expansion will only work if the variables referenced are defined
+      earlier in the file.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.config.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      x509(1), req(1), ca(1)
+    </para>
+  </refsection>
+</refentry>
