@@ -1,0 +1,89 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="pkaction.1">
+  <info>
+    
+    <date>May 2009</date>
+    <productname>polkit</productname>
+  </info>
+  <refmeta>
+    <refentrytitle>pkaction</refentrytitle>
+    <manvolnum>1</manvolnum>
+    <refmiscinfo class="version"/>
+  </refmeta>
+  <refnamediv>
+    <refname>pkaction</refname>
+    <refpurpose>Get details about a registered action</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+    <cmdsynopsis sepchar=" ">
+      <command>pkaction</command>
+      <arg choice="opt" rep="norepeat">
+        <option>--version</option>
+      </arg>
+      <arg choice="opt" rep="norepeat">
+        <option>--help</option>
+      </arg>
+    </cmdsynopsis>
+    <cmdsynopsis sepchar=" ">
+      <command>pkaction</command>
+      <group choice="opt" rep="norepeat">
+        <arg choice="plain" rep="norepeat">
+          <option>--verbose</option>
+        </arg>
+      </group>
+    </cmdsynopsis>
+    <cmdsynopsis sepchar=" ">
+      <command>pkaction</command>
+      <arg choice="plain" rep="norepeat">
+        <option>--action-id</option>
+        <replaceable>action</replaceable>
+      </arg>
+      <group choice="opt" rep="norepeat">
+        <arg choice="plain" rep="norepeat">
+          <option>--verbose</option>
+        </arg>
+      </group>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+  <refsect1 xml:id="pkaction-description">
+    <title>DESCRIPTION</title>
+    <para><command>pkaction</command> is used to obtain information about registered
+      polkit actions. If called without <option>--action-id</option> then all
+      actions are displayed. Otherwise the action <replaceable>action</replaceable>.
+      If called without the <option>--verbose</option> option only the name
+      of the action is shown. Otherwise details about the actions are shown.
+    </para>
+  </refsect1>
+  <refsect1 xml:id="pkaction-return-values">
+    <title>RETURN VALUE</title>
+    <para>
+      On success <command>pkaction</command> returns 0. Otherwise a
+      non-zero value is returned and a diagnostic message is printed
+      on standard error.
+    </para>
+  </refsect1>
+  <refsect1 xml:id="pkaction-author">
+    <title>AUTHOR</title>
+    <para>
+      Written by David Zeuthen <email>davidz@redhat.com</email> with
+      a lot of help from many others.
+    </para>
+  </refsect1>
+  <refsect1 xml:id="pkaction-bugs">
+    <title>BUGS</title>
+    <para>
+      Please send bug reports to either the distribution or the
+      polkit-devel mailing list,
+      see the link <uri xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://lists.freedesktop.org/mailman/listinfo/polkit-devel">http://lists.freedesktop.org/mailman/listinfo/polkit-devel</uri>
+      on how to subscribe.
+    </para>
+  </refsect1>
+  <refsect1 xml:id="pkaction-see-also">
+    <title>SEE ALSO</title>
+    <para><link linkend="polkit.8"><citerefentry><refentrytitle>polkit</refentrytitle><manvolnum>8</manvolnum></citerefentry></link>,
+      <link linkend="polkitd.8"><citerefentry><refentrytitle>polkitd</refentrytitle><manvolnum>8</manvolnum></citerefentry></link>,
+      <link linkend="pkcheck.1"><citerefentry><refentrytitle>pkcheck</refentrytitle><manvolnum>1</manvolnum></citerefentry></link>,
+      <link linkend="pkexec.1"><citerefentry><refentrytitle>pkexec</refentrytitle><manvolnum>1</manvolnum></citerefentry></link>,
+      <link linkend="pkttyagent.1"><citerefentry><refentrytitle>pkttyagent</refentrytitle><manvolnum>1</manvolnum></citerefentry></link></para>
+  </refsect1>
+</refentry>

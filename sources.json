@@ -259,6 +259,15 @@ mv xml/man3/des_modes.3.xml xml/man7/des_modes.7.xml"
     "cmd": "cp sources/patch/patch.man man/man1/patch.1"
   },
 
+  "polkit": {
+    "type": "git",
+    "url": "git://anongit.freedesktop.org/polkit",
+    "sparse": "docs/man/",
+    "cmd": "find sources/polkit -name '*.xml' -exec bash -c 'xmlstarlet ed -d \"//imageobject\" {} | sed \"s~<!ENTITY version SYSTEM \"../version.xml\">~~\" | sed \"s~<refmiscinfo class=\"version\"></refmiscinfo>~~\" | xsltproc utils/db4-upgrade.xsl - > xml/man1/$(basename -s .xml {}).1.xml' \\;;
+mv xml/man1/polkit.1.xml xml/man8/polkit.8.xml;
+mv xml/man1/polkitd.1.xml xml/man8/polkitd.8.xml"
+  },
+
   "procps": {
     "type": "cvs",
     "url": "-d:pserver:anonymous@procps.cvs.sourceforge.net:/cvsroot/procps",

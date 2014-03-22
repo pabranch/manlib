@@ -1,0 +1,70 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="polkitd.8">
+  <info>
+    
+    <date>May 2009</date>
+    <productname>polkit</productname>
+  </info>
+  <refmeta>
+    <refentrytitle>polkitd</refentrytitle>
+    <manvolnum>8</manvolnum>
+    <refmiscinfo class="version"/>
+  </refmeta>
+  <refnamediv>
+    <refname>polkitd</refname>
+    <refpurpose>The polkit system daemon</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+    <cmdsynopsis sepchar=" ">
+      <command>polkitd</command>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+  <refsect1 xml:id="polkitd-description">
+    <title>DESCRIPTION</title>
+    <para><command>polkitd</command> provides
+      the <emphasis>org.freedesktop.PolicyKit1</emphasis> D-Bus
+      service on the system message bus. Users or administrators
+      should never need to start this daemon as it will be
+      automatically started by
+      <citerefentry><refentrytitle>dbus-daemon</refentrytitle><manvolnum>1</manvolnum></citerefentry>
+      or
+      <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>
+      whenever an application calls into the service.
+    </para>
+    <para><command>polkitd</command> must be started with superuser
+      privileges but drops privileges early by switching to the
+      unprivileged <emphasis>polkitd</emphasis> system user.
+    </para>
+    <para>
+      See the <link linkend="polkit.8"><citerefentry><refentrytitle>polkit</refentrytitle><manvolnum>8</manvolnum></citerefentry></link>
+      man page for more information.
+
+    </para>
+  </refsect1>
+  <refsect1 xml:id="polkitd-author">
+    <title>AUTHOR</title>
+    <para>
+      Written by David Zeuthen <email>davidz@redhat.com</email> with
+      a lot of help from many others.
+    </para>
+  </refsect1>
+  <refsect1 xml:id="polkitd-bugs">
+    <title>BUGS</title>
+    <para>
+      Please send bug reports to either the distribution or the
+      polkit-devel mailing list,
+      see the link <uri xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://lists.freedesktop.org/mailman/listinfo/polkit-devel">http://lists.freedesktop.org/mailman/listinfo/polkit-devel</uri>
+      on how to subscribe.
+    </para>
+  </refsect1>
+  <refsect1 xml:id="polkitd-see-also">
+    <title>SEE ALSO</title>
+    <para><link linkend="polkit.8"><citerefentry><refentrytitle>polkit</refentrytitle><manvolnum>8</manvolnum></citerefentry></link>,
+      <link linkend="pkaction.1"><citerefentry><refentrytitle>pkaction</refentrytitle><manvolnum>1</manvolnum></citerefentry></link>,
+      <link linkend="pkcheck.1"><citerefentry><refentrytitle>pkcheck</refentrytitle><manvolnum>1</manvolnum></citerefentry></link>,
+      <link linkend="pkexec.1"><citerefentry><refentrytitle>pkexec</refentrytitle><manvolnum>1</manvolnum></citerefentry></link>,
+      <link linkend="pkttyagent.1"><citerefentry><refentrytitle>pkttyagent</refentrytitle><manvolnum>1</manvolnum></citerefentry></link>,
+      <citerefentry><refentrytitle>dbus-daemon</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry></para>
+  </refsect1>
+</refentry>
