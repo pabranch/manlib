@@ -151,7 +151,11 @@ function update (sourceName, sourceDets, specified) {
   var destDir = 'sources/' + sourceName;
   switch(sourceDets.type) {
     case 'git':
-      doUp('git pull --no-rebase', {cwd: destDir});
+      if (sourceDets.tag) {
+        console.log(sourceName + ' is on tag ' + sourceDets.tag + ', consider checking for a newer tag to use.');
+      } else {
+        doUp('git pull --no-rebase', {cwd: destDir});
+      }
       break;
     case 'svn':
       doUp('svn up ' + destDir, {});
@@ -230,7 +234,18 @@ function setupGIT (sourceName, sourceDets) {
       function (error, stdout, stderr) {
         if (error !== null) {
           console.log('git clone ' + sourceDets.url + ' ' + destDir + ' - error: ' + error);
+        } else {
+          if (sourceDets.tag) {
+            var coTagCmd = 'git checkout ' + sourceDets.tag;
+            exec(coTagCmd, {cwd: destDir},
+            function (error, stdout, stderr) {
+              if (error !== null) {
+                console.log(coTagCmd + ' - error: ' + error);
+              }
+            });
+          }
         }
+
     });
   }
 
