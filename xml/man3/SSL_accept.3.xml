@@ -1,0 +1,95 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_accept.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_accept</refname>
+<refpurpose>wait for a TLS/SSL client to initiate a TLS/SSL handshake</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">int SSL_accept(SSL *ssl);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_accept.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_accept() waits for a TLS/SSL client to initiate the TLS/SSL
+      handshake. The communication channel must already have been set and
+      assigned to the <emphasis role="bold">ssl</emphasis> by setting an
+      underlying <emphasis role="bold">BIO</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_accept.pod:NOTES"><title>NOTES</title>
+    <para>
+      The behaviour of SSL_accept() depends on the underlying BIO.
+    </para>
+    <para>
+      If the underlying BIO is <emphasis role="bold">blocking</emphasis>,
+      SSL_accept() will only return once the handshake has been finished or
+      an error occurred, except for SGC (Server Gated Cryptography). For
+      SGC, SSL_accept() may return with -1, but SSL_get_error() will yield
+      <emphasis role="bold">SSL_ERROR_WANT_READ/WRITE</emphasis> and
+      SSL_accept() should be called again.
+    </para>
+    <para>
+      If the underlying BIO is <emphasis role="bold">non-blocking</emphasis>, SSL_accept() will also return
+      when the underlying BIO could not satisfy the needs of SSL_accept()
+      to continue the handshake, indicating the problem by the return value
+      -1. In this case a call to SSL_get_error() with the return value of
+      SSL_accept() will yield <emphasis role="bold">SSL_ERROR_WANT_READ</emphasis> or <emphasis role="bold">SSL_ERROR_WANT_WRITE</emphasis>. The calling process then
+      must repeat the call after taking appropriate action to satisfy the
+      needs of SSL_accept(). The action depends on the underlying BIO. When
+      using a non-blocking socket, nothing is to be done, but select() can
+      be used to check for the required condition. When using a buffering
+      BIO, like a BIO pair, data must be written into or retrieved out of
+      the BIO before being able to continue.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_accept.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      The following return values can occur:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_accept.pod:0"/>0</term>
+          <listitem>
+            <para>
+	      The TLS/SSL handshake was not successful but was shut down
+	      controlled and by the specifications of the TLS/SSL protocol.
+	      Call SSL_get_error() with the return value <emphasis role="bold">ret</emphasis> to find out the reason.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_accept.pod:1"/>1</term>
+          <listitem>
+            <para>
+	      The TLS/SSL handshake was successfully completed, a TLS/SSL
+	      connection has been established.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_accept.pod:lt0"/>&lt;0</term>
+          <listitem>
+            <para>
+	      The TLS/SSL handshake was not successful because a fatal
+	      error occurred either at the protocol level or a connection
+	      failure occurred. The shutdown was not clean. It can also
+	      occur of action is need to continue the operation for
+	      non-blocking BIOs. Call SSL_get_error() with the return value
+	      <emphasis role="bold">ret</emphasis> to find out the reason.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_accept.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      SSL_get_error(3), SSL_connect(3), SSL_shutdown(3), ssl(3), bio(3),
+      SSL_set_connect_state(3), SSL_do_handshake(3), SSL_CTX_new(3)
+    </para>
+  </refsection>
+</refentry>

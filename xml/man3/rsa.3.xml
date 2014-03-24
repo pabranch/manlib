@@ -5,286 +5,111 @@
   </refmeta>
   <refnamediv>
     <refname>rsa</refname>
-<refpurpose>RSA key processing tool</refpurpose>
+<refpurpose>RSA public key cryptosystem</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific"><emphasis role="bold">openssl</emphasis> <emphasis role="bold">rsa</emphasis>
-[<emphasis role="bold">-inform PEM|NET|DER</emphasis>]
-[<emphasis role="bold">-outform PEM|NET|DER</emphasis>]
-[<emphasis role="bold">-in filename</emphasis>]
-[<emphasis role="bold">-passin arg</emphasis>]
-[<emphasis role="bold">-out filename</emphasis>]
-[<emphasis role="bold">-passout arg</emphasis>]
-[<emphasis role="bold">-sgckey</emphasis>]
-[<emphasis role="bold">-des</emphasis>]
-[<emphasis role="bold">-des3</emphasis>]
-[<emphasis role="bold">-idea</emphasis>]
-[<emphasis role="bold">-text</emphasis>]
-[<emphasis role="bold">-noout</emphasis>]
-[<emphasis role="bold">-modulus</emphasis>]
-[<emphasis role="bold">-check</emphasis>]
-[<emphasis role="bold">-pubin</emphasis>]
-[<emphasis role="bold">-pubout</emphasis>]
-[<emphasis role="bold">-RSAPublicKey_in</emphasis>]
-[<emphasis role="bold">-RSAPublicKey_out</emphasis>]
-[<emphasis role="bold">-engine id</emphasis>]</synopsis>
+<synopsis format="linespecific">#include &lt;openssl/rsa.h&gt;
+#include &lt;openssl/engine.h&gt;</synopsis>
+<synopsis format="linespecific">RSA * RSA_new(void);
+void RSA_free(RSA *rsa);</synopsis>
+<synopsis format="linespecific">int RSA_public_encrypt(int flen, unsigned char *from,
+   unsigned char *to, RSA *rsa, int padding);
+int RSA_private_decrypt(int flen, unsigned char *from,
+   unsigned char *to, RSA *rsa, int padding);
+int RSA_private_encrypt(int flen, unsigned char *from,
+   unsigned char *to, RSA *rsa,int padding);
+int RSA_public_decrypt(int flen, unsigned char *from, 
+   unsigned char *to, RSA *rsa,int padding);</synopsis>
+<synopsis format="linespecific">int RSA_sign(int type, unsigned char *m, unsigned int m_len,
+   unsigned char *sigret, unsigned int *siglen, RSA *rsa);
+int RSA_verify(int type, unsigned char *m, unsigned int m_len,
+   unsigned char *sigbuf, unsigned int siglen, RSA *rsa);</synopsis>
+<synopsis format="linespecific">int RSA_size(const RSA *rsa);</synopsis>
+<synopsis format="linespecific">RSA *RSA_generate_key(int num, unsigned long e,
+   void (*callback)(int,int,void *), void *cb_arg);</synopsis>
+<synopsis format="linespecific">int RSA_check_key(RSA *rsa);</synopsis>
+<synopsis format="linespecific">int RSA_blinding_on(RSA *rsa, BN_CTX *ctx);
+void RSA_blinding_off(RSA *rsa);</synopsis>
+<synopsis format="linespecific">void RSA_set_default_method(const RSA_METHOD *meth);
+const RSA_METHOD *RSA_get_default_method(void);
+int RSA_set_method(RSA *rsa, const RSA_METHOD *meth);
+const RSA_METHOD *RSA_get_method(const RSA *rsa);
+RSA_METHOD *RSA_PKCS1_SSLeay(void);
+RSA_METHOD *RSA_null_method(void);
+int RSA_flags(const RSA *rsa);
+RSA *RSA_new_method(ENGINE *engine);</synopsis>
+<synopsis format="linespecific">int RSA_print(BIO *bp, RSA *x, int offset);
+int RSA_print_fp(FILE *fp, RSA *x, int offset);</synopsis>
+<synopsis format="linespecific">int RSA_get_ex_new_index(long argl, char *argp, int (*new_func)(),
+   int (*dup_func)(), void (*free_func)());
+int RSA_set_ex_data(RSA *r,int idx,char *arg);
+char *RSA_get_ex_data(RSA *r, int idx);</synopsis>
+<synopsis format="linespecific">int RSA_sign_ASN1_OCTET_STRING(int dummy, unsigned char *m,
+   unsigned int m_len, unsigned char *sigret, unsigned int *siglen,
+   RSA *rsa);
+int RSA_verify_ASN1_OCTET_STRING(int dummy, unsigned char *m,
+   unsigned int m_len, unsigned char *sigbuf, unsigned int siglen,
+   RSA *rsa);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.apps.rsa.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="sources.openssl.doc.crypto.rsa.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
-      The <emphasis role="bold">rsa</emphasis> command processes RSA keys.
-      They can be converted between various forms and their components
-      printed out. <emphasis role="bold">Note</emphasis> this command uses
-      the traditional SSLeay compatible format for private key encryption:
-      newer applications should use the more secure PKCS#8 format using the
-      <emphasis role="bold">pkcs8</emphasis> utility.
+      These functions implement RSA public key encryption and signatures as
+      defined in PKCS #1 v2.0 [RFC 2437].
+    </para>
+    <para>
+      The <emphasis role="bold">RSA</emphasis> structure consists of
+      several BIGNUM components. It can contain public as well as private
+      RSA keys:
+    </para>
+    <screen>struct
+       {
+       BIGNUM *n;              // public modulus
+       BIGNUM *e;              // public exponent
+       BIGNUM *d;              // private exponent
+       BIGNUM *p;              // secret prime factor
+       BIGNUM *q;              // secret prime factor
+       BIGNUM *dmp1;           // d mod (p-1)
+       BIGNUM *dmq1;           // d mod (q-1)
+       BIGNUM *iqmp;           // q^-1 mod p
+       // ...
+       };
+RSA</screen>
+    <para>
+      In public keys, the private exponent and the related secret values
+      are <emphasis role="bold">NULL</emphasis>.
+    </para>
+    <para>
+      <emphasis role="bold">p</emphasis>, <emphasis role="bold">q</emphasis>, <emphasis role="bold">dmp1</emphasis>,
+      <emphasis role="bold">dmq1</emphasis> and <emphasis role="bold">iqmp</emphasis> may be <emphasis role="bold">NULL</emphasis> in private keys, but the RSA operations
+      are much faster when these values are available.
+    </para>
+    <para>
+      Note that RSA keys may use non-standard <emphasis role="bold">RSA_METHOD</emphasis> implementations, either directly or
+      by the use of <emphasis role="bold">ENGINE</emphasis> modules. In
+      some cases (eg. an ENGINE providing support for hardware-embedded
+      keys), these BIGNUM values will not be used by the implementation or
+      may be used for alternative data storage. For this reason,
+      applications should generally avoid using RSA structure elements
+      directly and instead use API functions to query or modify keys.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.rsa.pod:COMMAND_OPTIONS"><title>COMMAND OPTIONS</title>
+  <refsection xml:id="sources.openssl.doc.crypto.rsa.pod:CONFORMING_TO"><title>CONFORMING TO</title>
     <para>
-      <variablelist>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.rsa.pod:-inform_DERNETPEM"/><emphasis role="bold">-inform DER|NET|PEM</emphasis></term>
-          <listitem>
-            <para>
-	      This specifies the input format. The <emphasis role="bold">DER</emphasis> option uses an ASN1 DER encoded
-	      form compatible with the PKCS#1 RSAPrivateKey or
-	      SubjectPublicKeyInfo format. The <emphasis role="bold">PEM</emphasis> form is the default format: it
-	      consists of the <emphasis role="bold">DER</emphasis> format
-	      base64 encoded with additional header and footer lines. On
-	      input PKCS#8 format private keys are also accepted. The
-	      <emphasis role="bold">NET</emphasis> form is a format is
-	      described in the <emphasis role="bold">NOTES</emphasis>
-	      section.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.rsa.pod:-outform_DERNETPEM"/><emphasis role="bold">-outform DER|NET|PEM</emphasis></term>
-          <listitem>
-            <para>
-	      This specifies the output format, the options have the same
-	      meaning as the <emphasis role="bold">-inform</emphasis>
-	      option. 
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.rsa.pod:-in_filename"/><emphasis role="bold">-in filename</emphasis></term>
-          <listitem>
-            <para>
-	      This specifies the input filename to read a key from or
-	      standard input if this option is not specified. If the key is
-	      encrypted a pass phrase will be prompted for.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.rsa.pod:-passin_arg"/><emphasis role="bold">-passin arg</emphasis></term>
-          <listitem>
-            <para>
-	      the input file password source. For more information about
-	      the format of <emphasis role="bold">arg</emphasis> see the
-	      <emphasis role="bold">PASS PHRASE ARGUMENTS</emphasis>
-	      section in openssl(1).
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.rsa.pod:-out_filename"/><emphasis role="bold">-out filename</emphasis></term>
-          <listitem>
-            <para>
-	      This specifies the output filename to write a key to or
-	      standard output if this option is not specified. If any
-	      encryption options are set then a pass phrase will be
-	      prompted for. The output filename should <emphasis role="bold">not</emphasis> be the same as the input filename.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.rsa.pod:-passout_password"/><emphasis role="bold">-passout password</emphasis></term>
-          <listitem>
-            <para>
-	      the output file password source. For more information about
-	      the format of <emphasis role="bold">arg</emphasis> see the
-	      <emphasis role="bold">PASS PHRASE ARGUMENTS</emphasis>
-	      section in openssl(1).
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.rsa.pod:-sgckey"/><emphasis role="bold">-sgckey</emphasis></term>
-          <listitem>
-            <para>
-	      use the modified NET algorithm used with some versions of
-	      Microsoft IIS and SGC keys.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.rsa.pod:-des-des3-idea"/><emphasis role="bold">-des|-des3|-idea</emphasis></term>
-          <listitem>
-            <para>
-	      These options encrypt the private key with the DES, triple
-	      DES, or the IDEA ciphers respectively before outputting it. A
-	      pass phrase is prompted for. If none of these options is
-	      specified the key is written in plain text. This means that
-	      using the <emphasis role="bold">rsa</emphasis> utility to
-	      read in an encrypted key with no encryption option can be
-	      used to remove the pass phrase from a key, or by setting the
-	      encryption options it can be use to add or change the pass
-	      phrase. These options can only be used with PEM format output
-	      files. 
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.rsa.pod:-text"/><emphasis role="bold">-text</emphasis></term>
-          <listitem>
-            <para>
-	      prints out the various public or private key components in
-	      plain text in addition to the encoded version.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.rsa.pod:-noout"/><emphasis role="bold">-noout</emphasis></term>
-          <listitem>
-            <para>
-	      this option prevents output of the encoded version of the
-	      key.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.rsa.pod:-modulus"/><emphasis role="bold">-modulus</emphasis></term>
-          <listitem>
-            <para>
-	      this option prints out the value of the modulus of the key.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.rsa.pod:-check"/><emphasis role="bold">-check</emphasis></term>
-          <listitem>
-            <para>
-	      this option checks the consistency of an RSA private key.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.rsa.pod:-pubin"/><emphasis role="bold">-pubin</emphasis></term>
-          <listitem>
-            <para>
-	      by default a private key is read from the input file: with
-	      this option a public key is read instead.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.rsa.pod:-pubout"/><emphasis role="bold">-pubout</emphasis></term>
-          <listitem>
-            <para>
-	      by default a private key is output: with this option a public
-	      key will be output instead. This option is automatically set
-	      if the input is a public key.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.rsa.pod:-RSAPublicKey_in_-RSAPublicKey_out"/><emphasis role="bold">-RSAPublicKey_in</emphasis>, <emphasis role="bold">-RSAPublicKey_out</emphasis></term>
-          <listitem>
-            <para>
-	      like <emphasis role="bold">-pubin</emphasis> and <emphasis role="bold">-pubout</emphasis> except <emphasis role="bold">RSAPublicKey</emphasis> format is used instead.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.rsa.pod:-engine_id"/><emphasis role="bold">-engine id</emphasis></term>
-          <listitem>
-            <para>
-	      specifying an engine (by its unique <emphasis role="bold">id</emphasis> string) will cause <emphasis role="bold">rsa</emphasis> to attempt to obtain a functional
-	      reference to the specified engine, thus initialising it if
-	      needed. The engine will then be set as the default for all
-	      available algorithms.
-            </para>
-          </listitem>
-        </varlistentry>
-      </variablelist>
+      SSL, PKCS #1 v2.0
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.rsa.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="sources.openssl.doc.crypto.rsa.pod:PATENTS"><title>PATENTS</title>
     <para>
-      The PEM private key format uses the header and footer lines:
-    </para>
-    <screen>-----BEGIN RSA PRIVATE KEY-----
------END RSA PRIVATE KEY-----</screen>
-    <para>
-      The PEM public key format uses the header and footer lines:
-    </para>
-    <screen>-----BEGIN PUBLIC KEY-----
------END PUBLIC KEY-----</screen>
-    <para>
-      The PEM <emphasis role="bold">RSAPublicKey</emphasis> format uses the
-      header and footer lines:
-    </para>
-    <screen>-----BEGIN RSA PUBLIC KEY-----
------END RSA PUBLIC KEY-----</screen>
-    <para>
-      The <emphasis role="bold">NET</emphasis> form is a format compatible
-      with older Netscape servers and Microsoft IIS .key files, this uses
-      unsalted RC4 for its encryption. It is not very secure and so should
-      only be used when necessary.
-    </para>
-    <para>
-      Some newer version of IIS have additional data in the exported .key
-      files. To use these with the utility, view the file with a binary
-      editor and look for the string "private-key", then trace back to the
-      byte sequence 0x30, 0x82 (this is an ASN1 SEQUENCE). Copy all the
-      data from this point onwards to another file and use that as the
-      input to the <emphasis role="bold">rsa</emphasis> utility with the
-      <emphasis role="bold">-inform NET</emphasis> option. If you get an
-      error after entering the password try the <emphasis role="bold">-sgckey</emphasis> option.
+      RSA was covered by a US patent which expired in September 2000.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.rsa.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="sources.openssl.doc.crypto.rsa.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      To remove the pass phrase on an RSA private key:
-    </para>
-    <screen>openssl rsa -in key.pem -out keyout.pem</screen>
-    <para>
-      To encrypt a private key using triple DES:
-    </para>
-    <screen>openssl rsa -in key.pem -des3 -out keyout.pem</screen>
-    <para>
-      To convert a private key from PEM to DER format:
-    </para>
-    <screen>openssl rsa -in key.pem -outform DER -out keyout.der</screen>
-    <para>
-      To print out the components of a private key to standard output:
-    </para>
-    <screen>openssl rsa -in key.pem -text -noout</screen>
-    <para>
-      To just output the public part of a private key:
-    </para>
-    <screen>openssl rsa -in key.pem -pubout -out pubkey.pem</screen>
-    <para>
-      Output the public part of a private key in <emphasis role="bold">RSAPublicKey</emphasis> format:
-    </para>
-    <screen>openssl rsa -in key.pem -RSAPublicKey_out -out pubkey.pem</screen>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.rsa.pod:BUGS"><title>BUGS</title>
-    <para>
-      The command line password arguments don't currently work with
-      <emphasis role="bold">NET</emphasis> format.
-    </para>
-    <para>
-      There should be an option that automatically handles .key files,
-      without having to manually edit them.
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.rsa.pod:SEE_ALSO"><title>SEE ALSO</title>
-    <para>
-      pkcs8(1), dsa(1), genrsa(1), gendsa(1)
+      rsa(1), bn(3), dsa(3), dh(3), rand(3), engine(3), RSA_new(3),
+      RSA_public_encrypt(3), RSA_sign(3), RSA_size(3), RSA_generate_key(3),
+      RSA_check_key(3), RSA_blinding_on(3), RSA_set_method(3),
+      RSA_print(3), RSA_get_ex_new_index(3), RSA_private_encrypt(3),
+      RSA_sign_ASN1_OCTET_STRING(3), RSA_padding_add_PKCS1_type_1(3)
     </para>
   </refsection>
 </refentry>

@@ -133,10 +133,10 @@ rsync -a --exclude=Makefile --exclude=\\*.in --exclude=.gitignore sources/iprout
     "type": "git",
     "url": "http://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils.git",
     "sparse": "*.[1-8]",
-    "cmd": "cp sources/keyutils/*.1 man/man1/;
-cp sources/keyutils/*.3 man/man3/;
-cp sources/keyutils/*.5 man/man5/;
-cp sources/keyutils/*.8 man/man8/"
+    "cmd": "cp sources/keyutils/man/*.1 man/man1/;
+cp sources/keyutils/man/*.3 man/man3/;
+cp sources/keyutils/man/*.5 man/man5/;
+cp sources/keyutils/man/*.8 man/man8/"
   },
 
   "kmod": {
@@ -326,8 +326,8 @@ find sources/selinux/ -name \\*.8 -exec cp {} man/man8/ \\;"
     "type": "svn",
     "url": "svn://anonscm.debian.org/pkg-shadow/upstream/trunk",
     "cmd": "(cd sources/shadow-utils; ./autogen.sh; ./configure --enable-man);
-(cd sources/shadow-utils/man; find -name '*.[1-8].xml' -print0 | while read -d $'\\0' -r file ; do sed -e '/^<!-- SHADOW-CONFIG-HERE -->/r config.xml' -e '//d' $file > $(basename $file).__; done;);
-(cd sources/shadow-utils/man; for f in *.__; do base=$(basename -s .__ $f); manNum=$(echo $base | rev | cut -c 5); xsltproc ../../../utils/db4-upgrade.xsl $f > ../../../xml/man$manNum/$base; done;)"
+(cd sources/shadow-utils/man && find -name '*.[1-8].xml' -print0 | while read -d $'\\0' -r file ; do sed -e '/^<!-- SHADOW-CONFIG-HERE -->/r config.xml' -e '//d' $file > $(basename $file).__; done;);
+(cd sources/shadow-utils/man && for f in *.__; do base=$(basename -s .__ $f); manNum=$(echo $base | rev | cut -c 5); xsltproc ../../../utils/db4-upgrade.xsl $f > ../../../xml/man$manNum/$base; done;)"
   },
 
   "sox": {

@@ -5,73 +5,189 @@
   </refmeta>
   <refnamediv>
     <refname>rand</refname>
-<refpurpose>generate pseudo-random bytes</refpurpose>
+<refpurpose>pseudo-random number generator</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific"><emphasis role="bold">openssl rand</emphasis>
-[<emphasis role="bold">-out</emphasis> <emphasis role="italic">file</emphasis>]
-[<emphasis role="bold">-rand</emphasis> <emphasis role="italic">file(s)</emphasis>]
-[<emphasis role="bold">-base64</emphasis>]
-[<emphasis role="bold">-hex</emphasis>]
-<emphasis role="italic">num</emphasis></synopsis>
+<synopsis format="linespecific">#include &lt;openssl/rand.h&gt;</synopsis>
+<synopsis format="linespecific">int  RAND_set_rand_engine(ENGINE *engine);</synopsis>
+<synopsis format="linespecific">int  RAND_bytes(unsigned char *buf, int num);
+int  RAND_pseudo_bytes(unsigned char *buf, int num);</synopsis>
+<synopsis format="linespecific">void RAND_seed(const void *buf, int num);
+void RAND_add(const void *buf, int num, int entropy);
+int  RAND_status(void);</synopsis>
+<synopsis format="linespecific">int  RAND_load_file(const char *file, long max_bytes);
+int  RAND_write_file(const char *file);
+const char *RAND_file_name(char *file, size_t num);</synopsis>
+<synopsis format="linespecific">int  RAND_egd(const char *path);</synopsis>
+<synopsis format="linespecific">void RAND_set_rand_method(const RAND_METHOD *meth);
+const RAND_METHOD *RAND_get_rand_method(void);
+RAND_METHOD *RAND_SSLeay(void);</synopsis>
+<synopsis format="linespecific">void RAND_cleanup(void);</synopsis>
+<synopsis format="linespecific">/* For Win32 only */
+void RAND_screen(void);
+int RAND_event(UINT, WPARAM, LPARAM);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.apps.rand.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="sources.openssl.doc.crypto.rand.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
-      The <emphasis role="bold">rand</emphasis> command outputs <emphasis role="italic">num</emphasis> pseudo-random bytes after seeding the
-      random number generator once.  As in other <emphasis role="bold">openssl</emphasis> command line tools, PRNG seeding uses
-      the file <emphasis role="italic">$HOME/</emphasis><emphasis role="bold">.rnd</emphasis> or <emphasis role="bold">.rnd</emphasis>
-      in addition to the files given in the <emphasis role="bold">-rand</emphasis> option.  A new <emphasis role="italic">$HOME</emphasis>/<emphasis role="bold">.rnd</emphasis>
-      or <emphasis role="bold">.rnd</emphasis> file will be written back if
-      enough seeding was obtained from these sources.
+      Since the introduction of the ENGINE API, the recommended way of
+      controlling default implementations is by using the ENGINE API
+      functions. The default <emphasis role="bold">RAND_METHOD</emphasis>,
+      as set by RAND_set_rand_method() and returned by
+      RAND_get_rand_method(), is only used if no ENGINE has been set as the
+      default "rand" implementation. Hence, these two functions are no
+      longer the recommended way to control defaults.
+    </para>
+    <para>
+      If an alternative <emphasis role="bold">RAND_METHOD</emphasis>
+      implementation is being used (either set directly or as provided by
+      an ENGINE module), then it is entirely responsible for the generation
+      and management of a cryptographically secure PRNG stream. The
+      mechanisms described below relate solely to the software PRNG
+      implementation built in to OpenSSL and used by default.
+    </para>
+    <para>
+      These functions implement a cryptographically secure pseudo-random
+      number generator (PRNG). It is used by other library functions for
+      example to generate random keys, and applications can use it when
+      they need randomness.
+    </para>
+    <para>
+      A cryptographic PRNG must be seeded with unpredictable data such as
+      mouse movements or keys pressed at random by the user. This is
+      described in RAND_add(3). Its state can be saved in a seed file (see
+      RAND_load_file(3)) to avoid having to go through the seeding process
+      whenever the application is started.
+    </para>
+    <para>
+      RAND_bytes(3) describes how to obtain random data from the PRNG.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.rand.pod:OPTIONS"><title>OPTIONS</title>
+  <refsection xml:id="sources.openssl.doc.crypto.rand.pod:INTERNALS"><title>INTERNALS</title>
     <para>
-      <variablelist>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.rand.pod:-out_file"/><emphasis role="bold">-out</emphasis> <emphasis role="italic">file</emphasis></term>
-          <listitem>
-            <para>
-	      Write to <emphasis role="italic">file</emphasis> instead of
-	      standard output.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.rand.pod:-rand_files"/><emphasis role="bold">-rand</emphasis> <emphasis role="italic">file(s)</emphasis></term>
-          <listitem>
-            <para>
-	      Use specified file or files or EGD socket (see RAND_egd(3))
-	      for seeding the random number generator. Multiple files can
-	      be specified separated by a OS-dependent character. The
-	      separator is <emphasis role="bold">;</emphasis> for
-	      MS-Windows, <emphasis role="bold">,</emphasis> for OpenVMS,
-	      and <emphasis role="bold">:</emphasis> for all others.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.rand.pod:-base64"/><emphasis role="bold">-base64</emphasis></term>
-          <listitem>
-            <para>
-	      Perform base64 encoding on the output.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.rand.pod:-hex"/><emphasis role="bold">-hex</emphasis></term>
-          <listitem>
-            <para>
-	      Show the output as a hex string.
-            </para>
-          </listitem>
-        </varlistentry>
-      </variablelist>
+      The RAND_SSLeay() method implements a PRNG based on a cryptographic
+      hash function.
+    </para>
+    <para>
+      The following description of its design is based on the SSLeay
+      documentation:
+    </para>
+    <para>
+      First up I will state the things I believe I need for a good RNG.
+    </para>
+    <para>
+      <orderedlist numeration="arabic">
+        <listitem>
+          <para>
+	    A good hashing algorithm to mix things up and to convert the
+	    RNG 'state' to random numbers.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+	    An initial source of random 'state'.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+	    The state should be very large.  If the RNG is being used to
+	    generate 4096 bit RSA keys, 2 2048 bit random strings are
+	    required (at a minimum). If your RNG state only has 128 bits,
+	    you are obviously limiting the search space to 128 bits, not
+	    2048.  I'm probably getting a little carried away on this last
+	    point but it does indicate that it may not be a bad idea to
+	    keep quite a lot of RNG state.  It should be easier to break a
+	    cipher than guess the RNG seed data.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+	    Any RNG seed data should influence all subsequent random
+	    numbers generated.	This implies that any random seed data
+	    entered will have an influence on all subsequent random numbers
+	    generated.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+	    When using data to seed the RNG state, the data used should not
+	    be extractable from the RNG state.	I believe this should be a
+	    requirement because one possible source of 'secret' semi random
+	    data would be a private key or a password.	This data must not
+	    be disclosed by either subsequent random numbers or a 'core'
+	    dump left by a program crash.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+	    Given the same initial 'state', 2 systems should deviate in
+	    their RNG state (and hence the random numbers generated) over
+	    time if at all possible.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+	    Given the random number output stream, it should not be
+	    possible to determine the RNG state or the next random number.
+          </para>
+        </listitem>
+      </orderedlist>
+    </para>
+    <para>
+      The algorithm is as follows.
+    </para>
+    <para>
+      There is global state made up of a 1023 byte buffer (the 'state'), a
+      working hash value ('md'), and a counter ('count').
+    </para>
+    <para>
+      Whenever seed data is added, it is inserted into the 'state' as
+      follows.
+    </para>
+    <para>
+      The input is chopped up into units of 20 bytes (or less for the last
+      block).  Each of these blocks is run through the hash function as
+      follows:	The data passed to the hash function is the current 'md',
+      the same number of bytes from the 'state' (the location determined by
+      in incremented looping index) as the current 'block', the new key
+      data 'block', and 'count' (which is incremented after each use). The
+      result of this is kept in 'md' and also xored into the 'state' at the
+      same locations that were used as input into the hash function. I
+      believe this system addresses points 1 (hash function; currently
+      SHA-1), 3 (the 'state'), 4 (via the 'md'), 5 (by the use of a hash
+      function and xor).
+    </para>
+    <para>
+      When bytes are extracted from the RNG, the following process is used.
+      For each group of 10 bytes (or less), we do the following:
+    </para>
+    <para>
+      Input into the hash function the local 'md' (which is initialized
+      from the global 'md' before any bytes are generated), the bytes that
+      are to be overwritten by the random bytes, and bytes from the 'state'
+      (incrementing looping index). From this digest output (which is kept
+      in 'md'), the top (up to) 10 bytes are returned to the caller and the
+      bottom 10 bytes are xored into the 'state'.
+    </para>
+    <para>
+      Finally, after we have finished 'num' random bytes for the caller,
+      'count' (which is incremented) and the local and global 'md' are fed
+      into the hash function and the results are kept in the global 'md'.
+    </para>
+    <para>
+      I believe the above addressed points 1 (use of SHA-1), 6 (by hashing
+      into the 'state' the 'old' data from the caller that is about to be
+      overwritten) and 7 (by not using the 10 bytes given to the caller to
+      update the 'state', but they are used to update 'md').
+    </para>
+    <para>
+      So of the points raised, only 2 is not addressed (but see
+      RAND_add(3)).
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.rand.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="sources.openssl.doc.crypto.rand.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      RAND_bytes(3)
+      BN_rand(3), RAND_add(3), RAND_load_file(3), RAND_egd(3),
+      RAND_bytes(3), RAND_set_rand_method(3), RAND_cleanup(3)
     </para>
   </refsection>
 </refentry>
