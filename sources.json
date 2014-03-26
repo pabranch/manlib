@@ -323,6 +323,14 @@ find sources/selinux/ -name \\*.8 -exec cp {} man/man8/ \\;"
     "cmd": "cp sources/selinux-refpolicy/man/man8/*.8 man/man8/" /* (cd sources/selinux-refpolicy; git submodule init; git submodule update) */
   },
 
+  "sendmail": {
+    "type": "tarball",
+    "url": "ftp://ftp.sendmail.org/pub/sendmail/sendmail.8.14.8.tar.gz",
+    "cmd": "find sources/sendmail/ -name '*[a-z].1' -exec cp -f {} man/man1/ \\;;
+find sources/sendmail/ -name '*[a-z].5' -exec cp {} man/man5/ \\;;
+find sources/sendmail/ -name '*[a-z].8' -exec cp {} man/man8/ \\;"
+  },
+
   "shadow-utils": {
     "type": "svn",
     "url": "svn://anonscm.debian.org/pkg-shadow/upstream/trunk",
