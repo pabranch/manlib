@@ -4,6 +4,7 @@ require("jsonminify");
 var fs = require('fs');
 var program = require('commander');
 var exec = require('child_process').exec;
+var ftp = require('ftp-get');
 
 var sourcesFile = './sources.json';
 var sources;
@@ -174,6 +175,9 @@ function update (sourceName, sourceDets, specified) {
     case 'bzr':
       doUp('bzr pull', {cwd: destDir});
       break;
+    case 'tarball':
+      console.log(sourceName + ' is from tarball: ' + sourceDets.url + ', consider checking for a newer version.');
+      break;
     default:
       console.log('Unrecognised source type: ' + sourceDets.type);
   }
@@ -203,6 +207,9 @@ function setup (sourceName, sourceDets, specified) {
       break;
     case 'bzr':
       setupBZR(sourceName, sourceDets);
+      break;
+    case 'tarball':
+      setupTarball(sourceName, sourceDets);
       break;
     default:
       console.log('Unrecognised source type: ' + sourceDets.type);
@@ -292,5 +299,23 @@ function setupBZR (sourceName, sourceDets) {
       if (error !== null) {
         console.log('bzr branch ' + sourceDets.url + ' ' + destDir + ' - error: ' + error);
       }
+  });
+}
+
+function setupTarball (sourceName, sourceDets) {
+  var destDir = 'sources/' + sourceName;
+  var tmpFile = '/tmp/' + sourceName + '.tar.gz';
+  ftp.get(sourceDets.url, tmpFile, function (error, result) {
+    if (error) {
+      console.error(error);
+    } else {
+      fs.mkdirSync(destDir);
+      var extractTarballCmd = 'tar xf ' + tmpFile + ' -C ' + destDir;
+      exec(extractTarballCmd, function (error, stdout, stderr) {
+        if (error !== null) {
+          console.log(extractTarballCmd + ' - error: ' + error);
+        }
+      });
+    }
   });
 }
