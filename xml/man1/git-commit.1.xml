@@ -386,7 +386,7 @@ that, you can recover from it with <emphasis>git reset</emphasis>.</simpara>
 <simpara>
         This option determines how the supplied commit message should be
         cleaned up before committing.  The <emphasis>&lt;mode&gt;</emphasis> can be <literal>strip</literal>,
-        <literal>whitespace</literal>, <literal>verbatim</literal>, or <literal>default</literal>.
+        <literal>whitespace</literal>, <literal>verbatim</literal>, <literal>scissors</literal> or <literal>default</literal>.
 </simpara>
 <variablelist>
 <varlistentry>
@@ -417,6 +417,20 @@ verbatim
 <listitem>
 <simpara>
         Do not change the message at all.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+scissors
+</term>
+<listitem>
+<simpara>
+        Same as <literal>whitespace</literal>, except that everything from (and
+        including) the line
+        "<literal># ------------------------ &gt;8 ------------------------</literal>"
+        is truncated if the message is to be edited. "<literal>#</literal>" can be
+        customized with core.commentChar.
 </simpara>
 </listitem>
 </varlistentry>

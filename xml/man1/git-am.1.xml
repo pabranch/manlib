@@ -20,7 +20,7 @@
          [--ignore-date] [--ignore-space-change | --ignore-whitespace]
          [--whitespace=&lt;option&gt;] [-C&lt;n&gt;] [-p&lt;n&gt;] [--directory=&lt;dir&gt;]
          [--exclude=&lt;path&gt;] [--include=&lt;path&gt;] [--reject] [-q | --quiet]
-         [--[no-]scissors] [-S[&lt;keyid&gt;]]
+         [--[no-]scissors] [-S[&lt;keyid&gt;]] [--patch-format=&lt;format&gt;]
          [(&lt;mbox&gt; | &lt;Maildir&gt;)&#8230;]
 <emphasis>git am</emphasis> (--continue | --skip | --abort)</literallayout>
 </blockquote>
@@ -231,6 +231,19 @@ default.   You can use <literal>--no-utf8</literal> to override this.</simpara>
 </citerefentry>)
         program that applies
         the patch.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--patch-format
+</term>
+<listitem>
+<simpara>
+        By default the command will try to detect the patch format
+        automatically. This option allows the user to bypass the automatic
+        detection and specify the patch format that the patch(es) should be
+        interpreted as. Valid formats are mbox, stgit, stgit-series and hg.
 </simpara>
 </listitem>
 </varlistentry>
