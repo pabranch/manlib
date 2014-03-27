@@ -153,10 +153,9 @@ function update (sourceName, sourceDets, specified) {
   switch(sourceDets.type) {
     case 'git':
       if (sourceDets.tag) {
-        console.log(sourceName + ' is on tag ' + sourceDets.tag + ', consider checking for a newer tag to use. Latest remote tag:');
         exec('git fetch --tags; git describe --tags `git rev-list --tags --max-count=1`', {cwd: destDir},
           function (error, stdout, stderr) {
-            console.log(stdout);
+            console.log(sourceName + ' is on tag ' + sourceDets.tag + ', consider checking for a newer tag to use. Latest remote tag: ' + stdout);
           }
         );
       } else {
