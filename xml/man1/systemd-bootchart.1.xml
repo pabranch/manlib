@@ -1,47 +1,14 @@
-<?xml version='1.0'?> <!--*-nxml-*-->
-<?xml-stylesheet type="text/xsl" href="http://docbook.sourceforge.net/release/xsl/current/xhtml/docbook.xsl"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
-        "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="systemd-bootchart" conditional="ENABLE_BOOTCHART">
 
-<!--
-  This file is part of systemd.
-
-  Copyright 2012 Intel Corporation
-
-  Authors:
-    Auke Kok <auke-jan.h.kok@intel.com>
-    William Giokas <1007380@gmail.com>
-
-  systemd is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Lesser General Public License as published by
-  the Free Software Foundation; either version 2.1 of the License, or
-  (at your option) any later version.
-
-  systemd is distributed in the hope that it will be useful, but
-  WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-  Lesser General Public License for more details.
-
-  You should have received a copy of the GNU Lesser General Public License
-  along with systemd; If not, see <http://www.gnu.org/licenses/>.
--->
-
-<refentry id="systemd-bootchart" conditional='ENABLE_BOOTCHART'
-          xmlns:xi="http://www.w3.org/2001/XInclude">
-
-        <refentryinfo>
-                <title>systemd-bootchart</title>
+        <info>
+                
                 <productname>systemd</productname>
 
                 <authorgroup>
-                        <author>
-                                <contrib>Developer</contrib>
-                                <firstname>Auke</firstname>
-                                <surname>Kok</surname>
-                                <email>auke-jan.h.kok@intel.com</email>
-                        </author>
+                        <author><personname><firstname>Auke</firstname><surname>Kok</surname></personname><contrib>Developer</contrib><email>auke-jan.h.kok@intel.com</email></author>
                 </authorgroup>
-        </refentryinfo>
+        </info>
 
         <refmeta>
                 <refentrytitle>systemd-bootchart</refentrytitle>
@@ -146,7 +113,14 @@
                 </para>
 
                 <variablelist>
-                        <xi:include href="standard-options.xml" xpointer="help" />
+                        <varlistentry xml:id="help">
+    <term><option>-h</option></term>
+    <term><option>--help</option></term>
+
+    <listitem xml:id="help-text">
+      <para>Print a short help text and exit.
+    </para></listitem>
+  </varlistentry>
 
                         <varlistentry>
                                 <term><option>-n</option></term>
@@ -257,7 +231,7 @@
                 on a graphical display any SVG capable viewer can be used. It should be
                 noted that the SVG render engines in most browsers (including Chrome
                 and Firefox) are many times faster than dedicated graphical applications
-                like Gimp and Inkscape.  Just point your browser at <ulink url="file:///run/log/" />!
+                like Gimp and Inkscape.  Just point your browser at <uri xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="file:///run/log/">file:///run/log/</uri>!
                 </para>
         </refsect1>
 
@@ -320,7 +294,7 @@
                 UUIDs or PARTUUIDs will boot fine, but the hard drive model will not be
                 added to the chart.</para>
                 <para>For bugs, please contact the author and current maintainer:</para>
-                <simplelist>
+                <simplelist type="vert">
                         <member>Auke Kok <email>auke-jan.h.kok@intel.com</email></member>
                 </simplelist>
         </refsect1>

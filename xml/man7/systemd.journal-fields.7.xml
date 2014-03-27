@@ -1,41 +1,14 @@
-<?xml version='1.0'?> <!--*-nxml-*-->
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
-        "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="systemd.journal-fields">
 
-<!--
-  This file is part of systemd.
-
-  Copyright 2010 Lennart Poettering
-
-  systemd is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Lesser General Public License as published by
-  the Free Software Foundation; either version 2.1 of the License, or
-  (at your option) any later version.
-
-  systemd is distributed in the hope that it will be useful, but
-  WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-  Lesser General Public License for more details.
-
-  You should have received a copy of the GNU Lesser General Public License
-  along with systemd; If not, see <http://www.gnu.org/licenses/>.
--->
-
-<refentry id="systemd.journal-fields">
-
-        <refentryinfo>
-                <title>systemd.journal-fields</title>
+        <info>
+                
                 <productname>systemd</productname>
 
                 <authorgroup>
-                        <author>
-                                <contrib>Developer</contrib>
-                                <firstname>Lennart</firstname>
-                                <surname>Poettering</surname>
-                                <email>lennart@poettering.net</email>
-                        </author>
+                        <author><personname><firstname>Lennart</firstname><surname>Poettering</surname></personname><contrib>Developer</contrib><email>lennart@poettering.net</email></author>
                 </authorgroup>
-        </refentryinfo>
+        </info>
 
         <refmeta>
                 <refentrytitle>systemd.journal-fields</refentrytitle>
@@ -68,7 +41,7 @@
                 <para>User fields are fields that are directly passed
                 from clients and stored in the journal.</para>
 
-                <variablelist class='journal-directives'>
+                <variablelist class="journal-directives">
                         <varlistentry>
                                 <term><varname>MESSAGE=</varname></term>
                                 <listitem>
@@ -173,7 +146,7 @@
                 fields, i.e. fields that are implicitly added by the
                 journal and cannot be altered by client code.</para>
 
-                <variablelist class='journal-directives'>
+                <variablelist class="journal-directives">
                         <varlistentry>
                                 <term><varname>_PID=</varname></term>
                                 <term><varname>_UID=</varname></term>
@@ -382,7 +355,7 @@
                 messages originating in the kernel and stored in the
                 journal.</para>
 
-                <variablelist class='journal-directives'>
+                <variablelist class="journal-directives">
                         <varlistentry>
                                 <term><varname>_KERNEL_DEVICE=</varname></term>
                                 <listitem>
@@ -450,7 +423,7 @@
                 coredump kernel helper:
                 </para>
 
-                <variablelist class='journal-directives'>
+                <variablelist class="journal-directives">
                         <varlistentry>
                                 <term><varname>COREDUMP_UNIT=</varname></term>
                                 <term><varname>COREDUMP_USER_UNIT=</varname></term>
@@ -471,7 +444,7 @@
                 <command>systemd-journald</command> to attach
                 additional fields on behalf of the caller:</para>
 
-                <variablelist class='journal-directives'>
+                <variablelist class="journal-directives">
                         <varlistentry>
                                 <term><varname>OBJECT_PID=<replaceable>PID</replaceable></varname></term>
                                 <listitem>
@@ -525,11 +498,9 @@
                 <title>Address Fields</title>
 
                 <para>During serialization into external formats, such
-                as the <ulink
-                url="http://www.freedesktop.org/wiki/Software/systemd/export">Journal
-                Export Format</ulink> or the <ulink
-                url="http://www.freedesktop.org/wiki/Software/systemd/json">Journal
-                JSON Format</ulink>, the addresses of journal entries
+                as the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/export">Journal
+                Export Format</link> or the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/json">Journal
+                JSON Format</link>, the addresses of journal entries
                 are serialized into fields prefixed with double
                 underscores. Note that these are not proper fields when
                 stored in the journal but for addressing metadata of
@@ -539,7 +510,7 @@
                 may also not be used as matches for
                 <citerefentry><refentrytitle>sd_journal_add_match</refentrytitle><manvolnum>3</manvolnum></citerefentry></para>
 
-                <variablelist class='journal-directives'>
+                <variablelist class="journal-directives">
                         <varlistentry>
                                 <term><varname>__CURSOR=</varname></term>
                                 <listitem>

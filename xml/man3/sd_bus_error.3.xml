@@ -1,41 +1,14 @@
-<?xml version='1.0'?> <!--*-nxml-*-->
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
-"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="sd_bus_error" conditional="ENABLE_KDBUS">
 
-<!--
-This file is part of systemd.
-
-Copyright 2014 Zbigniew Jędrzejewski-Szmek
-
-systemd is free software; you can redistribute it and/or modify it
-under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-systemd is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with systemd; If not, see <http://www.gnu.org/licenses/>.
--->
-
-<refentry id="sd_bus_error" conditional="ENABLE_KDBUS">
-
-  <refentryinfo>
-    <title>sd_bus_error</title>
+  <info>
+    
     <productname>systemd</productname>
 
     <authorgroup>
-      <author>
-        <contrib>A monkey with a typewriter</contrib>
-        <firstname>Zbigniew</firstname>
-        <surname>Jędrzejewski-Szmek</surname>
-        <email>zbyszek@in.waw.pl</email>
-      </author>
+      <author><personname><firstname>Zbigniew</firstname><surname>Jędrzejewski-Szmek</surname></personname><contrib>A monkey with a typewriter</contrib><email>zbyszek@in.waw.pl</email></author>
     </authorgroup>
-  </refentryinfo>
+  </info>
 
   <refmeta>
     <refentrytitle>sd_bus_error</refentrytitle>
@@ -231,14 +204,13 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
   <refsect1>
     <title>Description</title>
 
-    <para>The <structname>sd_bus_error</structname> structure carries
+    <para>The <varname remap="structname">sd_bus_error</varname> structure carries
     information for a <filename>sd-bus</filename> error.
     Functions described below can be used to set and query fields in
-    this structure. The <structfield>name</structfield> field contains a
+    this structure. The <varname remap="structfield">name</varname> field contains a
     short identifier of an error. It should follow the rules for error
-    names described in the D-Bus specification, subsection <ulink
-    url="http://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names">Valid
-    Names</ulink>. The <structfield>message</structfield> is a human
+    names described in the D-Bus specification, subsection <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names">Valid
+    Names</link>. The <varname remap="structfield">message</varname> is a human
     readable string describing the details. When no longer necessary,
     resources held by this structure should be destroyed with
     <function>sd_bus_error_free</function>.</para>
@@ -257,9 +229,9 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
     <function>return</function> statement.</para>
 
     <para>If <parameter>e</parameter> is not
-    <constant>NULL</constant>, <structfield>name</structfield> and
-    <structfield>message</structfield> in the
-    <structname>sd_bus_error</structname> structure
+    <constant>NULL</constant>, <varname remap="structfield">name</varname> and
+    <varname remap="structfield">message</varname> in the
+    <varname remap="structname">sd_bus_error</varname> structure
     <parameter>e</parameter> points at will be filled in. As described above,
     <parameter>name</parameter> may be <constant>NULL</constant>,
     which is treated as no error. Parameter
@@ -272,7 +244,7 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
     <function>sd_bus_error_set</function>, but takes a
     <citerefentry><refentrytitle>printf</refentrytitle><manvolnum>3</manvolnum></citerefentry>
     format string and corresponding arguments to generate
-    <structname>message</structname>.</para>
+    <varname remap="structname">message</varname>.</para>
 
     <para><function>sd_bus_error_set_const</function> is similar to
     <function>sd_bus_error_set</function>, but string parameters are
@@ -280,10 +252,10 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
     <parameter>e</parameter>.</para>
 
     <para><function>sd_bus_error_set_errno</function> will set
-    <structfield>name</structfield> based on an errno-like value.
+    <varname remap="structfield">name</varname> based on an errno-like value.
     <citerefentry><refentrytitle>strerror</refentrytitle><manvolnum>3</manvolnum></citerefentry>
-    will be used to set <structfield>message</structfield>. Well-known
-    D-Bus error names will be used for <structfield>name</structfield>
+    will be used to set <varname remap="structfield">message</varname>. Well-known
+    D-Bus error names will be used for <varname remap="structfield">name</varname>
     if available, otherwise a name in the
     <literal>System.Error</literal> namespace will be generated.
     </para>
@@ -293,11 +265,11 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
     <parameter>name</parameter>, takes a
     <citerefentry><refentrytitle>printf</refentrytitle><manvolnum>3</manvolnum></citerefentry>
     format and corresponding arguments.
-    <structfield>name</structfield> will be generated from
+    <varname remap="structfield">name</varname> will be generated from
     <parameter>format</parameter> and the arguments.</para>
 
     <para><function>sd_bus_error_get_errno</function> is will convert
-    <structname>e-&gt;name</structname> to an errno-like value using the
+    <varname remap="structname">e-&gt;name</varname> to an errno-like value using the
     same rules as <function>sd_bus_error_set</function>.  If
     <parameter>e</parameter> is <constant>NULL</constant>, 0 will be
     returned.</para>
@@ -363,7 +335,7 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
 
   <refsect1>
     <title>Reference ownership</title>
-    <para><structname>sd_bus_error</structname> is not reference
+    <para><varname remap="structname">sd_bus_error</varname> is not reference
     counted. Users should destroy resources held by it by calling
     <function>sd_bus_error_free</function>.</para>
   </refsect1>
@@ -379,7 +351,7 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
         <term><varname>-EINVAL</varname></term>
 
         <listitem><para>Error was already set in
-        <structname>sd_bus_error</structname> structure when one the
+        <varname remap="structname">sd_bus_error</varname> structure when one the
         error-setting functions was called.</para></listitem>
       </varlistentry>
 

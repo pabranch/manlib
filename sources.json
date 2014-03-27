@@ -366,7 +366,7 @@ cp -r /tmp/sudo-inst/usr/local/man/man[1-8] man/"
     "type": "git",
     "url": "git://anongit.freedesktop.org/systemd/systemd",
     "cmd": "(cd sources/systemd/; libtoolize; aclocal; autoheader; ./autogen.sh; ./configure CFLAGS='-g -O0' --sysconfdir=/etc --localstatedir=/var --libdir=/usr/lib64 --enable-gtk-doc; make man/custom-entities.ent);
-find sources/systemd/man -name '*.xml' -print0 | while read -d $'\\0' -r file ; do manNum=$(xmllint --shell $file  <<< \"cat //refmeta/manvolnum/text()\"  | grep -v \"^/ >\"); cp $file \"xml/man$manNum/$(basename -s .xml $file).$manNum.xml\"; done"
+find sources/systemd/man -name '*.xml' -print0 | while read -d $'\\0' -r file ; do manNum=$(xmllint --shell $file  <<< \"cat //refmeta/manvolnum/text()\"  | grep -v \"^/ >\"); [ -z \"$manNum\" ] || xsltproc -o \"xml/man$manNum/$(basename -s .xml $file).$manNum.xml\" --xinclude utils/db4-upgrade.xsl $file; done"
   },
 
   "tcpdump": {

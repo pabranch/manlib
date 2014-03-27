@@ -1,42 +1,14 @@
-<?xml version='1.0'?> <!--*-nxml-*-->
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
-        "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="journalctl">
 
-<!--
-  This file is part of systemd.
-
-  Copyright 2012 Lennart Poettering
-
-  systemd is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Lesser General Public License as published by
-  the Free Software Foundation; either version 2.1 of the License, or
-  (at your option) any later version.
-
-  systemd is distributed in the hope that it will be useful, but
-  WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-  Lesser General Public License for more details.
-
-  You should have received a copy of the GNU Lesser General Public License
-  along with systemd; If not, see <http://www.gnu.org/licenses/>.
--->
-
-<refentry id="journalctl"
-          xmlns:xi="http://www.w3.org/2001/XInclude">
-
-        <refentryinfo>
-                <title>journalctl</title>
+        <info>
+                
                 <productname>systemd</productname>
 
                 <authorgroup>
-                        <author>
-                                <contrib>Developer</contrib>
-                                <firstname>Lennart</firstname>
-                                <surname>Poettering</surname>
-                                <email>lennart@poettering.net</email>
-                        </author>
+                        <author><personname><firstname>Lennart</firstname><surname>Poettering</surname></personname><contrib>Developer</contrib><email>lennart@poettering.net</email></author>
                 </authorgroup>
-        </refentryinfo>
+        </info>
 
         <refmeta>
                 <refentrytitle>journalctl</refentrytitle>
@@ -49,7 +21,7 @@
         </refnamediv>
 
         <refsynopsisdiv>
-                <cmdsynopsis>
+                <cmdsynopsis sepchar=" ">
                         <command>journalctl</command>
                         <arg choice="opt" rep="repeat">OPTIONS</arg>
                         <arg choice="opt" rep="repeat">MATCHES</arg>
@@ -299,9 +271,8 @@
                                                         (but mostly text-based)
                                                         stream suitable for
                                                         backups and network
-                                                        transfer (see <ulink
-                                                        url="http://www.freedesktop.org/wiki/Software/systemd/export">Journal
-                                                        Export Format</ulink>
+                                                        transfer (see <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/export">Journal
+                                                        Export Format</link>
                                                         for more
                                                         information).</para>
                                                 </listitem>
@@ -314,9 +285,8 @@
                                                 <listitem>
                                                         <para>formats entries
                                                         as JSON data structures,
-                                                        one per line (see <ulink
-                                                        url="http://www.freedesktop.org/wiki/Software/systemd/json">Journal
-                                                        JSON Format</ulink> for
+                                                        one per line (see <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/json">Journal
+                                                        JSON Format</link> for
                                                         more information).</para>
                                                 </listitem>
                                         </varlistentry>
@@ -343,9 +313,8 @@
                                                         <para>formats entries as
                                                         JSON data structures,
                                                         but wraps them in a
-                                                        format suitable for <ulink
-                                                        url="https://developer.mozilla.org/en-US/docs/Server-sent_events/Using_server-sent_events">Server-Sent
-                                                        Events</ulink>.</para>
+                                                        format suitable for <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://developer.mozilla.org/en-US/docs/Server-sent_events/Using_server-sent_events">Server-Sent
+                                                        Events</link>.</para>
                                                 </listitem>
                                         </varlistentry>
 
@@ -385,10 +354,9 @@
                                 available for all messages, but only
                                 for selected ones. For more
                                 information on the message catalog,
-                                please refer to the <ulink
-                                url="http://www.freedesktop.org/wiki/Software/systemd/catalog">Message
+                                please refer to the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/catalog">Message
                                 Catalog Developer
-                                Documentation</ulink>.</para>
+                                Documentation</link>.</para>
 
                                 <para>Note: when attaching
                                 <command>journalctl</command> output
@@ -844,9 +812,28 @@
                                 operation.</para></listitem>
                         </varlistentry>
 
-                        <xi:include href="standard-options.xml" xpointer="help" />
-                        <xi:include href="standard-options.xml" xpointer="version" />
-                        <xi:include href="standard-options.xml" xpointer="no-pager" />
+                        <varlistentry xml:id="help">
+    <term><option>-h</option></term>
+    <term><option>--help</option></term>
+
+    <listitem xml:id="help-text">
+      <para>Print a short help text and exit.
+    </para></listitem>
+  </varlistentry>
+                        <varlistentry xml:id="version">
+    <term><option>--version</option></term>
+
+    <listitem xml:id="version-text">
+      <para>Print a short version string and exit.</para>
+    </listitem>
+  </varlistentry>
+                        <varlistentry xml:id="no-pager">
+    <term><option>--no-pager</option></term>
+
+    <listitem>
+      <para>Do not pipe output into a pager.</para>
+    </listitem>
+  </varlistentry>
                 </variablelist>
         </refsect1>
 
@@ -857,7 +844,31 @@
                 failure code is returned.</para>
         </refsect1>
 
-        <xi:include href="less-variables.xml" />
+        <refsect1>
+        <title>Environment</title>
+
+        <variablelist class="environment-variables">
+                <varlistentry>
+                        <term><varname>$SYSTEMD_PAGER</varname></term>
+
+                        <listitem><para>Pager to use when
+                        <option>--no-pager</option> is not given;
+                        overrides <varname>$PAGER</varname>.  Setting
+                        this to an empty string or the value
+                        <literal>cat</literal> is equivalent to passing
+                        <option>--no-pager</option>.</para></listitem>
+                </varlistentry>
+
+                <varlistentry>
+                        <term><varname>$SYSTEMD_LESS</varname></term>
+
+                        <listitem><para>Override the default
+                        options passed to
+                        <command>less</command>
+                        (<literal>FRSXMK</literal>).</para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect1>
 
         <refsect1>
                 <title>Examples</title>
@@ -892,7 +903,7 @@
 
                 <programlisting>journalctl /usr/bin/dbus-daemon</programlisting>
 
-                <para>Show all logs of the kernel device node <filename noindex='true'>/dev/sda</filename>:</para>
+                <para>Show all logs of the kernel device node <filename noindex="true">/dev/sda</filename>:</para>
 
                 <programlisting>journalctl /dev/sda</programlisting>
 

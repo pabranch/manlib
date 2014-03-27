@@ -1,42 +1,14 @@
-<?xml version='1.0'?> <!--*-nxml-*-->
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
-        "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="systemd-nspawn">
 
-<!--
-  This file is part of systemd.
-
-  Copyright 2010 Lennart Poettering
-
-  systemd is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Lesser General Public License as published by
-  the Free Software Foundation; either version 2.1 of the License, or
-  (at your option) any later version.
-
-  systemd is distributed in the hope that it will be useful, but
-  WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-  Lesser General Public License for more details.
-
-  You should have received a copy of the GNU Lesser General Public License
-  along with systemd; If not, see <http://www.gnu.org/licenses/>.
--->
-
-<refentry id="systemd-nspawn"
-          xmlns:xi="http://www.w3.org/2001/XInclude">
-
-        <refentryinfo>
-                <title>systemd-nspawn</title>
+        <info>
+                
                 <productname>systemd</productname>
 
                 <authorgroup>
-                        <author>
-                                <contrib>Developer</contrib>
-                                <firstname>Lennart</firstname>
-                                <surname>Poettering</surname>
-                                <email>lennart@poettering.net</email>
-                        </author>
+                        <author><personname><firstname>Lennart</firstname><surname>Poettering</surname></personname><contrib>Developer</contrib><email>lennart@poettering.net</email></author>
                 </authorgroup>
-        </refentryinfo>
+        </info>
 
         <refmeta>
                 <refentrytitle>systemd-nspawn</refentrytitle>
@@ -49,16 +21,16 @@
         </refnamediv>
 
         <refsynopsisdiv>
-                <cmdsynopsis>
+                <cmdsynopsis sepchar=" ">
                         <command>systemd-nspawn</command>
                         <arg choice="opt" rep="repeat">OPTIONS</arg>
-                        <arg choice="opt"><replaceable>COMMAND</replaceable>
+                        <arg choice="opt" rep="norepeat"><replaceable>COMMAND</replaceable>
                         <arg choice="opt" rep="repeat">ARGS</arg>
                         </arg>
                 </cmdsynopsis>
-                <cmdsynopsis>
+                <cmdsynopsis sepchar=" ">
                         <command>systemd-nspawn</command>
-                        <arg choice="plain">-b</arg>
+                        <arg choice="plain" rep="norepeat">-b</arg>
                         <arg choice="opt" rep="repeat">OPTIONS</arg>
                         <arg choice="opt" rep="repeat">ARGS</arg>
                 </cmdsynopsis>
@@ -130,9 +102,8 @@
                 additional login prompt in a running container.</para>
 
                 <para><command>systemd-nspawn</command> implements the
-                <ulink
-                url="http://www.freedesktop.org/wiki/Software/systemd/ContainerInterface">Container
-                Interface</ulink> specification.</para>
+                <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/ContainerInterface">Container
+                Interface</link> specification.</para>
 
                 <para>As a safety check
                 <command>systemd-nspawn</command> will verify the
@@ -189,9 +160,8 @@
                                 appropriate places in the
                                 container. All these partitions must
                                 be identified by the partition types
-                                defined by the <ulink
-                                url="http://www.freedesktop.org/wiki/Specifications/DiscoverablePartitionsSpec/">Discoverable
-                                Partitions Specification</ulink>. Any
+                                defined by the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Specifications/DiscoverablePartitionsSpec/">Discoverable
+                                Partitions Specification</link>. Any
                                 other partitions, such as foreign
                                 partitions, swap partitions or EFI
                                 system partitions are not mounted. May
@@ -619,8 +589,21 @@
                                 of the container OS itself.</para></listitem>
                         </varlistentry>
 
-                        <xi:include href="standard-options.xml" xpointer="help" />
-                        <xi:include href="standard-options.xml" xpointer="version" />
+                        <varlistentry xml:id="help">
+    <term><option>-h</option></term>
+    <term><option>--help</option></term>
+
+    <listitem xml:id="help-text">
+      <para>Print a short help text and exit.
+    </para></listitem>
+  </varlistentry>
+                        <varlistentry xml:id="version">
+    <term><option>--version</option></term>
+
+    <listitem xml:id="version-text">
+      <para>Print a short version string and exit.</para>
+    </listitem>
+  </varlistentry>
                 </variablelist>
 
         </refsect1>
@@ -632,7 +615,7 @@
 # systemd-nspawn -bD /srv/mycontainer</programlisting>
 
                 <para>This installs a minimal Fedora distribution into
-                the directory <filename noindex='true'>/srv/mycontainer/</filename> and
+                the directory <filename noindex="true">/srv/mycontainer/</filename> and
                 then boots an OS in a namespace container in
                 it.</para>
         </refsect1>

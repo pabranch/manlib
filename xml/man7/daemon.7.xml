@@ -1,41 +1,14 @@
-<?xml version='1.0'?> <!--*-nxml-*-->
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
-        "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="daemon">
 
-<!--
-  This file is part of systemd.
-
-  Copyright 2010 Lennart Poettering
-
-  systemd is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Lesser General Public License as published by
-  the Free Software Foundation; either version 2.1 of the License, or
-  (at your option) any later version.
-
-  systemd is distributed in the hope that it will be useful, but
-  WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-  Lesser General Public License for more details.
-
-  You should have received a copy of the GNU Lesser General Public License
-  along with systemd; If not, see <http://www.gnu.org/licenses/>.
--->
-
-<refentry id="daemon">
-
-        <refentryinfo>
-                <title>daemon</title>
+        <info>
+                
                 <productname>systemd</productname>
 
                 <authorgroup>
-                        <author>
-                                <contrib>Developer</contrib>
-                                <firstname>Lennart</firstname>
-                                <surname>Poettering</surname>
-                                <email>lennart@poettering.net</email>
-                        </author>
+                        <author><personname><firstname>Lennart</firstname><surname>Poettering</surname></personname><contrib>Developer</contrib><email>lennart@poettering.net</email></author>
                 </authorgroup>
-        </refentryinfo>
+        </info>
 
         <refmeta>
                 <refentrytitle>daemon</refentrytitle>
@@ -251,10 +224,9 @@
                                 this is used by the init system to
                                 detect service errors and problems. It
                                 is recommended to follow the exit code
-                                scheme as defined in the <ulink
-                                url="http://refspecs.linuxbase.org/LSB_3.1.1/LSB-Core-generic/LSB-Core-generic/iniscrptact.html">LSB
+                                scheme as defined in the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://refspecs.linuxbase.org/LSB_3.1.1/LSB-Core-generic/LSB-Core-generic/iniscrptact.html">LSB
                                 recommendations for SysV init
-                                scripts</ulink>.</para></listitem>
+                                scripts</link>.</para></listitem>
 
                                 <listitem><para>If possible and
                                 applicable, expose the daemon's control
@@ -353,9 +325,8 @@
                         </orderedlist>
 
                         <para>These recommendations are similar but
-                        not identical to the <ulink
-                        url="http://developer.apple.com/mac/library/documentation/MacOSX/Conceptual/BPSystemStartup/Articles/LaunchOnDemandDaemons.html#//apple_ref/doc/uid/TP40001762-104738">Apple
-                        MacOS X Daemon Requirements</ulink>.</para>
+                        not identical to the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://developer.apple.com/mac/library/documentation/MacOSX/Conceptual/BPSystemStartup/Articles/LaunchOnDemandDaemons.html#//apple_ref/doc/uid/TP40001762-104738">Apple
+                        MacOS X Daemon Requirements</link>.</para>
                 </refsect2>
 
         </refsect1>
@@ -394,10 +365,9 @@
                         <para>Old-style daemons are usually activated
                         exclusively on boot (and manually by the
                         administrator) via SysV init scripts, as
-                        detailed in the <ulink
-                        url="http://refspecs.linuxbase.org/LSB_3.1.1/LSB-Core-generic/LSB-Core-generic/iniscrptact.html">LSB
+                        detailed in the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://refspecs.linuxbase.org/LSB_3.1.1/LSB-Core-generic/LSB-Core-generic/iniscrptact.html">LSB
                         Linux Standard Base Core
-                        Specification</ulink>. This method of
+                        Specification</link>. This method of
                         activation is supported ubiquitously on Linux
                         init systems, both old-style and new-style
                         systems. Among other issues, SysV init scripts
@@ -861,7 +831,7 @@ endif</programlisting>
 
                         <programlisting>%triggerun -- foobar &lt; 0.47.11-1
 if /sbin/chkconfig --level 5 foobar ; then
-        /bin/systemctl --no-reload enable foobar.service foobar.socket >/dev/null 2>&amp;1 || :
+        /bin/systemctl --no-reload enable foobar.service foobar.socket &gt;/dev/null 2&gt;&amp;1 || :
 fi</programlisting>
 
                         <para>Where 0.47.11-1 is the first package

@@ -1,41 +1,14 @@
-<?xml version='1.0'?> <!--*-nxml-*-->
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
-"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="systemd-journal-remote" conditional="HAVE_MICROHTTPD">
 
-<!--
-This file is part of systemd.
-
-Copyright 2012 Zbigniew Jędrzejewski-Szmek
-
-systemd is free software; you can redistribute it and/or modify it
-under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-systemd is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with systemd; If not, see <http://www.gnu.org/licenses/>.
--->
-
-<refentry id="systemd-journal-remote" conditional='HAVE_MICROHTTPD'>
-
-  <refentryinfo>
-    <title>systemd-journal-remote</title>
+  <info>
+    
     <productname>systemd</productname>
 
     <authorgroup>
-      <author>
-        <contrib>Developer</contrib>
-        <firstname>Zbigniew</firstname>
-        <surname>Jędrzejewski-Szmek</surname>
-        <email>zbyszek@in.waw.pl</email>
-      </author>
+      <author><personname><firstname>Zbigniew</firstname><surname>Jędrzejewski-Szmek</surname></personname><contrib>Developer</contrib><email>zbyszek@in.waw.pl</email></author>
     </authorgroup>
-  </refentryinfo>
+  </info>
 
   <refmeta>
     <refentrytitle>systemd-journal-remote</refentrytitle>
@@ -48,7 +21,7 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis>
+    <cmdsynopsis sepchar=" ">
       <command>systemd-journal-remote</command>
       <arg choice="opt" rep="repeat">OPTIONS</arg>
       <arg choice="opt" rep="norepeat">-o/--output=DIR|FILE</arg>
@@ -63,9 +36,9 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
       <filename>systemd-journal-remote</filename> is a command to
       receive serialized journal events and store them to the journal.
       Input streams must be in the
-      <ulink url="http://www.freedesktop.org/wiki/Software/systemd/export">
+      <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/export">
         Journal Export Format
-      </ulink>,
+      </link>,
       i.e. like the output from
       <command>journalctl --output=export</command>.
     </para>
@@ -118,8 +91,8 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
         <replaceable>ADDRESS</replaceable>. This URL should refer to the
         root of a remote
         <citerefentry><refentrytitle>systemd-journal-gatewayd</refentrytitle><manvolnum>8</manvolnum></citerefentry>
-        instance (e.g. <ulink>http://some.host:19531/</ulink> or
-        <ulink>https://some.host:19531/</ulink>).</para></listitem>
+        instance (e.g. <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="">http://some.host:19531/</link> or
+        <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="">https://some.host:19531/</link>).</para></listitem>
       </varlistentry>
     </variablelist>
 

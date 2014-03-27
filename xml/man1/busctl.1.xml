@@ -1,42 +1,14 @@
-<?xml version='1.0'?> <!--*-nxml-*-->
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
-"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="busctl">
 
-<!--
-This file is part of systemd.
-
-Copyright 2014 Zbigniew Jędrzejewski-Szmek
-
-systemd is free software; you can redistribute it and/or modify it
-under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-systemd is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with systemd; If not, see <http://www.gnu.org/licenses/>.
--->
-
-<refentry id="busctl"
-          xmlns:xi="http://www.w3.org/2001/XInclude">
-
-  <refentryinfo>
-    <title>busctl</title>
+  <info>
+    
     <productname>systemd</productname>
 
     <authorgroup>
-      <author>
-        <contrib>A monkey with a typewriter</contrib>
-        <firstname>Zbigniew</firstname>
-        <surname>Jędrzejewski-Szmek</surname>
-        <email>zbyszek@in.waw.pl</email>
-      </author>
+      <author><personname><firstname>Zbigniew</firstname><surname>Jędrzejewski-Szmek</surname></personname><contrib>A monkey with a typewriter</contrib><email>zbyszek@in.waw.pl</email></author>
     </authorgroup>
-  </refentryinfo>
+  </info>
 
   <refmeta>
     <refentrytitle>busctl</refentrytitle>
@@ -49,10 +21,10 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
   </refnamediv>
 
   <refsynopsisdiv>
-    <cmdsynopsis>
+    <cmdsynopsis sepchar=" ">
       <command>busctl</command>
       <arg choice="opt" rep="repeat">OPTIONS</arg>
-      <arg choice="opt">COMMAND</arg>
+      <arg choice="opt" rep="norepeat">COMMAND</arg>
       <arg choice="opt" rep="repeat"><replaceable>NAME</replaceable></arg>
     </cmdsynopsis>
   </refsynopsisdiv>
@@ -133,14 +105,65 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
         </listitem>
       </varlistentry>
 
-      <xi:include href="user-system-options.xml" xpointer="user" />
-      <xi:include href="user-system-options.xml" xpointer="system" />
-      <xi:include href="user-system-options.xml" xpointer="host" />
-      <xi:include href="user-system-options.xml" xpointer="machine" />
+      <varlistentry xml:id="user">
+    <term><option>--user</option></term>
 
-      <xi:include href="standard-options.xml" xpointer="help" />
-      <xi:include href="standard-options.xml" xpointer="version" />
-      <xi:include href="standard-options.xml" xpointer="no-pager" />
+    <listitem xml:id="user-text">
+      <para>Talk to the service manager of the calling user,
+      rather than the service manager of the system.</para>
+    </listitem>
+  </varlistentry>
+      <varlistentry xml:id="system">
+    <term><option>--system</option></term>
+
+    <listitem xml:id="system-text">
+      <para>Talk to the service manager of the system. This is the
+      implied default.</para>
+    </listitem>
+  </varlistentry>
+      <varlistentry xml:id="host">
+    <term><option>-H</option></term>
+    <term><option>--host=</option></term>
+
+    <listitem xml:id="host-text">
+      <para>Execute the operation remotely. Specify a hostname, or
+      username and hostname separated by <literal>@</literal>, to
+      connect to. This will use SSH to talk to the remote machine
+      manager instance.</para>
+    </listitem>
+  </varlistentry>
+      <varlistentry xml:id="machine">
+    <term><option>-M</option></term>
+    <term><option>--machine=</option></term>
+
+    <listitem xml:id="machine-text">
+      <para>Execute operation on a local container. Specify a
+      container name to connect to.</para>
+    </listitem>
+  </varlistentry>
+
+      <varlistentry xml:id="help">
+    <term><option>-h</option></term>
+    <term><option>--help</option></term>
+
+    <listitem xml:id="help-text">
+      <para>Print a short help text and exit.
+    </para></listitem>
+  </varlistentry>
+      <varlistentry xml:id="version">
+    <term><option>--version</option></term>
+
+    <listitem xml:id="version-text">
+      <para>Print a short version string and exit.</para>
+    </listitem>
+  </varlistentry>
+      <varlistentry xml:id="no-pager">
+    <term><option>--no-pager</option></term>
+
+    <listitem>
+      <para>Do not pipe output into a pager.</para>
+    </listitem>
+  </varlistentry>
     </variablelist>
   </refsect1>
 
@@ -167,7 +190,7 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
       </varlistentry>
 
       <varlistentry>
-        <term><command>status</command>  <arg choice="plain"><replaceable>NAME</replaceable></arg></term>
+        <term><command>status</command>  <arg choice="plain" rep="norepeat"><replaceable>NAME</replaceable></arg></term>
 
         <listitem><para>Show process information and credentials of a
         bus endpoint.</para></listitem>
@@ -186,8 +209,8 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
 
     <para>
       <citerefentry><refentrytitle>dbus-daemon</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
-      <ulink url="http://freedesktop.org/wiki/Software/dbus">D-Bus</ulink>,
-      <ulink url="https://code.google.com/p/d-bus/">kdbus</ulink>,
+      <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://freedesktop.org/wiki/Software/dbus">D-Bus</link>,
+      <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://code.google.com/p/d-bus/">kdbus</link>,
       <citerefentry><refentrytitle>sd-bus</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
       <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
       <citerefentry><refentrytitle>systemd-bus-proxyd</refentrytitle><manvolnum>8</manvolnum></citerefentry>,

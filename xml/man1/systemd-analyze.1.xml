@@ -1,48 +1,15 @@
-<?xml version='1.0'?> <!--*-nxml-*-->
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
-        "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="systemd-analyze">
 
-<!--
-  This file is part of systemd.
-
-  Copyright 2012 Lennart Poettering
-
-  systemd is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Lesser General Public License as published by
-  the Free Software Foundation; either version 2.1 of the License, or
-  (at your option) any later version.
-
-  systemd is distributed in the hope that it will be useful, but
-  WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-  Lesser General Public License for more details.
-
-  You should have received a copy of the GNU Lesser General Public License
-  along with systemd; If not, see <http://www.gnu.org/licenses/>.
--->
-
-<refentry id="systemd-analyze"
-          xmlns:xi="http://www.w3.org/2001/XInclude">
-
-        <refentryinfo>
-                <title>systemd-analyze</title>
+        <info>
+                
                 <productname>systemd</productname>
 
                 <authorgroup>
-                        <author>
-                                <contrib>Developer</contrib>
-                                <firstname>Lennart</firstname>
-                                <surname>Poettering</surname>
-                                <email>lennart@poettering.net</email>
-                        </author>
-                        <author>
-                                <contrib>Developer</contrib>
-                                <firstname>Harald</firstname>
-                                <surname>Hoyer</surname>
-                                <email>harald@redhat.com</email>
-                        </author>
+                        <author><personname><firstname>Lennart</firstname><surname>Poettering</surname></personname><contrib>Developer</contrib><email>lennart@poettering.net</email></author>
+                        <author><personname><firstname>Harald</firstname><surname>Hoyer</surname></personname><contrib>Developer</contrib><email>harald@redhat.com</email></author>
                 </authorgroup>
-        </refentryinfo>
+        </info>
 
         <refmeta>
                 <refentrytitle>systemd-analyze</refentrytitle>
@@ -55,45 +22,45 @@
         </refnamediv>
 
         <refsynopsisdiv>
-                <cmdsynopsis>
+                <cmdsynopsis sepchar=" ">
                         <command>systemd-analyze</command>
                         <arg choice="opt" rep="repeat">OPTIONS</arg>
-                        <arg>time</arg>
+                        <arg choice="opt" rep="norepeat">time</arg>
                 </cmdsynopsis>
-                <cmdsynopsis>
+                <cmdsynopsis sepchar=" ">
                         <command>systemd-analyze</command>
                         <arg choice="opt" rep="repeat">OPTIONS</arg>
-                        <arg choice="plain">blame</arg>
+                        <arg choice="plain" rep="norepeat">blame</arg>
                 </cmdsynopsis>
-                <cmdsynopsis>
+                <cmdsynopsis sepchar=" ">
                         <command>systemd-analyze</command>
                         <arg choice="opt" rep="repeat">OPTIONS</arg>
-                        <arg choice="plain">critical-chain</arg>
+                        <arg choice="plain" rep="norepeat">critical-chain</arg>
                         <arg choice="opt" rep="repeat"><replaceable>UNIT</replaceable></arg>
                 </cmdsynopsis>
-                <cmdsynopsis>
+                <cmdsynopsis sepchar=" ">
                         <command>systemd-analyze</command>
                         <arg choice="opt" rep="repeat">OPTIONS</arg>
-                        <arg choice="plain">plot</arg>
-                        <arg choice="opt">&gt; file.svg</arg>
+                        <arg choice="plain" rep="norepeat">plot</arg>
+                        <arg choice="opt" rep="norepeat">&gt; file.svg</arg>
                 </cmdsynopsis>
-                <cmdsynopsis>
+                <cmdsynopsis sepchar=" ">
                         <command>systemd-analyze</command>
                         <arg choice="opt" rep="repeat">OPTIONS</arg>
-                        <arg choice="plain">dot</arg>
+                        <arg choice="plain" rep="norepeat">dot</arg>
                         <arg choice="opt" rep="repeat"><replaceable>PATTERN</replaceable></arg>
-                        <arg choice="opt">&gt; file.dot</arg>
+                        <arg choice="opt" rep="norepeat">&gt; file.dot</arg>
                 </cmdsynopsis>
-                <cmdsynopsis>
+                <cmdsynopsis sepchar=" ">
                         <command>systemd-analyze</command>
                         <arg choice="opt" rep="repeat">OPTIONS</arg>
-                        <arg choice="plain">dump</arg>
+                        <arg choice="plain" rep="norepeat">dump</arg>
                 </cmdsynopsis>
-                <cmdsynopsis>
+                <cmdsynopsis sepchar=" ">
                         <command>systemd-analyze</command>
                         <arg choice="opt" rep="repeat">OPTIONS</arg>
-                        <arg choice="plain">set-log-level</arg>
-                        <arg choice="opt"><replaceable>LEVEL</replaceable></arg>
+                        <arg choice="plain" rep="norepeat">set-log-level</arg>
+                        <arg choice="opt" rep="norepeat"><replaceable>LEVEL</replaceable></arg>
                 </cmdsynopsis>
         </refsynopsisdiv>
 
@@ -146,7 +113,7 @@
                 further processing with the GraphViz
                 <citerefentry><refentrytitle>dot</refentrytitle><manvolnum>1</manvolnum></citerefentry>
                 tool. Use a command line like <command>systemd-analyze
-                dot | dot -Tsvg > systemd.svg</command> to generate a
+                dot | dot -Tsvg &gt; systemd.svg</command> to generate a
                 graphical dependency tree. Unless
                 <option>--order</option> or <option>--require</option>
                 is passed, the generated graph will show both ordering
@@ -257,12 +224,49 @@
                                 e.g. "50ms".</para></listitem>
                         </varlistentry>
 
-                        <xi:include href="user-system-options.xml" xpointer="host" />
-                        <xi:include href="user-system-options.xml" xpointer="machine" />
+                        <varlistentry xml:id="host">
+    <term><option>-H</option></term>
+    <term><option>--host=</option></term>
 
-                        <xi:include href="standard-options.xml" xpointer="help" />
-                        <xi:include href="standard-options.xml" xpointer="version" />
-                        <xi:include href="standard-options.xml" xpointer="no-pager" />
+    <listitem xml:id="host-text">
+      <para>Execute the operation remotely. Specify a hostname, or
+      username and hostname separated by <literal>@</literal>, to
+      connect to. This will use SSH to talk to the remote machine
+      manager instance.</para>
+    </listitem>
+  </varlistentry>
+                        <varlistentry xml:id="machine">
+    <term><option>-M</option></term>
+    <term><option>--machine=</option></term>
+
+    <listitem xml:id="machine-text">
+      <para>Execute operation on a local container. Specify a
+      container name to connect to.</para>
+    </listitem>
+  </varlistentry>
+
+                        <varlistentry xml:id="help">
+    <term><option>-h</option></term>
+    <term><option>--help</option></term>
+
+    <listitem xml:id="help-text">
+      <para>Print a short help text and exit.
+    </para></listitem>
+  </varlistentry>
+                        <varlistentry xml:id="version">
+    <term><option>--version</option></term>
+
+    <listitem xml:id="version-text">
+      <para>Print a short version string and exit.</para>
+    </listitem>
+  </varlistentry>
+                        <varlistentry xml:id="no-pager">
+    <term><option>--no-pager</option></term>
+
+    <listitem>
+      <para>Do not pipe output into a pager.</para>
+    </listitem>
+  </varlistentry>
                 </variablelist>
 
         </refsect1>
@@ -280,18 +284,42 @@
                 <para>This plots all dependencies of any unit whose
                 name starts with <literal>avahi-daemon.</literal>:</para>
 
-                <programlisting>$ systemd-analyze dot 'avahi-daemon.*' | dot -Tsvg > avahi.svg
+                <programlisting>$ systemd-analyze dot 'avahi-daemon.*' | dot -Tsvg &gt; avahi.svg
 $ eog avahi.svg</programlisting>
 
                 <para>This plots the dependencies between all known target units:</para>
 
-                <programlisting>systemd-analyze dot --to-pattern='*.target' --from-pattern='*.target' | dot -Tsvg > targets.svg
+                <programlisting>systemd-analyze dot --to-pattern='*.target' --from-pattern='*.target' | dot -Tsvg &gt; targets.svg
 $ eog targets.svg</programlisting>
 
 
         </refsect1>
 
-        <xi:include href="less-variables.xml" />
+        <refsect1>
+        <title>Environment</title>
+
+        <variablelist class="environment-variables">
+                <varlistentry>
+                        <term><varname>$SYSTEMD_PAGER</varname></term>
+
+                        <listitem><para>Pager to use when
+                        <option>--no-pager</option> is not given;
+                        overrides <varname>$PAGER</varname>.  Setting
+                        this to an empty string or the value
+                        <literal>cat</literal> is equivalent to passing
+                        <option>--no-pager</option>.</para></listitem>
+                </varlistentry>
+
+                <varlistentry>
+                        <term><varname>$SYSTEMD_LESS</varname></term>
+
+                        <listitem><para>Override the default
+                        options passed to
+                        <command>less</command>
+                        (<literal>FRSXMK</literal>).</para></listitem>
+                </varlistentry>
+        </variablelist>
+</refsect1>
 
         <refsect1>
                 <title>See Also</title>

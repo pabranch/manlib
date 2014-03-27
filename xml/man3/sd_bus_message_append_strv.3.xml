@@ -1,42 +1,14 @@
-<?xml version='1.0'?> <!--*-nxml-*-->
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
-"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="sd_bus_message_append_strv" conditional="ENABLE_KDBUS">
 
-<!--
-This file is part of systemd.
-
-Copyright 2014 Zbigniew Jędrzejewski-Szmek
-
-systemd is free software; you can redistribute it and/or modify it
-under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-systemd is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with systemd; If not, see <http://www.gnu.org/licenses/>.
--->
-
-<refentry id="sd_bus_message_append_strv" conditional="ENABLE_KDBUS"
-          xmlns:xi="http://www.w3.org/2001/XInclude">
-
-  <refentryinfo>
-    <title>sd_bus_message_append_strv</title>
+  <info>
+    
     <productname>systemd</productname>
 
     <authorgroup>
-      <author>
-        <contrib>A monkey with a typewriter</contrib>
-        <firstname>Zbigniew</firstname>
-        <surname>Jędrzejewski-Szmek</surname>
-        <email>zbyszek@in.waw.pl</email>
-      </author>
+      <author><personname><firstname>Zbigniew</firstname><surname>Jędrzejewski-Szmek</surname></personname><contrib>A monkey with a typewriter</contrib><email>zbyszek@in.waw.pl</email></author>
     </authorgroup>
-  </refentryinfo>
+  </info>
 
   <refmeta>
     <refentrytitle>sd_bus_message_append_strv</refentrytitle>
@@ -89,7 +61,48 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
     failure, a negative errno-style error code is returned.</para>
   </refsect1>
 
-  <xi:include href="sd_bus_message_append_basic.xml" xpointer="errors" />
+  <refsect1 xml:id="errors">
+    <title>Errors</title>
+
+    <para>Returned errors may indicate the following problems:</para>
+
+    <variablelist>
+
+      <varlistentry>
+        <term><varname>-EINVAL</varname></term>
+
+        <listitem><para>Specified parameter is invalid.
+        </para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><varname>-EPERM</varname></term>
+
+        <listitem><para>Message has been sealed.
+        </para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><varname>-ESTALE</varname></term>
+
+        <listitem><para>Message is in invalid state.
+        </para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><varname>-ENXIO</varname></term>
+
+        <listitem><para>Message cannot be appended to.
+        </para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><varname>-ENOMEM</varname></term>
+
+        <listitem><para>Memory allocation failed.</para></listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
 
   <refsect1>
     <title>Notes</title>
@@ -109,7 +122,7 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
       <citerefentry><refentrytitle>sd-bus</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
       <citerefentry><refentrytitle>sd_bus_message_append</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
       <citerefentry><refentrytitle>sd_bus_message_append_array</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
-      <ulink url="http://dbus.freedesktop.org/doc/dbus-specification.html">The D-Bus specification</ulink>
+      <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://dbus.freedesktop.org/doc/dbus-specification.html">The D-Bus specification</link>
     </para>
   </refsect1>
 

@@ -1,42 +1,14 @@
-<?xml version='1.0'?> <!--*-nxml-*-->
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
-        "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="sd-login" conditional="HAVE_PAM">
 
-<!--
-  This file is part of systemd.
-
-  Copyright 2010 Lennart Poettering
-
-  systemd is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Lesser General Public License as published by
-  the Free Software Foundation; either version 2.1 of the License, or
-  (at your option) any later version.
-
-  systemd is distributed in the hope that it will be useful, but
-  WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-  Lesser General Public License for more details.
-
-  You should have received a copy of the GNU Lesser General Public License
-  along with systemd; If not, see <http://www.gnu.org/licenses/>.
--->
-
-<refentry id="sd-login" conditional='HAVE_PAM'
-        xmlns:xi="http://www.w3.org/2001/XInclude">
-
-        <refentryinfo>
-                <title>sd-login</title>
+        <info>
+                
                 <productname>systemd</productname>
 
                 <authorgroup>
-                        <author>
-                                <contrib>Developer</contrib>
-                                <firstname>Lennart</firstname>
-                                <surname>Poettering</surname>
-                                <email>lennart@poettering.net</email>
-                        </author>
+                        <author><personname><firstname>Lennart</firstname><surname>Poettering</surname></personname><contrib>Developer</contrib><email>lennart@poettering.net</email></author>
                 </authorgroup>
-        </refentryinfo>
+        </info>
 
         <refmeta>
                 <refentrytitle>sd-login</refentrytitle>
@@ -54,7 +26,7 @@
                         <funcsynopsisinfo>#include &lt;systemd/sd-login.h&gt;</funcsynopsisinfo>
                 </funcsynopsis>
 
-                <cmdsynopsis>
+                <cmdsynopsis sepchar=" ">
                         <command>pkg-config --cflags --libs libsystemd</command>
                 </cmdsynopsis>
         </refsynopsisdiv>
@@ -66,9 +38,8 @@
                 introspect and monitor seat, login session and user
                 status information on the local system. </para>
 
-                <para>See <ulink
-                url="http://www.freedesktop.org/wiki/Software/systemd/multiseat">Multi-Seat
-                on Linux</ulink> for an introduction into multi-seat
+                <para>See <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/multiseat">Multi-Seat
+                on Linux</link> for an introduction into multi-seat
                 support on Linux, the background for this set of APIs.</para>
 
                 <para>Note that these APIs only allow purely passive access
@@ -118,7 +89,14 @@
                 implemented.</para>
         </refsect1>
 
-        <xi:include href="libsystemd-pkgconfig.xml" />
+        <refsect1>
+  <title>Notes</title>
+
+  <para xml:id="pkgconfig-text">These APIs are implemented as a shared
+  library, which can be compiled and linked to with the
+  <constant>libsystemd</constant> <citerefentry><refentrytitle>pkg-config</refentrytitle><manvolnum>1</manvolnum></citerefentry>
+  file.</para>
+</refsect1>
 
         <refsect1>
                 <title>See Also</title>

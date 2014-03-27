@@ -1,42 +1,14 @@
-<?xml version='1.0'?> <!--*-nxml-*-->
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
-        "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="systemd">
 
-<!--
-  This file is part of systemd.
-
-  Copyright 2010 Lennart Poettering
-
-  systemd is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Lesser General Public License as published by
-  the Free Software Foundation; either version 2.1 of the License, or
-  (at your option) any later version.
-
-  systemd is distributed in the hope that it will be useful, but
-  WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-  Lesser General Public License for more details.
-
-  You should have received a copy of the GNU Lesser General Public License
-  along with systemd; If not, see <http://www.gnu.org/licenses/>.
--->
-
-<refentry id="systemd"
-          xmlns:xi="http://www.w3.org/2001/XInclude">
-
-        <refentryinfo>
-                <title>systemd</title>
+        <info>
+                
                 <productname>systemd</productname>
 
                 <authorgroup>
-                        <author>
-                                <contrib>Developer</contrib>
-                                <firstname>Lennart</firstname>
-                                <surname>Poettering</surname>
-                                <email>lennart@poettering.net</email>
-                        </author>
+                        <author><personname><firstname>Lennart</firstname><surname>Poettering</surname></personname><contrib>Developer</contrib><email>lennart@poettering.net</email></author>
                 </authorgroup>
-        </refentryinfo>
+        </info>
 
         <refmeta>
                 <refentrytitle>systemd</refentrytitle>
@@ -50,11 +22,11 @@
         </refnamediv>
 
         <refsynopsisdiv>
-                <cmdsynopsis>
+                <cmdsynopsis sepchar=" ">
                         <command>systemd <arg choice="opt" rep="repeat">OPTIONS</arg></command>
                 </cmdsynopsis>
-                <cmdsynopsis>
-                        <command>init <arg choice="opt" rep="repeat">OPTIONS</arg> <arg choice="req">COMMAND</arg></command>
+                <cmdsynopsis sepchar=" ">
+                        <command>init <arg choice="opt" rep="repeat">OPTIONS</arg> <arg choice="req" rep="norepeat">COMMAND</arg></command>
                 </cmdsynopsis>
         </refsynopsisdiv>
 
@@ -253,8 +225,21 @@
                                 <option>inherit</option>.</para></listitem>
                         </varlistentry>
 
-                        <xi:include href="standard-options.xml" xpointer="help" />
-                        <xi:include href="standard-options.xml" xpointer="version" />
+                        <varlistentry xml:id="help">
+    <term><option>-h</option></term>
+    <term><option>--help</option></term>
+
+    <listitem xml:id="help-text">
+      <para>Print a short help text and exit.
+    </para></listitem>
+  </varlistentry>
+                        <varlistentry xml:id="version">
+    <term><option>--version</option></term>
+
+    <listitem xml:id="version-text">
+      <para>Print a short version string and exit.</para>
+    </listitem>
+  </varlistentry>
                 </variablelist>
         </refsect1>
 
@@ -415,8 +400,7 @@
                 <para>Processes systemd spawns are placed in
                 individual Linux control groups named after the unit
                 which they belong to in the private systemd
-                hierarchy. (see <ulink
-                url="https://www.kernel.org/doc/Documentation/cgroups/cgroups.txt">cgroups.txt</ulink>
+                hierarchy. (see <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://www.kernel.org/doc/Documentation/cgroups/cgroups.txt">cgroups.txt</link>
                 for more information about control groups, or short
                 "cgroups"). systemd uses this to effectively keep
                 track of processes. Control group information is
@@ -471,29 +455,24 @@
                 <filename>/proc</filename>.</para>
 
                 <para>For more information about the concepts and
-                ideas behind systemd, please refer to the <ulink
-                url="http://0pointer.de/blog/projects/systemd.html">Original
-                Design Document</ulink>.</para>
+                ideas behind systemd, please refer to the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://0pointer.de/blog/projects/systemd.html">Original
+                Design Document</link>.</para>
 
                 <para>Note that some but not all interfaces provided
-                by systemd are covered by the <ulink
-                url="http://www.freedesktop.org/wiki/Software/systemd/InterfaceStabilityPromise">Interface
-                Stability Promise</ulink>.</para>
+                by systemd are covered by the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/InterfaceStabilityPromise">Interface
+                Stability Promise</link>.</para>
 
                 <para>Units may be generated dynamically at boot and
                 system manager reload time, for example based on other
                 configuration files or parameters passed on the kernel
-                command line. For details see the <ulink
-                url="http://www.freedesktop.org/wiki/Software/systemd/Generators">Generators
-                Specification</ulink>.</para>
+                command line. For details see the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/Generators">Generators
+                Specification</link>.</para>
 
                 <para>Systems which invoke systemd in a container
                 or initrd environment should implement the
-                <ulink
-                url="http://www.freedesktop.org/wiki/Software/systemd/ContainerInterface">Container
-                Interface</ulink> or <ulink
-                url="http://www.freedesktop.org/wiki/Software/systemd/InitrdInterface">initrd
-                Interface</ulink> specifications, respectively.</para>
+                <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/ContainerInterface">Container
+                Interface</link> or <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/InitrdInterface">initrd
+                Interface</link> specifications, respectively.</para>
         </refsect1>
 
         <refsect1>
@@ -538,9 +517,8 @@
 
                                 <listitem><para>Similar rules apply
                                 for the user unit
-                                directories. However, here the <ulink
-                                url="http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html">XDG
-                                Base Directory specification</ulink>
+                                directories. However, here the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html">XDG
+                                Base Directory specification</link>
                                 is followed to find
                                 units. Applications should place their
                                 unit files in the directory returned
@@ -872,7 +850,7 @@
         <refsect1>
                 <title>Environment</title>
 
-                <variablelist class='environment-variables'>
+                <variablelist class="environment-variables">
                         <varlistentry>
                                 <term><varname>$SYSTEMD_LOG_LEVEL</varname></term>
                                 <listitem><para>systemd reads the
@@ -914,9 +892,8 @@
 
                                 <listitem><para>The systemd user
                                 manager uses these variables in
-                                accordance to the <ulink
-                                url="http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html">XDG
-                                Base Directory specification</ulink>
+                                accordance to the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html">XDG
+                                Base Directory specification</link>
                                 to find its configuration.</para></listitem>
                         </varlistentry>
 
@@ -982,7 +959,7 @@
                 <filename>/proc/cmdline</filename>
                 instead.</para></footnote>:</para>
 
-                <variablelist class='kernel-commandline-options'>
+                <variablelist class="kernel-commandline-options">
                         <varlistentry>
                                 <term><varname>systemd.unit=</varname></term>
                                 <term><varname>rd.systemd.unit=</varname></term>
@@ -1264,7 +1241,7 @@
         <refsect1>
                 <title>See Also</title>
                 <para>
-                        The <ulink url="http://www.freedesktop.org/wiki/Software/systemd/">systemd Homepage</ulink>,
+                        The <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/">systemd Homepage</link>,
                         <citerefentry><refentrytitle>systemd-system.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>locale.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>systemctl</refentrytitle><manvolnum>1</manvolnum></citerefentry>,

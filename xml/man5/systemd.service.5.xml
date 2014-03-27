@@ -1,41 +1,13 @@
-<?xml version='1.0'?> <!--*-nxml-*-->
-<?xml-stylesheet type="text/xsl" href="http://docbook.sourceforge.net/release/xsl/current/xhtml/docbook.xsl"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
-        "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
-
-<!--
-  This file is part of systemd.
-
-  Copyright 2010 Lennart Poettering
-
-  systemd is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Lesser General Public License as published by
-  the Free Software Foundation; either version 2.1 of the License, or
-  (at your option) any later version.
-
-  systemd is distributed in the hope that it will be useful, but
-  WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-  Lesser General Public License for more details.
-
-  You should have received a copy of the GNU Lesser General Public License
-  along with systemd; If not, see <http://www.gnu.org/licenses/>.
--->
-
-<refentry id="systemd.service">
-        <refentryinfo>
-                <title>systemd.service</title>
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="systemd.service">
+        <info>
+                
                 <productname>systemd</productname>
 
                 <authorgroup>
-                        <author>
-                                <contrib>Developer</contrib>
-                                <firstname>Lennart</firstname>
-                                <surname>Poettering</surname>
-                                <email>lennart@poettering.net</email>
-                        </author>
+                        <author><personname><firstname>Lennart</firstname><surname>Poettering</surname></personname><contrib>Developer</contrib><email>lennart@poettering.net</email></author>
                 </authorgroup>
-        </refentryinfo>
+        </info>
 
         <refmeta>
                 <refentrytitle>systemd.service</refentrytitle>
@@ -103,9 +75,8 @@
                 script. This is useful for compatibility with
                 SysV. Note that this compatibility is quite
                 comprehensive but not 100%. For details about the
-                incompatibilities, see the <ulink
-                url="http://www.freedesktop.org/wiki/Software/systemd/Incompatibilities">Incompatibilities
-                with SysV</ulink> document.
+                incompatibilities, see the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/Incompatibilities">Incompatibilities
+                with SysV</link> document.
                 </para>
         </refsect1>
 
@@ -124,7 +95,7 @@
                 options specific to the <literal>[Service]</literal>
                 section of service units are the following:</para>
 
-                <variablelist class='unit-directives'>
+                <variablelist class="unit-directives">
                         <varlistentry>
                                 <term><varname>Type=</varname></term>
 
@@ -762,7 +733,7 @@ ExecStart=/bin/echo $ONE $TWO ${TWO}</programlisting>
                                 in response to a signal, the
                                 information about the signal is lost.
                                 Programs should instead perform cleanup and kill themselves with the same signal instead. See
-                                <ulink url="http://www.cons.org/cracauer/sigint.html">Proper handling of SIGINT/SIGQUIT — How to be a proper program</ulink>.</para>
+                                <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.cons.org/cracauer/sigint.html">Proper handling of SIGINT/SIGQUIT — How to be a proper program</link>.</para>
 
                                 <para>This option may appear more than once,
                                 in which case the list of successful
@@ -857,7 +828,7 @@ ExecStart=/bin/echo $ONE $TWO ${TWO}</programlisting>
                                 <constant>O_NONBLOCK</constant> flag
                                 for all file descriptors passed via
                                 socket-based activation. If true, all
-                                file descriptors >= 3 (i.e. all except
+                                file descriptors &gt;= 3 (i.e. all except
                                 stdin, stdout, and stderr) will have
                                 the <constant>O_NONBLOCK</constant> flag
                                 set and hence are in
@@ -1035,7 +1006,7 @@ ExecStart=/bin/echo $ONE $TWO ${TWO}</programlisting>
                 for compatibility reasons and should not be used in
                 newly written service files.</para>
 
-                <variablelist class='unit-directives'>
+                <variablelist class="unit-directives">
                         <varlistentry>
                                 <term><varname>SysVStartPriority=</varname></term>
                                 <listitem><para>Set the SysV start

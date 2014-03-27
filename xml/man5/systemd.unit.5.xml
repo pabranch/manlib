@@ -1,44 +1,14 @@
-<?xml version='1.0'?> <!--*-nxml-*-->
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
-        "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
-<!ENTITY % entities SYSTEM "custom-entities.ent" >
-%entities;
-]>
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="systemd.unit">
 
-<!--
-  This file is part of systemd.
-
-  Copyright 2010 Lennart Poettering
-
-  systemd is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Lesser General Public License as published by
-  the Free Software Foundation; either version 2.1 of the License, or
-  (at your option) any later version.
-
-  systemd is distributed in the hope that it will be useful, but
-  WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-  Lesser General Public License for more details.
-
-  You should have received a copy of the GNU Lesser General Public License
-  along with systemd; If not, see <http://www.gnu.org/licenses/>.
--->
-
-<refentry id="systemd.unit">
-
-        <refentryinfo>
-                <title>systemd.unit</title>
+        <info>
+                
                 <productname>systemd</productname>
 
                 <authorgroup>
-                        <author>
-                                <contrib>Developer</contrib>
-                                <firstname>Lennart</firstname>
-                                <surname>Poettering</surname>
-                                <email>lennart@poettering.net</email>
-                        </author>
+                        <author><personname><firstname>Lennart</firstname><surname>Poettering</surname></personname><contrib>Developer</contrib><email>lennart@poettering.net</email></author>
                 </authorgroup>
-        </refentryinfo>
+        </info>
 
         <refmeta>
                 <refentrytitle>systemd.unit</refentrytitle>
@@ -89,9 +59,8 @@
                 <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
                 a temporary system state snapshot, a resource
                 management slice or a group of externally created
-                processes. The syntax is inspired by <ulink
-                url="http://standards.freedesktop.org/desktop-entry-spec/latest/">XDG
-                Desktop Entry Specification</ulink>
+                processes. The syntax is inspired by <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://standards.freedesktop.org/desktop-entry-spec/latest/">XDG
+                Desktop Entry Specification</link>
                 <filename>.desktop</filename> files, which are in turn
                 inspired by Microsoft Windows
                 <filename>.ini</filename> files.</para>
@@ -210,7 +179,7 @@
                 <para>Some unit names reflect paths existing in the
                 file system namespace. Example: a device unit
                 <filename>dev-sda.device</filename> refers to a device
-                with the device node <filename noindex='true'>/dev/sda</filename> in
+                with the device node <filename noindex="true">/dev/sda</filename> in
                 the file system namespace. If this applies, a special
                 way to escape the path name is used, so that the
                 result is usable as part of a filename. Basically,
@@ -251,9 +220,8 @@
                 even manually.</para>
 
                 <para>The unit file format is covered by the
-                <ulink
-                url="http://www.freedesktop.org/wiki/Software/systemd/InterfaceStabilityPromise">Interface
-                Stability Promise</ulink>.</para>
+                <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/InterfaceStabilityPromise">Interface
+                Stability Promise</link>.</para>
 
         </refsect1>
 
@@ -278,9 +246,9 @@
                     Load path when running in system mode (<option>--system</option>).
                   </title>
 
-                  <tgroup cols='2'>
-                    <colspec colname='path' />
-                    <colspec colname='expl' />
+                  <tgroup cols="2">
+                    <colspec colname="path"/>
+                    <colspec colname="expl"/>
                     <thead>
                       <row>
                         <entry>Path</entry>
@@ -309,9 +277,9 @@
                     Load path when running in user mode (<option>--user</option>).
                   </title>
 
-                  <tgroup cols='2'>
-                    <colspec colname='path' />
-                    <colspec colname='expl' />
+                  <tgroup cols="2">
+                    <colspec colname="path"/>
+                    <colspec colname="expl"/>
                     <thead>
                       <row>
                         <entry>Path</entry>
@@ -344,8 +312,7 @@
                 path. See the <command>link</command> command for
                 <citerefentry><refentrytitle>systemctl</refentrytitle><manvolnum>1</manvolnum></citerefentry>. Also,
                 some units are dynamically created via generators
-                <ulink
-                url="http://www.freedesktop.org/wiki/Software/systemd/Generators/">Generators</ulink>.
+                <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/Generators/">Generators</link>.
                 </para>
         </refsect1>
 
@@ -356,7 +323,7 @@
                 carries generic information about the unit that is not
                 dependent on the type of unit:</para>
 
-                <variablelist class='unit-directives'>
+                <variablelist class="unit-directives">
 
                         <varlistentry>
                                 <term><varname>Description=</varname></term>
@@ -1182,7 +1149,7 @@
                 <citerefentry><refentrytitle>systemctl</refentrytitle><manvolnum>1</manvolnum></citerefentry>
                 tool during installation of a unit:</para>
 
-                <variablelist class='unit-directives'>
+                <variablelist class="unit-directives">
                         <varlistentry>
                                 <term><varname>Alias=</varname></term>
 
@@ -1285,10 +1252,10 @@
 
                 <table>
                   <title>Specifiers available in unit files</title>
-                  <tgroup cols='3' align='left' colsep='1' rowsep='1'>
-                    <colspec colname="spec" />
-                    <colspec colname="mean" />
-                    <colspec colname="detail" />
+                  <tgroup cols="3" align="left" colsep="1" rowsep="1">
+                    <colspec colname="spec"/>
+                    <colspec colname="mean"/>
+                    <colspec colname="detail"/>
                     <thead>
                       <row>
                         <entry>Specifier</entry>
@@ -1300,7 +1267,7 @@
                       <row>
                         <entry><literal>%n</literal></entry>
                         <entry>Full unit name</entry>
-                        <entry></entry>
+                        <entry/>
                       </row>
                       <row>
                         <entry><literal>%N</literal></entry>

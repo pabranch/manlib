@@ -1,41 +1,13 @@
-<?xml version='1.0'?> <!--*-nxml-*-->
-<?xml-stylesheet type="text/xsl" href="http://docbook.sourceforge.net/release/xsl/current/xhtml/docbook.xsl"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
-"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
-
-<!--
-This file is part of systemd.
-
-Copyright 2013 Zbigniew Jędrzejewski-Szmek
-
-systemd is free software; you can redistribute it and/or modify it
-under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-systemd is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with systemd; If not, see <http://www.gnu.org/licenses/>.
--->
-
-<refentry id="systemd.resource-control">
-  <refentryinfo>
-    <title>systemd.resource-control</title>
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="systemd.resource-control">
+  <info>
+    
     <productname>systemd</productname>
 
     <authorgroup>
-      <author>
-        <contrib>Developer</contrib>
-        <firstname>Lennart</firstname>
-        <surname>Poettering</surname>
-        <email>lennart@poettering.net</email>
-      </author>
+      <author><personname><firstname>Lennart</firstname><surname>Poettering</surname></personname><contrib>Developer</contrib><email>lennart@poettering.net</email></author>
     </authorgroup>
-  </refentryinfo>
+  </info>
 
   <refmeta>
     <refentrytitle>systemd.resource-control</refentrytitle>
@@ -84,9 +56,8 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
     [Slice], [Scope], [Service], [Socket], [Mount], or [Swap]
     sections, depending on the unit type.</para>
 
-    <para>See the <ulink
-    url="http://www.freedesktop.org/wiki/Software/systemd/ControlGroupInterface/">New
-    Control Group Interfaces</ulink> for an introduction on how to make
+    <para>See the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/ControlGroupInterface/">New
+    Control Group Interfaces</link> for an introduction on how to make
     use of resource control APIs from programs.</para>
   </refsect1>
 
@@ -96,7 +67,7 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
     <para>Units of the types listed above can have settings
     for resource control configuration:</para>
 
-    <variablelist class='unit-directives'>
+    <variablelist class="unit-directives">
 
       <varlistentry>
         <term><varname>CPUAccounting=</varname></term>
@@ -121,8 +92,7 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
           the processes executed. Takes an integer value. This
           controls the <literal>cpu.shares</literal> control group
           attribute, which defaults to 1024. For details about this
-          control group attribute, see <ulink
-          url="https://www.kernel.org/doc/Documentation/scheduler/sched-design-CFS.txt">sched-design-CFS.txt</ulink>.</para>
+          control group attribute, see <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://www.kernel.org/doc/Documentation/scheduler/sched-design-CFS.txt">sched-design-CFS.txt</link>.</para>
 
           <para>Implies <literal>CPUAccounting=true</literal>.</para>
         </listitem>
@@ -155,8 +125,7 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
           respectively. This controls the
           <literal>memory.limit_in_bytes</literal> control group
           attribute. For details about this control group attribute,
-          see <ulink
-          url="https://www.kernel.org/doc/Documentation/cgroups/memory.txt">memory.txt</ulink>.</para>
+          see <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://www.kernel.org/doc/Documentation/cgroups/memory.txt">memory.txt</link>.</para>
 
           <para>Implies <literal>MemoryAccounting=true</literal>.</para>
         </listitem>
@@ -190,8 +159,7 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
         control group attribute, which
         defaults to 1000. For details about
         this control group attribute, see
-        <ulink
-            url="https://www.kernel.org/doc/Documentation/cgroups/blkio-controller.txt">blkio-controller.txt</ulink>.</para>
+        <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://www.kernel.org/doc/Documentation/cgroups/blkio-controller.txt">blkio-controller.txt</link>.</para>
 
         <para>Implies
         <literal>BlockIOAccounting=true</literal>.</para>
@@ -213,8 +181,7 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
           <literal>blkio.weight_device</literal> control group
           attribute, which defaults to 1000. Use this option multiple
           times to set weights for multiple devices. For details about
-          this control group attribute, see <ulink
-          url="https://www.kernel.org/doc/Documentation/cgroups/blkio-controller.txt">blkio-controller.txt</ulink>.</para>
+          this control group attribute, see <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://www.kernel.org/doc/Documentation/cgroups/blkio-controller.txt">blkio-controller.txt</link>.</para>
 
           <para>Implies
           <literal>BlockIOAccounting=true</literal>.</para>
@@ -241,8 +208,7 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
           <literal>blkio.write_bps_device</literal> control group
           attributes. Use this option multiple times to set bandwidth
           limits for multiple devices. For details about these control
-          group attributes, see <ulink
-          url="https://www.kernel.org/doc/Documentation/cgroups/blkio-controller.txt">blkio-controller.txt</ulink>.
+          group attributes, see <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://www.kernel.org/doc/Documentation/cgroups/blkio-controller.txt">blkio-controller.txt</link>.
           </para>
 
           <para>Implies
@@ -265,8 +231,7 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
           the <literal>devices.allow</literal> and
           <literal>devices.deny</literal> control group
           attributes. For details about these control group
-          attributes, see <ulink
-          url="https://www.kernel.org/doc/Documentation/cgroups/devices.txt">devices.txt</ulink>.</para>
+          attributes, see <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://www.kernel.org/doc/Documentation/cgroups/devices.txt">devices.txt</link>.</para>
 
           <para>The device node specifier is either a path to a device
           node in the file system, starting with
@@ -371,10 +336,10 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
       <citerefentry><refentrytitle>systemd.directives</refentrytitle><manvolnum>7</manvolnum></citerefentry>,
       <citerefentry><refentrytitle>systemd.special</refentrytitle><manvolnum>7</manvolnum></citerefentry>,
       The documentation for control groups and specific controllers in the Linux kernel:
-      <ulink url="https://www.kernel.org/doc/Documentation/cgroups/cgroups.txt">cgroups.txt</ulink>,
-      <ulink url="https://www.kernel.org/doc/Documentation/cgroups/cpuacct.txt">cpuacct.txt</ulink>,
-      <ulink url="https://www.kernel.org/doc/Documentation/cgroups/memory.txt">memory.txt</ulink>,
-      <ulink url="https://www.kernel.org/doc/Documentation/cgroups/blkio-controller.txt">blkio-controller.txt</ulink>.
+      <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://www.kernel.org/doc/Documentation/cgroups/cgroups.txt">cgroups.txt</link>,
+      <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://www.kernel.org/doc/Documentation/cgroups/cpuacct.txt">cpuacct.txt</link>,
+      <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://www.kernel.org/doc/Documentation/cgroups/memory.txt">memory.txt</link>,
+      <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://www.kernel.org/doc/Documentation/cgroups/blkio-controller.txt">blkio-controller.txt</link>.
     </para>
   </refsect1>
 </refentry>

@@ -1,28 +1,18 @@
-<?xml version='1.0'?>
-<?xml-stylesheet type="text/xsl" href="http://docbook.sourceforge.net/release/xsl/current/xhtml/docbook.xsl"?>
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
-  "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="systemd-udevd.service">
 
-<refentry id="systemd-udevd.service"
-          xmlns:xi="http://www.w3.org/2001/XInclude">
-
-  <refentryinfo>
-    <title>systemd-udevd.service</title>
+  <info>
+    
     <productname>systemd</productname>
     <authorgroup>
-      <author>
-        <contrib>Developer</contrib>
-        <firstname>Kay</firstname>
-        <surname>Sievers</surname>
-        <email>kay@vrfy.org</email>
-      </author>
+      <author><personname><firstname>Kay</firstname><surname>Sievers</surname></personname><contrib>Developer</contrib><email>kay@vrfy.org</email></author>
     </authorgroup>
-  </refentryinfo>
+  </info>
 
   <refmeta>
     <refentrytitle>systemd-udevd.service</refentrytitle>
     <manvolnum>8</manvolnum>
-    <refmiscinfo class="version"></refmiscinfo>
+    <refmiscinfo class="version"/>
   </refmeta>
 
   <refnamediv>
@@ -38,15 +28,15 @@
     <para><filename>systemd-udevd-control.socket</filename></para>
     <para><filename>systemd-udevd-kernel.socket</filename></para>
 
-    <cmdsynopsis>
+    <cmdsynopsis sepchar=" ">
       <command>/usr/lib/systemd/systemd-udevd</command>
-      <arg><option>--daemon</option></arg>
-      <arg><option>--debug</option></arg>
-      <arg><option>--children-max=</option></arg>
-      <arg><option>--exec-delay=</option></arg>
-      <arg><option>--resolve-names=early|late|never</option></arg>
-      <arg><option>--version</option></arg>
-      <arg><option>--help</option></arg>
+      <arg choice="opt" rep="norepeat"><option>--daemon</option></arg>
+      <arg choice="opt" rep="norepeat"><option>--debug</option></arg>
+      <arg choice="opt" rep="norepeat"><option>--children-max=</option></arg>
+      <arg choice="opt" rep="norepeat"><option>--exec-delay=</option></arg>
+      <arg choice="opt" rep="norepeat"><option>--resolve-names=early|late|never</option></arg>
+      <arg choice="opt" rep="norepeat"><option>--version</option></arg>
+      <arg choice="opt" rep="norepeat"><option>--help</option></arg>
     </cmdsynopsis>
 
   </refsynopsisdiv>
@@ -110,14 +100,22 @@
       <varlistentry>
         <term><option>--help</option></term>
 
-        <xi:include href="standard-options.xml" xpointer="help-text" />
+        <listitem xml:id="help-text">
+      <para>Print a short help text and exit.
+    </para></listitem>
       </varlistentry>
-      <xi:include href="standard-options.xml" xpointer="version" />
+      <varlistentry xml:id="version">
+    <term><option>--version</option></term>
+
+    <listitem xml:id="version-text">
+      <para>Print a short version string and exit.</para>
+    </listitem>
+  </varlistentry>
     </variablelist>
   </refsect1>
 
   <refsect1><title>Environment</title>
-    <variablelist class='environment-variables'>
+    <variablelist class="environment-variables">
       <varlistentry>
         <term><varname>$UDEV_LOG=</varname></term>
         <listitem>
@@ -128,7 +126,7 @@
  </refsect1>
 
   <refsect1><title>Kernel command line</title>
-    <variablelist class='kernel-commandline-options'>
+    <variablelist class="kernel-commandline-options">
       <para>Parameters starting with "rd." will be read when
       <command>systemd-udevd</command> is used in an initrd.</para>
       <varlistentry>

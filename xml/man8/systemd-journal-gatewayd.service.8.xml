@@ -1,42 +1,14 @@
-<?xml version='1.0'?> <!--*-nxml-*-->
-<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
-"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="systemd-journal-gatewayd.service" conditional="HAVE_MICROHTTPD">
 
-<!--
-This file is part of systemd.
-
-Copyright 2012 Zbigniew Jędrzejewski-Szmek
-
-systemd is free software; you can redistribute it and/or modify it
-under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-systemd is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with systemd; If not, see <http://www.gnu.org/licenses/>.
--->
-
-<refentry id="systemd-journal-gatewayd.service" conditional='HAVE_MICROHTTPD'
-          xmlns:xi="http://www.w3.org/2001/XInclude">
-
-  <refentryinfo>
-    <title>systemd-journal-gatewayd.service</title>
+  <info>
+    
     <productname>systemd</productname>
 
     <authorgroup>
-      <author>
-        <contrib>Developer</contrib>
-        <firstname>Zbigniew</firstname>
-        <surname>Jędrzejewski-Szmek</surname>
-        <email>zbyszek@in.waw.pl</email>
-      </author>
+      <author><personname><firstname>Zbigniew</firstname><surname>Jędrzejewski-Szmek</surname></personname><contrib>Developer</contrib><email>zbyszek@in.waw.pl</email></author>
     </authorgroup>
-  </refentryinfo>
+  </info>
 
   <refmeta>
     <refentrytitle>systemd-journal-gatewayd.service</refentrytitle>
@@ -53,7 +25,7 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
   <refsynopsisdiv>
     <para><filename>systemd-journal-gatewayd.service</filename></para>
     <para><filename>systemd-journal-gatewayd.socket</filename></para>
-    <cmdsynopsis>
+    <cmdsynopsis sepchar=" ">
       <command>/usr/lib/systemd/systemd-journal-gatewayd</command>
       <arg choice="opt" rep="repeat">OPTIONS</arg>
     </cmdsynopsis>
@@ -100,8 +72,21 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
         with <option>--cert=</option>.</para></listitem>
       </varlistentry>
 
-      <xi:include href="standard-options.xml" xpointer="help" />
-      <xi:include href="standard-options.xml" xpointer="version" />
+      <varlistentry xml:id="help">
+    <term><option>-h</option></term>
+    <term><option>--help</option></term>
+
+    <listitem xml:id="help-text">
+      <para>Print a short help text and exit.
+    </para></listitem>
+  </varlistentry>
+      <varlistentry xml:id="version">
+    <term><option>--version</option></term>
+
+    <listitem xml:id="version-text">
+      <para>Print a short version string and exit.</para>
+    </listitem>
+  </varlistentry>
     </variablelist>
   </refsect1>
 
@@ -186,9 +171,8 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
         <listitem><para>Entries are formatted as JSON data structures,
         one per line
         (like <command>journalctl --output json</command>).
-        See <ulink
-        url="http://www.freedesktop.org/wiki/Software/systemd/json">Journal
-        JSON Format</ulink> for more information.</para>
+        See <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/json">Journal
+        JSON Format</link> for more information.</para>
         </listitem>
       </varlistentry>
 
@@ -196,9 +180,8 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
         <term><constant>application/event-stream</constant></term>
 
         <listitem><para>Entries are formatted as JSON data structures,
-        wrapped in a format suitable for <ulink
-        url="https://developer.mozilla.org/en-US/docs/Server-sent_events/Using_server-sent_events">
-        Server-Sent Events</ulink>
+        wrapped in a format suitable for <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://developer.mozilla.org/en-US/docs/Server-sent_events/Using_server-sent_events">
+        Server-Sent Events</link>
         (like <command>journalctl --output json-sse</command>).
         </para>
         </listitem>
@@ -211,9 +194,8 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
         mostly text-based) stream suitable for backups and network
         transfer
         (like <command>journalctl --output export</command>).
-        See <ulink
-        url="http://www.freedesktop.org/wiki/Software/systemd/export">Journal
-        Export Format</ulink> for more information.</para>
+        See <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/export">Journal
+        Export Format</link> for more information.</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -278,9 +260,8 @@ along with systemd; If not, see <http://www.gnu.org/licenses/>.
   <refsect1>
     <title>Examples</title>
     <para>Retrieve events from this boot from local journal
-    in <ulink
-    url="http://www.freedesktop.org/wiki/Software/systemd/export">Journal
-    Export Format</ulink>:
+    in <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/export">Journal
+    Export Format</link>:
     <programlisting>curl --silent -H'Accept: application/vnd.fdo.journal' \
        'http://localhost:19531/entries?boot'</programlisting>
     </para>
