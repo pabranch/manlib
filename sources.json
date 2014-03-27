@@ -280,9 +280,9 @@ mv xml/man1/polkitd.1.xml xml/man8/polkitd.8.xml"
   "procps": {
     "type": "cvs",
     "url": "-d:pserver:anonymous@procps.cvs.sourceforge.net:/cvsroot/procps",
-    "cmd": "find sources/procps/ -name \\*.1 -exec cp -f {} man/man1/ \\;;
-find sources/procps/ -name \\*.5 -exec cp {} man/man5/ \\;;
-find sources/procps/ -name \\*.8 -exec cp {} man/man8/ \\;"
+    "cmd": "find sources/procps/ -name '*.1' ! -name kill.1 ! -name uptime.1 -exec cp -f {} man/man1/ \\;;
+find sources/procps/ -name '*.5' -exec cp {} man/man5/ \\;;
+find sources/procps/ -name '*.8' -exec cp {} man/man8/ \\;"
   },
 
   "quota": {
@@ -380,10 +380,10 @@ find sources/systemd/man -name '*.xml' -print0 | while read -d $'\\0' -r file ; 
     "type": "git",
     "url": "git://git.kernel.org/pub/scm/utils/util-linux/util-linux.git",
     "sparse": "*.[1-8]",
-    "cmd": "find sources/util-linux/*utils/ -name \\*.1 -exec cp -f {} man/man1/ \\;;
-find sources/util-linux/ -name \\*.3 -exec cp {} man/man3/ \\;;
-find sources/util-linux/ -name \\*.5 -exec cp {} man/man5/ \\;;
-find sources/util-linux/ -name \\*.8 -exec cp {} man/man8/ \\;"
+    "cmd": "find sources/util-linux/*utils/ -name '*.1' ! -name kill.1 -exec cp -f {} man/man1/ \\;;
+find sources/util-linux/ -name '*.3' -exec cp {} man/man3/ \\;;
+find sources/util-linux/ -name '*.5' -exec cp {} man/man5/ \\;;
+find sources/util-linux/ -name '*.8' -exec cp {} man/man8/ \\;"
   },
 
   "varnish": {
