@@ -1,0 +1,135 @@
+.TH "dlamch.f" 3 "Sat Nov 16 2013" "Version 3.4.2" "LAPACK" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dlamch.f \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions/Subroutines"
+
+.in +1c
+.ti -1c
+.RI "DOUBLE PRECISION function \fBdlamch\fP (CMACH)"
+.br
+.RI "\fI\fBDLAMCH\fP \fP"
+.ti -1c
+.RI "DOUBLE PRECISION function \fBdlamc3\fP (A, B)"
+.br
+.RI "\fI\fBDLAMC3\fP \fP"
+.in -1c
+.SH "Function/Subroutine Documentation"
+.PP 
+.SS "DOUBLE PRECISION function dlamc3 (double precisionA, double precisionB)"
+
+.PP
+\fBDLAMC3\fP \fBPurpose:\fP 
+.PP
+.nf
+ DLAMC3  is intended to force  A  and  B  to be stored prior to doing
+ the addition of  A  and  B ,  for use in situations where optimizers
+ might hold one of these in a register.
+.fi
+.PP
+ 
+.PP
+\fBAuthor:\fP
+.RS 4
+LAPACK is a software package provided by Univ\&. of Tennessee, Univ\&. of California Berkeley, Univ\&. of Colorado Denver and NAG Ltd\&.\&. 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+November 2011
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIA\fP 
+.PP
+.nf
+          A is a DOUBLE PRECISION
+.fi
+.PP
+.br
+\fIB\fP 
+.PP
+.nf
+          B is a DOUBLE PRECISION
+          The values A and B.
+.fi
+.PP
+ 
+.RE
+.PP
+
+.PP
+Definition at line 172 of file dlamch\&.f\&.
+.SS "DOUBLE PRECISION function dlamch (characterCMACH)"
+
+.PP
+\fBDLAMCH\fP \fBPurpose: \fP
+.RS 4
+
+.PP
+.nf
+ DLAMCH determines double precision machine parameters.
+.fi
+.PP
+ 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fICMACH\fP 
+.PP
+.nf
+          Specifies the value to be returned by DLAMCH:
+          = 'E' or 'e',   DLAMCH := eps
+          = 'S' or 's ,   DLAMCH := sfmin
+          = 'B' or 'b',   DLAMCH := base
+          = 'P' or 'p',   DLAMCH := eps*base
+          = 'N' or 'n',   DLAMCH := t
+          = 'R' or 'r',   DLAMCH := rnd
+          = 'M' or 'm',   DLAMCH := emin
+          = 'U' or 'u',   DLAMCH := rmin
+          = 'L' or 'l',   DLAMCH := emax
+          = 'O' or 'o',   DLAMCH := rmax
+          where
+          eps   = relative machine precision
+          sfmin = safe minimum, such that 1/sfmin does not overflow
+          base  = base of the machine
+          prec  = eps*base
+          t     = number of (base) digits in the mantissa
+          rnd   = 1.0 when rounding occurs in addition, 0.0 otherwise
+          emin  = minimum exponent before (gradual) underflow
+          rmin  = underflow threshold - base**(emin-1)
+          emax  = largest exponent before overflow
+          rmax  = overflow threshold  - (base**emax)*(1-eps)
+.fi
+.PP
+ 
+.RE
+.PP
+\fBAuthor:\fP
+.RS 4
+Univ\&. of Tennessee 
+.PP
+Univ\&. of California Berkeley 
+.PP
+Univ\&. of Colorado Denver 
+.PP
+NAG Ltd\&. 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+November 2011 
+.RE
+.PP
+
+.PP
+Definition at line 64 of file dlamch\&.f\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for LAPACK from the source code\&.

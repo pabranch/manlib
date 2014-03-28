@@ -1,0 +1,134 @@
+.TH "slamch.f" 3 "Sat Nov 16 2013" "Version 3.4.2" "LAPACK" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+slamch.f \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions/Subroutines"
+
+.in +1c
+.ti -1c
+.RI "REAL function \fBslamch\fP (CMACH)"
+.br
+.RI "\fI\fBSLAMCH\fP \fP"
+.ti -1c
+.RI "REAL function \fBslamc3\fP (A, B)"
+.br
+.RI "\fI\fBSLAMC3\fP \fP"
+.in -1c
+.SH "Function/Subroutine Documentation"
+.PP 
+.SS "REAL function slamc3 (realA, realB)"
+
+.PP
+\fBSLAMC3\fP \fBPurpose:\fP 
+.PP
+.nf
+ SLAMC3  is intended to force  A  and  B  to be stored prior to doing
+ the addition of  A  and  B ,  for use in situations where optimizers
+ might hold one of these in a register.
+.fi
+.PP
+ 
+.PP
+\fBAuthor:\fP
+.RS 4
+LAPACK is a software package provided by Univ\&. of Tennessee, Univ\&. of California Berkeley, Univ\&. of Colorado Denver and NAG Ltd\&.\&. 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+November 2011
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIA\fP 
+.PP
+.nf
+ 
+.fi
+.PP
+.br
+\fIB\fP 
+.PP
+.nf
+          The values A and B.
+.fi
+.PP
+ 
+.RE
+.PP
+
+.PP
+Definition at line 171 of file slamch\&.f\&.
+.SS "REAL function slamch (characterCMACH)"
+
+.PP
+\fBSLAMCH\fP \fBPurpose: \fP
+.RS 4
+
+.PP
+.nf
+ SLAMCH determines single precision machine parameters.
+.fi
+.PP
+ 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fICMACH\fP 
+.PP
+.nf
+          Specifies the value to be returned by SLAMCH:
+          = 'E' or 'e',   SLAMCH := eps
+          = 'S' or 's ,   SLAMCH := sfmin
+          = 'B' or 'b',   SLAMCH := base
+          = 'P' or 'p',   SLAMCH := eps*base
+          = 'N' or 'n',   SLAMCH := t
+          = 'R' or 'r',   SLAMCH := rnd
+          = 'M' or 'm',   SLAMCH := emin
+          = 'U' or 'u',   SLAMCH := rmin
+          = 'L' or 'l',   SLAMCH := emax
+          = 'O' or 'o',   SLAMCH := rmax
+          where
+          eps   = relative machine precision
+          sfmin = safe minimum, such that 1/sfmin does not overflow
+          base  = base of the machine
+          prec  = eps*base
+          t     = number of (base) digits in the mantissa
+          rnd   = 1.0 when rounding occurs in addition, 0.0 otherwise
+          emin  = minimum exponent before (gradual) underflow
+          rmin  = underflow threshold - base**(emin-1)
+          emax  = largest exponent before overflow
+          rmax  = overflow threshold  - (base**emax)*(1-eps)
+.fi
+.PP
+ 
+.RE
+.PP
+\fBAuthor:\fP
+.RS 4
+Univ\&. of Tennessee 
+.PP
+Univ\&. of California Berkeley 
+.PP
+Univ\&. of Colorado Denver 
+.PP
+NAG Ltd\&. 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+November 2011 
+.RE
+.PP
+
+.PP
+Definition at line 68 of file slamch\&.f\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for LAPACK from the source code\&.

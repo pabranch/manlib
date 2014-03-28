@@ -1,0 +1,115 @@
+.TH "sla_gerpvgrw.f" 3 "Sat Nov 16 2013" "Version 3.4.2" "LAPACK" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+sla_gerpvgrw.f \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions/Subroutines"
+
+.in +1c
+.ti -1c
+.RI "REAL function \fBsla_gerpvgrw\fP (N, NCOLS, A, LDA, AF, LDAF)"
+.br
+.RI "\fI\fBSLA_GERPVGRW\fP \fP"
+.in -1c
+.SH "Function/Subroutine Documentation"
+.PP 
+.SS "REAL function sla_gerpvgrw (integerN, integerNCOLS, real, dimension( lda, * )A, integerLDA, real, dimension( ldaf, * )AF, integerLDAF)"
+
+.PP
+\fBSLA_GERPVGRW\fP  
+.PP
+\fBPurpose: \fP
+.RS 4
+
+.PP
+.nf
+ SLA_GERPVGRW computes the reciprocal pivot growth factor
+ norm(A)/norm(U). The "max absolute element" norm is used. If this is
+ much less than 1, the stability of the LU factorization of the
+ (equilibrated) matrix A could be poor. This also means that the
+ solution X, estimated condition numbers, and error bounds could be
+ unreliable.
+.fi
+.PP
+ 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIN\fP 
+.PP
+.nf
+          N is INTEGER
+     The number of linear equations, i.e., the order of the
+     matrix A.  N >= 0.
+.fi
+.PP
+.br
+\fINCOLS\fP 
+.PP
+.nf
+          NCOLS is INTEGER
+     The number of columns of the matrix A. NCOLS >= 0.
+.fi
+.PP
+.br
+\fIA\fP 
+.PP
+.nf
+          A is REAL array, dimension (LDA,N)
+     On entry, the N-by-N matrix A.
+.fi
+.PP
+.br
+\fILDA\fP 
+.PP
+.nf
+          LDA is INTEGER
+     The leading dimension of the array A.  LDA >= max(1,N).
+.fi
+.PP
+.br
+\fIAF\fP 
+.PP
+.nf
+          AF is REAL array, dimension (LDAF,N)
+     The factors L and U from the factorization
+     A = P*L*U as computed by SGETRF.
+.fi
+.PP
+.br
+\fILDAF\fP 
+.PP
+.nf
+          LDAF is INTEGER
+     The leading dimension of the array AF.  LDAF >= max(1,N).
+.fi
+.PP
+ 
+.RE
+.PP
+\fBAuthor:\fP
+.RS 4
+Univ\&. of Tennessee 
+.PP
+Univ\&. of California Berkeley 
+.PP
+Univ\&. of Colorado Denver 
+.PP
+NAG Ltd\&. 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+November 2011 
+.RE
+.PP
+
+.PP
+Definition at line 98 of file sla_gerpvgrw\&.f\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for LAPACK from the source code\&.

@@ -1,0 +1,110 @@
+.TH "spotri.f" 3 "Sat Nov 16 2013" "Version 3.4.2" "LAPACK" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+spotri.f \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions/Subroutines"
+
+.in +1c
+.ti -1c
+.RI "subroutine \fBspotri\fP (UPLO, N, A, LDA, INFO)"
+.br
+.RI "\fI\fBSPOTRI\fP \fP"
+.in -1c
+.SH "Function/Subroutine Documentation"
+.PP 
+.SS "subroutine spotri (characterUPLO, integerN, real, dimension( lda, * )A, integerLDA, integerINFO)"
+
+.PP
+\fBSPOTRI\fP  
+.PP
+\fBPurpose: \fP
+.RS 4
+
+.PP
+.nf
+ SPOTRI computes the inverse of a real symmetric positive definite
+ matrix A using the Cholesky factorization A = U**T*U or A = L*L**T
+ computed by SPOTRF.
+.fi
+.PP
+ 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIUPLO\fP 
+.PP
+.nf
+          UPLO is CHARACTER*1
+          = 'U':  Upper triangle of A is stored;
+          = 'L':  Lower triangle of A is stored.
+.fi
+.PP
+.br
+\fIN\fP 
+.PP
+.nf
+          N is INTEGER
+          The order of the matrix A.  N >= 0.
+.fi
+.PP
+.br
+\fIA\fP 
+.PP
+.nf
+          A is REAL array, dimension (LDA,N)
+          On entry, the triangular factor U or L from the Cholesky
+          factorization A = U**T*U or A = L*L**T, as computed by
+          SPOTRF.
+          On exit, the upper or lower triangle of the (symmetric)
+          inverse of A, overwriting the input factor U or L.
+.fi
+.PP
+.br
+\fILDA\fP 
+.PP
+.nf
+          LDA is INTEGER
+          The leading dimension of the array A.  LDA >= max(1,N).
+.fi
+.PP
+.br
+\fIINFO\fP 
+.PP
+.nf
+          INFO is INTEGER
+          = 0:  successful exit
+          < 0:  if INFO = -i, the i-th argument had an illegal value
+          > 0:  if INFO = i, the (i,i) element of the factor U or L is
+                zero, and the inverse could not be computed.
+.fi
+.PP
+ 
+.RE
+.PP
+\fBAuthor:\fP
+.RS 4
+Univ\&. of Tennessee 
+.PP
+Univ\&. of California Berkeley 
+.PP
+Univ\&. of Colorado Denver 
+.PP
+NAG Ltd\&. 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+November 2011 
+.RE
+.PP
+
+.PP
+Definition at line 96 of file spotri\&.f\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for LAPACK from the source code\&.

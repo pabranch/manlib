@@ -1,0 +1,204 @@
+.TH "dgelsx.f" 3 "Sat Nov 16 2013" "Version 3.4.2" "LAPACK" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dgelsx.f \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions/Subroutines"
+
+.in +1c
+.ti -1c
+.RI "subroutine \fBdgelsx\fP (M, N, NRHS, A, LDA, B, LDB, JPVT, RCOND, RANK, WORK, INFO)"
+.br
+.RI "\fI\fB DGELSX solves overdetermined or underdetermined systems for GE matrices\fP \fP"
+.in -1c
+.SH "Function/Subroutine Documentation"
+.PP 
+.SS "subroutine dgelsx (integerM, integerN, integerNRHS, double precision, dimension( lda, * )A, integerLDA, double precision, dimension( ldb, * )B, integerLDB, integer, dimension( * )JPVT, double precisionRCOND, integerRANK, double precision, dimension( * )WORK, integerINFO)"
+
+.PP
+\fB DGELSX solves overdetermined or underdetermined systems for GE matrices\fP  
+.PP
+\fBPurpose: \fP
+.RS 4
+
+.PP
+.nf
+ This routine is deprecated and has been replaced by routine DGELSY.
+
+ DGELSX computes the minimum-norm solution to a real linear least
+ squares problem:
+     minimize || A * X - B ||
+ using a complete orthogonal factorization of A.  A is an M-by-N
+ matrix which may be rank-deficient.
+
+ Several right hand side vectors b and solution vectors x can be
+ handled in a single call; they are stored as the columns of the
+ M-by-NRHS right hand side matrix B and the N-by-NRHS solution
+ matrix X.
+
+ The routine first computes a QR factorization with column pivoting:
+     A * P = Q * [ R11 R12 ]
+                 [  0  R22 ]
+ with R11 defined as the largest leading submatrix whose estimated
+ condition number is less than 1/RCOND.  The order of R11, RANK,
+ is the effective rank of A.
+
+ Then, R22 is considered to be negligible, and R12 is annihilated
+ by orthogonal transformations from the right, arriving at the
+ complete orthogonal factorization:
+    A * P = Q * [ T11 0 ] * Z
+                [  0  0 ]
+ The minimum-norm solution is then
+    X = P * Z**T [ inv(T11)*Q1**T*B ]
+                 [        0         ]
+ where Q1 consists of the first RANK columns of Q.
+.fi
+.PP
+ 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIM\fP 
+.PP
+.nf
+          M is INTEGER
+          The number of rows of the matrix A.  M >= 0.
+.fi
+.PP
+.br
+\fIN\fP 
+.PP
+.nf
+          N is INTEGER
+          The number of columns of the matrix A.  N >= 0.
+.fi
+.PP
+.br
+\fINRHS\fP 
+.PP
+.nf
+          NRHS is INTEGER
+          The number of right hand sides, i.e., the number of
+          columns of matrices B and X. NRHS >= 0.
+.fi
+.PP
+.br
+\fIA\fP 
+.PP
+.nf
+          A is DOUBLE PRECISION array, dimension (LDA,N)
+          On entry, the M-by-N matrix A.
+          On exit, A has been overwritten by details of its
+          complete orthogonal factorization.
+.fi
+.PP
+.br
+\fILDA\fP 
+.PP
+.nf
+          LDA is INTEGER
+          The leading dimension of the array A.  LDA >= max(1,M).
+.fi
+.PP
+.br
+\fIB\fP 
+.PP
+.nf
+          B is DOUBLE PRECISION array, dimension (LDB,NRHS)
+          On entry, the M-by-NRHS right hand side matrix B.
+          On exit, the N-by-NRHS solution matrix X.
+          If m >= n and RANK = n, the residual sum-of-squares for
+          the solution in the i-th column is given by the sum of
+          squares of elements N+1:M in that column.
+.fi
+.PP
+.br
+\fILDB\fP 
+.PP
+.nf
+          LDB is INTEGER
+          The leading dimension of the array B. LDB >= max(1,M,N).
+.fi
+.PP
+.br
+\fIJPVT\fP 
+.PP
+.nf
+          JPVT is INTEGER array, dimension (N)
+          On entry, if JPVT(i) .ne. 0, the i-th column of A is an
+          initial column, otherwise it is a free column.  Before
+          the QR factorization of A, all initial columns are
+          permuted to the leading positions; only the remaining
+          free columns are moved as a result of column pivoting
+          during the factorization.
+          On exit, if JPVT(i) = k, then the i-th column of A*P
+          was the k-th column of A.
+.fi
+.PP
+.br
+\fIRCOND\fP 
+.PP
+.nf
+          RCOND is DOUBLE PRECISION
+          RCOND is used to determine the effective rank of A, which
+          is defined as the order of the largest leading triangular
+          submatrix R11 in the QR factorization with pivoting of A,
+          whose estimated condition number < 1/RCOND.
+.fi
+.PP
+.br
+\fIRANK\fP 
+.PP
+.nf
+          RANK is INTEGER
+          The effective rank of A, i.e., the order of the submatrix
+          R11.  This is the same as the order of the submatrix T11
+          in the complete orthogonal factorization of A.
+.fi
+.PP
+.br
+\fIWORK\fP 
+.PP
+.nf
+          WORK is DOUBLE PRECISION array, dimension
+                      (max( min(M,N)+3*N, 2*min(M,N)+NRHS )),
+.fi
+.PP
+.br
+\fIINFO\fP 
+.PP
+.nf
+          INFO is INTEGER
+          = 0:  successful exit
+          < 0:  if INFO = -i, the i-th argument had an illegal value
+.fi
+.PP
+ 
+.RE
+.PP
+\fBAuthor:\fP
+.RS 4
+Univ\&. of Tennessee 
+.PP
+Univ\&. of California Berkeley 
+.PP
+Univ\&. of Colorado Denver 
+.PP
+NAG Ltd\&. 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+November 2011 
+.RE
+.PP
+
+.PP
+Definition at line 178 of file dgelsx\&.f\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for LAPACK from the source code\&.

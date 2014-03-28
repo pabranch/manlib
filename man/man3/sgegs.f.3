@@ -1,0 +1,260 @@
+.TH "sgegs.f" 3 "Sat Nov 16 2013" "Version 3.4.2" "LAPACK" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+sgegs.f \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions/Subroutines"
+
+.in +1c
+.ti -1c
+.RI "subroutine \fBsgegs\fP (JOBVSL, JOBVSR, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, WORK, LWORK, INFO)"
+.br
+.RI "\fI\fB SGEEVX computes the eigenvalues and, optionally, the left and/or right eigenvectors for GE matrices\fP \fP"
+.in -1c
+.SH "Function/Subroutine Documentation"
+.PP 
+.SS "subroutine sgegs (characterJOBVSL, characterJOBVSR, integerN, real, dimension( lda, * )A, integerLDA, real, dimension( ldb, * )B, integerLDB, real, dimension( * )ALPHAR, real, dimension( * )ALPHAI, real, dimension( * )BETA, real, dimension( ldvsl, * )VSL, integerLDVSL, real, dimension( ldvsr, * )VSR, integerLDVSR, real, dimension( * )WORK, integerLWORK, integerINFO)"
+
+.PP
+\fB SGEEVX computes the eigenvalues and, optionally, the left and/or right eigenvectors for GE matrices\fP  
+.PP
+\fBPurpose: \fP
+.RS 4
+
+.PP
+.nf
+ This routine is deprecated and has been replaced by routine SGGES.
+
+ SGEGS computes the eigenvalues, real Schur form, and, optionally,
+ left and or/right Schur vectors of a real matrix pair (A,B).
+ Given two square matrices A and B, the generalized real Schur
+ factorization has the form
+ 
+   A = Q*S*Z**T,  B = Q*T*Z**T
+
+ where Q and Z are orthogonal matrices, T is upper triangular, and S
+ is an upper quasi-triangular matrix with 1-by-1 and 2-by-2 diagonal
+ blocks, the 2-by-2 blocks corresponding to complex conjugate pairs
+ of eigenvalues of (A,B).  The columns of Q are the left Schur vectors
+ and the columns of Z are the right Schur vectors.
+ 
+ If only the eigenvalues of (A,B) are needed, the driver routine
+ SGEGV should be used instead.  See SGEGV for a description of the
+ eigenvalues of the generalized nonsymmetric eigenvalue problem
+ (GNEP).
+.fi
+.PP
+ 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIJOBVSL\fP 
+.PP
+.nf
+          JOBVSL is CHARACTER*1
+          = 'N':  do not compute the left Schur vectors;
+          = 'V':  compute the left Schur vectors (returned in VSL).
+.fi
+.PP
+.br
+\fIJOBVSR\fP 
+.PP
+.nf
+          JOBVSR is CHARACTER*1
+          = 'N':  do not compute the right Schur vectors;
+          = 'V':  compute the right Schur vectors (returned in VSR).
+.fi
+.PP
+.br
+\fIN\fP 
+.PP
+.nf
+          N is INTEGER
+          The order of the matrices A, B, VSL, and VSR.  N >= 0.
+.fi
+.PP
+.br
+\fIA\fP 
+.PP
+.nf
+          A is REAL array, dimension (LDA, N)
+          On entry, the matrix A.
+          On exit, the upper quasi-triangular matrix S from the
+          generalized real Schur factorization.
+.fi
+.PP
+.br
+\fILDA\fP 
+.PP
+.nf
+          LDA is INTEGER
+          The leading dimension of A.  LDA >= max(1,N).
+.fi
+.PP
+.br
+\fIB\fP 
+.PP
+.nf
+          B is REAL array, dimension (LDB, N)
+          On entry, the matrix B.
+          On exit, the upper triangular matrix T from the generalized
+          real Schur factorization.
+.fi
+.PP
+.br
+\fILDB\fP 
+.PP
+.nf
+          LDB is INTEGER
+          The leading dimension of B.  LDB >= max(1,N).
+.fi
+.PP
+.br
+\fIALPHAR\fP 
+.PP
+.nf
+          ALPHAR is REAL array, dimension (N)
+          The real parts of each scalar alpha defining an eigenvalue
+          of GNEP.
+.fi
+.PP
+.br
+\fIALPHAI\fP 
+.PP
+.nf
+          ALPHAI is REAL array, dimension (N)
+          The imaginary parts of each scalar alpha defining an
+          eigenvalue of GNEP.  If ALPHAI(j) is zero, then the j-th
+          eigenvalue is real; if positive, then the j-th and (j+1)-st
+          eigenvalues are a complex conjugate pair, with
+          ALPHAI(j+1) = -ALPHAI(j).
+.fi
+.PP
+.br
+\fIBETA\fP 
+.PP
+.nf
+          BETA is REAL array, dimension (N)
+          The scalars beta that define the eigenvalues of GNEP.
+          Together, the quantities alpha = (ALPHAR(j),ALPHAI(j)) and
+          beta = BETA(j) represent the j-th eigenvalue of the matrix
+          pair (A,B), in one of the forms lambda = alpha/beta or
+          mu = beta/alpha.  Since either lambda or mu may overflow,
+          they should not, in general, be computed.
+.fi
+.PP
+.br
+\fIVSL\fP 
+.PP
+.nf
+          VSL is REAL array, dimension (LDVSL,N)
+          If JOBVSL = 'V', the matrix of left Schur vectors Q.
+          Not referenced if JOBVSL = 'N'.
+.fi
+.PP
+.br
+\fILDVSL\fP 
+.PP
+.nf
+          LDVSL is INTEGER
+          The leading dimension of the matrix VSL. LDVSL >=1, and
+          if JOBVSL = 'V', LDVSL >= N.
+.fi
+.PP
+.br
+\fIVSR\fP 
+.PP
+.nf
+          VSR is REAL array, dimension (LDVSR,N)
+          If JOBVSR = 'V', the matrix of right Schur vectors Z.
+          Not referenced if JOBVSR = 'N'.
+.fi
+.PP
+.br
+\fILDVSR\fP 
+.PP
+.nf
+          LDVSR is INTEGER
+          The leading dimension of the matrix VSR. LDVSR >= 1, and
+          if JOBVSR = 'V', LDVSR >= N.
+.fi
+.PP
+.br
+\fIWORK\fP 
+.PP
+.nf
+          WORK is REAL array, dimension (MAX(1,LWORK))
+          On exit, if INFO = 0, WORK(1) returns the optimal LWORK.
+.fi
+.PP
+.br
+\fILWORK\fP 
+.PP
+.nf
+          LWORK is INTEGER
+          The dimension of the array WORK.  LWORK >= max(1,4*N).
+          For good performance, LWORK must generally be larger.
+          To compute the optimal value of LWORK, call ILAENV to get
+          blocksizes (for SGEQRF, SORMQR, and SORGQR.)  Then compute:
+          NB  -- MAX of the blocksizes for SGEQRF, SORMQR, and SORGQR
+          The optimal LWORK is  2*N + N*(NB+1).
+
+          If LWORK = -1, then a workspace query is assumed; the routine
+          only calculates the optimal size of the WORK array, returns
+          this value as the first entry of the WORK array, and no error
+          message related to LWORK is issued by XERBLA.
+.fi
+.PP
+.br
+\fIINFO\fP 
+.PP
+.nf
+          INFO is INTEGER
+          = 0:  successful exit
+          < 0:  if INFO = -i, the i-th argument had an illegal value.
+          = 1,...,N:
+                The QZ iteration failed.  (A,B) are not in Schur
+                form, but ALPHAR(j), ALPHAI(j), and BETA(j) should
+                be correct for j=INFO+1,...,N.
+          > N:  errors that usually indicate LAPACK problems:
+                =N+1: error return from SGGBAL
+                =N+2: error return from SGEQRF
+                =N+3: error return from SORMQR
+                =N+4: error return from SORGQR
+                =N+5: error return from SGGHRD
+                =N+6: error return from SHGEQZ (other than failed
+                                                iteration)
+                =N+7: error return from SGGBAK (computing VSL)
+                =N+8: error return from SGGBAK (computing VSR)
+                =N+9: error return from SLASCL (various places)
+.fi
+.PP
+ 
+.RE
+.PP
+\fBAuthor:\fP
+.RS 4
+Univ\&. of Tennessee 
+.PP
+Univ\&. of California Berkeley 
+.PP
+Univ\&. of Colorado Denver 
+.PP
+NAG Ltd\&. 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+November 2011 
+.RE
+.PP
+
+.PP
+Definition at line 226 of file sgegs\&.f\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for LAPACK from the source code\&.

@@ -1,0 +1,414 @@
+.TH "slamchf77.f" 3 "Sat Nov 16 2013" "Version 3.4.2" "LAPACK" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+slamchf77.f \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions/Subroutines"
+
+.in +1c
+.ti -1c
+.RI "REAL function \fBslamch\fP (CMACH)"
+.br
+.RI "\fI\fBSLAMCHF77\fP deprecated \fP"
+.ti -1c
+.RI "subroutine \fBslamc1\fP (BETA, T, RND, IEEE1)"
+.br
+.RI "\fI\fBSLAMC1\fP \fP"
+.ti -1c
+.RI "subroutine \fBslamc2\fP (BETA, T, RND, EPS, EMIN, RMIN, EMAX, RMAX)"
+.br
+.RI "\fI\fBSLAMC2\fP \fP"
+.ti -1c
+.RI "REAL function \fBslamc3\fP (A, B)"
+.br
+.RI "\fI\fBSLAMC3\fP \fP"
+.ti -1c
+.RI "subroutine \fBslamc4\fP (EMIN, START, BASE)"
+.br
+.RI "\fI\fBSLAMC4\fP \fP"
+.ti -1c
+.RI "subroutine \fBslamc5\fP (BETA, P, EMIN, IEEE, EMAX, RMAX)"
+.br
+.RI "\fI\fBSLAMC5\fP \fP"
+.in -1c
+.SH "Function/Subroutine Documentation"
+.PP 
+.SS "subroutine slamc1 (integerBETA, integerT, logicalRND, logicalIEEE1)"
+
+.PP
+\fBSLAMC1\fP \fBPurpose:\fP 
+.PP
+.nf
+ SLAMC1 determines the machine parameters given by BETA, T, RND, and
+ IEEE1.
+.fi
+.PP
+.PP
+\fBParameters:\fP
+.RS 4
+\fIBETA\fP 
+.PP
+.nf
+          The base of the machine.
+.fi
+.PP
+.br
+\fIT\fP 
+.PP
+.nf
+          The number of ( BETA ) digits in the mantissa.
+.fi
+.PP
+.br
+\fIRND\fP 
+.PP
+.nf
+          Specifies whether proper rounding  ( RND = .TRUE. )  or
+          chopping  ( RND = .FALSE. )  occurs in addition. This may not
+          be a reliable guide to the way in which the machine performs
+          its arithmetic.
+.fi
+.PP
+.br
+\fIIEEE1\fP 
+.PP
+.nf
+          Specifies whether rounding appears to be done in the IEEE
+          'round to nearest' style.
+.fi
+.PP
+ 
+.RE
+.PP
+\fBAuthor:\fP
+.RS 4
+LAPACK is a software package provided by Univ\&. of Tennessee, Univ\&. of California Berkeley, Univ\&. of Colorado Denver and NAG Ltd\&.\&. 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+April 2012
+.RE
+.PP
+\fBFurther\fP \fBDetails\fP 
+.PP
+.nf
+  The routine is based on the routine  ENVRON  by Malcolm and
+  incorporates suggestions by Gentleman and Marovich. See
+
+     Malcolm M. A. (1972) Algorithms to reveal properties of
+        floating-point arithmetic. Comms. of the ACM, 15, 949-951.
+
+     Gentleman W. M. and Marovich S. B. (1974) More on algorithms
+        that reveal properties of floating point arithmetic units.
+        Comms. of the ACM, 17, 276-277.
+.fi
+.PP
+ 
+.PP
+Definition at line 210 of file slamchf77\&.f\&.
+.SS "subroutine slamc2 (integerBETA, integerT, logicalRND, realEPS, integerEMIN, realRMIN, integerEMAX, realRMAX)"
+
+.PP
+\fBSLAMC2\fP \fBPurpose:\fP 
+.PP
+.nf
+ SLAMC2 determines the machine parameters specified in its argument
+ list.
+.fi
+.PP
+ 
+.PP
+\fBAuthor:\fP
+.RS 4
+LAPACK is a software package provided by Univ\&. of Tennessee, Univ\&. of California Berkeley, Univ\&. of Colorado Denver and NAG Ltd\&.\&. 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+April 2012
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIBETA\fP 
+.PP
+.nf
+          The base of the machine.
+.fi
+.PP
+.br
+\fIT\fP 
+.PP
+.nf
+          The number of ( BETA ) digits in the mantissa.
+.fi
+.PP
+.br
+\fIRND\fP 
+.PP
+.nf
+          Specifies whether proper rounding  ( RND = .TRUE. )  or
+          chopping  ( RND = .FALSE. )  occurs in addition. This may not
+          be a reliable guide to the way in which the machine performs
+          its arithmetic.
+.fi
+.PP
+.br
+\fIEPS\fP 
+.PP
+.nf
+          The smallest positive number such that
+             fl( 1.0 - EPS ) .LT. 1.0,
+          where fl denotes the computed value.
+.fi
+.PP
+.br
+\fIEMIN\fP 
+.PP
+.nf
+          The minimum exponent before (gradual) underflow occurs.
+.fi
+.PP
+.br
+\fIRMIN\fP 
+.PP
+.nf
+          The smallest normalized number for the machine, given by
+          BASE**( EMIN - 1 ), where  BASE  is the floating point value
+          of BETA.
+.fi
+.PP
+.br
+\fIEMAX\fP 
+.PP
+.nf
+          The maximum exponent before overflow occurs.
+.fi
+.PP
+.br
+\fIRMAX\fP 
+.PP
+.nf
+          The largest positive number for the machine, given by
+          BASE**EMAX * ( 1 - EPS ), where  BASE  is the floating point
+          value of BETA.
+.fi
+.PP
+.RE
+.PP
+\fBFurther\fP \fBDetails\fP 
+.PP
+.nf
+  The computation of  EPS  is based on a routine PARANOIA by
+  W. Kahan of the University of California at Berkeley.
+.fi
+.PP
+ 
+.PP
+Definition at line 423 of file slamchf77\&.f\&.
+.SS "REAL function slamc3 (realA, realB)"
+
+.PP
+\fBSLAMC3\fP \fBPurpose:\fP 
+.PP
+.nf
+ SLAMC3  is intended to force  A  and  B  to be stored prior to doing
+ the addition of  A  and  B ,  for use in situations where optimizers
+ might hold one of these in a register.
+.fi
+.PP
+.PP
+\fBParameters:\fP
+.RS 4
+\fIA\fP 
+.br
+\fIB\fP 
+.PP
+.nf
+          The values A and B.
+.fi
+.PP
+ 
+.RE
+.PP
+
+.PP
+Definition at line 646 of file slamchf77\&.f\&.
+.SS "subroutine slamc4 (integerEMIN, realSTART, integerBASE)"
+
+.PP
+\fBSLAMC4\fP \fBPurpose:\fP 
+.PP
+.nf
+ SLAMC4 is a service routine for SLAMC2.
+.fi
+.PP
+.PP
+\fBParameters:\fP
+.RS 4
+\fIEMIN\fP 
+.PP
+.nf
+          The minimum exponent before (gradual) underflow, computed by
+          setting A = START and dividing by BASE until the previous A
+          can not be recovered.
+.fi
+.PP
+.br
+\fISTART\fP 
+.PP
+.nf
+          The starting point for determining EMIN.
+.fi
+.PP
+.br
+\fIBASE\fP 
+.PP
+.nf
+          The base of the machine.
+.fi
+.PP
+ 
+.RE
+.PP
+
+.PP
+Definition at line 693 of file slamchf77\&.f\&.
+.SS "subroutine slamc5 (integerBETA, integerP, integerEMIN, logicalIEEE, integerEMAX, realRMAX)"
+
+.PP
+\fBSLAMC5\fP \fBPurpose:\fP 
+.PP
+.nf
+ SLAMC5 attempts to compute RMAX, the largest machine floating-point
+ number, without overflow.  It assumes that EMAX + abs(EMIN) sum
+ approximately to a power of 2.  It will fail on machines where this
+ assumption does not hold, for example, the Cyber 205 (EMIN = -28625,
+ EMAX = 28718).  It will also fail if the value supplied for EMIN is
+ too large (i.e. too close to zero), probably with overflow.
+.fi
+.PP
+.PP
+\fBParameters:\fP
+.RS 4
+\fIBETA\fP 
+.PP
+.nf
+          The base of floating-point arithmetic.
+.fi
+.PP
+.br
+\fIP\fP 
+.PP
+.nf
+          The number of base BETA digits in the mantissa of a
+          floating-point value.
+.fi
+.PP
+.br
+\fIEMIN\fP 
+.PP
+.nf
+          The minimum exponent before (gradual) underflow.
+.fi
+.PP
+.br
+\fIIEEE\fP 
+.PP
+.nf
+          A logical flag specifying whether or not the arithmetic
+          system is thought to comply with the IEEE standard.
+.fi
+.PP
+.br
+\fIEMAX\fP 
+.PP
+.nf
+          The largest exponent before overflow
+.fi
+.PP
+.br
+\fIRMAX\fP 
+.PP
+.nf
+          The largest machine floating-point number.
+.fi
+.PP
+ 
+.RE
+.PP
+
+.PP
+Definition at line 801 of file slamchf77\&.f\&.
+.SS "REAL function slamch (characterCMACH)"
+
+.PP
+\fBSLAMCHF77\fP deprecated \fBPurpose: \fP
+.RS 4
+
+.PP
+.nf
+ SLAMCH determines single precision machine parameters.
+.fi
+.PP
+ 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fICMACH\fP 
+.PP
+.nf
+          Specifies the value to be returned by SLAMCH:
+          = 'E' or 'e',   SLAMCH := eps
+          = 'S' or 's ,   SLAMCH := sfmin
+          = 'B' or 'b',   SLAMCH := base
+          = 'P' or 'p',   SLAMCH := eps*base
+          = 'N' or 'n',   SLAMCH := t
+          = 'R' or 'r',   SLAMCH := rnd
+          = 'M' or 'm',   SLAMCH := emin
+          = 'U' or 'u',   SLAMCH := rmin
+          = 'L' or 'l',   SLAMCH := emax
+          = 'O' or 'o',   SLAMCH := rmax
+          where
+          eps   = relative machine precision
+          sfmin = safe minimum, such that 1/sfmin does not overflow
+          base  = base of the machine
+          prec  = eps*base
+          t     = number of (base) digits in the mantissa
+          rnd   = 1.0 when rounding occurs in addition, 0.0 otherwise
+          emin  = minimum exponent before (gradual) underflow
+          rmin  = underflow threshold - base**(emin-1)
+          emax  = largest exponent before overflow
+          rmax  = overflow threshold  - (base**emax)*(1-eps)
+.fi
+.PP
+ 
+.RE
+.PP
+\fBAuthor:\fP
+.RS 4
+Univ\&. of Tennessee 
+.PP
+Univ\&. of California Berkeley 
+.PP
+Univ\&. of Colorado Denver 
+.PP
+NAG Ltd\&. 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+April 2012 
+.RE
+.PP
+
+.PP
+Definition at line 68 of file slamchf77\&.f\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for LAPACK from the source code\&.

@@ -1,0 +1,120 @@
+.TH "zlapmr.f" 3 "Sat Nov 16 2013" "Version 3.4.2" "LAPACK" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+zlapmr.f \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions/Subroutines"
+
+.in +1c
+.ti -1c
+.RI "subroutine \fBzlapmr\fP (FORWRD, M, N, X, LDX, K)"
+.br
+.RI "\fI\fBZLAPMR\fP rearranges rows of a matrix as specified by a permutation vector\&. \fP"
+.in -1c
+.SH "Function/Subroutine Documentation"
+.PP 
+.SS "subroutine zlapmr (logicalFORWRD, integerM, integerN, complex*16, dimension( ldx, * )X, integerLDX, integer, dimension( * )K)"
+
+.PP
+\fBZLAPMR\fP rearranges rows of a matrix as specified by a permutation vector\&.  
+.PP
+\fBPurpose: \fP
+.RS 4
+
+.PP
+.nf
+ ZLAPMR rearranges the rows of the M by N matrix X as specified
+ by the permutation K(1),K(2),...,K(M) of the integers 1,...,M.
+ If FORWRD = .TRUE.,  forward permutation:
+
+      X(K(I),*) is moved X(I,*) for I = 1,2,...,M.
+
+ If FORWRD = .FALSE., backward permutation:
+
+      X(I,*) is moved to X(K(I),*) for I = 1,2,...,M.
+.fi
+.PP
+ 
+.RE
+.PP
+\fBParameters:\fP
+.RS 4
+\fIFORWRD\fP 
+.PP
+.nf
+          FORWRD is LOGICAL
+          = .TRUE., forward permutation
+          = .FALSE., backward permutation
+.fi
+.PP
+.br
+\fIM\fP 
+.PP
+.nf
+          M is INTEGER
+          The number of rows of the matrix X. M >= 0.
+.fi
+.PP
+.br
+\fIN\fP 
+.PP
+.nf
+          N is INTEGER
+          The number of columns of the matrix X. N >= 0.
+.fi
+.PP
+.br
+\fIX\fP 
+.PP
+.nf
+          X is COMPLEX*16 array, dimension (LDX,N)
+          On entry, the M by N matrix X.
+          On exit, X contains the permuted matrix X.
+.fi
+.PP
+.br
+\fILDX\fP 
+.PP
+.nf
+          LDX is INTEGER
+          The leading dimension of the array X, LDX >= MAX(1,M).
+.fi
+.PP
+.br
+\fIK\fP 
+.PP
+.nf
+          K is INTEGER array, dimension (M)
+          On entry, K contains the permutation vector. K is used as
+          internal workspace, but reset to its original value on
+          output.
+.fi
+.PP
+ 
+.RE
+.PP
+\fBAuthor:\fP
+.RS 4
+Univ\&. of Tennessee 
+.PP
+Univ\&. of California Berkeley 
+.PP
+Univ\&. of Colorado Denver 
+.PP
+NAG Ltd\&. 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+September 2012 
+.RE
+.PP
+
+.PP
+Definition at line 105 of file zlapmr\&.f\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for LAPACK from the source code\&.
