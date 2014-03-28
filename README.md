@@ -5,7 +5,7 @@ This script helps create a library of Linux/BSD man pages, and keep it up-to-dat
 
 Install npm dependencies:
 
-    $ npm -g install jsonminify commander ftp-get
+    $ npm -g install jsonminify commander ftp-get download
 
 **List** available sources:
 

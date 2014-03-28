@@ -120,7 +120,7 @@ function loadSources () {
 function extract (sourceName, sourceDets, specified) {
 
   if  (!sourceDets.cmd) {
-    console.log('No command to extract man pages for : ' + sourceName);
+    console.log('No command to extract man pages for: ' + sourceName);
     return;
   }
 
@@ -303,18 +303,25 @@ function setupBZR (sourceName, sourceDets) {
 
 function setupTarball (sourceName, sourceDets) {
   var destDir = 'sources/' + sourceName;
-  var tmpFile = '/tmp/' + sourceName + '.tar.gz';
-  ftp.get(sourceDets.url, tmpFile, function (error, result) {
-    if (error) {
-      console.error(error);
-    } else {
-      fs.mkdirSync(destDir);
-      var extractTarballCmd = 'tar xf ' + tmpFile + ' -C ' + destDir;
-      exec(extractTarballCmd, function (error, stdout, stderr) {
-        if (error !== null) {
-          console.log(extractTarballCmd + ' - error: ' + error);
-        }
-      });
-    }
-  });
+
+  if (sourceDets.url.indexOf('ftp') === 0) {
+    var tmpFile = '/tmp/' + sourceName + '.tar.gz';
+    ftp.get(sourceDets.url, tmpFile, function (error, result) {
+      if (error) {
+        console.error(error);
+      } else {
+        fs.mkdirSync(destDir);
+        var extractTarballCmd = 'tar xf ' + tmpFile + ' -C ' + destDir;
+        exec(extractTarballCmd, function (error, stdout, stderr) {
+          if (error !== null) {
+            console.log(extractTarballCmd + ' - error: ' + error);
+          }
+        });
+      }
+    });
+
+  } else {
+    var download = require('download');
+    download(sourceDets.url, destDir, { extract: true });
+  }
 }
