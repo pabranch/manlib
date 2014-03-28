@@ -63,7 +63,8 @@ int SSL_set_current_cert(SSL *ssl, long op);</synopsis>
       CA from the built chain, <emphasis role="bold">SSL_BUILD_CHAIN_FLAG_CHECK</emphasis> to use all existing
       chain certificates only to build the chain (effectively sanity
       checking and rearranging them if necessary), the flag <emphasis role="bold">SSL_BUILD_CHAIN_FLAG_IGNORE_ERROR</emphasis> ignores any
-      errors during verification.
+      errors during verification: if flag <emphasis role="bold">SSL_BUILD_CHAIN_FLAG_CLEAR_ERROR</emphasis> is also set
+      verification errors are cleared from the error queue.
     </para>
     <para>
       Each of these functions operates on the <emphasis role="italic">current</emphasis> end entity (i.e. server or client)
@@ -135,6 +136,11 @@ int SSL_set_current_cert(SSL *ssl, long op);</synopsis>
       reorder them.
     </para>
     <para>
+      Applications can issue non fatal warnings when checking chains by
+      setting the flag <emphasis role="bold">SSL_BUILD_CHAIN_FLAG_IGNORE_ERRORS</emphasis> and
+      checking the return value.
+    </para>
+    <para>
       Calling SSL_CTX_build_cert_chain() or SSL_build_cert_chain() is more
       efficient than the automatic chain building as it is only performed
       once. Automatic chain building is performed on each new session.
@@ -149,6 +155,11 @@ int SSL_set_current_cert(SSL *ssl, long op);</synopsis>
       SSL_set_current_cert() with <emphasis role="bold">SSL_CERT_SET_SERVER</emphasis> return 1 for success, 2 if
       no server certificate is used because the ciphersuites is anonymous
       and 0 for failure.
+    </para>
+    <para>
+      SSL_CTX_build_cert_chain() and SSL_build_cert_chain() return 1 for
+      success and 0 for failure. If the flag <emphasis role="bold">SSL_BUILD_CHAIN_FLAG_IGNORE_ERROR</emphasis> and a
+      verification error occurs then 2 is returned.
     </para>
     <para>
       All other functions return 1 for success and 0 for failure.
