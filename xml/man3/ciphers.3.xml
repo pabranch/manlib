@@ -9,6 +9,7 @@
   </refnamediv>
   <refsynopsisdiv>
 <synopsis format="linespecific"><emphasis role="bold">openssl</emphasis> <emphasis role="bold">ciphers</emphasis>
+[<emphasis role="bold">-s</emphasis>]
 [<emphasis role="bold">-v</emphasis>]
 [<emphasis role="bold">-V</emphasis>]
 [<emphasis role="bold">-ssl2</emphasis>]
@@ -27,6 +28,17 @@
   <refsection xml:id="sources.openssl.doc.apps.ciphers.pod:COMMAND_OPTIONS"><title>COMMAND OPTIONS</title>
     <para>
       <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:-s"/><emphasis role="bold">-s</emphasis></term>
+          <listitem>
+            <para>
+	      Only list supported ciphers: those consistent with the
+	      security level. This is the actual cipher list an application
+	      will support. If this option is not used then ciphers
+	      excluded by the security level will still be listed.
+            </para>
+          </listitem>
+        </varlistentry>
         <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:-v"/><emphasis role="bold">-v</emphasis></term>
           <listitem>
@@ -158,8 +170,13 @@
       list.
     </para>
     <para>
-      Additionally the cipher string <emphasis role="bold">@STRENGTH</emphasis> can be used at any point to sort the
-      current cipher list in order of encryption algorithm key length.
+      The cipher string <emphasis role="bold">@STRENGTH</emphasis> can be
+      used at any point to sort the current cipher list in order of
+      encryption algorithm key length.
+    </para>
+    <para>
+      The cipher string <emphasis role="bold">@SECLEVEL=n</emphasis> can be
+      used at any point to set the security level to <emphasis role="bold">n</emphasis>.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.apps.ciphers.pod:CIPHER_STRINGS"><title>CIPHER STRINGS</title>
@@ -819,6 +836,11 @@ SSL_CK_DES_192_EDE3_CBC_WITH_MD5        DES-CBC3-MD5
       without encryption.
     </para>
     <screen>openssl ciphers -v 'RSA:!COMPLEMENTOFALL'</screen>
+    <para>
+      Set security level to 2 and display all ciphers consistent with level
+      2:
+    </para>
+    <screen>openssl ciphers -v 'ALL:@SECLEVEL=2'</screen>
   </refsection>
   <refsection xml:id="sources.openssl.doc.apps.ciphers.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>

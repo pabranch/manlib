@@ -18,7 +18,7 @@
 <literallayout><emphasis>git update-index</emphasis>
              [--add] [--remove | --force-remove] [--replace]
              [--refresh] [-q] [--unmerged] [--ignore-missing]
-             [(--cacheinfo &lt;mode&gt; &lt;object&gt; &lt;file&gt;)&#8230;]
+             [(--cacheinfo &lt;mode&gt;,&lt;object&gt;,&lt;file&gt;)&#8230;]
              [--chmod=(+|-)x]
              [--[no-]assume-unchanged]
              [--[no-]skip-worktree]
@@ -127,11 +127,17 @@ using the various options:</simpara>
 </varlistentry>
 <varlistentry>
 <term>
+--cacheinfo &lt;mode&gt;,&lt;object&gt;,&lt;path&gt;
+</term>
+<term>
 --cacheinfo &lt;mode&gt; &lt;object&gt; &lt;path&gt;
 </term>
 <listitem>
 <simpara>
-        Directly insert the specified info into the index.
+        Directly insert the specified info into the index.  For
+        backward compatibility, you can also give these three
+        arguments as three separate parameters, but new users are
+        encouraged to use a single-parameter form.
 </simpara>
 </listitem>
 </varlistentry>

@@ -8,7 +8,7 @@ btrfs \- control a btrfs filesystem
 .SH SYNOPSIS
 \fBbtrfs\fP \fBsubvolume create\fP [-i \fI<qgroupid>\fP] [\fI<dest>\fP/]\fI<name>\fP
 .PP
-\fBbtrfs\fP \fBsubvolume delete\fP \fI<subvolume>\fP [\fI<subvolume>...\fP]
+\fBbtrfs\fP \fBsubvolume delete\fP [\fIoptions\fP] \fI<subvolume>\fP [\fI<subvolume>...\fP]
 .PP
 \fBbtrfs\fP \fBsubvolume list\fP [\fIoptions\fP] [-G [+|-]\fIvalue\fP] [-C [+|-]\fIvalue\fP] [--sort=rootid,gen,ogen,path] \fI<path>\fP
 .PP
@@ -58,7 +58,7 @@ btrfs \- control a btrfs filesystem
 \fBbtrfs\fP \fBdevice stats\fP [-z] {\fI<path>\fP|\fI<device>\fP}
 .PP
 .PP
-\fBbtrfs\fP \fBscrub start\fP [-BdqrR] [-c \fIioprio_class\fP -n \fIioprio_classdata\fP] {\fI<path>\fP|\fI<device>\fP}
+\fBbtrfs\fP \fBscrub start\fP [-BdqrRf] [-c \fIioprio_class\fP -n \fIioprio_classdata\fP] {\fI<path>\fP|\fI<device>\fP}
 .PP
 \fBbtrfs\fP \fBscrub cancel\fP {\fI<path>\fP|\fI<device>\fP}
 .PP
@@ -85,7 +85,7 @@ btrfs \- control a btrfs filesystem
 \fBbtrfs\fP \fBinspect-internal rootid\fP \fI<path>\fP
 .PP
 .PP
-\fBbtrfs\fP \fBsend\fP [-v] [-p \fI<parent>\fP] [-c \fI<clone-src>\fP] [-f \fI<outfile>\fP] \fI<subvol>\fP
+\fBbtrfs\fP \fBsend\fP [-ve] [-p \fI<parent>\fP] [-c \fI<clone-src>\fP] [-f \fI<outfile>\fP] \fI<subvol>\fP [\fI<subvol>\fP...]
 .PP
 \fBbtrfs\fP \fBreceive\fP [-ve] [-f \fI<infile>\fP] \fI<mount>\fP
 .PP
@@ -168,9 +168,24 @@ times.
 .RE
 .TP
 
-\fBsubvolume delete\fR\fI <subvolume> \fP[\fI<subvolume>...\fP]\fR
-Delete the subvolume \fI<subvolume>\fR. If \fI<subvolume>\fR is not a
-subvolume, \fBbtrfs\fR returns an error.
+\fBsubvolume delete\fR [\fIoptions\fP] \fI<subvolume>\fP [\fI<subvolume>...\fP]\fR
+Delete the subvolume(s) from the filesystem. If \fI<subvolume>\fR is not a
+subvolume, \fBbtrfs\fR returns an error but continues if there are more arguments
+to process.
+
+The corresponding directory is removed instantly but the data blocks are
+removed later.  The deletion does not involve full commit by default due to
+performance reasons (as a consequence, the subvolume may appear again after a
+crash).  Use one of the --commit options to wait until the operation is safely
+stored on the media.
+.RS
+
+\fIOptions\fP
+.IP "\fB-c|--commit-after\fP" 5
+wait for transaction commit at the end of the operation
+.IP "\fB-C|--commit-each\fP" 5
+wait for transaction commit after deleting each subvolume
+.RE
 .TP
 
 \fBsubvolume list\fR [\fIoptions\fP] [-G [+|-]\fIvalue\fP] [-C [+|-]\fIvalue\fP] [--sort=rootid,gen,ogen,path] \fI<path>\fR
@@ -461,6 +476,9 @@ manpage).
 Set IO priority classdata (see
 .BR ionice (1)
 manpage).
+.IP "\fB-f\fP" 5
+force to check whether scrub has started or resumed in userspace.
+this is useful when scrub stat record file is damaged.
 .RE
 .TP
 
@@ -607,16 +625,16 @@ subvolume return it's own tree id.
 The result is undefined for the so-called empty subvolumes (identified by inode number 2).
 .TP
 
-\fBsend\fP [-v] [-p \fI<parent>\fP] [-c \fI<clone-src>\fP] [-f \fI<outfile>\fP] \fI<subvol>\fP
-Send the subvolume to stdout.
-Sends the subvolume specified by \fI<subvol>\fR to stdout.
+\fBsend\fP [-ve] [-p \fI<parent>\fP] [-c \fI<clone-src>\fP] [-f \fI<outfile>\fP] \fI<subvol>\fP [\fI<subvol>...\fP]
+Send the subvolume(s) to stdout.
+Sends the subvolume(s) specified by \fI<subvol>\fR to stdout.
 By default, this will send the whole subvolume. To do an incremental
 send, use '\fI-p <parent>\fR'. If you want to allow btrfs to clone from
 any additional local snapshots, use '\fI-c <clone-src>\fR' (multiple times
 where applicable). You must not specify clone sources unless you
 guarantee that these snapshots are exactly in the same state on both
-sides, the sender and the receiver. It is allowed to omit the
-'\fI-p <parent>\fR' option when '\fI-c <clone-src>\fR' options are given, in
+sides, the sender and the receiver. It is allowed to omit the '\fI-p <parent>\fR'
+option when '\fI-c <clone-src>\fR' options are given, in
 which case '\fBbtrfs send\fP' will determine a suitable parent among the
 clone sources itself.
 .RS
@@ -625,6 +643,8 @@ clone sources itself.
 .IP "\fB-v\fP" 5
 Enable verbose debug output. Each occurrence of this option increases the
 verbose level more.
+.IP "\fB-e\fP" 5
+If sending multiple subvols at once, use the new format and omit the <end cmd> between the subvols.
 .IP "\fB-p \fI<parent>\fP" 5
 Send an incremental stream from \fI<parent>\fR to \fI<subvol>\fR.
 .IP "\fB-c \fI<clone-src>\fP" 5
@@ -640,11 +660,16 @@ Receive subvolumes from stdin.
 Receives one or more subvolumes that were previously
 sent with btrfs send. The received subvolumes are stored
 into \fI<mount>\fP.
-btrfs receive will fail in case a receiving subvolume
-already exists. It will also fail in case a previously
-received subvolume was changed after it was received.
-After receiving a subvolume, it is immediately set to
-read only.
+btrfs receive will fail with the following case:
+
+1.a receiving subvolume already exists.
+
+2.a previously received subvolume was changed after it was received.
+
+3.default subvolume is changed or you don't mount btrfs filesystem with
+fs tree.
+
+After receiving a subvolume, it is immediately set to read only.
 .RS
 
 \fIOptions\fR

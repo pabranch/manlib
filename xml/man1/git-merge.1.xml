@@ -16,7 +16,7 @@
 <refsynopsisdiv id="_synopsis">
 <blockquote>
 <literallayout><emphasis>git merge</emphasis> [-n] [--stat] [--no-commit] [--squash] [--[no-]edit]
-        [-s &lt;strategy&gt;] [-X &lt;strategy-option&gt;] [-S[&lt;keyid&gt;]]
+        [-s &lt;strategy&gt;] [-X &lt;strategy-option&gt;] [-S[&lt;key-id&gt;]]
         [--[no-]rerere-autoupdate] [-m &lt;msg&gt;] [&lt;commit&gt;&#8230;]
 <emphasis>git merge</emphasis> &lt;msg&gt; HEAD &lt;commit&gt;&#8230;
 <emphasis>git merge</emphasis> --abort</literallayout>
@@ -191,14 +191,13 @@ merge.</simpara>
 </term>
 <listitem>
 <simpara>
-        Produce the working tree and index state as if a real
-        merge happened (except for the merge information),
-        but do not actually make a commit or
-        move the <literal>HEAD</literal>, nor record <literal>$GIT_DIR/MERGE_HEAD</literal> to
-        cause the next <literal>git commit</literal> command to create a merge
-        commit.  This allows you to create a single commit on
-        top of the current branch whose effect is the same as
-        merging another branch (or more in case of an octopus).
+        Produce the working tree and index state as if a real merge
+        happened (except for the merge information), but do not actually
+        make a commit, move the <literal>HEAD</literal>, or record <literal>$GIT_DIR/MERGE_HEAD</literal>
+        (to cause the next <literal>git commit</literal> command to create a merge
+        commit).  This allows you to create a single commit on top of
+        the current branch whose effect is the same as merging another
+        branch (or more in case of an octopus).
 </simpara>
 <simpara>With --no-squash perform the merge and commit the result. This
 option can be used to override --squash.</simpara>

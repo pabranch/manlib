@@ -336,8 +336,22 @@ gitk --max-count=100 --all -- Makefile
 </refsect1>
 <refsect1 id="_files">
 <title>Files</title>
-<simpara>Gitk creates the .gitk file in your $HOME directory to store preferences
-such as display options, font, and colors.</simpara>
+<simpara>User configuration and preferences are stored at:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+<emphasis>$XDG_CONFIG_HOME/git/gitk</emphasis> if it exists, otherwise
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<emphasis>$HOME/.gitk</emphasis> if it exists
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara>If neither of the above exist then <emphasis>$XDG_CONFIG_HOME/git/gitk</emphasis> is created and
+used by default. If <emphasis>$XDG_CONFIG_HOME</emphasis> is not set it defaults to
+<emphasis>$HOME/.config</emphasis> in all cases.</simpara>
 </refsect1>
 <refsect1 id="_history">
 <title>History</title>

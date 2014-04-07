@@ -687,8 +687,8 @@ Double quote <literal>"</literal> and backslash <literal>\</literal> characters 
 be escaped: use <literal>\"</literal> for <literal>"</literal> and <literal>\\</literal> for <literal>\</literal>.</simpara>
 <simpara>The following escape sequences (beside <literal>\"</literal> and <literal>\\</literal>) are recognized:
 <literal>\n</literal> for newline character (NL), <literal>\t</literal> for horizontal tabulation (HT, TAB)
-and <literal>\b</literal> for backspace (BS).  No other char escape sequence, nor octal
-char sequences are valid.</simpara>
+and <literal>\b</literal> for backspace (BS).  Other char escape sequences (including octal
+escape sequences) are invalid.</simpara>
 <simpara>Variable values ending in a <literal>\</literal> are continued on the next line in the
 customary UNIX fashion.</simpara>
 <simpara>Some variables may require a special value format.</simpara>
@@ -731,8 +731,11 @@ user&#8217;s home directory. See below for examples.</simpara>
 <title>Variables</title>
 <simpara>Note that this list is non-comprehensive and not necessarily complete.
 For command-specific variables, you will find a more detailed description
-in the appropriate manual page. You will find a description of non-core
-porcelain configuration variables in the respective porcelain documentation.</simpara>
+in the appropriate manual page.</simpara>
+<simpara>Other git-related tools may and do use their own variables.  When
+inventing new variables for use in your own tool, make sure their
+names do not conflict with those that are used by Git itself and
+other popular tools, and describe them in your documentation.</simpara>
 <variablelist>
 <varlistentry>
 <term>
@@ -2052,7 +2055,7 @@ color.diff
 </simpara>
 <simpara>This does not affect <citerefentry>
 <refentrytitle>git-format-patch</refentrytitle><manvolnum>1</manvolnum>
-</citerefentry> nor the
+</citerefentry> or the
 <emphasis>git-diff-&#42;</emphasis> plumbing commands.  Can be overridden on the
 command line with the <literal>--color[=&lt;when&gt;]</literal> option.</simpara>
 </listitem>
@@ -3302,6 +3305,18 @@ filter.&lt;driver&gt;.smudge
         <citerefentry>
 <refentrytitle>gitattributes</refentrytitle><manvolnum>5</manvolnum>
 </citerefentry> for details.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+gc.aggressiveDepth
+</term>
+<listitem>
+<simpara>
+        The depth parameter used in the delta compression
+        algorithm used by <emphasis>git gc --aggressive</emphasis>.  This defaults
+        to 250.
 </simpara>
 </listitem>
 </varlistentry>

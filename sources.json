@@ -345,6 +345,12 @@ find sources/sendmail/ -name '*[a-z].8' -exec cp {} man/man8/ \\;"
 (cd sources/shadow-utils/man && for f in *.__; do base=$(basename -s .__ $f); manNum=$(echo $base | rev | cut -c 5); xsltproc ../../../utils/db4-upgrade.xsl $f > ../../../xml/man$manNum/$base; done;)"
   },
 
+  /* Uses a .yo yodl file, we can't handle that yet.
+  "socat": {
+    "type": "git",
+    "url": "git://repo.or.cz/socat.git"
+  },*/
+
   "sox": {
     "type": "git",
     "url": "git://git.code.sf.net/p/sox/code",

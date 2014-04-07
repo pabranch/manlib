@@ -214,6 +214,15 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:-no_resumption_on_reneg"/><emphasis role="bold">-no_resumption_on_reneg</emphasis></term>
+          <listitem>
+            <para>
+	      set SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION flag. Only
+	      used by servers.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:-legacyrenegotiation"/><emphasis role="bold">-legacyrenegotiation</emphasis></term>
           <listitem>
             <para>
@@ -470,6 +479,11 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
 	      suite, signature algorithm or elliptic curve to use for an
 	      incoming connection.  Equivalent to <emphasis role="bold">SSL_OP_CIPHER_SERVER_PREFERENCE</emphasis>. Only
 	      used by servers.
+            </para>
+            <para>
+	      <emphasis role="bold">NoResumptionOnRenegotiation</emphasis>
+	      set <emphasis role="bold">SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION</emphasis>
+	      flag. Only used by servers.
             </para>
             <para>
 	      <emphasis role="bold">UnsafeLegacyRenegotiation</emphasis>

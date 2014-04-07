@@ -1004,23 +1004,23 @@ below for an example.</simpara>
 <title>Input Format</title>
 <simpara><emphasis>git rev-parse --parseopt</emphasis> input format is fully text based. It has two parts,
 separated by a line that contains only <literal>--</literal>. The lines before the separator
-(should be more than one) are used for the usage.
+(should be one or more) are used for the usage.
 The lines after the separator describe the options.</simpara>
 <simpara>Each line of options has this format:</simpara>
 <literallayout class="monospaced">
-&#10;.ft C&#10;&lt;opt_spec&gt;&lt;flags&gt;* SP+ help LF&#10;.ft&#10;
+&#10;.ft C&#10;&lt;opt-spec&gt;&lt;flags&gt;*&lt;arg-hint&gt;? SP+ help LF&#10;.ft&#10;
 </literallayout>
 <variablelist>
 <varlistentry>
 <term>
-<literal>&lt;opt_spec&gt;</literal>
+<literal>&lt;opt-spec&gt;</literal>
 </term>
 <listitem>
 <simpara>
         its format is the short option character, then the long option name
         separated by a comma. Both parts are not required, though at least one
         is necessary. <literal>h,help</literal>, <literal>dry-run</literal> and <literal>f</literal> are all three correct
-        <literal>&lt;opt_spec&gt;</literal>.
+        <literal>&lt;opt-spec&gt;</literal>.
 </simpara>
 </listitem>
 </varlistentry>
@@ -1062,6 +1062,19 @@ Use <literal>!</literal> to not make the corresponding negated long option avail
 </itemizedlist>
 </listitem>
 </varlistentry>
+<varlistentry>
+<term>
+<literal>&lt;arg-hint&gt;</literal>
+</term>
+<listitem>
+<simpara>
+        <literal>&lt;arg-hint&gt;</literal>, if specified, is used as a name of the argument in the
+        help output, for options that take arguments. <literal>&lt;arg-hint&gt;</literal> is
+        terminated by the first whitespace.  It is customary to use a
+        dash to separate words in a multi-word argument hint.
+</simpara>
+</listitem>
+</varlistentry>
 </variablelist>
 <simpara>The remainder of the line, after stripping the spaces, is used
 as the help associated to the option.</simpara>
@@ -1081,11 +1094,32 @@ h,help    show the help
 
 foo       some nifty option --foo
 bar=      some cool option --bar with an argument
+baz=arg   another cool option --baz with a named argument
+qux?path  qux may take a path argument but has meaning by itself
 
   An option group Header
 C?        option C with an optional argument"
 
 eval "$(echo "$OPTS_SPEC" | git rev-parse --parseopt -- "$@" || echo exit $?)"&#10;.ft&#10;
+</literallayout>
+</refsect2>
+<refsect2 id="_usage_text">
+<title>Usage text</title>
+<simpara>When <literal>"$@"</literal> is <literal>-h</literal> or <literal>--help</literal> in the above example, the following
+usage text would be shown:</simpara>
+<literallayout class="monospaced">
+&#10;.ft C&#10;usage: some-command [options] &lt;args&gt;...
+
+    some-command does foo and bar!
+
+    -h, --help            show the help
+    --foo                 some nifty option --foo
+    --bar ...             some cool option --bar with an argument
+    --baz &lt;arg&gt;           another cool option --baz with a named argument
+    --qux[=&lt;path&gt;]        qux may take a path argument but has meaning by itself
+
+An option group Header
+    -C[...]               option C with an optional argument&#10;.ft&#10;
 </literallayout>
 </refsect2>
 </refsect1>
