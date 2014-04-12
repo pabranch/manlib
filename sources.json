@@ -274,6 +274,13 @@ cp sources/Owl/packages/passwdqc/passwdqc/*.8 man/man8/"
     "cmd": "cp sources/patch/patch.man man/man1/patch.1"
   },
 
+  "pgbadger": {
+    "type": "git",
+    "url": "https://github.com/dalibo/pgbadger.git",
+    "sparse": "doc/",
+    "cmd": "pod2docbook --doctype=refentry sources/pgbadger/doc/pgBadger.pod | xsltproc utils/db4-upgrade.xsl - > xml/man1/pgbadger.1.xml"
+  },
+
   "polkit": {
     "type": "git",
     "url": "git://anongit.freedesktop.org/polkit",
