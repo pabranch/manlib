@@ -3,53 +3,10 @@
   <title>varnishtop</title>
   <section xml:id="varnish-log-entry-ranking">
     <title>Varnish log entry ranking</title>
-    <variablelist>
-      <varlistentry>
-        <term>
-          Author
-        </term>
-        <listitem>
-          <para>
-            Dag-Erling Smørgrav
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          Date
-        </term>
-        <listitem>
-          <para>
-            2010-05-31
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          Version
-        </term>
-        <listitem>
-          <para>
-            1.0
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          Manual section
-        </term>
-        <listitem>
-          <para>
-            1
-          </para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
     <section xml:id="synopsis">
       <title>SYNOPSIS</title>
       <para>
-        varnishtop [-1] [-b] [-C] [-c] [-d] [-f] [-I regex] [-i tag] [-n
-        varnish_name] [-r file] [-V] [-X regex] [-x tag]
+        varnishtop |synopsis|
       </para>
     </section>
     <section xml:id="description">
@@ -67,132 +24,6 @@
       <para>
         The following options are available:
       </para>
-      <variablelist>
-        <varlistentry>
-          <term>
-            -1 Instead of presenting of a continuously updated display,
-          </term>
-          <listitem>
-            <para>
-              print the statistics once and exit. Implies
-              <literal>-d</literal>.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term>
-            -b Include log entries which result from communication
-          </term>
-          <listitem>
-            <para>
-              with a backend server. If neither <literal>-b</literal>
-              nor <literal>-c</literal> is specified, varnishtop acts as
-              if they both were.
-            </para>
-          </listitem>
-        </varlistentry>
-      </variablelist>
-      <para>
-        -C Ignore case when matching regular expressions.
-      </para>
-      <variablelist>
-        <varlistentry>
-          <term>
-            -c Include log entries which result from communication
-          </term>
-          <listitem>
-            <para>
-              with a client. If neither <literal>-b</literal> nor
-              <literal>-c</literal> is specified, varnishtop acts as if
-              they both were.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term>
-            -d Process old log entries on startup. Normally, varnishtop
-          </term>
-          <listitem>
-            <para>
-              will only process entries which are written to the log
-              after it starts.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term>
-            -f Sort and group only on the first field of each log entry.
-          </term>
-          <listitem>
-            <para>
-              This is useful when displaying e.g. stataddr entries,
-              where the first field is the client IP address.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term>
-            -I regex Include log entries which match the specified
-            regular
-          </term>
-          <listitem>
-            <para>
-              expression. If neither <literal>-I</literal> nor
-              <literal>-i</literal> is specified, all log entries are
-              included.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term>
-            -i tag Include log entries with the specified tag. If
-            neither <literal>-I</literal>
-          </term>
-          <listitem>
-            <para>
-              nor <literal>-i</literal> is specified, all log entries
-              are included.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term>
-            -p period Specifies the number of seconds to measure over,
-            the default
-          </term>
-          <listitem>
-            <para>
-              is 60 seconds. The first number in the list is the average
-              number of requests seen over this time period.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term>
-            -n Specifies the name of the varnishd instance to get logs
-            from.
-          </term>
-          <listitem>
-            <para>
-              If <literal>-n</literal> is not specified, the host name
-              is used.
-            </para>
-          </listitem>
-        </varlistentry>
-      </variablelist>
-      <para>
-        -r file Read log entries from file instead of shared memory.
-      </para>
-      <para>
-        -V Display the version number and exit.
-      </para>
-      <para>
-        -X regex Exclude log entries which match the specified regular
-        expression.
-      </para>
-      <para>
-        -x tag Exclude log entries with the specified tag.
-      </para>
     </section>
     <section xml:id="examples">
       <title>EXAMPLES</title>
@@ -201,14 +32,14 @@
         the most frequently requested URLs:
       </para>
       <programlisting>
-varnishtop -i RxURL
+varnishtop -i ReqURL
 </programlisting>
       <para>
         The following example displays a continuously updated list of
         the most commonly used user agents:
       </para>
       <programlisting>
-varnishtop -i RxHeader -C -I ^User-Agent
+varnishtop -C -I ReqHeader:User-Agent
 </programlisting>
     </section>
     <section xml:id="see-also">
@@ -247,7 +78,8 @@ varnishtop -i RxHeader -C -I ^User-Agent
         The varnishtop utility was originally developed by Poul-Henning
         Kamp in cooperation with Verdens Gang AS and Varnish Software
         AS, and later substantially rewritten by Dag-Erling Smørgrav.
-        This manual page was written by Dag-Erling Smørgrav.
+        This manual page was written by Dag-Erling Smørgrav, and later
+        updated by Martin Blix Grydeland.
       </para>
     </section>
     <section xml:id="copyright">
@@ -264,7 +96,7 @@ varnishtop -i RxHeader -C -I ^User-Agent
         </listitem>
         <listitem>
           <para>
-            Copyright (c) 2006-2011 Varnish Software AS
+            Copyright (c) 2006-2014 Varnish Software AS
           </para>
         </listitem>
       </itemizedlist>

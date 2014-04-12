@@ -3,616 +3,522 @@
   <title>VCL</title>
   <section xml:id="varnish-configuration-language">
     <title>Varnish Configuration Language</title>
-    <variablelist>
-      <varlistentry>
-        <term>
-          Author
-        </term>
-        <listitem>
-          <para>
-            Dag-Erling Smørgrav
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          Author
-        </term>
-        <listitem>
-          <para>
-            Poul-Henning Kamp
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          Author
-        </term>
-        <listitem>
-          <para>
-            Kristian Lyngstøl
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          Author
-        </term>
-        <listitem>
-          <para>
-            Per Buer
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          Date
-        </term>
-        <listitem>
-          <para>
-            2010-06-02
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          Version
-        </term>
-        <listitem>
-          <para>
-            1.0
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          Manual section
-        </term>
-        <listitem>
-          <para>
-            7
-          </para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
     <section xml:id="description">
       <title>DESCRIPTION</title>
       <para>
         The VCL language is a small domain-specific language designed to
-        be used to define request handling and document caching policies
-        for Varnish Cache.
+        be used to describe request handling and document caching
+        policies for Varnish Cache.
       </para>
       <para>
         When a new configuration is loaded, the varnishd management
         process translates the VCL code to C and compiles it to a shared
-        object which is then dynamically linked into the server process.
-      </para>
-    </section>
-    <section xml:id="syntax">
-      <title>SYNTAX</title>
-      <para>
-        The VCL syntax is very simple, and deliberately similar to C and
-        Perl. Blocks are delimited by curly braces, statements end with
-        semicolons, and comments may be written as in C, C++ or Perl
-        according to your own preferences.
+        object which is then loaded into the server process.
       </para>
       <para>
-        In addition to the C-like assignment (=), comparison (==, !=)
-        and boolean (!, &amp;&amp; and ||) operators, VCL supports both
-        regular expression and ACL matching using the ~ and the !~
-        operators.
+        This document focuses on the syntax of the VCL language. For a
+        full description of syntax and semantics, with ample examples,
+        please see the online documentation at
+        <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://www.varnish-cache.org/docs/">https://www.varnish-cache.org/docs/</link>
+        .
       </para>
       <para>
-        Basic strings are enclosed in " ... ", and may not
-        contain newlines.
+        Starting with Varnish 4.0, each VCL file must start by declaring
+        its version with a special "vcl 4.0;" marker at the
+        top of the file.
       </para>
-      <para>
-        Long strings are enclosed in {" ... "}. They may
-        contain any character including ", newline and other
-        control characters except for the NUL (0x00) character.
-      </para>
-      <para>
-        Unlike C and Perl, the backslash () character has no special
-        meaning in strings in VCL, so it can be freely used in regular
-        expressions without doubling.
-      </para>
-      <para>
-        Strings are concatenated using the '+' operator.
-      </para>
-      <para>
-        Assignments are introduced with the <emphasis>set</emphasis>
-        keyword. There are no user-defined variables; values can only be
-        assigned to variables attached to backend, request or document
-        objects. Most of these are typed, and the values assigned to
-        them must have a compatible unit suffix.
-      </para>
-      <para>
-        You can use the <emphasis>set</emphasis> keyword to arbitrary
-        HTTP headers. You can remove headers with the
-        <emphasis>remove</emphasis> or <emphasis>unset</emphasis>
-        keywords, which are synonym.
-      </para>
-      <para>
-        You can use the <emphasis>rollback</emphasis> keyword to revert
-        any changes to req at any time.
-      </para>
-      <para>
-        The <emphasis>synthetic</emphasis> keyword is used to produce a
-        synthetic response body in vcl_error. It takes a single string
-        as argument.
-      </para>
-      <para>
-        You can force a crash of the client process with the
-        <emphasis>panic</emphasis> keyword. <emphasis>panic</emphasis>
-        takes a string as argument.
-      </para>
-      <para>
-        The <literal>return(action)</literal> keyword terminates the
-        subroutine. <emphasis>action</emphasis> can be, depending on
-        context one of
-      </para>
-      <itemizedlist>
-        <listitem>
-          <para>
-            deliver
-          </para>
-        </listitem>
-        <listitem>
-          <para>
-            error
-          </para>
-        </listitem>
-        <listitem>
-          <para>
-            fetch
-          </para>
-        </listitem>
-        <listitem>
-          <para>
-            hash
-          </para>
-        </listitem>
-        <listitem>
-          <para>
-            hit_for_pass
-          </para>
-        </listitem>
-        <listitem>
-          <para>
-            lookup
-          </para>
-        </listitem>
-        <listitem>
-          <para>
-            ok
-          </para>
-        </listitem>
-        <listitem>
-          <para>
-            pass
-          </para>
-        </listitem>
-        <listitem>
-          <para>
-            pipe
-          </para>
-        </listitem>
-        <listitem>
-          <para>
-            restart
-          </para>
-        </listitem>
-      </itemizedlist>
-      <para>
-        Please see the list of subroutines to see what return actions
-        are available where.
-      </para>
-      <para>
-        VCL has if tests, but no loops.
-      </para>
-      <para>
-        The contents of another VCL file may be inserted at any point in
-        the code by using the <emphasis>include</emphasis> keyword
-        followed by the name of the other file as a quoted string.
-      </para>
-      <section xml:id="backend-declarations">
-        <title>Backend declarations</title>
+      <section xml:id="operators">
+        <title>Operators</title>
         <para>
-          A backend declaration creates and initializes a named backend
-          object: :
+          The following operators are available in VCL:
         </para>
-        <programlisting>
-backend www {
-  .host = "www.example.com";
-  .port = "http";
-}
-</programlisting>
+        <blockquote>
+          <variablelist>
+            <varlistentry>
+              <term>
+                =
+              </term>
+              <listitem>
+                <para>
+                  Assignment operator.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                ==
+              </term>
+              <listitem>
+                <para>
+                  Comparison.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                ~
+              </term>
+              <listitem>
+                <para>
+                  Match. Can either be used with regular expressions or
+                  ACLs.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                !
+              </term>
+              <listitem>
+                <para>
+                  Negation.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                &amp;&amp;
+              </term>
+              <listitem>
+                <para>
+                  Logical and.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                ||
+              </term>
+              <listitem>
+                <para>
+                  Logical or.
+                </para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
+        </blockquote>
+      </section>
+      <section xml:id="conditionals">
+        <title>Conditionals</title>
         <para>
-          The backend object can later be used to select a backend at
-          request time: :
-        </para>
-        <programlisting>
-if (req.http.host ~ "(?i)^(www.)?example.com$") {
-  set req.backend = www;
-}
-</programlisting>
-        <para>
-          To avoid overloading backend servers, .max_connections can be
-          set to limit the maximum number of concurrent backend
-          connections.
+          VCL has <emphasis>if</emphasis> and <emphasis>else</emphasis>
+          statements. Nested logic can be implemented with the
+          <emphasis>elseif</emphasis> statement.
+          (<emphasis>elsif</emphasis>/<emphasis>elif</emphasis>/<emphasis>else
+          if</emphasis> is equivalent.)
         </para>
         <para>
-          The timeout parameters can be overridden in the backend
-          declaration. The timeout parameters are .connect_timeout for
-          the time to wait for a backend connection, .first_byte_timeout
-          for the time to wait for the first byte from the backend and
-          .between_bytes_timeout for time to wait between each received
-          byte.
-        </para>
-        <para>
-          These can be set in the declaration like this: :
-        </para>
-        <programlisting>
-backend www {
-  .host = "www.example.com";
-  .port = "http";
-  .connect_timeout = 1s;
-  .first_byte_timeout = 5s;
-  .between_bytes_timeout = 2s;
-}
-</programlisting>
-        <para>
-          To mark a backend as unhealthy after number of items have been
-          added to its saintmode list
-          <literal>.saintmode_threshold</literal> can be set to the
-          maximum list size. Setting a value of 0 disables saint mode
-          checking entirely for that backend. The value in the backend
-          declaration overrides the parameter.
+          Note that are no loops or iterators of any kind in VCL.
         </para>
       </section>
-      <section xml:id="directors">
-        <title>Directors</title>
+      <section xml:id="strings-booleans-time-duration-and-integers">
+        <title>Strings, booleans, time, duration and integers</title>
         <para>
-          A director is a logical group of backend servers clustered
-          together for redundancy. The basic role of the director is to
-          let Varnish choose a backend server amongst several so if one
-          is down another can be used.
+          These are the data types in Varnish. You can
+          <emphasis>set</emphasis> or <emphasis>unset</emphasis> these.
         </para>
         <para>
-          There are several types of directors. The different director
-          types use different algorithms to choose which backend to use.
-        </para>
-        <para>
-          Configuring a director may look like this: :
+          Example:
         </para>
         <programlisting>
-director b2 random {
-  .retries = 5;
-  {
-    // We can refer to named backends
-    .backend = b1;
-    .weight  = 7;
-  }
-  {
-    // Or define them inline 
-    .backend  = {
-      .host = "fs2";
-    }
-  .weight         = 3;
-  }
-} 
+set req.http.User-Agent = "unknown";
+unset req.http.Range;
 </programlisting>
-        <section xml:id="the-family-of-random-directors">
-          <title>The family of random directors</title>
+        <section xml:id="strings">
+          <title>Strings</title>
           <para>
-            There are three directors that share the same logic, called
-            the random director, client director and hash director. They
-            each distribute traffic among the backends assigned to it
-            using a random distribution seeded with either the client
-            identity, a random number or the cache hash (typically url).
-            Beyond the initial seed, they act the same.
-          </para>
-          <para>
-            Each backend requires a .weight option which sets the amount
-            of traffic each backend will get compared to the others.
-            Equal weight means equal traffic. A backend with lower
-            weight than an other will get proportionally less traffic.
-          </para>
-          <para>
-            The director has an optional .retries option which defaults
-            to the number of backends the director has. The director
-            will attempt .retries times to find a healthy backend if the
-            first attempt fails. Each attempt re-uses the previous seed
-            in an iterative manner. For the random director this detail
-            is of no importance as it will give different results each
-            time. For the hash and client director, this means the same
-            URL or the same client will fail to the same server
-            consistently.
-          </para>
-          <simplesect xml:id="the-random-director">
-            <title>The random director</title>
-            <para>
-              This uses a random number to seed the backend selection.
-            </para>
-          </simplesect>
-          <simplesect xml:id="the-client-director">
-            <title>The client director</title>
-            <para>
-              The client director picks a backend based on the clients
-              <emphasis>identity</emphasis>. You can set the VCL
-              variable <emphasis>client.identity</emphasis> to identify
-              the client by picking up the value of a session cookie or
-              similar.
-            </para>
-          </simplesect>
-          <simplesect xml:id="the-hash-director">
-            <title>The hash director</title>
-            <para>
-              The hash director will pick a backend based on the URL
-              hash value.
-            </para>
-            <para>
-              This is useful is you are using Varnish to load balance in
-              front of other Varnish caches or other web accelerators as
-              objects won't be duplicated across caches.
-            </para>
-            <para>
-              It will use the value of req.hash, just as the normal
-              cache lookup methods.
-            </para>
-          </simplesect>
-        </section>
-        <section xml:id="the-round-robin-director">
-          <title>The round-robin director</title>
-          <para>
-            The round-robin director does not take any options.
-          </para>
-          <para>
-            It will use the first backend for the first request, the
-            second backend for the second request and so on, and start
-            from the top again when it gets to the end.
-          </para>
-          <para>
-            If a backend is unhealthy or Varnish fails to connect, it
-            will be skipped. The round-robin director will try all the
-            backends once before giving up.
+            Basic strings are enclosed in double quotes (" ...
+            "), and may not contain newlines. Long strings are
+            enclosed in {" ... "}. They may contain any
+            character including single double quotes ("), newline
+            and other control characters except for the NUL (0x00)
+            character.
           </para>
         </section>
-        <section xml:id="the-dns-director">
-          <title>The DNS director</title>
+        <section xml:id="booleans">
+          <title>Booleans</title>
           <para>
-            The DNS director can use backends in two different ways.
-            Either like the random or round-robin director or using
-            .list: :
+            Booleans can be either <emphasis>true</emphasis> or
+            <emphasis>false</emphasis>.
           </para>
-          <programlisting>
-director directorname dns {
-        .list = {
-                .host_header = "www.example.com";
-                .port = "80";
-                .connect_timeout = 0.4s;
-                "192.168.15.0"/24;
-                "192.168.16.128"/25;
-        }
-        .ttl = 5m;
-        .suffix = "internal.example.net";
-}
-</programlisting>
-          <para>
-            This will specify 384 backends, all using port 80 and a
-            connection timeout of 0.4s. Options must come before the
-            list of IPs in the .list statement. The .list-method does
-            not support IPv6. It is not a white-list, it is an actual
-            list of backends that will be created internally in Varnish
-            - the larger subnet the more overhead.
-          </para>
-          <para>
-            The .ttl defines the cache duration of the DNS lookups.
-          </para>
-          <para>
-            The above example will append
-            "internal.example.net" to the incoming Host header
-            supplied by the client, before looking it up. All settings
-            are optional.
-          </para>
-          <para>
-            Health checks are not thoroughly supported.
-          </para>
-          <para>
-            DNS round robin balancing is supported. If a hostname
-            resolves to multiple backends, the director will divide the
-            traffic between all of them in a round-robin manner.
-          </para>
-        </section>
-        <section xml:id="the-fallback-director">
-          <title>The fallback director</title>
-          <para>
-            The fallback director will pick the first backend that is
-            healthy. It considers them in the order in which they are
-            listed in its definition.
-          </para>
-          <para>
-            The fallback director does not take any options.
-          </para>
-          <para>
-            An example of a fallback director: :
-          </para>
-          <programlisting>
-director b3 fallback {
-  { .backend = www1; }
-  { .backend = www2; } // will only be used if www1 is unhealthy.
-  { .backend = www3; } // will only be used if both www1 and www2
-                       // are unhealthy.
-}
-</programlisting>
         </section>
       </section>
-      <section xml:id="backend-probes">
-        <title>Backend probes</title>
+      <section xml:id="time">
+        <title>Time</title>
         <para>
-          Backends can be probed to see whether they should be
-          considered healthy or not. The return status can also be
-          checked by using req.backend.healthy.
+          VCL has time. The function <emphasis>now</emphasis> returns a
+          time. A duration can be added to a time to make another time.
+          In string context they return a formatted string.
+        </para>
+      </section>
+      <section xml:id="durations">
+        <title>Durations</title>
+        <para>
+          Durations are defined by a number and a designation. The
+          number can be a real so 1.5w is allowed.
+        </para>
+        <blockquote>
+          <variablelist>
+            <varlistentry>
+              <term>
+                ms
+              </term>
+              <listitem>
+                <para>
+                  milliseconds
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                s
+              </term>
+              <listitem>
+                <para>
+                  seconds
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                m
+              </term>
+              <listitem>
+                <para>
+                  minutes
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                h
+              </term>
+              <listitem>
+                <para>
+                  hours
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                d
+              </term>
+              <listitem>
+                <para>
+                  days
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                w
+              </term>
+              <listitem>
+                <para>
+                  weeks
+                </para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
+        </blockquote>
+      </section>
+      <section xml:id="integers">
+        <title>Integers</title>
+        <para>
+          Certain fields are integers, used as expected. In string
+          context they return a string.
+        </para>
+      </section>
+      <section xml:id="real-numbers">
+        <title>Real numbers</title>
+        <para>
+          VCL understands real numbers. As with integers, when used in a
+          string context they will return a string.
+        </para>
+      </section>
+      <section xml:id="regular-expressions">
+        <title>Regular Expressions</title>
+        <para>
+          Varnish uses Perl-compatible regular expressions (PCRE). For a
+          complete description please see the pcre(3) man page.
         </para>
         <para>
-          Probes take the following parameters:
-        </para>
-        <variablelist>
-          <varlistentry>
-            <term>
-              .url
-            </term>
-            <listitem>
-              <para>
-                Specify a URL to request from the backend. Defaults to
-                "/".
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>
-              .request
-            </term>
-            <listitem>
-              <para>
-                Specify a full HTTP request using multiple strings.
-                .request will have \r\n automatically inserted after
-                every string. If specified, .request will take
-                precedence over .url.
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>
-              .window
-            </term>
-            <listitem>
-              <para>
-                How many of the latest polls we examine to determine
-                backend health. Defaults to 8.
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>
-              .threshold
-            </term>
-            <listitem>
-              <para>
-                How many of the polls in .window must have succeeded for
-                us to consider the backend healthy. Defaults to 3.
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>
-              .initial
-            </term>
-            <listitem>
-              <para>
-                How many of the probes are considered good when Varnish
-                starts. Defaults to the same amount as the threshold.
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>
-              .expected_response
-            </term>
-            <listitem>
-              <para>
-                The expected backend HTTP response code. Defaults to
-                200.
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>
-              .interval
-            </term>
-            <listitem>
-              <para>
-                Defines how often the probe should check the backend.
-                Default is every 5 seconds.
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>
-              .timeout
-            </term>
-            <listitem>
-              <para>
-                How fast each probe times out. Default is 2 seconds.
-              </para>
-            </listitem>
-          </varlistentry>
-        </variablelist>
-        <para>
-          A backend with a probe can be defined like this, together with
-          the backend or director: :
-        </para>
-        <programlisting>
-backend www {
-  .host = "www.example.com";
-  .port = "http";
-  .probe = {
-    .url = "/test.jpg";
-    .timeout = 0.3 s;
-    .window = 8;
-    .threshold = 3;
-    .initial = 3;
-  }
-}
-</programlisting>
-        <para>
-          Or it can be defined separately and then referenced: :
+          To send flags to the PCRE engine, such as to do case
+          insensitive matching, add the flag within parens following a
+          question mark, like this:
         </para>
         <programlisting>
-probe healthcheck {
-   .url = "/status.cgi";
-   .interval = 60s;     
-   .timeout = 0.3 s;
-   .window = 8;
-   .threshold = 3;
-   .initial = 3;
-   .expected_response = 200;
-} 
-
-backend www {
-  .host = "www.example.com";
-  .port = "http";
-  .probe = healthcheck;
-}
-</programlisting>
-        <para>
-          If you have many backends this can simplify the config a lot.
-        </para>
-        <para>
-          It is also possible to specify the raw HTTP request: :
-        </para>
-        <programlisting>
-probe rawprobe {
-    # NB: \r\n automatically inserted after each string!
-    .request =
-      "GET / HTTP/1.1"
-      "Host: www.foo.bar"
-      "Connection: close";
+# If host is NOT example dot com..
+if (req.http.host !~ "(?i)example.com$") {
+    ...
 }
 </programlisting>
       </section>
-      <section xml:id="acls">
-        <title>ACLs</title>
+      <section xml:id="include-statement">
+        <title>Include statement</title>
         <para>
-          An ACL declaration creates and initializes a named access
-          control list which can later be used to match client
-          addresses: :
+          To include a VCL file in another file use the include keyword:
         </para>
         <programlisting>
-acl local {
-  "localhost";         // myself
-  "192.0.2.0"/24;      // and everyone on the local network
-  ! "192.0.2.23";      // except for the dialin router 
+include "foo.vcl";
+</programlisting>
+      </section>
+      <section xml:id="import-statement">
+        <title>Import statement</title>
+        <para>
+          The <emphasis>import</emphasis> statement is used to load
+          Varnish Modules (VMODs.)
+        </para>
+        <para>
+          Example:
+        </para>
+        <programlisting>
+import std;
+sub vcl_recv {
+    std.log("foo");
+}
+</programlisting>
+      </section>
+      <section xml:id="backend-definition">
+        <title>Backend definition</title>
+        <para>
+          A backend declaration creates and initialises a named backend
+          object. A declaration start with the keyword
+          <emphasis>backend</emphasis> followed by the name of the
+          backend. The actual declaration is in curly brackets, in a
+          key/value fashion.:
+        </para>
+        <programlisting>
+backend name {
+    .attribute = "value";
+}
+</programlisting>
+        <para>
+          The only mandatory attribute is <emphasis>host</emphasis>. The
+          attributes will inherit their defaults from the global
+          parameters. The following attributes are available:
+        </para>
+        <blockquote>
+          <variablelist>
+            <varlistentry>
+              <term>
+                host (mandatory)
+              </term>
+              <listitem>
+                <para>
+                  The host to be used. IP address or a hostname that
+                  resolves to a single IP address.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                port
+              </term>
+              <listitem>
+                <para>
+                  The port on the backend that Varnish should connect
+                  to.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                host_header
+              </term>
+              <listitem>
+                <para>
+                  A host header to add.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                connect_timeout
+              </term>
+              <listitem>
+                <para>
+                  Timeout for connections.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                first_byte_timeout
+              </term>
+              <listitem>
+                <para>
+                  Timeout for first byte.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                between_bytes_timeout
+              </term>
+              <listitem>
+                <para>
+                  Timeout between bytes.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                probe
+              </term>
+              <listitem>
+                <para>
+                  Attach a probe to the backend. See Probes.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                max_connections
+              </term>
+              <listitem>
+                <para>
+                  Maximum number of open connections towards this
+                  backend. If Varnish reaches the maximum Varnish it
+                  will start failing connections.
+                </para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
+        </blockquote>
+        <para>
+          Backends can be used with <emphasis>directors</emphasis>.
+          Please see the vmod_directors(3) man page for more
+          information.
+        </para>
+      </section>
+      <section xml:id="probes">
+        <title>Probes</title>
+        <para>
+          Probes will query the backend for status on a regular basis
+          and mark the backend as down it they fail. A probe is defined
+          as this::
+        </para>
+        <programlisting>
+probe name {
+     .attribute = "value";
+}
+</programlisting>
+        <para>
+          There are no mandatory options. These are the options you can
+          set:
+        </para>
+        <blockquote>
+          <variablelist>
+            <varlistentry>
+              <term>
+                url
+              </term>
+              <listitem>
+                <para>
+                  The URL to query. Defaults to "/".
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                request
+              </term>
+              <listitem>
+                <para>
+                  Specify a full HTTP request using multiple strings.
+                  .request will have rn automatically inserted after
+                  every string. If specified, .request will take
+                  precedence over .url.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                expected_response
+              </term>
+              <listitem>
+                <para>
+                  The expected HTTP response code. Defaults to 200.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                timeout
+              </term>
+              <listitem>
+                <para>
+                  The timeout for the probe. Default is 2s.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                interval
+              </term>
+              <listitem>
+                <para>
+                  How often the probe is run. Default is 5s.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                initial
+              </term>
+              <listitem>
+                <para>
+                  How many of the polls in .window are considered good
+                  when Varnish starts. Defaults to the value of
+                  threshold - 1. In this case, the backend starts as
+                  sick and requires one single poll to be considered
+                  healthy.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                window
+              </term>
+              <listitem>
+                <para>
+                  How many of the latest polls we examine to determine
+                  backend health. Defaults to 8.
+                </para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term>
+                threshold
+              </term>
+              <listitem>
+                <para>
+                  How many of the polls in .window must have succeeded
+                  for us to consider the backend healthy. If this is set
+                  to more than or equal to the threshold, the backend
+                  starts as healthy. Defaults to the value of threshold
+                  - 1. In this case, the backend starts as sick and
+                  requires one poll to pass to become healthy. Defaults
+                  to threshold - 1.
+                </para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
+        </blockquote>
+      </section>
+      <section xml:id="access-control-list-acl">
+        <title>Access Control List (ACL)</title>
+        <para>
+          An Access Control List (ACL) declaration creates and
+          initialises a named access control list which can later be
+          used to match client addresses:
+        </para>
+        <programlisting>
+acl localnetwork {
+    "localhost";    # myself
+    "192.0.2.0"/24; # and everyone on the local network
+    ! "192.0.2.23"; # except for the dial-in router
 }
 </programlisting>
         <para>
@@ -625,31 +531,89 @@ acl local {
         </para>
         <para>
           To match an IP address against an ACL, simply use the match
-          operator: :
+          operator:
         </para>
         <programlisting>
-if (client.ip ~ local) {
-  return (pipe);
+if (client.ip ~ localnetwork) {
+    return (pipe);
 }
 </programlisting>
       </section>
-      <section xml:id="regular-expressions">
-        <title>Regular Expressions</title>
+      <section xml:id="vcl-objects">
+        <title>VCL objects</title>
         <para>
-          Varnish uses PCRE - Perl-compatible regular expressions. For a
-          complete description of PCRE please see the pcre(3) man page.
+          A VCL object can be made with the <emphasis>new</emphasis>
+          keyword.
         </para>
         <para>
-          To send flags to the PCRE engine, such as to turn on
-          <emphasis>case insensitivity</emphasis> add the flag within
-          parens following a question mark, like this: :
+          Example:
         </para>
         <programlisting>
-# If host is NOT example dot com..
-if (req.http.host !~ "(?i)example.com$") {
-        ...
+sub vcl_init {
+    new b = directors.round_robin()
+    b.add_backend(node1);
 }
 </programlisting>
+      </section>
+      <section xml:id="subroutines">
+        <title>Subroutines</title>
+        <para>
+          A subroutine is used to group code for legibility or
+          reusability:
+        </para>
+        <programlisting>
+sub pipe_if_local {
+    if (client.ip ~ localnetwork) {
+        return (pipe);
+    }
+}
+</programlisting>
+        <para>
+          Subroutines in VCL do not take arguments, nor do they return
+          values. The built in subroutines all have names beginning with
+          vcl_, which is reserved.
+        </para>
+        <para>
+          To call a subroutine, use the call keyword followed by the
+          subroutine's name:
+        </para>
+        <programlisting>
+sub vcl_recv {
+    call pipe_if_local;
+}
+</programlisting>
+        <section xml:id="return-statements">
+          <title>Return statements</title>
+          <para>
+            The ongoing vcl_* subroutine execution ends when a
+            return(<emphasis>action</emphasis>) statement is made.
+          </para>
+          <para>
+            The <emphasis>action</emphasis> specifies how execution
+            should proceed. The context defines which actions are
+            available.
+          </para>
+        </section>
+        <section xml:id="multiple-subroutines">
+          <title>Multiple subroutines</title>
+          <para>
+            If multiple subroutines with the name of one of the built-in
+            ones are defined, they are concatenated in the order in
+            which they appear in the source.
+          </para>
+          <para>
+            The built-in VCL distributed with Varnish will be implicitly
+            concatenated when the VCL is compiled.
+          </para>
+        </section>
+      </section>
+      <section xml:id="variables">
+        <title>Variables</title>
+        <para>
+          In VCL you have access to certain variable objects. These
+          contain requests and responses currently being worked on. What
+          variables are available depends on context.
+        </para>
       </section>
       <section xml:id="functions">
         <title>Functions</title>
@@ -659,16 +623,93 @@ if (req.http.host !~ "(?i)example.com$") {
         <variablelist>
           <varlistentry>
             <term>
-              hash_data(str)
+              ban(expression)
             </term>
             <listitem>
               <para>
-                Adds a string to the hash input. In default.vcl
-                hash_data() is called on the host and URL of the
-                <emphasis>request</emphasis>.
+                Invalidates all objects in cache that match the
+                expression with the ban mechanism.
               </para>
             </listitem>
           </varlistentry>
+          <varlistentry>
+            <term>
+              call(subroutine)
+            </term>
+            <listitem>
+              <para>
+                Run a VCL subroutine within the current scope.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              hash_data(input)
+            </term>
+            <listitem>
+              <para>
+                Adds an input to the hash input. In the built-in VCL
+                hash_data() is called on the host and URL of the
+                <emphasis>request</emphasis>. Available in vcl_hash.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              new()
+            </term>
+            <listitem>
+              <para>
+                Instanciate a new VCL object. Available in vcl_init.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              purge()
+            </term>
+            <listitem>
+              <para>
+                Invalidate all variants of the current object using
+                purge. Available in vcl_miss and vcl_hit.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              return()
+            </term>
+            <listitem>
+              <para>
+                End execution of the current VCL subroutine, and
+                continue to the next step in the request handling state
+                machine.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              rollback()
+            </term>
+            <listitem>
+              <para>
+                Restore request HTTP headers to their original state.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              synthetic(STRING)
+            </term>
+            <listitem>
+              <para>
+                Prepare a synthetic response body containing the STRING.
+                Available in vcl_synth and vcl_backend_error.
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+        <variablelist>
           <varlistentry>
             <term>
               regsub(str, regex, sub)
@@ -689,1475 +730,18 @@ if (req.http.host !~ "(?i)example.com$") {
             </term>
             <listitem>
               <para>
-                As regsuball() but this replaces all occurrences.
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>
-              ban(ban expression)
-            </term>
-            <listitem>
-              <para>
-                Bans all objects in cache that match the expression.
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>
-              ban_url(regex)
-            </term>
-            <listitem>
-              <para>
-                Bans all objects in cache whose URLs match regex.
+                As regsub() but this replaces all occurrences.
               </para>
             </listitem>
           </varlistentry>
         </variablelist>
-        <section xml:id="subroutines">
-          <title>Subroutines</title>
-          <para>
-            A subroutine is used to group code for legibility or
-            reusability: :
-          </para>
-          <programlisting>
-sub pipe_if_local {
-  if (client.ip ~ local) {
-    return (pipe);
-  }
-}
-</programlisting>
-          <para>
-            Subroutines in VCL do not take arguments, nor do they return
-            values.
-          </para>
-          <para>
-            To call a subroutine, use the call keyword followed by the
-            subroutine's name:
-          </para>
-          <para>
-            call pipe_if_local;
-          </para>
-          <para>
-            There are a number of special subroutines which hook into
-            the Varnish workflow. These subroutines may inspect and
-            manipulate HTTP headers and various other aspects of each
-            request, and to a certain extent decide how the request
-            should be handled. Each subroutine terminates by calling one
-            of a small number of keywords which indicates the desired
-            outcome.
-          </para>
-          <variablelist>
-            <varlistentry>
-              <term>
-                vcl_init
-              </term>
-              <listitem>
-                <para>
-                  Called when VCL is loaded, before any requests pass
-                  through it. Typically used to initialize VMODs.
-                </para>
-                <para>
-                  return() values:
-                </para>
-                <variablelist>
-                  <varlistentry>
-                    <term>
-                      ok
-                    </term>
-                    <listitem>
-                      <para>
-                        Normal return, VCL continues loading.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                </variablelist>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                vcl_recv
-              </term>
-              <listitem>
-                <para>
-                  Called at the beginning of a request, after the
-                  complete request has been received and parsed. Its
-                  purpose is to decide whether or not to serve the
-                  request, how to do it, and, if applicable, which
-                  backend to use.
-                </para>
-                <para>
-                  The vcl_recv subroutine may terminate with calling
-                  return() on one of the following keywords:
-                </para>
-                <variablelist>
-                  <varlistentry>
-                    <term>
-                      error code [reason]
-                    </term>
-                    <listitem>
-                      <para>
-                        Return the specified error code to the client
-                        and abandon the request.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                  <varlistentry>
-                    <term>
-                      pass
-                    </term>
-                    <listitem>
-                      <para>
-                        Switch to pass mode. Control will eventually
-                        pass to vcl_pass.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                  <varlistentry>
-                    <term>
-                      pipe
-                    </term>
-                    <listitem>
-                      <para>
-                        Switch to pipe mode. Control will eventually
-                        pass to vcl_pipe.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                  <varlistentry>
-                    <term>
-                      lookup
-                    </term>
-                    <listitem>
-                      <para>
-                        Look up the requested object in the cache.
-                        Control will eventually pass to vcl_hit or
-                        vcl_miss, depending on whether the object is in
-                        the cache. The <literal>bereq.request</literal>
-                        value will be set to <literal>GET</literal>
-                        regardless of the value of
-                        <literal>req.request</literal>.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                </variablelist>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                vcl_pipe
-              </term>
-              <listitem>
-                <para>
-                  Called upon entering pipe mode. In this mode, the
-                  request is passed on to the backend, and any further
-                  data from either client or backend is passed on
-                  unaltered until either end closes the connection.
-                </para>
-                <para>
-                  The vcl_pipe subroutine may terminate with calling
-                  return() with one of the following keywords:
-                </para>
-                <variablelist>
-                  <varlistentry>
-                    <term>
-                      error code [reason]
-                    </term>
-                    <listitem>
-                      <para>
-                        Return the specified error code to the client
-                        and abandon the request.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                  <varlistentry>
-                    <term>
-                      pipe
-                    </term>
-                    <listitem>
-                      <para>
-                        Proceed with pipe mode.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                </variablelist>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                vcl_pass
-              </term>
-              <listitem>
-                <para>
-                  Called upon entering pass mode. In this mode, the
-                  request is passed on to the backend, and the backend's
-                  response is passed on to the client, but is not
-                  entered into the cache. Subsequent requests submitted
-                  over the same client connection are handled normally.
-                </para>
-                <para>
-                  The vcl_pass subroutine may terminate with calling
-                  return() with one of the following keywords:
-                </para>
-                <variablelist>
-                  <varlistentry>
-                    <term>
-                      error code [reason]
-                    </term>
-                    <listitem>
-                      <para>
-                        Return the specified error code to the client
-                        and abandon the request.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                  <varlistentry>
-                    <term>
-                      pass
-                    </term>
-                    <listitem>
-                      <para>
-                        Proceed with pass mode.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                  <varlistentry>
-                    <term>
-                      restart
-                    </term>
-                    <listitem>
-                      <para>
-                        Restart the transaction. Increases the restart
-                        counter. If the number of restarts is higher
-                        than <emphasis>max_restarts</emphasis> varnish
-                        emits a guru meditation error.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                </variablelist>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                vcl_hash
-              </term>
-              <listitem>
-                <para>
-                  You may call hash_data() on the data you would like to
-                  add to the hash.
-                </para>
-                <para>
-                  The vcl_hash subroutine may terminate with calling
-                  return() with one of the following keywords:
-                </para>
-                <variablelist>
-                  <varlistentry>
-                    <term>
-                      hash
-                    </term>
-                    <listitem>
-                      <para>
-                        Proceed.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                </variablelist>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                vcl_hit
-              </term>
-              <listitem>
-                <para>
-                  Called after a cache lookup if the requested document
-                  was found in the cache.
-                </para>
-                <para>
-                  The vcl_hit subroutine may terminate with calling
-                  return() with one of the following keywords:
-                </para>
-                <variablelist>
-                  <varlistentry>
-                    <term>
-                      deliver
-                    </term>
-                    <listitem>
-                      <para>
-                        Deliver the cached object to the client. Control
-                        will eventually pass to vcl_deliver.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                  <varlistentry>
-                    <term>
-                      error code [reason]
-                    </term>
-                    <listitem>
-                      <para>
-                        Return the specified error code to the client
-                        and abandon the request.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                  <varlistentry>
-                    <term>
-                      pass
-                    </term>
-                    <listitem>
-                      <para>
-                        Switch to pass mode. Control will eventually
-                        pass to vcl_pass.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                  <varlistentry>
-                    <term>
-                      restart
-                    </term>
-                    <listitem>
-                      <para>
-                        Restart the transaction. Increases the restart
-                        counter. If the number of restarts is higher
-                        than <emphasis>max_restarts</emphasis> varnish
-                        emits a guru meditation error.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                </variablelist>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                vcl_miss
-              </term>
-              <listitem>
-                <para>
-                  Called after a cache lookup if the requested document
-                  was not found in the cache. Its purpose is to decide
-                  whether or not to attempt to retrieve the document
-                  from the backend, and which backend to use.
-                </para>
-                <para>
-                  The vcl_miss subroutine may terminate with calling
-                  return() with one of the following keywords:
-                </para>
-                <variablelist>
-                  <varlistentry>
-                    <term>
-                      error code [reason]
-                    </term>
-                    <listitem>
-                      <para>
-                        Return the specified error code to the client
-                        and abandon the request.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                  <varlistentry>
-                    <term>
-                      pass
-                    </term>
-                    <listitem>
-                      <para>
-                        Switch to pass mode. Control will eventually
-                        pass to vcl_pass.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                  <varlistentry>
-                    <term>
-                      fetch
-                    </term>
-                    <listitem>
-                      <para>
-                        Retrieve the requested object from the backend.
-                        Control will eventually pass to vcl_fetch.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                </variablelist>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                vcl_fetch
-              </term>
-              <listitem>
-                <para>
-                  Called after a document has been successfully
-                  retrieved from the backend.
-                </para>
-                <para>
-                  The vcl_fetch subroutine may terminate with calling
-                  return() with one of the following keywords:
-                </para>
-                <variablelist>
-                  <varlistentry>
-                    <term>
-                      deliver
-                    </term>
-                    <listitem>
-                      <para>
-                        Possibly insert the object into the cache, then
-                        deliver it to the client. Control will
-                        eventually pass to vcl_deliver.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                  <varlistentry>
-                    <term>
-                      error code [reason]
-                    </term>
-                    <listitem>
-                      <para>
-                        Return the specified error code to the client
-                        and abandon the request.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                  <varlistentry>
-                    <term>
-                      hit_for_pass
-                    </term>
-                    <listitem>
-                      <para>
-                        Pass in fetch. This will create a hit_for_pass
-                        object. Note that the TTL for the hit_for_pass
-                        object will be set to what the current value of
-                        beresp.ttl. Control will be handled to
-                        vcl_deliver on the current request, but
-                        subsequent requests will go directly to vcl_pass
-                        based on the hit_for_pass object.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                  <varlistentry>
-                    <term>
-                      restart
-                    </term>
-                    <listitem>
-                      <para>
-                        Restart the transaction. Increases the restart
-                        counter. If the number of restarts is higher
-                        than <emphasis>max_restarts</emphasis> varnish
-                        emits a guru meditation error.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                </variablelist>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                vcl_deliver
-              </term>
-              <listitem>
-                <para>
-                  Called before a cached object is delivered to the
-                  client.
-                </para>
-                <para>
-                  The vcl_deliver subroutine may terminate with one of
-                  the following keywords:
-                </para>
-                <variablelist>
-                  <varlistentry>
-                    <term>
-                      deliver
-                    </term>
-                    <listitem>
-                      <para>
-                        Deliver the object to the client.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                  <varlistentry>
-                    <term>
-                      restart
-                    </term>
-                    <listitem>
-                      <para>
-                        Restart the transaction. Increases the restart
-                        counter. If the number of restarts is higher
-                        than <emphasis>max_restarts</emphasis> varnish
-                        emits a guru meditation error.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                </variablelist>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                vcl_error
-              </term>
-              <listitem>
-                <para>
-                  Called when we hit an error, either explicitly or
-                  implicitly due to backend or internal errors.
-                </para>
-                <para>
-                  The vcl_error subroutine may terminate by calling
-                  return with one of the following keywords:
-                </para>
-                <variablelist>
-                  <varlistentry>
-                    <term>
-                      deliver
-                    </term>
-                    <listitem>
-                      <para>
-                        Deliver the error object to the client.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                  <varlistentry>
-                    <term>
-                      restart
-                    </term>
-                    <listitem>
-                      <para>
-                        Restart the transaction. Increases the restart
-                        counter. If the number of restarts is higher
-                        than <emphasis>max_restarts</emphasis> varnish
-                        emits a guru meditation error.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                </variablelist>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                vcl_fini
-              </term>
-              <listitem>
-                <para>
-                  Called when VCL is discarded only after all requests
-                  have exited the VCL. Typically used to clean up VMODs.
-                </para>
-                <para>
-                  return() values:
-                </para>
-                <variablelist>
-                  <varlistentry>
-                    <term>
-                      ok
-                    </term>
-                    <listitem>
-                      <para>
-                        Normal return, VCL will be discarded.
-                      </para>
-                    </listitem>
-                  </varlistentry>
-                </variablelist>
-              </listitem>
-            </varlistentry>
-          </variablelist>
-          <para>
-            If one of these subroutines is left undefined or terminates
-            without reaching a handling decision, control will be handed
-            over to the builtin default. See the EXAMPLES section for a
-            listing of the default code.
-          </para>
-        </section>
-        <section xml:id="multiple-subroutines">
-          <title>Multiple subroutines</title>
-          <para>
-            If multiple subroutines with the the name of one of the
-            builtin ones are defined, they are concatenated in the order
-            in which they appear in the source. The default versions
-            distributed with Varnish will be implicitly concatenated as
-            a last resort at the end.
-          </para>
-          <para>
-            Example: :
-          </para>
-          <programlisting>
-# in file "main.vcl"
-include "backends.vcl";
-include "ban.vcl";
-
-# in file "backends.vcl"
-sub vcl_recv {
-  if (req.http.host ~ "(?i)example.com") {
-    set req.backend = foo;
-  } elsif (req.http.host ~ "(?i)example.org") {
-    set req.backend = bar;
-  }
-}
-
-# in file "ban.vcl"
-sub vcl_recv {
-  if (client.ip ~ admin_network) {
-    if (req.http.Cache-Control ~ "no-cache") {
-      ban_url(req.url);
-    }
-  }
-}
-</programlisting>
-        </section>
-        <section xml:id="variables">
-          <title>Variables</title>
-          <para>
-            Although subroutines take no arguments, the necessary
-            information is made available to the handler subroutines
-            through global variables.
-          </para>
-          <para>
-            The following variables are always available:
-          </para>
-          <variablelist>
-            <varlistentry>
-              <term>
-                now
-              </term>
-              <listitem>
-                <para>
-                  The current time, in seconds since the epoch. When
-                  used in string context it returns a formatted string.
-                </para>
-              </listitem>
-            </varlistentry>
-          </variablelist>
-          <para>
-            The following variables are available in backend
-            declarations:
-          </para>
-          <variablelist>
-            <varlistentry>
-              <term>
-                .host
-              </term>
-              <listitem>
-                <para>
-                  Host name or IP address of a backend.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                .port
-              </term>
-              <listitem>
-                <para>
-                  Service name or port number of a backend.
-                </para>
-              </listitem>
-            </varlistentry>
-          </variablelist>
-          <para>
-            The following variables are available while processing a
-            request:
-          </para>
-          <variablelist>
-            <varlistentry>
-              <term>
-                client.ip
-              </term>
-              <listitem>
-                <para>
-                  The client's IP address.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                client.identity
-              </term>
-              <listitem>
-                <para>
-                  Identification of the client, used to load balance in
-                  the client director.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                server.hostname
-              </term>
-              <listitem>
-                <para>
-                  The host name of the server.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                server.identity
-              </term>
-              <listitem>
-                <para>
-                  The identity of the server, as set by the -i
-                  parameter. If the -i parameter is not passed to
-                  varnishd, server.identity will be set to the name of
-                  the instance, as specified by the -n parameter.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                server.ip
-              </term>
-              <listitem>
-                <para>
-                  The IP address of the socket on which the client
-                  connection was received.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                server.port
-              </term>
-              <listitem>
-                <para>
-                  The port number of the socket on which the client
-                  connection was received.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                req.request
-              </term>
-              <listitem>
-                <para>
-                  The request type (e.g. "GET",
-                  "HEAD").
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                req.url
-              </term>
-              <listitem>
-                <para>
-                  The requested URL.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                req.proto
-              </term>
-              <listitem>
-                <para>
-                  The HTTP protocol version used by the client.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                req.backend
-              </term>
-              <listitem>
-                <para>
-                  The backend to use to service the request.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                req.backend.healthy
-              </term>
-              <listitem>
-                <para>
-                  Whether the backend is healthy or not. Requires an
-                  active probe to be set on the backend.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                req.http.header
-              </term>
-              <listitem>
-                <para>
-                  The corresponding HTTP header.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                req.hash_always_miss
-              </term>
-              <listitem>
-                <para>
-                  Force a cache miss for this request. If set to true
-                  Varnish will disregard any existing objects and always
-                  (re)fetch from the backend.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                req.hash_ignore_busy
-              </term>
-              <listitem>
-                <para>
-                  Ignore any busy object during cache lookup. You would
-                  want to do this if you have two server looking up
-                  content from each other to avoid potential deadlocks.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                req.can_gzip
-              </term>
-              <listitem>
-                <para>
-                  Does the client accept the gzip transfer encoding.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                req.restarts
-              </term>
-              <listitem>
-                <para>
-                  A count of how many times this request has been
-                  restarted.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                req.esi
-              </term>
-              <listitem>
-                <para>
-                  Boolean. Set to false to disable ESI processing
-                  regardless of any value in beresp.do_esi. Defaults to
-                  true. This variable is subject to change in future
-                  versions, you should avoid using it.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                req.esi_level
-              </term>
-              <listitem>
-                <para>
-                  A count of how many levels of ESI requests we're
-                  currently at.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                req.grace
-              </term>
-              <listitem>
-                <para>
-                  Set to a period to enable grace.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                req.xid
-              </term>
-              <listitem>
-                <para>
-                  Unique ID of this request.
-                </para>
-              </listitem>
-            </varlistentry>
-          </variablelist>
-          <para>
-            The following variables are available while preparing a
-            backend request (either for a cache miss or for pass or pipe
-            mode):
-          </para>
-          <variablelist>
-            <varlistentry>
-              <term>
-                bereq.request
-              </term>
-              <listitem>
-                <para>
-                  The request type (e.g. "GET",
-                  "HEAD").
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                bereq.url
-              </term>
-              <listitem>
-                <para>
-                  The requested URL.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                bereq.proto
-              </term>
-              <listitem>
-                <para>
-                  The HTTP protocol version used to talk to the server.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                bereq.http.header
-              </term>
-              <listitem>
-                <para>
-                  The corresponding HTTP header.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                bereq.connect_timeout
-              </term>
-              <listitem>
-                <para>
-                  The time in seconds to wait for a backend connection.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                bereq.first_byte_timeout
-              </term>
-              <listitem>
-                <para>
-                  The time in seconds to wait for the first byte from
-                  the backend. Not available in pipe mode.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                bereq.between_bytes_timeout
-              </term>
-              <listitem>
-                <para>
-                  The time in seconds to wait between each received byte
-                  from the backend. Not available in pipe mode.
-                </para>
-              </listitem>
-            </varlistentry>
-          </variablelist>
-          <para>
-            The following variables are available after the requested
-            object has been retrieved from the backend, before it is
-            entered into the cache. In other words, they are available
-            in vcl_fetch:
-          </para>
-          <variablelist>
-            <varlistentry>
-              <term>
-                beresp.do_stream
-              </term>
-              <listitem>
-                <para>
-                  Deliver the object to the client directly without
-                  fetching the whole object into varnish. If this
-                  request is pass'ed it will not be stored in memory. As
-                  of Varnish Cache 3.0 the object will marked as busy as
-                  it is delivered so only client can access the object.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                beresp.do_esi
-              </term>
-              <listitem>
-                <para>
-                  Boolean. ESI-process the object after fetching it.
-                  Defaults to false. Set it to true to parse the object
-                  for ESI directives. Will only be honored if req.esi is
-                  true.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                beresp.do_gzip
-              </term>
-              <listitem>
-                <para>
-                  Boolean. Gzip the object before storing it. Defaults
-                  to false.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                beresp.do_gunzip
-              </term>
-              <listitem>
-                <para>
-                  Boolean. Unzip the object before storing it in the
-                  cache. Defaults to false.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                beresp.http.header
-              </term>
-              <listitem>
-                <para>
-                  The corresponding HTTP header.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                beresp.proto
-              </term>
-              <listitem>
-                <para>
-                  The HTTP protocol version used the backend replied
-                  with.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                beresp.status
-              </term>
-              <listitem>
-                <para>
-                  The HTTP status code returned by the server.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                beresp.response
-              </term>
-              <listitem>
-                <para>
-                  The HTTP status message returned by the server.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                beresp.ttl
-              </term>
-              <listitem>
-                <para>
-                  The object's remaining time to live, in seconds.
-                  beresp.ttl is writable.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                beresp.grace
-              </term>
-              <listitem>
-                <para>
-                  Set to a period to enable grace.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                beresp.saintmode
-              </term>
-              <listitem>
-                <para>
-                  Set to a period to enable saint mode.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                beresp.backend.name
-              </term>
-              <listitem>
-                <para>
-                  Name of the backend this response was fetched from.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                beresp.backend.ip
-              </term>
-              <listitem>
-                <para>
-                  IP of the backend this response was fetched from.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                beresp.backend.port
-              </term>
-              <listitem>
-                <para>
-                  Port of the backend this response was fetched from.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                beresp.storage
-              </term>
-              <listitem>
-                <para>
-                  Set to force Varnish to save this object to a
-                  particular storage backend.
-                </para>
-              </listitem>
-            </varlistentry>
-          </variablelist>
-          <para>
-            After the object is entered into the cache, the following
-            (mostly read-only) variables are available when the object
-            has been located in cache, typically in vcl_hit, or when
-            constructing a synthetic reply in vcl_error:
-          </para>
-          <variablelist>
-            <varlistentry>
-              <term>
-                obj.proto
-              </term>
-              <listitem>
-                <para>
-                  The HTTP protocol version used when the object was
-                  retrieved.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                obj.status
-              </term>
-              <listitem>
-                <para>
-                  The HTTP status code returned by the server.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                obj.response
-              </term>
-              <listitem>
-                <para>
-                  The HTTP status message returned by the server.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                obj.ttl
-              </term>
-              <listitem>
-                <para>
-                  The object's remaining time to live, in seconds.
-                  obj.ttl is writable.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                obj.lastuse
-              </term>
-              <listitem>
-                <para>
-                  The approximate time elapsed since the object was last
-                  requests, in seconds. This variable is also available
-                  in vcl_deliver.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                obj.hits
-              </term>
-              <listitem>
-                <para>
-                  The approximate number of times the object has been
-                  delivered. A value of 0 indicates a cache miss. This
-                  variable is also available in vcl_deliver.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                obj.grace
-              </term>
-              <listitem>
-                <para>
-                  The object's grace period in seconds. obj.grace is
-                  writable.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                obj.http.header
-              </term>
-              <listitem>
-                <para>
-                  The corresponding HTTP header.
-                </para>
-              </listitem>
-            </varlistentry>
-          </variablelist>
-          <para>
-            The following variables are available while determining the
-            hash key of an object:
-          </para>
-          <variablelist>
-            <varlistentry>
-              <term>
-                req.hash
-              </term>
-              <listitem>
-                <para>
-                  The hash key used to refer to an object in the cache.
-                  Used when both reading from and writing to the cache.
-                </para>
-              </listitem>
-            </varlistentry>
-          </variablelist>
-          <para>
-            The following variables are available while preparing a
-            response to the client:
-          </para>
-          <variablelist>
-            <varlistentry>
-              <term>
-                resp.proto
-              </term>
-              <listitem>
-                <para>
-                  The HTTP protocol version to use for the response.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                resp.status
-              </term>
-              <listitem>
-                <para>
-                  The HTTP status code that will be returned.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                resp.response
-              </term>
-              <listitem>
-                <para>
-                  The HTTP status message that will be returned.
-                </para>
-              </listitem>
-            </varlistentry>
-            <varlistentry>
-              <term>
-                resp.http.header
-              </term>
-              <listitem>
-                <para>
-                  The corresponding HTTP header.
-                </para>
-              </listitem>
-            </varlistentry>
-          </variablelist>
-          <para>
-            Values may be assigned to variables using the set keyword: :
-          </para>
-          <programlisting>
-sub vcl_recv {
-  # Normalize the Host: header
-  if (req.http.host ~ "(?i)^(www.)?example.com$") {
-    set req.http.host = "www.example.com";
-  }
-}
-</programlisting>
-          <para>
-            HTTP headers can be removed entirely using the remove
-            keyword: :
-          </para>
-          <programlisting>
-sub vcl_fetch {
-  # Don't cache cookies
-  remove beresp.http.Set-Cookie;
-}
-</programlisting>
-        </section>
-      </section>
-      <section xml:id="grace-and-saint-mode">
-        <title>Grace and saint mode</title>
-        <para>
-          If the backend takes a long time to generate an object there
-          is a risk of a thread pile up. In order to prevent this you
-          can enable <emphasis>grace</emphasis>. This allows varnish to
-          serve an expired version of the object while a fresh object is
-          being generated by the backend.
-        </para>
-        <para>
-          The following vcl code will make Varnish serve expired
-          objects. All object will be kept up to two minutes past their
-          expiration time or a fresh object is generated. :
-        </para>
-        <programlisting>
-sub vcl_recv {
-  set req.grace = 2m;
-}
-sub vcl_fetch {
-  set beresp.grace = 2m;
-}
-</programlisting>
-        <para>
-          Saint mode is similar to grace mode and relies on the same
-          infrastructure but functions differently. You can add VCL code
-          to vcl_fetch to see whether or not you
-          <emphasis>like</emphasis> the response coming from the
-          backend. If you find that the response is not appropriate you
-          can set beresp.saintmode to a time limit and call
-          <emphasis>restart</emphasis>. Varnish will then retry other
-          backends to try to fetch the object again.
-        </para>
-        <para>
-          If there are no more backends or if you hit
-          <emphasis>max_restarts</emphasis> and we have an object that
-          is younger than what you set beresp.saintmode to be Varnish
-          will serve the object, even if it is stale.
-        </para>
       </section>
     </section>
     <section xml:id="examples">
       <title>EXAMPLES</title>
       <para>
-        The following code is the equivalent of the default
-        configuration with the backend address set to
-        "backend.example.com" and no backend port specified: :
+        For examples, please see the online documentation.
       </para>
-      <programlisting>
-backend default {
- .host = "backend.example.com";
- .port = "http";
-}
-</programlisting>
-      <blockquote>
-        <variablelist>
-          <varlistentry>
-            <term>
-              literal
-            </term>
-            <listitem>
-            </listitem>
-          </varlistentry>
-        </variablelist>
-      </blockquote>
-      <para>
-        The following example shows how to support multiple sites
-        running on separate backends in the same Varnish instance, by
-        selecting backends based on the request URL: :
-      </para>
-      <programlisting>
-backend www {
-  .host = "www.example.com";
-  .port = "80";
-}
-
-backend images {
-  .host = "images.example.com";
-  .port = "80";
-}
-
-sub vcl_recv {
-  if (req.http.host ~ "(?i)^(www.)?example.com$") {
-    set req.http.host = "www.example.com";
-    set req.backend = www;
-  } elsif (req.http.host ~ "(?i)^images.example.com$") {
-    set req.backend = images;
-  } else {
-    error 404 "Unknown virtual host";
-  }
-}
-</programlisting>
-      <para>
-        The following snippet demonstrates how to force a minimum TTL
-        for all documents. Note that this is not the same as setting the
-        default_ttl run-time parameter, as that only affects document
-        for which the backend did not specify a TTL: :
-      </para>
-      <programlisting>
-import std; # needed for std.log
-
-sub vcl_fetch {
-  if (beresp.ttl &lt; 120s) {
-    std.log("Adjusting TTL");
-    set beresp.ttl = 120s;
-  }
-}
-</programlisting>
-      <para>
-        The following snippet demonstrates how to force Varnish to cache
-        documents even when cookies are present: :
-      </para>
-      <programlisting>
-sub vcl_recv {
-  if (req.request == "GET" &amp;&amp; req.http.cookie) {
-     return(lookup);
-  }
-}
-
-sub vcl_fetch {
-  if (beresp.http.Set-Cookie) {
-     return(deliver);
- }
-}
-</programlisting>
-      <para>
-        The following code implements the HTTP PURGE method as used by
-        Squid for object invalidation: :
-      </para>
-      <programlisting>
-acl purge {
-  "localhost";
-  "192.0.2.1"/24;
-}
-
-sub vcl_recv {
-  if (req.request == "PURGE") {
-    if (!client.ip ~ purge) {
-      error 405 "Not allowed.";
-    }
-    return(lookup);
-  }
-}
-
-sub vcl_hit {
-  if (req.request == "PURGE") {
-    purge;
-    error 200 "Purged.";
-  }
-}
-
-sub vcl_miss {
-  if (req.request == "PURGE") {
-    purge;
-    error 200 "Purged.";
-  }
-}
-</programlisting>
     </section>
     <section xml:id="see-also">
       <title>SEE ALSO</title>
@@ -2169,7 +753,12 @@ sub vcl_miss {
         </listitem>
         <listitem>
           <para>
-            vmod_std(7)
+            vmod_directors(3)
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            vmod_std(3)
           </para>
         </listitem>
       </itemizedlist>
@@ -2179,8 +768,9 @@ sub vcl_miss {
       <para>
         VCL was developed by Poul-Henning Kamp in cooperation with
         Verdens Gang AS, Redpill Linpro and Varnish Software. This
-        manual page was written by Dag-Erling Smørgrav and later edited
-        by Poul-Henning Kamp and Per Buer.
+        manual page is written by Per Buer, Poul-Henning Kamp, Martin
+        Blix Grydeland, Kristian Lyngstøl, Lasse Karstensen and possibly
+        others.
       </para>
     </section>
     <section xml:id="copyright">
@@ -2197,7 +787,7 @@ sub vcl_miss {
         </listitem>
         <listitem>
           <para>
-            Copyright (c) 2006-2011 Varnish Software AS
+            Copyright (c) 2006-2014 Varnish Software AS
           </para>
         </listitem>
       </itemizedlist>

@@ -408,7 +408,7 @@ find sources/util-linux/ -name '*.8' -exec cp {} man/man8/ \\;"
   "varnish": {
     "type": "git",
     "url": "git://git.varnish-cache.org/varnish-cache",
-    "tag": "varnish-3.0.5",
+    "tag": "varnish-4.0.0",
     /* note pandoc doesn't process include statements in rst, may have to do that manually. */
     "cmd": "(cd sources/varnish; ./autogen.sh; ./configure; make);
 find sources/varnish/doc/sphinx/reference/ -name '*.rst' ! -name shmem.rst ! -name vsl.rst ! -name index.rst ! -name params.rst ! -name vmod.rst -exec bash -c 'pandoc -f rst -t docbook {} | xsltproc utils/db4-upgrade.xsl - > xml/man1/$(basename -s .rst {}).1.xml' \\;;

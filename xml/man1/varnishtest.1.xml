@@ -3,58 +3,6 @@
   <title>varnishtest</title>
   <section xml:id="test-program-for-varnish">
     <title>Test program for Varnish</title>
-    <variablelist>
-      <varlistentry>
-        <term>
-          Author
-        </term>
-        <listitem>
-          <para>
-            Stig Sandbeck Mathisen
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          Author
-        </term>
-        <listitem>
-          <para>
-            Kristian Lyngstøl
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          Date
-        </term>
-        <listitem>
-          <para>
-            2011-11-15
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          Version
-        </term>
-        <listitem>
-          <para>
-            1.1
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          Manual section
-        </term>
-        <listitem>
-          <para>
-            1
-          </para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
     <section xml:id="synopsis">
       <title>SYNOPSIS</title>
       <blockquote>
@@ -93,10 +41,10 @@
         -k Continue on test failure
       </para>
       <para>
-        -l Leave /tmp/vtc.* if test fails
+        -l Leave temporary vtc.* if test fails
       </para>
       <para>
-        -L Always leave /tmp/vtc.*
+        -L Always leave temporary vtc.*
       </para>
       <para>
         -n iterations Run tests this many times
@@ -121,6 +69,11 @@
       </para>
       <para>
         varnishd Path to varnishd to use [varnishd]
+      </para>
+      <para>
+        If TMPDIR is set in the environment, varnishtest creates
+        temporary vtc.* directories for each test in $TMPDIR, otherwise
+        in /tmp.
       </para>
     </section>
     <section xml:id="scripts">
@@ -173,7 +126,7 @@ client c1 {
 </programlisting>
       <para>
         When run, the above script will simulate a server (s1) that
-        expects two different requests. It will start a varnish server
+        expects two different requests. It will start a Varnish server
         (v1) and add the backend definition to the VCL specified
         (-vcl+backend). Finally it starts the c1-client, which is a
         single client sending two requests.
@@ -223,10 +176,11 @@ client c1 {
       <title>HISTORY</title>
       <para>
         The varnishtest program was developed by Poul-Henning Kamp
-        ⟨phk@phk.freebsd.dk⟩ in cooperation with Varnish Software AS.
-        This manual page was originally written by Stig Sandbeck
-        Mathisen ⟨ssm@linpro.no⟩ and updated by Kristian Lyngstøl
-        (<email>kristian@varnish-cache.org</email>).
+        &lt;<email>phk@phk.freebsd.dk</email>&gt; in cooperation with
+        Varnish Software AS. This manual page was originally written by
+        Stig Sandbeck Mathisen &lt;<email>ssm@linpro.no</email>&gt; and
+        updated by Kristian Lyngstøl
+        &lt;<email>kristian@varnish-cache.org</email>&gt;.
       </para>
     </section>
     <section xml:id="copyright">
@@ -238,7 +192,7 @@ client c1 {
       <itemizedlist>
         <listitem>
           <para>
-            Copyright (c) 2007-2011 Varnish Software AS
+            Copyright (c) 2007-2014 Varnish Software AS
           </para>
         </listitem>
       </itemizedlist>

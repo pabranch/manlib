@@ -3,179 +3,25 @@
   <title>varnishhist</title>
   <section xml:id="varnish-request-histogram">
     <title>Varnish request histogram</title>
-    <variablelist>
-      <varlistentry>
-        <term>
-          Author
-        </term>
-        <listitem>
-          <para>
-            Dag-Erling Smørgrav
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          Date
-        </term>
-        <listitem>
-          <para>
-            2010-05-31
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          Version
-        </term>
-        <listitem>
-          <para>
-            1.0
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          Manual section
-        </term>
-        <listitem>
-          <para>
-            1
-          </para>
-        </listitem>
-      </varlistentry>
-    </variablelist>
     <section xml:id="synopsis">
       <title>SYNOPSIS</title>
       <para>
-        varnishhist [-b] [-C] [-c] [-d] [-I regex] [-i tag] [-m
-        <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="tag:regex">tag:regex</link> ...] [-n varnish_name]
-        [-r file] [-V] [-w delay] [-X regex] [-x tag]
+        varnishhist |synopsis|
       </para>
     </section>
     <section xml:id="description">
       <title>DESCRIPTION</title>
       <para>
         The varnishhist utility reads varnishd(1) shared memory logs and
-        presents a continuously updated histogram show‐ ing the
+        presents a continuously updated histogram showing the
         distribution of the last N requests by their processing. The
-        value of N and the vertical scale are dis‐ played in the top
-        left corner. The horizontal scale is logarithmic. Hits are
-        marked with a pipe character ("|"), and misses are
-        marked with a hash character ("#").
+        value of N and the vertical scale are displayed in the top left
+        corner. The horizontal scale is logarithmic. Hits are marked
+        with a pipe character ("|"), and misses are marked
+        with a hash character ("#").
       </para>
       <para>
         The following options are available:
-      </para>
-      <variablelist>
-        <varlistentry>
-          <term>
-            -b Include log entries which result from communication with
-          </term>
-          <listitem>
-            <para>
-              a backend server. If neither -b nor -c is specified,
-              varnishhist acts as if they both were.
-            </para>
-          </listitem>
-        </varlistentry>
-      </variablelist>
-      <para>
-        -C Ignore case when matching regular expressions.
-      </para>
-      <variablelist>
-        <varlistentry>
-          <term>
-            -c Include log entries which result from communication with
-          </term>
-          <listitem>
-            <para>
-              a client. If neither -b nor -c is specified, varnishhist
-              acts as if they both were.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term>
-            -d Process old log entries on startup. Normally, varnishhist
-          </term>
-          <listitem>
-            <para>
-              will only process entries which are written to the log
-              after it starts.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term>
-            -I regex Include log entries which match the specified
-          </term>
-          <listitem>
-            <para>
-              regular expression. If neither -I nor -i is specified, all
-              log entries are included.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term>
-            -i tag Include log entries with the specified tag. If
-            neither
-          </term>
-          <listitem>
-            <para>
-              -I nor -i is specified, all log entries are included.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term>
-            -m <ulink url="tag:regex">tag:regex</ulink> only count
-            transactions where tag matches regex. Multiple
-          </term>
-          <listitem>
-            <para>
-              -m options are AND-ed together.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term>
-            -n Specifies the name of the varnishd instance to get logs
-          </term>
-          <listitem>
-            <para>
-              from. If -n is not specified, the host name is used.
-            </para>
-          </listitem>
-        </varlistentry>
-      </variablelist>
-      <para>
-        -r file Read log entries from file instead of shared memory.
-      </para>
-      <para>
-        -V Display the version number and exit.
-      </para>
-      <variablelist>
-        <varlistentry>
-          <term>
-            -w delay Wait at least delay seconds between each update.
-            The
-          </term>
-          <listitem>
-            <para>
-              default is 1. file instead of displaying them. The file
-              will be overwritten unless the -a option was specified.
-            </para>
-          </listitem>
-        </varlistentry>
-      </variablelist>
-      <para>
-        -X regex Exclude log entries which match the specified regular
-        expression.
-      </para>
-      <para>
-        -x tag Exclude log entries with the specified tag.
       </para>
     </section>
     <section xml:id="see-also">
@@ -230,7 +76,7 @@
         </listitem>
         <listitem>
           <para>
-            Copyright (c) 2006-2011 Varnish Software AS
+            Copyright (c) 2006-2014 Varnish Software AS
           </para>
         </listitem>
       </itemizedlist>
