@@ -30,6 +30,13 @@ cp sources/acct/*.8 man/man8/"
 find sources/bash/doc/ -name \\*.1 -exec cp {} man/man1/ \\;"
   },
 
+  /* Build fails with "require Automake 1.14, but have 1.13.4", can't convert .texi as it is in repo.
+  "bison": {
+    "type": "git",
+    "url": "git://git.savannah.gnu.org/bison.git"
+  },
+  */
+
   "btrfs-progs": {
     "type": "git",
     "url": "git://git.kernel.org/pub/scm/linux/kernel/git/mason/btrfs-progs.git",
@@ -346,7 +353,7 @@ find sources/sendmail/ -name '*[a-z].8' -exec cp {} man/man8/ \\;"
 
   "shadow-utils": {
     "type": "svn",
-    "url": "svn://anonscm.debian.org/pkg-shadow/upstream/trunk",
+    "url": "svn://svn.debian.org/pkg-shadow/upstream/trunk",
     "cmd": "(cd sources/shadow-utils; ./autogen.sh; ./configure --enable-man);
 (cd sources/shadow-utils/man && find -name '*.[1-8].xml' -print0 | while read -d $'\\0' -r file ; do sed -e '/^<!-- SHADOW-CONFIG-HERE -->/r config.xml' -e '//d' $file > $(basename $file).__; done;);
 (cd sources/shadow-utils/man && for f in *.__; do base=$(basename -s .__ $f); manNum=$(echo $base | rev | cut -c 5); xsltproc ../../../utils/db4-upgrade.xsl $f > ../../../xml/man$manNum/$base; done;)"
