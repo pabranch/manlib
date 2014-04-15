@@ -26,8 +26,9 @@ cp sources/acct/*.8 man/man8/"
   "bash": {
     "type": "git",
     "url": "git://git.savannah.gnu.org/bash.git",
-    "cmd": "(cd sources/bash/; ./configure; make doc);
-find sources/bash/doc/ -name \\*.1 -exec cp {} man/man1/ \\;"
+    "tag": "bash-4.3",
+    "cmd": "(cd sources/bash/; ./configure -q; cd doc; make text);
+cp sources/bash/doc/*.1 man/man1/"
   },
 
   /* Build fails with "require Automake 1.14, but have 1.13.4", can't convert .texi as it is in repo.
