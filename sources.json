@@ -128,7 +128,7 @@ rsync -a --exclude=Makefile --exclude=\\*.in --exclude=.gitignore sources/iprout
     "type": "git",
     "url": "git://git.code.sf.net/p/iputils/code",
     "sparse": "doc/",
-    "cmd": "find sources/iputils/doc -name \\*.sgml -exec bash -c 'osx -xlower {} 2> /dev/null | xsltproc utils/db4-upgrade.xsl - > xml/man8/$(basename -s .sgml {}).8.xml {}' \\;"
+    "cmd": "find sources/iputils/doc -name '*.sgml' ! -name pg3.sgml -exec bash -c 'osx -xlower {} 2> /dev/null | xsltproc utils/db4-upgrade.xsl - > xml/man8/$(basename -s .sgml {}).8.xml {}' \\;"
   },
 
   "kernel_man_pages": {
@@ -391,7 +391,7 @@ cp -r /tmp/sudo-inst/usr/local/man/man[1-8] man/"
   "systemd": {
     "type": "git",
     "url": "git://anongit.freedesktop.org/systemd/systemd",
-    "cmd": "(cd sources/systemd/; libtoolize; aclocal; autoheader; ./autogen.sh; ./configure CFLAGS='-g -O0' --sysconfdir=/etc --localstatedir=/var --libdir=/usr/lib64 --enable-gtk-doc; make man/custom-entities.ent);
+    "cmd": "(cd sources/systemd/; libtoolize; aclocal; autoheader; ./autogen.sh; ./configure -q CFLAGS='-g -O0' --sysconfdir=/etc --localstatedir=/var --libdir=/usr/lib64 --enable-gtk-doc; make man/custom-entities.ent);
 find sources/systemd/man -name '*.xml' -print0 | while read -d $'\\0' -r file ; do manNum=$(xmllint --shell $file  <<< \"cat //refmeta/manvolnum/text()\"  | grep -v \"^/ >\"); [ -z \"$manNum\" ] || xsltproc -o \"xml/man$manNum/$(basename -s .xml $file).$manNum.xml\" --xinclude utils/db4-upgrade.xsl $file; done"
   },
 
