@@ -124,7 +124,7 @@ function extract (sourceName, sourceDets, specified) {
     return;
   }
 
-  exec(sourceDets.cmd,
+  exec(sourceDets.cmd, {maxBuffer: 5000 * 1024},
     function (error, stdout, stderr) {
       if (error !== null) {
         console.log(sourceDets.cmd + ' - error: ' + error);
