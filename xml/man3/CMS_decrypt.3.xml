@@ -33,8 +33,24 @@
     <para>
       Although the recipients certificate is not needed to decrypt the data
       it is needed to locate the appropriate (of possible several)
-      recipients in the CMS structure. If <emphasis role="bold">cert</emphasis> is set to NULL all possible recipients
-      are tried.
+      recipients in the CMS structure.
+    </para>
+    <para>
+      If <emphasis role="bold">cert</emphasis> is set to NULL all possible
+      recipients are tried. This case however is problematic. To thwart the
+      MMA attack (Bleichenbacher's attack on PKCS #1 v1.5 RSA padding) all
+      recipients are tried whether they succeed or not. If no recipient
+      succeeds then a random symmetric key is used to decrypt the content:
+      this will typically output garbage and may (but is not guaranteed to)
+      ultimately return a padding error only. If CMS_decrypt() just
+      returned an error when all recipient encrypted keys failed to decrypt
+      an attacker could use this in a timing attack. If the special flag
+      <emphasis role="bold">CMS_DEBUG_DECRYPT</emphasis> is set then the
+      above behaviour is modified and an error <emphasis role="bold">is</emphasis> returned if no recipient encrypted key can
+      be decrypted <emphasis role="bold">without</emphasis> generating a
+      random content encryption key. Applications should use this flag with
+      <emphasis role="bold">extreme caution</emphasis> especially in
+      automated gateways as it can leave them open to attack.
     </para>
     <para>
       It is possible to determine the correct recipient key by other means
