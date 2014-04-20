@@ -267,7 +267,7 @@ function setupGIT (sourceName, sourceDets) {
 
 function setupSVN (sourceName, sourceDets) {
   var destDir = 'sources/' + sourceName;
-  exec('svn co ' + sourceDets.url + ' ' + destDir,
+  exec('svn -q co ' + sourceDets.url + ' ' + destDir,
     function (error, stdout, stderr) {
       if (error !== null) {
         console.log('svn co ' + sourceDets.url + ' ' + destDir + ' - error: ' + error);
