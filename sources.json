@@ -251,10 +251,17 @@ cp sources/net-tools/man/en_US/*.5 man/man5/;
 cp sources/net-tools/man/en_US/*.8 man/man8/"
   },
 
+  "ncat": {
+    "type": "svn",
+    "url": "https://svn.nmap.org/nmap/ncat/docs",
+    "cmd": "(cd sources/ncat; sed '1i<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE refentry PUBLIC \"-//OASIS//DTD DocBook XML V4.1.2//EN\" \"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd\">' ncat.xml | xmlstarlet ed -d '//notman' | sed 's~<man>~~g' | sed 's~</man>~~g' | xsltproc -o ../../xml/man1/ncat.1.xml --xinclude ../../utils/db4-upgrade.xsl -)"
+  },
+
   "nmap": {
     "type": "svn",
     "url": "https://svn.nmap.org/nmap/docs",
-    "cmd": "cp sources/nmap/*.1 man/man1/"
+    /* refguide.xml would need some special attention to use it as a basis for nmap.1.xml */
+    "cmd": "cp sources/nmap/nmap.1 man/man1/; (cd sources/nmap; xsltproc -o ../../xml/man1/nmap-update.1.xml --xinclude ../../utils/db4-upgrade.xsl nmap-update.xml; sed '1i<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE refentry PUBLIC \"-//OASIS//DTD DocBook XML V4.1.2//EN\" \"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd\">' zenmap.xml | xmlstarlet ed -d '//web' | xsltproc -o ../../xml/man1/zenmap.1.xml --xinclude ../../utils/db4-upgrade.xsl -)"
   },
 
   "openssl": {
