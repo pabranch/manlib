@@ -42,7 +42,7 @@ cp sources/bash/doc/*.1 man/man1/"
     "type": "git",
     "url": "git://git.kernel.org/pub/scm/linux/kernel/git/mason/btrfs-progs.git",
     "sparse": "man/*.in",
-    "cmd": "for f in $(find sources/btrfs-progs/man/ -name \\*.in); do cp $f man/man8/$(basename -s .in $f); done"
+    "cmd": "for f in $(find sources/btrfs-progs/man/ -name '*.in'); do cp $f man/man8/$(basename -s .in $f); done"
   },
 
   "coreutils": {
@@ -75,7 +75,7 @@ cp sources/dpkg/man/*.8 man/man8/"
     "type": "git",
     "url": "git://git.kernel.org/pub/scm/boot/dracut/dracut.git",
     "sparse": "*.asc",
-    "cmd": "(cd sources/dracut/; find . -name \\*.[1-9].asc -exec bash -c 'base=$(basename -s .asc {}); manNum=\"${base##*.}\"; asciidoc -d manpage -b docbook -o ../../xml/man$manNum/$base.xml {}' \\;)"
+    "cmd": "(cd sources/dracut/; find . -name '*.[1-9].asc' -exec bash -c 'base=$(basename -s .asc {}); manNum=\"${base##*.}\"; asciidoc -d manpage -b docbook -o ../../xml/man$manNum/$base.xml {}' \\;)"
   },
 
   "e2fsprogs": {
@@ -89,22 +89,22 @@ rsync -a sources/e2fsprogs/build/install/usr/share/man/ man"
     "type": "git",
     "url": "git://git.savannah.gnu.org/findutils.git",
     "sparse": "*.[1-8]",
-    "cmd": "find sources/findutils/ -name \\*.1 -exec cp {} man/man1/ \\;;
-find sources/findutils/ -name \\*.5 -exec cp {} man/man5/ \\;"
+    "cmd": "find sources/findutils/ -name '*.1' -exec cp {} man/man1/ \\;;
+find sources/findutils/ -name '*.5' -exec cp {} man/man5/ \\;"
   },
 
   "gawk": {
     "type": "git",
     "url": "git://git.savannah.gnu.org/gawk.git",
     "sparse": "doc/",
-    "cmd": "find sources/gawk/doc/ -name \\*.1 -exec cp {} man/man1/ \\;"
+    "cmd": "cp sources/gawk/doc/*.1 man/man1/"
   },
 
   "git": {
     "type": "git",
     "url": "https://github.com/git/git.git",
     "sparse": "Documentation/",
-    "cmd": "(cd sources/git/Documentation/; find . \\( -name git-\\*.txt -o -name git.txt -o -name gitk.txt -o -name gitremote-helpers.txt -o -name gitweb.txt \\) -exec bash -c 'asciidoc -d manpage -b docbook -f asciidoc.conf -o ../../../xml/man1/$(basename -s .txt {}).1.xml {}' \\;);
+    "cmd": "(cd sources/git/Documentation/; find . \\( -name 'git-*.txt' -o -name git.txt -o -name gitk.txt -o -name gitremote-helpers.txt -o -name gitweb.txt \\) -exec bash -c 'asciidoc -d manpage -b docbook -f asciidoc.conf -o ../../../xml/man1/$(basename -s .txt {}).1.xml {}' \\;);
 (cd sources/git/Documentation/; find . \\( -name gitattributes.txt -o -name githooks.txt -o -name gitignore.txt -o -name gitmodules.txt -o -name gitrepository-layout.txt -o -name gitweb.conf.txt \\) -exec bash -c 'asciidoc -d manpage -b docbook -f asciidoc.conf -o ../../../xml/man5/$(basename -s .txt {}).5.xml {}' \\;);
 (cd sources/git/Documentation/; find . \\( -name gitcli.txt -o -name gitcredentials.txt -o -name gitcvs-migration.txt -o -name gitdiffcore.txt -o -name gitglossary.txt -o -name gitnamespaces.txt -o -name gitrevisions.txt -o -name gitworkflows.txt \\) -exec bash -c 'asciidoc -d manpage -b docbook -f asciidoc.conf -o ../../../xml/man7/$(basename -s .txt {}).7.xml {}' \\;)"
   },
@@ -122,7 +122,7 @@ cp sources/hg/doc/*.5 man/man5/"
     "url": "git://git.kernel.org/pub/scm/linux/kernel/git/shemminger/iproute2.git",
     "sparse": "man/",
     "cmd": "(cd sources/iproute2/man/man8/; make);
-rsync -a --exclude=Makefile --exclude=\\*.in --exclude=.gitignore sources/iproute2/man/ man"
+rsync -a --exclude=Makefile --exclude='*.in' --exclude=.gitignore sources/iproute2/man/ man"
   },
 
   "iputils": {
@@ -201,6 +201,7 @@ cp sources/ltrace/ltrace.conf.5 man/man5/"
     /*"sparse": "man/\nVERSION\nVERSION_DM", <- need to run ./configure so get everything for now*/
     "cmd": "(cd sources/lvm2; ./configure; cd man; make man);
 cp sources/lvm2/man/*.5 man/man5/;
+cp sources/lvm2/man/*.7 man/man7/;
 cp sources/lvm2/man/*.8 man/man8/"
   },
 
@@ -238,8 +239,8 @@ cp sources/mono/man/*.5 man/man5/;"
     "type": "git",
     "url": "http://git.opensvc.com/multipath-tools/.git",
     "cmd": "find sources/multipath-tools/ -name \\*.3 -exec cp {} man/man3/ \\;;
-find sources/multipath-tools/ -name \\*.5 -exec cp {} man/man5/ \\;;
-find sources/multipath-tools/ -name \\*.8 -exec cp {} man/man8/ \\;"
+find sources/multipath-tools/ -name '*.5' -exec cp {} man/man5/ \\;;
+find sources/multipath-tools/ -name '*.8' -exec cp {} man/man8/ \\;"
   },
 
   "net-tools": {
@@ -340,9 +341,9 @@ cp sources/quota/*.8 man/man8/"
     "type": "git",
     "url": "http://oss.tresys.com/git/selinux.git",
     "sparse": "libsemanage/man/*\nlibselinux/man/*\nlibsepol/man/*\npolicycoreutils/mcstrans/man/*\npolicycoreutils/man/*",
-    "cmd": "find sources/selinux/ -name \\*.3 -exec cp -f {} man/man3/ \\;;
-find sources/selinux/ -name \\*.5 -exec cp {} man/man5/ \\;;
-find sources/selinux/ -name \\*.8 -exec cp {} man/man8/ \\;"
+    "cmd": "find sources/selinux/ -name '*[a-z].3' -exec cp -f {} man/man3/ \\;;
+find sources/selinux/ -name '*.5' -exec cp {} man/man5/ \\;;
+find sources/selinux/ -name '*.8' -exec cp {} man/man8/ \\;"
   },
 
   "selinux-refpolicy": {
@@ -377,9 +378,9 @@ find sources/sendmail/ -name '*[a-z].8' -exec cp {} man/man8/ \\;"
     "type": "git",
     "url": "git://git.code.sf.net/p/sox/code",
     "sparse": "*.[1-8]",
-    "cmd": "find sources/sox/ -name \\*.1 -exec cp -f {} man/man1/ \\;;
-find sources/sox/ -name \\*.3 -exec cp {} man/man3/ \\;;
-find sources/sox/ -name \\*.7 -exec cp {} man/man7/ \\;"
+    "cmd": "find sources/sox/ -name '*.1' -exec cp -f {} man/man1/ \\;;
+find sources/sox/ -name '*.3' -exec cp {} man/man3/ \\;;
+find sources/sox/ -name '*.7' -exec cp {} man/man7/ \\;"
   },
 
   "strace": {
