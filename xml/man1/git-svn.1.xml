@@ -173,13 +173,11 @@ Subversion updated from Git by the <emphasis>dcommit</emphasis> command.</simpar
         (refs/remotes/$remote/</emphasis>). Setting a prefix is also useful
         if you wish to track multiple projects that share a common
         repository.
+        By default, the prefix is set to <emphasis>origin/</emphasis>.
 </simpara>
-<note><simpara>In Git v2.0, the default prefix will CHANGE from "" (no prefix)
-to "origin/". This is done to put SVN-tracking refs at
-"refs/remotes/origin/<emphasis role="strong">" instead of "refs/remotes/</emphasis>", and make them
-more compatible with how Git&#8217;s own remote-tracking refs are organized
-(i.e. refs/remotes/$remote/*). You can enjoy the same benefits today,
-by using the --prefix option.</simpara></note>
+<note><simpara>Before Git v2.0, the default prefix was "" (no prefix). This
+meant that SVN-tracking refs were put at "refs/remotes/*", which is
+incompatible with how Git&#8217;s own remote-tracking refs are organized.</simpara></note>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -1673,15 +1671,6 @@ required, it is easiest to only clone one directory (typically trunk),
 without giving any repository layout options.  If the full history with
 branches and tags is required, the options <emphasis>--trunk</emphasis> / <emphasis>--branches</emphasis> /
 <emphasis>--tags</emphasis> must be used.</simpara>
-<simpara>When using the options for describing the repository layout (--trunk,
---tags, --branches, --stdlayout), please also specify the --prefix
-option (e.g. <emphasis>--prefix=origin/</emphasis>) to cause your SVN-tracking refs to be
-placed at refs/remotes/origin/* rather than the default refs/remotes/<emphasis role="strong">.
-The former is more compatible with the layout of Git&#8217;s "regular"
-remote-tracking refs (refs/remotes/$remote/</emphasis>), and may potentially
-prevent similarly named SVN branches and Git remotes from clobbering
-each other. In Git v2.0 the default prefix used (i.e. when no --prefix
-is given) will change from "" (no prefix) to "origin/".</simpara>
 <simpara>When using multiple --branches or --tags, <emphasis>git svn</emphasis> does not automatically
 handle name collisions (for example, if two branches from different paths have
 the same name, or if a branch and a tag have the same name).  In these cases,

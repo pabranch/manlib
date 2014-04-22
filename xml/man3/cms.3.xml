@@ -106,6 +106,15 @@
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.cms.pod:-debug_decrypt"/><emphasis role="bold">-debug_decrypt</emphasis></term>
+          <listitem>
+            <para>
+	      this option sets the <emphasis role="bold">CMS_DEBUG_DECRYPT</emphasis> flag. This option
+	      should be used with caution: see the notes section below.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.apps.cms.pod:-sign"/><emphasis role="bold">-sign</emphasis></term>
           <listitem>
             <para>
@@ -756,6 +765,19 @@
       Streaming is always used for the <emphasis role="bold">-sign</emphasis> operation with detached data but since
       the content is no longer part of the CMS structure the encoding
       remains DER.
+    </para>
+    <para>
+      If the <emphasis role="bold">-decrypt</emphasis> option is used
+      without a recipient certificate then an attempt is made to locate the
+      recipient by trying each potential recipient in turn using the
+      supplied private key. To thwart the MMA attack (Bleichenbacher's
+      attack on PKCS #1 v1.5 RSA padding) all recipients are tried whether
+      they succeed or not and if no recipients match the message is
+      "decrypted" using a random key which will typically output garbage.
+      The <emphasis role="bold">-debug_decrypt</emphasis> option can be
+      used to disable the MMA attack protection and return an error if no
+      recipient can be found: this option should be used with caution. For
+      a fuller description see CMS_decrypt(3)). 
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.apps.cms.pod:EXIT_CODES"><title>EXIT CODES</title>
