@@ -1,4 +1,7 @@
-/* In alphabetical order */
+/* In alphabetical order
+Use rsync --checksum to preserve the timestamps of files in xml/ and man/ if their contents doesn't change when extracting.
+
+*/
 
 {
 
@@ -6,21 +9,21 @@
     "type": "git",
     "url": "git://git.savannah.nongnu.org/acl.git",
     "sparse": "man/",
-    "cmd": "rsync -a --exclude=Makefile --exclude=Makemodule.am sources/acl/man/ man"
+    "cmd": "rsync -a --checksum --exclude=Makefile --exclude=Makemodule.am sources/acl/man/ man"
   },
 
   "acct": {
     "type": "svn",
     "url": "svn://svn.savannah.gnu.org/acct/trunk",
-    "cmd": "cp sources/acct/*.1 man/man1/;
-cp sources/acct/*.8 man/man8/"
+    "cmd": "rsync --checksum sources/acct/*.1 man/man1/;
+rsync --checksum sources/acct/*.8 man/man8/"
   },
 
   "attr": {
     "type": "git",
     "url": "git://git.savannah.nongnu.org/attr.git",
     "sparse": "man/",
-    "cmd": "rsync -a --exclude=Makefile --exclude=Makemodule.am sources/attr/man/ man"
+    "cmd": "rsync -a --checksum --exclude=Makefile --exclude=Makemodule.am sources/attr/man/ man"
   },
 
   "bash": {
@@ -28,7 +31,7 @@ cp sources/acct/*.8 man/man8/"
     "url": "git://git.savannah.gnu.org/bash.git",
     "tag": "bash-4.3",
     "cmd": "(cd sources/bash/; ./configure -q; cd doc; make text);
-cp sources/bash/doc/*.1 man/man1/"
+rsync --checksum sources/bash/doc/*.1 man/man1/"
   },
 
   /* Build fails with "require Automake 1.14, but have 1.13.4", can't convert .texi as it is in repo.
@@ -50,25 +53,25 @@ cp sources/bash/doc/*.1 man/man1/"
     "url": "git://git.sv.gnu.org/coreutils",
     "tag": "v8.22",
     "cmd": "(cd sources/coreutils/; ./bootstrap; ./configure --quiet; make);
-cp sources/coreutils/man/*.1 man/man1/"
+rsync --checksum sources/coreutils/man/*.1 man/man1/"
   },
 
   "cronie": {
     "type": "git",
     "url": "http://git.fedorahosted.org/git/cronie.git",
     "sparse": "man/",
-    "cmd": "cp sources/cronie/man/*.1 man/man1/;
-cp sources/cronie/man/*.5 man/man5/;
-cp sources/cronie/man/*.8 man/man8/"
+    "cmd": "rsync --checksum sources/cronie/man/*.1 man/man1/;
+rsync --checksum sources/cronie/man/*.5 man/man5/;
+rsync --checksum sources/cronie/man/*.8 man/man8/"
   },
 
   "dpkg": {
     "type": "git",
     "url": "git://git.debian.org/git/dpkg/dpkg.git",
     "sparse": "man/",
-    "cmd": "cp sources/dpkg/man/*.1 man/man1/;
-cp sources/dpkg/man/*.5 man/man5/;
-cp sources/dpkg/man/*.8 man/man8/"
+    "cmd": "rsync --checksum sources/dpkg/man/*.1 man/man1/;
+rsync --checksum sources/dpkg/man/*.5 man/man5/;
+rsync --checksum sources/dpkg/man/*.8 man/man8/"
   },
 
   "dracut": {
@@ -82,7 +85,7 @@ cp sources/dpkg/man/*.8 man/man8/"
     "type": "git",
     "url": "git://git.kernel.org/pub/scm/fs/ext2/e2fsprogs.git",
     "cmd": "(cd sources/e2fsprogs/; mkdir -p build/install; cd build; ../configure; make; make install DESTDIR=$(pwd)/install);
-rsync -a sources/e2fsprogs/build/install/usr/share/man/ man"
+rsync -a --checksum sources/e2fsprogs/build/install/usr/share/man/ man"
   },
 
   "findutils": {
@@ -90,14 +93,14 @@ rsync -a sources/e2fsprogs/build/install/usr/share/man/ man"
     "url": "git://git.savannah.gnu.org/findutils.git",
     "sparse": "*.[1-8]",
     "cmd": "find sources/findutils/ -name '*.1' -exec cp {} man/man1/ \\;;
-find sources/findutils/ -name '*.5' -exec cp {} man/man5/ \\;"
+find sources/findutils/ -name '*.5' -exec rsync --checksum {} man/man5/ \\;"
   },
 
   "gawk": {
     "type": "git",
     "url": "git://git.savannah.gnu.org/gawk.git",
     "sparse": "doc/",
-    "cmd": "cp sources/gawk/doc/*.1 man/man1/"
+    "cmd": "rsync --checksum sources/gawk/doc/*.1 man/man1/"
   },
 
   "git": {
@@ -113,8 +116,8 @@ find sources/findutils/ -name '*.5' -exec cp {} man/man5/ \\;"
     "type": "hg",
     "url": "http://selenic.com/hg",
     "cmd": "(cd sources/hg/; make doc);
-cp sources/hg/doc/*.1 man/man1/;
-cp sources/hg/doc/*.5 man/man5/"
+rsync --checksum sources/hg/doc/*.1 man/man1/;
+rsync --checksum sources/hg/doc/*.5 man/man5/"
   },
 
   "iproute2": {
@@ -122,7 +125,7 @@ cp sources/hg/doc/*.5 man/man5/"
     "url": "git://git.kernel.org/pub/scm/linux/kernel/git/shemminger/iproute2.git",
     "sparse": "man/",
     "cmd": "(cd sources/iproute2/man/man8/; make);
-rsync -a --exclude=Makefile --exclude='*.in' --exclude=.gitignore sources/iproute2/man/ man"
+rsync --checksum -a --exclude=Makefile --exclude='*.in' --exclude=.gitignore sources/iproute2/man/ man"
   },
 
   "iputils": {
@@ -135,48 +138,48 @@ rsync -a --exclude=Makefile --exclude='*.in' --exclude=.gitignore sources/iprout
   "kernel_man_pages": {
     "type": "git",
     "url": "http://git.kernel.org/pub/scm/docs/man-pages/man-pages",
-    "cmd": "cp -r sources/kernel_man_pages/man[1-8] man/"
+    "cmd": "rsync --checksum -a sources/kernel_man_pages/man[1-8] man/"
   },
 
   "keyutils": {
     "type": "git",
     "url": "http://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils.git",
     "sparse": "*.[1-8]",
-    "cmd": "cp sources/keyutils/man/*.1 man/man1/;
-cp sources/keyutils/man/*.3 man/man3/;
-cp sources/keyutils/man/*.5 man/man5/;
-cp sources/keyutils/man/*.8 man/man8/"
+    "cmd": "rsync --checksum sources/keyutils/man/*.1 man/man1/;
+rsync --checksum sources/keyutils/man/*.3 man/man3/;
+rsync --checksum sources/keyutils/man/*.5 man/man5/;
+rsync --checksum sources/keyutils/man/*.8 man/man8/"
   },
 
   "kmod": {
     "type": "git",
     "url": "git://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git",
     "sparse": "man/",
-    "cmd": "cp sources/kmod/man/depmod.d.xml xml/man5/depmod.d.5.xml;
-cp sources/kmod/man/modprobe.d.xml xml/man5/modprobe.d.5.xml;
-cp sources/kmod/man/modules.dep.xml xml/man5/modules.dep.5.xml;
-cp sources/kmod/man/depmod.xml xml/man8/depmod.8.xml;
-cp sources/kmod/man/insmod.xml xml/man8/insmod.8.xml;
-cp sources/kmod/man/lsmod.xml xml/man8/lsmod.8.xml;
-cp sources/kmod/man/rmmod.xml xml/man8/rmmod.8.xml;
-cp sources/kmod/man/modprobe.xml xml/man8/modprobe.8.xml;
-cp sources/kmod/man/modinfo.xml xml/man8/modinfo.8.xml;
+    "cmd": "rsync --checksum sources/kmod/man/depmod.d.xml xml/man5/depmod.d.5.xml;
+rsync --checksum sources/kmod/man/modprobe.d.xml xml/man5/modprobe.d.5.xml;
+rsync --checksum sources/kmod/man/modules.dep.xml xml/man5/modules.dep.5.xml;
+rsync --checksum sources/kmod/man/depmod.xml xml/man8/depmod.8.xml;
+rsync --checksum sources/kmod/man/insmod.xml xml/man8/insmod.8.xml;
+rsync --checksum sources/kmod/man/lsmod.xml xml/man8/lsmod.8.xml;
+rsync --checksum sources/kmod/man/rmmod.xml xml/man8/rmmod.8.xml;
+rsync --checksum sources/kmod/man/modprobe.xml xml/man8/modprobe.8.xml;
+rsync --checksum sources/kmod/man/modinfo.xml xml/man8/modinfo.8.xml;
 echo '.so man5/modules.dep.5' > man/man5/modules.dep.bin.5"
   },
 
   "lapack": {
     "type": "tarball",
     "url": "http://www.netlib.org/lapack/manpages.tgz",
-    "cmd": "cp sources/lapack/man/man3/* man/man3/"
+    "cmd": "rsync --checksum sources/lapack/man/man3/* man/man3/"
   },
 
   "libcap": {
     "type": "git",
     "url": "git://git.kernel.org/pub/scm/linux/kernel/git/morgan/libcap.git",
     "sparse": "doc/",
-    "cmd": "cp sources/libcap/doc/*.1 man/man1/;
-cp sources/libcap/doc/*.3 man/man3/;
-cp sources/libcap/doc/*.8 man/man8/"
+    "cmd": "rsync --checksum sources/libcap/doc/*.1 man/man1/;
+rsync --checksum sources/libcap/doc/*.3 man/man3/;
+rsync --checksum sources/libcap/doc/*.8 man/man8/"
   },
 
   "linux-pam": {
@@ -191,8 +194,8 @@ for f in sources/linux-pam/doc/man/*.8.xml; do xsltproc -o xml/man8/$(basename $
     "type": "git",
     "url": "git://anonscm.debian.org/collab-maint/ltrace.git",
     "sparse": "*.[1-8]",
-    "cmd": "cp sources/ltrace/ltrace.1 man/man1/;
-cp sources/ltrace/ltrace.conf.5 man/man5/"
+    "cmd": "rsync --checksum sources/ltrace/ltrace.1 man/man1/;
+rsync --checksum sources/ltrace/ltrace.conf.5 man/man5/"
   },
 
   "lvm2": {
@@ -200,56 +203,56 @@ cp sources/ltrace/ltrace.conf.5 man/man5/"
     "url": "git://git.fedorahosted.org/git/lvm2.git",
     /*"sparse": "man/\nVERSION\nVERSION_DM", <- need to run ./configure so get everything for now*/
     "cmd": "(cd sources/lvm2; ./configure; cd man; make man);
-cp sources/lvm2/man/*.5 man/man5/;
-cp sources/lvm2/man/*.7 man/man7/;
-cp sources/lvm2/man/*.8 man/man8/"
+rsync --checksum sources/lvm2/man/*.5 man/man5/;
+rsync --checksum sources/lvm2/man/*.7 man/man7/;
+rsync --checksum sources/lvm2/man/*.8 man/man8/"
   },
 
   "make": {
     "type": "git",
     "url": "git://git.savannah.gnu.org/make.git",
     "sparse": "make.1",
-    "cmd": "cp sources/make/make.1 man/man1/"
+    "cmd": "rsync --checksum sources/make/make.1 man/man1/"
   },
 
   "man-db": {
     "type": "bzr",
     "url": "http://bzr.savannah.gnu.org/r/man-db/trunk",
     "cmd": "(cd sources/man-db/; ./autogen.sh; ./configure; cd man; make);
-cp sources/man-db/man/man1/*.1 man/man1/;
-cp sources/man-db/man/man5/*.5 man/man5/;
-cp sources/man-db/man/man8/*.8 man/man8/"
+rsync --checksum sources/man-db/man/man1/*.1 man/man1/;
+rsync --checksum sources/man-db/man/man5/*.5 man/man5/;
+rsync --checksum sources/man-db/man/man8/*.8 man/man8/"
   },
 
   "mmv": {
     "type": "git",
     "url": "git://git.deb.at/pkg/mmv.git",
-    "cmd": "cp sources/mmv/mmv.1 man/man1/"
+    "cmd": "rsync --checksum sources/mmv/mmv.1 man/man1/"
   },
 
   "mono": {
     "type": "git",
     "url": "https://github.com/mono/mono.git",
     "sparse": "man/*.[1-8]",
-    "cmd": "cp sources/mono/man/*.1 man/man1/;
-cp sources/mono/man/*.5 man/man5/;"
+    "cmd": "rsync --checksum sources/mono/man/*.1 man/man1/;
+rsync --checksum sources/mono/man/*.5 man/man5/;"
   },
 
   "multipath-tools": {
     "type": "git",
     "url": "http://git.opensvc.com/multipath-tools/.git",
-    "cmd": "find sources/multipath-tools/ -name \\*.3 -exec cp {} man/man3/ \\;;
-find sources/multipath-tools/ -name '*.5' -exec cp {} man/man5/ \\;;
-find sources/multipath-tools/ -name '*.8' -exec cp {} man/man8/ \\;"
+    "cmd": "find sources/multipath-tools/ -name \\*.3 -exec rsync --checksum {} man/man3/ \\;;
+find sources/multipath-tools/ -name '*.5' -exec rsync --checksum {} man/man5/ \\;;
+find sources/multipath-tools/ -name '*.8' -exec rsync --checksum {} man/man8/ \\;"
   },
 
   "net-tools": {
     "type": "git",
     "url": "git://net-tools.git.sourceforge.net/gitroot/net-tools/net-tools",
     "sparse": "man/en_US",
-    "cmd": "cp sources/net-tools/man/en_US/*.1 man/man1/;
-cp sources/net-tools/man/en_US/*.5 man/man5/;
-cp sources/net-tools/man/en_US/*.8 man/man8/"
+    "cmd": "rsync --checksum sources/net-tools/man/en_US/*.1 man/man1/;
+rsync --checksum sources/net-tools/man/en_US/*.5 man/man5/;
+rsync --checksum sources/net-tools/man/en_US/*.8 man/man8/"
   },
 
   "ncat": {
@@ -262,7 +265,7 @@ cp sources/net-tools/man/en_US/*.8 man/man8/"
     "type": "svn",
     "url": "https://svn.nmap.org/nmap/docs",
     /* refguide.xml would need some special attention to use it as a basis for nmap.1.xml */
-    "cmd": "cp sources/nmap/nmap.1 man/man1/; (cd sources/nmap; xsltproc -o ../../xml/man1/nmap-update.1.xml --xinclude ../../utils/db4-upgrade.xsl nmap-update.xml; sed '1i<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE refentry PUBLIC \"-//OASIS//DTD DocBook XML V4.1.2//EN\" \"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd\">' zenmap.xml | xmlstarlet ed -d '//web' | xsltproc -o ../../xml/man1/zenmap.1.xml --xinclude ../../utils/db4-upgrade.xsl -)"
+    "cmd": "rsync --checksum sources/nmap/nmap.1 man/man1/; (cd sources/nmap; xsltproc -o ../../xml/man1/nmap-update.1.xml --xinclude ../../utils/db4-upgrade.xsl nmap-update.xml; sed '1i<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE refentry PUBLIC \"-//OASIS//DTD DocBook XML V4.1.2//EN\" \"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd\">' zenmap.xml | xmlstarlet ed -d '//web' | xsltproc -o ../../xml/man1/zenmap.1.xml --xinclude ../../utils/db4-upgrade.xsl -)"
   },
 
   "openssl": {
@@ -278,16 +281,16 @@ mv xml/man3/des_modes.3.xml xml/man7/des_modes.7.xml"
   "Owl": {
     "type": "cvs",
     "url": "-d:pserver:anoncvs:anoncvs@anoncvs.owl.openwall.com:/cvs",
-    "cmd": "cp sources/Owl/packages/passwdqc/passwdqc/*.1 man/man1/;
-cp sources/Owl/packages/passwdqc/passwdqc/*.5 man/man5/;
-cp sources/Owl/packages/passwdqc/passwdqc/*.8 man/man8/"
+    "cmd": "rsync --checksum sources/Owl/packages/passwdqc/passwdqc/*.1 man/man1/;
+rsync --checksum sources/Owl/packages/passwdqc/passwdqc/*.5 man/man5/;
+rsync --checksum sources/Owl/packages/passwdqc/passwdqc/*.8 man/man8/"
   },
 
   "patch": {
     "type": "git",
     "url": "git://git.savannah.gnu.org/patch.git",
     "sparse": "patch.man",
-    "cmd": "cp sources/patch/patch.man man/man1/patch.1"
+    "cmd": "rsync --checksum sources/patch/patch.man man/man1/patch.1"
   },
 
   "pgbadger": {
@@ -309,62 +312,63 @@ mv xml/man1/polkitd.1.xml xml/man8/polkitd.8.xml"
   "procps": {
     "type": "cvs",
     "url": "-d:pserver:anonymous@procps.cvs.sourceforge.net:/cvsroot/procps",
-    "cmd": "find sources/procps/ -name '*.1' ! -name kill.1 ! -name uptime.1 -exec cp -f {} man/man1/ \\;;
-find sources/procps/ -name '*.5' -exec cp {} man/man5/ \\;;
-find sources/procps/ -name '*.8' -exec cp {} man/man8/ \\;"
+    "cmd": "find sources/procps/ -name '*.1' ! -name kill.1 ! -name uptime.1 -exec rsync --checksum {} man/man1/ \\;;
+find sources/procps/ -name '*.5' -exec rsync --checksum {} man/man5/ \\;;
+find sources/procps/ -name '*.8' -exec rsync --checksum {} man/man8/ \\;"
   },
 
   "quota": {
     "type": "git",
     "url": "git://git.code.sf.net/p/linuxquota/code",
     "sparse": "*.[1-8]",
-    "cmd": "cp sources/quota/*.1 man/man1/;
-cp sources/quota/*.5 man/man5/;
-cp sources/quota/*.8 man/man8/"
+    "cmd": "rsync --checksum sources/quota/*.1 man/man1/;
+rsync --checksum sources/quota/*.5 man/man5/;
+rsync --checksum sources/quota/*.8 man/man8/"
   },
 
   "readline": {
     "type": "git",
     "url": "git://git.savannah.gnu.org/readline.git",
     "sparse": "doc/",
-    "cmd": "cp sources/readline/doc/*.3 man/man3/"
+    "cmd": "rsync --checksum sources/readline/doc/*.3 man/man3/"
   },
 
   "sed": {
     "type": "git",
     "url": "git://git.savannah.gnu.org/sed.git",
     "sparse": "doc/*.[1-8]",
-    "cmd": "cp sources/sed/doc/*.1 man/man1/"
+    "cmd": "rsync --checksum sources/sed/doc/*.1 man/man1/"
   },
 
   "selinux": {
     "type": "git",
     "url": "http://oss.tresys.com/git/selinux.git",
     "sparse": "libsemanage/man/*\nlibselinux/man/*\nlibsepol/man/*\npolicycoreutils/mcstrans/man/*\npolicycoreutils/man/*",
-    "cmd": "find sources/selinux/ -name '*[a-z].3' -exec cp -f {} man/man3/ \\;;
-find sources/selinux/ -name '*.5' -exec cp {} man/man5/ \\;;
-find sources/selinux/ -name '*.8' -exec cp {} man/man8/ \\;"
+    "cmd": "find sources/selinux/ -name '*[a-z].3' -exec rsync --checksum {} man/man3/ \\;;
+find sources/selinux/ -name '*.5' -exec rsync --checksum {} man/man5/ \\;;
+find sources/selinux/ -name '*.8' -exec rsync --checksum {} man/man8/ \\;"
   },
 
   "selinux-refpolicy": {
     "type": "git",
     "url": "http://oss.tresys.com/git/refpolicy.git",
-    "cmd": "cp sources/selinux-refpolicy/man/man8/*.8 man/man8/" /* (cd sources/selinux-refpolicy; git submodule init; git submodule update) */
+    "cmd": "rsync --checksum sources/selinux-refpolicy/man/man8/*.8 man/man8/" /* (cd sources/selinux-refpolicy; git submodule init; git submodule update) */
   },
 
   "sendmail": {
     "type": "tarball",
     "url": "ftp://ftp.sendmail.org/pub/sendmail/sendmail.8.14.8.tar.gz",
-    "cmd": "find sources/sendmail/ -name '*[a-z].1' -exec cp -f {} man/man1/ \\;;
-find sources/sendmail/ -name '*[a-z].5' -exec cp {} man/man5/ \\;;
-find sources/sendmail/ -name '*[a-z].8' -exec cp {} man/man8/ \\;"
+    "cmd": "find sources/sendmail/ -name '*[a-z].1' -exec rsync --checksum {} man/man1/ \\;;
+find sources/sendmail/ -name '*[a-z].5' -exec rsync --checksum {} man/man5/ \\;;
+find sources/sendmail/ -name '*[a-z].8' -exec rsync --checksum {} man/man8/ \\;"
   },
 
+  /* Use groups.1, id.1 from coreutils instead of from shadow-utils. */
   "shadow-utils": {
     "type": "svn",
     "url": "svn://svn.debian.org/pkg-shadow/upstream/trunk",
     "cmd": "(cd sources/shadow-utils; ./autogen.sh; ./configure --enable-man);
-(cd sources/shadow-utils/man && find -name '*.[1-8].xml' -print0 | while read -d $'\\0' -r file ; do sed -e '/^<!-- SHADOW-CONFIG-HERE -->/r config.xml' -e '//d' $file > $(basename $file).__; done;);
+(cd sources/shadow-utils/man && find -name '*.[1-8].xml' ! -name groups.1.xml ! -name id.1.xml -print0 | while read -d $'\\0' -r file ; do sed -e '/^<!-- SHADOW-CONFIG-HERE -->/r config.xml' -e '//d' $file > $(basename $file).__; done;);
 (cd sources/shadow-utils/man && for f in *.__; do base=$(basename -s .__ $f); manNum=$(echo $base | rev | cut -c 5); xsltproc ../../../utils/db4-upgrade.xsl $f > ../../../xml/man$manNum/$base; done;)"
   },
 
@@ -378,23 +382,23 @@ find sources/sendmail/ -name '*[a-z].8' -exec cp {} man/man8/ \\;"
     "type": "git",
     "url": "git://git.code.sf.net/p/sox/code",
     "sparse": "*.[1-8]",
-    "cmd": "find sources/sox/ -name '*.1' -exec cp -f {} man/man1/ \\;;
-find sources/sox/ -name '*.3' -exec cp {} man/man3/ \\;;
-find sources/sox/ -name '*.7' -exec cp {} man/man7/ \\;"
+    "cmd": "find sources/sox/ -name '*.1' -exec rsync --checksum {} man/man1/ \\;;
+find sources/sox/ -name '*.3' -exec rsync --checksum {} man/man3/ \\;;
+find sources/sox/ -name '*.7' -exec rsync --checksum {} man/man7/ \\;"
   },
 
   "strace": {
     "type": "git",
     "url": "git://strace.git.sourceforge.net/gitroot/strace/strace",
     "sparse": "*.[1-8]",
-    "cmd": "cp sources/strace/*.1 man/man1/"
+    "cmd": "rsync --checksum sources/strace/*.1 man/man1/"
   },
 
   "sudo": {
     "type": "hg",
     "url": "http://www.sudo.ws/repos/sudo",
     "cmd": "(cd sources/sudo/; ./configure; make; mkdir -p /tmp/sudo-inst; make DESTDIR=/tmp/sudo-inst install-doc);
-cp -r /tmp/sudo-inst/usr/local/man/man[1-8] man/"
+rsync --checksum -a /tmp/sudo-inst/usr/local/man/man[1-8] man/"
   },
 
   "systemd": {
@@ -408,17 +412,17 @@ find sources/systemd/man -name '*.xml' -print0 | while read -d $'\\0' -r file ; 
     "type": "git",
     "url": "git://bpf.tcpdump.org/tcpdump",
     "sparse": "tcpdump.1.in",
-    "cmd": "cp sources/tcpdump/tcpdump.1.in man/man1/tcpdump.1"
+    "cmd": "rsync --checksum sources/tcpdump/tcpdump.1.in man/man1/tcpdump.1"
   },
 
   "util-linux": {
     "type": "git",
     "url": "git://git.kernel.org/pub/scm/utils/util-linux/util-linux.git",
     "sparse": "*.[1-8]",
-    "cmd": "find sources/util-linux/*utils/ -name '*.1' ! -name kill.1 -exec cp -f {} man/man1/ \\;;
-find sources/util-linux/ -name '*.3' -exec cp {} man/man3/ \\;;
-find sources/util-linux/ -name '*.5' -exec cp {} man/man5/ \\;;
-find sources/util-linux/ -name '*.8' -exec cp {} man/man8/ \\;"
+    "cmd": "find sources/util-linux/*utils/ -name '*.1' ! -name kill.1 -exec rsync --checksum {} man/man1/ \\;;
+find sources/util-linux/ -name '*.3' -exec rsync --checksum {} man/man3/ \\;;
+find sources/util-linux/ -name '*.5' -exec rsync --checksum {} man/man5/ \\;;
+find sources/util-linux/ -name '*.8' -exec rsync --checksum {} man/man8/ \\;"
   },
 
   "varnish": {
@@ -437,24 +441,24 @@ mv xml/man1/vcl.1.xml xml/man7/vcl.7.xml;"
     "type": "git",
     "url": "http://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git",
     "sparse": "man/",
-    "cmd": "rsync -a --exclude=Makefile sources/xfsprogs-dev/man/ man"
+    "cmd": "rsync --checksum -a --exclude=Makefile sources/xfsprogs-dev/man/ man"
   },
 
   "yum": {
     "type": "git",
     "url": "git://yum.baseurl.org/yum.git",
     "sparse": "docs/*.[1-8]",
-    "cmd": "cp sources/yum/docs/*.5 man/man5/;
-cp sources/yum/docs/*.8 man/man8/"
+    "cmd": "rsync --checksum sources/yum/docs/*.5 man/man5/;
+rsync --checksum sources/yum/docs/*.8 man/man8/"
   },
 
   "yum-utils": {
     "type": "git",
     "url": "git://yum.baseurl.org/yum-utils.git",
     "sparse": "docs/*.[1-8]",
-    "cmd": "cp sources/yum-utils/docs/*.1 man/man1/;
-cp sources/yum-utils/docs/*.5 man/man5/;
-cp sources/yum-utils/docs/*.8 man/man8/"
+    "cmd": "rsync --checksum sources/yum-utils/docs/*.1 man/man1/;
+rsync --checksum sources/yum-utils/docs/*.5 man/man5/;
+rsync --checksum sources/yum-utils/docs/*.8 man/man8/"
   }
 
 }
