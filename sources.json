@@ -255,6 +255,12 @@ rsync --checksum sources/net-tools/man/en_US/*.5 man/man5/;
 rsync --checksum sources/net-tools/man/en_US/*.8 man/man8/"
   },
 
+  "ndiff": {
+    "type": "svn",
+    "url": "https://svn.nmap.org/nmap/ndiff/docs",
+    "cmd": "sed '1i<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE refentry PUBLIC \"-//OASIS//DTD DocBook XML V4.1.2//EN\" \"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd\">' sources/ndiff/ndiff.xml | xmlstarlet ed -d '//notman' | xsltproc -o xml/man1/ndiff.1.xml utils/db4-upgrade.xsl -"
+  },
+
   "ncat": {
     "type": "svn",
     "url": "https://svn.nmap.org/nmap/ncat/docs",
@@ -266,6 +272,12 @@ rsync --checksum sources/net-tools/man/en_US/*.8 man/man8/"
     "url": "https://svn.nmap.org/nmap/docs",
     /* refguide.xml would need some special attention to use it as a basis for nmap.1.xml */
     "cmd": "rsync --checksum sources/nmap/nmap.1 man/man1/; (cd sources/nmap; xsltproc -o ../../xml/man1/nmap-update.1.xml --xinclude ../../utils/db4-upgrade.xsl nmap-update.xml; sed '1i<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE refentry PUBLIC \"-//OASIS//DTD DocBook XML V4.1.2//EN\" \"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd\">' zenmap.xml | xmlstarlet ed -d '//web' | xsltproc -o ../../xml/man1/zenmap.1.xml --xinclude ../../utils/db4-upgrade.xsl -)"
+  },
+
+  "nping": {
+    "type": "svn",
+    "url": "https://svn.nmap.org/nmap/nping/docs",
+    "cmd": "(cd sources/nping; xsltproc --xinclude ../../utils/db4-upgrade.xsl npingmanhtml.xml | xmlstarlet ed -d '//_:web' | xmlstarlet ed -d '//_:continuation' > ../../xml/man1/nping.1.xml)"
   },
 
   "openssl": {
