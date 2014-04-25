@@ -35,7 +35,7 @@
 .\"	Language and formatting clean-ups
 .\"	Added notes on /proc files
 .\"
-.TH SHMGET 2 2014-04-17 "Linux" "Linux Programmer's Manual"
+.TH SHMGET 2 2014-04-28 "Linux" "Linux Programmer's Manual"
 .SH NAME
 shmget \- allocates a System V shared memory segment
 .SH SYNOPSIS
@@ -48,7 +48,7 @@ shmget \- allocates a System V shared memory segment
 .ad b
 .SH DESCRIPTION
 .BR shmget ()
-returns the identifier of the System V shared memory segment
+returns the identifier of the System\ V shared memory segment
 associated with the value of the argument
 .IR key .
 A new shared memory segment, with size equal to the value of
@@ -94,24 +94,17 @@ The value
 is composed of:
 .TP 12
 .B IPC_CREAT
-to create a new segment.
+Create a new segment.
 If this flag is not used, then
 .BR shmget ()
 will find the segment associated with \fIkey\fP and check to see if
 the user has permission to access the segment.
 .TP
 .B IPC_EXCL
-used with \fBIPC_CREAT\fP to ensure failure if the segment already exists.
-.TP
-.I mode_flags
-(least significant 9 bits)
-specifying the permissions granted to the owner, group, and world.
-These bits have the same format, and the same
-meaning, as the
-.I mode
-argument of
-.BR open (2).
-Presently, the execute permissions are not used by the system.
+This flag is used with
+.B IPC_CREAT
+to ensure that this call creates the segment.
+If the segment already exists, the call fails.
 .TP
 .BR SHM_HUGETLB " (since Linux 2.6)"
 Allocate the segment using "huge pages."
@@ -137,6 +130,16 @@ in
 .BR proc (5).
 .\" As at 2.6.17-rc2, this flag has no effect if SHM_HUGETLB was also
 .\" specified.
+.PP
+In addition to the above flags, the least significant 9 bits of
+.I shmflg
+specify the permissions granted to the owner, group, and others.
+These bits have the same format, and the same
+meaning, as the
+.I mode
+argument of
+.BR open (2).
+Presently, execute permissions are not used by the system.
 .PP
 When a new shared memory segment is created,
 its contents are initialized to zero values, and
@@ -194,13 +197,27 @@ shared memory segment, and does not have the
 capability.
 .TP
 .B EEXIST
-.B IPC_CREAT | IPC_EXCL
-was specified and the segment exists.
+.BR IPC_CREAT
+and
+.BR IPC_EXCL
+were specified in
+.IR shmflg ,
+but a shared memory segment already exists for
+.IR key .
 .TP
 .B EINVAL
-A new segment was to be created and \fIsize\fP < \fBSHMMIN\fP
-or \fIsize\fP > \fBSHMMAX\fP, or no new segment was to be created,
-a segment with given key existed, but \fIsize\fP is greater than the size
+A new segment was to be created and
+.I size
+is less than
+.B SHMIN
+or greater than
+.BR SHMMAX .
+.TP
+.B EINVAL
+(The call did not create a new segment and)
+a segment for the given
+.I key
+exists, but \fIsize\fP is greater than the size
 of that segment.
 .TP
 .B ENFILE
@@ -234,7 +251,9 @@ SVr4, POSIX.1-2001.
 .\" SVr4 documents an additional error condition EEXIST.
 
 .B SHM_HUGETLB
-is a nonportable Linux extension.
+and
+.B SHM_NORESERVE
+are Linux extensions.
 .SH NOTES
 The inclusion of
 .I <sys/types.h>
@@ -255,22 +274,21 @@ isn't a flag field but a
 type.
 If this special value is used for
 .IR key ,
-the system call ignores everything but the least significant 9 bits of
+the system call ignores all but the least significant 9 bits of
 .I shmflg
-and creates a new shared memory segment (on success).
+and creates a new shared memory segment.
 .PP
 The following limits on shared memory segment resources affect the
 .BR shmget ()
 call:
 .TP
 .B SHMALL
-System wide maximum of shared memory pages.
-Since Linux 2.2, the default value for this limit is
+System-wide limit on the number of shared memory pages.
+Since Linux 2.4, the default value for this limit is
 
     SHMMAX / PAGE_SIZE * (SHMMNI / 16)
 
-Assuming a 4kB page size, this formula yields (since Linux 2.4) the value
-2^20 (2,097,152).
+Assuming a 4kB page size, this formula yields the value 2^20 (2,097,152).
 
 On Linux, this limit can be read and modified via
 .IR /proc/sys/kernel/shmall .
@@ -289,7 +307,7 @@ dependent (currently 1 byte, though
 is the effective minimum size).
 .TP
 .B SHMMNI
-System wide maximum number of shared memory segments.
+System-wide limit on the number of shared memory segments.
 In Linux 2.2, the default value for this limit was 128;
 since Linux 2.4, the default value is 4096.
 
@@ -303,7 +321,7 @@ The implementation has no specific limits for the per-process maximum
 number of shared memory segments
 .RB ( SHMSEG ).
 .SS Linux notes
-Until version 2.3.30 Linux would return
+Until version 2.3.30, Linux would return
 .B EIDRM
 for a
 .BR shmget ()

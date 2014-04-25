@@ -1,0 +1,80 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>PKCS5_PBKDF2_HMAC.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>PKCS5_PBKDF2_HMAC, PKCS5_PBKDF2_HMAC_SHA1</refname>
+<refpurpose>password based derivation routines with salt and iteration count</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis format="linespecific">int PKCS5_PBKDF2_HMAC(const char *pass, int passlen,
+                      const unsigned char *salt, int saltlen, int iter,
+                      const EVP_MD *digest,
+                      int keylen, unsigned char *out);</synopsis>
+<synopsis format="linespecific">int PKCS5_PBKDF2_HMAC_SHA1(const char *pass, int passlen,
+			   const unsigned char *salt, int saltlen, int iter,
+			   int keylen, unsigned char *out);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS5_PBKDF2_HMAC.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      PKCS5_PBKDF2_HMAC() derives a key from a password using a salt and
+      iteration count as specified in RFC 2898.
+    </para>
+    <para>
+      <emphasis role="bold">pass</emphasis> is the password used in the
+      derivation of length <emphasis role="bold">passlen</emphasis>.
+      <emphasis role="bold">pass</emphasis> is an optional parameter and
+      can be NULL. If <emphasis role="bold">passlen</emphasis> is -1, then
+      the function will calculate the length of <emphasis role="bold">pass</emphasis> using strlen().
+    </para>
+    <para>
+      <emphasis role="bold">salt</emphasis> is the salt used in the
+      derivation of length <emphasis role="bold">saltlen</emphasis>. If the
+      <emphasis role="bold">salt</emphasis> is NULL, then <emphasis role="bold">saltlen</emphasis> must be 0. The function will not
+      attempt to calculate the length of the <emphasis role="bold">salt</emphasis> because it is not assumed to be NULL
+      terminated.
+    </para>
+    <para>
+      <emphasis role="bold">iter</emphasis> is the iteration count and its
+      value should be greater than or equal to 1. RFC 2898 suggests an
+      iteration count of at least 1000. Any <emphasis role="bold">iter</emphasis> less than 1 is treated as a single
+      iteration. 
+    </para>
+    <para>
+      <emphasis role="bold">digest</emphasis> is the message digest
+      function used in the derivation. Values include any of the EVP_*
+      message digests. PKCS5_PBKDF2_HMAC_SHA1() calls PKCS5_PBKDF2_HMAC()
+      with EVP_sha1().
+    </para>
+    <para>
+      The derived key will be written to <emphasis role="bold">out</emphasis>. The size of the <emphasis role="bold">out</emphasis> buffer is specified via <emphasis role="bold">keylen</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS5_PBKDF2_HMAC.pod:NOTES"><title>NOTES</title>
+    <para>
+      A typical application of this function is to derive keying material
+      for an encryption algorithm from a password in the <emphasis role="bold">pass</emphasis>, a salt in <emphasis role="bold">salt</emphasis>, and an iteration count.
+    </para>
+    <para>
+      Increasing the <emphasis role="bold">iter</emphasis> parameter slows
+      down the algorithm which makes it harder for an attacker to peform a
+      brute force attack using a large number of candidate passwords.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS5_PBKDF2_HMAC.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      PKCS5_PBKDF2_HMAC() and PBKCS5_PBKDF2_HMAC_SHA1() return 1 on success
+      or 0 on error.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS5_PBKDF2_HMAC.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      evp(3), rand(3), EVP_BytesToKey(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.PKCS5_PBKDF2_HMAC.pod:HISTORY"><title>HISTORY</title>
+    <para/>
+  </refsection>
+</refentry>

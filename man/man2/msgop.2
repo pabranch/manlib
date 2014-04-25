@@ -37,7 +37,7 @@
 .\"	Added notes on /proc files
 .\" FIXME . Add example programs to this page.
 .\"
-.TH MSGOP 2 2014-03-17 "Linux" "Linux Programmer's Manual"
+.TH MSGOP 2 2014-04-28 "Linux" "Linux Programmer's Manual"
 .SH NAME
 msgrcv, msgsnd \- System V message queue operations
 .SH SYNOPSIS
@@ -59,7 +59,7 @@ The
 and
 .BR msgrcv ()
 system calls are used, respectively, to send messages to,
-and receive messages from, a System V message queue.
+and receive messages from, a System\ V message queue.
 The calling process must have write permission on the message queue
 in order to send a message, and read permission to receive a message.
 .PP
@@ -489,9 +489,9 @@ to include these header files.
 
 The
 .I msgp
-argument is declared as \fIstruct msgbuf *\fP with
+argument is declared as \fIstruct msgbuf\ *\fP with
 libc4, libc5, glibc 2.0, glibc 2.1.
-It is declared as \fIvoid *\fP
+It is declared as \fIvoid\ *\fP
 with glibc 2.2 and later, as required by SUSv2 and SUSv3.
 
 The following limits on message queue resources affect the
@@ -507,16 +507,20 @@ Maximum size for a message text: 8192 bytes
 Default maximum size in bytes of a message queue: 16384 bytes
 (on Linux, this limit can be read and modified via
 .IR /proc/sys/kernel/msgmnb ).
-The superuser can increase the size of a message queue beyond
+A privileged process
+(Linux: a process with the
+.B CAP_SYS_RESOURCE
+capability)
+can increase the size of a message queue beyond
 .B MSGMNB
 by a
 .BR msgctl (2)
 system call.
 .PP
-The implementation has no intrinsic limits for the system wide maximum
+The implementation has no intrinsic system-wide limits on the
 number of message headers
 .RB ( MSGTQL )
-and for the system wide maximum size in bytes of the message pool
+and the number of bytes in the message pool
 .RB ( MSGPOOL ).
 .SH BUGS
 In Linux 3.13 and earlier,

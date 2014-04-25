@@ -53,7 +53,7 @@ semctl \- System V semaphore control operations
 .BR semctl ()
 performs the control operation specified by
 .I cmd
-on the System V semaphore set identified by
+on the System\ V semaphore set identified by
 .IR semid ,
 or on the
 .IR semnum -th
@@ -168,7 +168,7 @@ The argument
 is ignored.
 .TP
 .BR IPC_INFO " (Linux-specific)"
-Returns information about system-wide semaphore limits and
+Return information about system-wide semaphore limits and
 parameters in the structure pointed to by
 .IR arg.__buf .
 This structure is of type
@@ -216,7 +216,7 @@ see
 for details.
 .TP
 .BR SEM_INFO " (Linux-specific)"
-Returns a
+Return a
 .I seminfo
 structure containing the same information as for
 .BR IPC_INFO ,
@@ -230,7 +230,7 @@ field returns the total number of semaphores in all semaphore sets
 on the system.
 .TP
 .BR SEM_STAT " (Linux-specific)"
-Returns a
+Return a
 .I semid_ds
 structure as for
 .BR IPC_STAT .
@@ -252,7 +252,7 @@ is ignored.
 The calling process must have read permission on the semaphore set.
 .TP
 .B GETNCNT
-The system call returns the value of
+Return the value of
 .B semncnt
 for the
 .IR semnum \-th
@@ -265,7 +265,7 @@ semaphore of the set).
 The calling process must have read permission on the semaphore set.
 .TP
 .B GETPID
-The system call returns the value of
+Return the value of
 .B sempid
 for the
 .IR semnum \-th
@@ -278,7 +278,7 @@ semaphore of the set).
 The calling process must have read permission on the semaphore set.
 .TP
 .B GETVAL
-The system call returns the value of
+Return the value of
 .B semval
 for the
 .IR semnum \-th
@@ -286,7 +286,7 @@ semaphore of the set.
 The calling process must have read permission on the semaphore set.
 .TP
 .B GETZCNT
-The system call returns the value of
+Return the value of
 .B semzcnt
 for the
 .IR semnum \-th
@@ -338,17 +338,17 @@ If the changes to semaphore values would permit blocked
 calls in other processes to proceed, then those processes are woken up.
 The calling process must have alter permission on the semaphore set.
 .SH RETURN VALUE
-On failure
+On failure,
 .BR semctl ()
 returns \-1
 with
 .I errno
 indicating the error.
 
-Otherwise the system call returns a nonnegative value depending on
+Otherwise, the system call returns a nonnegative value depending on
 .I cmd
 as follows:
-.TP 12
+.TP 10
 .B GETNCNT
 the value of
 .BR semncnt .
@@ -374,7 +374,7 @@ semaphore sets.
 operations to obtain information about all semaphore sets on the system.)
 .TP
 .B SEM_INFO
-As for
+as for
 .BR IPC_INFO .
 .TP
 .B SEM_STAT
@@ -530,7 +530,7 @@ Maximum value for
 .BR semval :
 implementation dependent (32767).
 .LP
-For greater portability it is best to always call
+For greater portability, it is best to always call
 .BR semctl ()
 with four arguments.
 .SH SEE ALSO

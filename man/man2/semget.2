@@ -33,7 +33,7 @@
 .\"	Rewrote BUGS note about semget()'s failure to initialize
 .\"		semaphore values
 .\"
-.TH SEMGET 2 2012-05-31 "Linux" "Linux Programmer's Manual"
+.TH SEMGET 2 2014-04-28 "Linux" "Linux Programmer's Manual"
 .SH NAME
 semget \- get a System V semaphore set identifier
 .SH SYNOPSIS
@@ -49,7 +49,7 @@ semget \- get a System V semaphore set identifier
 .SH DESCRIPTION
 The
 .BR semget ()
-system call returns the System V semaphore set identifier
+system call returns the System\ V semaphore set identifier
 associated with the argument
 .IR key .
 A new set of
@@ -97,16 +97,6 @@ argument of
 not meaningful for semaphores, and write permissions mean permission
 to alter semaphore values).
 .PP
-The values of the semaphores in a newly created set are indeterminate.
-(POSIX.1-2001 is explicit on this point.)
-Although Linux, like many other implementations,
-initializes the semaphore values to 0,
-a portable application cannot rely on this:
-it should explicitly initialize the semaphores to the desired values.
-.\" In truth, every one of the many implementations that I've tested sets
-.\" the values to zero, but I suppose there is/was some obscure
-.\" implementation out there that does not.
-.PP
 When creating a new semaphore set,
 .BR semget ()
 initializes the set's associated data structure,
@@ -145,7 +135,7 @@ The argument
 can be 0
 (a don't care)
 when a semaphore set is not being created.
-Otherwise
+Otherwise,
 .I nsems
 must be greater than 0
 and less than or equal to the maximum number of semaphores per semaphore set
@@ -156,12 +146,12 @@ verified.
 .\" and a check is made to see if it is marked for destruction.
 .SH RETURN VALUE
 If successful, the return value will be the semaphore set identifier
-(a nonnegative integer), otherwise \-1
+(a nonnegative integer), otherwise, \-1
 is returned, with
 .I errno
 indicating the error.
 .SH ERRORS
-On failure
+On failure,
 .I errno
 will be set to one of the following:
 .TP
@@ -174,14 +164,13 @@ and does not have the
 capability.
 .TP
 .B EEXIST
-A semaphore set exists for
-.I key
-and
-.I semflg
-specified both
 .B IPC_CREAT
 and
-.BR IPC_EXCL .
+.BR IPC_EXCL
+were specified in
+.IR shmflg ,
+but a semaphore set already exists for
+.IR key .
 .\" .TP
 .\" .B EIDRM
 .\" The semaphore set is marked to be deleted.
@@ -190,10 +179,12 @@ and
 .I nsems
 is less than 0 or greater than the limit on the number
 of semaphores per semaphore set
-.RB ( SEMMSL ),
-or a semaphore set corresponding to
+.RB ( SEMMSL ).
+.TP
+.B EINVAL
+A semaphore set corresponding to
 .I key
-already exists, and
+already exists, but
 .I nsems
 is larger than the number of semaphores in that set.
 .TP
@@ -221,6 +212,32 @@ SVr4, POSIX.1-2001.
 .\" SVr4 documents additional error conditions EFBIG, E2BIG, EAGAIN,
 .\" ERANGE, EFAULT.
 .SH NOTES
+.PP
+The values of the semaphores in a newly created set are indeterminate.
+(POSIX.1-2001 and POSIX.1-2008 are explicit on this point,
+although POSIX.1-2008 notes that a future version of the standard
+may require an implementation to initialize the semaphores to 0.)
+Although Linux, like many other implementations,
+initializes the semaphore values to 0,
+a portable application cannot rely on this:
+it should explicitly initialize the semaphores to the desired values.
+.\" In truth, every one of the many implementations that I've tested sets
+.\" the values to zero, but I suppose there is/was some obscure
+.\" implementation out there that does not.
+Initialization can be done using
+.BR semctl (2)
+.B SETVAL
+or
+.B SETALL
+operation.
+(Where multiple peers do not know who will be the first to
+initialize the set, checking for a nonzero
+.I sem_otime
+in the associated data structure retrieved by a
+.BR semctl (2)
+.B IPC_STAT
+operation can be used to avoid races.)
+
 The inclusion of
 .I <sys/types.h>
 and
@@ -240,7 +257,7 @@ isn't a flag field but a
 type.
 If this special value is used for
 .IR key ,
-the system call ignores everything but the least significant 9 bits of
+the system call ignores all but the least significant 9 bits of
 .I semflg
 and creates a new semaphore set (on success).
 .PP
@@ -249,48 +266,30 @@ The following limits on semaphore set resources affect the
 call:
 .TP
 .B SEMMNI
-System wide maximum number of semaphore sets: policy dependent
+System-wide limit on the number of semaphore sets: policy dependent
 (on Linux, this limit can be read and modified via the fourth field of
 .IR /proc/sys/kernel/sem ).
 .\" This /proc file is not available in Linux 2.2 and earlier -- MTK
 .TP
 .B SEMMSL
-Maximum number of semaphores per semid: implementation dependent
+Maximum number of semaphores per semaphore ID: implementation dependent
 (on Linux, this limit can be read and modified via the first field of
 .IR /proc/sys/kernel/sem ).
 .TP
 .B SEMMNS
-System wide maximum number of semaphores: policy dependent
+System-wide limit on the number of semaphores: policy dependent
 (on Linux, this limit can be read and modified via the second field of
 .IR /proc/sys/kernel/sem ).
-Values greater than
-.B SEMMSL * SEMMNI
-makes it irrelevant.
+Note that number of semaphores system-wide is also limited by the product of
+.B SEMMSL
+and
+.BR SEMMNI .
 .SH BUGS
 The name choice
 .B IPC_PRIVATE
 was perhaps unfortunate,
 .B IPC_NEW
 would more clearly show its function.
-.LP
-The semaphores in a set are not initialized by
-.BR semget ().
-.\" In fact they are initialized to zero on Linux, but POSIX.1-2001
-.\" does not specify this, and we can't portably rely on it.
-In order to initialize the semaphores,
-.BR semctl (2)
-must be used to perform a
-.B SETVAL
-or a
-.B SETALL
-operation on the semaphore set.
-(Where multiple peers do not know who will be the first to
-initialize the set, checking for a nonzero
-.I sem_otime
-in the associated data structure retrieved by a
-.BR semctl (2)
-.B IPC_STAT
-operation can be used to avoid races.)
 .SH SEE ALSO
 .BR semctl (2),
 .BR semop (2),

@@ -113,12 +113,14 @@ A call to
 creates a new
 .IR "open file description" ,
 an entry in the system-wide table of open files.
-This entry records the file offset and the file status flags
-(modifiable via the
-.BR fcntl (2)
-.B F_SETFL
-operation).
-A file descriptor is a reference to one of these entries;
+(This object is variously also called an "open file object",
+a "file handle", an "open file table entry",
+or\(emin kernel-developer parlance\(ema
+.IR "struct file" .
+The term "open file description" is used by POSIX.)
+The open file description records the file offset and the file status flags
+(see below).
+A file descriptor is a reference to an open file description;
 this reference is unaffected if
 .I pathname
 is subsequently removed or modified to refer to a different file.
@@ -208,7 +210,7 @@ for further details.
 See also BUGS, below.
 .TP
 .BR O_CLOEXEC " (since Linux 2.6.23)"
-.\" NOTE! several otehr man pages refer to this text
+.\" NOTE! several other man pages refer to this text
 Enable the close-on-exec flag for the new file descriptor.
 Specifying this flag permits a program to avoid additional
 .BR fcntl (2)
@@ -725,7 +727,7 @@ it will be truncated to length 0.
 If the file is a FIFO or terminal device file, the
 .B O_TRUNC
 flag is ignored.
-Otherwise the effect of
+Otherwise, the effect of
 .B O_TRUNC
 is unspecified.
 .SS creat()
@@ -1322,7 +1324,14 @@ operation in
 Under Linux 2.4, transfer sizes, and the alignment of the user buffer
 and the file offset must all be multiples of the logical block size
 of the filesystem.
-Under Linux 2.6, alignment to 512-byte boundaries suffices.
+Since Linux 2.6.0, alignment to the logical block size of the
+underlying storage (typically 512 bytes) suffices.
+The logical block size can be determined using the
+.BR ioctl (2)
+.B BLKSSZGET
+operation or from the shell using the command:
+
+    blockdev \-\-getss
 .LP
 .B O_DIRECT
 I/Os should never be run concurrently with the
