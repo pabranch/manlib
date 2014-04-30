@@ -162,7 +162,7 @@ function update (sourceName, sourceDets, specified) {
           }
         );
       } else {
-        doUp('git pull --no-rebase', {cwd: destDir});
+        doUp('git pull --quiet --no-rebase', {cwd: destDir});
       }
       break;
     case 'svn':
