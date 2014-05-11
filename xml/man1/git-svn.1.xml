@@ -177,7 +177,10 @@ Subversion updated from Git by the <emphasis>dcommit</emphasis> command.</simpar
 </simpara>
 <note><simpara>Before Git v2.0, the default prefix was "" (no prefix). This
 meant that SVN-tracking refs were put at "refs/remotes/*", which is
-incompatible with how Git&#8217;s own remote-tracking refs are organized.</simpara></note>
+incompatible with how Git&#8217;s own remote-tracking refs are organized.
+If you still want the old default, you can get it by passing
+<literal>--prefix ""</literal> on the command line (<literal>--prefix=""</literal> may not work if
+your Perl&#8217;s Getopt::Long is &lt; v2.37).</simpara></note>
 </listitem>
 </varlistentry>
 <varlistentry>

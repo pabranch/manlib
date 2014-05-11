@@ -38,7 +38,7 @@
 .\" Modified 1998,1999 by Andi Kleen
 .\" 2001-06-19 corrected SO_EE_OFFENDER, bug report by James Hawtin
 .\"
-.TH RECV 2 2014-02-11 "Linux" "Linux Programmer's Manual"
+.TH RECV 2 2014-05-10 "Linux" "Linux Programmer's Manual"
 .SH NAME
 recv, recvfrom, recvmsg \- receive a message from a socket
 .SH SYNOPSIS
@@ -84,7 +84,7 @@ is set to
 The receive calls normally return any data available, up to the requested
 amount, rather than waiting for receipt of the full amount requested.
 .PP
-An application can used
+An application can use
 .BR select (2),
 .BR poll (2),
 or
@@ -322,19 +322,27 @@ struct msghdr {
 .fi
 .in
 .PP
-Here
+The
 .I msg_name
-and
+field points to a caller-allocated buffer that is used to
+return the source address if the socket is unconnected.
+The caller should set
 .I msg_namelen
-specify the source address if the socket is unconnected;
+to the size of this buffer before this call;
+upon return from a successful call,
 .I msg_name
-may be given as a null pointer if no names are desired or required.
+will contain the length of the returned address.
+If the application does not need to know the source address,
+.I msg_name
+can be specified as NULL.
+
 The fields
 .I msg_iov
 and
 .I msg_iovlen
 describe scatter-gather locations, as discussed in
 .BR readv (2).
+
 The field
 .IR msg_control ,
 which has length

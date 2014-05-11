@@ -65,7 +65,7 @@
 .\" $Id: bind.2,v 1.3 1999/04/23 19:56:07 freitag Exp $
 .\" Modified 2004-06-23 by Michael Kerrisk <mtk.manpages@gmail.com>
 .\"
-.TH BIND 2 2007-12-28 "Linux" "Linux Programmer's Manual"
+.TH BIND 2 2014-05-10 "Linux" "Linux Programmer's Manual"
 .SH NAME
 bind \- bind a name to a socket
 .SH SYNOPSIS
@@ -162,6 +162,17 @@ The address is protected, and the user is not the superuser.
 .TP
 .B EADDRINUSE
 The given address is already in use.
+.TP
+.B EADDRINUSE
+(Internet domain sockets)
+The port number was specified as zero in the socket address structure,
+but, upon attempting to bind to an ephemeral port,
+it was determined that all port numbers in the ephemeral port range
+are currently in use.
+See the discussion of
+.I /proc/sys/net/ipv4/ip_local_port_range
+.BR ip (7).
+.TP
 .TP
 .B EBADF
 .I sockfd

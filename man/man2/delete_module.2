@@ -22,7 +22,7 @@
 .\" the source, must acknowledge the copyright and authors of this work.
 .\" %%%LICENSE_END
 .\"
-.TH DELETE_MODULE 2 2012-11-08 "Linux" "Linux Programmer's Manual"
+.TH DELETE_MODULE 2 2014-05-10 "Linux" "Linux Programmer's Manual"
 .SH NAME
 delete_module \- unload a kernel module
 .SH SYNOPSIS
@@ -31,7 +31,7 @@ delete_module \- unload a kernel module
 .fi
 
 .IR Note :
-There is no glibc wrapper for this system call; see NOTES.
+No declaration of this function is provided in glibc headers; see NOTES.
 .SH DESCRIPTION
 The
 .BR delete_module ()
@@ -54,7 +54,7 @@ If there are other loaded modules that depend on
 then the call fails.
 .IP 2.
 Otherwise, if the reference count for the module
-(i.e., the  number  of processes currently using the module)
+(i.e., the number of processes currently using the module)
 is zero, then the module is immediately unloaded.
 .IP 3.
 If a module has a nonzero reference count,
@@ -173,7 +173,14 @@ was not specified in
 .BR delete_module ()
 is Linux-specific.
 .SH NOTES
-Glibc does not provide a wrapper for this system call; call it using
+The
+.BR delete_module ()
+system call is not supported by glibc.
+No declaration is provided in glibc headers, but,
+through a quirk of history, glibc does export an ABI for this system call.
+Therefore, in order to employ this system call,
+it is sufficient to manually declare the interface in your code;
+alternatively, you can invoke the system call using
 .BR syscall (2).
 
 The uninterruptible sleep that may occur if

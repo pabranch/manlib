@@ -8,7 +8,7 @@
 .\" 2011-09-19: Added FALLOC_FL_PUNCH_HOLE
 .\" 2011-09-19: Substantial restructuring of the page
 .\"
-.TH FALLOCATE 2 2014-04-17 "Linux" "Linux Programmer's Manual"
+.TH FALLOCATE 2 2014-05-08 "Linux" "Linux Programmer's Manual"
 .SH NAME
 fallocate \- manipulate file space
 .SH SYNOPSIS
@@ -113,7 +113,7 @@ does not change.
 Not all filesystems support
 .BR FALLOC_FL_PUNCH_HOLE ;
 if a filesystem doesn't support the operation, an error is returned.
-The operation is supported on at least the following filesystems
+The operation is supported on at least the following filesystems:
 .IP * 3
 XFS (since Linux 2.6.38)
 .IP *
@@ -180,6 +180,51 @@ ext4 (only for extent-based files)
 .\" commit 9eb79482a97152930b113b51dff530aba9e28c8e
 and XFS.
 .\" commit e1d8fb88a64c1f8094b9f6c3b6d2d9e6719c970d
+.SS Zeroing file space
+Specifying the
+.BR FALLOC_FL_ZERO_RANGE
+flag (available since Linux 3.14)
+.\" commit 409332b65d3ed8cfa7a8030f1e9d52f372219642
+in
+.I mode
+zeroes space in the byte range starting at
+.I offset
+and continuing for
+.I len
+bytes.
+Within the specified range, blocks are preallocated for the regions
+that span the holes in the file.
+After a successful call, subsequent
+reads from this range will return zeroes.
+
+Zeroing is done within the filesystem preferably by converting the range into
+unwritten extents.
+This approach means that the specified range will not be physically zeroed
+out on the device (except for partial blocks at the either end of the range),
+and I/O is (otherwise) required only to update metadata.
+
+If the
+.B FALLOC_FL_KEEP_SIZE
+flag is additionally specified in
+.IR mode ,
+the behavior of the call is similar,
+but the file size will not be changed even if
+.IR offset + len
+is greater than the file size.
+This behaviour is the same as when preallocating space with
+.B FALLOC_FL_KEEP_SIZE
+specified.
+
+Not all filesystems support
+.BR FALLOC_FL_ZERO_RANGE ;
+if a filesystem doesn't support the operation, an error is returned.
+The operation is supported on at least the following filesystems:
+.IP * 3
+XFS (since Linux 3.14)
+.\" commit 376ba313147b4172f3e8cf620b9fb591f3e8cdfa
+.IP *
+ext4, for extent-based files (since Linux 3.14)
+.\" commit b8a8684502a0fc852afa0056c6bb2a9273f6fcc0
 .SH RETURN VALUE
 On success,
 .BR fallocate ()
@@ -243,7 +288,9 @@ no other flags are permitted with
 .B EINVAL
 .I mode
 is
-.BR FALLOC_FL_COLLAPSE_RANGE ,
+.BR FALLOC_FL_COLLAPSE_RANGE
+or
+.BR FALLOC_FL_ZERO_RANGE,
 but the file referred to by
 .I fd
 is not a regular file.

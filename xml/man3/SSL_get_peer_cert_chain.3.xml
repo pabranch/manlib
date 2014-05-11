@@ -9,11 +9,11 @@
   </refnamediv>
   <refsynopsisdiv>
 <synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">STACKOF(X509) *SSL_get_peer_cert_chain(const SSL *ssl);</synopsis>
+<synopsis format="linespecific">STACK_OF(X509) *SSL_get_peer_cert_chain(const SSL *ssl);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_get_peer_cert_chain.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
-      SSL_get_peer_cert_chain() returns a pointer to STACKOF(X509)
+      SSL_get_peer_cert_chain() returns a pointer to STACK_OF(X509)
       certificates forming the certificate chain of the peer. If called on
       the client side, the stack also contains the peer's certificate; if
       called on the server side, the peer's certificate must be obtained
@@ -27,7 +27,7 @@
       a session, in which case a NULL pointer is returned.
     </para>
     <para>
-      The reference count of the STACKOF(X509) object is not incremented.
+      The reference count of the STACK_OF(X509) object is not incremented.
       If the corresponding session is freed, the pointer must not be used
       any longer.
     </para>
@@ -49,7 +49,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_peer_cert_chain.pod:Pointer_to_a_STACKOFX509"/>Pointer to a STACKOF(X509)</term>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_peer_cert_chain.pod:Pointer_to_a_STACK_OFX509"/>Pointer to a STACK_OF(X509)</term>
           <listitem>
             <para>
 	      The return value points to the certificate chain presented by

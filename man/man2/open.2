@@ -48,7 +48,7 @@
 .\" FIXME . Apr 08: The next POSIX revision has O_EXEC, O_SEARCH, and
 .\" O_TTYINIT.  Eventually these may need to be documented.  --mtk
 .\"
-.TH OPEN 2 2014-04-20 "Linux" "Linux Programmer's Manual"
+.TH OPEN 2 2014-05-10 "Linux" "Linux Programmer's Manual"
 .SH NAME
 open, openat, creat \- open and possibly create a file
 .SH SYNOPSIS
@@ -234,7 +234,7 @@ at the same time as another thread does a
 plus
 .BR execve (2).
 Depending on the order of execution,
-the race may lead to the file desriptor returned by
+the race may lead to the file descriptor returned by
 .BR open ()
 being unintentionally leaked to the program executed by the child process
 created by
@@ -558,13 +558,19 @@ Retrieving open file status flags using the
 .BR F_GETFL
 operation: the returned flags will include the bit
 .BR O_PATH .
-
 .IP *
 Passing the file descriptor as the
 .IR dirfd
 argument of
 .BR openat (2)
 and the other "*at()" system calls.
+This includes
+.BR linkat (2)
+with
+.BR AT_EMPTY_PATH 
+(or via procfs using
+.BR AT_SYMLINK_FOLLOW )
+even if the file is not a directory.
 .IP *
 Passing the file descriptor to another process via a UNIX domain socket
 (see
@@ -748,7 +754,7 @@ except for the differences described here.
 If the pathname given in
 .I pathname
 is relative, then it is interpreted relative to the directory
-relative to by the file descriptor
+referred to by the file descriptor
 .I dirfd
 (rather than relative to the current working directory of
 the calling process, as is done by
@@ -1461,7 +1467,7 @@ functionality.
 .BR mknod (2),
 .BR mmap (2),
 .BR mount (2),
-.BR open_by_name_at (2),
+.BR open_by_handle_at (2),
 .BR read (2),
 .BR socket (2),
 .BR stat (2),

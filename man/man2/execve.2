@@ -34,7 +34,7 @@
 .\" 2007-09-14 Ollie Wild <aaw@google.com>, mtk
 .\"     Add text describing limits on command-line arguments + environment
 .\"
-.TH EXECVE 2 2014-01-08 "Linux" "Linux Programmer's Manual"
+.TH EXECVE 2 2014-05-10 "Linux" "Linux Programmer's Manual"
 .SH NAME
 execve \- execute program
 .SH SYNOPSIS
@@ -500,12 +500,12 @@ and white spaces in
 .I optional-arg
 are used to delimit the arguments.
 
-On Linux, either
+On Linux,
 .I argv
-or
+and
 .I envp
-can be specified as NULL,
-which has the same effect as specifying these arguments
+can be specified as NULL.
+In both cases, this has the same effect as specifying the argument
 as a pointer to a list containing a single null pointer.
 .B "Do not take advantage of this misfeature!"
 It is nonstandard and nonportable:
@@ -527,6 +527,20 @@ resource limit changes, then the value reported by
 will also change,
 to reflect the fact that the limit on space for holding
 command-line arguments and environment variables has changed.
+
+In most cases where
+.BR execve ()
+fails, control returns to the original executable image,
+and the caller of
+.BR execve ()
+can then handle the error.
+However, in (rare) cases (typically caused by resource exhaustion),
+failure may occur past the point of no return:
+the original executable image has been torn down,
+but the new image could not be completely built.
+In such cases, the kernel kills the process with a
+.BR SIGKILL
+signal.
 .\"
 .\" .SH BUGS
 .\" Some Linux versions have failed to check permissions on ELF
@@ -537,7 +551,7 @@ command-line arguments and environment variables has changed.
 .\" that could be exploited for denial of service by a suitably crafted
 .\" ELF binary. There are no known problems with 2.0.34 or 2.2.15.
 .SS Historical
-With UNIX V6 the argument list of an
+With UNIX\ V6, the argument list of an
 .BR exec ()
 call was ended by 0,
 while the argument list of
@@ -546,7 +560,7 @@ was ended by \-1.
 Thus, this argument list was not directly usable in a further
 .BR exec ()
 call.
-Since UNIX V7 both are NULL.
+Since UNIX\ V7, both are NULL.
 .SH EXAMPLE
 The following program is designed to be execed by the second program below.
 It just echoes its command-line arguments, one per line.

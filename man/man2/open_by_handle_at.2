@@ -22,7 +22,7 @@
 .\" the source, must acknowledge the copyright and authors of this work.
 .\" %%%LICENSE_END
 .\"
-.TH OPEN_BY_HANDLE_AT 2 2014-03-24 "Linux" "Linux Programmer's Manual"
+.TH OPEN_BY_HANDLE_AT 2 2014-05-08 "Linux" "Linux Programmer's Manual"
 .SH NAME
 name_to_handle_at, open_by_handle_at \- obtain handle
 for a pathname and open file via a handle
@@ -351,6 +351,11 @@ These system calls first appeared in Linux 2.6.39.
 Library support is provided in glibc since version 2.14.
 .SH CONFORMING TO
 These system calls are nonstandard Linux extensions.
+
+FreeBSD has a broadly similar pair of system calls in the form of
+.BR getfh ()
+and
+.BR openfh ().
 .SH NOTES
 A file handle can be generated in one process using
 .BR name_to_handle_at ()

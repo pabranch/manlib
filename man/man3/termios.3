@@ -37,7 +37,7 @@
 .\"     Enhanced the discussion of "raw" mode for cfmakeraw().
 .\"     Document CMSPAR.
 .\"
-.TH TERMIOS 3 2014-03-21 "Linux" "Linux Programmer's Manual"
+.TH TERMIOS 3 2014-05-08 "Linux" "Linux Programmer's Manual"
 .SH NAME
 termios, tcgetattr, tcsetattr, tcsendbreak, tcdrain, tcflush, tcflow,
 cfmakeraw, cfgetospeed, cfgetispeed, cfsetispeed, cfsetospeed, cfsetspeed \-
@@ -175,13 +175,11 @@ Linux does not implement this bit, and acts as if it is always set.
 (not in POSIX) Input is UTF8;
 this allows character-erase to be correctly performed in cooked mode.
 .PP
-\fIc_oflag\fP flag constants defined in POSIX.1:
+.I c_oflag
+flag constants:
 .TP
 .B OPOST
 Enable implementation-defined output processing.
-.PP
-The remaining \fIc_oflag\fP flag constants are defined in POSIX.1-2001,
-unless marked otherwise.
 .TP
 .B OLCUC
 (not in POSIX) Map lowercase characters to uppercase on output.
@@ -202,7 +200,7 @@ Don't output CR.
 Send fill characters for a delay, rather than using a timed delay.
 .TP
 .B OFDEL
-(not in POSIX) Fill character is ASCII DEL (0177).
+Fill character is ASCII DEL (0177).
 If unset, fill character is ASCII NUL (\(aq\\0\(aq).
 (Not implemented on Linux.)
 .TP
@@ -346,7 +344,7 @@ devices): if
 .B PARODD
 is set, the parity bit is always 1; if
 .B PARODD
-is not set, then the parity bit is always 0).
+is not set, then the parity bit is always 0.
 [requires
 .B _BSD_SOURCE
 or
@@ -374,7 +372,12 @@ If \fBICANON\fP is also set, terminal is uppercase only.
 Input is converted to lowercase, except for characters preceded by \\.
 On output, uppercase characters are preceded by \\ and lowercase
 characters are converted to uppercase.
-[requires _BSD_SOURCE or _SVID_SOURCE or _XOPEN_SOURCE]
+[requires
+.B _BSD_SOURCE
+or
+.B _SVID_SOURCE
+or
+.BR _XOPEN_SOURCE ]
 .\" glibc is probably now wrong to allow
 .\" Define
 .\" .B _XOPEN_SOURCE
@@ -669,7 +672,7 @@ the change occurs immediately.
 the change occurs after all output written to
 .I fd
 has been transmitted.
-This function should be used when changing
+This option should be used when changing
 parameters that affect output.
 .IP \fBTCSAFLUSH\fP
 the change occurs after all output written to the object referred by
@@ -1004,7 +1007,7 @@ and
 .BR cfsetspeed ()
 are nonstandard, but available on the BSDs.
 .SH NOTES
-UNIX V7 and several later systems have a list of baud rates
+UNIX\ V7 and several later systems have a list of baud rates
 where after the fourteen values B0, ..., B9600 one finds the
 two constants EXTA, EXTB ("External A" and "External B").
 Many systems extend the list with much higher baud rates.

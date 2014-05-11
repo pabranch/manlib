@@ -25,7 +25,7 @@
 .\" 2003-12-10 Initial creation, Michael Kerrisk <mtk.manpages@gmail.com>
 .\" 2004-10-28 aeb, corrected prototype, prot must be 0
 .\"
-.TH REMAP_FILE_PAGES 2 2008-04-22 "Linux" "Linux Programmer's Manual"
+.TH REMAP_FILE_PAGES 2 2014-05-10 "Linux" "Linux Programmer's Manual"
 .SH NAME
 remap_file_pages \- create a nonlinear file mapping
 .SH SYNOPSIS
@@ -154,6 +154,17 @@ glibc support was added in version 2.3.3.
 The
 .BR remap_file_pages ()
 system call is Linux-specific.
+.SH NOTES
+Since Linux 2.6.23,
+.\" commit 3ee6dafc677a68e461a7ddafc94a580ebab80735
+.BR remap_file_pages ()
+creates non-linear mappings only
+on in-memory file systems such as tmpfs, hugetlbfs or ramfs.
+On filesystems with a backing store,
+.BR remap_file_pages ()
+is not much more efficient than using
+.BR mmap (2)
+to adjust which parts of the file are mapped to which addresses.
 .SH SEE ALSO
 .BR getpagesize (2),
 .BR mmap (2),

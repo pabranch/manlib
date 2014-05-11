@@ -29,7 +29,7 @@
 .\" Modified 2004-06-23 by Michael Kerrisk <mtk.manpages@gmail.com>
 .\" Modified 2005-04-04, as per suggestion by Michael Hardt for rename.2
 .\"
-.TH LINK 2 2014-03-19 "Linux" "Linux Programmer's Manual"
+.TH LINK 2 2014-05-10 "Linux" "Linux Programmer's Manual"
 .SH NAME
 link, linkat \- make a new name for a file
 .SH SYNOPSIS
@@ -135,16 +135,16 @@ is an empty string, create a link to the file referenced by
 flag).
 In this case,
 .I olddirfd
-must refer to a file other than a directory.
+can refer to any type of file, not just a directory.
+This will generally not work if the file has a link count of zero (files
+created with
+.BR O_TMPFILE
+and without
+.BR O_EXCL
+are an exception).
 The caller must have the
 .BR CAP_DAC_READ_SEARCH
-capability in order to use this flag;
-this prevents arbitrary users from creating hard links
-using file descriptors received via a UNIX domain socket
-(see the discussion of
-.BR SCM_RIGHTS
-in
-.BR unix (7)).
+capability in order to use this flag.
 This flag is Linux-specific; define
 .B _GNU_SOURCE
 .\" Before glibc 2.16, defining _ATFILE_SOURCE sufficed
@@ -164,6 +164,17 @@ can be specified in
 to cause
 .I oldpath
 to be dereferenced if it is a symbolic link.
+If procfs is mounted,
+this can be used as an alternative to
+.BR AT_EMPTY_PATH ,
+like this:
+
+.nf
+.in +4n
+linkat(AT_FDCWD, "/proc/self/fd/<fd>", newdirfd,
+       newname, AT_SYMLINK_FOLLOW);
+.in
+.fi
 .PP
 Before kernel 2.6.18, the
 .I flags
@@ -290,6 +301,17 @@ file corresponding to a file descriptor created with
 
 See
 .BR open (2).
+.TP
+.B ENOENT
+.I oldpath
+is a relative pathname and
+.I olddirfd
+refers to a directory that has been deleted,
+or
+.I newpath
+is a relative pathname and
+.I newdirfd
+refers to a directory that has been deleted.
 .TP
 .B ENOTDIR
 .I oldpath

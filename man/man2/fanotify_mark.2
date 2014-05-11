@@ -39,8 +39,8 @@ For an overview of the fanotify API, see
 .PP
 .BR fanotify_mark (2)
 adds, removes, or modifies an fanotify mark on a filesystem object.
-The caller must have read permission on the filesystem object that is to be
-marked.
+The caller must have read permission on the filesystem object that
+is to be marked.
 .PP
 The
 .I fanotify_fd
@@ -70,7 +70,7 @@ must be nonempty or the error
 will occur.
 .TP
 .B FAN_MARK_FLUSH
-Remove either all mount or non-mount marks from the fanotify group.
+Remove either all mount or all non-mount marks from the fanotify group.
 If
 .I flag
 contains
@@ -84,13 +84,13 @@ can be used in conjunction with
 .I mask
 is ignored.
 .PP
-If none of the values above is specified, or more than one is specified, the
-call fails with the error
+If none of the values above is specified, or more than one is specified,
+the call fails with the error
 .BR EINVAL .
 .PP
 In addition,
-.I flags
-may contain zero or more of the following:
+zero or more of the following values may be ORed into
+.IR flags :
 .TP
 .B FAN_MARK_DONT_FOLLOW
 If
@@ -126,11 +126,12 @@ shall be added to or removed from the ignore mask.
 .TP
 .B FAN_MARK_IGNORED_SURV_MODIFY
 The ignore mask shall survive modify events.
-If this flag is not set, the ignore mask is cleared when a modify event occurs
+If this flag is not set,
+the ignore mask is cleared when a modify event occurs
 for the ignored file or directory.
 .PP
 .I mask
-defines which events shall be listened to (or which shall be ignored).
+defines which events shall be listened for (or which shall be ignored).
 It is a bit mask composed of the following values:
 .TP
 .B FAN_ACCESS
@@ -165,7 +166,7 @@ or
 is required.
 .TP
 .B FAN_ONDIR
-Events for directories shall be created, for example when
+Create events for directories\(emfor example, when
 .BR opendir (2),
 .BR readdir (2)
 (but see BUGS), and
@@ -268,17 +269,23 @@ The filesystem object indicated by
 and
 .IR pathname
 does not exist.
-This error also occurs when trying to remove a mark from an object which is not
-marked.
+This error also occurs when trying to remove a mark from an object
+which is not marked.
 .TP
 .B ENOMEM
 The necessary memory could not be allocated.
 .TP
 .B ENOSPC
-The number of marks exceeds the limit of 8192 and
+The number of marks exceeds the limit of 8192 and the
 .B FAN_UNLIMITED_MARKS
-was not specified in the call to
+flag was not specified when the fanotify file descriptor was created with
 .BR fanotify_init (2).
+.TP
+.B ENOSYS
+This kernel does not implement
+.BR fanotify_mark ().
+The fanotify API is available only if the kernel was configured with
+.BR CONFIG_FANOTIFY .
 .TP
 .B ENOTDIR
 .I flags
@@ -304,14 +311,14 @@ If
 .I flags
 contains
 .BR FAN_MARK_FLUSH ,
-.I dfd
+.I dirfd
 and
 .I pathname
-must indicate a filesystem object, even though this object is not used.
+must specify a valid filesystem object, even though this object is not used.
 .IP *
 .\" FIXME: Patch is in next-20140424.
 .BR readdir (2)
-does not result in a
+does not generate a
 .B FAN_ACCESS
 event.
 .IP *

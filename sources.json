@@ -383,11 +383,12 @@ find sources/sendmail/ -name '*[a-z].8' -exec rsync --checksum {} man/man8/ \\;"
   },
 
   /* Use groups.1, id.1 from coreutils instead of from shadow-utils. */
+  /* Use chsh.1, login.1, newgrp.1, su.1 from util-linux instead of from shadow-utils. */
   "shadow-utils": {
     "type": "svn",
     "url": "svn://svn.debian.org/pkg-shadow/upstream/trunk",
     "cmd": "(cd sources/shadow-utils; ./autogen.sh; ./configure --enable-man);
-(cd sources/shadow-utils/man && find -name '*.[1-8].xml' ! -name groups.1.xml ! -name id.1.xml -print0 | while read -d $'\\0' -r file ; do sed -e '/^<!-- SHADOW-CONFIG-HERE -->/r config.xml' -e '//d' $file > $(basename $file).__; done;);
+(cd sources/shadow-utils/man && find -name '*.[1-8].xml' ! -name groups.1.xml ! -name id.1.xml ! -name chsh.1.xml ! -name login.1.xml ! -name newgrp.1.xml ! -name su.1.xml -print0 | while read -d $'\\0' -r file ; do sed -e '/^<!-- SHADOW-CONFIG-HERE -->/r config.xml' -e '//d' $file > $(basename $file).__; done;);
 (cd sources/shadow-utils/man && for f in *.__; do base=$(basename -s .__ $f); manNum=$(echo $base | rev | cut -c 5); xsltproc ../../../utils/db4-upgrade.xsl $f > ../../../xml/man$manNum/$base; done;)"
   },
 

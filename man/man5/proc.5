@@ -59,7 +59,7 @@
 .\" to see what information could be imported from that file
 .\" into this file.
 .\"
-.TH PROC 5 2014-04-23 "Linux" "Linux Programmer's Manual"
+.TH PROC 5 2014-05-10 "Linux" "Linux Programmer's Manual"
 .SH NAME
 proc \- process information pseudo-filesystem
 .SH DESCRIPTION
@@ -155,14 +155,14 @@ bits for all file-mapped pages associated with the process.
 .IP
 Clearing the PG_Referenced and ACCESSED/YOUNG bits provides a method
 to measure approximately how much memory a process is using.
-One first inspects the values in the "Referenced:" fields
+One first inspects the values in the "Referenced" fields
 for the VMAs shown in
 .IR /proc/[pid]/smaps
 to get an idea of the memory footprint of the
 process.
 One then clears the PG_Referenced and ACCESSED/YOUNG bits
 and, after some measured time interval,
-once again inspects the values in the "Referenced:" fields
+once again inspects the values in the "Referenced" fields
 to get an idea of the change in memory footprint of the
 process during the measured interval.
 If one is interested only in inspecting the selected mapping types,
@@ -539,7 +539,7 @@ lr\-\-\-\-\-\-\-\-. 1 root root 64 Apr 16 21:31
 .in
 
 Although these entries are present for memory regions that were
-mapped with  the
+mapped with the
 .BR MAP_FILE
 flag, the way anonymous shared memory (regions created with the
 .B MAP_ANON | MAP_SHARED
@@ -1071,7 +1071,7 @@ that does not belong to any file.
 "Swap" shows how much
 would-be-anonymous memory is also used, but out on swap.
 
-The "KernelPageSize" entry  is the page size used by the kernel to back a VMA.
+The "KernelPageSize" entry is the page size used by the kernel to back a VMA.
 This matches the size used by the MMU in the majority of cases.
 However, one counter-example occurs on PPC64 kernels
 whereby a kernel using 64K as a base page size may still use 4K
@@ -1929,7 +1929,7 @@ The list below describes the parameter names and
 the format specifier required to read the field value.
 Except as noted below,
 all of the fields have been present since at least Linux 2.6.0.
-Some fileds are displayed only if the kernel was configured
+Some fields are displayed only if the kernel was configured
 with various options; those dependencies are noted in the list.
 .RS
 .TP
@@ -2077,7 +2077,7 @@ Memory used by FUSE for temporary writeback buffers.
 .TP
 .IR CommitLimit " %lu (since Linux 2.6.10)"
 Based on the overcommit ratio ('vm.overcommit_ratio'),
-this is the total amount of  memory currently available to
+this is the total amount of memory currently available to
 be allocated on the system.
 This limit is adhered to
 only if strict overcommit accounting is enabled (mode 2 in
@@ -2565,8 +2565,8 @@ The number of swap pages that have been brought in and out.
 This line shows counts of interrupts serviced since boot time,
 for each of the possible system interrupts.
 The first column is the total of all interrupts serviced
-ncluding  unnumbered  architecture specific  interrupts;
-each  subsequent column is the  total for that particular numbered interrupt.
+including unnumbered architecture specific interrupts;
+each subsequent column is the total for that particular numbered interrupt.
 Unnumbered interrupts are not shown, only summed into the total.
 .TP
 \fIdisk_io: (2,0):(31,30,5764,1,2) (3,0):\fP...
@@ -3351,7 +3351,7 @@ that exist independently of any attached process.
 The effect is as though a
 .BR shmctl (2)
 .B IPC_RMID
-is performed on all existing  segments as well as all segments
+is performed on all existing segments as well as all segments
 created in the future (until this file is reset to 0).
 Note that existing segments that are attached to no process will be
 immediately destroyed when this file is set to 1.
@@ -3650,7 +3650,7 @@ If this file is set to the value 1,
 then the kernel normally panics when out-of-memory happens.
 However, if a process limits allocations to certain nodes
 using memory policies
-.RB ( mbind  (2)
+.RB ( mbind (2)
 .BR MPOL_BIND )
 or cpusets
 .RB ( cpuset (7))
@@ -3687,7 +3687,7 @@ For further details see the Linux kernel source file
 .TP
 .I /proc/sysvipc
 Subdirectory containing the pseudo-files
-.IR msg ", "  sem " and "  shm "."
+.IR msg ", " sem " and " shm "."
 These files list the System V Interprocess Communication (IPC) objects
 (respectively: message queues, semaphores, and shared memory)
 that currently exist on the system,
@@ -3697,6 +3697,104 @@ These files have headers and are formatted (one IPC object per line)
 for easy understanding.
 .BR svipc (7)
 provides further background on the information shown by these files.
+.TP
+.IR /proc/timer_list " (since Linux 2.6.21)"
+.\" commit 289f480af87e45f7a6de6ba9b4c061c2e259fe98
+This read-only file exposes a list of all currently pending
+(high-resolution) timers,
+all clock-event sources, and their parameters in a human-readable form.
+.TP
+.IR /proc/timer_stats " (since Linux 2.6.21)"
+.\" commit 82f67cd9fca8c8762c15ba7ed0d5747588c1e221
+.\"	Date:   Fri Feb 16 01:28:13 2007 -0800
+.\" Text largely derived from Documentation/timers/timer_stats.txt
+This is a debugging facility to make timer (ab)use in a Linux
+system visible to kernel and user-space developers.
+It can be used by kernel and user-space developers to verify that
+their code does not make undue use of timers.
+The goal is to avoid unnecessary wakeups,
+thereby optimizing power consumption.
+
+If enabled in the kernel
+.RB ( CONFIG_TIMER_STATS ),
+but not used,
+it has almost zero runtime overhead and a relatively small
+data-structure overhead.
+Even if collection is enabled at runtime, overhead is low:
+all the locking is per-CPU and lookup is hashed.
+
+The
+.I /proc/timer_stats
+file is used both to control sampling facility and to read out the
+sampled information.
+
+timer_stats collects information about the timer events which are fired in a
+Linux system over a sample period:
+
+- the pid of the task(process) which initialized the timer
+- the name of the process which initialized the timer
+- the function where the timer was initialized
+- the callback function which is associated to the timer
+- the number of events (callbacks)
+
+The timer_stats functionality is inactive on bootup.
+A sampling period can be started using the following command:
+
+    # echo 1 > /proc/timer_stats
+
+The following command stops a sampling period:
+
+    # echo 0 > /proc/timer_stats
+
+The statistics can be retrieved by:
+
+    $ cat /proc/timer_stats
+
+While sampling is enabled, each readout from /proc/timer_stats will see
+newly updated statistics.
+Once sampling is disabled, the sampled information
+is kept until a new sample period is started.
+This allows multiple readouts.
+
+Sample output from
+.IR /proc/timer_stats :
+
+.nf
+.RS -4
+.RB $ " cat /proc/timer_stats"
+Timer Stats Version: v0.3
+Sample period: 1.764 s
+Collection: active
+  255,     0 swapper/3        hrtimer_start_range_ns (tick_sched_timer)
+   71,     0 swapper/1        hrtimer_start_range_ns (tick_sched_timer)
+   58,     0 swapper/0        hrtimer_start_range_ns (tick_sched_timer)
+    4,  1694 gnome-shell      mod_delayed_work_on (delayed_work_timer_fn)
+   17,     7 rcu_sched        rcu_gp_kthread (process_timeout)
+\&...
+    1,  4911 kworker/u16:0    mod_delayed_work_on (delayed_work_timer_fn)
+   1D,  2522 kworker/0:0      queue_delayed_work_on (delayed_work_timer_fn)
+1029 total events, 583.333 events/sec
+
+.fi
+.RE
+.IP
+The output columns are:
+.RS
+.IP * 3
+a count of the number of events,
+optionally (since Linux 2.6.23) followed by the letter \(aqD\(aq
+.\" commit c5c061b8f9726bc2c25e19dec227933a13d1e6b7 deferrable timers
+if this is a deferrable timer;
+.IP *
+the PID of the process that initialized the timer;
+.IP *
+the name of the process that initialized the timer;
+.IP *
+the function where the timer was initialized; and
+.IP *
+(in parentheses)
+the callback function that is associated with the timer.
+.RE
 .TP
 .I /proc/tty
 Subdirectory containing the pseudo-files and subdirectories for
