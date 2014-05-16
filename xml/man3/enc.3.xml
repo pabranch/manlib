@@ -341,6 +341,11 @@
       a list of ciphers, supported by your versesion of OpenSSL, including
       ones provided by configured engines.
     </para>
+    <para>
+      The <emphasis role="bold">enc</emphasis> program does not support
+      authenticated encryption modes like CCM and GCM. The utility does not
+      store or retrieve the authentication tag.
+    </para>
     <screen>
 
 base64             Base 64
@@ -457,11 +462,6 @@ aes-[128|192|256]-ofb  128/192/256 bit AES in OFB mode</screen>
       fixed number of algorithms with certain parameters. So if, for
       example, you want to use RC2 with a 76 bit key or RC4 with an 84 bit
       key you can't use this program.
-    </para>
-    <para>
-      The <emphasis role="bold">enc</emphasis> program does not support
-      authenticated encryption modes like CCM and GCM. The utility does not
-      store or retrieve the authentication tag.
     </para>
   </refsection>
 </refentry>
