@@ -2,7 +2,7 @@
 .\" Copyright 1993, 1994, 1995 by Theodore Ts'o.  All Rights Reserved.
 .\" This file may be copied under the terms of the GNU Public License.
 .\"
-.TH DEBUGFS 8 "February 2014" "E2fsprogs version 1.43-WIP"
+.TH DEBUGFS 8 "May 2014" "E2fsprogs version 1.43-WIP"
 .SH NAME
 debugfs \- ext2/ext3/ext4 file system debugger
 .SH SYNOPSIS
@@ -389,7 +389,7 @@ which is a hard link to
 .IR filespec .
 Note this does not adjust the inode reference counts.
 .TP
-.BI logdump " [-acs] [-b block] [-i filespec] [-f journal_file] [output_file]"
+.BI logdump " [-acsO] [-b block] [-i filespec] [-f journal_file] [output_file]"
 Dump the contents of the ext3 journal.  By default, dump the journal inode as
 specified in the superblock.  However, this can be overridden with the
 .I \-i
@@ -420,6 +420,12 @@ the
 and
 .I \-b
 options.
+.IP
+The
+.I \-O
+option causes logdump to display old (checkpointed) journal entries.
+This can be used to try to track down journal problems even after the
+journal has been replayed.
 .TP
 .BI ls " [-l] [-c] [-d] [-p] filespec"
 Print a listing of the files in the directory

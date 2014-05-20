@@ -101,10 +101,10 @@ By default, the new file descriptor is set to remain open across an
 (i.e., the
 .B FD_CLOEXEC
 file descriptor flag described in
-.BR fcntl (2)
+.BR fcntl (2))
 is initially disabled; the
 .B O_CLOEXEC
-flag, described below, can be used to change this default).
+flag, described below, can be used to change this default.
 The file offset is set to the beginning of the file (see
 .BR lseek (2)).
 .PP
@@ -717,7 +717,7 @@ as described above).
 requires support by the underlying filesystem;
 only a subset of Linux filesystems provide that support.
 In the initial implementation, support was provided in
-the ex2, ext3, ext4, UDF, Minix, and shmem filesystems.
+the ext2, ext3, ext4, UDF, Minix, and shmem filesystems.
 XFS support was added
 .\" commit 99b6436bc29e4f10e4388c27a3e4810191cc4788
 .\" commit ab29743117f9f4c22ac44c13c1647fb24fb2bafe
@@ -945,8 +945,8 @@ was not a directory.
 .TP
 .B ENXIO
 .BR O_NONBLOCK " | " O_WRONLY
-is set, the named file is a FIFO and
-no process has the file open for reading.
+is set, the named file is a FIFO, and
+no process has the FIFO open for reading.
 Or, the file is a device special file and no corresponding device exists.
 .TP
 .BR EOPNOTSUPP
@@ -1009,7 +1009,7 @@ is not a valid file descriptor.
 .TP
 .B ENOTDIR
 .I pathname
-is relative and
+is a relative pathname and
 .I dirfd
 is a file descriptor referring to a file other than a directory.
 .SH VERSIONS

@@ -1,0 +1,63 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="resolved.conf" conditional="ENABLE_RESOLVED">
+        <info>
+                
+                <productname>systemd</productname>
+
+                <authorgroup>
+                        <author><personname><firstname>Tom</firstname><surname>Gundersen</surname></personname><contrib>Developer</contrib><email>teg@jklm.no</email></author>
+                </authorgroup>
+        </info>
+
+        <refmeta>
+                <refentrytitle>resolved.conf</refentrytitle>
+                <manvolnum>5</manvolnum>
+        </refmeta>
+
+        <refnamediv>
+                <refname>resolved.conf</refname>
+                <refpurpose>Network Name Resolution configuration file</refpurpose>
+        </refnamediv>
+
+        <refsynopsisdiv>
+                <para><filename>/etc/systemd/resolved.conf</filename></para>
+        </refsynopsisdiv>
+
+        <refsect1>
+                <title>Description</title>
+
+                <para>When starting, systemd-resolved will read the
+                configuration file <filename>resolved.conf</filename>.
+                This configuration file determines the fallback DNS
+                servers.</para>
+
+        </refsect1>
+
+        <refsect1>
+                <title>Options</title>
+
+                <variablelist class="network-directives">
+
+                        <varlistentry>
+                                <term><varname>DNS=</varname></term>
+                                <listitem><para>A space separated list of IPv4 and IPv6
+                                addresses to be used as the fallback DNS servers. Note that
+                                the servers obtained from
+                                <citerefentry><refentrytitle>systemd-networkd.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+                                take precedence. If this option is not given, a compiled-in
+                                list of DNS servers is used instead.</para></listitem>
+                        </varlistentry>
+
+                </variablelist>
+        </refsect1>
+
+        <refsect1>
+                  <title>See Also</title>
+                  <para>
+                        <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+                        <citerefentry><refentrytitle>systemd-resolved.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+                        <citerefentry><refentrytitle>systemd-networkd.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+                  </para>
+        </refsect1>
+
+</refentry>
