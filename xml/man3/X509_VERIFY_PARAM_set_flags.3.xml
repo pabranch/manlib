@@ -22,6 +22,16 @@ int X509_VERIFY_PARAM_set1_policies(X509_VERIFY_PARAM *param,
                                        STACK_OF(ASN1_OBJECT) *policies);</synopsis>
 <synopsis format="linespecific">void X509_VERIFY_PARAM_set_depth(X509_VERIFY_PARAM *param, int depth);
 int X509_VERIFY_PARAM_get_depth(const X509_VERIFY_PARAM *param);</synopsis>
+<synopsis format="linespecific">int X509_VERIFY_PARAM_set1_host(X509_VERIFY_PARAM *param,
+                                const unsigned char *name, size_t namelen);
+void X509_VERIFY_PARAM_set_hostflags(X509_VERIFY_PARAM *param,
+                                     unsigned int flags);
+int X509_VERIFY_PARAM_set1_email(X509_VERIFY_PARAM *param,
+                                const unsigned char *email, size_t emaillen);
+int X509_VERIFY_PARAM_set1_ip(X509_VERIFY_PARAM *param,
+                              const unsigned char *ip, size_t iplen);
+int X509_VERIFY_PARAM_set1_ip_asc(X509_VERIFY_PARAM *param,
+                                  const char *ipasc);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="sources.openssl.doc.crypto.X509_VERIFY_PARAM_set_flags.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
@@ -70,13 +80,53 @@ int X509_VERIFY_PARAM_get_depth(const X509_VERIFY_PARAM *param);</synopsis>
       <emphasis role="bold">depth</emphasis>. That is the maximum number of
       untrusted CA certificates that can appear in a chain.
     </para>
+    <para>
+      X509_VERIFY_PARAM_set1_host() sets the expected DNS hostname to
+      <emphasis role="bold">name</emphasis>.  If <emphasis role="bold">name</emphasis> is NUL-terminated, <emphasis role="bold">namelen</emphasis> may be zero, otherwise <emphasis role="bold">namelen</emphasis> must be set to the length of <emphasis role="bold">name</emphasis>.  When a hostname is specified,
+      certificate verification automatically invokes <citerefentry>
+      <refentrytitle>X509_check_host</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> with flags equal to the
+      <emphasis role="bold">flags</emphasis> argument given to <emphasis role="bold">X509_VERIFY_PARAM_set_hostflags()</emphasis> (default
+      zero).  Applications are strongly advised to use this interface in
+      preference to explicitly calling <citerefentry>
+      <refentrytitle>X509_check_host</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, hostname checks are out of
+      scope with the DANE-EE(3) certificate usage, and the internal check
+      will be suppressed as appropriate when DANE support is added to
+      OpenSSL.
+    </para>
+    <para>
+      X509_VERIFY_PARAM_set1_email() sets the expected RFC822 email address
+      to <emphasis role="bold">email</emphasis>.  If <emphasis role="bold">email</emphasis> is NUL-terminated, <emphasis role="bold">emaillen</emphasis> may be zero, otherwise <emphasis role="bold">emaillen</emphasis> must be set to the length of
+      <emphasis role="bold">email</emphasis>.  When an email address is
+      specified, certificate verification automatically invokes
+      <citerefentry> <refentrytitle>X509_check_email</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>.
+    </para>
+    <para>
+      X509_VERIFY_PARAM_set1_ip() sets the expected IP address to <emphasis role="bold">ip</emphasis>. The <emphasis role="bold">ip</emphasis>
+      argument is in binary format, in network byte-order and <emphasis role="bold">iplen</emphasis> must be set to 4 for IPv4 and 16 for
+      IPv6.  When an IP address is specified, certificate verification
+      automatically invokes <citerefentry>
+      <refentrytitle>X509_check_ip</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>.
+    </para>
+    <para>
+      X509_VERIFY_PARAM_set1_ip_asc() sets the expected IP address to
+      <emphasis role="bold">ipasc</emphasis>.  The <emphasis role="bold">ipasc</emphasis> argument is a NUL-terminal ASCII string:
+      dotted decimal quad for IPv4 and colon-separated hexadecimal for
+      IPv6.  The condensed "::" notation is supported for IPv6 addresses.
+    </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.X509_VERIFY_PARAM_set_flags.pod:RETURN_VALUES"><title>RETURN VALUES</title>
     <para>
       X509_VERIFY_PARAM_set_flags(), X509_VERIFY_PARAM_clear_flags(),
       X509_VERIFY_PARAM_set_purpose(), X509_VERIFY_PARAM_set_trust(),
-      X509_VERIFY_PARAM_add0_policy() and X509_VERIFY_PARAM_set1_policies()
-      return 1 for success and 0 for failure. 
+      X509_VERIFY_PARAM_add0_policy() X509_VERIFY_PARAM_set1_policies(),
+      X509_VERIFY_PARAM_set1_host(), X509_VERIFY_PARAM_set_hostflags(),
+      X509_VERIFY_PARAM_set1_email(), X509_VERIFY_PARAM_set1_ip() and
+      X509_VERIFY_PARAM_set1_ip_asc() return 1 for success and 0 for
+      failure.
     </para>
     <para>
       X509_VERIFY_PARAM_get_flags() returns the current verification flags.

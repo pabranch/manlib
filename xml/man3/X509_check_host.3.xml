@@ -55,18 +55,58 @@ int X509_check_ip_asc(X509 *, const char *address, unsigned int flags);</synopsi
     </para>
     <para>
       The <emphasis role="bold">flags</emphasis> argument is usually 0.  It
-      can be the bitwise OR of the flags <emphasis role="bold">X509_CHECK_FLAG_ALWAYS_CHECK_SUBJECT</emphasis>,
-      <emphasis role="bold">X509_CHECK_FLAG_NO_WILDCARDS</emphasis>.
+      can be the bitwise OR of the flags:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.X509_check_host.pod:X509_CHECK_FLAG_ALWAYS_CHECK_SUBJECT"/><emphasis role="bold">X509_CHECK_FLAG_ALWAYS_CHECK_SUBJECT</emphasis>,</term>
+          <listitem>
+            <para/>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.X509_check_host.pod:X509_CHECK_FLAG_NO_WILDCARDS"/><emphasis role="bold">X509_CHECK_FLAG_NO_WILDCARDS</emphasis>,</term>
+          <listitem>
+            <para/>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.X509_check_host.pod:X509_CHECK_FLAG_NO_PARTIAL_WILDCARDS"/><emphasis role="bold">X509_CHECK_FLAG_NO_PARTIAL_WILDCARDS</emphasis>,</term>
+          <listitem>
+            <para/>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.X509_check_host.pod:X509_CHECK_FLAG_MULTI_LABEL_WILDCARDS."/><emphasis role="bold">X509_CHECK_FLAG_MULTI_LABEL_WILDCARDS</emphasis>.</term>
+          <listitem>
+            <para/>
+          </listitem>
+        </varlistentry>
+      </variablelist>
     </para>
     <para>
       The <emphasis role="bold">X509_CHECK_FLAG_ALWAYS_CHECK_SUBJECT</emphasis> flag
-      causes the function to check the subject DN even if the certificate
-      contains a subject alternative name extension is present; the default
-      is to ignore the subject DN in preference of the extension.
+      causes the function to consider the subject DN even if the
+      certificate contains at least one subject alternative name of the
+      right type (DNS name or email address as appropriate); the default is
+      to ignore the subject DN when at least one corresponding subject
+      alternative names is present.
     </para>
     <para>
-      If present, <emphasis role="bold">X509_CHECK_FLAG_NO_WILDCARDS</emphasis> disables wildcard
-      expansion; this only applies to <emphasis role="bold">X509_check_host</emphasis>.
+      If set, <emphasis role="bold">X509_CHECK_FLAG_NO_WILDCARDS</emphasis>
+      disables wildcard expansion; this only applies to <emphasis role="bold">X509_check_host</emphasis>.
+    </para>
+    <para>
+      If set, <emphasis role="bold">X509_CHECK_FLAG_NO_PARTIAL_WILDCARDS</emphasis>
+      suppresses support for "*" as wildcard pattern in labels that have a
+      prefix or suffix, such as: "www*" or "*www"; this only aplies to
+      <emphasis role="bold">X509_check_host</emphasis>.
+    </para>
+    <para>
+      If set, <emphasis role="bold">X509_CHECK_FLAG_MULTI_LABEL_WILDCARDS</emphasis>, allows
+      a "*" that constitutes the complete label of a DNS name (e.g.
+      "*.example.com") to match more than one label in <emphasis role="bold">name</emphasis>; this only applies to <emphasis role="bold">X509_check_host</emphasis>.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.X509_check_host.pod:RETURN_VALUES"><title>RETURN VALUES</title>
