@@ -21,7 +21,7 @@
 .\" 2008-06-17 Petr Baudis <pasky@suse.cz>
 .\"     LC_TIME: Describe first_weekday and first_workday
 .\"
-.TH LOCALE 5 2014-03-18 "Linux" "Linux User Manual"
+.TH LOCALE 5 2014-05-23 "Linux" "Linux User Manual"
 .SH NAME
 locale \- describes a locale definition file
 .SH DESCRIPTION
@@ -197,11 +197,15 @@ followed by the language name in the language of the current document.
 followed by the two-letter abbreviation of the language (ISO 639).
 .TP
 .I lang_term
-followed by the three-letter abbreviation of the language (ISO 639-2).
+followed by the three-letter abbreviation of the language (ISO 639-2/T).
 .TP
 .I lang_lib
-followed by the three-letter abbreviation of the language for
-library use (ISO 639-2).
+followed by the three-letter abbreviation of the language for library
+use (ISO 639-2/B).
+Applications should in general prefer
+.IR lang_term
+over
+.IR lang_lib .
 .PP
 The
 .B LC_ADDRESS
@@ -433,7 +437,6 @@ The following keywords are allowed:
 The order-definition starts with a line:
 .TP
 .I order_start
-.PP
 followed by a list of keywords chosen from
 .BR forward ,
 .BR backward ,
@@ -441,7 +444,6 @@ or
 .BR position .
 The order definition consists of lines that describe the order
 and is terminated with the keyword
-.TP
 .IR order_end .
 .PP
 For more details see the sources in
@@ -606,8 +608,11 @@ followed by the string that will be used as a group separator
 when formatting monetary quantities.
 .TP
 .I mon_grouping
-followed by a string that describes the formatting of numeric
-quantities.
+followed by a sequence of integers separated by semicolons that
+describe the formatting of monetary quantities.
+See
+.I grouping
+below for details.
 .TP
 .I positive_sign
 followed by a string that is used to indicate a positive sign for
@@ -774,7 +779,12 @@ The definition starts with the string
 .B LC_NAME
 in the first column.
 
-The following keywords are allowed:
+Various keywords are allowed, but only
+.IR name_fmt
+is mandatory.
+Others keywords are needed only if there is common convention to
+use the corresponding salutation in this locale.
+The allowed keywords are as follows:
 .TP
 .I name_fmt
 followed by a string containing field descriptors that define
@@ -868,8 +878,17 @@ followed by the string that will be used as a group separator
 when formatting numeric quantities.
 .TP
 .I grouping
-followed by a string that describes the formatting of numeric
-quantities.
+followed by a sequence of integers separated by semicolons that
+describe the formatting of numeric quantities.
+.IP
+Each integer specifies the number of digits in a group.
+The first integer defines the size of the group immediately
+to the left of the decimal delimiter.
+Subsequent integers define succeeding groups to the
+left of the previous group.
+If the last integer is not \-1, then the size of the previous group
+(if any) is repeatedly used for the remainder of the digits.
+If the last integer is \-1, then no further grouping is performed.
 .PP
 The
 .B LC_NUMERIC
@@ -975,23 +994,24 @@ followed by a list of abbreviated month names.
 followed by a list of month names.
 .TP
 .I am_pm
-The appropriate representation of the
+followed by the appropriate representation of the
 .B am
 and
 .B pm
 strings.
+This should not be defined for locales not using AM/PM convention.
 .TP
 .I d_t_fmt
-The appropriate date and time format.
+followed by the appropriate date and time format.
 .TP
 .I d_fmt
-The appropriate date format.
+followed by the appropriate date format.
 .TP
 .I t_fmt
-The appropriate time format.
+followed by the appropriate time format.
 .TP
 .I t_fmt_ampm
-The appropriate time format when using 12h clock format.
+followed by the appropriate time format when using 12h clock format.
 .TP
 .I week
 followed by a list of three values:
@@ -1015,7 +1035,7 @@ should have Monday translation as the first item in the
 list.
 .TP
 .IR first_weekday " (since glibc 2.2)"
-Number of the first day from the
+followed by the number of the first day from the
 .I day
 list to be shown in calendar applications.
 The default value of
@@ -1026,7 +1046,7 @@ on the value of the second
 list item.
 .TP
 .IR first_workday " (since glibc 2.2)"
-Number of the first working day from the
+followed by the number of the first working day from the
 .I day
 list.
 .TP
