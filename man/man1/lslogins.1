@@ -31,8 +31,8 @@ Output data in the format of NAME=VALUE.
 \fB\-f\fR, \fB\-\-failed\fR
 Display data about the users' last failed login attempts.
 .TP
-\fB\-\-fulltimes\fR
-Show all dates in a long format.
+\fB\-G\fR, \fB\-\-groups\-info\fR
+Show information about groups.
 .TP
 \fB\-g\fR, \fB\-\-groups\fR=\fIGROUPS\fR
 Only show data of users belonging to \fIGROUPS\fR. More than one group may be specified; the list has to be comma-separated.
@@ -40,7 +40,7 @@ Only show data of users belonging to \fIGROUPS\fR. More than one group may be sp
 \fB\-l\fR, \fB\-\-logins\fR=\fILOGINS\fR
 Only show data of users with a login specified in \fILOGINS\fR. More than one login may be specified; the list has to be comma-separated.
 .TP
-\fB\-\-last\fR
+\fB\-L\fR, \-\-last\fR
 Display data containing information about the users' last login sessions.
 .TP
 \fB\-m\fR, \fB\-\-supp\-groups\fR
@@ -57,6 +57,9 @@ Specify which output columns to print.  Use
 .B \-\-help
 to get a list of all supported columns.
 .TP
+\fB\-p , \-\-pwd\fR
+Display information related to login by password (see also \fB\-afR).
+.TP
 \fB\-r\fR, \fB\-\-raw\fR
 Raw output (no columnation).
 .TP
@@ -65,20 +68,14 @@ Show system accounts. These are by the default all accounts with UID below 1000 
 treshold can also be specified explicitly (necessary for some distributions that allocate UIDs
 starting from 100, 500 - or an entirely different value - rather than 1000).
 .TP
-\fB\-t\fR, \fB\-\-sort\-name\fR
-Sort by user name, rather than UID.
-.TP
 \fB\-\-time-format\fR \fItype\fP
-Display dates in short, full or iso format.
+Display dates in short, full or iso format. The default is short, this time 
+format is designed to be space efficient and human readable.
 .TP
 \fB\-u\fR, \fB\-\-user\-accs\fR
 Show user accounts. These are by the default all accounts with UID above 1000 (inclusive), with the exception of either nobody or nfsnobody (UID 65534). The UID
 treshold can also be specified explicitly (necessary for some distributions that allocate UIDs
 starting from 100, 500 - or an entirely different value - rather than 1000).
-.TP
-\fB\-x\fR, \fB\-\-extra\fR
-Show extra information about users - home diretory, default login shell,
-password age and expiry information.(Requires root priviliges.)
 .TP
 \fB\-z\fR, \fB\-\-print0\fR
 Delimit user entries with a nul character, instead of a newline.
@@ -95,7 +92,7 @@ Alternate path for btmp.
 \fB\-h\fR, \fB\-\-help\fR
 Display help information and exit.
 .TP
-\fB\-v\fR, \fB\-\-version\fR
+\fB\-V\fR, \fB\-\-version\fR
 Display version information and exit.
 
 .SH NOTES
@@ -116,9 +113,14 @@ if a serious error occurs (e.g. a corrupt log).
 .SH HISTORY
 The \fBlslogins\fP utility is inspired by the \fBlogins\fP utility, which first appeared in FreeBSD 4.10.
 .SH AUTHORS
-.MT ondrej.oprala@gmail.com
+.MT ooprala@redhat.com
 Ondrej Oprala
 .ME
+.br
+.MT kzak@redhat.com
+Karel Zak
+.ME
+
 .SH AVAILABILITY
 The lslogins command is part of the util-linux package and is available from
 .UR ftp://\:ftp.kernel.org\:/pub\:/linux\:/utils\:/util-linux/
