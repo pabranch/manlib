@@ -81,6 +81,13 @@ rsync --checksum sources/dpkg/man/*.8 man/man8/"
     "cmd": "(cd sources/dracut/; find . -name '*.[1-9].asc' -exec bash -c 'base=$(basename -s .asc {}); manNum=\"${base##*.}\"; asciidoc -d manpage -b docbook -o ../../xml/man$manNum/$base.xml {}' \\;)"
   },
 
+  "dstat": {
+    "type": "git",
+    "url": "https://github.com/dagwieers/dstat.git",
+    "sparse": "docs/",
+    "cmd": "asciidoc -d manpage -b docbook -o- sources/dstat/docs/dstat.1.txt | xsltproc utils/db4-upgrade.xsl - > xml/man1/dstat.1.xml"
+  },
+
   "e2fsprogs": {
     "type": "git",
     "url": "git://git.kernel.org/pub/scm/fs/ext2/e2fsprogs.git",
