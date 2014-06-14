@@ -107,8 +107,9 @@
 
                 <para>As a safety check
                 <command>systemd-nspawn</command> will verify the
-                existence of <filename>/etc/os-release</filename> in
-                the container tree before starting the container (see
+                existence of <filename>/usr/lib/os-release</filename>
+                or <filename>/etc/os-release</filename> in the
+                container tree before starting the container (see
                 <citerefentry><refentrytitle>os-release</refentrytitle><manvolnum>5</manvolnum></citerefentry>). It
                 might be necessary to add this file to the container
                 tree manually if the OS of the container is too old to
@@ -471,6 +472,30 @@
                                 <option>--bind-ro=</option> option
                                 creates read-only bind
                                 mounts.</para></listitem>
+                        </varlistentry>
+
+                        <varlistentry>
+                                <term><option>--tmpfs=</option></term>
+
+                                <listitem><para>Mount a tmpfs file
+                                system into the container. Takes a
+                                single absolute path argument that
+                                specifies where to mount the tmpfs
+                                instance to (in which case the
+                                directory access mode will be chosen
+                                as 0755, owned by root/root), or
+                                optionally a colon-separated pair of
+                                path and mount option string, that is
+                                used for mounting (in which case the
+                                kernel default for access mode and
+                                owner will be chosen, unless otherwise
+                                specified). This option is
+                                particularly useful for mounting
+                                directories such as
+                                <filename>/var</filename> as tmpfs, to
+                                allow state-less systems, in
+                                particular when combined with
+                                <option>--read-only</option>.</para></listitem>
                         </varlistentry>
 
                         <varlistentry>

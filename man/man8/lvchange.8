@@ -1,6 +1,6 @@
 .TH LVCHANGE 8 "LVM TOOLS 2.02.107(2)-git (2014-04-10)" "Sistina Software UK" \" -*- nroff -*-
 .SH NAME
-lvchange \- change attributes of a logical volume
+lvchange \(em change attributes of a logical volume
 .SH SYNOPSIS
 .B lvchange
 .RB [ \-\-addtag
@@ -154,13 +154,13 @@ immediately poll a logical volume when it is activated, use
 .IR \fB\-\-[raid]maxrecoveryrate " " \fIRate [ bBsSkKmMgG ]
 Sets the maximum recovery rate for a RAID logical volume.  \fIRate\fP
 is specified as an amount per second for each device in the array.
-If no suffix is given, then kiB/sec/device is assumed.  Setting the
+If no suffix is given, then KiB/sec/device is assumed.  Setting the
 recovery rate to 0 means it will be unbounded.
 .TP
 .IR \fB\-\-[raid]minrecoveryrate " " \fIRate [ bBsSkKmMgG ]
 Sets the minimum recovery rate for a RAID logical volume.  \fIRate\fP
 is specified as an amount per second for each device in the array.
-If no suffix is given, then kiB/sec/device is assumed.  Setting the
+If no suffix is given, then KiB/sec/device is assumed.  Setting the
 recovery rate to 0 means it will be unbounded.
 .TP
 .BR \-\-[raid]syncaction " {" \fIcheck | \fIrepair }
@@ -190,7 +190,7 @@ the number of I/Os to the drive to a minimum.  The default behavior is to
 set the write-mostly attribute for the specified physical volume in the
 logical volume.  It is possible to also remove the write-mostly flag by
 appending a ":n" to the physical volume or to toggle the value by specifying
-":t".  The \fB--writemostly\fP argument can be specified more than one time
+":t".  The \fB\-\-writemostly\fP argument can be specified more than one time
 in a single command; making it possible to toggle the write-mostly attributes
 for all the physical volumes in a logical volume at once.
 .TP
@@ -253,8 +253,10 @@ Suppress locking failure messages.
 .SH Examples
 Changes the permission on volume lvol1 in volume group vg00 to be read-only:
 .sp
-.B lvchange -pr vg00/lvol1
+.B lvchange \-pr vg00/lvol1
 .SH SEE ALSO
 .BR lvm (8),
+.BR lvmcache (7),
+.BR lvmthin (7),
 .BR lvcreate (8),
 .BR vgchange (8)

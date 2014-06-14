@@ -201,7 +201,7 @@
           <listitem>
             <para>
 	      the ciphers included in <emphasis role="bold">ALL</emphasis>,
-	      but not enabled by default. Currently this is <emphasis role="bold">ADH</emphasis>. Note that this rule does not
+	      but not enabled by default. Currently this is <emphasis role="bold">ADH</emphasis> and <emphasis role="bold">AECDH</emphasis>. Note that this rule does not
 	      cover <emphasis role="bold">eNULL</emphasis>, which is not
 	      included by <emphasis role="bold">ALL</emphasis> (use
 	      <emphasis role="bold">COMPLEMENTOFALL</emphasis> if
@@ -299,9 +299,9 @@
           <listitem>
             <para>
 	      the cipher suites offering no authentication. This is
-	      currently the anonymous DH algorithms. These cipher suites
-	      are vulnerable to a "man in the middle" attack and so their
-	      use is normally discouraged.
+	      currently the anonymous DH algorithms and anonymous ECDH
+	      algorithms. These cipher suites are vulnerable to a "man in
+	      the middle" attack and so their use is normally discouraged.
             </para>
           </listitem>
         </varlistentry>
@@ -315,19 +315,90 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:kDHE"/><emphasis role="bold">kDHE</emphasis></term>
-          <listitem>
-            <para>
-	      cipher suites using ephemeral DH key agreement.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:kDHr_kDHd_kDH"/><emphasis role="bold">kDHr</emphasis>, <emphasis role="bold">kDHd</emphasis>, <emphasis role="bold">kDH</emphasis></term>
           <listitem>
             <para>
 	      cipher suites using DH key agreement and DH certificates
 	      signed by CAs with RSA and DSS keys or either respectively.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:kDHE_kEDH"/><emphasis role="bold">kDHE</emphasis>, <emphasis role="bold">kEDH</emphasis></term>
+          <listitem>
+            <para>
+	      cipher suites using ephemeral DH key agreement, including
+	      anonymous cipher suites.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:DHE_EDH"/><emphasis role="bold">DHE</emphasis>, <emphasis role="bold">EDH</emphasis></term>
+          <listitem>
+            <para>
+	      cipher suites using authenticated ephemeral DH key agreement.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:ADH"/><emphasis role="bold">ADH</emphasis></term>
+          <listitem>
+            <para>
+	      anonymous DH cipher suites, note that this does not include
+	      anonymous Elliptic Curve DH (ECDH) cipher suites.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:DH"/><emphasis role="bold">DH</emphasis></term>
+          <listitem>
+            <para>
+	      cipher suites using DH, including anonymous DH, ephemeral DH
+	      and fixed DH.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:kECDHr_kECDHe_kECDH"/><emphasis role="bold">kECDHr</emphasis>, <emphasis role="bold">kECDHe</emphasis>, <emphasis role="bold">kECDH</emphasis></term>
+          <listitem>
+            <para>
+	      cipher suites using fixed ECDH key agreement signed by CAs
+	      with RSA and ECDSA keys or either respectively.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:kEECDH_kECDHE"/><emphasis role="bold">kEECDH</emphasis>, <emphasis role="bold">kECDHE</emphasis></term>
+          <listitem>
+            <para>
+	      cipher suites using ephemeral ECDH key agreement, including
+	      anonymous cipher suites.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:ECDHE_EECDHE"/><emphasis role="bold">ECDHE</emphasis>, <emphasis role="bold">EECDHE</emphasis></term>
+          <listitem>
+            <para>
+	      cipher suites using authenticated ephemeral ECDH key
+	      agreement.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:AECDH"/><emphasis role="bold">AECDH</emphasis></term>
+          <listitem>
+            <para>
+	      anonymous Elliptic Curve Diffie Hellman cipher suites.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:ECDH"/><emphasis role="bold">ECDH</emphasis></term>
+          <listitem>
+            <para>
+	      cipher suites using ECDH key exchange, including anonymous,
+	      ephemeral and fixed ECDH.
             </para>
           </listitem>
         </varlistentry>
@@ -350,6 +421,24 @@
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:aECDH"/><emphasis role="bold">aECDH</emphasis></term>
+          <listitem>
+            <para>
+	      cipher suites effectively using ECDH authentication, i.e. the
+	      certificates carry ECDH keys.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:aECDSA_ECDSA"/><emphasis role="bold">aECDSA</emphasis>, <emphasis role="bold">ECDSA</emphasis></term>
+          <listitem>
+            <para>
+	      cipher suites using ECDSA authentication, i.e. the
+	      certificates carry ECDSA keys.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:kFZA_aFZA_eFZA_FZA"/><emphasis role="bold">kFZA</emphasis>, <emphasis role="bold">aFZA</emphasis>, <emphasis role="bold">eFZA</emphasis>, <emphasis role="bold">FZA</emphasis></term>
           <listitem>
             <para>
@@ -365,23 +454,6 @@
 	      TLS v1.2, TLS v1.0, SSL v3.0 or SSL v2.0 cipher suites
 	      respectively. Note: there are no ciphersuites specific to TLS
 	      v1.1.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:DH"/><emphasis role="bold">DH</emphasis></term>
-          <listitem>
-            <para>
-	      cipher suites using DH, including anonymous DH, ephemeral DH
-	      and fixed DH.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:ADH"/><emphasis role="bold">ADH</emphasis></term>
-          <listitem>
-            <para>
-	      anonymous DH cipher suites.
             </para>
           </listitem>
         </varlistentry>
@@ -823,6 +895,11 @@ SSL_CK_DES_192_EDE3_CBC_WITH_MD5        DES-CBC3-MD5
       strength:
     </para>
     <screen>openssl ciphers -v 'ALL:!ADH:@STRENGTH'</screen>
+    <para>
+      Include all ciphers except ones with no encryption (eNULL) or no
+      authentication (aNULL):
+    </para>
+    <screen>openssl ciphers -v 'ALL:!aNULL'</screen>
     <para>
       Include only 3DES ciphers and then place RSA ciphers last:
     </para>

@@ -29,7 +29,10 @@ int X509_check_ip_asc(X509 *, const char *address, unsigned int flags);</synopsi
       host name, which must be encoded in the preferred name syntax
       described in section 3.5 of RFC 1034. The <emphasis role="bold">namelen</emphasis> argument must be the number of
       characters in the name string or zero in which case the length is
-      calculated with strlen(name).
+      calculated with strlen(name).  When <emphasis role="bold">name</emphasis> starts with a dot (e.g ".example.com"),
+      it will be matched by a certificate valid for any sub-domain of
+      <emphasis role="bold">name</emphasis>, (see also <emphasis role="bold">X509_CHECK_FLAG_SINGLE_LABEL_SUBDOMAINS</emphasis>
+      below).
     </para>
     <para>
       X509_check_email() checks if the certificate matches the specified
@@ -83,6 +86,12 @@ int X509_check_ip_asc(X509 *, const char *address, unsigned int flags);</synopsi
             <para/>
           </listitem>
         </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.X509_check_host.pod:X509_CHECK_FLAG_SINGLE_LABEL_SUBDOMAINS."/><emphasis role="bold">X509_CHECK_FLAG_SINGLE_LABEL_SUBDOMAINS</emphasis>.</term>
+          <listitem>
+            <para/>
+          </listitem>
+        </varlistentry>
       </variablelist>
     </para>
     <para>
@@ -104,9 +113,19 @@ int X509_check_ip_asc(X509 *, const char *address, unsigned int flags);</synopsi
       <emphasis role="bold">X509_check_host</emphasis>.
     </para>
     <para>
-      If set, <emphasis role="bold">X509_CHECK_FLAG_MULTI_LABEL_WILDCARDS</emphasis>, allows
-      a "*" that constitutes the complete label of a DNS name (e.g.
-      "*.example.com") to match more than one label in <emphasis role="bold">name</emphasis>; this only applies to <emphasis role="bold">X509_check_host</emphasis>.
+      If set, <emphasis role="bold">X509_CHECK_FLAG_MULTI_LABEL_WILDCARDS</emphasis> allows a
+      "*" that constitutes the complete label of a DNS name (e.g.
+      "*.example.com") to match more than one label in <emphasis role="bold">name</emphasis>; this flag only applies to <emphasis role="bold">X509_check_host</emphasis>.
+    </para>
+    <para>
+      If set, <emphasis role="bold">X509_CHECK_FLAG_SINGLE_LABEL_SUBDOMAINS</emphasis>
+      restricts <emphasis role="bold">name</emphasis> values which start
+      with ".", that would otherwise match any sub-domain in the peer
+      certificate, to only match direct child sub-domains. Thus, for
+      instance, with this flag set a <emphasis role="bold">name</emphasis>
+      of ".example.com" would match a peer certificate with a DNS name of
+      "www.example.com", but would not match a peer certificate with a DNS
+      name of "www.sub.example.com"; this flag only applies to <emphasis role="bold">X509_check_host</emphasis>.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.X509_check_host.pod:RETURN_VALUES"><title>RETURN VALUES</title>
