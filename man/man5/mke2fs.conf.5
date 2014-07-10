@@ -2,7 +2,7 @@
 .\" Copyright 2006 by Theodore Ts'o.  All Rights Reserved.
 .\" This file may be copied under the terms of the GNU Public License.
 .\" 
-.TH mke2fs.conf 5 "May 2014" "E2fsprogs version 1.43-WIP"
+.TH mke2fs.conf 5 "July 2014" "E2fsprogs version 1.43-WIP"
 .SH NAME
 mke2fs.conf \- Configuration file for mke2fs
 .SH DESCRIPTION
@@ -479,6 +479,13 @@ This relation specifies the alignment for the start block of the huge
 files.  It also forces the size of huge files to be a multiple of the
 requested alignment.  If this relation is not specified, no alignment
 requirement will be imposed on the huge files.
+.TP
+.I hugefiles_align_disk
+Thie relations specifies whether the alignment should be relative to the
+beginning of the hard drive (assuming that the starting offset of the
+partition is available to mke2fs).  The default value is false, which
+if will cause hugefile alignment to be relative to the beginning of the
+file system.
 .TP
 .I hugefiles_name
 This relation specifies the base file name for the huge files.

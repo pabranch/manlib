@@ -32,6 +32,11 @@
                 <para><command>timedatectl</command> may be used to
                 query and change the system clock and its
                 settings.</para>
+
+                <para>Use
+                <citerefentry><refentrytitle>systemd-firstboot</refentrytitle><manvolnum>1</manvolnum></citerefentry>
+                to initialize the system time zone for mounted (but not
+                booted) system images.</para>
         </refsect1>
 
         <refsect1>
@@ -66,10 +71,15 @@
     <term><option>--host=</option></term>
 
     <listitem xml:id="host-text">
-      <para>Execute the operation remotely. Specify a hostname, or
+      <para>Execute the operation remotely. Specify a hostname, or a
       username and hostname separated by <literal>@</literal>, to
-      connect to. This will use SSH to talk to the remote machine
-      manager instance.</para>
+      connect to. The hostname may optionally be suffixed by a
+      container name, separated by <literal>:</literal>, which
+      connects directly to a specific container on the specified
+      host. This will use SSH to talk to the remote machine manager
+      instance. Container names may be enumerated with
+      <command>machinectl -H
+      <replaceable>HOST</replaceable></command>.</para>
     </listitem>
   </varlistentry>
                         <varlistentry xml:id="machine">
@@ -177,7 +187,7 @@
                                 change the 3rd line of
                                 <filename>/etc/adjtime</filename>, as
                                 documented in
-                                <citerefentry><refentrytitle>hwclock</refentrytitle><manvolnum>8</manvolnum></citerefentry>.</para></listitem>
+                                <citerefentry project="man-pages"><refentrytitle>hwclock</refentrytitle><manvolnum>8</manvolnum></citerefentry>.</para></listitem>
                         </varlistentry>
 
                         <varlistentry>
@@ -269,11 +279,12 @@ chronyd.service - NTP client/server
                 <title>See Also</title>
                 <para>
                         <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>hwclock</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>date</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+                        <citerefentry project="man-pages"><refentrytitle>hwclock</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+                        <citerefentry project="man-pages"><refentrytitle>date</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>localtime</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>systemctl</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>systemd-timedated.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+                        <citerefentry><refentrytitle>systemd-timedated.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+                        <citerefentry><refentrytitle>systemd-firstboot</refentrytitle><manvolnum>1</manvolnum></citerefentry>
                 </para>
         </refsect1>
 

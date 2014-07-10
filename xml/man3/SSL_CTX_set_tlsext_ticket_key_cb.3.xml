@@ -1,0 +1,249 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_set_tlsext_ticket_key_cb.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_set_tlsext_ticket_key_cb</refname>
+<refpurpose>set a callback for session ticket processing</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/tls1.h&gt;</synopsis>
+<synopsis format="linespecific">long SSL_CTX_set_tlsext_ticket_key_cb(SSL_CTX sslctx,
+       int (*cb)(SSL *s, unsigned char key_name[16],
+                 unsigned char iv[EVP_MAX_IV_LENGTH],
+                 EVP_CIPHER_CTX *ctx, HMAC_CTX *hctx, int enc));</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tlsext_ticket_key_cb.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_CTX_set_tlsext_ticket_key_cb() sets a callback fuction <emphasis role="italic">cb</emphasis> for handling session tickets for the ssl
+      context <emphasis role="italic">sslctx</emphasis>. Session tickets,
+      defined in RFC5077 provide an enhanced session resumption capability
+      where the server implementation is not required to maintain per
+      session state. It only applies to TLS and there is no SSLv3
+      implementation. 
+    </para>
+    <para>
+      The callback is available when the OpenSSL library was built without
+      <emphasis role="italic">OPENSSL_NO_TLSEXT</emphasis> being defined. 
+    </para>
+    <para>
+      The callback function <emphasis role="italic">cb</emphasis> will be
+      called for every client instigated TLS session when session ticket
+      extension is presented in the TLS hello message. It is the
+      responsibility of this function to create or retrieve the
+      cryptographic parameters and to maintain their state.
+    </para>
+    <para>
+      The OpenSSL library uses your callback function to help implement a
+      common TLS ticket construction state according to RFC5077 Section 4
+      such that per session state is unnecessary and a small set of
+      cryptographic variables needs to be maintained by the callback
+      function implementation. 
+    </para>
+    <para>
+      In order to reuse a session, a TLS client must send the a session
+      ticket extension to the server. The client can only send exactly one
+      session ticket. The server, through the callback function, either
+      agrees to reuse the session ticket information or it starts a full
+      TLS handshake to create a new session ticket.
+    </para>
+    <para>
+      Before the callback function is started <emphasis role="italic">ctx</emphasis> and <emphasis role="italic">hctx</emphasis> have been initialised with
+      EVP_CIPHER_CTX_init and HMAC_CTX_init respectively. 
+    </para>
+    <para>
+      For new sessions tickets, when the client doesn't present a session
+      ticket, or an attempted retreival of the ticket failed, or a renew
+      option was indicated, the callback function will be called with
+      <emphasis role="italic">enc</emphasis> equal to 1. The OpenSSL
+      library expects that the function will set an arbitary <emphasis role="italic">name</emphasis>, initialize <emphasis role="italic">iv</emphasis>, and set the cipher context <emphasis role="italic">ctx</emphasis> and the hash context <emphasis role="italic">hctx</emphasis>.
+    </para>
+    <para>
+      The <emphasis role="italic">name</emphasis> is 16 characters long and
+      is used as a key identifier.
+    </para>
+    <para>
+      The <emphasis role="italic">iv</emphasis> length is the length of the
+      IV of the corresponding cipher. The maximum IV length is
+      <citerefentry> <refentrytitle>EVP_MAX_IV_LENGTH</refentrytitle>
+      </citerefentry> bytes defined in <emphasis role="bold">evp.h</emphasis>.
+    </para>
+    <para>
+      The initialization vector <emphasis role="italic">iv</emphasis>
+      should be a random value. The cipher context <emphasis role="italic">ctx</emphasis> should use the initialisation vector
+      <emphasis role="italic">iv</emphasis>. The cipher context can be set
+      using <citerefentry>
+      <refentrytitle>EVP_EncryptInit_ex</refentrytitle> </citerefentry>.
+      The hmac context can be set using <citerefentry>
+      <refentrytitle>HMAC_Init_ex</refentrytitle> </citerefentry>. 
+    </para>
+    <para>
+      When the client presents a session ticket, the callback function with
+      be called with <emphasis role="italic">enc</emphasis> set to 0
+      indicating that the <emphasis role="italic">cb</emphasis> function
+      should retreive a set of parameters. In this case <emphasis role="italic">name</emphasis> and <emphasis role="italic">iv</emphasis> have already been parsed out of the
+      session ticket. The OpenSSL library expects that the <emphasis role="italic">name</emphasis> will be used to retrieve a
+      cryptographic parameters and that the cryptographic context <emphasis role="italic">ctx</emphasis> will be set with the retreived
+      parameters and the initialization vector <emphasis role="italic">iv</emphasis>. using a function like <citerefentry>
+      <refentrytitle>EVP_DecryptInit_ex</refentrytitle> </citerefentry>.
+      The <emphasis role="italic">hctx</emphasis> needs to be set using
+      <citerefentry> <refentrytitle>HMAC_Init_ex</refentrytitle>
+      </citerefentry>. 
+    </para>
+    <para>
+      If the <emphasis role="italic">name</emphasis> is still valid but a
+      renewal of the ticket is required the callback function should return
+      2. The library will call the callback again with an arguement of enc
+      equal to 1 to set the new ticket.
+    </para>
+    <para>
+      The return value of the <emphasis role="italic">cb</emphasis>
+      function is used by OpenSSL to determine what further processing will
+      occur. The following return values have meaning:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tlsext_ticket_key_cb.pod:2"/>2</term>
+          <listitem>
+            <para>
+	      This indicates that the <emphasis role="italic">ctx</emphasis> and <emphasis role="italic">hctx</emphasis> have been set and the session
+	      can continue on those parameters. Additionally it indicates
+	      that the session ticket is in a renewal period and should be
+	      replaced. The OpenSSL library will call <emphasis role="italic">cb</emphasis> again with an enc argument of 1
+	      to set the new ticket (see RFC5077 3.3 paragraph 2). 
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tlsext_ticket_key_cb.pod:1"/>1</term>
+          <listitem>
+            <para>
+	      This indicates that the <emphasis role="italic">ctx</emphasis> and <emphasis role="italic">hctx</emphasis> have been set and the session
+	      can continue on those parameters. 
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tlsext_ticket_key_cb.pod:0"/>0</term>
+          <listitem>
+            <para>
+	      This indicates that it was not possible to set/retrieve a
+	      session ticket and the SSL/TLS session will continue by by
+	      negiotationing a set of cryptographic parameters or using the
+	      alternate SSL/TLS resumption mechanism, session ids. 
+            </para>
+            <para>
+	      If called with enc equal to 0 the library will call the
+	      <emphasis role="italic">cb</emphasis> again to get a new set
+	      of parameters.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tlsext_ticket_key_cb.pod:less_than_0"/>less than 0</term>
+          <listitem>
+            <para>
+	      This indicates an error.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tlsext_ticket_key_cb.pod:NOTES"><title>NOTES</title>
+    <para>
+      Session resumption shortcuts the TLS so that the client certificate
+      negiotation don't occur. It makes up for this by storing client
+      certificate an all other negotiated state information encrypted
+      within the ticket. In a resumed session the applications will have
+      all this state information available exactly as if a full negiotation
+      had occured.
+    </para>
+    <para>
+      If an attacker can obtain the key used to encrypt a session ticket,
+      they can obtain the master secret for any ticket using that key and
+      decrypt any traffic using that session: even if the ciphersuite
+      supports forward secrecy. As a result applications may wish to use
+      multiple keys and avoid using long term keys stored in files.
+    </para>
+    <para>
+      Applications can use longer keys to maintain a consistent level of
+      security. For example if a ciphersuite uses 256 bit ciphers but only
+      a 128 bit ticket key the overall security is only 128 bits because
+      breaking the ticket key will enable an attacker to obtain the session
+      keys.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tlsext_ticket_key_cb.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      Reference Implemention:
+      SSL_CTX_set_tlsext_ticket_key_cb(SSL,ssl_tlsext_ticket_key_cb); ....
+    </para>
+    <screen>static int ssl_tlsext_ticket_key_cb(SSL *s, unsigned char key_name[16], unsigned char *iv, EVP_CIPHER_CTX *ctx, HMAC_CTX *hctx, int enc)
+{
+    if (enc) { /* create new session */
+        if (RAND_bytes(iv, EVP_MAX_IV_LENGTH) ) {
+            return -1; /* insufficient random */
+        }
+
+key = currentkey(); /* something that you need to implement */
+if ( !key ) {
+    /* current key doesn't exist or isn't valid */
+    key = createkey(); /* something that you need to implement.
+                         * createkey needs to initialise, a name,
+                         * an aes_key, a hmac_key and optionally
+                         * an expire time. */
+    if ( !key ) { /* key couldn't be created */
+        return 0;
+    }
+}
+memcpy(key_name, key-&gt;name, 16);
+
+EVP_EncryptInit_ex(&amp;ctx, EVP_aes_128_cbc(), NULL, key-&gt;aes_key, iv);
+HMAC_Init_ex(&amp;hctx, key-&gt;hmac_key, 16, EVP_sha256(), NULL);
+
+return 1;
+
+} else { /* retrieve session */
+    key = findkey(name);
+
+if  (!key || key-&gt;expire &lt; now() ) {
+    return 0;
+}
+
+HMAC_Init_ex(&amp;hctx, key-&gt;hmac_key, 16, EVP_sha256(), NULL);
+EVP_DecryptInit_ex(&amp;ctx, EVP_aes_128_cbc(), NULL, key-&gt;aes_key, iv );
+
+if (key-&gt;expire &lt; ( now() - RENEW_TIME ) ) {
+    /* return 2 - this session will get a new ticket even though the current is still valid */
+    return 2;
+}
+return 1;
+
+    }
+}
+
+
+
+</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tlsext_ticket_key_cb.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      returns 0 to indicate the callback function was set.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tlsext_ticket_key_cb.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_set_session(3), SSL_session_reused(3),
+      SSL_CTX_add_session(3), SSL_CTX_sess_number(3),
+      SSL_CTX_sess_set_get_cb(3), SSL_CTX_set_session_id_context(3),
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tlsext_ticket_key_cb.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      This function was introduced in OpenSSL 0.9.8h
+    </para>
+  </refsection>
+</refentry>

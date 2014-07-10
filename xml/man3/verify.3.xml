@@ -9,26 +9,38 @@
   </refnamediv>
   <refsynopsisdiv>
 <synopsis format="linespecific"><emphasis role="bold">openssl</emphasis> <emphasis role="bold">verify</emphasis>
-[<emphasis role="bold">-CApath directory</emphasis>]
 [<emphasis role="bold">-CAfile file</emphasis>]
-[<emphasis role="bold">-purpose purpose</emphasis>]
-[<emphasis role="bold">-policy arg</emphasis>]
-[<emphasis role="bold">-ignore_critical</emphasis>]
+[<emphasis role="bold">-CApath directory</emphasis>]
+[<emphasis role="bold">-attime timestamp</emphasis>]
+[<emphasis role="bold">-check_ss_sig</emphasis>]
+[<emphasis role="bold">-crlfile file</emphasis>]
 [<emphasis role="bold">-crl_check</emphasis>]
 [<emphasis role="bold">-crl_check_all</emphasis>]
-[<emphasis role="bold">-policy_check</emphasis>]
 [<emphasis role="bold">-explicit_policy</emphasis>]
+[<emphasis role="bold">-extended_crl</emphasis>]
+[<emphasis role="bold">-help</emphasis>]
+[<emphasis role="bold">-ignore_critical</emphasis>]
 [<emphasis role="bold">-inhibit_any</emphasis>]
 [<emphasis role="bold">-inhibit_map</emphasis>]
-[<emphasis role="bold">-x509_strict</emphasis>]
-[<emphasis role="bold">-extended_crl</emphasis>]
-[<emphasis role="bold">-use_deltas</emphasis>]
-[<emphasis role="bold">-policy_print</emphasis>]
-[<emphasis role="bold">-untrusted file</emphasis>]
-[<emphasis role="bold">-help</emphasis>]
 [<emphasis role="bold">-issuer_checks</emphasis>]
-[<emphasis role="bold">-attime timestamp</emphasis>]
+[<emphasis role="bold">-partial_chain</emphasis>]
+[<emphasis role="bold">-policy arg</emphasis>]
+[<emphasis role="bold">-policy_check</emphasis>]
+[<emphasis role="bold">-policy_print</emphasis>]
+[<emphasis role="bold">-purpose purpose</emphasis>]
+[<emphasis role="bold">-suiteB_128</emphasis>]
+[<emphasis role="bold">-suiteB_128_only</emphasis>]
+[<emphasis role="bold">-suiteB_192</emphasis>]
+[<emphasis role="bold">-trusted_first</emphasis>]
+[<emphasis role="bold">-untrusted file</emphasis>]
+[<emphasis role="bold">-use_deltas</emphasis>]
 [<emphasis role="bold">-verbose</emphasis>]
+[<emphasis role="bold">-verify_depth num</emphasis>]
+[<emphasis role="bold">-verify_email email</emphasis>]
+[<emphasis role="bold">-verify_hostname hostname</emphasis>]
+[<emphasis role="bold">-verify_ip ip</emphasis>]
+[<emphasis role="bold">-verify_name name</emphasis>]
+[<emphasis role="bold">-x509_strict</emphasis>]
 [<emphasis role="bold">-</emphasis>]
 [certificates]</synopsis>
 <synopsis format="linespecific"/>
@@ -42,6 +54,15 @@
   <refsection xml:id="sources.openssl.doc.apps.verify.pod:COMMAND_OPTIONS"><title>COMMAND OPTIONS</title>
     <para>
       <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-CAfile_file"/><emphasis role="bold">-CAfile file</emphasis></term>
+          <listitem>
+            <para>
+	      A file of trusted certificates. The file should contain
+	      multiple certificates in PEM format concatenated together.
+            </para>
+          </listitem>
+        </varlistentry>
         <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-CApath_directory"/><emphasis role="bold">-CApath directory</emphasis></term>
           <listitem>
@@ -58,65 +79,6 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-CAfile_file"/><emphasis role="bold">-CAfile file</emphasis></term>
-          <listitem>
-            <para>
-	      A file of trusted certificates. The file should contain
-	      multiple certificates in PEM format concatenated together.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-untrusted_file"/><emphasis role="bold">-untrusted file</emphasis></term>
-          <listitem>
-            <para>
-	      A file of untrusted certificates. The file should contain
-	      multiple certificates in PEM format concatenated together.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-purpose_purpose"/><emphasis role="bold">-purpose purpose</emphasis></term>
-          <listitem>
-            <para>
-	      The intended use for the certificate. If this option is not
-	      specified, <emphasis role="bold">verify</emphasis> will not
-	      consider certificate purpose during chain verification.
-	      Currently accepted uses are <emphasis role="bold">sslclient</emphasis>, <emphasis role="bold">sslserver</emphasis>, <emphasis role="bold">nssslserver</emphasis>, <emphasis role="bold">smimesign</emphasis>, <emphasis role="bold">smimeencrypt</emphasis>. See the <emphasis role="bold">VERIFY OPERATION</emphasis> section for more
-	      information.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-help"/><emphasis role="bold">-help</emphasis></term>
-          <listitem>
-            <para>
-	      Print out a usage message.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-verbose"/><emphasis role="bold">-verbose</emphasis></term>
-          <listitem>
-            <para>
-	      Print extra information about the operations being performed.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-issuer_checks"/><emphasis role="bold">-issuer_checks</emphasis></term>
-          <listitem>
-            <para>
-	      Print out diagnostics relating to searches for the issuer
-	      certificate of the current certificate. This shows why each
-	      candidate issuer certificate was rejected. The presence of
-	      rejection messages does not itself imply that anything is
-	      wrong; during the normal verification process, several
-	      rejections may take place.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-attime_timestamp"/><emphasis role="bold">-attime timestamp</emphasis></term>
           <listitem>
             <para>
@@ -127,52 +89,19 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-policy_arg"/><emphasis role="bold">-policy arg</emphasis></term>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-check_ss_sig"/><emphasis role="bold">-check_ss_sig</emphasis></term>
           <listitem>
             <para>
-	      Enable policy processing and add <emphasis role="bold">arg</emphasis> to the user-initial-policy-set
-	      (see RFC5280). The policy <emphasis role="bold">arg</emphasis> can be an object name an OID in
-	      numeric form. This argument can appear more than once.
+	      Verify the signature on the self-signed root CA. This is
+	      disabled by default because it doesn't add any security.
             </para>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-policy_check"/><emphasis role="bold">-policy_check</emphasis></term>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-crlfile_file"/><emphasis role="bold">-crlfile file</emphasis></term>
           <listitem>
             <para>
-	      Enables certificate policy processing.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-explicit_policy"/><emphasis role="bold">-explicit_policy</emphasis></term>
-          <listitem>
-            <para>
-	      Set policy variable require-explicit-policy (see RFC5280).
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-inhibit_any"/><emphasis role="bold">-inhibit_any</emphasis></term>
-          <listitem>
-            <para>
-	      Set policy variable inhibit-any-policy (see RFC5280).
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-inhibit_map"/><emphasis role="bold">-inhibit_map</emphasis></term>
-          <listitem>
-            <para>
-	      Set policy variable inhibit-policy-mapping (see RFC5280).
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-policy_print"/><emphasis role="bold">-policy_print</emphasis></term>
-          <listitem>
-            <para>
-	      Print out diagnostics related to policy processing.
+	      File containing one or more CRL's (in PEM format) to load.
             </para>
           </listitem>
         </varlistentry>
@@ -197,22 +126,10 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-ignore_critical"/><emphasis role="bold">-ignore_critical</emphasis></term>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-explicit_policy"/><emphasis role="bold">-explicit_policy</emphasis></term>
           <listitem>
             <para>
-	      Normally if an unhandled critical extension is present which
-	      is not supported by OpenSSL the certificate is rejected (as
-	      required by RFC5280). If this option is set critical
-	      extensions are ignored.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-x509_strict"/><emphasis role="bold">-x509_strict</emphasis></term>
-          <listitem>
-            <para>
-	      For strict X.509 compliance, disable non-compliant
-	      workarounds for broken certificates.
+	      Set policy variable require-explicit-policy (see RFC5280).
             </para>
           </listitem>
         </varlistentry>
@@ -226,6 +143,134 @@
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-help"/><emphasis role="bold">-help</emphasis></term>
+          <listitem>
+            <para>
+	      Print out a usage message.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-ignore_critical"/><emphasis role="bold">-ignore_critical</emphasis></term>
+          <listitem>
+            <para>
+	      Normally if an unhandled critical extension is present which
+	      is not supported by OpenSSL the certificate is rejected (as
+	      required by RFC5280). If this option is set critical
+	      extensions are ignored.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-inhibit_any"/><emphasis role="bold">-inhibit_any</emphasis></term>
+          <listitem>
+            <para>
+	      Set policy variable inhibit-any-policy (see RFC5280).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-inhibit_map"/><emphasis role="bold">-inhibit_map</emphasis></term>
+          <listitem>
+            <para>
+	      Set policy variable inhibit-policy-mapping (see RFC5280).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-issuer_checks"/><emphasis role="bold">-issuer_checks</emphasis></term>
+          <listitem>
+            <para>
+	      Print out diagnostics relating to searches for the issuer
+	      certificate of the current certificate. This shows why each
+	      candidate issuer certificate was rejected. The presence of
+	      rejection messages does not itself imply that anything is
+	      wrong; during the normal verification process, several
+	      rejections may take place.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-partial_chain"/><emphasis role="bold">-partial_chain</emphasis></term>
+          <listitem>
+            <para>
+	      Allow partial certificate chain if at least one certificate
+	      is in trusted store.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-policy_arg"/><emphasis role="bold">-policy arg</emphasis></term>
+          <listitem>
+            <para>
+	      Enable policy processing and add <emphasis role="bold">arg</emphasis> to the user-initial-policy-set
+	      (see RFC5280). The policy <emphasis role="bold">arg</emphasis> can be an object name an OID in
+	      numeric form. This argument can appear more than once.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-policy_check"/><emphasis role="bold">-policy_check</emphasis></term>
+          <listitem>
+            <para>
+	      Enables certificate policy processing.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-policy_print"/><emphasis role="bold">-policy_print</emphasis></term>
+          <listitem>
+            <para>
+	      Print out diagnostics related to policy processing.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-purpose_purpose"/><emphasis role="bold">-purpose purpose</emphasis></term>
+          <listitem>
+            <para>
+	      The intended use for the certificate. If this option is not
+	      specified, <emphasis role="bold">verify</emphasis> will not
+	      consider certificate purpose during chain verification.
+	      Currently accepted uses are <emphasis role="bold">sslclient</emphasis>, <emphasis role="bold">sslserver</emphasis>, <emphasis role="bold">nssslserver</emphasis>, <emphasis role="bold">smimesign</emphasis>, <emphasis role="bold">smimeencrypt</emphasis>. See the <emphasis role="bold">VERIFY OPERATION</emphasis> section for more
+	      information.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-suiteB_128_only_-suiteB_128_-suiteB_192"/><emphasis role="bold">-suiteB_128_only</emphasis>, <emphasis role="bold">-suiteB_128</emphasis>, <emphasis role="bold">-suiteB_192</emphasis></term>
+          <listitem>
+            <para>
+	      enable the Suite B mode operation at 128 bit Level of
+	      Security, 128 bit or 192 bit, or only 192 bit Level of
+	      Security respectively. See RFC6460 for details. In particular
+	      the supported signature algorithms are reduced to support
+	      only ECDSA and SHA256 or SHA384 and only the elliptic curves
+	      P-256 and P-384.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-trusted_first"/><emphasis role="bold">-trusted_first</emphasis></term>
+          <listitem>
+            <para>
+	      Use certificates in CA file or CA directory before
+	      certificates in untrusted file when building the trust chain
+	      to verify certificates. This is mainly useful in environments
+	      with Bridge CA or Cross-Certified CAs.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-untrusted_file"/><emphasis role="bold">-untrusted file</emphasis></term>
+          <listitem>
+            <para>
+	      A file of untrusted certificates. The file should contain
+	      multiple certificates in PEM format concatenated together.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-use_deltas"/><emphasis role="bold">-use_deltas</emphasis></term>
           <listitem>
             <para>
@@ -234,11 +279,67 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-check_ss_sig"/><emphasis role="bold">-check_ss_sig</emphasis></term>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-verbose"/><emphasis role="bold">-verbose</emphasis></term>
           <listitem>
             <para>
-	      Verify the signature on the self-signed root CA. This is
-	      disabled by default because it doesn't add any security.
+	      Print extra information about the operations being performed.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-verify_depth_num"/><emphasis role="bold">-verify_depth num</emphasis></term>
+          <listitem>
+            <para>
+	      Limit the maximum depth of the certificate chain to <emphasis role="bold">num</emphasis> certificates.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-verify_email_email"/><emphasis role="bold">-verify_email email</emphasis></term>
+          <listitem>
+            <para>
+	      Verify if the <emphasis role="bold">email</emphasis> matches
+	      the email address in Subject Alternative Name or the email in
+	      the subject Distinguished Name.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-verify_hostname_hostname"/><emphasis role="bold">-verify_hostname hostname</emphasis></term>
+          <listitem>
+            <para>
+	      Verify if the <emphasis role="bold">hostname</emphasis>
+	      matches DNS name in Subject Alternative Name or Common Name
+	      in the subject certificate.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-verify_ip_ip"/><emphasis role="bold">-verify_ip ip</emphasis></term>
+          <listitem>
+            <para>
+	      Verify if the <emphasis role="bold">ip</emphasis> matches the
+	      IP address in Subject Alternative Name of the subject
+	      certificate.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-verify_name_name"/><emphasis role="bold">-verify_name name</emphasis></term>
+          <listitem>
+            <para>
+	      Use default verification options like trust model and
+	      required certificate policies identified by <emphasis role="bold">name</emphasis>. Supported usages include:
+	      default, pkcs7, smime_sign, ssl_client, ssl_server.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-x509_strict"/><emphasis role="bold">-x509_strict</emphasis></term>
+          <listitem>
+            <para>
+	      For strict X.509 compliance, disable non-compliant
+	      workarounds for broken certificates.
             </para>
           </listitem>
         </varlistentry>
@@ -668,7 +769,7 @@ error 24 at 1 depth lookup:invalid CA certificate</screen>
       X509_LOOKUP API. One consequence of this is that trusted certificates
       with matching subject name must either appear in a file (as specified
       by the <emphasis role="bold">-CAfile</emphasis> option) or a
-      directory (as specified by <emphasis role="bold">-CApath</emphasis>.
+      directory (as specified by <emphasis role="bold">-CApath</emphasis>).
       If they occur in both then only the certificates in the file will be
       recognised.
     </para>

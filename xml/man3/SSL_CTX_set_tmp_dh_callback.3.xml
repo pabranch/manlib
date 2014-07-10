@@ -12,10 +12,9 @@
 <synopsis format="linespecific">void SSL_CTX_set_tmp_dh_callback(SSL_CTX *ctx,
            DH *(*tmp_dh_callback)(SSL *ssl, int is_export, int keylength));
 long SSL_CTX_set_tmp_dh(SSL_CTX *ctx, DH *dh);</synopsis>
-<synopsis format="linespecific">void SSL_set_tmp_dh_callback(SSL_CTX *ctx,
+<synopsis format="linespecific">void SSL_set_tmp_dh_callback(SSL *ctx,
            DH *(*tmp_dh_callback)(SSL *ssl, int is_export, int keylength));
 long SSL_set_tmp_dh(SSL *ssl, DH *dh)</synopsis>
-<synopsis format="linespecific">DH *(*tmp_dh_callback)(SSL *ssl, int is_export, int keylength));</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tmp_dh_callback.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
@@ -93,12 +92,13 @@ long SSL_set_tmp_dh(SSL *ssl, DH *dh)</synopsis>
     </para>
     <para>
       Application authors may compile in DH parameters. Files dh512.pem,
-      dh1024.pem, dh2048.pem, and dh4096 in the 'apps' directory of current
-      version of the OpenSSL distribution contain the 'SKIP' DH parameters,
-      which use safe primes and were generated verifiably pseudo-randomly.
-      These files can be converted into C code using the <emphasis role="bold">-C</emphasis> option of the dhparam(1) application.
-      Authors may also generate their own set of parameters using
-      dhparam(1), but a user may not be sure how the parameters were
+      dh1024.pem, dh2048.pem, and dh4096.pem in the 'apps' directory of
+      current version of the OpenSSL distribution contain the 'SKIP' DH
+      parameters, which use safe primes and were generated verifiably
+      pseudo-randomly. These files can be converted into C code using the
+      <emphasis role="bold">-C</emphasis> option of the dhparam(1)
+      application. Authors may also generate their own set of parameters
+      using dhparam(1), but a user may not be sure how the parameters were
       generated. The generation of DH parameters during installation is
       therefore recommended.
     </para>

@@ -1,4 +1,4 @@
-.TH VGCHANGE 8 "LVM TOOLS 2.02.107(2)-git (2014-04-10)" "Sistina Software UK" \" -*- nroff -*-
+.TH VGCHANGE 8 "LVM TOOLS 2.02.108(2)-git (2014-06-23)" "Sistina Software UK" \" -*- nroff -*-
 .SH NAME
 vgchange \(em change attributes of a volume group
 .SH SYNOPSIS
@@ -12,6 +12,8 @@ vgchange \(em change attributes of a volume group
 .RB [ \-a | \-\-activate
 .RI [ a | e | l ]
 .RI { y | n }]
+.RB [ \-\-activationmode
+.IR { complete | degraded | partial } ]
 .RB [ \-K | \-\-ignoreactivationskip ]
 .RB [ \-\-monitor
 .RI { y | n }]
@@ -83,11 +85,36 @@ The \-aay option should be also used during system boot so it's
 possible to select which volumes to activate using the
 activation/auto_activation_volume_list settting.
 .IP
+Activation of a logical volume creates a symbolic link 
+/dev/VolumeGroupName/LogicalVolumeName pointing to the device node.
+This link is removed on deactivation.
+All software and scripts should access the device through
+this symbolic link and present this as the name of the device.
+The location and name of the underlying device node may depend on   
+the distribution and configuration (e.g. udev) and might change 
+from release to release.
+.IP
 If clustered locking is enabled, add 'e' to activate/deactivate
 exclusively on one node or 'l' to activate/deactivate only
 on the local node.
 Logical volumes with single-host snapshots are always activated
 exclusively because they can only be used on one node at once.
+.TP
+.BR \-\-activationmode " {" \fIcomplete | \fIdegraded | \fIpartial }
+The activation mode determines whether logical volumes are allowed to
+activate when there are physical volumes missing (e.g. due to a device
+failure).  \fIcomplete is the most restrictive; allowing only those
+logical volumes to be activated that are not affected by the missing
+PVs.  \fIdegraded allows RAID logical volumes to be activated even if
+they have PVs missing.  (Note that the "mirror" segment type is not
+considered a RAID logical volume.  The "raid1" segment type should
+be used instead.)  Finally, \fIpartial allows any logical volume to
+be activated even if portions are missing due to a missing or failed
+PV.  This last option should only be used when performing recovery or
+repair operations.  \fIdegraded is the default mode.  To change it, modify
+.B activation_mode
+in
+.BR lvm.conf (5).
 .TP
 .BR \-K ", " \-\-ignoreactivationskip
 Ignore the flag to skip Logical Volumes during activation.

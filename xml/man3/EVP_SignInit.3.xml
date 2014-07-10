@@ -33,10 +33,11 @@ int EVP_SignFinal(EVP_MD_CTX *ctx,unsigned char *sig,unsigned int *s, EVP_PKEY *
       include additional data.
     </para>
     <para>
-      EVP_SignFinal() signs the data in <emphasis role="bold">ctx</emphasis> using the private key <emphasis role="bold">pkey</emphasis> and places the signature in <emphasis role="bold">sig</emphasis>. The number of bytes of data written (i.e.
-      the length of the signature) will be written to the integer at
-      <emphasis role="bold">s</emphasis>, at most EVP_PKEY_size(pkey) bytes
-      will be written.
+      EVP_SignFinal() signs the data in <emphasis role="bold">ctx</emphasis> using the private key <emphasis role="bold">pkey</emphasis> and places the signature in <emphasis role="bold">sig</emphasis>. <emphasis role="bold">sig</emphasis> must
+      be at least EVP_PKEY_size(pkey) bytes in size. <emphasis role="bold">s</emphasis> is an OUT paramter, and not used as an IN
+      parameter. The number of bytes of data written (i.e. the length of
+      the signature) will be written to the integer at <emphasis role="bold">s</emphasis>, at most EVP_PKEY_size(pkey) bytes will be
+      written.
     </para>
     <para>
       EVP_SignInit() initializes a signing context <emphasis role="bold">ctx</emphasis> to use the default implementation of

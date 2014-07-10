@@ -131,7 +131,7 @@
                 <function>sd_journal_previous_skip()</function> interfaces are
                 available as a shared library, which can be compiled and
                 linked to with the
-                <constant>libsystemd</constant> <citerefentry><refentrytitle>pkg-config</refentrytitle><manvolnum>1</manvolnum></citerefentry>
+                <constant>libsystemd</constant> <citerefentry project="die-net"><refentrytitle>pkg-config</refentrytitle><manvolnum>1</manvolnum></citerefentry>
                 file.</para>
         </refsect1>
 
@@ -156,7 +156,7 @@ int main(int argc, char *argv[]) {
                 const char *d;
                 size_t l;
 
-                r = sd_journal_get_data(j, "MESSAGE", &amp;d, &amp;l);
+                r = sd_journal_get_data(j, "MESSAGE", (const void **)&amp;d, &amp;l);
                 if (r &lt; 0) {
                         fprintf(stderr, "Failed to read message field: %s\n", strerror(-r));
                         continue;

@@ -1,9 +1,10 @@
-.TH LVS 8 "LVM TOOLS 2.02.107(2)-git (2014-04-10)" "Sistina Software UK" \" -*- nroff -*-
+.TH LVS 8 "LVM TOOLS 2.02.108(2)-git (2014-06-23)" "Sistina Software UK" \" -*- nroff -*-
 .SH NAME
 lvs \(em report information about logical volumes
 .SH SYNOPSIS
 .B lvs
 .RB [ \-\-aligned ]
+.RB [ \-\-binary ]
 .RB [ \-a | \-\-all ]
 .RB [ \-\-commandprofile
 .IR ProfileName ]
@@ -20,6 +21,8 @@ lvs \(em report information about logical volumes
 .RI [ + | \- ] Key1 [,[ + | \- ] Key2 [,...]]]
 .RB [ \-P | \-\-partial ]
 .RB [ \-\-rows ]
+.RB [ \-S | \-\-select
+.IR Selection ]
 .RB [ \-\-separator
 .IR Separator ]
 .RB [ \-\-segments ]
@@ -41,6 +44,11 @@ for common options.
 .TP
 .B \-\-aligned
 Use with \fB\-\-separator\fP to align the output columns.
+.TP
+.B \-\-binary
+Use binary values "0" or "1" instead of descriptive literal values
+for columns that have exactly two valid values to report (not counting
+the "unknown" value which denotes that the value could not be determined).
 .TP
 .B \-\-all
 Include information in the output about internal Logical Volumes that
@@ -194,6 +202,18 @@ selection. Precede any column with '\fI\-\fP' for a reverse sort on that column.
 .TP
 .B \-\-rows
 Output columns as rows.
+.TP
+.BR  \-S ", " \-\-select " " \fISelection
+Display only rows that match Selection criteria. All rows are displayed with
+the additional "selected" column (\fB-o selected\fP) showing 1 if the row
+matches the Selection and 0 otherwise. The Selection criteria are defined
+by specifying column names and their valid values (that can include reserved
+values) while making use of supported comparison operators. See \fBlvm\fP(8)
+and \fB\-S\fP, \fB\-\-select\fP description for more detailed information
+about constructing the Selection criteria. As a quick help and to see full
+list of column names that can be used in Selection including the list of
+reserved values and the set of supported selection operators, check the
+output of \fBlvs -S help\fP command.
 .TP
 .B \-\-segments
 Use default columns that emphasize segment information.

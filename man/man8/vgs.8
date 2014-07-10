@@ -1,10 +1,11 @@
-.TH VGS 8 "LVM TOOLS 2.02.107(2)-git (2014-04-10)" "Sistina Software UK" \" -*- nroff -*-
+.TH VGS 8 "LVM TOOLS 2.02.108(2)-git (2014-06-23)" "Sistina Software UK" \" -*- nroff -*-
 .SH NAME
 vgs \(em report information about volume groups
 .SH SYNOPSIS
 .B vgs
 .RB [ \-a | \-\-all ]
 .RB [ \-\-aligned ]
+.RB [ \-\-binary ]
 .RB [ \-\-commandprofile
 .IR ProfileName ]
 .RB [ \-d | \-\-debug ]
@@ -20,6 +21,8 @@ vgs \(em report information about volume groups
 .RI [ + | \- ] Key1 [ , [ + | \- ] Key2 ...]]
 .RB [ \-P | \-\-partial ]
 .RB [ \-\-rows ]
+.RB [ \-S | \-\-select
+.IR Selection ]
 .RB [ \-\-separator
 .IR Separator ]
 .RB [ \-\-unbuffered ]
@@ -40,6 +43,11 @@ List all volume groups.  Equivalent to not specifying any volume groups.
 .TP
 .B \-\-aligned
 Use with \fB\-\-separator\fP to align the output columns.
+.TP
+.B \-\-binary
+Use binary values "0" or "1" instead of descriptive literal values
+for columns that have exactly two valid values to report (not counting
+the "unknown" value which denotes that the value could not be determined).
 .TP
 .B \-\-nameprefixes
 Add an "LVM2_" prefix plus the field name to the output.  Useful
@@ -83,7 +91,7 @@ E(x)ported
 (p)artial: one or more physical volumes belonging to the volume group
 are missing from the system
 .IP 5 3
-Allocation policy: (c)ontiguous, c(l)ing, (n)ormal, (a)nywhere, (i)nherited
+Allocation policy: (c)ontiguous, c(l)ing, (n)ormal, (a)nywhere
 .IP 6 3
 (c)lustered
 .RE
@@ -95,6 +103,18 @@ column.
 .TP
 .B \-\-rows
 Output columns as rows.
+.TP
+.BR  \-S ", " \-\-select " " \fISelection
+Display only rows that match Selection criteria. All rows are displayed with
+the additional "selected" column (\fB-o selected\fP) showing 1 if the row
+matches the Selection and 0 otherwise. The Selection criteria are defined
+by specifying column names and their valid values (that can include reserved
+values) while making use of supported comparison operators. See \fBlvm\fP(8)
+and \fB\-S\fP, \fB\-\-select\fP description for more detailed information
+about constructing the Selection criteria. As a quick help and to see full
+list of column names that can be used in Selection including the list of
+reserved values and the set of supported selection operators, check the
+output of \fBvgs -S help\fP command.
 .TP
 .B \-\-separator \fISeparator
 String to use to separate each column.  Useful if grepping the output.

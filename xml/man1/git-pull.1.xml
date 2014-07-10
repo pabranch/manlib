@@ -550,67 +550,52 @@ the current repository has the same history as the source repository.</simpara>
 </term>
 <listitem>
 <simpara>
-        The format of a &lt;refspec&gt; parameter is an optional plus
-        <literal>+</literal>, followed by the source ref &lt;src&gt;, followed
-        by a colon <literal>:</literal>, followed by the destination ref &lt;dst&gt;.
+        Specifies which refs to fetch and which local refs to update.
+        When no &lt;refspec&gt;s appear on the command line, the refs to fetch
+        are read from <literal>remote.&lt;repository&gt;.fetch</literal> variables instead
+        (see <citerefentry>
+<refentrytitle>git-fetch</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>).
 </simpara>
+<simpara>The format of a &lt;refspec&gt; parameter is an optional plus
+<literal>+</literal>, followed by the source ref &lt;src&gt;, followed
+by a colon <literal>:</literal>, followed by the destination ref &lt;dst&gt;.
+The colon can be omitted when &lt;dst&gt; is empty.</simpara>
+<simpara><literal>tag &lt;tag&gt;</literal> means the same as <literal>refs/tags/&lt;tag&gt;:refs/tags/&lt;tag&gt;</literal>;
+it requests fetching everything up to the given tag.</simpara>
 <simpara>The remote ref that matches &lt;src&gt;
 is fetched, and if &lt;dst&gt; is not empty string, the local
 ref that matches it is fast-forwarded using &lt;src&gt;.
 If the optional plus <literal>+</literal> is used, the local ref
 is updated even if it does not result in a fast-forward
 update.</simpara>
-<note><simpara>If the remote branch from which you want to pull is
-modified in non-linear ways such as being rewound and
-rebased frequently, then a pull will attempt a merge with
-an older version of itself, likely conflict, and fail.
-It is under these conditions that you would want to use
-the <literal>+</literal> sign to indicate non-fast-forward updates will
-be needed.  There is currently no easy way to determine
-or declare that a branch will be made available in a
-repository with this behavior; the pulling user simply
+<note><simpara>When the remote branch you want to fetch is known to
+be rewound and rebased regularly, it is expected that
+its new tip will not be descendant of its previous tip
+(as stored in your remote-tracking branch the last time
+you fetched).  You would want
+to use the <literal>+</literal> sign to indicate non-fast-forward updates
+will be needed for such branches.  There is no way to
+determine or declare that a branch will be made available
+in a repository with this behavior; the pulling user simply
 must know this is the expected usage pattern for a branch.</simpara></note>
-<note><simpara>You never do your own development on branches that appear
-on the right hand side of a &lt;refspec&gt; colon on <literal>Pull:</literal> lines;
-they are to be updated by <emphasis>git fetch</emphasis>.  If you intend to do
-development derived from a remote branch <literal>B</literal>, have a <literal>Pull:</literal>
-line to track it (i.e. <literal>Pull: B:remote-B</literal>), and have a separate
-branch <literal>my-B</literal> to do your development on top of it.  The latter
-is created by <literal>git branch my-B remote-B</literal> (or its equivalent <literal>git
-checkout -b my-B remote-B</literal>).  Run <literal>git fetch</literal> to keep track of
-the progress of the remote side, and when you see something new
-on the remote branch, merge it into your development branch with
-<literal>git pull . remote-B</literal>, while you are on <literal>my-B</literal> branch.</simpara></note>
 <note><simpara>There is a difference between listing multiple &lt;refspec&gt;
 directly on <emphasis>git pull</emphasis> command line and having multiple
-<literal>Pull:</literal> &lt;refspec&gt; lines for a &lt;repository&gt; and running
+<literal>remote.&lt;repository&gt;.fetch</literal> entries in your configuration
+for a &lt;repository&gt; and running a
 <emphasis>git pull</emphasis> command without any explicit &lt;refspec&gt; parameters.
-&lt;refspec&gt; listed explicitly on the command line are always
+&lt;refspec&gt;s listed explicitly on the command line are always
 merged into the current branch after fetching.  In other words,
-if you list more than one remote refs, you would be making
-an Octopus.  While <emphasis>git pull</emphasis> run without any explicit &lt;refspec&gt;
-parameter takes default &lt;refspec&gt;s from <literal>Pull:</literal> lines, it
-merges only the first &lt;refspec&gt; found into the current branch,
-after fetching all the remote refs.  This is because making an
+if you list more than one remote ref, <emphasis>git pull</emphasis> will create
+an Octopus merge.  On the other hand, if you do not list any
+explicit &lt;refspec&gt; parameter on the command line, <emphasis>git pull</emphasis>
+will fetch all the &lt;refspec&gt;s it finds in the
+<literal>remote.&lt;repository&gt;.fetch</literal> configuration and merge
+only the first &lt;refspec&gt; found into the current branch.
+This is because making an
 Octopus from remote refs is rarely done, while keeping track
 of multiple remote heads in one-go by fetching more than one
 is often useful.</simpara></note>
-<simpara>Some short-cut notations are also supported.</simpara>
-<itemizedlist>
-<listitem>
-<simpara>
-<literal>tag &lt;tag&gt;</literal> means the same as <literal>refs/tags/&lt;tag&gt;:refs/tags/&lt;tag&gt;</literal>;
-  it requests fetching everything up to the given tag.
-</simpara>
-</listitem>
-<listitem>
-<simpara>
-A parameter &lt;ref&gt; without a colon merges &lt;ref&gt; into the current
-  branch,
-  and updates the remote-tracking branches (if any).
-</simpara>
-</listitem>
-</itemizedlist>
 </listitem>
 </varlistentry>
 </variablelist>

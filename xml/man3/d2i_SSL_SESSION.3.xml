@@ -52,7 +52,12 @@ int i2d_SSL_SESSION(SSL_SESSION *in, unsigned char **pp);</synopsis>
       size of the created ASN1 representation, so the necessary amount of
       space should be obtained by first calling i2d_SSL_SESSION() with
       <emphasis role="bold">pp=NULL</emphasis>, and obtain the size needed,
-      then allocate the memory and call i2d_SSL_SESSION() again.
+      then allocate the memory and call i2d_SSL_SESSION() again. Note that
+      this will advance the value contained in <emphasis role="bold">*pp</emphasis> so it is necessary to save a copy of the
+      original allocation. For example: int i,j; char *p, *temp; i =
+      i2d_SSL_SESSION(sess, NULL); p = temp = malloc(i); j =
+      i2d_SSL_SESSION(sess, &amp;amp;temp); assert(i == j); assert(p+i ==
+      temp);
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.d2i_SSL_SESSION.pod:RETURN_VALUES"><title>RETURN VALUES</title>

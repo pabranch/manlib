@@ -43,7 +43,7 @@
                 (e.g. "lennarts-laptop"), and the transient hostname
                 which is a default received from network configuration.
                 If a static hostname is set, and is valid (something other
-                than localhost) then the transient hostname is not used.</para>
+                than localhost), then the transient hostname is not used.</para>
 
                 <para>Note that the pretty hostname has little
                 restrictions on the characters used, while the static
@@ -56,7 +56,12 @@
                 for more information. The pretty hostname, chassis
                 type, and icon name are stored in
                 <filename>/etc/machine-info</filename>, see
-                <citerefentry><refentrytitle>machine-id</refentrytitle><manvolnum>5</manvolnum></citerefentry>.</para>
+                <citerefentry><refentrytitle>machine-info</refentrytitle><manvolnum>5</manvolnum></citerefentry>.</para>
+
+                <para>Use
+                <citerefentry><refentrytitle>systemd-firstboot</refentrytitle><manvolnum>1</manvolnum></citerefentry>
+                to initialize the system host name for mounted (but
+                not booted) system images.</para>
         </refsect1>
 
         <refsect1>
@@ -71,14 +76,6 @@
                                 <listitem><para>Do not query the user
                                 for authentication for privileged
                                 operations.</para></listitem>
-                        </varlistentry>
-
-                        <varlistentry>
-                                <term><option>-P</option></term>
-                                <term><option>--privileged</option></term>
-
-                                <listitem><para>Acquire privileges via PolicyKit
-                                before executing the operation.</para></listitem>
                         </varlistentry>
 
                         <varlistentry>
@@ -108,10 +105,15 @@
     <term><option>--host=</option></term>
 
     <listitem xml:id="host-text">
-      <para>Execute the operation remotely. Specify a hostname, or
+      <para>Execute the operation remotely. Specify a hostname, or a
       username and hostname separated by <literal>@</literal>, to
-      connect to. This will use SSH to talk to the remote machine
-      manager instance.</para>
+      connect to. The hostname may optionally be suffixed by a
+      container name, separated by <literal>:</literal>, which
+      connects directly to a specific container on the specified
+      host. This will use SSH to talk to the remote machine manager
+      instance. Container names may be enumerated with
+      <command>machinectl -H
+      <replaceable>HOST</replaceable></command>.</para>
     </listitem>
   </varlistentry>
 
@@ -207,7 +209,8 @@
                                 <literal>laptop</literal>,
                                 <literal>server</literal>,
                                 <literal>tablet</literal>,
-                                <literal>handset</literal>, as well as
+				<literal>handset</literal>,
+				<literal>watch</literal>, as well as
                                 the special chassis types
                                 <literal>vm</literal> and
                                 <literal>container</literal> for
@@ -238,7 +241,8 @@
                         <citerefentry><refentrytitle>hostname</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>machine-info</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>systemctl</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>systemd-hostnamed.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+                        <citerefentry><refentrytitle>systemd-hostnamed.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+                        <citerefentry><refentrytitle>systemd-firstboot</refentrytitle><manvolnum>1</manvolnum></citerefentry>
                 </para>
         </refsect1>
 

@@ -16,6 +16,7 @@
 <refsynopsisdiv id="_synopsis">
 <blockquote>
 <literallayout><emphasis>git replace</emphasis> [-f] &lt;object&gt; &lt;replacement&gt;
+<emphasis>git replace</emphasis> [-f] --edit &lt;object&gt;
 <emphasis>git replace</emphasis> -d &lt;object&gt;&#8230;
 <emphasis>git replace</emphasis> [--format=&lt;format&gt;] [-l [&lt;pattern&gt;]]</literallayout>
 </blockquote>
@@ -75,6 +76,24 @@ achieve the same effect as the <literal>--no-replace-objects</literal> option.</
 <listitem>
 <simpara>
         Delete existing replace refs for the given objects.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--edit &lt;object&gt;
+</term>
+<listitem>
+<simpara>
+        Edit an object&#8217;s content interactively. The existing content
+        for &lt;object&gt; is pretty-printed into a temporary file, an
+        editor is launched on the file, and the result is parsed to
+        create a new object of the same type as &lt;object&gt;. A
+        replacement ref is then created to replace &lt;object&gt; with the
+        newly created object. See <citerefentry>
+<refentrytitle>git-var</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> for details about
+        how the editor will be chosen.
 </simpara>
 </listitem>
 </varlistentry>
@@ -142,7 +161,9 @@ achieve the same effect as the <literal>--no-replace-objects</literal> option.</
 <citerefentry>
 <refentrytitle>git-rebase</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry>, among other git commands, can be used to create
-replacement objects from existing objects.</simpara>
+replacement objects from existing objects. The <literal>--edit</literal> option can
+also be used with <emphasis>git replace</emphasis> to create a replacement object by
+editing an existing object.</simpara>
 <simpara>If you want to replace many blobs, trees or commits that are part of a
 string of commits, you may just want to create a replacement string of
 commits and then only replace the commit at the tip of the target
@@ -174,6 +195,12 @@ pending objects.</simpara>
 </citerefentry>
 <citerefentry>
 <refentrytitle>git-branch</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>
+<citerefentry>
+<refentrytitle>git-commit</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>
+<citerefentry>
+<refentrytitle>git-var</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry>
 <citerefentry>
 <refentrytitle>git</refentrytitle><manvolnum>1</manvolnum>

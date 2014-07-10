@@ -14,6 +14,8 @@
 [<emphasis role="bold">-name section</emphasis>]
 [<emphasis role="bold">-gencrl</emphasis>]
 [<emphasis role="bold">-revoke file</emphasis>]
+[<emphasis role="bold">-status serial</emphasis>]
+[<emphasis role="bold">-updatedb</emphasis>]
 [<emphasis role="bold">-crl_reason reason</emphasis>]
 [<emphasis role="bold">-crl_hold instruction</emphasis>]
 [<emphasis role="bold">-crl_compromise time</emphasis>]
@@ -27,6 +29,7 @@
 [<emphasis role="bold">-md arg</emphasis>]
 [<emphasis role="bold">-policy arg</emphasis>]
 [<emphasis role="bold">-keyfile arg</emphasis>]
+[<emphasis role="bold">-keyform PEM|DER</emphasis>]
 [<emphasis role="bold">-key arg</emphasis>]
 [<emphasis role="bold">-passin arg</emphasis>]
 [<emphasis role="bold">-cert file</emphasis>]
@@ -104,7 +107,7 @@
 	      a file containing a single Netscape signed public key and
 	      challenge and additional field values to be signed by the CA.
 	      See the <emphasis role="bold">SPKAC FORMAT</emphasis> section
-	      for information on the required format.
+	      for information on the required input and output format.
             </para>
           </listitem>
         </varlistentry>
@@ -124,7 +127,7 @@
             <para>
 	      the output file to output certificates to. The default is
 	      standard output. The certificate details will also be printed
-	      out to this file.
+	      out to this file in PEM format (except that <emphasis role="bold">-spkac</emphasis> outputs DER format).
             </para>
           </listitem>
         </varlistentry>
@@ -155,6 +158,15 @@
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ca.pod:-keyform_PEMDER"/><emphasis role="bold">-keyform PEM|DER</emphasis></term>
+          <listitem>
+            <para>
+	      the format of the data in the private key file. The default
+	      is PEM.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.apps.ca.pod:-key_password"/><emphasis role="bold">-key password</emphasis></term>
           <listitem>
             <para>
@@ -171,7 +183,7 @@
             <para>
 	      indicates the issued certificates are to be signed with the
 	      key the certificate requests were signed with (given with
-	      <emphasis role="bold">-keyfile</emphasis>). Cerificate
+	      <emphasis role="bold">-keyfile</emphasis>). Certificate
 	      requests signed with a different key are ignored.  If
 	      <emphasis role="bold">-spkac</emphasis>, <emphasis role="bold">-ss_cert</emphasis> or <emphasis role="bold">-gencrl</emphasis> are given, <emphasis role="bold">-selfsign</emphasis> is ignored.
             </para>
@@ -376,7 +388,7 @@
           <term><anchor xml:id="sources.openssl.doc.apps.ca.pod:-multivalue-rdn"/><emphasis role="bold">-multivalue-rdn</emphasis></term>
           <listitem>
             <para>
-	      this option causes the -subj argument to be interpretedt with
+	      This option causes the -subj argument to be interpretedt with
 	      full support for multivalued RDNs. Example:
             </para>
             <para>
@@ -429,6 +441,23 @@
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ca.pod:-status_serial"/><emphasis role="bold">-status serial</emphasis></term>
+          <listitem>
+            <para>
+	      displays the revocation status of the certificate with the
+	      specified serial number and exits.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ca.pod:-updatedb"/><emphasis role="bold">-updatedb</emphasis></term>
+          <listitem>
+            <para>
+	      Updates the database index to purge expired certificates.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.apps.ca.pod:-crl_reason_reason"/><emphasis role="bold">-crl_reason reason</emphasis></term>
           <listitem>
             <para>
@@ -437,7 +466,7 @@
 	      Setting any revocation reason will make the CRL v2.
             </para>
             <para>
-	      In practive <emphasis role="bold">removeFromCRL</emphasis> is
+	      In practice <emphasis role="bold">removeFromCRL</emphasis> is
 	      not particularly useful because it is only used in delta CRLs
 	      which are not currently implemented.
             </para>
@@ -803,6 +832,11 @@
       need to include the same component twice then it can be preceded by a
       number and a '.'.
     </para>
+    <para>
+      When processing SPKAC format, the output is DER if the <emphasis role="bold">-out</emphasis> flag is used, but PEM format if sending
+      to stdout or the <emphasis role="bold">-outdir</emphasis> flag is
+      used.
+    </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.apps.ca.pod:EXAMPLES"><title>EXAMPLES</title>
     <para>
@@ -942,7 +976,7 @@ emailAddress           = optional</screen>
       should be more friendly and configurable.
     </para>
     <para>
-      Cancelling some commands by refusing to certify a certificate can
+      Canceling some commands by refusing to certify a certificate can
       create an empty file.
     </para>
   </refsection>
@@ -968,7 +1002,7 @@ emailAddress           = optional</screen>
       used with caution. If care is not taken then it can be a security
       risk. For example if a certificate request contains a
       basicConstraints extension with CA:TRUE and the <emphasis role="bold">copy_extensions</emphasis> value is set to <emphasis role="bold">copyall</emphasis> and the user does not spot this when
-      the certificate is displayed then this will hand the requestor a
+      the certificate is displayed then this will hand the requester a
       valid CA certificate.
     </para>
     <para>

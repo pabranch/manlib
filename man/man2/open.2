@@ -48,7 +48,7 @@
 .\" FIXME . Apr 08: The next POSIX revision has O_EXEC, O_SEARCH, and
 .\" O_TTYINIT.  Eventually these may need to be documented.  --mtk
 .\"
-.TH OPEN 2 2014-05-10 "Linux" "Linux Programmer's Manual"
+.TH OPEN 2 2014-07-08 "Linux" "Linux Programmer's Manual"
 .SH NAME
 open, openat, creat \- open and possibly create a file
 .SH SYNOPSIS
@@ -576,7 +576,8 @@ When
 is specified in
 .IR flags ,
 flag bits other than
-.BR O_DIRECTORY
+.BR O_CLOEXEC ,
+.BR O_DIRECTORY ,
 and
 .BR O_NOFOLLOW
 are ignored.
@@ -1104,7 +1105,7 @@ flag, its st_ctime and st_mtime fields are set to the current time.
 .SS Open file descriptions
 The term open file description is the one used by POSIX to refer to the
 entries in the system-wide table of open files.
-In other contexts, this object is 
+In other contexts, this object is
 variously also called an "open file object",
 a "file handle", an "open file table entry",
 or\(emin kernel-developer parlance\(ema
@@ -1119,7 +1120,7 @@ and the two file descriptors consequently share
 the file offset and file status flags.
 Such sharing can also occur between processes:
 a child process created via
-.BR fork (2) 
+.BR fork (2)
 inherits duplicates of its parent's file descriptors,
 and those duplicates refer to the same open file descriptions.
 
@@ -1424,7 +1425,7 @@ Likewise, applications should avoid mixing
 .BR mmap (2)
 of files with direct I/O to the same files.
 .LP
-The behaviour of
+The behavior of
 .B O_DIRECT
 with NFS will differ from local filesystems.
 Older kernels, or

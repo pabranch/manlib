@@ -4,7 +4,7 @@
     <refentrytitle>X509_VERIFY_PARAM_set_flags.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>X509_VERIFY_PARAM_set_flags, X509_VERIFY_PARAM_clear_flags, X509_VERIFY_PARAM_get_flags, X509_VERIFY_PARAM_set_purpose, X509_VERIFY_PARAM_set_trust, X509_VERIFY_PARAM_set_depth, X509_VERIFY_PARAM_get_depth, X509_VERIFY_PARAM_set_time, X509_VERIFY_PARAM_add0_policy, X509_VERIFY_PARAM_set1_policies</refname>
+    <refname>X509_VERIFY_PARAM_set_flags, X509_VERIFY_PARAM_clear_flags, X509_VERIFY_PARAM_get_flags, X509_VERIFY_PARAM_set_purpose, X509_VERIFY_PARAM_set_trust, X509_VERIFY_PARAM_set_depth, X509_VERIFY_PARAM_get_depth, X509_VERIFY_PARAM_set_time, X509_VERIFY_PARAM_add0_policy, X509_VERIFY_PARAM_set1_policies, X509_VERIFY_PARAM_set1_host, X509_VERIFY_PARAM_add1_host, X509_VERIFY_PARAM_set_hostflags, X509_VERIFY_PARAM_get0_peername, X509_VERIFY_PARAM_set1_email, X509_VERIFY_PARAM_set1_ip, X509_VERIFY_PARAM_set1_ip_asc</refname>
 <refpurpose>X509 verification parameters</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
@@ -23,15 +23,17 @@ int X509_VERIFY_PARAM_set1_policies(X509_VERIFY_PARAM *param,
 <synopsis format="linespecific">void X509_VERIFY_PARAM_set_depth(X509_VERIFY_PARAM *param, int depth);
 int X509_VERIFY_PARAM_get_depth(const X509_VERIFY_PARAM *param);</synopsis>
 <synopsis format="linespecific">int X509_VERIFY_PARAM_set1_host(X509_VERIFY_PARAM *param,
-                                const unsigned char *name, size_t namelen);
+                                const char *name, size_t namelen);
+int X509_VERIFY_PARAM_add1_host(X509_VERIFY_PARAM *param,
+                                const char *name, size_t namelen);
 void X509_VERIFY_PARAM_set_hostflags(X509_VERIFY_PARAM *param,
                                      unsigned int flags);
+char *X509_VERIFY_PARAM_get0_peername(X509_VERIFY_PARAM *param);
 int X509_VERIFY_PARAM_set1_email(X509_VERIFY_PARAM *param,
-                                const unsigned char *email, size_t emaillen);
+                                const char *email, size_t emaillen);
 int X509_VERIFY_PARAM_set1_ip(X509_VERIFY_PARAM *param,
                               const unsigned char *ip, size_t iplen);
-int X509_VERIFY_PARAM_set1_ip_asc(X509_VERIFY_PARAM *param,
-                                  const char *ipasc);</synopsis>
+int X509_VERIFY_PARAM_set1_ip_asc(X509_VERIFY_PARAM *param, const char *ipasc);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="sources.openssl.doc.crypto.X509_VERIFY_PARAM_set_flags.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
@@ -82,9 +84,15 @@ int X509_VERIFY_PARAM_set1_ip_asc(X509_VERIFY_PARAM *param,
     </para>
     <para>
       X509_VERIFY_PARAM_set1_host() sets the expected DNS hostname to
-      <emphasis role="bold">name</emphasis>.  If <emphasis role="bold">name</emphasis> is NUL-terminated, <emphasis role="bold">namelen</emphasis> may be zero, otherwise <emphasis role="bold">namelen</emphasis> must be set to the length of <emphasis role="bold">name</emphasis>.  When a hostname is specified,
-      certificate verification automatically invokes <citerefentry>
-      <refentrytitle>X509_check_host</refentrytitle>
+      <emphasis role="bold">name</emphasis> clearing any previously
+      specified host name or names.  If <emphasis role="bold">name</emphasis> is NULL, or empty the list of hostnames
+      is cleared, and name checks are not performed on the peer
+      certificate.  If <emphasis role="bold">name</emphasis> is
+      NUL-terminated, <emphasis role="bold">namelen</emphasis> may be zero,
+      otherwise <emphasis role="bold">namelen</emphasis> must be set to the
+      length of <emphasis role="bold">name</emphasis>.	When a hostname is
+      specified, certificate verification automatically invokes
+      <citerefentry> <refentrytitle>X509_check_host</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry> with flags equal to the
       <emphasis role="bold">flags</emphasis> argument given to <emphasis role="bold">X509_VERIFY_PARAM_set_hostflags()</emphasis> (default
       zero).  Applications are strongly advised to use this interface in
@@ -94,6 +102,25 @@ int X509_VERIFY_PARAM_set1_ip_asc(X509_VERIFY_PARAM *param,
       scope with the DANE-EE(3) certificate usage, and the internal check
       will be suppressed as appropriate when DANE support is added to
       OpenSSL.
+    </para>
+    <para>
+      X509_VERIFY_PARAM_add1_host() adds <emphasis role="bold">name</emphasis> as an additional reference identifer that
+      can match the peer's certificate.  Any previous names set via
+      X509_VERIFY_PARAM_set1_host() or X509_VERIFY_PARAM_add1_host() are
+      retained, no change is made if <emphasis role="bold">name</emphasis>
+      is NULL or empty.  When multiple names are configured, the peer is
+      considered verified when any name matches.
+    </para>
+    <para>
+      X509_VERIFY_PARAM_get0_peername() returns the DNS hostname or subject
+      CommonName from the peer certificate that matched one of the
+      reference identifiers.  When wildcard matching is not disabled, or
+      when a reference identifier specifies a parent domain (starts with
+      ".") rather than a hostname, the peer name may be a wildcard name or
+      a sub-domain of the reference identifier respectively.  The return
+      string is allocated by the library and is no longer valid once the
+      associated <emphasis role="bold">param</emphasis> argument is freed. 
+      Applications must not free the return value.
     </para>
     <para>
       X509_VERIFY_PARAM_set1_email() sets the expected RFC822 email address
@@ -254,7 +281,8 @@ X509_VERIFY_PARAM_free(param);</screen>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.X509_VERIFY_PARAM_set_flags.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      X509_verify_cert(3)
+      X509_verify_cert(3), X509_check_host(3), X509_check_email(3),
+      X509_check_ip(3)
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.X509_VERIFY_PARAM_set_flags.pod:HISTORY"><title>HISTORY</title>

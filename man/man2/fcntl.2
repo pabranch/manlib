@@ -59,7 +59,7 @@
 .\" 2010-06-17, Michael Kerrisk
 .\"	Document F_SETPIPE_SZ and F_GETPIPE_SZ.
 .\"
-.TH FCNTL 2 2014-05-21 "Linux" "Linux Programmer's Manual"
+.TH FCNTL 2 2014-07-08 "Linux" "Linux Programmer's Manual"
 .SH NAME
 fcntl \- manipulate file descriptor
 .SH SYNOPSIS
@@ -1155,22 +1155,50 @@ the following bits:
 .PD 0
 .TP 12
 .B DN_ACCESS
-A file was accessed (read, pread, readv)
+A file was accessed
+.RB ( read (2),
+.BR pread (2),
+.BR readv (2),
+and similar)
 .TP
 .B DN_MODIFY
-A file was modified (write, pwrite, writev, truncate, ftruncate).
+A file was modified
+.RB ( write (2),
+.BR pwrite (2),
+.BR writev (2),
+.BR truncate (2),
+.BR ftruncate (2),
+and similar).
 .TP
 .B DN_CREATE
-A file was created (open, creat, mknod, mkdir, link, symlink, rename).
+A file was created
+.RB ( open (2),
+.BR creat (2),
+.BR mknod (2),
+.BR mkdir (2),
+.BR link (2),
+.BR symlink (2),
+.BR rename (2)
+into this directory).
 .TP
 .B DN_DELETE
-A file was unlinked (unlink, rename to another directory, rmdir).
+A file was unlinked
+.RB ( unlink (2),
+.BR rename (2)
+to another directory,
+.BR rmdir (2)).
 .TP
 .B DN_RENAME
-A file was renamed within this directory (rename).
+A file was renamed within this directory
+.RB ( rename (2)).
 .TP
 .B DN_ATTRIB
-The attributes of a file were changed (chown, chmod, utime[s]).
+The attributes of a file were changed
+.RB ( chown (2),
+.BR chmod (2),
+.BR utime (2),
+.BR utimensat (2),
+and similar).
 .PD
 .RE
 .IP
@@ -1207,6 +1235,11 @@ but this can be changed using the
 .B F_SETSIG
 command to
 .BR fcntl ().
+(Note that
+.B SIGIO
+is one of the nonqueuing standard signals;
+switching to the use of a real-time signal means that
+multiple notifications can be queued to the process.)
 In the latter case, the signal handler receives a
 .I siginfo_t
 structure as its second argument (if the handler was
@@ -1257,9 +1290,7 @@ When allocating the buffer for the pipe,
 the kernel may use a capacity larger than
 .IR arg ,
 if that is convenient for the implementation.
-The
-.B F_GETPIPE_SZ
-operation returns the actual size used.
+The actual capacity that is set is returned as the function result.
 Attempting to set the pipe capacity smaller than the amount
 of buffer space currently used to store data produces the error
 .BR EBUSY .
@@ -1291,7 +1322,7 @@ for traditional
 .B SIGIO
 behavior.
 .TP
-.B F_GETPIPE_SZ
+.BR F_GETPIPE_SZ ", " F_SETPIPE_SZ
 The pipe capacity.
 .TP
 All other commands
@@ -1374,6 +1405,14 @@ the process already has the maximum number of file descriptors open.
 Too many segment locks open, lock table is full, or a remote locking
 protocol failed (e.g., locking over NFS).
 .TP
+.B ENOTDIR
+.B F_NOTIFY
+was specified in
+.IR cmd ,
+but
+.IR fd
+does not refer to a directory.
+.TP
 .B EPERM
 Attempted to clear the
 .B O_APPEND
@@ -1396,11 +1435,11 @@ are specified in POSIX.1-2001.
 and
 .B F_SETOWN
 are specified in POSIX.1-2001.
-(To get their definitions, define
+(To get their definitions, define either
 .BR _BSD_SOURCE ,
 or
 .BR _XOPEN_SOURCE
-with the value 500 or greater, or define
+with the value 500 or greater, or
 .BR _POSIX_C_SOURCE
 with the value 200809L or greater.)
 
@@ -1524,7 +1563,7 @@ On a Linux NFS server, this can be determined by looking at
 which expresses the period in seconds.
 The default value for this file is 90.)
 .\"
-.\" Jeff Layton: 
+.\" Jeff Layton:
 .\"     Note that this is not a firm timeout. The server runs a job
 .\"     periodically to clean out expired stateful objects, and it's likely
 .\"     that there is some time (maybe even up to another whole lease period)

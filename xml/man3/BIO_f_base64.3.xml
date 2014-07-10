@@ -53,11 +53,11 @@ char message[] = "Hello World \n";
 
 b64 = BIO_new(BIO_f_base64());
 bio = BIO_new_fp(stdout, BIO_NOCLOSE);
-bio = BIO_push(b64, bio);
-BIO_write(bio, message, strlen(message));
-BIO_flush(bio);
+BIO_push(b64, bio);
+BIO_write(b64, message, strlen(message));
+BIO_flush(b64);
 
-BIO_free_all(bio);</screen>
+BIO_free_all(b64);</screen>
     <para>
       Read Base64 encoded data from standard input and write the decoded
       data to standard output:
@@ -69,11 +69,12 @@ int inlen;
 b64 = BIO_new(BIO_f_base64());
 bio = BIO_new_fp(stdin, BIO_NOCLOSE);
 bio_out = BIO_new_fp(stdout, BIO_NOCLOSE);
-bio = BIO_push(b64, bio);
-while((inlen = BIO_read(bio, inbuf, 512)) &gt; 0) 
+BIO_push(b64, bio);
+while((inlen = BIO_read(b64, inbuf, 512)) &gt; 0) 
        BIO_write(bio_out, inbuf, inlen);
 
-BIO_free_all(bio);</screen>
+BIO_flush(bio_out);
+BIO_free_all(b64);</screen>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.BIO_f_base64.pod:BUGS"><title>BUGS</title>
     <para>

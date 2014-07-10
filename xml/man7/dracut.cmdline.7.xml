@@ -139,6 +139,28 @@ root=PARTUUID=3f5ad593-4546-4a94-a374-bcfb68aa11f7</screen>
 </varlistentry>
 <varlistentry>
 <term>
+<emphasis role="strong">rd.hostonly=0</emphasis>
+</term>
+<listitem>
+<simpara>
+    removes all compiled in configuration of the host system the initramfs image
+    was built on. This helps booting, if any disk layout changed, especially in
+    combination with rd.auto or other parameters specifying the layout.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.cmdline=ask</emphasis>
+</term>
+<listitem>
+<simpara>
+    prompts the user for additional kernel command line parameters
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 <emphasis role="strong">rd.fstab=0</emphasis>
 </term>
 <listitem>
@@ -960,7 +982,7 @@ enp0s29u1u2
 <variablelist>
 <varlistentry>
 <term>
-<emphasis role="strong">ip=</emphasis><emphasis>{dhcp|on|any|dhcp6|auto6|ibft}</emphasis>
+<emphasis role="strong">ip=</emphasis><emphasis>{dhcp|on|any|dhcp6|auto6}</emphasis>
 </term>
 <listitem>
 <variablelist>
@@ -993,16 +1015,6 @@ dhcp6
 <listitem>
 <simpara>
 IPv6 DHCP
-</simpara>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
-ibft
-</term>
-<listitem>
-<simpara>
-iBFT autoconfiguration
 </simpara>
 </listitem>
 </varlistentry>
@@ -1421,6 +1433,8 @@ You may want to use rd.iscsi.firmware.</simpara></warning>
 </listitem>
 </varlistentry>
 </variablelist>
+<simpara><emphasis role="strong">rd.iscsi.ibft</emphasis> <emphasis role="strong">rd.iscsi.ibft=1</emphasis>:
+    Turn on iBFT autoconfiguration for the interfaces</simpara>
 </refsect2>
 <refsect2 id="_fcoe">
 <title>FCoE</title>

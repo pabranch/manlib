@@ -35,8 +35,33 @@
 [<emphasis role="bold">-state</emphasis>]
 [<emphasis role="bold">-CApath directory</emphasis>]
 [<emphasis role="bold">-CAfile filename</emphasis>]
+[<emphasis role="bold">-attime timestamp</emphasis>]
+[<emphasis role="bold">-check_ss_sig</emphasis>]
+[<emphasis role="bold">-explicit_policy</emphasis>]
+[<emphasis role="bold">-extended_crl</emphasis>]
+[<emphasis role="bold">-ignore_critical</emphasis>]
+[<emphasis role="bold">-inhibit_any</emphasis>]
+[<emphasis role="bold">-inhibit_map</emphasis>]
+[<emphasis role="bold">-issuer_checks</emphasis>]
+[<emphasis role="bold">-partial_chain</emphasis>]
+[<emphasis role="bold">-policy arg</emphasis>]
+[<emphasis role="bold">-policy_check</emphasis>]
+[<emphasis role="bold">-policy_print</emphasis>]
+[<emphasis role="bold">-purpose purpose</emphasis>]
+[<emphasis role="bold">-suiteB_128</emphasis>]
+[<emphasis role="bold">-suiteB_128_only</emphasis>]
+[<emphasis role="bold">-suiteB_192</emphasis>]
+[<emphasis role="bold">-trusted_first</emphasis>]
+[<emphasis role="bold">-use_deltas</emphasis>]
+[<emphasis role="bold">-verify_depth num</emphasis>]
+[<emphasis role="bold">-verify_email email</emphasis>]
+[<emphasis role="bold">-verify_hostname hostname</emphasis>]
+[<emphasis role="bold">-verify_ip ip</emphasis>]
+[<emphasis role="bold">-verify_name name</emphasis>]
+[<emphasis role="bold">-x509_strict</emphasis>]
 [<emphasis role="bold">-nocert</emphasis>]
 [<emphasis role="bold">-cipher cipherlist</emphasis>]
+[<emphasis role="bold">-serverpref</emphasis>]
 [<emphasis role="bold">-quiet</emphasis>]
 [<emphasis role="bold">-no_tmp_rsa</emphasis>]
 [<emphasis role="bold">-ssl2</emphasis>]
@@ -59,9 +84,11 @@
 [<emphasis role="bold">-id_prefix arg</emphasis>]
 [<emphasis role="bold">-rand file(s)</emphasis>]
 [<emphasis role="bold">-serverinfo file</emphasis>]
-[<emphasis role="bold">-auth</emphasis>]
-[<emphasis role="bold">-auth_require_reneg</emphasis>]
 [<emphasis role="bold">-no_resumption_on_reneg</emphasis>]
+[<emphasis role="bold">-status</emphasis>]
+[<emphasis role="bold">-status_verbose</emphasis>]
+[<emphasis role="bold">-status_timeout nsec</emphasis>]
+[<emphasis role="bold">-status_url url</emphasis>]
 =head1 DESCRIPTION</synopsis>
 <synopsis format="linespecific">The <emphasis role="bold">s_server</emphasis> command implements a generic SSL/TLS server which listens
 for connections on a given port using SSL/TLS.</synopsis>
@@ -269,6 +296,21 @@ for connections on a given port using SSL/TLS.</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_server.pod:-attime_-check_ss_sig_explicit_policy_-extended_crl-ignore_critical_-inhibit_any_-inhibit_map_-issuer_checks-partial_chain_-policy_-policy_check_-policy_print_-purpose-suiteB_128_-suiteB_128_only_-suiteB_192_-trusted_first-use_deltas_-verify_depth_-verify_email_-verify_hostname-verify_ip_-verify_name_-x509_strict"/><emphasis role="bold">-attime</emphasis>, <emphasis role="bold">-check_ss_sig</emphasis>, <emphasis role="bold">explicit_policy</emphasis>, <emphasis role="bold">-extended_crl</emphasis>,
+<emphasis role="bold">-ignore_critical</emphasis>, <emphasis role="bold">-inhibit_any</emphasis>, <emphasis role="bold">-inhibit_map</emphasis>, <emphasis role="bold">-issuer_checks</emphasis>,
+<emphasis role="bold">-partial_chain</emphasis>, <emphasis role="bold">-policy</emphasis>, <emphasis role="bold">-policy_check</emphasis>, <emphasis role="bold">-policy_print</emphasis>, <emphasis role="bold">-purpose</emphasis>,
+<emphasis role="bold">-suiteB_128</emphasis>, <emphasis role="bold">-suiteB_128_only</emphasis>, <emphasis role="bold">-suiteB_192</emphasis>, <emphasis role="bold">-trusted_first</emphasis>,
+<emphasis role="bold">-use_deltas</emphasis>, <emphasis role="bold">-verify_depth</emphasis>, <emphasis role="bold">-verify_email</emphasis>, <emphasis role="bold">-verify_hostname</emphasis>,
+<emphasis role="bold">-verify_ip</emphasis>, <emphasis role="bold">-verify_name</emphasis>, <emphasis role="bold">-x509_strict</emphasis></term>
+          <listitem>
+            <para>
+	      Set different peer certificate verification options. See the
+	      <emphasis role="bold">verify</emphasis> manual page for
+	      details.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.apps.s_server.pod:-state"/><emphasis role="bold">-state</emphasis></term>
           <listitem>
             <para>
@@ -415,6 +457,15 @@ for connections on a given port using SSL/TLS.</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_server.pod:-serverpref"/><emphasis role="bold">-serverpref</emphasis></term>
+          <listitem>
+            <para>
+	      use the server's cipher preferences, rather than the client's
+	      preferences.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.apps.s_server.pod:-tlsextdebug"/><emphasis role="bold">-tlsextdebug</emphasis></term>
           <listitem>
             <para>
@@ -523,31 +574,47 @@ for connections on a given port using SSL/TLS.</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.s_server.pod:-auth"/><emphasis role="bold">-auth</emphasis></term>
-          <listitem>
-            <para>
-	      send RFC 5878 client and server authorization extensions in
-	      the Client Hello as well as supplemental data if the server
-	      also sent the authorization extensions in the Server Hello.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.s_server.pod:-auth_require_reneg"/><emphasis role="bold">-auth_require_reneg</emphasis></term>
-          <listitem>
-            <para>
-	      only send RFC 5878 client and server authorization extensions
-	      during renegotiation.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.apps.s_server.pod:-no_resumption_on_reneg"/><emphasis role="bold">-no_resumption_on_reneg</emphasis></term>
           <listitem>
             <para>
-	      set SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION flag. 
-	      Required in order to receive supplemental data during
-	      renegotiation if auth and auth_require_reneg are set.
+	      set SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION flag.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_server.pod:-status"/><emphasis role="bold">-status</emphasis></term>
+          <listitem>
+            <para>
+	      enables certificate status request support (aka OCSP
+	      stapling).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_server.pod:-status_verbose"/><emphasis role="bold">-status_verbose</emphasis></term>
+          <listitem>
+            <para>
+	      enables certificate status request support (aka OCSP
+	      stapling) and gives a verbose printout of the OCSP response.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_server.pod:-status_timeout_nsec"/><emphasis role="bold">-status_timeout nsec</emphasis></term>
+          <listitem>
+            <para>
+	      sets the timeout for OCSP response to <emphasis role="bold">nsec</emphasis> seconds.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_server.pod:-status_url_url"/><emphasis role="bold">-status_url url</emphasis></term>
+          <listitem>
+            <para>
+	      sets a fallback responder URL to use if no responder URL is
+	      present in the server certificate. Without this option an
+	      error is returned if the server certificate does not contain
+	      a responder address.
             </para>
           </listitem>
         </varlistentry>

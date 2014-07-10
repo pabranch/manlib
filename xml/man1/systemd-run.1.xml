@@ -198,10 +198,15 @@
     <term><option>--host=</option></term>
 
     <listitem xml:id="host-text">
-      <para>Execute the operation remotely. Specify a hostname, or
+      <para>Execute the operation remotely. Specify a hostname, or a
       username and hostname separated by <literal>@</literal>, to
-      connect to. This will use SSH to talk to the remote machine
-      manager instance.</para>
+      connect to. The hostname may optionally be suffixed by a
+      container name, separated by <literal>:</literal>, which
+      connects directly to a specific container on the specified
+      host. This will use SSH to talk to the remote machine manager
+      instance. Container names may be enumerated with
+      <command>machinectl -H
+      <replaceable>HOST</replaceable></command>.</para>
     </listitem>
   </varlistentry>
       <varlistentry xml:id="machine">
@@ -260,7 +265,7 @@ Sep 08 07:37:21 bupkis env[19948]: LANG=en_US.UTF-8
 Sep 08 07:37:21 bupkis env[19948]: BOOT_IMAGE=/vmlinuz-3.11.0-0.rc5.git6.2.fc20.x86_64</programlisting>
 
     <para>The following command invokes the
-    <citerefentry><refentrytitle>updatedb</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+    <citerefentry project="man-pages"><refentrytitle>updatedb</refentrytitle><manvolnum>8</manvolnum></citerefentry>
     tool, but lowers the block IO weight for it to 10. See
     <citerefentry><refentrytitle>systemd.resource-control</refentrytitle><manvolnum>5</manvolnum></citerefentry>
     for more information on the <varname>BlockIOWeight=</varname>

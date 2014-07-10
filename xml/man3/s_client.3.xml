@@ -10,6 +10,7 @@
   <refsynopsisdiv>
 <synopsis format="linespecific"><emphasis role="bold">openssl</emphasis> <emphasis role="bold">s_client</emphasis>
 [<emphasis role="bold">-connect host:port</emphasis>]
+[<emphasis role="bold">-servername name</emphasis>]
 [<emphasis role="bold">-verify depth</emphasis>]
 [<emphasis role="bold">-verify_return_error</emphasis>]
 [<emphasis role="bold">-cert filename</emphasis>]
@@ -19,6 +20,33 @@
 [<emphasis role="bold">-pass arg</emphasis>]
 [<emphasis role="bold">-CApath directory</emphasis>]
 [<emphasis role="bold">-CAfile filename</emphasis>]
+[<emphasis role="bold">-trusted_first</emphasis>]
+[<emphasis role="bold">-attime timestamp</emphasis>]
+[<emphasis role="bold">-check_ss_sig</emphasis>]
+[<emphasis role="bold">-crl_check</emphasis>]
+[<emphasis role="bold">-crl_check_all</emphasis>]
+[<emphasis role="bold">-explicit_policy</emphasis>]
+[<emphasis role="bold">-extended_crl</emphasis>]
+[<emphasis role="bold">-ignore_critical</emphasis>]
+[<emphasis role="bold">-inhibit_any</emphasis>]
+[<emphasis role="bold">-inhibit_map</emphasis>]
+[<emphasis role="bold">-issuer_checks</emphasis>]
+[<emphasis role="bold">-partial_chain</emphasis>]
+[<emphasis role="bold">-policy arg</emphasis>]
+[<emphasis role="bold">-policy_check</emphasis>]
+[<emphasis role="bold">-policy_print</emphasis>]
+[<emphasis role="bold">-purpose purpose</emphasis>]
+[<emphasis role="bold">-suiteB_128</emphasis>]
+[<emphasis role="bold">-suiteB_128_only</emphasis>]
+[<emphasis role="bold">-suiteB_192</emphasis>]
+[<emphasis role="bold">-trusted_first</emphasis>]
+[<emphasis role="bold">-use_deltas</emphasis>]
+[<emphasis role="bold">-verify_depth num</emphasis>]
+[<emphasis role="bold">-verify_email email</emphasis>]
+[<emphasis role="bold">-verify_hostname hostname</emphasis>]
+[<emphasis role="bold">-verify_ip ip</emphasis>]
+[<emphasis role="bold">-verify_name name</emphasis>]
+[<emphasis role="bold">-x509_strict</emphasis>]
 [<emphasis role="bold">-reconnect</emphasis>]
 [<emphasis role="bold">-pause</emphasis>]
 [<emphasis role="bold">-showcerts</emphasis>]
@@ -29,6 +57,7 @@
 [<emphasis role="bold">-nbio</emphasis>]
 [<emphasis role="bold">-crlf</emphasis>]
 [<emphasis role="bold">-ign_eof</emphasis>]
+[<emphasis role="bold">-no_ign_eof</emphasis>]
 [<emphasis role="bold">-quiet</emphasis>]
 [<emphasis role="bold">-ssl2</emphasis>]
 [<emphasis role="bold">-ssl3</emphasis>]
@@ -38,6 +67,7 @@
 [<emphasis role="bold">-no_tls1</emphasis>]
 [<emphasis role="bold">-bugs</emphasis>]
 [<emphasis role="bold">-cipher cipherlist</emphasis>]
+[<emphasis role="bold">-serverpref</emphasis>]
 [<emphasis role="bold">-starttls protocol</emphasis>]
 [<emphasis role="bold">-xmpphost hostname</emphasis>]
 [<emphasis role="bold">-engine id</emphasis>]
@@ -47,8 +77,7 @@
 [<emphasis role="bold">-sess_in filename</emphasis>]
 [<emphasis role="bold">-rand file(s)</emphasis>]
 [<emphasis role="bold">-serverinfo types</emphasis>]
-[<emphasis role="bold">-auth</emphasis>]
-[<emphasis role="bold">-auth_require_reneg</emphasis>]</synopsis>
+[<emphasis role="bold">-status</emphasis>]</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="sources.openssl.doc.apps.s_client.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
@@ -73,6 +102,15 @@
 	      This specifies the host and optional port to connect to. If
 	      not specified then an attempt is made to connect to the local
 	      host on port 4433.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-servername_name"/><emphasis role="bold">-servername name</emphasis></term>
+          <listitem>
+            <para>
+	      Set the TLS SNI (Server Name Indication) extension in the
+	      ClientHello message.
             </para>
           </listitem>
         </varlistentry>
@@ -165,10 +203,16 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-purpose_-ignore_critical_-issuer_checks_-crl_check_-crl_check_all_-policy_check_-extended_crl_-x509_strict_-policy_-check_ss_sig"/><emphasis role="bold">-purpose, -ignore_critical, -issuer_checks, -crl_check, -crl_check_all, -policy_check, -extended_crl, -x509_strict, -policy -check_ss_sig</emphasis></term>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-attime_-check_ss_sig_-crl_check_-crl_check_allexplicit_policy_-extended_crl_-ignore_critical_-inhibit_any-inhibit_map_-issuer_checks_-partial_chain_-policy-policy_check_-policy_print_-purpose_-suiteB_128-suiteB_128_only_-suiteB_192_-trusted_first_-use_deltas-verify_depth_-verify_email_-verify_hostname_-verify_ip-verify_name_-x509_strict"/><emphasis role="bold">-attime</emphasis>, <emphasis role="bold">-check_ss_sig</emphasis>, <emphasis role="bold">-crl_check</emphasis>, <emphasis role="bold">-crl_check_all</emphasis>,
+<emphasis role="bold">explicit_policy</emphasis>, <emphasis role="bold">-extended_crl</emphasis>, <emphasis role="bold">-ignore_critical</emphasis>, <emphasis role="bold">-inhibit_any</emphasis>,
+<emphasis role="bold">-inhibit_map</emphasis>, <emphasis role="bold">-issuer_checks</emphasis>, <emphasis role="bold">-partial_chain</emphasis>, <emphasis role="bold">-policy</emphasis>,
+<emphasis role="bold">-policy_check</emphasis>, <emphasis role="bold">-policy_print</emphasis>, <emphasis role="bold">-purpose</emphasis>, <emphasis role="bold">-suiteB_128</emphasis>,
+<emphasis role="bold">-suiteB_128_only</emphasis>, <emphasis role="bold">-suiteB_192</emphasis>, <emphasis role="bold">-trusted_first</emphasis>, <emphasis role="bold">-use_deltas</emphasis>,
+<emphasis role="bold">-verify_depth</emphasis>, <emphasis role="bold">-verify_email</emphasis>, <emphasis role="bold">-verify_hostname</emphasis>, <emphasis role="bold">-verify_ip</emphasis>,
+<emphasis role="bold">-verify_name</emphasis>, <emphasis role="bold">-x509_strict</emphasis></term>
           <listitem>
             <para>
-	      Set various certificate chain valiadition option. See the
+	      Set various certificate chain valiadition options. See the
 	      <emphasis role="bold">verify</emphasis> manual page for
 	      details.
             </para>
@@ -307,6 +351,15 @@
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-no_ign_eof"/><emphasis role="bold">-no_ign_eof</emphasis></term>
+          <listitem>
+            <para>
+	      shut down the connection when end of file is reached in the
+	      input. Can be used to override the implicit <emphasis role="bold">-ign_eof</emphasis> after <emphasis role="bold">-quiet</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-psk_identity_identity"/><emphasis role="bold">-psk_identity identity</emphasis></term>
           <listitem>
             <para>
@@ -369,6 +422,14 @@
 	      modified. Although the server determines which cipher suite
 	      is used it should take the first supported cipher in the list
 	      sent by the client. See the <emphasis role="bold">ciphers</emphasis> command for more information.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-serverpref"/><emphasis role="bold">-serverpref</emphasis></term>
+          <listitem>
+            <para>
+	      use the server's cipher preferences; only used for SSLV2.
             </para>
           </listitem>
         </varlistentry>
@@ -463,21 +524,11 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-auth"/><emphasis role="bold">-auth</emphasis></term>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-status"/><emphasis role="bold">-status</emphasis></term>
           <listitem>
             <para>
-	      send RFC 5878 client and server authorization extensions in
-	      the Client Hello as well as supplemental data if the server
-	      also sent the authorization extensions in the Server Hello.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-auth_require_reneg"/><emphasis role="bold">-auth_require_reneg</emphasis></term>
-          <listitem>
-            <para>
-	      only send RFC 5878 client and server authorization extensions
-	      during renegotiation.
+	      sends a certificate status request to the server (OCSP
+	      stapling). The server response (if any) is printed out.
             </para>
           </listitem>
         </varlistentry>

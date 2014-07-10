@@ -1654,9 +1654,9 @@ core.preloadindex
 </simpara>
 <simpara>This can speed up operations like <emphasis>git diff</emphasis> and <emphasis>git status</emphasis> especially
 on filesystems like NFS that have weak caching semantics and thus
-relatively high IO latencies.  With this set to <emphasis>true</emphasis>, Git will do the
+relatively high IO latencies.  When enabled, Git will do the
 index comparison to the filesystem data in parallel, allowing
-overlapping IO&#8217;s.</simpara>
+overlapping IO&#8217;s.  Defaults to true.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -3211,6 +3211,17 @@ format.signature
         the Git version number. Use this variable to change that default.
         Set this variable to the empty string ("") to suppress
         signature generation.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+format.signaturefile
+</term>
+<listitem>
+<simpara>
+        Works just like format.signature except the contents of the
+        file specified by this variable will be used as the signature.
 </simpara>
 </listitem>
 </varlistentry>
@@ -5160,12 +5171,7 @@ pack.writebitmaps
 </term>
 <listitem>
 <simpara>
-        When true, git will write a bitmap index when packing all
-        objects to disk (e.g., when <literal>git repack -a</literal> is run).  This
-        index can speed up the "counting objects" phase of subsequent
-        packs created for clones and fetches, at the cost of some disk
-        space and extra time spent on the initial repack.  Defaults to
-        false.
+        This is a deprecated synonym for <literal>repack.writeBitmaps</literal>.
 </simpara>
 </listitem>
 </varlistentry>
@@ -5755,7 +5761,22 @@ repack.packKeptObjects
 </citerefentry> for
         details. Defaults to <literal>false</literal> normally, but <literal>true</literal> if a bitmap
         index is being written (either via <literal>--write-bitmap-index</literal> or
-        <literal>pack.writeBitmaps</literal>).
+        <literal>repack.writeBitmaps</literal>).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+repack.writeBitmaps
+</term>
+<listitem>
+<simpara>
+        When true, git will write a bitmap index when packing all
+        objects to disk (e.g., when <literal>git repack -a</literal> is run).  This
+        index can speed up the "counting objects" phase of subsequent
+        packs created for clones and fetches, at the cost of some disk
+        space and extra time spent on the initial repack.  Defaults to
+        false.
 </simpara>
 </listitem>
 </varlistentry>
@@ -6069,7 +6090,9 @@ status.submodulesummary
 </citerefentry>). Please note
         that the summary output command will be suppressed for all
         submodules when <literal>diff.ignoreSubmodules</literal> is set to <emphasis>all</emphasis> or only
-        for those submodules where <literal>submodule.&lt;name&gt;.ignore=all</literal>. To
+        for those submodules where <literal>submodule.&lt;name&gt;.ignore=all</literal>. The only
+        exception to that rule is that status and commit will show staged
+        submodule changes. To
         also view the summary for ignored submodules you can either use
         the --ignore-submodules=dirty command-line option or the <emphasis>git
         submodule summary</emphasis> command, which shows a similar output but does
@@ -6142,7 +6165,9 @@ submodule.&lt;name&gt;.ignore
 <simpara>
         Defines under what circumstances "git status" and the diff family show
         a submodule as modified. When set to "all", it will never be considered
-        modified, "dirty" will ignore all changes to the submodules work tree and
+        modified (but it will nonetheless show up in the output of status and
+        commit when it has been staged), "dirty" will ignore all changes
+        to the submodules work tree and
         takes only differences between the HEAD of the submodule and the commit
         recorded in the superproject into account. "untracked" will additionally
         let submodules with modified tracked files in their work tree show up.

@@ -26,6 +26,12 @@
       available CA certificates in the trusted CA storage, see
       SSL_CTX_load_verify_locations(3).
     </para>
+    <para>
+      The <emphasis role="bold">x509</emphasis> certificate provided to
+      SSL_CTX_add_extra_chain_cert() will be freed by the library when the
+      <emphasis role="bold">SSL_CTX</emphasis> is destroyed. An application
+      <emphasis role="bold">should not</emphasis> free the <emphasis role="bold">x509</emphasis> object.
+    </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add_extra_chain_cert.pod:RESTRICTIONS"><title>RESTRICTIONS</title>
     <para>

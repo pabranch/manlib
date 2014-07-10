@@ -16,6 +16,7 @@
 [<emphasis role="bold">-passin arg</emphasis>]
 [<emphasis role="bold">-out filename</emphasis>]
 [<emphasis role="bold">-passout arg</emphasis>]
+[<emphasis role="bold">-iter count</emphasis>]
 [<emphasis role="bold">-noiter</emphasis>]
 [<emphasis role="bold">-nocrypt</emphasis>]
 [<emphasis role="bold">-nooct</emphasis>]
@@ -111,6 +112,17 @@
 	      the format of <emphasis role="bold">arg</emphasis> see the
 	      <emphasis role="bold">PASS PHRASE ARGUMENTS</emphasis>
 	      section in openssl(1).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkcs8.pod:-iter_count"/><emphasis role="bold">-iter count</emphasis></term>
+          <listitem>
+            <para>
+	      When creating new PKCS#8 containers, use a given number of
+	      iterations on the password in deriving the encryption key for
+	      the PKCS#8 output. High values increase the time required to
+	      brute-force a PKCS#8 container.
             </para>
           </listitem>
         </varlistentry>
@@ -321,6 +333,11 @@
       Convert a private key from any PKCS#8 format to traditional format:
     </para>
     <screen>openssl pkcs8 -in pk8.pem -out key.pem</screen>
+    <para>
+      Convert a private key to PKCS#8 format, encrypting with AES-256 and
+      with one million iterations of the password: 
+    </para>
+    <screen>openssl pkcs8 -in raw.pem -topk8 -v2 aes-256-cbc -iter 1000000 -out pk8.pem</screen>
   </refsection>
   <refsection xml:id="sources.openssl.doc.apps.pkcs8.pod:STANDARDS"><title>STANDARDS</title>
     <para>
