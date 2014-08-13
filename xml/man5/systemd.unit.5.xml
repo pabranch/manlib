@@ -44,6 +44,8 @@
 <filename>$HOME/.config/systemd/user/*</filename>
 <filename>/etc/systemd/user/*</filename>
 <filename>/run/systemd/user/*</filename>
+<filename>$XDG_DATA_HOME/systemd/user/*</filename>
+<filename>$HOME/.local/share/systemd/user/*</filename>
 <filename>/usr/lib/systemd/user/*</filename>
 <filename>...</filename>
                 </literallayout></para>
@@ -170,7 +172,12 @@
                 settings to a unit, without having to modify their
                 unit files. Make sure that the file that is included
                 has the appropriate section headers before any
-                directive.</para>
+                directive. Note that for instanced units this logic
+                will first look for the instance
+                <literal>.d/</literal> subdirectory and read its
+                <literal>.conf</literal> files, followed by the
+                template <literal>.d/</literal> subdirectory and reads
+                its <literal>.conf</literal> files.</para>
 
                 <para>Note that while systemd offers a flexible
                 dependency system between units it is recommended to
@@ -241,8 +248,10 @@
                 (<option>--user</option>) and the variable
                 <varname>$SYSTEMD_UNIT_PATH</varname> is set, this
                 contents of this variable overrides the unit load
-                path.
-                </para>
+                path. If <varname>$SYSTEMD_UNIT_PATH</varname> ends
+                with an empty component (<literal>:</literal>), the
+                usual unit load path will be appended to the contents
+                of the variable.</para>
 
                 <table>
                   <title>
@@ -307,8 +316,16 @@
                         <entry>Runtime units</entry>
                       </row>
                       <row>
+                        <entry><filename>$XDG_DATA_HOME/systemd/user</filename></entry>
+                        <entry>Units of packages that have been installed in the home directory (only used when $XDG_DATA_HOME is set)</entry>
+                      </row>
+                      <row>
+                        <entry><filename>$HOME/.local/share/systemd/user</filename></entry>
+                        <entry>Units of packages that have been installed in the home directory (only used when $XDG_DATA_HOME is not set)</entry>
+                      </row>
+                      <row>
                         <entry><filename>/usr/lib/systemd/user</filename></entry>
-                        <entry>Units of installed packages</entry>
+                        <entry>Units of packages that have been installed system-wide</entry>
                       </row>
                     </tbody>
                   </tgroup>
@@ -953,6 +970,7 @@
                                 virtualization solution, or one of
                                 <varname>qemu</varname>,
                                 <varname>kvm</varname>,
+                                <varname>zvm</varname>,
                                 <varname>vmware</varname>,
                                 <varname>microsoft</varname>,
                                 <varname>oracle</varname>,
@@ -1467,6 +1485,7 @@
                         <citerefentry><refentrytitle>systemd.scope</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>systemd.slice</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>systemd.time</refentrytitle><manvolnum>7</manvolnum></citerefentry>,
+                        <citerefentry><refentrytitle>systemd-verify</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
                         <citerefentry project="man-pages"><refentrytitle>capabilities</refentrytitle><manvolnum>7</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>systemd.directives</refentrytitle><manvolnum>7</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>uname</refentrytitle><manvolnum>1</manvolnum></citerefentry>

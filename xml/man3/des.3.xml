@@ -133,9 +133,8 @@ int DES_enc_write(int fd, const void *buf, int len,
       DES_set_odd_parity() sets the parity of the passed <emphasis role="italic">key</emphasis> to odd.
     </para>
     <para>
-      DES_is_weak_key() returns 1 is the passed key is a weak key, 0 if it
-      is ok.  The probability that a randomly generated key is weak is
-      1/2^52, so it is not really worth checking for them.
+      DES_is_weak_key() returns 1 if the passed key is a weak key, 0 if it
+      is ok.
     </para>
     <para>
       The following routines mostly operate on an input and output stream
@@ -189,7 +188,7 @@ int DES_enc_write(int fd, const void *buf, int len,
     <para>
       DES_ede3_cbc_encrypt() implements outer triple CBC DES encryption
       with three keys. This means that each DES operation inside the CBC
-      mode is really an <literal role="code">C=E(ks3,D(ks2,E(ks1,M)))</literal>.  This
+      mode is an <literal role="code">C=E(ks3,D(ks2,E(ks1,M)))</literal>.  This
       mode is used by SSL.
     </para>
     <para>

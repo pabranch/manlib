@@ -185,10 +185,25 @@
                                         <term><varname>IPv4LL=</varname></term>
                                         <listitem>
                                                 <para>A boolean. When true, enables IPv4 link-local support.
-                                                If <literal>DHCP=</literal> is also true, acquiring DHCP address
-                                                will deprecate previously acquired IPv4 link-local address or
-                                                stop acquiring process if one has not been acquired before.
                                                 </para>
+                                        </listitem>
+                                </varlistentry>
+                                <varlistentry>
+                                        <term><varname>IPv4LLRoute=</varname></term>
+                                        <listitem>
+                                                <para>A boolean. When true, sets up the route needed for
+                                                non-IPv4LL hosts to communicate with IPv4LL-only hosts. Defaults
+                                                to false.
+                                                </para>
+                                        </listitem>
+                                </varlistentry>
+                                <varlistentry>
+                                        <term><varname>LLMNR=</varname></term>
+                                        <listitem>
+                                                <para>A boolean or <literal>resolve</literal>. When true, enables
+                                                Link-Local Multicast Name Resolution on the link, when set to
+                                                <literal>resolve</literal> only resolution is enabled, but not
+                                                announcement. Defaults to true.</para>
                                         </listitem>
                                 </varlistentry>
                                 <varlistentry>
@@ -362,6 +377,12 @@
                                                 prefixlength. If ommitted, a full-length host route is assumed.</para>
                                         </listitem>
                                 </varlistentry>
+                                <varlistentry>
+                                        <term><varname>Metric=</varname></term>
+                                        <listitem>
+                                                <para>The metric of the route. An unsigned integer</para>
+                                        </listitem>
+                                </varlistentry>
                         </variablelist>
         </refsect1>
 
@@ -413,6 +434,21 @@
                                                 if, say, the root filesystem relies on this connection. Defaults to false.</para>
                                         </listitem>
                                 </varlistentry>
+                                <varlistentry>
+                                        <term><varname>VendorClassIdentifier=</varname></term>
+                                        <listitem>
+                                                <para>The vendor class identifier used to identify vendor type and configuration.</para>
+                                        </listitem>
+                                </varlistentry>
+                                <varlistentry>
+                                        <term><varname>RequestBroadcast=</varname></term>
+                                        <listitem>
+                                                <para>Request the server to use broadcast messages before the IP address has been
+                                                configured. This is necessary for devices that cannot receive RAW packets, or that
+                                                cannot receive packets at all before an IP address has been configured. On the other
+                                                hand, this must not be enabled on networks where broadcasts are filtered out.</para>
+                                        </listitem>
+                                </varlistentry>
                        </variablelist>
 
         </refsect1>
@@ -437,7 +473,7 @@ Gateway=192.168.0.1</programlisting>
 Name=en*
 
 [Network]
-DHCP=yes</programlisting>
+DHCP=both</programlisting>
                 </example>
 
                 <example>

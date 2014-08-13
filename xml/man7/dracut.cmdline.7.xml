@@ -1127,6 +1127,23 @@ interface name. Better name it "bootnet" or "bluesocket".</simpara></warning>
 </varlistentry>
 <varlistentry>
 <term>
+<emphasis role="strong">rd.route=</emphasis><emphasis>&lt;net&gt;</emphasis>/<emphasis>&lt;netmask&gt;</emphasis>:<emphasis>&lt;gateway&gt;</emphasis>[:<emphasis>&lt;interface&gt;</emphasis>]
+</term>
+<listitem>
+<simpara>
+    Add a static route with route options, which are separated by a colon.
+    IPv6 addresses have to be put in brackets.
+</simpara>
+<formalpara><title>Example</title><para>
+<screen>    rd.route=192.168.200.0/24:192.168.100.222:ens10
+    rd.route=192.168.200.0/24:192.168.100.222
+    rd.route=192.168.200.0/24::ens10
+    rd.route=[2001:DB8:3::/8]:[2001:DB8:2::1]:ens10</screen>
+</para></formalpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 <emphasis role="strong">bootdev=</emphasis><emphasis>&lt;interface&gt;</emphasis>
 </term>
 <listitem>
@@ -1250,7 +1267,7 @@ interface name. Better name it "bootnet" or "bluesocket".</simpara></warning>
 <listitem>
 <simpara>
     mount nfs share from &lt;server-ip&gt;:/&lt;root-dir&gt;, if no server-ip is given, use
-    dhcp next_server. if server-ip is an IPv6 address it has to be put in
+    dhcp next_server. If server-ip is an IPv6 address it has to be put in
     brackets, e.g. [2001:DB8::1]. NFS options can be appended with the prefix
     ":" or "," and are seperated by ",".
 </simpara>

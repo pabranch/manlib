@@ -327,6 +327,26 @@ may not support it yet.</simpara>
 </varlistentry>
 <varlistentry>
 <term>
+--split-index
+</term>
+<term>
+--no-split-index
+</term>
+<listitem>
+<simpara>
+        Enable or disable split index mode. If enabled, the index is
+        split into two files, $GIT_DIR/index and $GIT_DIR/sharedindex.&lt;SHA-1&gt;.
+        Changes are accumulated in $GIT_DIR/index while the shared
+        index file contains all index entries stays unchanged. If
+        split-index mode is already enabled and <literal>--split-index</literal> is
+        given again, all changes in $GIT_DIR/index are pushed back to
+        the shared index file. This mode is designed for very large
+        indexes that take a signficant amount of time to read or write.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 --
 </term>
 <listitem>

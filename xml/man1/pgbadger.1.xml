@@ -8,8 +8,8 @@
 <refpurpose>a fast PostgreSQL log analysis report</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">pgbadger [options] logfile [...]</synopsis>
-<synopsis format="linespecific">PostgreSQL log analyzer with fully detailed reports and charts.</synopsis>
+<synopsis format="linespecific">Usage: pgbadger [options] logfile [...]</synopsis>
+<synopsis format="linespecific">PostgreSQL log analyzer with fully detailed reports and graphs.</synopsis>
 <synopsis format="linespecific">Arguments:</synopsis>
 <synopsis format="linespecific">logfile can be a single log file, a list of files, or a shell command
 returning a list of files. If you want to pass log content from stdin
@@ -43,7 +43,10 @@ use - as filename. Note that input from stdin will not work with csvlog.</synops
 -n | --nohighlight     : disable SQL code highlighting.
 -N | --appname name    : only report on entries for given application name
 -o | --outfile filename: define the filename for the output. Default depends
-                         on the output format: out.html, out.txt or out.tsung.
+                         on the output format: out.html, out.txt, out.bin,
+                         out.json or out.tsung.
+                         With module JSON::XS installed, you can output file
+                         in JSON format either.
                          To dump output to stdout use - as filename.
 -O | --outdir path     : directory where out file must be saved.
 -p | --prefix string   : the value of your custom log_line_prefix as
@@ -56,6 +59,10 @@ use - as filename. Note that input from stdin will not work with csvlog.</synops
 -q | --quiet           : don't print anything to stdout, not even a progress bar.
 -r | --remote-host ip  : set the host where to execute the cat command on remote
                          logfile to parse localy the file.
+-R | --retention N     : number of week to keep in incremental mode. Default 0,
+                         disabled. Used to set the number of weel to keep in
+                         output directory. Older week end day directory are
+                         automatically removed.
 -s | --sample number   : number of query samples to store/display. Default: 3
 -S | --select-only     : only report SELECT queries.
 -t | --top number      : number of queries to store/display. Default: 20
@@ -65,7 +72,10 @@ use - as filename. Note that input from stdin will not work with csvlog.</synops
 -v | --verbose         : enable verbose or debug mode. Disabled by default.
 -V | --version         : show pgBadger version and exit.
 -w | --watch-mode      : only report errors just like logwatch could do.
--x | --extension       : output format. Values: text, html or tsung. Default: html
+-x | --extension       : output format. Values: text, html, bin, json or
+                         tsung. Default: html
+-X | --extra-files     : in incremetal mode allow pgbadger to write CSS and JS
+                         files in the output directory as separate files.
 -z | --zcat exec_path  : set the full path to the zcat program. Use it if
                          zcat or bzcat or unzip is not in your path.
 --pie-limit num        : pie data lower than num% will show a sum instead.
@@ -98,7 +108,8 @@ use - as filename. Note that input from stdin will not work with csvlog.</synops
 --exclude-appname name : exclude entries for the specified application name
                          from report. Example: "pg_dump".
 --exclude-line regex   : pgbadger will start to exclude any log entry that
-                         will match the given regex. Can be used multiple time.</synopsis>
+                         will match the given regex. Can be used multiple time.
+--anonymize            : obscure all literals in queries to hide confidential data.</synopsis>
 <synopsis format="linespecific">pgBadger is able to parse a remote log file using a passwordless ssh connection.
 Use the -r or --remote-host to set the host ip address or hostname. There's also
 some additional options to fully control the ssh connection.</synopsis>
@@ -112,37 +123,44 @@ some additional options to fully control the ssh connection.</synopsis>
                              -o PreferredAuthentications=hostbased,publickey</synopsis>
 <synopsis format="linespecific">Examples:</synopsis>
 <synopsis format="linespecific">pgbadger /var/log/postgresql.log
-pgbadger /var/log/postgres.log.2.gz /var/log/postgres.log.1.gz /var/log/postgres.log
+pgbadger /var/log/postgres.log.2.gz /var/log/postgres.log.1.gz 
+               /var/log/postgres.log
 pgbadger /var/log/postgresql/postgresql-2012-05-*
 pgbadger --exclude-query="^(COPY|COMMIT)" /var/log/postgresql.log
-pgbadger -b "2012-06-25 10:56:11" -e "2012-06-25 10:59:11" /var/log/postgresql.log
+pgbadger -b "2012-06-25 10:56:11" -e "2012-06-25 10:59:11" 
+               /var/log/postgresql.log
 cat /var/log/postgres.log | pgbadger -
-# log prefix with stderr log output
-perl pgbadger --prefix '%t [%p]: [%l-1] user=%u,db=%d,client=%h' \
+# Log prefix with stderr log output
+perl pgbadger --prefix '%t [%p]: [%l-1] user=%u,db=%d,client=%h' 
                 /pglog/postgresql-2012-08-21*
 perl pgbadger --prefix '%m %u@%d %p %r %a : ' /pglog/postgresql.log
 # Log line prefix with syslog log output
-perl pgbadger --prefix 'user=%u,db=%d,client=%h,appname=%a' \
-                /pglog/postgresql-2012-08-21*</synopsis>
-<synopsis format="linespecific">Use my 8 CPUs to parse my 10GB file faster, really faster</synopsis>
-<synopsis format="linespecific">perl pgbadger -j 8 /pglog/postgresql-9.1-main.log</synopsis>
+perl pgbadger --prefix 'user=%u,db=%d,client=%h,appname=%a' 
+                /pglog/postgresql-2012-08-21*
+# Use my 8 CPUs to parse my 10GB file faster, much faster
+perl pgbadger -j 8 /pglog/postgresql-9.1-main.log</synopsis>
+<synopsis format="linespecific"/>
 <synopsis format="linespecific">Generate Tsung sessions XML file with select queries only:</synopsis>
 <synopsis format="linespecific">perl pgbadger -S -o sessions.tsung --prefix '%t [%p]: [%l-1] user=%u,db=%d ' /pglog/postgresql-9.1.log</synopsis>
 <synopsis format="linespecific">Reporting errors every week by cron job:</synopsis>
 <synopsis format="linespecific">30 23 * * 1 /usr/bin/pgbadger -q -w /var/log/postgresql.log -o /var/reports/pg_errors.html</synopsis>
 <synopsis format="linespecific">Generate report every week using incremental behavior:</synopsis>
-<synopsis format="linespecific">0 4 * * 1 /usr/bin/pgbadger -q `find /var/log/ -mtime -7 -name "postgresql.log*"` \
+<synopsis format="linespecific">0 4 * * 1 /usr/bin/pgbadger -q `find /var/log/ -mtime -7 -name "postgresql.log*"` 
     -o /var/reports/pg_errors-`date +%F`.html -l /var/reports/pgbadger_incremental_file.dat</synopsis>
 <synopsis format="linespecific">This supposes that your log file and HTML report are also rotated every week.</synopsis>
 <synopsis format="linespecific">Or better, use the auto-generated incremental reports:</synopsis>
-<synopsis format="linespecific">0 4 * * * /usr/bin/pgbadger -I -q /var/log/postgresql/postgresql.log.1 \
+<synopsis format="linespecific">0 4 * * * /usr/bin/pgbadger -I -q /var/log/postgresql/postgresql.log.1 
     -O /var/www/pg_reports/</synopsis>
-<synopsis format="linespecific">will generate a report per day and per week in the given output directory.</synopsis>
+<synopsis format="linespecific">will generate a report per day and per week.</synopsis>
+<synopsis format="linespecific">In incremental mode, you can also specify the number of week to keep in the reports:</synopsis>
+<synopsis format="linespecific">/usr/bin/pgbadger --retention 2 -I -q /var/log/postgresql/postgresql.log.1 
+    -O /var/www/pg_reports/</synopsis>
 <synopsis format="linespecific">If you have a pg_dump at 23:00 and 13:00 each day during half an hour, you can
-use pgbadger as follow to exclude these periods from the report:</synopsis>
+use pgbadger as follow to exclude these period from the report:</synopsis>
 <synopsis format="linespecific">pgbadger --exclude-time "2013-09-.* (23|13):.*" postgresql.log</synopsis>
-<synopsis format="linespecific">This will help to not have all COPY order on top of slowest queries. You can
-also use --exclude-appname "pg_dump" to solve this problem in a more simple way.</synopsis>
+<synopsis format="linespecific">This will help avoid having COPY statements, as generated by pg_dump, on top of
+the list of slowest queries. You can also use --exclude-appname "pg_dump" to
+solve this problem in a simpler way.</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="sources.pgbadger.doc.pgBadger.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
@@ -260,6 +278,15 @@ Autovacuum and autoanalyze per table.</screen>
       format you don't need to install it.
     </para>
     <para>
+      If you want to export statistics as JSON file you need an additional
+      Perl module:
+    </para>
+    <screen>JSON::XS - JSON serialising/deserialising, done correctly and fast</screen>
+    <para>
+      This module is optional, if you don't select the json output format
+      you don't need to install it.
+    </para>
+    <para>
       Compressed log file format is autodetected from the file exension. If
       pgBadger find a gz extension it will use the zcat utility, with a bz2
       extension it will use bzcat and if the file extension is zip or xz
@@ -288,8 +315,8 @@ Autovacuum and autoanalyze per table.</screen>
     <para>
       Download the tarball from github and unpack the archive as follow:
     </para>
-    <screen>tar xzf pgbadger-4.x.tar.gz
-cd pgbadger-4.x/
+    <screen>tar xzf pgbadger-5.x.tar.gz
+cd pgbadger-5.x/
 perl Makefile.PL
 make &amp;&amp; sudo make install</screen>
     <para>
@@ -484,6 +511,12 @@ memory to build the html output.</screen>
       pgBadger in this mode each days on a log file rotated each week, it
       will not count the log entries twice.
     </para>
+    <para>
+      To save disk space you may want to use the -X or --extra-files
+      command line option to force pgBadger to write javascript and css to
+      separate files in the output directory. The resources will then be
+      loaded using script and link tag.
+    </para>
   </refsection>
   <refsection xml:id="sources.pgbadger.doc.pgBadger.pod:BINARY_FORMAT"><title>BINARY FORMAT</title>
     <para>
@@ -514,6 +547,13 @@ pgbadger -o day1/hour03.bin /var/log/pgsql/pglog/postgresql-2012-03-23_12.log
     <screen>pgbadger -o day1_report.html day1/*.bin</screen>
     <para>
       Adjust the commands following your needs.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.pgbadger.doc.pgBadger.pod:JSON_FORMAT"><title>JSON FORMAT</title>
+    <para>
+      JSON format is good for sharing data with other languages, which
+      makes it easy to integrate pgBadger's result into other monitoring
+      tools like Cacti or Graphite.
     </para>
   </refsection>
   <refsection xml:id="sources.pgbadger.doc.pgBadger.pod:AUTHORS"><title>AUTHORS</title>

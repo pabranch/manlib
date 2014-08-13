@@ -89,10 +89,15 @@
 [<emphasis role="bold">-status_verbose</emphasis>]
 [<emphasis role="bold">-status_timeout nsec</emphasis>]
 [<emphasis role="bold">-status_url url</emphasis>]
-=head1 DESCRIPTION</synopsis>
-<synopsis format="linespecific">The <emphasis role="bold">s_server</emphasis> command implements a generic SSL/TLS server which listens
-for connections on a given port using SSL/TLS.</synopsis>
+[<emphasis role="bold">-nextprotoneg protocols</emphasis>]</synopsis>
   </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.apps.s_server.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      The <emphasis role="bold">s_server</emphasis> command implements a
+      generic SSL/TLS server which listens for connections on a given port
+      using SSL/TLS.
+    </para>
+  </refsection>
   <refsection xml:id="sources.openssl.doc.apps.s_server.pod:OPTIONS"><title>OPTIONS</title>
     <para>
       In addition to the options below the <emphasis role="bold">s_server</emphasis> utility also supports the common and
@@ -259,6 +264,11 @@ for connections on a given port using SSL/TLS.</synopsis>
 	      requested but the client does not have to send one, with the
 	      <emphasis role="bold">-Verify</emphasis> option the client
 	      must supply a certificate or an error occurs.
+            </para>
+            <para>
+	      If the ciphersuite cannot request a client certificate (for
+	      example an anonymous ciphersuite or PSK) this option has no
+	      effect.
             </para>
           </listitem>
         </varlistentry>
@@ -615,6 +625,18 @@ for connections on a given port using SSL/TLS.</synopsis>
 	      present in the server certificate. Without this option an
 	      error is returned if the server certificate does not contain
 	      a responder address.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_server.pod:-nextprotoneg_protocols"/><emphasis role="bold">-nextprotoneg protocols</emphasis></term>
+          <listitem>
+            <para>
+	      enable Next Protocol Negotiation TLS extension and provide a
+	      comma-separated list of supported protocol names. The list
+	      should contain most wanted protocols first. Protocol names
+	      are printable ASCII strings, for example "http/1.1" or
+	      "spdy/3".
             </para>
           </listitem>
         </varlistentry>

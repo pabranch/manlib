@@ -77,7 +77,8 @@
 [<emphasis role="bold">-sess_in filename</emphasis>]
 [<emphasis role="bold">-rand file(s)</emphasis>]
 [<emphasis role="bold">-serverinfo types</emphasis>]
-[<emphasis role="bold">-status</emphasis>]</synopsis>
+[<emphasis role="bold">-status</emphasis>]
+[<emphasis role="bold">-nextprotoneg protocols</emphasis>]</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="sources.openssl.doc.apps.s_client.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
@@ -529,6 +530,22 @@
             <para>
 	      sends a certificate status request to the server (OCSP
 	      stapling). The server response (if any) is printed out.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-nextprotoneg_protocols"/><emphasis role="bold">-nextprotoneg protocols</emphasis></term>
+          <listitem>
+            <para>
+	      enable Next Protocol Negotiation TLS extension and provide a
+	      list of comma-separated protocol names that the client should
+	      advertise support for. The list should contain most wanted
+	      protocols first. Protocol names are printable ASCII strings,
+	      for example "http/1.1" or "spdy/3". Empty list of protocols
+	      is treated specially and will cause the client to advertise
+	      support for the TLS extension but disconnect just after
+	      reciving ServerHello with a list of server supported
+	      protocols.
             </para>
           </listitem>
         </varlistentry>

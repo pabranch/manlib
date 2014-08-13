@@ -439,10 +439,10 @@ DEK-Info: DES-EDE3-CBC,3F17F5316E2BAC89
       After this is the base64 encoded encrypted data.
     </para>
     <para>
-      The encryption key is determined using EVP_bytestokey(), using
+      The encryption key is determined using EVP_BytesToKey(), using
       <emphasis role="bold">salt</emphasis> and an iteration count of 1.
       The IV used is the value of <emphasis role="bold">salt</emphasis> and
-      *not* the IV returned by EVP_bytestokey().
+      *not* the IV returned by EVP_BytesToKey().
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.pem.pod:BUGS"><title>BUGS</title>
@@ -468,6 +468,11 @@ x = PEM_read_bio_X509(bp, NULL, 0, NULL);</screen>
     </para>
     <para>
       The write routines return 1 for success or 0 for failure.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.pem.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      EVP_get_cipherbyname(3), EVP_BytesToKey(3)
     </para>
   </refsection>
 </refentry>

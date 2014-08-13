@@ -7,6 +7,9 @@ mkfs.xfs \- construct an XFS filesystem
 .B \-b
 .I block_size
 ] [
+.B \-m
+.I global_metadata_options
+] [
 .B \-d
 .I data_section_options
 ] [
@@ -40,6 +43,8 @@ mkfs.xfs \- construct an XFS filesystem
 .B \-K
 ]
 .I device
+.br
+.B mkfs.xfs \-V
 .SH DESCRIPTION
 .B mkfs.xfs
 constructs an XFS filesystem by writing on a special
@@ -122,6 +127,48 @@ or in bytes with
 The default value is 4096 bytes (4 KiB), the minimum is 512, and the
 maximum is 65536 (64 KiB).
 XFS on Linux currently only supports pagesize or smaller blocks.
+.TP
+.BI \-m " global_metadata_options"
+These options specify metadata format options that either apply to the entire
+filesystem or aren't easily characterised by a specific functionality group. The
+valid
+.I global_metadata_options
+are:
+.RS 1.2i
+.TP
+.BI crc= value
+This is used to create a filesystem which maintains and checks CRC information
+in all metadata objects on disk. The value is either 0 to disable the feature,
+or 1 to enable the use of CRCs.
+.IP
+CRCs enable enhanced error detection due to hardware issues, whilst the format
+changes also improves crash recovery algorithms and the ability of various tools
+to validate and repair metadata corruptions when they are found.  The CRC
+algorithm used is CRC32c, so the overhead is dependent on CPU architecture as
+some CPUs have hardware acceleration of this algorithm.  Typically the overhead
+of calculating and checking the CRCs is not noticable in normal operation.
+.IP
+By default,
+.B mkfs.xfs
+will not enable metadata CRCs.
+.TP
+.BI finobt= value
+This option enables the use of a separate free inode btree index in each
+allocation group. The value is either 0 to disable the feature, or 1 to create
+a free inode btree in each allocation group.
+.IP
+The free inode btree mirrors the existing allocated inode btree index which
+indexes both used and free inodes. The free inode btree does not index used
+inodes, allowing faster, more consistent inode allocation performance as
+filesystems age.
+.IP
+By default,
+.B mkfs.xfs
+will not create free inode btrees. This feature is also currently only available
+for filesystems created with the
+.B \-m crc=1
+option set.
+.RE
 .TP
 .BI \-d " data_section_options"
 These options specify the location, size, and other parameters of the
@@ -242,6 +289,11 @@ will automatically query the logical volume for appropriate
 and
 .B swidth
 values.
+.TP
+.BI noalign
+This option disables automatic geometry detection and creates the filesystem
+without stripe geometry alignment even if the underlying storage device provides
+this information.
 .RE
 .TP
 .B \-f
@@ -279,7 +331,7 @@ with
 .BR log= ,
 or as the number fitting in a filesystem block with
 .BR perblock= .
-The mininum (and default)
+The minimum (and default)
 .I value
 is 256 bytes.
 The maximum
@@ -297,7 +349,7 @@ so if no inode size is given on the command line,
 .B mkfs.xfs
 will attempt to choose a size
 such that inode numbers will be < 32 bits.  If an inode size
-is specified, or if a filesystem is sufficently large,
+is specified, or if a filesystem is sufficiently large,
 .B mkfs.xfs
 will warn if this will create inode numbers > 32 significant
 bits.
@@ -355,7 +407,8 @@ than version 2.6.16.
 This is used to enable 32bit quota project identifiers. The
 .I value
 is either 0 or 1, with 1 signifying that 32bit projid are to be enabled.
-If the value is omitted, 0 is assumed.
+If the value is omitted, 1 is assumed.  (This default changed
+in release version 3.2.0.)
 .RE
 .TP
 .BI \-l " log_section_options"
@@ -450,7 +503,7 @@ suboption is specified.
 This changes the method of logging various persistent counters
 in the superblock.  Under metadata intensive workloads, these
 counters are updated and logged frequently enough that the superblock
-updates become a serialisation point in the filesystem. The
+updates become a serialization point in the filesystem. The
 .I value
 can be either 0 or 1.
 .IP
@@ -510,6 +563,25 @@ option enables ASCII only case-insensitive filename lookup and version
 are stored in directories using the case they were created with.
 .IP
 Note: Version 1 directories are not supported.
+.TP
+.BI ftype= value
+This feature allows the inode type to be stored in the directory
+structure so that the
+.BR readdir (3)
+and
+.BR getdents (2)
+do not need to look up the inode to determine the inode type.
+
+The
+.I value
+is either 0 or 1, with 1 signifiying that filetype information
+will be stored in the directory structure. The default value is 0.
+
+When CRCs are enabled via
+.B \-m crc=1,
+the ftype functionality is always enabled. This feature can not be turned
+off for such filesystem configurations.
+.IP
 .RE
 .TP
 .BI \-p " protofile"
@@ -693,6 +765,10 @@ This is used to specify the size of the real-time section.
 This suboption is only needed if the real-time section of the
 filesystem should occupy less space than the size of the partition
 or logical volume containing the section.
+.TP
+.BI noalign
+This option disables stripe size detection, enforcing a realtime device with no
+stripe geometry.
 .RE
 .TP
 .BI \-s " sector_size"
@@ -728,6 +804,9 @@ creating the file system.
 .TP
 .B \-K
 Do not attempt to discard blocks at mkfs time.
+.TP
+.B \-V
+Prints the version number and exits.
 .SH SEE ALSO
 .BR xfs (5),
 .BR mkfs (8),

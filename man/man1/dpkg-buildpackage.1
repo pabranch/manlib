@@ -54,8 +54,9 @@ then runs the \fBbinary\fP hook followed by \fBfakeroot debian/rules\fP
 \fIbinary-target\fP (unless a source-only build has been requested with
 \fB\-S\fP). Note that \fIbuild-target\fR and \fIbinary-target\fP are either
 \fBbuild\fP and \fBbinary\fP (default case, or if \fB\-b\fP is specified),
-or \fBbuild\-arch\fP and \fBbinary\-arch\fP (if \fB\-B\fP is specified),
-or \fBbuild\-indep\fP and \fBbinary\-indep\fP (if \fB\-A\fP is specified).
+or \fBbuild\-arch\fP and \fBbinary\-arch\fP (if \fB\-B\fP or \fB\-G\fP are
+specified), or \fBbuild\-indep\fP and \fBbinary\-indep\fP (if \fB\-A\fP
+or \fB\-g\fP are specified).
 .IP \fB6.\fP 3
 It runs the \fBchanges\fP hook and calls \fBdpkg\-genchanges\fP to
 generate a \fB.changes\fP file.
@@ -68,15 +69,25 @@ call \fBfakeroot debian/rules clean\fP again.
 It calls \fBdpkg\-source \-\-after\-build\fP.
 .IP \fB9.\fP 3
 It runs the \fBcheck\fP hook and calls a package checker for the
-\fB.changes\fP file (if a command is specified in DEB_CHECK_COMMAND or
+\fB.changes\fP file (if a command is specified in \fBDEB_CHECK_COMMAND\fP or
 with \fB\-\-check\-command\fP).
 .IP \fB10.\fP 3
 It runs the \fBsign\fP hook and calls \fBgpg2\fP or \fBgpg\fP to sign
 the \fB.dsc\fP file (if any, unless \fB\-us\fP is specified or on UNRELEASED
 builds), and the \fB.changes\fP file (unless \fB\-uc\fP is specified or on
 UNRELEASED builds).
+.IP \fB11.\fP 3
+It runs the \fBdone\fP hook.
 .
 .SH OPTIONS
+.TP
+.B \-g
+Specifies a build limited to source and architecture independent packages.
+Passed to \fBdpkg\-genchanges\fP.
+.TP
+.B \-G
+Specifies a build limited to source and architecture specific packages.
+Passed to \fBdpkg\-genchanges\fP.
 .TP
 .B \-b
 Specifies a binary-only build, no source files are to be built and/or
@@ -172,7 +183,8 @@ Do not check build dependencies and conflicts.
 .TP
 .B \-nc
 Do not clean the source tree (implies \fB\-b\fP if nothing else has been
-selected among \fB\-B\fP, \fB\-A\fP or \fB\-S\fP).
+selected among \fB\-F\fP, \fB\-g\fP, \fB\-G\fP, \fB\-B\fP, \fB\-A\fP
+or \fB\-S\fP).
 .TP
 .B \-tc
 Clean the source tree (using
@@ -223,6 +235,7 @@ as an argument. This command will usually be \fBlintian\fP.
 .BI \-\-check\-option= opt
 Pass option \fIopt\fP to the \fIcheck-command\fP specified with
 \fBDEB_CHECK_COMMAND\fP or \fB\-\-check\-command\fP.
+Can be used multiple times.
 .TP
 .BI \-\-hook\- hook-name = hook-command
 Set the specified shell code \fIhook-command\fP as the hook \fIhook-name\fP,
@@ -294,9 +307,11 @@ Passed unchanged to \fBdpkg\-source\fP. See its manual page.
 .TP
 .BI \-\-source\-option= opt
 Pass option \fIopt\fP to \fBdpkg\-source\fP.
+Can be used multiple times.
 .TP
 .BI \-\-changes\-option= opt
 Pass option \fIopt\fP to \fBdpkg\-genchanges\fP.
+Can be used multiple times.
 .TP
 .BI \-\-admindir= dir
 .TQ
@@ -352,7 +367,7 @@ the transition, it will fallback to using the \fBbuild\fP target
 if \fBmake \-f debian/rules \-qn\fP \fIbuild-target\fP returns 2 as
 exit code.
 .SH BUGS
-It should be possible to specify spaces and shell metacharacters in
+It should be possible to specify spaces and shell metacharacters
 and initial arguments for
 .IR gain-root-command " and " sign-command .
 .
