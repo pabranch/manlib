@@ -360,7 +360,7 @@ For a discussion of what may happen if a file descriptor being monitored by
 .BR poll ()
 is closed in another thread, see
 .BR select (2).
-.SS Linux notes
+.SS C library/kernel ABI differences
 The Linux
 .BR ppoll ()
 system call modifies its
@@ -374,6 +374,19 @@ Thus, the glibc
 function does not modify its
 .I timeout_ts
 argument.
+
+The raw
+.BR ppoll ()
+system call has a fifth argument,
+.IR "size_t sigsetsize" ,
+which specifies the size in bytes of the
+.IR sigmask
+argument.
+The glibc
+.BR ppoll ()
+wrapper function specifies this argument as a fixed value
+(equal to
+.IR sizeof(sigset_t) ).
 .SH BUGS
 See the discussion of spurious readiness notifications under the
 BUGS section of

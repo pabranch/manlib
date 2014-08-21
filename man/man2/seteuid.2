@@ -26,7 +26,7 @@
 .\" Modified, 27 May 2004, Michael Kerrisk <mtk.manpages@gmail.com>
 .\"     Added notes on capability requirements
 .\"
-.TH SETEUID 2 2014-06-13 "Linux" "Linux Programmer's Manual"
+.TH SETEUID 2 2014-08-19 "Linux" "Linux Programmer's Manual"
 .SH NAME
 seteuid, setegid \- set effective user or group ID
 .SH SYNOPSIS
@@ -104,7 +104,7 @@ possible since Linux 1.1.37 (1.1.38).
 On an arbitrary system one should check
 .BR _POSIX_SAVED_IDS .
 .LP
-Under libc4, libc5 and glibc 2.0
+Under glibc 2.0
 .BI seteuid( euid )
 is equivalent to
 .BI setreuid(\-1, " euid" )
@@ -128,7 +128,7 @@ need not permit
 .RI ( egid )
 to be the same value as the current effective user (group) ID,
 and some implementations do not permit this.
-
+.SS C library/kernel ABI differences
 On Linux,
 .BR seteuid ()
 and

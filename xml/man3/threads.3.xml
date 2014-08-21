@@ -35,7 +35,7 @@ unsigned long CRYPTO_THREADID_hash(const CRYPTO_THREADID *id);</synopsis>
 <synopsis format="linespecific">/* struct CRYPTO_dynlock_value needs to be defined by the user */
 struct CRYPTO_dynlock_value;</synopsis>
 <synopsis format="linespecific">void CRYPTO_set_dynlock_create_callback(struct CRYPTO_dynlock_value *
-       (*dyn_create_function)(char *file, int line));
+       (*dyn_create_function)(const char *file, int line));
 void CRYPTO_set_dynlock_lock_callback(void (*dyn_lock_function)
        (int mode, struct CRYPTO_dynlock_value *l,
        const char *file, int line));

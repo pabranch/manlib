@@ -71,9 +71,9 @@
                 <literal>_KERNEL_DEVICE=</literal> match for the
                 device.</para>
 
-                <para>Additional contraints may be added using options
+                <para>Additional constraints may be added using options
                 <option>--boot</option>, <option>--unit=</option>,
-                etc, to futher limit what entries will be shown
+                etc, to further limit what entries will be shown
                 (logical AND).</para>
 
                 <para>Output is interleaved from all accessible
@@ -100,7 +100,7 @@
                 <option>--no-pager</option> option and the "Environment"
                 section below.</para>
 
-                <para>When outputing to a tty, lines are colored
+                <para>When outputting to a tty, lines are colored
                 according to priority: lines of level ERROR and higher
                 are colored red; lines of level NOTICE and higher are
                 highlighted; other lines are displayed normally.
@@ -471,8 +471,9 @@
 
                                 <listitem><para>Show messages for the
                                 specified systemd unit
-                                <replaceable>UNIT</replaceable>, or
-                                for any of the units matched by
+                                <replaceable>UNIT</replaceable> (such
+                                as a service unit), or for any of the
+                                units matched by
                                 <replaceable>PATTERN</replaceable>.
                                 If a pattern is specified, a list of
                                 unit names found in the journal is
@@ -921,6 +922,10 @@
                 <para>Show all kernel logs from previous boot:</para>
 
                 <programlisting>journalctl -k -b -1</programlisting>
+
+                <para>Show a live log display from a system service <filename>apache.service</filename>:</para>
+
+                <programlisting>journalctl -f -u apache</programlisting>
 
         </refsect1>
 

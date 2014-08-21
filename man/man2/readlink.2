@@ -41,7 +41,7 @@
 .\" 2011-09-20, Guillem Jover <guillem@hadrons.org>:
 .\"     Added text on dynamically allocating buffer + example program
 .\"
-.TH READLINK 2 2014-05-10 "Linux" "Linux Programmer's Manual"
+.TH READLINK 2 2014-08-19 "Linux" "Linux Programmer's Manual"
 .SH NAME
 readlink, readlinkat \- read value of a symbolic link
 .SH SYNOPSIS
@@ -253,6 +253,19 @@ also addresses a common portability problem when using
 for the buffer size,
 as this constant is not guaranteed to be defined per POSIX
 if the system does not have such limit.
+.SS Glibc notes
+On older kernels where
+.BR readlinkat ()
+is unavailable, the glibc wrapper function falls back to the use of
+.BR readlink ().
+When
+.I pathname
+is a relative pathname,
+glibc constructs a pathname based on the symbolic link in
+.IR /proc/self/fd
+that corresponds to the
+.IR dirfd
+argument.
 .SH EXAMPLE
 The following program allocates the buffer needed by
 .BR readlink ()

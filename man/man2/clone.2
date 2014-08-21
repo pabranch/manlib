@@ -42,7 +42,7 @@
 .\" FIXME Document CLONE_NEWUSER, which is new in 2.6.23
 .\"       (also supported for unshare()?)
 .\"
-.TH CLONE 2 2014-05-28 "Linux" "Linux Programmer's Manual"
+.TH CLONE 2 2014-08-19 "Linux" "Linux Programmer's Manual"
 .SH NAME
 clone, __clone2 \- create a child process
 .SH SYNOPSIS
@@ -790,7 +790,7 @@ space of the calling process at the time of
 Memory writes or file mappings/unmappings performed by one of the
 processes do not affect the other, as with
 .BR fork (2).
-.SS The raw system call interface
+.SS C library/kernel ABI differences
 The raw
 .BR clone ()
 system call corresponds more closely to
@@ -993,13 +993,6 @@ was specified by an unprivileged process (process without \fBCAP_SYS_ADMIN\fP).
 .B EPERM
 .B CLONE_PID
 was specified by a process other than process 0.
-.SH VERSIONS
-There is no entry for
-.BR clone ()
-in libc5.
-glibc2 provides
-.BR clone ()
-as described in this manual page.
 .SH CONFORMING TO
 .BR clone ()
 is Linux-specific and should not be used in programs

@@ -459,6 +459,50 @@
                         </varlistentry>
 
                         <varlistentry>
+                                <term><varname>KeepAliveTimeSec=</varname></term>
+                                <listitem><para>Takes time (in seconds) as argument . The connection needs to remain
+                                idle before TCP starts sending keepalive probes. This controls the TCP_KEEPIDLE
+                                socket option (see
+                                <citerefentry><refentrytitle>socket</refentrytitle><manvolnum>7</manvolnum></citerefentry>
+                                and the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.tldp.org/HOWTO/html_single/TCP-Keepalive-HOWTO/">TCP
+                                Keepalive HOWTO</link> for details.)
+                                Defaults value is 7200 seconds (2 hours).</para></listitem>
+                        </varlistentry>
+
+                        <varlistentry>
+                                <term><varname>KeepAliveIntervalSec=</varname></term>
+                                <listitem><para>Takes time (in seconds) as argument between individual keepalive probes,
+                                if the socket option SO_KEEPALIVE has  been set on this socket seconds as argument.
+                                This controls the TCP_KEEPINTVL socket option (see
+                                <citerefentry><refentrytitle>socket</refentrytitle><manvolnum>7</manvolnum></citerefentry>
+                                and the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.tldp.org/HOWTO/html_single/TCP-Keepalive-HOWTO/">TCP
+                                Keepalive HOWTO</link> for details.)
+                                Defaults value is 75 seconds.</para></listitem>
+                        </varlistentry>
+
+                        <varlistentry>
+                                <term><varname>KeepAliveProbes=</varname></term>
+                                <listitem><para>Takes interger as argument. It's the number of unacknowledged probes to
+                                send before considering the connection dead and notifying the application layer.
+                                This controls the TCP_KEEPCNT socket option (see
+                                <citerefentry><refentrytitle>socket</refentrytitle><manvolnum>7</manvolnum></citerefentry>
+                                and the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.tldp.org/HOWTO/html_single/TCP-Keepalive-HOWTO/">TCP
+                                Keepalive HOWTO</link> for details.)
+                                Defaults value is 9.</para></listitem>
+                        </varlistentry>
+
+                        <varlistentry>
+                                <term><varname>NoDelay=</varname></term>
+                                <listitem><para>Takes a boolean
+                                argument. TCP Nagle's algorithm works by combining a number of
+                                small outgoing messages, and sending them all at once.
+                                This controls the TCP_NODELAY socket option (see
+                                <citerefentry><refentrytitle>tcp</refentrytitle><manvolnum>7</manvolnum></citerefentry>
+                                Defaults to
+                                <option>false</option>.</para></listitem>
+                        </varlistentry>
+
+                        <varlistentry>
                                 <term><varname>Priority=</varname></term>
                                 <listitem><para>Takes an integer
                                 argument controlling the priority for
@@ -467,6 +511,47 @@
                                 socket option (see
                                 <citerefentry><refentrytitle>socket</refentrytitle><manvolnum>7</manvolnum></citerefentry>
                                 for details.).</para></listitem>
+                        </varlistentry>
+
+                        <varlistentry>
+                                <term><varname>DeferAcceptSec=</varname></term>
+
+                                <listitem><para>Takes time (in
+                                seconds) as argument. If set, the
+                                listening process will be awakened
+                                only when data arrives on the socket,
+                                and not immediately when connection is
+                                established. When this option is set,
+                                the
+                                <constant>TCP_DEFER_ACCEPT</constant>
+                                socket option will be used (see
+                                <citerefentry><refentrytitle>tcp</refentrytitle><manvolnum>7</manvolnum></citerefentry>),
+                                and the kernel will ignore initial ACK
+                                packets without any data. The argument
+                                specifies the approximate amount of
+                                time the kernel should wait for
+                                incoming data before falling back to
+                                the normal behaviour of honouring
+                                empty ACK packets. This option is
+                                beneficial for protocols where the
+                                client sends the data first (e.g.
+                                HTTP, in contrast to SMTP), because
+                                the server process will not be woken
+                                up unnecessarily before it can take
+                                any action.
+                                </para>
+
+                                <para>If the client also uses the
+                                <constant>TCP_DEFER_ACCEPT</constant>
+                                option, the latency of the initial
+                                connection may be reduced, because the
+                                kernel will send data in the final
+                                packet establishing the connection
+                                (the third packet in the "three-way
+                                handshake").</para>
+
+                                <para>Disabled by default.</para>
+                                </listitem>
                         </varlistentry>
 
                         <varlistentry>

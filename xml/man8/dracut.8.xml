@@ -222,7 +222,9 @@ the <emphasis>dracut-network</emphasis> rpm package:</simpara>
 local hard drive or it can be served by a PXE/TFTP server.</simpara>
 <simpara>How to setup your PXE/TFTP server can be found in the
 <ulink url="http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Storage_Administration_Guide/">Red
-Hat Enterprise Linux Storage Administration Guide</ulink>.</simpara>
+Hat Enterprise Linux 6 Storage Administration Guide</ulink>
+or <ulink url="http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Storage_Administration_Guide/">Red
+Hat Enterprise Linux 7 Storage Administration Guide</ulink>.</simpara>
 <simpara>If you specify ip=auto on the kernel command line, then dracut asks a dhcp
 server about the ip adress for the machine. The dhcp server can also serve an
 additional root-path, which will set the root device for dracut. With this
@@ -536,7 +538,7 @@ the dracut shell
 on <emphasis>pre-shutdown</emphasis> or <emphasis>shutdown</emphasis>.</simpara>
 <simpara>To do this from an already booted system:</simpara>
 <screen># mkdir -p /run/initramfs/etc/cmdline.d
-# echo "rd.break=pre-shutdown" &gt; /run/initramfs/etc/cmdline.d/debug.conf
+# echo "rd.debug rd.break=pre-shutdown rd.break=shutdown" &gt; /run/initramfs/etc/cmdline.d/debug.conf
 # touch /run/initramfs/.need_shutdown</screen>
 <simpara>This will give you a dracut shell after the system pivot&#8217;ed back in the
 initramfs.</simpara>
@@ -1283,6 +1285,16 @@ will not be able to boot.</simpara>
 <simpara>
     Do not compress the generated initramfs. This will override any other
     compression options.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--reproducible</emphasis>
+</term>
+<listitem>
+<simpara>
+    Create reproducible images.
 </simpara>
 </listitem>
 </varlistentry>
