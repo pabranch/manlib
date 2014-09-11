@@ -228,7 +228,7 @@ rsync --checksum sources/ltrace/ltrace.conf.5 man/man5/"
 
   "lvm2": {
     "type": "git",
-    "url": "git://git.fedorahosted.org/git/lvm2.git",
+    "url": "https://git.fedorahosted.org/git/lvm2.git",
     /*"sparse": "man/\nVERSION\nVERSION_DM", <- need to run ./configure so get everything for now*/
     "cmd": "(cd sources/lvm2; ./configure; cd man; make man);
 rsync --checksum sources/lvm2/man/*.5 man/man5/;
@@ -276,7 +276,7 @@ find sources/multipath-tools/ -name '*.8' -exec rsync --checksum {} man/man8/ \\
 
   "net-tools": {
     "type": "git",
-    "url": "git://net-tools.git.sourceforge.net/gitroot/net-tools/net-tools",
+    "url": "git://git.code.sf.net/p/net-tools/code",
     "sparse": "man/en_US",
     "cmd": "rsync --checksum sources/net-tools/man/en_US/*.1 man/man1/;
 rsync --checksum sources/net-tools/man/en_US/*.5 man/man5/;
@@ -437,7 +437,7 @@ find sources/sox/ -name '*.7' -exec rsync --checksum {} man/man7/ \\;"
 
   "strace": {
     "type": "git",
-    "url": "git://strace.git.sourceforge.net/gitroot/strace/strace",
+    "url": "git://git.code.sf.net/p/strace/code",
     "sparse": "*.[1-8]",
     "cmd": "rsync --checksum sources/strace/*.1 man/man1/"
   },
