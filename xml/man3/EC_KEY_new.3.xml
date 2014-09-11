@@ -108,6 +108,12 @@ int EC_KEY_set_public_key_affine_coordinates(EC_KEY *key, BIGNUM *x, BIGNUM *y);
       set then the public key is not encoded along with the private key.
     </para>
     <para>
+      When reading a private key encoded with EC_PKEY_NO_PUBKEY,
+      d2i_ECPrivateKey generates the missing public key automatically.
+      Private keys encoded with EC_PKEY_NO_PARAMETERS cannot be loaded
+      using d2i_ECPrivateKey.
+    </para>
+    <para>
       The functions EC_KEY_get_conv_form and EC_KEY_set_conv_form get and
       set the point_conversion_form for the <emphasis role="bold">key</emphasis>. For a description of
       point_conversion_forms please refer to EC_POINT_new(3).

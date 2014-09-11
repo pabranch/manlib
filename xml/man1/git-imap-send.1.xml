@@ -44,7 +44,7 @@ imap.folder
 <simpara>
         The folder to drop the mails into, which is typically the Drafts
         folder. For example: "INBOX.Drafts", "INBOX/Drafts" or
-        "[Gmail]/Drafts". Required to use imap-send.
+        "[Gmail]/Drafts". Required.
 </simpara>
 </listitem>
 </varlistentry>
@@ -56,7 +56,7 @@ imap.tunnel
 <simpara>
         Command used to setup a tunnel to the IMAP server through which
         commands will be piped instead of using a direct network connection
-        to the server. Required when imap.host is not set to use imap-send.
+        to the server. Required when imap.host is not set.
 </simpara>
 </listitem>
 </varlistentry>
@@ -68,8 +68,7 @@ imap.host
 <simpara>
         A URL identifying the server. Use a <literal>imap://</literal> prefix for non-secure
         connections and a <literal>imaps://</literal> prefix for secure connections.
-        Ignored when imap.tunnel is set, but required to use imap-send
-        otherwise.
+        Ignored when imap.tunnel is set, but required otherwise.
 </simpara>
 </listitem>
 </varlistentry>
@@ -138,7 +137,8 @@ imap.authMethod
 <listitem>
 <simpara>
         Specify authenticate method for authentication with IMAP server.
-        Current supported method is <emphasis>CRAM-MD5</emphasis> only.
+        Current supported method is <emphasis>CRAM-MD5</emphasis> only. If this is not set
+        then <emphasis>git imap-send</emphasis> uses the basic IMAP plaintext LOGIN command.
 </simpara>
 </listitem>
 </varlistentry>

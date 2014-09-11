@@ -109,13 +109,15 @@ BN_is_prime_fasttest</refname>
     </para>
     <para>
       For "new" style callbacks a BN_GENCB structure should be initialised
-      with a call to BN_GENCB_set, where <emphasis role="bold">gencb</emphasis> is a <emphasis role="bold">BN_GENCB
+      with a call to BN_GENCB_set(), where <emphasis role="bold">gencb</emphasis> is a <emphasis role="bold">BN_GENCB
       *</emphasis>, <emphasis role="bold">callback</emphasis> is of type
       <emphasis role="bold">int (*callback)(int, int, BN_GENCB
       *)</emphasis> and <emphasis role="bold">cb_arg</emphasis> is a
       <emphasis role="bold">void *</emphasis>. "Old" style callbacks are
-      the same except they are initialised with a call to BN_GENCB_set_old
-      and <emphasis role="bold">callback</emphasis> is of type <emphasis role="bold">void (*callback)(int, int, void *)</emphasis>.
+      the same except they are initialised with a call to
+      BN_GENCB_set_old() and <emphasis role="bold">callback</emphasis> is
+      of type <emphasis role="bold">void (*callback)(int, int, void
+      *)</emphasis>.
     </para>
     <para>
       A callback is invoked through a call to <emphasis role="bold">BN_GENCB_call</emphasis>. This will check the type of the

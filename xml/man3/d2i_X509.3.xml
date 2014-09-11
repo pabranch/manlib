@@ -16,6 +16,7 @@ int i2d_X509(X509 *x, unsigned char **out);</synopsis>
 X509 *d2i_X509_fp(FILE *fp, X509 **x);</synopsis>
 <synopsis format="linespecific">int i2d_X509_bio(BIO *bp, X509 *x);
 int i2d_X509_fp(FILE *fp, X509 *x);</synopsis>
+<synopsis format="linespecific">int i2d_re_X509_tbs(X509 *x, unsigned char **out);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="sources.openssl.doc.crypto.d2i_X509.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
@@ -61,11 +62,18 @@ int i2d_X509_fp(FILE *fp, X509 *x);</synopsis>
       of the structure <emphasis role="bold">x</emphasis> to BIO <emphasis role="bold">bp</emphasis> and it returns 1 for success and 0 for
       failure.
     </para>
+    <para>
+      i2d_re_X509_tbs() is similar to i2d_X509() except it encodes only the
+      TBSCertificate portion of the certificate.
+    </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.d2i_X509.pod:NOTES"><title>NOTES</title>
     <para>
       The letters <emphasis role="bold">i</emphasis> and <emphasis role="bold">d</emphasis> in for example <emphasis role="bold">i2d_X509</emphasis> stand for "internal" (that is an
-      internal C structure) and "DER". So that <emphasis role="bold">i2d_X509</emphasis> converts from internal to DER.
+      internal C structure) and "DER". So <emphasis role="bold">i2d_X509</emphasis> converts from internal to DER. The
+      "re" in <emphasis role="bold">i2d_re_X509_tbs</emphasis> stands for
+      "re-encode", and ensures that a fresh encoding is generated in case
+      the object has been modified after creation (see the BUGS section).
     </para>
     <para>
       The functions can also understand <emphasis role="bold">BER</emphasis> forms.
@@ -224,6 +232,26 @@ if (!d2i_X509(&amp;x, &amp;p, len))
       the encoded structure may contain invalid data or omit the fields
       entirely and will not be parsed by d2i_X509(). This may be fixed in
       future so code should not assume that i2d_X509() will always succeed.
+    </para>
+    <para>
+      The encoding of the TBSCertificate portion of a certificate is cached
+      in the <emphasis role="bold">X509</emphasis> structure internally to
+      improve encoding performance and to ensure certificate signatures are
+      verified correctly in some certificates with broken (non-DER)
+      encodings.
+    </para>
+    <para>
+      Any function which encodes an X509 structure such as i2d_X509(),
+      i2d_X509_fp() or i2d_X509_bio() may return a stale encoding if the
+      <emphasis role="bold">X509</emphasis> structure has been modified
+      after deserialization or previous serialization.
+    </para>
+    <para>
+      If, after modification, the <emphasis role="bold">X509</emphasis>
+      object is re-signed with X509_sign(), the encoding is automatically
+      renewed. Otherwise, the encoding of the TBSCertificate portion of the
+      <emphasis role="bold">X509</emphasis> can be manually renewed by
+      calling i2d_re_X509_tbs().
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.d2i_X509.pod:RETURN_VALUES"><title>RETURN VALUES</title>

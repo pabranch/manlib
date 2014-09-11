@@ -64,7 +64,7 @@
 .\" Modified 1998, 1999 by Andi Kleen
 .\" Modified 2004-06-23 by Michael Kerrisk <mtk.manpages@gmail.com>
 .\"
-.TH CONNECT 2 2014-07-08 "Linux" "Linux Programmer's Manual"
+.TH CONNECT 2 2014-09-06 "Linux" "Linux Programmer's Manual"
 .SH NAME
 connect \- initiate a connection on a socket
 .SH SYNOPSIS
@@ -267,6 +267,12 @@ Some POSIX confusion resulted in the present
 also used by glibc.
 See also
 .BR accept (2).
+
+If
+.B connect()
+fails, consider the state of the socket as unspecified.
+Portable applications should close the socket and create a new one for
+reconnecting.
 .SH EXAMPLE
 An example of the use of
 .BR connect ()

@@ -189,7 +189,7 @@ inside the initramfs to <emphasis>/etc/cmdline.d/mycmdline.conf</emphasis>. --in
 be specified once.</simpara>
 <screen># mkdir -p rd.live.overlay/etc/cmdline.d
 # mkdir -p rd.live.overlay/etc/conf.d
-# echo "ip=auto" &gt;&gt; rd.live.overlay/etc/cmdline.d/mycmdline.conf
+# echo "ip=dhcp" &gt;&gt; rd.live.overlay/etc/cmdline.d/mycmdline.conf
 # echo export FOO=testtest &gt;&gt; rd.live.overlay/etc/conf.d/testvar.conf
 # echo export BAR=testtest &gt;&gt; rd.live.overlay/etc/conf.d/testvar.conf
 # tree rd.live.overlay/
@@ -225,7 +225,7 @@ local hard drive or it can be served by a PXE/TFTP server.</simpara>
 Hat Enterprise Linux 6 Storage Administration Guide</ulink>
 or <ulink url="http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Storage_Administration_Guide/">Red
 Hat Enterprise Linux 7 Storage Administration Guide</ulink>.</simpara>
-<simpara>If you specify ip=auto on the kernel command line, then dracut asks a dhcp
+<simpara>If you specify ip=dhcp on the kernel command line, then dracut asks a dhcp
 server about the ip adress for the machine. The dhcp server can also serve an
 additional root-path, which will set the root device for dracut. With this
 mechanism, you have static configuration on your client machine and a
@@ -669,6 +669,22 @@ example:</simpara>
 <simpara>If [LIST] has multiple arguments, then you have to put these in quotes. For
 example:</simpara>
 <screen># dracut --add-drivers "kmodule1 kmodule2"  ...</screen>
+</note>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--force-drivers</emphasis> <emphasis>&lt;list of kernel modules&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    See add-drivers above. But in this case it is ensured that the drivers
+    are tried to be loaded early via modprobe.
+</simpara>
+<note>
+<simpara>If [LIST] has multiple arguments, then you have to put these in quotes. For
+example:</simpara>
+<screen># dracut --force-drivers "kmodule1 kmodule2"  ...</screen>
 </note>
 </listitem>
 </varlistentry>

@@ -57,7 +57,7 @@ const EVP_MD *EVP_sha512(void);</synopsis>
   <refsection xml:id="sources.openssl.doc.crypto.EVP_DigestInit.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
       The EVP digest routines are a high level interface to message
-      digests.
+      digests, and should be used instead of the cipher-specific functions.
     </para>
     <para>
       EVP_MD_CTX_init() initializes digest context <emphasis role="bold">ctx</emphasis>.
@@ -156,7 +156,7 @@ const EVP_MD *EVP_sha512(void);</synopsis>
       EVP_dss() and EVP_dss1() return <emphasis role="bold">EVP_MD</emphasis> structures for SHA and SHA1 digest
       algorithms but using DSS (DSA) for the signature algorithm. Note:
       there is no need to use these pseudo-digests in OpenSSL 1.0.0 and
-      later, they are however retained for compatibility. 
+      later, they are however retained for compatibility.
     </para>
     <para>
       EVP_md_null() is a "null" message digest that does nothing: i.e. the
@@ -205,7 +205,7 @@ const EVP_MD *EVP_sha512(void);</synopsis>
     </para>
     <para>
       New applications should use the SHA2 digest algorithms such as
-      SHA256. The other digest algorithms are still in common use. 
+      SHA256. The other digest algorithms are still in common use.
     </para>
     <para>
       For most applications the <emphasis role="bold">impl</emphasis>
@@ -219,7 +219,7 @@ const EVP_MD *EVP_sha512(void);</synopsis>
       EVP_DigestInit_ex(), EVP_DigestFinal_ex() and EVP_MD_CTX_copy_ex()
       because they can efficiently reuse a digest context instead of
       initializing and cleaning it up on each call and allow non default
-      implementations of digests to be specified. 
+      implementations of digests to be specified.
     </para>
     <para>
       In OpenSSL 0.9.7 and later if digest contexts are not cleaned up
@@ -280,13 +280,18 @@ EVP_DigestFinal_ex(mdctx, md_value, &amp;md_len);
 EVP_MD_CTX_destroy(mdctx);
 
 printf("Digest is: ");
-for(i = 0; i &lt; md_len; i++) printf("%02x", md_value[i]);
+for(i = 0; i &lt; md_len; i++)
+       printf("%02x", md_value[i]);
 printf("\n");
+
+/* Call this once before exit. */
+EVP_cleanup();
+exit(0);
 }</screen>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.EVP_DigestInit.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      evp(3), hmac(3), md2(3), md5(3), mdc2(3), ripemd(3), sha(3), dgst(1)
+      dgst(1), evp(3)
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.EVP_DigestInit.pod:HISTORY"><title>HISTORY</title>
@@ -306,7 +311,7 @@ printf("\n");
     </para>
     <para>
       The link between digests and signing algorithms was fixed in OpenSSL
-      1.0 and later, so now EVP_sha1() can be used with RSA and DSA, there
+      1.0 and later, so now EVP_sha1() can be used with RSA and DSA; there
       is no need to use EVP_dss1() any more.
     </para>
     <para>

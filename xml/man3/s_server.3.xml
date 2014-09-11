@@ -54,6 +54,7 @@
 [<emphasis role="bold">-trusted_first</emphasis>]
 [<emphasis role="bold">-use_deltas</emphasis>]
 [<emphasis role="bold">-verify_depth num</emphasis>]
+[<emphasis role="bold">-verify_return_error</emphasis>]
 [<emphasis role="bold">-verify_email email</emphasis>]
 [<emphasis role="bold">-verify_hostname hostname</emphasis>]
 [<emphasis role="bold">-verify_ip ip</emphasis>]
@@ -255,24 +256,6 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.s_server.pod:-verify_depth_-Verify_depth"/><emphasis role="bold">-verify depth</emphasis>, <emphasis role="bold">-Verify depth</emphasis></term>
-          <listitem>
-            <para>
-	      The verify depth to use. This specifies the maximum length of
-	      the client certificate chain and makes the server request a
-	      certificate from the client. With the <emphasis role="bold">-verify</emphasis> option a certificate is
-	      requested but the client does not have to send one, with the
-	      <emphasis role="bold">-Verify</emphasis> option the client
-	      must supply a certificate or an error occurs.
-            </para>
-            <para>
-	      If the ciphersuite cannot request a client certificate (for
-	      example an anonymous ciphersuite or PSK) this option has no
-	      effect.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.apps.s_server.pod:-crl_check_-crl_check_all"/><emphasis role="bold">-crl_check</emphasis>, <emphasis role="bold">-crl_check_all</emphasis></term>
           <listitem>
             <para>
@@ -306,6 +289,24 @@
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_server.pod:-verify_depth_-Verify_depth"/><emphasis role="bold">-verify depth</emphasis>, <emphasis role="bold">-Verify depth</emphasis></term>
+          <listitem>
+            <para>
+	      The verify depth to use. This specifies the maximum length of
+	      the client certificate chain and makes the server request a
+	      certificate from the client. With the <emphasis role="bold">-verify</emphasis> option a certificate is
+	      requested but the client does not have to send one, with the
+	      <emphasis role="bold">-Verify</emphasis> option the client
+	      must supply a certificate or an error occurs.
+            </para>
+            <para>
+	      If the ciphersuite cannot request a client certificate (for
+	      example an anonymous ciphersuite or PSK) this option has no
+	      effect.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.apps.s_server.pod:-attime_-check_ss_sig_explicit_policy_-extended_crl-ignore_critical_-inhibit_any_-inhibit_map_-issuer_checks-partial_chain_-policy_-policy_check_-policy_print_-purpose-suiteB_128_-suiteB_128_only_-suiteB_192_-trusted_first-use_deltas_-verify_depth_-verify_email_-verify_hostname-verify_ip_-verify_name_-x509_strict"/><emphasis role="bold">-attime</emphasis>, <emphasis role="bold">-check_ss_sig</emphasis>, <emphasis role="bold">explicit_policy</emphasis>, <emphasis role="bold">-extended_crl</emphasis>,
 <emphasis role="bold">-ignore_critical</emphasis>, <emphasis role="bold">-inhibit_any</emphasis>, <emphasis role="bold">-inhibit_map</emphasis>, <emphasis role="bold">-issuer_checks</emphasis>,
 <emphasis role="bold">-partial_chain</emphasis>, <emphasis role="bold">-policy</emphasis>, <emphasis role="bold">-policy_check</emphasis>, <emphasis role="bold">-policy_print</emphasis>, <emphasis role="bold">-purpose</emphasis>,
@@ -317,6 +318,17 @@
 	      Set different peer certificate verification options. See the
 	      <emphasis role="bold">verify</emphasis> manual page for
 	      details.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_server.pod:-verify_return_error"/><emphasis role="bold">-verify_return_error</emphasis></term>
+          <listitem>
+            <para>
+	      Verification errors normally just print a message but allow
+	      the connection to continue, for debugging purposes. If this
+	      option is used, then verification errors close the
+	      connection.
             </para>
           </listitem>
         </varlistentry>

@@ -34,9 +34,15 @@ int EVP_PKEY_sign(EVP_PKEY_CTX *ctx,
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_sign.pod:NOTES"><title>NOTES</title>
     <para>
+      EVP_PKEY_sign() does not hash the data to be signed, and therefore is
+      normally used to sign digests. For signing arbitrary messages, see
+      the EVP_DigestSignInit(3) and EVP_SignInit(3) signing interfaces
+      instead.
+    </para>
+    <para>
       After the call to EVP_PKEY_sign_init() algorithm specific control
       operations can be performed to set any appropriate parameters for the
-      operation.
+      operation (see EVP_PKEY_CTX_ctrl(3)).
     </para>
     <para>
       The function EVP_PKEY_sign() can be called more than once on the same
@@ -59,13 +65,17 @@ int EVP_PKEY_sign(EVP_PKEY_CTX *ctx,
 #include &amp;lt;openssl/rsa.h&amp;gt;
 
 EVP_PKEY_CTX *ctx;
+/* md is a SHA-256 digest in this example. */
 unsigned char *md, *sig;
-size_t mdlen, siglen; 
+size_t mdlen = 32, siglen;
 EVP_PKEY *signing_key;
-/* NB: assumes signing_key, md and mdlen are already set up
- * and that signing_key is an RSA private key
+
+/*
+ * NB: assumes signing_key and md are set up before the next
+ * step. signing_key must be an RSA private key and md must
+ * point to the SHA-256 digest to be signed.
  */
-ctx = EVP_PKEY_CTX_new(signing_key);
+ctx = EVP_PKEY_CTX_new(signing_key, NULL /* no engine */);
 if (!ctx)
        /* Error occurred */
 if (EVP_PKEY_sign_init(ctx) &lt;= 0)
@@ -93,8 +103,9 @@ if (EVP_PKEY_sign(ctx, sig, &amp;siglen, md, mdlen) &lt;= 0)
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_sign.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      EVP_PKEY_CTX_new(3), EVP_PKEY_encrypt(3), EVP_PKEY_decrypt(3),
-      EVP_PKEY_verify(3), EVP_PKEY_verify_recover(3), EVP_PKEY_derive(3)
+      EVP_PKEY_CTX_new(3), EVP_PKEY_CTX_ctrl(3), EVP_PKEY_encrypt(3),
+      EVP_PKEY_decrypt(3), EVP_PKEY_verify(3), EVP_PKEY_verify_recover(3),
+      EVP_PKEY_derive(3)
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_sign.pod:HISTORY"><title>HISTORY</title>

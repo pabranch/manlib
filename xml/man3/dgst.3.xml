@@ -4,16 +4,17 @@
     <refentrytitle>dgst.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>dgst, md5, md4, md2, sha1, sha, mdc2, ripemd160, sha224, sha256, sha384, sha512</refname>
+    <refname>dgst, sha, sha1, mdc2, ripemd160, sha224, sha256, sha384, sha512, md2, md4, md5, dss1</refname>
 <refpurpose>message digests</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis format="linespecific"><emphasis role="bold">openssl</emphasis> <emphasis role="bold">dgst</emphasis>
-[<emphasis role="bold">-md5|-md4|-md2|-sha1|-sha|-mdc2|-ripemd160|-sha224|-sha256|-sha384|-sha512|-dss1</emphasis>]
+[<emphasis role="bold">-sha|-sha1|-mdc2|-ripemd160|-sha224|-sha256|-sha384|-sha512|-md2|-md4|-md5|-dss1</emphasis>]
 [<emphasis role="bold">-c</emphasis>]
 [<emphasis role="bold">-d</emphasis>]
 [<emphasis role="bold">-hex</emphasis>]
 [<emphasis role="bold">-binary</emphasis>]
+[<emphasis role="bold">-r</emphasis>]
 [<emphasis role="bold">-out filename</emphasis>]
 [<emphasis role="bold">-sign filename</emphasis>]
 [<emphasis role="bold">-keyform arg</emphasis>]
@@ -22,19 +23,20 @@
 [<emphasis role="bold">-prverify filename</emphasis>]
 [<emphasis role="bold">-signature filename</emphasis>]
 [<emphasis role="bold">-hmac key</emphasis>]
+[<emphasis role="bold">-non-fips-allow</emphasis>]
+[<emphasis role="bold">-fips-fingerprint</emphasis>]
 [<emphasis role="bold">file...</emphasis>]
 
 </synopsis>
-<synopsis format="linespecific">[<emphasis role="bold">md5|md4|md2|sha1|sha|mdc2|ripemd160|sha224|sha256|sha384|sha512</emphasis>]
-[<emphasis role="bold">-c</emphasis>]
-[<emphasis role="bold">-d</emphasis>]
-[<emphasis role="bold">file...</emphasis>]</synopsis>
+<synopsis format="linespecific"><emphasis role="bold">openssl</emphasis>
+[<emphasis role="italic">digest</emphasis>]
+[<emphasis role="bold">...</emphasis>]</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="sources.openssl.doc.apps.dgst.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
       The digest functions output the message digest of a supplied file or
-      files in hexadecimal form. They can also be used for digital signing
-      and verification.
+      files in hexadecimal.  The digest functions also generate and verify
+      digital signatures using message digests.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.apps.dgst.pod:OPTIONS"><title>OPTIONS</title>
@@ -64,6 +66,7 @@
             <para>
 	      digest is to be output as a hex dump. This is the default
 	      case for a "normal" digest as opposed to a digital signature.
+	       See NOTES below for digital signatures using <emphasis role="bold">-hex</emphasis>.
             </para>
           </listitem>
         </varlistentry>
@@ -72,6 +75,15 @@
           <listitem>
             <para>
 	      output the digest or signature in binary form.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-r"/><emphasis role="bold">-r</emphasis></term>
+          <listitem>
+            <para>
+	      output the digest in the "coreutils" format used by programs
+	      like <emphasis role="bold">sha1sum</emphasis>.
             </para>
           </listitem>
         </varlistentry>
@@ -96,8 +108,8 @@
           <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-keyform_arg"/><emphasis role="bold">-keyform arg</emphasis></term>
           <listitem>
             <para>
-	      Specifies the key format to sign digest with. Only PEM and
-	      ENGINE formats are supported by the <emphasis role="bold">dgst</emphasis> command.
+	      Specifies the key format to sign digest with. The DER, PEM,
+	      P12, and ENGINE formats are supported.
             </para>
           </listitem>
         </varlistentry>
@@ -230,6 +242,24 @@
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-non-fips-allow"/><emphasis role="bold">-non-fips-allow</emphasis></term>
+          <listitem>
+            <para>
+	      enable use of non-FIPS algorithms such as MD5 even in FIPS
+	      mode.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-fips-fingerprint"/><emphasis role="bold">-fips-fingerprint</emphasis></term>
+          <listitem>
+            <para>
+	      compute HMAC using a specific key for certain OpenSSL-FIPS
+	      operations.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:file..."/><emphasis role="bold">file...</emphasis></term>
           <listitem>
             <para>
@@ -240,23 +270,50 @@
         </varlistentry>
       </variablelist>
     </para>
+    <screen></screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.dgst.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      To create a hex-encoded message digest of a file: openssl dgst -md5
+      -hex file.txt
+    </para>
+    <para>
+      To sign a file using SHA-256 with binary file output: openssl dgst
+      -sha256 -sign privatekey.pem -out signature.sign file.txt
+    </para>
+    <para>
+      To verify a signature: openssl dgst -sha256 -verify publickey.pem \
+      -signature signature.sign \ file.txt
+    </para>
+    <screen></screen>
   </refsection>
   <refsection xml:id="sources.openssl.doc.apps.dgst.pod:NOTES"><title>NOTES</title>
     <para>
-      The digest of choice for all new applications is SHA256. Other
-      digests are however still widely used.
+      New or agile applications should use probably use SHA-256. Other
+      digests, particularly SHA-1 and MD5, are still widely used for
+      interoperating with existing formats and protocols.
     </para>
     <para>
-      If you wish to sign or verify data using the DSA algorithm then the
-      dss1 digest must be used.
+      When signing a file, <emphasis role="bold">dgst</emphasis> will
+      automatically determine the algorithm (RSA, ECC, etc) to use for
+      signing based on the private key's ASN.1 info. When verifying
+      signatures, it only handles the RSA, DSA, or ECDSA signature itself,
+      not the related data to identify the signer and algorithm used in
+      formats such as x.509, CMS, and S/MIME.
     </para>
     <para>
       A source of random numbers is required for certain signing
-      algorithms, in particular DSA.
+      algorithms, in particular ECDSA and DSA.
     </para>
     <para>
       The signing and verify options should only be used if a single file
       is being signed or verified.
     </para>
+    <para>
+      Hex signatures cannot be verified using <emphasis role="bold">openssl</emphasis>.  Instead, use "xxd -r" or similar
+      program to transform the hex signature into a binary signature prior
+      to verification.
+    </para>
+    <screen></screen>
   </refsection>
 </refentry>

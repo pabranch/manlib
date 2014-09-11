@@ -60,7 +60,16 @@ void SSL_set_psk_server_callback(SSL *ssl,
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_use_psk_identity_hint.pod:gt_0"/>&gt; 0</term>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_use_psk_identity_hint.pod:0"/>0</term>
+          <listitem>
+            <para>
+	      PSK identity was not found. An "unknown_psk_identity" alert
+	      message will be sent and the connection setup fails.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_use_psk_identity_hint.pod:gt0"/>&gt;0</term>
           <listitem>
             <para>
 	      PSK identity was found and the server callback has provided
@@ -75,15 +84,6 @@ void SSL_set_psk_server_callback(SSL *ssl,
 	      return the length of the random data, so the connection will
 	      fail with decryption_error before it will be finished
 	      completely.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_use_psk_identity_hint.pod:0"/>0</term>
-          <listitem>
-            <para>
-	      PSK identity was not found. An "unknown_psk_identity" alert
-	      message will be sent and the connection setup fails.
             </para>
           </listitem>
         </varlistentry>

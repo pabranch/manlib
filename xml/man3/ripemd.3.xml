@@ -44,10 +44,6 @@ int RIPEMD160_Final(unsigned char *md, RIPEMD160_CTX *c);</synopsis>
       RIPEMD160_DIGEST_LENGTH == 20 bytes of output, and erases the
       <emphasis role="bold">RIPEMD160_CTX</emphasis>.
     </para>
-    <para>
-      Applications should use the higher level functions EVP_DigestInit(3)
-      etc. instead of calling the hash functions directly.
-    </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.ripemd.pod:RETURN_VALUES"><title>RETURN VALUES</title>
     <para>
@@ -58,6 +54,12 @@ int RIPEMD160_Final(unsigned char *md, RIPEMD160_CTX *c);</synopsis>
       for success, 0 otherwise.
     </para>
   </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ripemd.pod:NOTE"><title>NOTE</title>
+    <para>
+      Applications should use the higher level functions EVP_DigestInit(3)
+      etc. instead of calling these functions directly.
+    </para>
+  </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.ripemd.pod:CONFORMING_TO"><title>CONFORMING TO</title>
     <para>
       ISO/IEC 10118-3 (draft) (??)
@@ -65,13 +67,7 @@ int RIPEMD160_Final(unsigned char *md, RIPEMD160_CTX *c);</synopsis>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.ripemd.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      sha(3), hmac(3), EVP_DigestInit(3)
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ripemd.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      RIPEMD160(), RIPEMD160_Init(), RIPEMD160_Update() and
-      RIPEMD160_Final() are available since SSLeay 0.9.0.
+      EVP_DigestInit(3)
     </para>
   </refsection>
 </refentry>

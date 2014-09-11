@@ -100,6 +100,13 @@
         </varlistentry>
 
         <varlistentry>
+          <term><literal>-=</literal></term>
+          <listitem>
+            <para>Remove the value from a key that holds a list of entries.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
           <term><literal>:=</literal></term>
           <listitem>
             <para>Assign  a  value  to  a key finally; disallow any later changes.</para>
@@ -258,8 +265,8 @@
         </varlistentry>
       </variablelist>
 
-      <para>Most of the fields support shell glob pattern matching. The following
-      pattern characters are supported:</para>
+      <para>Most of the fields support shell glob pattern matching and
+      alternate patterns. The following special characters are supported:</para>
       <variablelist>
         <varlistentry>
           <term><literal>*</literal></term>
@@ -284,6 +291,14 @@
             <literal>[0-9]</literal> could be used. If the first character
             following the <literal>[</literal> is a <literal>!</literal>,
             any characters not enclosed are matched.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><literal>|</literal></term>
+          <listitem>
+            <para>Separates alternative patterns. For example, the pattern string
+            <literal>abc|x*</literal> would match either <literal>abc</literal>
+            or <literal>x*</literal>.</para>
           </listitem>
         </varlistentry>
       </variablelist>

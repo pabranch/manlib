@@ -104,6 +104,10 @@ git --git-dir=c/a.git --work-tree=c/b status</literallayout>
         The &lt;name&gt; is expected in the same format as listed by
         <emphasis>git config</emphasis> (subkeys separated by dots).
 </simpara>
+<simpara>Note that omitting the <literal>=</literal> in <literal>git -c foo.bar ...</literal> is allowed and sets
+<literal>foo.bar</literal> to the boolean true value (just like <literal>[foo]bar</literal> would in a
+config file). Including the equals but with an empty value (like <literal>git -c
+foo.bar= ...</literal>) sets <literal>foo.bar</literal> to the empty string.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>

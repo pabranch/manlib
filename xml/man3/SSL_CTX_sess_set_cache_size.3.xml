@@ -15,7 +15,8 @@ long SSL_CTX_sess_get_cache_size(SSL_CTX *ctx);</synopsis>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_sess_set_cache_size.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_sess_set_cache_size() sets the size of the internal session
-      cache of context <emphasis role="bold">ctx</emphasis> to <emphasis role="bold">t</emphasis>.
+      cache of context <emphasis role="bold">ctx</emphasis> to <emphasis role="bold">t</emphasis>. This value is a hint and not an absolute;
+      see the notes below.
     </para>
     <para>
       SSL_CTX_sess_get_cache_size() returns the currently valid session
@@ -31,9 +32,10 @@ long SSL_CTX_sess_get_cache_size(SSL_CTX *ctx);</synopsis>
       which is used for unlimited size.
     </para>
     <para>
-      When the maximum number of sessions is reached, no more new sessions
-      are added to the cache. New space may be added by calling
-      SSL_CTX_flush_sessions(3) to remove expired sessions.
+      If adding the session makes the cache exceed its size, then unused
+      sessions are dropped from the end of the cache. Cache space may also
+      be reclaimed by calling SSL_CTX_flush_sessions(3) to remove expired
+      sessions.
     </para>
     <para>
       If the size of the session cache is reduced and more sessions are

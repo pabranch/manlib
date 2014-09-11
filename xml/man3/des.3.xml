@@ -312,15 +312,6 @@ int DES_enc_write(int fd, const void *buf, int len,
       default), DES_pcbc_encrypt is used.  If set to <emphasis role="italic">DES_CBC_MODE</emphasis> DES_cbc_encrypt is used.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.des.pod:NOTES"><title>NOTES</title>
-    <para>
-      Single-key DES is insecure due to its short key size.  ECB mode is
-      not suitable for most applications; see des_modes(7).
-    </para>
-    <para>
-      The evp(3) library provides higher-level encryption functions.
-    </para>
-  </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.des.pod:BUGS"><title>BUGS</title>
     <para>
       DES_3cbc_encrypt() is flawed and must not be used in applications.
@@ -354,9 +345,14 @@ int DES_enc_write(int fd, const void *buf, int len,
       source code compatible with the MIT Kerberos library.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.des.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="sources.openssl.doc.crypto.des.pod:NOTES"><title>NOTES</title>
     <para>
-      crypt(3), des_modes(7), evp(3), rand(3)
+      Applications should use the higher level functions EVP_EncryptInit(3)
+      etc. instead of calling these functions directly.
+    </para>
+    <para>
+      Single-key DES is insecure due to its short key size.  ECB mode is
+      not suitable for most applications; see des_modes(7).
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.des.pod:HISTORY"><title>HISTORY</title>
@@ -398,6 +394,11 @@ int DES_enc_write(int fd, const void *buf, int len,
     <para>
       Eric Young (eay@cryptsoft.com). Modified for the OpenSSL project
       (http://www.openssl.org).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.des.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      des_modes(7), EVP_EncryptInit(3)
     </para>
   </refsection>
 </refentry>
