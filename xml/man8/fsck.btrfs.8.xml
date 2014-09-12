@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>fsck.btrfs</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo class="source">Btrfs</refmiscinfo>
+<refmiscinfo class="version">v3.16</refmiscinfo>
+<refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>fsck.btrfs</refname>
+  <refpurpose>do nothing, successfully</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis role="strong">fsck.btrfs</emphasis> [-aApy] [<emphasis>&lt;device&gt;</emphasis>&#8230;]</simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara><emphasis role="strong">fsck.btrfs</emphasis> is a type of utility that should exist for any filesystem and is
+called during system setup when the corresponding <literal>/etc/fstab</literal> entries
+contain non-zero value for <literal>fs_passno</literal> , see <literal>fstab</literal>(5) for more.</simpara>
+<simpara>Traditional filesystems need to run their respective fsck utility in case the
+filesystem was not unmounted cleanly and the log needs to be replayed before
+mount. This is not needed for BTRFS. You should set fs_passno to 0.</simpara>
+<simpara>If you wish to check the consistency of a BTRFS filesystem or repair a damaged
+filesystem, see <literal>btrfs-check</literal>(8). By default the filesystem
+consistency is checked, the repair mode is enabled via <emphasis>--repair</emphasis> option (use
+with care!).</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<simpara>The options are all the same and detect if <emphasis role="strong">fsck.btrfs</emphasis> is executed in
+non-interactive mode and exits with success,
+otherwise prints a message about btrfs check.</simpara>
+</refsect1>
+<refsect1 id="_exit_status">
+<title>EXIT STATUS</title>
+<simpara>There are two possible exit code returned:</simpara>
+<variablelist>
+<varlistentry>
+<term>
+0
+</term>
+<listitem>
+<simpara>
+No error
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+8
+</term>
+<listitem>
+<simpara>
+Operational error, eg. device does not exist
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_files">
+<title>FILES</title>
+<simpara><literal>/etc/fstab</literal></simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><literal>btrfs</literal>(8),
+<literal>fsck</literal>(8),
+<literal>fstab</literal>(5),</simpara>
+</refsect1>
+</refentry>

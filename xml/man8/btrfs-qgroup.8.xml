@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>btrfs-qgroup</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo class="source">Btrfs</refmiscinfo>
+<refmiscinfo class="version">v3.16</refmiscinfo>
+<refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>btrfs-qgroup</refname>
+  <refpurpose>control the quota group of a btrfs filesystem</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis role="strong">btrfs qgroup</emphasis> <emphasis>&lt;subcommand&gt;</emphasis> <emphasis>&lt;args&gt;</emphasis></simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara><emphasis role="strong">btrfs qgroup</emphasis> is used to control quota group(qgroup) of a btrfs filesystem.</simpara>
+<note><simpara>To use qgroup, it needs to enable quota first using <emphasis role="strong">btrfs quota</emphasis>
+command.</simpara></note>
+<warning><simpara>Qgroup is not stable yet and will impact performance in current mainline
+kernel(v3.14 so far).</simpara></warning>
+</refsect1>
+<refsect1 id="_qgroup">
+<title>QGROUP</title>
+<simpara>Quota group or qgroup in btrfs has its hierarchy like subvolume.
+One subvolume/snapshot can reach its quota limits if it consumes all the quota
+assigned to it or any of the parent qgroup(s).</simpara>
+<simpara>Also for snapshot, it consumes no quota initially since all its data
+shares with its parent, so only modification in snapshot consumes quota.</simpara>
+<simpara>Every subvolume/snapshot will have its own qgroup with id <emphasis>0/</emphasis>&lt;subvolume id&gt;''
+upon creating, but can be later destroyed by <emphasis role="strong">btrfs qgroup destroy</emphasis> command.</simpara>
+<note><simpara>If the qgroup of a subvolume is destroyed, quota about the subvolume
+will not be functional until qgroup <emphasis>0/</emphasis>&lt;subvolume id&gt;'' is created again.</simpara></note>
+</refsect1>
+<refsect1 id="_subcommand">
+<title>SUBCOMMAND</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">assign</emphasis> <emphasis>&lt;src&gt;</emphasis> <emphasis>&lt;dst&gt;</emphasis> <emphasis>&lt;path&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Assign qgroup <emphasis>&lt;src&gt;</emphasis> as the child qgroup of <emphasis>&lt;dst&gt;</emphasis> in the btrfs filesystem
+identified by <emphasis>&lt;path&gt;</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">remove</emphasis> <emphasis>&lt;src&gt;</emphasis> <emphasis>&lt;dst&gt;</emphasis> <emphasis>&lt;path&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Remove the relationship between child qgroup <emphasis>&lt;src&gt;</emphasis> and parent qgroup <emphasis>&lt;dst&gt;</emphasis> in
+the btrfs filesystem identified by <emphasis>&lt;path&gt;</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">create</emphasis> <emphasis>&lt;qgroupid&gt;</emphasis> <emphasis>&lt;path&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Create a subvolume quota group.
+</simpara>
+<simpara>For the <emphasis>0/</emphasis>&lt;subvolume id&gt;'' qgroup, a qgroup can be created even before the
+subvolume created.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">destroy</emphasis> <emphasis>&lt;qgroupid&gt;</emphasis> <emphasis>&lt;path&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Destroy a qgroup.
+</simpara>
+<simpara>If a qgroup is no isolated,which means it is a parent or child qgroup, it
+can&#8217;t be destroyed.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">show</emphasis> [options] <emphasis>&lt;path&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Show all qgroups in the btrfs filesystem identified by <emphasis>&lt;path&gt;</emphasis>.
+</simpara>
+<simpara><literal>Options</literal></simpara>
+<variablelist>
+<varlistentry>
+<term>
+-p
+</term>
+<listitem>
+<simpara>
+print parent qgroup id.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-c
+</term>
+<listitem>
+<simpara>
+print child qgroup id.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-r
+</term>
+<listitem>
+<simpara>
+print max referenced size of qgroup.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-e
+</term>
+<listitem>
+<simpara>
+print max exclusive size of qgroup.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-F
+</term>
+<listitem>
+<simpara>
+list all qgroups which impact the given path(include ancestral qgroups)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-f
+</term>
+<listitem>
+<simpara>
+list all qgroups which impact the given path(exclude ancestral qgroups)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--sort=<emphasis><phrase role="+/-">&lt;attr&gt;</phrase></emphasis>[,<emphasis><phrase role="+/-">&lt;attr&gt;</phrase></emphasis>]&#8230;
+</term>
+<listitem>
+<simpara>
+list qgroups in order of <emphasis>&lt;attr&gt;</emphasis>.
+</simpara>
+<simpara><emphasis>&lt;attr&gt;</emphasis> can be one or more of qgroupid,rfer,excl,max_rfer,max_excl.</simpara>
+<simpara>Prefix '+' means ascending order and '-' means descending order of <emphasis>&lt;attr&gt;</emphasis>.
+If no prefix is given, use ascending order by default.</simpara>
+<simpara>If multiple '&lt;attr&gt;'s is given, use comma to separate.</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">limit</emphasis> [options] <emphasis>&lt;size&gt;</emphasis>|none [<emphasis>&lt;qgroupid&gt;</emphasis>] <emphasis>&lt;path&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Limit the size of a qgroup to <emphasis>&lt;size&gt;</emphasis> or no limit in the btrfs filesystem
+identified by <emphasis>&lt;path&gt;</emphasis>.
+</simpara>
+<simpara>If <emphasis>&lt;qgroupid&gt;</emphasis> is not given, qgroup of the subvolume identified by <emphasis>&lt;path&gt;</emphasis>
+is used if possible.</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_exit_status">
+<title>EXIT STATUS</title>
+<simpara><emphasis role="strong">btrfs qgroup</emphasis> returns a zero exist status if it succeeds. Non zero is
+returned in case of failure.</simpara>
+</refsect1>
+<refsect1 id="_availability">
+<title>AVAILABILITY</title>
+<simpara><emphasis role="strong">btrfs</emphasis> is part of btrfs-progs.
+Please refer to the btrfs wiki <ulink url="http://btrfs.wiki.kernel.org">http://btrfs.wiki.kernel.org</ulink> for
+further details.</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><literal>mkfs.btrfs</literal>(8),
+<literal>btrfs-subvolume</literal>(8),
+<literal>btrfs-quota</literal>(8),</simpara>
+</refsect1>
+</refentry>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>btrfs-send</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo class="source">Btrfs</refmiscinfo>
+<refmiscinfo class="version">v3.16</refmiscinfo>
+<refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>btrfs-send</refname>
+  <refpurpose>send data of subvolume(s) to stdout/file.</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis role="strong">btrfs send</emphasis> [-ve] [-p <emphasis>&lt;parent&gt;</emphasis>] [-c <emphasis>&lt;clone-src&gt;</emphasis>] [-f <emphasis>&lt;outfile&gt;</emphasis>] <emphasis>&lt;subvol&gt;</emphasis> [<emphasis>&lt;subvol&gt;</emphasis>&#8230;]</simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>Sends the subvolume(s) specified by <emphasis>&lt;subvol&gt;</emphasis> to stdout.</simpara>
+<simpara>By default, this will send the whole subvolume. To do an incremental
+send, use <emphasis>-p '&lt;parent&gt;</emphasis>'.</simpara>
+<simpara>If you want to allow btrfs to clone from any additional local snapshots,
+use <emphasis>-c '&lt;clone-src&gt;</emphasis>' (multiple times where applicable).</simpara>
+<simpara>You must not specify clone sources unless you guarantee that these snapshots
+are exactly in the same state on both sides, the sender and the receiver.</simpara>
+<simpara>It is allowed to omit the <emphasis>-p '&lt;parent&gt;</emphasis>' option when <emphasis>-c '&lt;clone-src&gt;</emphasis>' options
+are given, in which case <emphasis role="strong">btrfs send</emphasis> will determine a suitable parent among the
+clone sources itself.</simpara>
+<simpara><literal>Options</literal></simpara>
+<variablelist>
+<varlistentry>
+<term>
+-v
+</term>
+<listitem>
+<simpara>
+Enable verbose debug output. Each occurrence of this option increases the
+verbose level more.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-e
+</term>
+<listitem>
+<simpara>
+If sending multiple subvols at once, use the new format and omit the <emphasis>&lt;end cmd&gt;</emphasis> between the subvols.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-p <emphasis>&lt;parent&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Send an incremental stream from <emphasis>&lt;parent&gt;</emphasis> to <emphasis>&lt;subvol&gt;</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-c <emphasis>&lt;clone-src&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Use this snapshot as a clone source for an incremental send (multiple allowed).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-f <emphasis>&lt;outfile&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Output is normally written to stdout. To write to a file, use this option.
+An alternative would be to use pipes.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_exit_status">
+<title>EXIT STATUS</title>
+<simpara><emphasis role="strong">btrfs send</emphasis> returns a zero exist status if it succeeds. Non zero is
+returned in case of failure.</simpara>
+</refsect1>
+<refsect1 id="_availability">
+<title>AVAILABILITY</title>
+<simpara><emphasis role="strong">btrfs</emphasis> is part of btrfs-progs.
+Please refer to the btrfs wiki <ulink url="http://btrfs.wiki.kernel.org">http://btrfs.wiki.kernel.org</ulink> for
+further details.</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><literal>mkfs.btrfs</literal>(8),
+<literal>btrfs-receive</literal>(8)</simpara>
+</refsect1>
+</refentry>

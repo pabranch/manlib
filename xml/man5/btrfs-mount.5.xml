@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>btrfs-mount</refentrytitle>
+<manvolnum>5</manvolnum>
+<refmiscinfo class="source">Btrfs</refmiscinfo>
+<refmiscinfo class="version">v3.16</refmiscinfo>
+<refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>btrfs-mount</refname>
+  <refpurpose>mount options and supported file attributes for the btrfs filesystem</refpurpose>
+</refnamediv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>This document describes mount options specific to the btrfs filesystem.
+Other generic mount options are available,and are described in the
+<literal>mount</literal>(8) manpage.</simpara>
+</refsect1>
+<refsect1 id="_mount_options">
+<title>MOUNT OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">alloc_start=<emphasis>bytes</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+        Debugging option to force all block allocations above a certain
+        byte threshold on each block device.  The value is specified in
+        bytes, optionally with a K, M, or G suffix, case insensitive.
+        Default is 1MB.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">autodefrag</emphasis>
+</term>
+<listitem>
+<simpara>
+        Disable/enable auto defragmentation.
+        Auto defragmentation detects small random writes into files and queue
+        them up for the defrag process.  Works best for small files;
+        Not well suited for large database workloads.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">check_int</emphasis>|<emphasis role="strong">check_int_data</emphasis>|<emphasis role="strong">check_int_print_mask=<emphasis>value</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+        These debugging options control the behavior of the integrity checking
+        module (the BTRFS_FS_CHECK_INTEGRITY config option required).<?asciidoc-br?>
+       <?asciidoc-br?>
+        <literal>check_int</literal> enables the integrity checker module, which examines all
+        block write requests to ensure on-disk consistency, at a large
+        memory and CPU cost.<?asciidoc-br?>
+       <?asciidoc-br?>
+        <literal>check_int_data</literal> includes extent data in the integrity checks, and
+        implies the check_int option.<?asciidoc-br?>
+       <?asciidoc-br?>
+        <literal>check_int_print_mask</literal> takes a bitmask of BTRFSIC_PRINT_MASK_* values
+        as defined in <emphasis>fs/btrfs/check-integrity.c</emphasis>, to control the integrity
+        checker module behavior.<?asciidoc-br?>
+       <?asciidoc-br?>
+        See comments at the top of <emphasis>fs/btrfs/check-integrity.c</emphasis>
+        for more info.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">commit=<emphasis>seconds</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+        Set the interval of periodic commit, 30 seconds by default. Higher
+        values defer data being synced to permanent storage with obvious
+        consequences when the system crashes. The upper bound is not forced,
+        but a warning is printed if it&#8217;s more than 300 seconds (5 minutes).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">compress</emphasis>|<emphasis role="strong">compress=<emphasis>type</emphasis></emphasis>|<emphasis role="strong">compress-force</emphasis>|<emphasis role="strong">compress-force=<emphasis>type</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+        Control BTRFS file data compression.  Type may be specified as "zlib"
+        "lzo" or "no" (for no compression, used for remounting).  If no type
+        is specified, zlib is used.  If compress-force is specified,
+        all files will be compressed, whether or not they compress well.
+        If compression is enabled, nodatacow and nodatasum are disabled.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">degraded</emphasis>
+</term>
+<listitem>
+<simpara>
+        Allow mounts to continue with missing devices.  A read-write mount may
+        fail with too many devices missing, for example if a stripe member
+        is completely missing.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">device=<emphasis>devicepath</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+        Specify a device during mount so that ioctls on the control device
+        can be avoided.  Especially useful when trying to mount a multi-device
+        setup as root.  May be specified multiple times for multiple devices.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">discard</emphasis>
+</term>
+<listitem>
+<simpara>
+        Disable/enable discard mount option.
+        Discard issues frequent commands to let the block device reclaim space
+        freed by the filesystem.
+        This is useful for SSD devices, thinly provisioned
+        LUNs and virtual machine images, but may have a significant
+        performance impact.  (The fstrim command is also available to
+        initiate batch trims from userspace).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">enospc_debug</emphasis>
+</term>
+<listitem>
+<simpara>
+        Disable/enable debugging option to be more verbose in some ENOSPC conditions.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">fatal_errors=<emphasis>action</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+        Action to take when encountering a fatal error.<?asciidoc-br?>
+                "bug" - BUG() on a fatal error.  This is the default.<?asciidoc-br?>
+                "panic" - panic() on a fatal error.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">flushoncommit</emphasis>
+</term>
+<listitem>
+<simpara>
+        The <literal>flushoncommit</literal> mount option forces any data dirtied by a write in a
+        prior transaction to commit as part of the current commit.  This makes
+        the committed state a fully consistent view of the file system from the
+        application&#8217;s perspective (i.e., it includes all completed file system
+        operations).  This was previously the behavior only when a snapshot is
+        created.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+<simpara><emphasis role="strong">inode_cache</emphasis>:
+        Enable free inode number caching.   Defaults to off due to an overflow
+        problem when the free space crcs don&#8217;t fit inside a single page.</simpara>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">max_inline=<emphasis>bytes</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+        Specify the maximum amount of space, in bytes, that can be inlined in
+        a metadata B-tree leaf.  The value is specified in bytes, optionally
+        with a K, M, or G suffix, case insensitive.  In practice, this value
+        is limited by the root sector size, with some space unavailable due
+        to leaf headers.  For a 4k sectorsize, max inline data is ~3900 bytes.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">metadata_ratio=<emphasis>value</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+        Specify that 1 metadata chunk should be allocated after every
+        <emphasis>value</emphasis> data chunks.  Off by default.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">noacl</emphasis>
+</term>
+<listitem>
+<simpara>
+        Enable/disable support for Posix Access Control Lists (ACLs).  See the
+        <literal>acl</literal>(5) manual page for more information about ACLs.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">nobarrier</emphasis>
+</term>
+<listitem>
+<simpara>
+        ensure that certain IOs make it through the device cache and are on
+        persistent storage. If disabled on a device with a volatile
+        (non-battery-backed) write-back cache, nobarrier option will lead to
+        filesystem corruption on a system crash or power loss.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">nodatacow</emphasis>
+</term>
+<listitem>
+<simpara>
+        Enable/disable data copy-on-write for newly created files.
+        Nodatacow implies nodatasum, and disables all compression.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">nodatasum</emphasis>
+</term>
+<listitem>
+<simpara>
+        Enable/disable data checksumming for newly created files.
+        Datasum implies datacow.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">notreelog</emphasis>
+</term>
+<listitem>
+<simpara>
+        Enable/disable the tree logging used for fsync and O_SYNC writes.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">recovery</emphasis>
+</term>
+<listitem>
+<simpara>
+        Enable autorecovery attempts if a bad tree root is found at mount time.
+        Currently this scans a list of several previous tree roots and tries to
+        use the first readable.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rescan_uuid_tree</emphasis>
+</term>
+<listitem>
+<simpara>
+        Force check and rebuild procedure of the UUID tree. This should not
+        normally be needed.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">skip_balance</emphasis>
+</term>
+<listitem>
+<simpara>
+        Skip automatic resume of interrupted balance operation after mount.
+        May be resumed with "btrfs balance resume."
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">nospace_cache</emphasis>
+</term>
+<listitem>
+<simpara>
+        Disable freespace cache loading without clearing the cache.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">clear_cache</emphasis>
+</term>
+<listitem>
+<simpara>
+        Force clearing and rebuilding of the disk space cache if something
+        has gone wrong.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">ssd</emphasis>|<emphasis role="strong">nossd</emphasis>|<emphasis role="strong">ssd_spread</emphasis>
+</term>
+<listitem>
+<simpara>
+        Options to control ssd allocation schemes.  By default, BTRFS will
+        enable or disable ssd allocation heuristics depending on whether a
+        rotational or nonrotational disk is in use.  The ssd and nossd options
+        can override this autodetection.<?asciidoc-br?>
+        The ssd_spread mount option attempts to allocate into big chunks
+        of unused space, and may perform better on low-end ssds.  ssd_spread
+        implies ssd, enabling all other ssd heuristics as well.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">subvol=<emphasis>path</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+        Mount subvolume at <emphasis>path</emphasis> rather than the root subvolume. The
+        <emphasis>path</emphasis> is relative to the top level subvolume.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">subvolid=<emphasis>ID</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+        Mount subvolume specified by an ID number rather than the root subvolume.
+        This allows mounting of subvolumes which are not in the root of the mounted
+        filesystem.
+        You can use "btrfs subvolume list" to see subvolume ID numbers.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">subvolrootid=<emphasis>objectid</emphasis> (deprecated)</emphasis>
+</term>
+<listitem>
+<simpara>
+        Mount subvolume specified by <emphasis>objectid</emphasis> rather than the root subvolume.
+        This allows mounting of subvolumes which are not in the root of the mounted
+        filesystem.
+        You can use "btrfs subvolume show" to see the object ID for a subvolume.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">thread_pool=<emphasis>number</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+        The number of worker threads to allocate.  The default number is equal
+        to the number of CPUs + 2, or 8, whichever is smaller.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">user_subvol_rm_allowed</emphasis>
+</term>
+<listitem>
+<simpara>
+        Allow subvolumes to be deleted by a non-root user. Use with caution.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_file_attributes">
+<title>FILE ATTRIBUTES</title>
+<simpara>The btrfs filesystem supports setting the following file
+attributes the <literal>chattr</literal>(1) utility</simpara>
+<simpara><emphasis role="strong">a</emphasis>&#8201;&#8212;&#8201;append only</simpara>
+<simpara><emphasis role="strong">A</emphasis>&#8201;&#8212;&#8201;no atime updates</simpara>
+<simpara><emphasis role="strong">c</emphasis>&#8201;&#8212;&#8201;compressed</simpara>
+<simpara><emphasis role="strong">C</emphasis>&#8201;&#8212;&#8201;no copy on write</simpara>
+<simpara><emphasis role="strong">d</emphasis>&#8201;&#8212;&#8201;no dump</simpara>
+<simpara><emphasis role="strong">D</emphasis>&#8201;&#8212;&#8201;synchronous directory updates</simpara>
+<simpara><emphasis role="strong">i</emphasis>&#8201;&#8212;&#8201;immutable</simpara>
+<simpara><emphasis role="strong">S</emphasis>&#8201;&#8212;&#8201;synchronous updates</simpara>
+<simpara><emphasis role="strong">X</emphasis>&#8201;&#8212;&#8201;no compression</simpara>
+<simpara>For descriptions of these attribute flags, please refer to the
+<literal>chattr</literal>(1) man page.</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><literal>chattr</literal>(1),
+<literal>mkfs.btrfs</literal>(8),
+<literal>mount</literal>(8),
+<literal>btrfs</literal>(8)</simpara>
+</refsect1>
+</refentry>

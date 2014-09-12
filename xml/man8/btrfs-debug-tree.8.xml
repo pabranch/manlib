@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>btrfs-debug-tree</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo class="source">Btrfs</refmiscinfo>
+<refmiscinfo class="version">v3.16</refmiscinfo>
+<refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>btrfs-debug-tree</refname>
+  <refpurpose>dump btrfs filesystem metadata into stdout</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis role="strong">btrfs-debug-tree</emphasis> [options] <emphasis>&lt;device&gt;</emphasis></simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara><emphasis role="strong">btrfs-debug-tree</emphasis> is used to dump the whole tree of the given device.</simpara>
+<simpara>This is maybe useful for analyzing filesystem state or inconsistence and has
+a positive educational effect on understanding the internal structure.
+<emphasis>&lt;device&gt;</emphasis> is the device file where the filesystem is stored.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-e
+</term>
+<listitem>
+<simpara>
+Print detailed extents info.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-d
+</term>
+<listitem>
+<simpara>
+Print info of btrfs device and root tree dirs only.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-r
+</term>
+<listitem>
+<simpara>
+Print info of roots only.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-b <emphasis>&lt;block_num&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Print info of the specified block only.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_exit_status">
+<title>EXIT STATUS</title>
+<simpara><emphasis role="strong">btrfs-debug-tree</emphasis> will return 0 if no error happened.
+If any problems happened, 1 will be returned.</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><literal>mkfs.btrfs</literal>(8)</simpara>
+</refsect1>
+</refentry>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>btrfs-property</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo class="source">Btrfs</refmiscinfo>
+<refmiscinfo class="version">v3.16</refmiscinfo>
+<refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>btrfs-property</refname>
+  <refpurpose>get/set/list properties for given btrfs object.</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis role="strong">btrfs property</emphasis> <emphasis>&lt;subcommand&gt;</emphasis> <emphasis>&lt;args&gt;</emphasis></simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara><emphasis role="strong">btrfs property</emphasis> is used to get/set/list property, like lable or compression
+state, for given btrfs object.</simpara>
+<simpara><emphasis role="strong">btrfs property</emphasis> provides an unified and user-friendly method to tune different
+btrfs properties instead of using the traditional method like <literal>chattr</literal>(1) or
+<literal>lsattr</literal>(1).</simpara>
+</refsect1>
+<refsect1 id="_subcommand">
+<title>SUBCOMMAND</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">get</emphasis> [-t <emphasis>&lt;type&gt;</emphasis>] <emphasis>&lt;object&gt;</emphasis> [<emphasis>&lt;name&gt;</emphasis>]
+</term>
+<listitem>
+<simpara>
+Gets a property from a btrfs object.
+</simpara>
+<simpara>If no name is specified, all properties for the given object are
+printed.
+A filesystem object can be a the filesystem itself, a subvolume,
+an inode or a device.</simpara>
+<simpara>The <emphasis>-t '&lt;type&gt;</emphasis>' option can be used to explicitly
+specify what type of object you meant. This is only needed when a
+property could be set for more then one object type.</simpara>
+<simpara>Possible types are <emphasis>s[ubvol]</emphasis>, <emphasis>f[ilesystem]</emphasis>, <emphasis>i[node]</emphasis> and <emphasis>d[evice]</emphasis>.</simpara>
+<simpara>The <emphasis>&lt;object&gt;</emphasis> can be path of btrfs device, btrfs mount point, or any
+directories/files inside btrfs.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">set</emphasis> [-t <emphasis>&lt;type&gt;</emphasis>] <emphasis>&lt;object&gt;</emphasis> <emphasis>&lt;name&gt;</emphasis> <emphasis>&lt;value&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Sets a property on a btrfs object.
+</simpara>
+<simpara>See description of <emphasis role="strong">get</emphasis> subcommand for a description of objects and object
+types.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">list</emphasis> [-t <emphasis>&lt;type&gt;</emphasis>] <emphasis>&lt;object&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Lists available properties with their descriptions for the given object.
+</simpara>
+<simpara>Please see the help of <emphasis role="strong">btrfs property get</emphasis> for a description of
+objects and object types.</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_exit_status">
+<title>EXIT STATUS</title>
+<simpara><emphasis role="strong">btrfs property</emphasis> returns a zero exist status if it succeeds. Non zero is
+returned in case of failure.</simpara>
+</refsect1>
+<refsect1 id="_availability">
+<title>AVAILABILITY</title>
+<simpara><emphasis role="strong">btrfs</emphasis> is part of btrfs-progs.
+Please refer to the btrfs wiki <ulink url="http://btrfs.wiki.kernel.org">http://btrfs.wiki.kernel.org</ulink> for
+further details.</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><literal>mkfs.btrfs</literal>(8),
+<literal>lsattr</literal>(1),
+<literal>setattr</literal>(8)</simpara>
+</refsect1>
+</refentry>

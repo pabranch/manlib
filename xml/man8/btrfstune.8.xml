@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>btrfstune</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo class="source">Btrfs</refmiscinfo>
+<refmiscinfo class="version">v3.16</refmiscinfo>
+<refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>btrfstune</refname>
+  <refpurpose>tune various btrfs filesystem parameters</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis role="strong">btrfstune</emphasis> [options] <emphasis>&lt;dev&gt;</emphasis> [<emphasis>&lt;dev&gt;</emphasis>&#8230;]</simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara><emphasis role="strong">btrfstune</emphasis> is used to tune various btrfs filesystem parameters,you can
+enable/disable some extended features for btrfs.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-S <emphasis>&lt;value&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Updates the seeding value.
+A positive value will enable seeding, zero will disable seeding, negtive is not allowed.
+Enable seeding forces a fs readonly so that you can use it to build other filesystems.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-r
+</term>
+<listitem>
+<simpara>
+Enable extended inode refs.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-x
+</term>
+<listitem>
+<simpara>
+Enable skinny metadata extent refs.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_exit_status">
+<title>EXIT STATUS</title>
+<simpara><emphasis role="strong">btrfstune</emphasis> will return 0 if no error happened.
+If any problems happened, 1 will be returned.</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><literal>mkfs.btrfs</literal>(8)</simpara>
+</refsect1>
+</refentry>

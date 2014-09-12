@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>btrfs-restore</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo class="source">Btrfs</refmiscinfo>
+<refmiscinfo class="version">v3.16</refmiscinfo>
+<refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>btrfs-restore</refname>
+  <refpurpose>try to restore files from a damaged btrfs filesystem(unmounted)</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis role="strong">btrfs restore</emphasis> [options] <emphasis>&lt;device&gt;</emphasis> <emphasis>&lt;path&gt;</emphasis> | -l <emphasis>&lt;device&gt;</emphasis></simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara><emphasis role="strong">btrfs restore</emphasis> is used to try to salvage files from a damaged filesystem and
+restore them into <emphasis>&lt;path&gt;</emphasis> or just list the tree roots.</simpara>
+<simpara>Since current <literal>btrfs-check</literal>(8) or <literal>btrfs-rescue</literal>(8) only has very limited usage,
+<emphasis role="strong">btrfs restore</emphasis> is normally a better choice.</simpara>
+<note><simpara>It is recommended to read the following btrfs wiki page if your data is
+not salvaged with default option:<?asciidoc-br?>
+<ulink url="https://btrfs.wiki.kernel.org/index.php/Restore">https://btrfs.wiki.kernel.org/index.php/Restore</ulink></simpara></note>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-s
+</term>
+<listitem>
+<simpara>
+get snapshots, btrfs restore skips snapshots in default.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-x
+</term>
+<listitem>
+<simpara>
+get extended attributes.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-v
+</term>
+<listitem>
+<simpara>
+verbose.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-i
+</term>
+<listitem>
+<simpara>
+ignore errors.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-o
+</term>
+<listitem>
+<simpara>
+overwrite directories/files in <emphasis>&lt;path&gt;</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-t <emphasis>&lt;bytenr&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+use <emphasis>&lt;bytenr&gt;</emphasis> to read root tree.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-f <emphasis>&lt;bytenr&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+only restore files that are under specified root whose root bytenr is <emphasis>&lt;bytenr&gt;</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-u <emphasis>&lt;mirror&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+use given superblock mirror identified by <emphasis>&lt;mirror&gt;</emphasis>, it can be 0,1,2.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-r <emphasis>&lt;rootid&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+only restore files that are under specified root whose objectid is <emphasis>&lt;rootid&gt;</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-d
+</term>
+<listitem>
+<simpara>
+find dir.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-l
+</term>
+<listitem>
+<simpara>
+list tree roots.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-D|--dry-run
+</term>
+<listitem>
+<simpara>
+dry run (only list files that would be recovered).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--path-regex <emphasis>&lt;regex&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+restore only filenames matching regex, you have to use following syntax (possibly quoted):
+^/(|home(|/username(|/Desktop(|/.*))))$
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-c
+</term>
+<listitem>
+<simpara>
+ignore case (--path-regrex only).
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_exit_status">
+<title>EXIT STATUS</title>
+<simpara><emphasis role="strong">btrfs restore</emphasis> returns a zero exist status if it succeeds. Non zero is
+returned in case of failure.</simpara>
+</refsect1>
+<refsect1 id="_availability">
+<title>AVAILABILITY</title>
+<simpara><emphasis role="strong">btrfs</emphasis> is part of btrfs-progs.
+Please refer to the btrfs wiki <ulink url="http://btrfs.wiki.kernel.org">http://btrfs.wiki.kernel.org</ulink> for
+further details.</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><literal>mkfs.btrfs</literal>(8),
+<literal>btrfs-rescue</literal>(8),
+<literal>btrfs-check</literal>(8)</simpara>
+</refsect1>
+</refentry>

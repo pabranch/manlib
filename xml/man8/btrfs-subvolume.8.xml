@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>btrfs-subvolume</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo class="source">Btrfs</refmiscinfo>
+<refmiscinfo class="version">v3.16</refmiscinfo>
+<refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>btrfs-subvolume</refname>
+  <refpurpose>control btrfs subvolume(s)</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis role="strong">btrfs subvolume</emphasis> <emphasis>&lt;subcommand&gt;</emphasis> [<emphasis>&lt;args&gt;</emphasis>]</simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara><emphasis role="strong">btrfs subvolume</emphasis> is used to control the filesystem to create/delete/list/show
+subvolumes and snapshots.</simpara>
+</refsect1>
+<refsect1 id="_subvolume_and_snapshot">
+<title>SUBVOLUME AND SNAPSHOT</title>
+<simpara>A subvolume in btrfs is not like an LVM logical volume, which is quite
+independent from each other, a btrfs subvolume has its hierarchy and relations
+between other subvolumes.</simpara>
+<simpara>A subvolume in btrfs can be accessed in two ways.</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>
+From the parent subvolume<?asciidoc-br?>
+When accessing from the parent subvolume, the subvolume can be used just
+like a directory. It can have child subvolumes and its own files/directories.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Separate mounted filesystem<?asciidoc-br?>
+When <literal>mount</literal>(8) using <emphasis>subvol</emphasis> or <emphasis>subvolid</emphasis> mount option, one can access
+files/directories/subvolumes inside it, but nothing in parent subvolumes.
+</simpara>
+</listitem>
+</orderedlist>
+<simpara>Also every btrfs filesystem has a default subvolume as its initially top-level
+subvolume, whose subvolume id is 5(FS_TREE).</simpara>
+<simpara>A btrfs snapshot is much like a subvolume, but shares its data(and metadata)
+with other subvolume/snapshot. Due to the capabilities of COW, modifications
+inside a snapshot will only show in a snapshot but not in its source subvolume.</simpara>
+<simpara>Although in btrfs, subvolumes/snapshots are treated as directories, only
+subvolume/snapshot can be the source of a snapshot, snapshot can not be made
+from normal directories.</simpara>
+</refsect1>
+<refsect1 id="_subcommand">
+<title>SUBCOMMAND</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">create</emphasis> [-i <emphasis>&lt;qgroupid&gt;</emphasis>] <emphasis><phrase role="&lt;dest&gt;">&lt;name&gt;</phrase></emphasis>
+</term>
+<listitem>
+<simpara>
+Create a subvolume <emphasis>&lt;name&gt;</emphasis> in <emphasis>&lt;dest&gt;</emphasis>.
+</simpara>
+<simpara>If <emphasis>&lt;dest&gt;</emphasis> is not given, subvolume <emphasis>&lt;name&gt;</emphasis> will be created in the currently
+directory.</simpara>
+<simpara><literal>Options</literal></simpara>
+<variablelist>
+<varlistentry>
+<term>
+-i <emphasis>&lt;qgroupid&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Add the newly created subvolume to a qgroup. This option can be given multiple
+times.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">delete</emphasis> [options] <emphasis>&lt;subvolume&gt;</emphasis> [<emphasis>&lt;subvolume&gt;</emphasis>&#8230;]
+</term>
+<listitem>
+<simpara>
+Delete the subvolume(s) from the filesystem.
+</simpara>
+<simpara>If <emphasis>&lt;subvolume&gt;</emphasis> is not a subvolume, btrfs returns an error but continues if
+there are more arguments to process.</simpara>
+<simpara>The corresponding directory is removed instantly but the data blocks are
+removed later.  The deletion does not involve full commit by default due to
+performance reasons (as a consequence, the subvolume may appear again after a
+crash).  Use one of the <emphasis>--commit</emphasis> options to wait until the operation is safely
+stored on the media.</simpara>
+<simpara><literal>Options</literal></simpara>
+<variablelist>
+<varlistentry>
+<term>
+-c|--commit-after
+</term>
+<listitem>
+<simpara>
+wait for transaction commit at the end of the operation
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-C|--commit-each
+</term>
+<listitem>
+<simpara>
+wait for transaction commit after delet each subvolume
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">list</emphasis> [options] [-G <emphasis><phrase role="+|-">&lt;value&gt;</phrase></emphasis>] [-C <emphasis><phrase role="+|-">&lt;value&gt;</phrase></emphasis>] [--sort=rootid,gen,ogen,path] <emphasis>&lt;path&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+List the subvolumes present in the filesystem <emphasis>&lt;path&gt;</emphasis>.
+</simpara>
+<simpara>For every subvolume the following information is shown by default.<?asciidoc-br?>
+ID <emphasis>&lt;ID&gt;</emphasis> top level <emphasis>&lt;ID&gt;</emphasis> path <emphasis>&lt;path&gt;</emphasis><?asciidoc-br?>
+where path is the relative path of the subvolume to the top level subvolume.
+The subvolume&#8217;s ID may be used by the subvolume set-default command,
+or at mount time via the subvolid= option.
+If <literal>-p</literal> is given, then parent <emphasis>&lt;ID&gt;</emphasis> is added to the output between ID
+and top level. The parent&#8217;s ID may be used at mount time via the
+<literal>subvolrootid=</literal> option.</simpara>
+<simpara><literal>Options</literal></simpara>
+<variablelist>
+<varlistentry>
+<term>
+-p
+</term>
+<listitem>
+<simpara>
+print parent ID.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-a
+</term>
+<listitem>
+<simpara>
+print all the subvolumes in the filesystem and distinguish between
+absolute and relative path with respect to the given <emphasis>&lt;path&gt;</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-c
+</term>
+<listitem>
+<simpara>
+print the ogeneration of the subvolume, aliases: ogen or origin generation.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-g
+</term>
+<listitem>
+<simpara>
+print the generation of the subvolume.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-o
+</term>
+<listitem>
+<simpara>
+print only subvolumes bellow specified <emphasis>&lt;path&gt;</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-u
+</term>
+<listitem>
+<simpara>
+print the UUID of the subvolume.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-q
+</term>
+<listitem>
+<simpara>
+print the parent uuid of subvolumes (and snapshots).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-t
+</term>
+<listitem>
+<simpara>
+print the result as a table.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-s
+</term>
+<listitem>
+<simpara>
+only snapshot subvolumes in the filesystem will be listed.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-r
+</term>
+<listitem>
+<simpara>
+only readonly subvolumes in the filesystem will be listed.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-G <emphasis><phrase role="+|-">&lt;value&gt;</phrase></emphasis>
+</term>
+<listitem>
+<simpara>
+list subvolumes in the filesystem that its generation is
+&gt;=, '&#8656; or = value. '+' means &gt;'= value, '-' means &lt;= value, If there is
+neither '+' nor '-', it means = value.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-C <emphasis><phrase role="+|-">&lt;value&gt;</phrase></emphasis>
+</term>
+<listitem>
+<simpara>
+list subvolumes in the filesystem that its ogeneration is
+&gt;=, &lt;= or = value. The usage is the same to <emphasis>-g</emphasis> option.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--sort=rootid,gen,ogen,path
+</term>
+<listitem>
+<simpara>
+list subvolumes in order by specified items.
+you can add '+' or '-' in front of each items, '+' means ascending,
+'-' means descending. The default is ascending.
+</simpara>
+<simpara>for --sort you can combine some items together by ',', just like
+-sort=+ogen,-gen,path,rootid.</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">snapshot</emphasis> [-r] <emphasis>&lt;source&gt;</emphasis> <emphasis>&lt;dest&gt;</emphasis>|<emphasis><phrase role="'&lt;dest&gt;'/">&lt;name&gt;</phrase></emphasis>
+</term>
+<listitem>
+<simpara>
+Create a writable/readonly snapshot of the subvolume <emphasis>&lt;source&gt;</emphasis> with the
+name <emphasis>&lt;name&gt;</emphasis> in the <emphasis>&lt;dest&gt;</emphasis> directory.
+</simpara>
+<simpara>If only <emphasis>&lt;dest&gt;</emphasis> is given, the subvolume will be named the basename of <emphasis>&lt;source&gt;</emphasis>.
+If <emphasis>&lt;source&gt;</emphasis> is not a subvolume, btrfs returns an error.
+If <emphasis>-r</emphasis> is given, the snapshot will be readonly.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">get-default</emphasis> <emphasis>&lt;path&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Get the default subvolume of the filesystem <emphasis>&lt;path&gt;</emphasis>.
+</simpara>
+<simpara>The output format is similar to <emphasis role="strong">subvolume list</emphasis> command.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">set-default</emphasis> <emphasis>&lt;id&gt;</emphasis> <emphasis>&lt;path&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Set the subvolume of the filesystem <emphasis>&lt;path&gt;</emphasis> which is mounted as
+default.
+</simpara>
+<simpara>The subvolume is identified by <emphasis>&lt;id&gt;</emphasis>, which is returned by the <emphasis role="strong">subvolume list</emphasis>
+command.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">find-new</emphasis> <emphasis>&lt;subvolume&gt;</emphasis> <emphasis>&lt;last_gen&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+List the recently modified files in a subvolume, after <emphasis>&lt;last_gen&gt;</emphasis> ID.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">show</emphasis> <emphasis>&lt;path&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Show information of a given subvolume in the <emphasis>&lt;path&gt;</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_exit_status">
+<title>EXIT STATUS</title>
+<simpara><emphasis role="strong">btrfs subvolume</emphasis> returns a zero exist status if it succeeds. Non zero is
+returned in case of failure.</simpara>
+</refsect1>
+<refsect1 id="_availability">
+<title>AVAILABILITY</title>
+<simpara><emphasis role="strong">btrfs</emphasis> is part of btrfs-progs.
+Please refer to the btrfs wiki <ulink url="http://btrfs.wiki.kernel.org">http://btrfs.wiki.kernel.org</ulink> for
+further details.</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><literal>mkfs.btrfs</literal>(8),
+<literal>btrfs-subvolume</literal>(8),
+<literal>btrfs-quota</literal>(8),
+<literal>btrfs-qgroup</literal>(8),</simpara>
+</refsect1>
+</refentry>

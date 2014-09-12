@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>btrfs-zero-log</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo class="source">Btrfs</refmiscinfo>
+<refmiscinfo class="version">v3.16</refmiscinfo>
+<refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>btrfs-zero-log</refname>
+  <refpurpose>clear out log tree</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis role="strong">btrfs-zero-log</emphasis> <emphasis>&lt;dev&gt;</emphasis></simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara><emphasis role="strong">btrfs-zero-log</emphasis> will remove the log tree if log tree is corrupt, which will
+allow you to mount the filesystem again.</simpara>
+<simpara>The common case where this happens has been fixed a long time ago,
+so it is unlikely that you will see this particular problem.</simpara>
+<simpara>One can determine whether <emphasis role="strong">btrfs-zero-log</emphasis> is needed according to the kernel
+backtrace:</simpara>
+<screen>? replay_one_dir_item+0xb5/0xb5 [btrfs]
+? walk_log_tree+0x9c/0x19d [btrfs]
+? btrfs_read_fs_root_no_radix+0x169/0x1a1 [btrfs]
+? btrfs_recover_log_trees+0x195/0x29c [btrfs]
+? replay_one_dir_item+0xb5/0xb5 [btrfs]
+? btree_read_extent_buffer_pages+0x76/0xbc [btrfs]
+? open_ctree+0xff6/0x132c [btrfs]</screen>
+<simpara>If the errors are like above, then <emphasis role="strong">btrfs-zero-log</emphasis> should be used to clear
+the log and the filesystem may be mounted normally again.</simpara>
+<note><simpara>If you use btrfs as the root filesystem, you may want to include
+<emphasis role="strong">btrfs-zero-log</emphasis> into initramdisk if the log problems hits you often.</simpara></note>
+</refsect1>
+<refsect1 id="_exit_status">
+<title>EXIT STATUS</title>
+<simpara><emphasis role="strong">btrfs-zero-log</emphasis> will return 0 if no error happened.
+Other exit code means some problems happened.</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><literal>mkfs.btrfs</literal>(8)</simpara>
+</refsect1>
+</refentry>

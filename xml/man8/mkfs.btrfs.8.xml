@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>mkfs.btrfs</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo class="source">Btrfs</refmiscinfo>
+<refmiscinfo class="version">v3.16</refmiscinfo>
+<refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>mkfs.btrfs</refname>
+  <refpurpose>create a btrfs filesystem</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis role="strong">mkfs.btrfs</emphasis>
+[-A|--alloc-start '&lt;alloc-start&gt;']
+[-b|--byte-count '&lt;byte-count&gt;']
+[-d|--data '&lt;data-profile&gt;']
+[-f|--force]
+[-n|--nodesize '&lt;nodesize&gt;']
+[-l|--leafsize '&lt;leafsize&gt;']
+[-L|--label '&lt;label&gt;']
+[-m|--metadata '&lt;metadata profile&gt;']
+[-M|--mixed]
+[-s|--sectorsize '&lt;sectorsize&gt;']
+[-r|--rootdir '&lt;rootdir&gt;']
+[-K|--nodiscard]
+[-O|--features '&lt;feature1&gt;'[,'&lt;feature2&gt;'...]]
+[-U|--uuid '&lt;UUID&gt;']
+[-h]
+[-V|--version]
+'&lt;device&gt;' ['&lt;device&gt;'...]</simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara><emphasis role="strong">mkfs.btrfs</emphasis>
+is used to create a btrfs filesystem (usually in a disk partition, or an array
+of disk partitions).</simpara>
+<simpara><emphasis>&lt;device&gt;</emphasis>
+is the special file corresponding to the device (e.g /dev/sdXX ).
+If multiple devices are specified, btrfs is created
+spanning across the specified  devices.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-A|--alloc-start <emphasis>&lt;offset&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Specify the offset from the start of the device at which to start allocations
+in this btrfs filesystem. The default value is zero, or the start of the
+device.  This option is intended only for debugging filesystem resize
+operations.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-b|--byte-count <emphasis>&lt;size&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Specify the size of the resultant filesystem. If this option is not used,
+mkfs.btrfs uses all the available storage for the filesystem.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-d|--data <emphasis>&lt;type&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Specify how the data must be spanned across the devices specified. Valid
+values are <emphasis>raid0</emphasis>, <emphasis>raid1</emphasis>, <emphasis>raid5</emphasis>, <emphasis>raid6</emphasis>, <emphasis>raid10</emphasis> or <emphasis>single</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-f|--force
+</term>
+<listitem>
+<simpara>
+Force overwrite when an existing filesystem is detected on the device.
+By default, mkfs.btrfs will not write to the device if it suspects that
+there is a filesystem or partition table on the device already.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+<simpara>-n|--nodesize <emphasis>&lt;size&gt;</emphasis></simpara>
+<simpara>+
+-l|--leafsize <emphasis>&lt;size&gt;</emphasis>::
+Specify the nodesize, the tree block size in which btrfs stores
+data. The default value is 16KB (16384) or the page size, whichever is
+bigger. Must be a multiple of the sectorsize, but not larger than
+65536. Leafsize always equals nodesize and the options are aliases.</simpara>
+<variablelist>
+<varlistentry>
+<term>
+-L|--label <emphasis>&lt;name&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Specify a label for the filesystem.
+</simpara>
+<note><simpara><emphasis>&lt;name&gt;</emphasis> should be less than 256 characters.</simpara></note>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-m|--metadata <emphasis>&lt;profile&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Specify how metadata must be spanned across the devices specified. Valid
+values are <emphasis>raid0</emphasis>, <emphasis>raid1</emphasis>, <emphasis>raid5</emphasis>, <emphasis>raid6</emphasis>, <emphasis>raid10</emphasis>, <emphasis>single</emphasis> or <emphasis>dup</emphasis>.
+</simpara>
+<simpara>Single device
+will have dup set by default except in the case of SSDs which will default to
+single. This is because SSDs can remap blocks internally so duplicate blocks
+could end up in the same erase block which negates the benefits of doing
+metadata duplication.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-M|--mixed
+</term>
+<listitem>
+<simpara>
+Mix data and metadata chunks together for more efficient space
+utilization.  This feature incurs a performance penalty in
+larger filesystems.  It is recommended for use with filesystems
+of 1 GiB or smaller.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-s|--sectorsize <emphasis>&lt;size&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Specify the sectorsize, the minimum data block allocation unit.
+</simpara>
+<simpara>The default
+value is the page size. If the sectorsize differs from the page size, the
+created filesystem may not be mountable by current kernel. Therefore it is not
+recommended to use this option unless you are going to mount it on a system
+with the appropriate page size.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-r|--rootdir <emphasis>&lt;rootdir&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Specify a directory to copy into the newly created btrfs filesystem.
+</simpara>
+<note><simpara><emphasis>-r</emphasis> option is done completely in userland, and don&#8217;t need root
+privilege to mount the filesystem.</simpara></note>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-K|--nodiscard
+</term>
+<listitem>
+<simpara>
+Do not perform whole device TRIM operation by default.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-O|--features <emphasis>&lt;feature1&gt;</emphasis>[,<emphasis>&lt;feature2&gt;</emphasis>&#8230;]
+</term>
+<listitem>
+<simpara>
+A list of filesystem features turned on at mkfs time. Not all features are
+supported by old kernels.
+</simpara>
+<variablelist>
+<varlistentry>
+<term>
+To see all features run
+</term>
+<listitem>
+<simpara>
+mkfs.btrfs -O list-all
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-U|--uuid <emphasis>&lt;UUID&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Create the filesystem with the specified UUID, which must not already exist on
+the system.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-V|--version
+</term>
+<listitem>
+<simpara>
+Print the <emphasis role="strong">mkfs.btrfs</emphasis> version and exit.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-h
+</term>
+<listitem>
+<simpara>
+Print help.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_unit">
+<title>UNIT</title>
+<simpara>As default the unit is the byte, however it is possible to append a suffix
+to the arguments like <emphasis>k</emphasis> for KBytes, <emphasis>m</emphasis> for MBytes&#8230;</simpara>
+</refsect1>
+<refsect1 id="_availability">
+<title>AVAILABILITY</title>
+<simpara><emphasis role="strong">btrfs</emphasis> is part of btrfs-progs.
+Please refer to the btrfs wiki <ulink url="http://btrfs.wiki.kernel.org">http://btrfs.wiki.kernel.org</ulink> for
+further details.</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><literal>btrfs</literal>(8)</simpara>
+</refsect1>
+</refentry>

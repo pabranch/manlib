@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>btrfs-image</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo class="source">Btrfs</refmiscinfo>
+<refmiscinfo class="version">v3.16</refmiscinfo>
+<refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>btrfs-image</refname>
+  <refpurpose>create/restore an image of the filesystem</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis role="strong">btrfs-image</emphasis> [options] <emphasis>&lt;source&gt;</emphasis> <emphasis>&lt;target&gt;</emphasis></simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara><emphasis role="strong">btrfs-image</emphasis> is used to create an image of a btrfs filesystem.
+All data will be zeroed, but metadata and the like is preserved.</simpara>
+<simpara>Mainly used for debug purpose.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-r
+</term>
+<listitem>
+<simpara>
+Restore metadump image. By default, this fixes super&#8217;s chunk tree, by
+using 1 stripe pointing to primary device, so that file system can be
+restored by running tree log reply if possible. To restore without
+changing number of stripes in chunk tree check -o option.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-c <emphasis>&lt;value&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Compression level (0 ~ 9).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-t <emphasis>&lt;value&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Number of threads (1 ~ 32) to be used to process the image dump or restore.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-o
+</term>
+<listitem>
+<simpara>
+Use the old restore method, this does not fixup the chunk tree so the restored
+file system will not be able to be mounted.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-s
+</term>
+<listitem>
+<simpara>
+Sanitize the file names when generating the image. One -s means just
+generate random garbage, which means that the directory indexes won&#8217;t match up
+since the hashes won&#8217;t match with the garbage filenames. Using -ss will
+calculate a collision for the filename so that the hashes match, and if it
+can&#8217;t calculate a collision then it will just generate garbage.  The collision
+calculator is very time and CPU intensive so only use it if you are having
+problems with your file system tree and need to have it mostly working.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-w
+</term>
+<listitem>
+<simpara>
+Walk all the trees manually and copy any blocks that are referenced. Use this
+option if your extent tree is corrupted to make sure that all of the metadata is
+captured.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-m
+</term>
+<listitem>
+<simpara>
+Restore for multiple devices, more than 1 device should be provided.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_exit_status">
+<title>EXIT STATUS</title>
+<simpara><emphasis role="strong">btrfs-image</emphasis> will return 0 if no error happened.
+If any problems happened, 1 will be returned.</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><literal>mkfs.btrfs</literal>(8)</simpara>
+</refsect1>
+</refentry>

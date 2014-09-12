@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>btrfs-find-root</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo class="source">Btrfs</refmiscinfo>
+<refmiscinfo class="version">v3.16</refmiscinfo>
+<refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>btrfs-find-root</refname>
+  <refpurpose>filter to find btrfs root</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis role="strong">btrfs-find-root</emphasis> [options] <emphasis>&lt;dev&gt;</emphasis></simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara><emphasis role="strong">btrfs-find-root</emphasis> is used to find the satisfied root, you can filter by
+root tree&#8217;s objectid, generation, level.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-g <emphasis>&lt;generation&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Filter root tree by it&#8217;s original transaction id, tree root&#8217;s generation in default.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-o <emphasis>&lt;objectid&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Filter root tree by it&#8217;s objectid,tree root&#8217;s objectid in default.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-l <emphasis>&lt;level&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Filter root tree by B-+ tree&#8217;s level, level 0 in default.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_exit_status">
+<title>EXIT STATUS</title>
+<simpara><emphasis role="strong">btrfs-find-root</emphasis> will return 0 if no error happened.
+If any problems happened, 1 will be returned.</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><literal>mkfs.btrfs</literal>(8)</simpara>
+</refsect1>
+</refentry>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>btrfs-convert</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo class="source">Btrfs</refmiscinfo>
+<refmiscinfo class="version">v3.16</refmiscinfo>
+<refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>btrfs-convert</refname>
+  <refpurpose>convert from ext2/3/4 filesystem to btrfs or rollback</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis role="strong">btrfs-convert</emphasis> [options] <emphasis>&lt;device&gt;</emphasis></simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara><emphasis role="strong">btrfs-convert</emphasis> is used to convert existed ext2/3/4 to btrfs filesystem,
+and the original filesystem image is accessible as from separate subvolume
+named <emphasis>ext2_saved</emphasis> as file image.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-d
+</term>
+<listitem>
+<simpara>
+Disable data checksum.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-i
+</term>
+<listitem>
+<simpara>
+Ignore xattrs and ACLs.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-n
+</term>
+<listitem>
+<simpara>
+Disable packing of small files.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-r
+</term>
+<listitem>
+<simpara>
+Roll back to ext2fs.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_exit_status">
+<title>EXIT STATUS</title>
+<simpara><emphasis role="strong">btrfs-convert</emphasis> will return 0 if no error happened.
+If any problems happened, 1 will be returned.</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><literal>mkfs.btrfs</literal>(8)</simpara>
+</refsect1>
+</refentry>

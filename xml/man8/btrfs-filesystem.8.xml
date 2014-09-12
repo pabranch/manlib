@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>btrfs-filesystem</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo class="source">Btrfs</refmiscinfo>
+<refmiscinfo class="version">v3.16</refmiscinfo>
+<refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>btrfs-filesystem</refname>
+  <refpurpose>control btrfs filesystem</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis role="strong">btrfs filesystem</emphasis> <emphasis>&lt;subcommand&gt;</emphasis> <emphasis>&lt;args&gt;</emphasis></simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara><emphasis role="strong">btrfs filesystem</emphasis> is used to do the filesystem level control jobs, including
+all the regular filesystem operations like setting/getting label,
+resizing, defragment.</simpara>
+</refsect1>
+<refsect1 id="_subcommand">
+<title>SUBCOMMAND</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">df</emphasis> <emphasis>&lt;path&gt;</emphasis> [<emphasis>&lt;path&gt;</emphasis>&#8230;]
+</term>
+<listitem>
+<simpara>
+Show space usage information for a mount point.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">show</emphasis> [--mounted|--all-devices|<emphasis>&lt;path&gt;</emphasis>|<emphasis>&lt;uuid&gt;</emphasis>|<emphasis>&lt;device&gt;</emphasis>|<emphasis>&lt;label&gt;</emphasis>]
+</term>
+<listitem>
+<simpara>
+Show the btrfs filesystem with some additional info.
+</simpara>
+<simpara>If no option nor <emphasis>&lt;path&gt;</emphasis>|<emphasis>&lt;uuid&gt;</emphasis>|<emphasis>&lt;device&gt;</emphasis>|<emphasis>&lt;label&gt;</emphasis> is passed, btrfs shows
+information of all the btrfs filesystem both mounted and unmounted.
+If <emphasis>--mounted</emphasis> is passed, it would probe btrfs kernel to list mounted btrfs
+filesystem(s);
+If <emphasis>--all-devices</emphasis> is passed, all the devices under /dev are scanned;
+otherwise the devices list is extracted from the /proc/partitions file.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">sync</emphasis> <emphasis>&lt;path&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Force a sync for the filesystem identified by <emphasis>&lt;path&gt;</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">defragment</emphasis> [options] <emphasis>&lt;file&gt;</emphasis>|<emphasis>&lt;dir&gt;</emphasis> [<emphasis>&lt;file&gt;</emphasis>|<emphasis>&lt;dir&gt;</emphasis>&#8230;]
+</term>
+<listitem>
+<simpara>
+Defragment file data and/or directory metadata <emphasis role="strong">online</emphasis>.
+</simpara>
+<simpara>If <emphasis>-r</emphasis> is passed, files in dir will be defragmented recursively.
+The start position and the number of bytes to defragment can be specified by
+start and len using <emphasis>-s</emphasis> and <emphasis>-l</emphasis> options below.
+Any extent bigger than threshold given by <emphasis>-t</emphasis> option, will be considered
+already defragged.
+Use 0 to take the kernel default.
+You can also turn on compression in defragment operations.</simpara>
+<simpara><literal>Options</literal></simpara>
+<variablelist>
+<varlistentry>
+<term>
+-v
+</term>
+<listitem>
+<simpara>
+be verbose
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-c
+</term>
+<listitem>
+<simpara>
+compress file contents while defragmenting
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-r
+</term>
+<listitem>
+<simpara>
+defragment files recursively
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-f
+</term>
+<listitem>
+<simpara>
+flush filesystem after defragmenting
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-s <emphasis>&lt;start&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+defragment only from byte <emphasis>&lt;start&gt;</emphasis> onward
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-l <emphasis>&lt;len&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+defragment only up to <emphasis>&lt;len&gt;</emphasis> bytes
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-t <emphasis>&lt;size&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+defragment only files at least <emphasis>&lt;size&gt;</emphasis> bytes big
+</simpara>
+<simpara>For <emphasis>&lt;start&gt;</emphasis>, <emphasis>&lt;len&gt;</emphasis>, <emphasis>&lt;size&gt;</emphasis> it is possible to append a suffix
+like <emphasis>k</emphasis> for 1 KBytes, <emphasis>m</emphasis> for 1 MBytes&#8230;</simpara>
+<warning><simpara>defragmenting with kernels up to 2.6.37 will unlink COW-ed copies of data,
+don&#8217;t use it if you use snapshots, have de-duplicated your data or made
+copies with <literal>cp --reflink</literal>.</simpara></warning>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">resize</emphasis> [<emphasis>&lt;devid&gt;</emphasis>:]<emphasis><phrase role="+/-">&lt;size&gt;</phrase></emphasis>[gkm]|[<emphasis>&lt;devid&gt;</emphasis>:]max <emphasis>&lt;path&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Resize a filesystem identified by <emphasis>&lt;path&gt;</emphasis> for the underlying device
+devid <emphasis role="strong">online</emphasis>.<?asciidoc-br?>
+The devid can be found with <emphasis role="strong">btrfs filesystem show</emphasis> and
+defaults to 1 if not specified.
+The <emphasis>&lt;size&gt;</emphasis> parameter specifies the new size of the filesystem.
+If the prefix + or - is present the size is increased or decreased
+by the quantity <emphasis>&lt;size&gt;</emphasis>.
+If no units are specified, the unit of the <emphasis>&lt;size&gt;</emphasis> parameter defaults to
+bytes. Optionally, the size parameter may be suffixed by one of the following
+units designators: 'K', 'M', or 'G', kilobytes, megabytes, or gigabytes,
+respectively.
+</simpara>
+<simpara>If 'max' is passed, the filesystem will occupy all available space on the
+device devid.</simpara>
+<simpara>The resize command does not manipulate the size of underlying
+partition.  If you wish to enlarge/reduce a filesystem, you must make sure you
+can expand the partition before enlarging the filesystem and shrink the
+partition after reducing the size of the filesystem.  This can done using
+<literal>fdisk</literal>(8) or <literal>parted</literal>(8) to delete the existing partition and recreate
+it with the new desired size.  When recreating the partition make sure to use
+the same starting disk cylinder as before.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">label</emphasis> [<emphasis>&lt;dev&gt;</emphasis>|<emphasis>&lt;mountpoint&gt;</emphasis>] [<emphasis>&lt;newlabel&gt;</emphasis>]
+</term>
+<listitem>
+<simpara>
+Show or update the label of a filesystem.
+</simpara>
+<simpara>[<emphasis>&lt;device&gt;</emphasis>|<emphasis>&lt;mountpoint&gt;</emphasis>] is used to identify the filesystem.
+If a newlabel optional argument is passed, the label is changed.
+NOTE: the maximum allowable length shall be less than 256 chars</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_exit_status">
+<title>EXIT STATUS</title>
+<simpara><emphasis role="strong">btrfs filesystem</emphasis> returns a zero exist status if it succeeds. Non zero is
+returned in case of failure.</simpara>
+</refsect1>
+<refsect1 id="_availability">
+<title>AVAILABILITY</title>
+<simpara><emphasis role="strong">btrfs</emphasis> is part of btrfs-progs.
+Please refer to the btrfs wiki <ulink url="http://btrfs.wiki.kernel.org">http://btrfs.wiki.kernel.org</ulink> for
+further details.</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><literal>mkfs.btrfs</literal>(8),</simpara>
+</refsect1>
+</refentry>

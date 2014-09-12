@@ -44,8 +44,10 @@ rsync --checksum sources/bash/doc/*.1 man/man1/"
   "btrfs-progs": {
     "type": "git",
     "url": "git://git.kernel.org/pub/scm/linux/kernel/git/mason/btrfs-progs.git",
-    "sparse": "man/*.in",
-    "cmd": "for f in $(find sources/btrfs-progs/man/ -name '*.in'); do cp $f man/man8/$(basename -s .in $f); done"
+    "sparse": "version.sh\nDocumentation/",
+    "cmd": "(cd sources/btrfs-progs; sh version.sh; cd Documentation; for f in *.txt; do make $(basename -s .txt $f).xml; done);
+find sources/btrfs-progs/ -name '*.xml' ! -name 'btrfs-mount.xml' -exec bash -c 'rsync --checksum {} xml/man8/$(basename -s .xml {}).8.xml' \\;;
+find sources/btrfs-progs/ -name 'btrfs-mount.xml' -exec bash -c 'rsync --checksum {} xml/man5/$(basename -s .xml {}).5.xml' \\;"
   },
 
   "coreutils": {

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>btrfs-inspect-internal</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo class="source">Btrfs</refmiscinfo>
+<refmiscinfo class="version">v3.16</refmiscinfo>
+<refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>btrfs-inspect-internal</refname>
+  <refpurpose>resolve different btrfs items for debug purpose</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis role="strong">btrfs inspect-internal</emphasis> <emphasis>&lt;subcommand&gt;</emphasis> <emphasis>&lt;args&gt;</emphasis></simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara><emphasis role="strong">btrfs inspect-internal</emphasis> is used to resolve different items for debug purpose.</simpara>
+</refsect1>
+<refsect1 id="_subcommand">
+<title>SUBCOMMAND</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">inode-resolve</emphasis> [-v] <emphasis>&lt;inode&gt;</emphasis> <emphasis>&lt;path&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Resolves an <emphasis>&lt;inode&gt;</emphasis> in subvolume <emphasis>&lt;path&gt;</emphasis> to all filesystem paths.
+</simpara>
+<simpara><literal>Options</literal></simpara>
+<variablelist>
+<varlistentry>
+<term>
+-v
+</term>
+<listitem>
+<simpara>
+verbose mode. print count of returned paths and ioctl() return value
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">logical-resolve</emphasis> [-Pv] [-s <emphasis>&lt;bufsize&gt;</emphasis>] <emphasis>&lt;logical&gt;</emphasis> <emphasis>&lt;path&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Resolves a <emphasis>&lt;logical&gt;</emphasis> address in the filesystem mounted at <emphasis>&lt;path&gt;</emphasis> to all inodes.
+</simpara>
+<simpara>By default, each inode is then resolved to a file system path (similar to the
+inode-resolve subcommand).</simpara>
+<simpara><literal>Options</literal></simpara>
+<variablelist>
+<varlistentry>
+<term>
+-P
+</term>
+<listitem>
+<simpara>
+skip the path resolving and print the inodes instead
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-v
+</term>
+<listitem>
+<simpara>
+verbose mode. print count of returned paths and all ioctl() return values
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-s <emphasis>&lt;bufsize&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+set inode container&#8217;s size.
+</simpara>
+<simpara>This is used to increase inode container&#8217;s size in case it is
+not enough to read all the resolved results. The max value one can set is 64k.</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">subvolid-resolve</emphasis> <emphasis>&lt;subvolid&gt;</emphasis> <emphasis>&lt;path&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Get file system paths for the given subvolume ID.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rootid</emphasis> <emphasis>&lt;path&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+For a given file or directory, return the containing tree root id. For a
+subvolume return it&#8217;s own tree id.
+</simpara>
+<simpara>The result is undefined for the so-called empty subvolumes (identified by inode number 2).</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_exit_status">
+<title>EXIT STATUS</title>
+<simpara><emphasis role="strong">btrfs inspect-internal</emphasis> returns a zero exist status if it succeeds. Non zero is
+returned in case of failure.</simpara>
+</refsect1>
+<refsect1 id="_availability">
+<title>AVAILABILITY</title>
+<simpara><emphasis role="strong">btrfs</emphasis> is part of btrfs-progs.
+Please refer to the btrfs wiki <ulink url="http://btrfs.wiki.kernel.org">http://btrfs.wiki.kernel.org</ulink> for
+further details.</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><literal>mkfs.btrfs</literal>(8),
+<literal>btrfs-debug-tree</literal>(8)</simpara>
+</refsect1>
+</refentry>

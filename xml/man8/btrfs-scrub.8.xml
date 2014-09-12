@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>btrfs-scrub</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo class="source">Btrfs</refmiscinfo>
+<refmiscinfo class="version">v3.16</refmiscinfo>
+<refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>btrfs-scrub</refname>
+  <refpurpose>scrub btrfs filesystem</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis role="strong">btrfs scrub</emphasis> <emphasis>&lt;subcommand&gt;</emphasis> <emphasis>&lt;args&gt;</emphasis></simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara><emphasis role="strong">btrfs scrub</emphasis> is used to scrub a btrfs filesystem, which will reading all data
+from all disks and verifying checksums.</simpara>
+</refsect1>
+<refsect1 id="_subcommand">
+<title>SUBCOMMAND</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">start</emphasis> [-BdqrRf] [-c <emphasis>&lt;ioprio_class&gt;</emphasis> -n <emphasis>&lt;ioprio_classdata&gt;</emphasis>] <emphasis>&lt;path&gt;</emphasis>|<emphasis>&lt;device&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Start a scrub on all devices of the filesystem identified by <emphasis>&lt;path&gt;</emphasis> or on
+a single <emphasis>&lt;device&gt;</emphasis>. If a scrub is already running, the new one fails.
+</simpara>
+<simpara>Without options, scrub is started as a background process.
+Progress can be obtained with the <emphasis role="strong">scrub status</emphasis> command. Scrubbing
+involves reading all data from all disks and verifying checksums. Errors are
+corrected along the way if possible.</simpara>
+<simpara>The default IO priority of scrub is the idle class. The priority can be
+configured similar to the <literal>ionice</literal>(1) syntax using <emphasis>-c</emphasis> and <emphasis>-n</emphasis> options.</simpara>
+<simpara><literal>Options</literal></simpara>
+<variablelist>
+<varlistentry>
+<term>
+-B
+</term>
+<listitem>
+<simpara>
+Do not background and print scrub statistics when finished.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-d
+</term>
+<listitem>
+<simpara>
+Print separate statistics for each device of the filesystem (-B only).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-q
+</term>
+<listitem>
+<simpara>
+Quiet. Omit error messages and statistics.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-r
+</term>
+<listitem>
+<simpara>
+Read only mode. Do not attempt to correct anything.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-R
+</term>
+<listitem>
+<simpara>
+Raw print mode. Print full data instead of summary.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-c <emphasis>&lt;ioprio_class&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Set IO priority class (see
+ ionice (1)
+manpage).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-n <emphasis>&lt;ioprio_classdata&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Set IO priority classdata (see <literal>ionice</literal>(1) manpage).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-f
+</term>
+<listitem>
+<simpara>
+Force starting new scrub even if a scrub is already running.
+This is useful when scrub stat record file is damaged.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">cancel</emphasis> <emphasis>&lt;path&gt;</emphasis>|<emphasis>&lt;device&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+If a scrub is running on the filesystem identified by <emphasis>&lt;path&gt;</emphasis>, cancel it.
+</simpara>
+<simpara>Progress is saved in the scrub progress file and scrubbing can be resumed later
+using the scrub resume command.
+If a <emphasis>&lt;device&gt;</emphasis> is given, the corresponding filesystem is found and
+scrub cancel behaves as if it was called on that filesystem.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">resume</emphasis> [-BdqrR] [-c <emphasis>&lt;ioprio_class&gt;</emphasis> -n <emphasis>&lt;ioprio_classdata&gt;</emphasis>] <emphasis>&lt;path&gt;</emphasis>|<emphasis>&lt;device&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Resume a canceled or interrupted scrub cycle on the filesystem identified by
+<emphasis>&lt;path&gt;</emphasis> or on a given <emphasis>&lt;device&gt;</emphasis>.
+</simpara>
+<simpara>Does not start a new scrub if the last scrub finished successfully.</simpara>
+<simpara><literal>Options</literal></simpara>
+<simpara>see <emphasis role="strong">scrub start</emphasis>.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">status</emphasis> [-d] <emphasis>&lt;path&gt;</emphasis>|<emphasis>&lt;device&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Show status of a running scrub for the filesystem identified by <emphasis>&lt;path&gt;</emphasis> or
+for the specified <emphasis>&lt;device&gt;</emphasis>.
+</simpara>
+<simpara>If no scrub is running, show statistics of the last finished or canceled scrub
+for that filesystem or device.</simpara>
+<simpara><literal>Options</literal></simpara>
+<variablelist>
+<varlistentry>
+<term>
+-d
+</term>
+<listitem>
+<simpara>
+Print separate statistics for each device of the filesystem.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_exit_status">
+<title>EXIT STATUS</title>
+<simpara><emphasis role="strong">btrfs scrub</emphasis> returns a zero exist status if it succeeds. Non zero is
+returned in case of failure.</simpara>
+</refsect1>
+<refsect1 id="_availability">
+<title>AVAILABILITY</title>
+<simpara><emphasis role="strong">btrfs</emphasis> is part of btrfs-progs.
+Please refer to the btrfs wiki <ulink url="http://btrfs.wiki.kernel.org">http://btrfs.wiki.kernel.org</ulink> for
+further details.</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><literal>mkfs.btrfs</literal>(8),</simpara>
+</refsect1>
+</refentry>

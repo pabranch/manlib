@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>btrfs-show-super</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo class="source">Btrfs</refmiscinfo>
+<refmiscinfo class="version">v3.16</refmiscinfo>
+<refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>btrfs-show-super</refname>
+  <refpurpose>show btrfs superblock information stored in devices</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis role="strong">btrfs-show-super</emphasis> [options] <emphasis>&lt;dev&gt;</emphasis> [<emphasis>&lt;dev&gt;</emphasis>&#8230;]</simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara><emphasis role="strong">btrfs-show-super</emphasis> is used to print the information of superblock,
+you can specify which mirror to print out.</simpara>
+<simpara>By default, every device&#8217;s first superblock will be printed out.</simpara>
+<simpara>Mainly used for debug purpose.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-f
+</term>
+<listitem>
+<simpara>
+Print full superblock information.
+</simpara>
+<simpara>Including the system chunk array and backup roots.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-a
+</term>
+<listitem>
+<simpara>
+Print information of all superblocks.
+</simpara>
+<simpara>If this option is given, <emphasis>-i</emphasis> option will be ignored.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-i <emphasis>&lt;super_mirror&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Specify which mirror to print out.
+</simpara>
+<simpara><emphasis>&lt;super_mirror&gt;</emphasis> is between 0 and 2.
+If several <emphasis>-i '&lt;super_mirror&gt;</emphasis>' are given, only the last one is valid.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-F
+</term>
+<listitem>
+<simpara>
+Attempt to print the superblock even if no superblock magic is found.  May end
+badly.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_exit_status">
+<title>EXIT STATUS</title>
+<simpara><emphasis role="strong">btrfs-show-super</emphasis> will return 0 if no error happened.
+If any problems happened, 1 will be returned.</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><literal>mkfs.btrfs</literal>(8)</simpara>
+</refsect1>
+</refentry>
