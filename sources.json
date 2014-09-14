@@ -451,6 +451,15 @@ find sources/sox/ -name '*.7' -exec rsync --checksum {} man/man7/ \\;"
 rsync --checksum -a /tmp/sudo-inst/usr/local/man/man[1-8] man/"
   },
 
+  "sysstat": {
+    "type": "git",
+    "url": "https://github.com/sysstat/sysstat.git",
+    "cmd": "(cd sources/sysstat/; ./configure);
+find sources/sysstat/man/ -name '*.1' -exec rsync --checksum {} man/man1/ \\;;
+find sources/sysstat/man/ -name '*.5' -exec rsync --checksum {} man/man5/ \\;;
+find sources/sysstat/man/ -name '*.8' -exec rsync --checksum {} man/man8/ \\;"
+  },
+
   "systemd": {
     "type": "git",
     "url": "git://anongit.freedesktop.org/systemd/systemd",
