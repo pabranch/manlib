@@ -1381,7 +1381,7 @@ being displayed. Examples: "--notes=foo" will show only notes from
 </varlistentry>
 <varlistentry>
 <term>
---date=(relative|local|default|iso|rfc|short|raw)
+--date=(relative|local|default|iso|iso-strict|rfc|short|raw)
 </term>
 <listitem>
 <simpara>
@@ -1392,7 +1392,27 @@ being displayed. Examples: "--notes=foo" will show only notes from
 <simpara><literal>--date=relative</literal> shows dates relative to the current time,
 e.g. &#8220;2 hours ago&#8221;.</simpara>
 <simpara><literal>--date=local</literal> shows timestamps in user&#8217;s local time zone.</simpara>
-<simpara><literal>--date=iso</literal> (or <literal>--date=iso8601</literal>) shows timestamps in ISO 8601 format.</simpara>
+<simpara><literal>--date=iso</literal> (or <literal>--date=iso8601</literal>) shows timestamps in a ISO 8601-like format.
+The differences to the strict ISO 8601 format are:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+a space instead of the <literal>T</literal> date/time delimiter
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+a space between time and time zone
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+no colon between hours and minutes of the time zone
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara><literal>--date=iso-strict</literal> (or <literal>--date=iso8601-strict</literal>) shows timestamps in strict
+ISO 8601 format.</simpara>
 <simpara><literal>--date=rfc</literal> (or <literal>--date=rfc2822</literal>) shows timestamps in RFC 2822
 format, often found in email messages.</simpara>
 <simpara><literal>--date=short</literal> shows only the date, but not the time, in <literal>YYYY-MM-DD</literal> format.</simpara>
@@ -1748,7 +1768,12 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </listitem>
 <listitem>
 <simpara>
-<emphasis>%ai</emphasis>: author date, ISO 8601 format
+<emphasis>%ai</emphasis>: author date, ISO 8601-like format
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<emphasis>%aI</emphasis>: author date, strict ISO 8601 format
 </simpara>
 </listitem>
 <listitem>
@@ -1803,7 +1828,12 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 </listitem>
 <listitem>
 <simpara>
-<emphasis>%ci</emphasis>: committer date, ISO 8601 format
+<emphasis>%ci</emphasis>: committer date, ISO 8601-like format
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<emphasis>%cI</emphasis>: committer date, strict ISO 8601 format
 </simpara>
 </listitem>
 <listitem>

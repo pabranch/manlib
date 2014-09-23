@@ -23,7 +23,7 @@
 .\" the source, must acknowledge the copyright and authors of this work.
 .\" %%%LICENSE_END
 .\"
-.TH MQ_OVERVIEW 7 2009-09-27 "Linux" "Linux Programmer's Manual"
+.TH MQ_OVERVIEW 7 2014-09-21 "Linux" "Linux Programmer's Manual"
 .SH NAME
 mq_overview \- overview of POSIX message queues
 .SH DESCRIPTION
@@ -260,6 +260,10 @@ and can be monitored using
 or
 .BR epoll (7).
 This is not portable.
+.SS IPC namespaces
+For a discussion of the interaction of System V IPC objects and
+IPC namespaces, see
+.BR namespaces (7).
 .SH CONFORMING TO
 POSIX.1-2001.
 .SH NOTES
@@ -290,4 +294,5 @@ An example of the use of various message queue functions is shown in
 .BR mq_receive (3),
 .BR mq_send (3),
 .BR mq_unlink (3),
-.BR epoll (7)
+.BR epoll (7),
+.BR namespaces (7)

@@ -66,6 +66,22 @@ updates it from the current repository, sending named refs.</simpara>
 </varlistentry>
 <varlistentry>
 <term>
+--stdin
+</term>
+<listitem>
+<simpara>
+        Take the list of refs from stdin, one per line. If there
+        are refs specified on the command line in addition to this
+        option, then the refs from stdin are processed after those
+        on the command line.
+</simpara>
+<simpara>If <emphasis>--stateless-rpc</emphasis> is specified together with this option then
+the list of refs must be in packet format (pkt-line). Each ref must
+be in a separate packet, and the list must end with a flush packet.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 --dry-run
 </term>
 <listitem>
@@ -152,7 +168,8 @@ the remote side.  You cannot specify any <emphasis>&lt;ref&gt;</emphasis> if you
 this flag.</simpara>
 <simpara>Without <emphasis>--all</emphasis> and without any <emphasis>&lt;ref&gt;</emphasis>, the heads that exist
 both on the local side and on the remote side are updated.</simpara>
-<simpara>When one or more <emphasis>&lt;ref&gt;</emphasis> are specified explicitly, it can be either a
+<simpara>When one or more <emphasis>&lt;ref&gt;</emphasis> are specified explicitly (whether on the
+command line or via <literal>--stdin</literal>), it can be either a
 single pattern, or a pair of such pattern separated by a colon
 ":" (this means that a ref name cannot have a colon in it).  A
 single pattern <emphasis>&lt;name&gt;</emphasis> is just a shorthand for <emphasis>&lt;name&gt;:&lt;name&gt;</emphasis>.</simpara>

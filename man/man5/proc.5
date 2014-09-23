@@ -52,7 +52,7 @@
 .\" to see what information could be imported from that file
 .\" into this file.
 .\"
-.TH PROC 5 2014-07-08 "Linux" "Linux Programmer's Manual"
+.TH PROC 5 2014-09-21 "Linux" "Linux Programmer's Manual"
 .SH NAME
 proc \- process information pseudo-filesystem
 .SH DESCRIPTION
@@ -242,12 +242,12 @@ operations, and is employed by
 .BR pthread_setname_np (3)
 when used to rename threads other than the caller.
 .TP
-.IR /proc/[pid]/coredump_filter " (since kernel 2.6.23)"
+.IR /proc/[pid]/coredump_filter " (since Linux 2.6.23)"
 See
 .BR core (5).
 .TP
-.IR /proc/[pid]/cpuset " (since kernel 2.6.12)"
-.\" and /proc/[pid]/task/[tid]/cpuset
+.IR /proc/[pid]/cpuset " (since Linux 2.6.12)"
+.\" and/proc/[pid]/task/[tid]/cpuset
 See
 .BR cpuset (7).
 .TP
@@ -430,7 +430,7 @@ Thus the example command above could be written as:
 .\"       Added in 2.6.11; updating requires CAP_AUDIT_CONTROL
 .\"       CONFIG_AUDITSYSCALL
 .TP
-.IR /proc/[pid]/fdinfo/ " (since kernel 2.6.22)"
+.IR /proc/[pid]/fdinfo/ " (since Linux 2.6.22)"
 This is a subdirectory containing one entry for each file which the
 process has open, named by its file descriptor.
 The contents of each file can be read to obtain information
@@ -549,7 +549,12 @@ if process A reads process B's
 while process B is updating one of these 64-bit counters,
 process A could see an intermediate result.
 .TP
-.IR /proc/[pid]/limits " (since kernel 2.6.24)"
+.IR /proc/[pid]/gid_map " (since Linux 3.5)"
+See the description of
+.IR /proc/[pid]/uid_map .
+
+.TP
+.IR /proc/[pid]/limits " (since Linux 2.6.24)"
 This file displays the soft limit, hard limit, and units of measurement
 for each of the process's resource limits (see
 .BR getrlimit (2)).
@@ -814,10 +819,13 @@ to mark the file descriptor as readable, and
 and
 .BR epoll_wait (2)
 mark the file as having an error condition.
+See
+.BR namespaces (7)
+for more information.
 .TP
 .IR /proc/[pid]/mountstats " (since Linux 2.6.17)"
 This file exports information (statistics, configuration information)
-about the mount points in the process's name space.
+about the mount points in the process's mount namespace.
 Lines in this file have the form:
 .nf
 
@@ -845,65 +853,19 @@ information via this field.
 .RE
 .IP
 This file is readable only by the owner of the process.
+
+See
+.BR namespaces (7)
+for more information.
 .TP
 .IR /proc/[pid]/ns/ " (since Linux 3.0)"
 .\" See commit 6b4e306aa3dc94a0545eb9279475b1ab6209a31f
 This is a subdirectory containing one entry for each namespace that
 supports being manipulated by
 .BR setns (2).
-For information about namespaces, see
-.BR clone (2).
-.TP
-.IR /proc/[pid]/ns/ipc " (since Linux 3.0)"
-Bind mounting this file (see
-.BR mount (2))
-to somewhere else in the filesystem keeps
-the IPC namespace of the process specified by
-.I pid
-alive even if all processes currently in the namespace terminate.
+For more information, see
+.BR namespaces (7).
 
-Opening this file returns a file handle for the IPC namespace
-of the process specified by
-.IR pid .
-As long as this file descriptor remains open,
-the IPC namespace will remain alive,
-even if all processes in the namespace terminate.
-The file descriptor can be passed to
-.BR setns (2).
-.TP
-.IR /proc/[pid]/ns/net " (since Linux 3.0)"
-Bind mounting this file (see
-.BR mount (2))
-to somewhere else in the filesystem keeps
-the network namespace of the process specified by
-.I pid
-alive even if all processes in the namespace terminate.
-
-Opening this file returns a file handle for the network namespace
-of the process specified by
-.IR pid .
-As long as this file descriptor remains open,
-the network namespace will remain alive,
-even if all processes in the namespace terminate.
-The file descriptor can be passed to
-.BR setns (2).
-.TP
-.IR /proc/[pid]/ns/uts " (since Linux 3.0)"
-Bind mounting this file (see
-.BR mount (2))
-to somewhere else in the filesystem keeps
-the UTS namespace of the process specified by
-.I pid
-alive even if all processes currently in the namespace terminate.
-
-Opening this file returns a file handle for the UTS namespace
-of the process specified by
-.IR pid .
-As long as this file descriptor remains open,
-the UTS namespace will remain alive,
-even if all processes in the namespace terminate.
-The file descriptor can be passed to
-.BR setns (2).
 .TP
 .IR /proc/[pid]/numa_maps " (since Linux 2.6.14)"
 See
@@ -1008,7 +970,7 @@ Acceptable values range from \-1000
 (OOM_SCORE_ADJ_MIN) to +1000 (OOM_SCORE_ADJ_MAX).
 This allows user space to control the preference for OOM-killing,
 ranging from always preferring a certain
-task or completely disabling it from OOM-killing.
+task or completely disabling it from OOM killing.
 The lowest possible value, \-1000, is
 equivalent to disabling OOM-killing entirely for that task,
 since it will always report a badness score of 0.
@@ -1111,6 +1073,8 @@ In a multithreaded process, the contents of this symbolic link
 are not available if the main thread has already terminated
 (typically by calling
 .BR pthread_exit (3)).
+.\" FIXME Describe /proc/[pid]/projid_map
+.\"       Added in 3.7, commit f76d207a66c3a53defea67e7d36c3eb1b7d6d61d
 .\" FIXME Describe /proc/[pid]/seccomp
 .\"       Added in 2.6.12
 .\"
@@ -1735,7 +1699,7 @@ Masks of capabilities enabled in inheritable, permitted, and effective sets
 .IP *
 .IR CapBnd :
 Capability Bounding set
-(since kernel 2.6.26, see
+(since Linux 2.6.26, see
 .BR capabilities (7)).
 .IP *
 .IR Cpus_allowed :
@@ -1815,6 +1779,142 @@ In a multithreaded process, the contents of the
 directory are not available if the main thread has already terminated
 (typically by calling
 .BR pthread_exit (3)).
+.TP
+.IR /proc/[pid]/uid_map ", " /proc/[pid]/gid_map " (since Linux 3.5)"
+.\" commit 22d917d80e842829d0ca0a561967d728eb1d6303
+These files expose the mappings for user and group IDs
+inside the user namespace for the process
+.IR pid .
+The description here explains the details for
+.IR uid_map ;
+.IR gid_map
+is exactly the same,
+but each instance of "user ID" is replaced by "group ID".
+
+The
+.I uid_map
+file exposes the mapping of user IDs from the user namespace
+of the process
+.IR pid
+to the user namespace of the process that opened
+.IR uid_map
+(but see a qualification to this point below).
+In other words, processes that are in different user namespaces
+will potentially see different values when reading from a particular
+.I uid_map
+file, depending on the user ID mappings for the user namespaces
+of the reading processes.
+
+
+Each line in the file specifies a 1-to-1 mapping of a range of contiguous
+between two user namespaces.
+The specification in each line takes the form of
+three numbers delimited by white space.
+The first two numbers specify the starting user ID in
+each user namespace.
+The third number specifies the length of the mapped range.
+In detail, the fields are interpreted as follows:
+.RS
+.IP (1) 4
+The start of the range of user IDs in
+the user namespace of the process
+.IR pid .
+.IP (2)
+The start of the range of user
+IDs to which the user IDs specified by field one map.
+How field two is interpreted depends on whether the process that opened
+.I uid_map
+and the process
+.IR pid
+are in the same user namespace, as follows:
+.RS
+.IP a) 3
+If the two processes are in different user namespaces:
+field two is the start of a range of
+user IDs in the user namespace of the process that opened
+.IR uid_map .
+.IP b)
+If the two processes are in the same user namespace:
+field two is the start of the range of
+user IDs in the parent user namespace of the process
+.IR pid .
+(The "parent user namespace"
+is the user namespace of the process that created a user namespace
+via a call to
+.BR unshare (2)
+or
+.BR clone (2)
+with the
+.BR CLONE_NEWUSER
+flag.)
+This case enables the opener of
+.I uid_map
+(the common case here is opening
+.IR /proc/self/uid_map )
+to see the mapping of user IDs into the user namespace of the process
+that created this user namespace.
+.RE
+.IP (3)
+The length of the range of user IDs that is mapped between the two
+user namespaces.
+.RE
+.IP
+After the creation of a new user namespace, the
+.I uid_map
+file may be written to exactly once to specify
+the mapping of user IDs in the new user namespace.
+(An attempt to write more than once to the file fails with the error
+.BR EPERM .)
+.IP
+The lines written to
+.IR uid_map
+must conform to the following rules:
+.RS
+.IP * 3
+The three fields must be valid numbers,
+and the last field must be greater than 0.
+.IP *
+Lines are terminated by newline characters.
+.IP *
+There is an (arbitrary) limit on the number of lines in the file.
+As at Linux 3.8, the limit is five lines.
+.IP *
+The range of user IDs specified in each line cannot overlap with the ranges
+in any other lines.
+In the current implementation (Linux 3.8), this requirement is
+satisfied by a simplistic implementation that imposes the further
+requirement that
+the values in both field 1 and field 2 of successive lines must be
+in ascending numerical order.
+.RE
+.IP
+Writes that violate the above rules fail with the error
+.BR EINVAL .
+
+In order for a process to write to the
+.I /proc/[pid]/uid_map
+.RI ( /proc/[pid]/gid_map )
+file, the following requirements must be met:
+.RS
+.IP * 3
+The process must have the
+.BR CAP_SETUID
+.RB ( CAP_SETGID )
+capability in the user namespace of the process
+.IR pid .
+.IP *
+The process must have the
+.BR CAP_SETUID
+.RB ( CAP_SETGID )
+capability in the parent user namespace.
+.IP *
+The process must be in either the user namespace of the process
+.I pid
+or inside the parent user namespace of the process
+.IR pid .
+.RE
+For further details, see
+.BR namespaces (7).
 .TP
 .IR /proc/[pid]/wchan " (since Linux 2.6.0)"
 The symbolic name corresponding to the location
@@ -4167,6 +4267,7 @@ of thing that needs to be updated very often.
 .BR syslog (2),
 .BR slabinfo (5),
 .BR hier (7),
+.BR namespaces (7),
 .BR time (7),
 .BR arp (8),
 .BR hdparm (8),
