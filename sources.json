@@ -391,7 +391,7 @@ rsync --checksum sources/quota/*.8 man/man8/"
 
   "selinux": {
     "type": "git",
-    "url": "http://oss.tresys.com/git/selinux.git",
+    "url": "https://github.com/SELinuxProject/selinux.git",
     "sparse": "libsemanage/man/*\nlibselinux/man/*\nlibsepol/man/*\npolicycoreutils/mcstrans/man/*\npolicycoreutils/man/*",
     "cmd": "find sources/selinux/ -name '*[a-z].3' -exec rsync --checksum {} man/man3/ \\;;
 find sources/selinux/ -name '*.5' -exec rsync --checksum {} man/man5/ \\;;
@@ -400,7 +400,7 @@ find sources/selinux/ -name '*.8' -exec rsync --checksum {} man/man8/ \\;"
 
   "selinux-refpolicy": {
     "type": "git",
-    "url": "http://oss.tresys.com/git/refpolicy.git",
+    "url": "https://github.com/TresysTechnology/refpolicy.git",
     "cmd": "rsync --checksum sources/selinux-refpolicy/man/man8/*.8 man/man8/" /* (cd sources/selinux-refpolicy; git submodule init; git submodule update) */
   },
 
