@@ -11,6 +11,7 @@
 <arg choice="opt">-n</arg>
 <arg choice="opt">-b</arg>
 <arg choice="opt">-l <replaceable>pktlen</replaceable></arg>
+<arg choice="opt">-m <replaceable>max_hops</replaceable></arg>
 <arg choice="opt">-p <replaceable>port</replaceable></arg>
 <arg choice="req"><replaceable>destination</replaceable></arg></cmdsynopsis></refsynopsisdiv>
 
@@ -43,6 +44,12 @@ of UDP ports to maintain trace history.</para></refsect1>
  <varlistentry>  <term><option>-l</option></term>
   <listitem><para>Sets the initial packet length to <replaceable>pktlen</replaceable> instead of
 65535 for <command>tracepath</command> or 128000 for <command>tracepath6</command>.
+  </para></listitem>
+ </varlistentry>
+
+ <varlistentry>  <term><option>-m</option></term>
+  <listitem><para>Set maximum hops (or maximum TTLs) to <replaceable>max_hops</replaceable>
+instead of 30.
   </para></listitem>
  </varlistentry>
 

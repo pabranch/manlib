@@ -42,6 +42,13 @@
       </funcprototype>
 
       <funcprototype>
+        <funcdef>typedef int (*<function>sd_event_time_handler_t</function>)</funcdef>
+        <paramdef>sd_event_source *<parameter>s</parameter></paramdef>
+        <paramdef>uint64_t <parameter>usec</parameter></paramdef>
+        <paramdef>void *<parameter>userdata</parameter></paramdef>
+      </funcprototype>
+
+      <funcprototype>
         <funcdef>int <function>sd_event_source_get_time</function></funcdef>
         <paramdef>sd_event_source *<parameter>source</parameter></paramdef>
         <paramdef>usec_t *<parameter>usec</parameter></paramdef>
@@ -105,11 +112,15 @@
     actually have been called at a slightly later time, subject to the
     specified accuracy value, the kernel timer slack (see
     <citerefentry><refentrytitle>prctl</refentrytitle><manvolnum>2</manvolnum></citerefentry>)
-    and additional scheduling latencies. By default, the timer will
-    elapse once (SD_EVENT_ONESHOT), but this may be changed with
-    <citerefentry><refentrytitle>sd_event_source_set_enabled</refentrytitle><manvolnum>3</manvolnum></citerefentry>. If
-    the handler function returns a negative error code, it will be
-    disabled after the invocation, even if SD_EVENT_ON mode is set.
+    and additional scheduling latencies.</para>
+
+    <para>By default, the timer will elapse once
+    (<constant>SD_EVENT_ONESHOT</constant>), but this may be changed
+    with
+    <citerefentry><refentrytitle>sd_event_source_set_enabled</refentrytitle><manvolnum>3</manvolnum></citerefentry>.
+    If the handler function returns a negative error code, it will be
+    disabled after the invocation, even if
+    <constant>SD_EVENT_ON</constant> mode is set.
     </para>
 
     <para><function>sd_event_source_get_time()</function> retrieves
@@ -158,34 +169,34 @@
 
     <variablelist>
       <varlistentry>
-        <term><varname>-ENOMEM</varname></term>
+        <term><constant>-ENOMEM</constant></term>
 
-        <listitem><para>Not enough memory to allocate object.</para></listitem>
+        <listitem><para>Not enough memory to allocate an object.</para></listitem>
       </varlistentry>
 
       <varlistentry>
-        <term><varname>-EINVAL</varname></term>
+        <term><constant>-EINVAL</constant></term>
 
         <listitem><para>An invalid argument has been passed.</para></listitem>
 
       </varlistentry>
 
       <varlistentry>
-        <term><varname>-ESTALE</varname></term>
+        <term><constant>-ESTALE</constant></term>
 
         <listitem><para>The event loop is already terminated.</para></listitem>
 
       </varlistentry>
 
       <varlistentry>
-        <term><varname>-ECHILD</varname></term>
+        <term><constant>-ECHILD</constant></term>
 
         <listitem><para>The event loop has been created in a different process.</para></listitem>
 
       </varlistentry>
 
       <varlistentry>
-        <term><varname>-ENOTSUP</varname></term>
+        <term><constant>-ENOTSUP</constant></term>
 
         <listitem><para>The selected clock is not supported by the event loop implementation.</para></listitem>
 
@@ -210,6 +221,9 @@
       <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
       <citerefentry><refentrytitle>sd-event</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
       <citerefentry><refentrytitle>sd_event_new</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>sd_event_add_signal</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>sd_event_add_child</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>sd_event_add_defer</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
       <citerefentry><refentrytitle>clock_gettime</refentrytitle><manvolnum>2</manvolnum></citerefentry>,
       <citerefentry><refentrytitle>sd_event_source_set_enabled</refentrytitle><manvolnum>3</manvolnum></citerefentry>
     </para>
