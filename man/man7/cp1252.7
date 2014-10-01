@@ -1,6 +1,5 @@
 '\" t -*- coding: UTF-8 -*-
-.\" Copyright 1993-1995 Daniel Quinlan (quinlan@yggdrasil.com)
-.\" Copyright 1999      Dimitri Papadopoulos (dpo@club-internet.fr)
+.\" Copyright 2014 (C) Marko Myllynen <myllynen@redhat.com>
 .\"
 .\" %%%LICENSE_START(GPLv2+_DOC_FULL)
 .\" This is free documentation; you can redistribute it and/or
@@ -23,37 +22,17 @@
 .\" <http://www.gnu.org/licenses/>.
 .\" %%%LICENSE_END
 .\"
-.TH ISO_8859-15 7 2014-02-16 "Linux" "Linux Programmer's Manual"
+.TH CP\ 1252 7 2014-02-16 "Linux" "Linux Programmer's Manual"
 .SH NAME
-iso_8859-15 \- ISO 8859-15 character set encoded in octal, decimal,
+cp1252 \- CP\ 1252 character set encoded in octal, decimal,
 and hexadecimal
 .SH DESCRIPTION
-The ISO 8859 standard includes several 8-bit extensions to the ASCII
+The Windows Code Pages include several 8-bit extensions to the ASCII
 character set (also known as ISO 646-IRV).
-ISO 8859-15 encodes the
-characters used in many West European languages and adds the Euro sign.
-.SS ISO 8859 alphabets
-The full set of ISO 8859 alphabets includes:
-.TS
-l l.
-ISO 8859-1	West European languages (Latin-1)
-ISO 8859-2	Central and East European languages (Latin-2)
-ISO 8859-3	Southeast European and miscellaneous languages (Latin-3)
-ISO 8859-4	Scandinavian/Baltic languages (Latin-4)
-ISO 8859-5	Latin/Cyrillic
-ISO 8859-6	Latin/Arabic
-ISO 8859-7	Latin/Greek
-ISO 8859-8	Latin/Hebrew
-ISO 8859-9	Latin-1 modification for Turkish (Latin-5)
-ISO 8859-10	Lappish/Nordic/Eskimo languages (Latin-6)
-ISO 8859-11	Latin/Thai
-ISO 8859-13	Baltic Rim languages (Latin-7)
-ISO 8859-14	Celtic (Latin-8)
-ISO 8859-15	West European languages (Latin-9)
-ISO 8859-16	Romanian (Latin-10)
-.TE
-.SS ISO 8859-15 characters
-The following table displays the characters in ISO 8859-15, which
+CP\ 1252 encodes the
+characters used in many West European languages.
+.SS CP\ 1252 characters
+The following table displays the characters in CP\ 1252, which
 are printable and unlisted in the
 .BR ascii (7)
 manual page.
@@ -61,15 +40,42 @@ manual page.
 l l l c lp-1.
 Oct	Dec	Hex	Char	Description
 _
+200	128	80	€	EURO SIGN
+202	130	82	‚	SINGLE LOW-9 QUOTATION MARK
+203	131	83	ƒ	LATIN SMALL LETTER F WITH HOOK
+204	132	84	„	DOUBLE LOW-9 QUOTATION MARK
+205	133	85	…	HORIZONTAL ELLIPSIS
+206	134	86	†	DAGGER
+207	135	87	‡	DOUBLE DAGGER
+210	136	88	ˆ	MODIFIER LETTER CIRCUMFLEX ACCENT
+211	137	89	‰	PER MILLE SIGN
+212	138	8A	Š	LATIN CAPITAL LETTER S WITH CARON
+213	139	8B	‹	SINGLE LEFT-POINTING ANGLE QUOTATION MARK
+214	140	8C	Œ	LATIN CAPITAL LIGATURE OE
+216	142	8E	Ž	LATIN CAPITAL LETTER Z WITH CARON
+221	145	91	‘	LEFT SINGLE QUOTATION MARK
+222	146	92	’	RIGHT SINGLE QUOTATION MARK
+223	147	93	“	LEFT DOUBLE QUOTATION MARK
+224	148	94	”	RIGHT DOUBLE QUOTATION MARK
+225	149	95	•	BULLET
+226	150	96	–	EN DASH
+227	151	97	—	EM DASH
+230	152	98	˜	SMALL TILDE
+231	153	99	™	TRADE MARK SIGN
+232	154	9A	š	LATIN SMALL LETTER S WITH CARON
+233	155	9B	›	SINGLE RIGHT-POINTING ANGLE QUOTATION MARK
+234	156	9C	œ	LATIN SMALL LIGATURE OE
+236	158	9E	ž	LATIN SMALL LETTER Z WITH CARON
+237	159	9F	Ÿ	LATIN CAPITAL LETTER Y WITH DIAERESIS
 240	160	A0	 	NO-BREAK SPACE
 241	161	A1	¡	INVERTED EXCLAMATION MARK
 242	162	A2	¢	CENT SIGN
 243	163	A3	£	POUND SIGN
-244	164	A4	€	EURO SIGN
+244	164	A4	¤	CURRENCY SIGN
 245	165	A5	¥	YEN SIGN
-246	166	A6	Š	LATIN CAPITAL LETTER S WITH CARON
+246	166	A6	¦	BROKEN BAR
 247	167	A7	§	SECTION SIGN
-250	168	A8	š	LATIN SMALL LETTER S WITH CARON
+250	168	A8	¨	DIAERESIS
 251	169	A9	©	COPYRIGHT SIGN
 252	170	AA	ª	FEMININE ORDINAL INDICATOR
 253	171	AB	«	LEFT-POINTING DOUBLE ANGLE QUOTATION MARK
@@ -81,17 +87,17 @@ _
 261	177	B1	±	PLUS-MINUS SIGN
 262	178	B2	²	SUPERSCRIPT TWO
 263	179	B3	³	SUPERSCRIPT THREE
-264	180	B4	Ž	LATIN CAPITAL LETTER Z WITH CARON
+264	180	B4	´	ACUTE ACCENT
 265	181	B5	µ	MICRO SIGN
 266	182	B6	¶	PILCROW SIGN
 267	183	B7	·	MIDDLE DOT
-270	184	B8	ž	LATIN SMALL LETTER Z WITH CARON
+270	184	B8	¸	CEDILLA
 271	185	B9	¹	SUPERSCRIPT ONE
 272	186	BA	º	MASCULINE ORDINAL INDICATOR
 273	187	BB	»	RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK
-274	188	BC	Œ	LATIN CAPITAL LIGATURE OE
-275	189	BD	œ	LATIN SMALL LIGATURE OE
-276	190	BE	Ÿ	LATIN CAPITAL LETTER Y WITH DIAERESIS
+274	188	BC	¼	VULGAR FRACTION ONE QUARTER
+275	189	BD	½	VULGAR FRACTION ONE HALF
+276	190	BE	¾	VULGAR FRACTION THREE QUARTERS
 277	191	BF	¿	INVERTED QUESTION MARK
 300	192	C0	À	LATIN CAPITAL LETTER A WITH GRAVE
 301	193	C1	Á	LATIN CAPITAL LETTER A WITH ACUTE
@@ -159,9 +165,10 @@ _
 377	255	FF	ÿ	LATIN SMALL LETTER Y WITH DIAERESIS
 .TE
 .SH NOTES
-ISO 8859-15 is also known as Latin-9 (or sometimes as Latin-0).
+CP\ 1252 is also known as Windows-1252.
 .SH SEE ALSO
 .BR ascii (7),
 .BR charsets (7),
 .BR iso_8859-1 (7),
+.BR iso_8859-15 (7),
 .BR utf-8 (7)

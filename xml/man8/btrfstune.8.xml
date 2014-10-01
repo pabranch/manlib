@@ -7,7 +7,7 @@
 <refentrytitle>btrfstune</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.16</refmiscinfo>
+<refmiscinfo class="version">v3.16.2</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -57,7 +57,22 @@ Enable skinny metadata extent refs.
 </simpara>
 </listitem>
 </varlistentry>
+<varlistentry>
+<term>
+-f
+</term>
+<listitem>
+<simpara>
+Allow dangerous changes, e.g. clear the seeding flag
+</simpara>
+</listitem>
+</varlistentry>
 </variablelist>
+<simpara>When mounting the new device, btrfs will check whether the seeding flag is set
+when try to open seeding device.  If the user clears the seeding flag of the
+seeding device, the new device will not be mountable. Even setting the seeding
+flag back will not fix this problem, because the generation will be changed at
+that time. Clear the seeding flag may damage the new filesystem.</simpara>
 </refsect1>
 <refsect1 id="_exit_status">
 <title>EXIT STATUS</title>
