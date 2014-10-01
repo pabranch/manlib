@@ -50,6 +50,12 @@ find sources/btrfs-progs/ -name '*.xml' ! -name 'btrfs-mount.xml' -exec bash -c 
 find sources/btrfs-progs/ -name 'btrfs-mount.xml' -exec bash -c 'rsync --checksum {} xml/man5/$(basename -s .xml {}).5.xml' \\;"
   },
 
+  "catdoc": {
+    "type": "svn",
+    "url": "svn://alioth.debian.org/svn/catdoc/trunk/doc",
+    "cmd": "find sources/catdoc -name '*.1.in' -exec bash -c 'rsync --checksum {} man/man1/$(basename -s .in {})' \\;"
+  },
+
   "coreutils": {
     "type": "git",
     "url": "git://git.sv.gnu.org/coreutils",
