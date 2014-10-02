@@ -19,6 +19,14 @@ Use rsync --checksum to preserve the timestamps of files in xml/ and man/ if the
 rsync --checksum sources/acct/*.8 man/man8/"
   },
 
+  "atop": {
+    "type": "tarball",
+    "url": "http://www.atoptool.nl/download/atop-2.1-1.tar.gz",
+    "cmd": "rsync --checksum sources/atop/atop-2.1/man/*.1 man/man1/;
+rsync --checksum sources/atop/atop-2.1/man/*.5 man/man5/;
+rsync --checksum sources/atop/atop-2.1/man/*.8 man/man8/;"
+  },
+
   "attr": {
     "type": "git",
     "url": "git://git.savannah.nongnu.org/attr.git",
@@ -290,6 +298,13 @@ find sources/multipath-tools/ -name '*.8' -exec rsync --checksum {} man/man8/ \\
 rsync --checksum sources/net-tools/man/en_US/*.5 man/man5/;
 rsync --checksum sources/net-tools/man/en_US/*.8 man/man8/"
   },
+
+  /* These are HTML files:
+  "netpbm": {
+    "type": "svn",
+    "url": "http://svn.code.sf.net/p/netpbm/code/userguide"
+  },
+  */
 
   "ndiff": {
     "type": "svn",
