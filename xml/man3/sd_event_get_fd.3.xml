@@ -1,0 +1,178 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="sd_event_get_fd" conditional="ENABLE_KDBUS">
+
+  <info>
+    
+    <productname>systemd</productname>
+
+    <authorgroup>
+      <author><personname><firstname>Zbigniew</firstname><surname>Jędrzejewski-Szmek</surname></personname><contrib>More text</contrib><email>zbyszek@in.waw.pl</email></author>
+    </authorgroup>
+  </info>
+
+  <refmeta>
+    <refentrytitle>sd_event_get_fd</refentrytitle>
+    <manvolnum>3</manvolnum>
+  </refmeta>
+
+  <refnamediv>
+    <refname>sd_event_get_fd</refname>
+
+    <refpurpose>Obtain a file descriptor to poll for event loop events</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <funcsynopsis>
+      <funcsynopsisinfo>#include &lt;systemd/sd-bus.h&gt;</funcsynopsisinfo>
+
+      <funcprototype>
+        <funcdef>int <function>sd_event_get_fd</function></funcdef>
+        <paramdef>sd_bus *<parameter>event</parameter></paramdef>
+      </funcprototype>
+
+    </funcsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1>
+    <title>Description</title>
+
+    <para><function>sd_event_get_fd()</function> returns the file
+    descriptor that the event loop object returned by the
+    <citerefentry><refentrytitle>sd_event_new</refentrytitle><manvolnum>3</manvolnum></citerefentry>
+    function uses to wait for events. This file descriptor can be
+    polled for events. This makes it possible to embed the
+    <citerefentry><refentrytitle>sd-event</refentrytitle><manvolnum>3</manvolnum></citerefentry>
+    event loop inside of another event loop.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>Return Value</title>
+
+    <para>On success, <function>sd_event_get_fd()</function> returns a
+    non-negative integer. On failure, it returns a negative
+    errno-style error code.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>Errors</title>
+
+    <para>Returned errors may indicate the following problems:</para>
+
+    <variablelist>
+      <varlistentry>
+        <term><constant>-EINVAL</constant></term>
+
+        <listitem><para><parameter>event</parameter> is not a valid
+        pointer to an <varname remap="structname">sd_event</varname> structure.
+        </para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><constant>-ECHILD</constant></term>
+
+        <listitem><para>The event loop has been created in a different process.</para></listitem>
+
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1>
+    <title>Examples</title>
+
+    <example>
+      <title>Integration in glib event loop</title>
+
+      <programlisting>/***
+  Copyright 2014 Tom Gundersen
+
+  Permission is hereby granted, free of charge, to any person
+  obtaining a copy of this software and associated documentation files
+  (the "Software"), to deal in the Software without restriction,
+  including without limitation the rights to use, copy, modify, merge,
+  publish, distribute, sublicense, and/or sell copies of the Software,
+  and to permit persons to whom the Software is furnished to do so,
+  subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be
+  included in all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+  ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+***/
+
+#include &lt;assert.h&gt;
+#include &lt;errno.h&gt;
+#include &lt;stdlib.h&gt;
+
+typedef struct SDEventSource {
+        GSource source;
+        GPollFD pollfd;
+        sd_event *event;
+} SDEventSource;
+
+static gboolean event_prepare(GSource *source, gint *timeout_) {
+        return sd_event_prepare(((SDEventSource *)source)-&gt;event) &gt; 0;
+}
+
+static gboolean event_check(GSource *source) {
+        return sd_event_wait(((SDEventSource *)source)-&gt;event, 0) &gt; 0;
+}
+
+static gboolean event_dispatch(GSource *source, GSourceFunc callback, gpointer user_data) {
+        return sd_event_dispatch(((SDEventSource *)source)-&gt;event) &gt; 0;
+}
+
+static void event_finalize(GSource *source) {
+        sd_event_unref(((SDEventSource *)source)-&gt;event);
+}
+
+static GSourceFuncs event_funcs = {
+        .prepare = event_prepare,
+        .check = event_check,
+        .dispatch = event_dispatch,
+        .finalize = event_finalize,
+};
+
+GSource *g_sd_event_create_source(sd_event *event) {
+        SDEventSource *source;
+
+        source = (SDEventSource *)g_source_new(&amp;event_funcs, sizeof(SDEventSource));
+
+        source-&gt;event = sd_event_ref(event);
+        source-&gt;pollfd.fd = sd_event_get_fd(event);
+        source-&gt;pollfd.events = G_IO_IN | G_IO_HUP | G_IO_ERR;
+
+        g_source_add_poll((GSource *)source, &amp;source-&gt;pollfd);
+
+        return (GSource *)source;
+}
+</programlisting>
+    </example>
+  </refsect1>
+
+  <refsect1>
+    <title>Notes</title>
+
+    <para><function>sd_event_get_fd()</function> is available as a
+    shared library, which can be compiled and linked to with the
+    <constant>libsystemd</constant> <citerefentry project="die-net"><refentrytitle>pkg-config</refentrytitle><manvolnum>1</manvolnum></citerefentry>
+    file.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>See Also</title>
+
+    <para>
+      <citerefentry><refentrytitle>sd-event</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>sd_event_new</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>sd_event_ref</refentrytitle><manvolnum>3</manvolnum></citerefentry>
+    </para>
+  </refsect1>
+
+</refentry>
