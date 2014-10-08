@@ -671,17 +671,6 @@ sub vcl_recv {
           </varlistentry>
           <varlistentry>
             <term>
-              purge()
-            </term>
-            <listitem>
-              <para>
-                Invalidate all variants of the current object using
-                purge. Available in vcl_miss and vcl_hit.
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>
               return()
             </term>
             <listitem>
@@ -698,7 +687,9 @@ sub vcl_recv {
             </term>
             <listitem>
               <para>
-                Restore request HTTP headers to their original state.
+                Restore <emphasis>req</emphasis> HTTP headers to their
+                original state. This function is deprecated. Use
+                std.rollback() instead.
               </para>
             </listitem>
           </varlistentry>

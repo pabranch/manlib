@@ -6,36 +6,6 @@
     <variablelist>
       <varlistentry>
         <term>
-          Author
-        </term>
-        <listitem>
-          <para>
-            Per Buer
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          Date
-        </term>
-        <listitem>
-          <para>
-            2011-05-19
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
-          Version
-        </term>
-        <listitem>
-          <para>
-            1.0
-          </para>
-        </listitem>
-      </varlistentry>
-      <varlistentry>
-        <term>
           Manual section
         </term>
         <listitem>
@@ -48,21 +18,140 @@
     <section xml:id="synopsis">
       <title>SYNOPSIS</title>
       <para>
-        import std
+        import std [from "path"] ;
       </para>
     </section>
     <section xml:id="description">
       <title>DESCRIPTION</title>
       <para>
-        The Varnish standard module contains useful, generic function
-        that don't quite fit in the VCL core, but are still considered
-        very useful to a broad audience.
+        Vmod_std contains basic functions which are part and parcel of
+        Varnish, but which for reasons of architecture fit better in a
+        VMOD.
+      </para>
+      <para>
+        One particular class of functions in vmod_std is the conversions
+        functions which all have the form:
+      </para>
+      <programlisting>
+TYPE type(STRING, TYPE)
+</programlisting>
+      <para>
+        These functions attempt to convert STRING to the TYPE, and if
+        that fails, they return the second argument, which must have the
+        given TYPE.
       </para>
     </section>
-    <section xml:id="functions">
-      <title>FUNCTIONS</title>
-      <section xml:id="toupper">
-        <title>toupper</title>
+    <section xml:id="contents">
+      <title>CONTENTS</title>
+      <itemizedlist>
+        <listitem>
+          <para>
+            func_collect
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            func_duration
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            func_fileread
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            func_healthy
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            func_integer
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            func_ip
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            func_log
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            func_port
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            func_querysort
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            func_random
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            func_real
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            func_real2time
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            func_rollback
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            func_set_ip_tos
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            func_strstr
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            func_syslog
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            func_time2integer
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            func_time2real
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            func_timestamp
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            func_tolower
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            func_toupper
+          </para>
+        </listitem>
+      </itemizedlist>
+      <section xml:id="string-toupperstring_list">
+        <title>STRING toupper(STRING_LIST)</title>
         <variablelist>
           <varlistentry>
             <term>
@@ -70,17 +159,7 @@
             </term>
             <listitem>
               <para>
-                toupper(STRING s)
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>
-              Return value
-            </term>
-            <listitem>
-              <para>
-                String
+                STRING toupper(STRING_LIST)
               </para>
             </listitem>
           </varlistentry>
@@ -108,8 +187,8 @@
           </varlistentry>
         </variablelist>
       </section>
-      <section xml:id="tolower">
-        <title>tolower</title>
+      <section xml:id="string-tolowerstring_list">
+        <title>STRING tolower(STRING_LIST)</title>
         <variablelist>
           <varlistentry>
             <term>
@@ -117,17 +196,7 @@
             </term>
             <listitem>
               <para>
-                tolower(STRING s)
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>
-              Return value
-            </term>
-            <listitem>
-              <para>
-                String
+                STRING tolower(STRING_LIST)
               </para>
             </listitem>
           </varlistentry>
@@ -154,8 +223,8 @@
           </varlistentry>
         </variablelist>
       </section>
-      <section xml:id="set_ip_tos">
-        <title>set_ip_tos</title>
+      <section xml:id="void-set_ip_tosint">
+        <title>VOID set_ip_tos(INT)</title>
         <variablelist>
           <varlistentry>
             <term>
@@ -163,17 +232,7 @@
             </term>
             <listitem>
               <para>
-                set_ip_tos(INT i)
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>
-              Return value
-            </term>
-            <listitem>
-              <para>
-                Void
+                VOID set_ip_tos(INT)
               </para>
             </listitem>
           </varlistentry>
@@ -204,8 +263,8 @@
           </varlistentry>
         </variablelist>
       </section>
-      <section xml:id="random">
-        <title>random</title>
+      <section xml:id="real-randomreal-real">
+        <title>REAL random(REAL, REAL)</title>
         <variablelist>
           <varlistentry>
             <term>
@@ -213,17 +272,7 @@
             </term>
             <listitem>
               <para>
-                random(REAL a, REAL b)
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>
-              Return value
-            </term>
-            <listitem>
-              <para>
-                Real
+                REAL random(REAL, REAL)
               </para>
             </listitem>
           </varlistentry>
@@ -250,8 +299,8 @@
           </varlistentry>
         </variablelist>
       </section>
-      <section xml:id="log">
-        <title>log</title>
+      <section xml:id="void-logstring_list">
+        <title>VOID log(STRING_LIST)</title>
         <variablelist>
           <varlistentry>
             <term>
@@ -259,17 +308,7 @@
             </term>
             <listitem>
               <para>
-                log(STRING string)
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>
-              Return value
-            </term>
-            <listitem>
-              <para>
-                Void
+                VOID log(STRING_LIST)
               </para>
             </listitem>
           </varlistentry>
@@ -280,7 +319,7 @@
             <listitem>
               <para>
                 Logs <emphasis>string</emphasis> to the shared memory
-                log.
+                log, using VSL tag <emphasis>SLT_VCL_Log</emphasis>.
               </para>
             </listitem>
           </varlistentry>
@@ -297,8 +336,8 @@
           </varlistentry>
         </variablelist>
       </section>
-      <section xml:id="syslog">
-        <title>syslog</title>
+      <section xml:id="void-syslogint-string_list">
+        <title>VOID syslog(INT, STRING_LIST)</title>
         <variablelist>
           <varlistentry>
             <term>
@@ -306,17 +345,7 @@
             </term>
             <listitem>
               <para>
-                syslog(INT priority, STRING string)
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>
-              Return value
-            </term>
-            <listitem>
-              <para>
-                Void
+                VOID syslog(INT, STRING_LIST)
               </para>
             </listitem>
           </varlistentry>
@@ -327,6 +356,8 @@
             <listitem>
               <para>
                 Logs <emphasis>string</emphasis> to syslog marked with
+                <emphasis>priority</emphasis>. See your system's
+                syslog.h file for the legal values of
                 <emphasis>priority</emphasis>.
               </para>
             </listitem>
@@ -337,15 +368,14 @@
             </term>
             <listitem>
               <para>
-                std.syslog( LOG_USER|LOG_ALERT, "There is serious
-                troble");
+                std.syslog(8 + 1, "Something is wrong");
               </para>
             </listitem>
           </varlistentry>
         </variablelist>
       </section>
-      <section xml:id="fileread">
-        <title>fileread</title>
+      <section xml:id="string-filereadpriv_call-string">
+        <title>STRING fileread(PRIV_CALL, STRING)</title>
         <variablelist>
           <varlistentry>
             <term>
@@ -353,17 +383,7 @@
             </term>
             <listitem>
               <para>
-                fileread(STRING filename)
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>
-              Return value
-            </term>
-            <listitem>
-              <para>
-                String
+                STRING fileread(PRIV_CALL, STRING)
               </para>
             </listitem>
           </varlistentry>
@@ -393,8 +413,8 @@
           </varlistentry>
         </variablelist>
       </section>
-      <section xml:id="duration">
-        <title>duration</title>
+      <section xml:id="void-collectheader">
+        <title>VOID collect(HEADER)</title>
         <variablelist>
           <varlistentry>
             <term>
@@ -402,113 +422,7 @@
             </term>
             <listitem>
               <para>
-                duration(STRING s, DURATION fallback)
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>
-              Return value
-            </term>
-            <listitem>
-              <para>
-                Duration
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>
-              Description
-            </term>
-            <listitem>
-              <para>
-                Converts the string <emphasis>s</emphasis> to seconds.
-                <emphasis>s</emphasis> can be quantified with the usual
-                s (seconds), m (minutes), h (hours), d (days) and w
-                (weeks) units. If <emphasis>s</emphasis> fails to parse,
-                <emphasis>fallback</emphasis> will be used.
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>
-              Example
-            </term>
-            <listitem>
-              <para>
-                set beresp.ttl = std.duration("1w", 3600s);
-              </para>
-            </listitem>
-          </varlistentry>
-        </variablelist>
-      </section>
-      <section xml:id="integer">
-        <title>integer</title>
-        <variablelist>
-          <varlistentry>
-            <term>
-              Prototype
-            </term>
-            <listitem>
-              <para>
-                integer(STRING s, INT fallback)
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>
-              Return value
-            </term>
-            <listitem>
-              <para>
-                Int
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>
-              Description
-            </term>
-            <listitem>
-              <para>
-                Converts the string <emphasis>s</emphasis> to an
-                integer. If <emphasis>s</emphasis> fails to parse,
-                <emphasis>fallback</emphasis> will be used
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>
-              Example
-            </term>
-            <listitem>
-              <para>
-                if (std.integer(beresp.http.x-foo, 0) &gt; 5) { ... }
-              </para>
-            </listitem>
-          </varlistentry>
-        </variablelist>
-      </section>
-      <section xml:id="collect">
-        <title>collect</title>
-        <variablelist>
-          <varlistentry>
-            <term>
-              Prototype
-            </term>
-            <listitem>
-              <para>
-                collect(HEADER header)
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>
-              Return value
-            </term>
-            <listitem>
-              <para>
-                Void
+                VOID collect(HEADER)
               </para>
             </listitem>
           </varlistentry>
@@ -530,6 +444,468 @@
               <para>
                 std.collect(req.http.cookie); This will collapse several
                 Cookie: headers into one, long cookie header.
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="duration-durationstring-duration">
+        <title>DURATION duration(STRING, DURATION)</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                DURATION duration(STRING, DURATION)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Converts the string <emphasis>s</emphasis> to seconds.
+                <emphasis>s</emphasis> must be quantified with ms
+                (milliseconds), s (seconds), m (minutes), h (hours), d
+                (days), w (weeks) or y (years) units. If
+                <emphasis>s</emphasis> fails to parse,
+                <emphasis>fallback</emphasis> will be returned.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Example
+            </term>
+            <listitem>
+              <para>
+                set beresp.ttl = std.duration("1w", 3600s);
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="int-integerstring-int">
+        <title>INT integer(STRING, INT)</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                INT integer(STRING, INT)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Converts the string <emphasis>s</emphasis> to an
+                integer. If <emphasis>s</emphasis> fails to parse,
+                <emphasis>fallback</emphasis> will be returned.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Example
+            </term>
+            <listitem>
+              <para>
+                if (std.integer(beresp.http.x-foo, 0) &gt; 5) { ... }
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="ip-ipstring-ip">
+        <title>IP ip(STRING, IP)</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                IP ip(STRING, IP)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Converts string <emphasis>s</emphasis> to the first IP
+                number returned by the system library function
+                getaddrinfo(3). If conversion fails,
+                <emphasis>fallback</emphasis> will be returned.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Example
+            </term>
+            <listitem>
+              <para>
+                if (std.ip(req.http.X-forwarded-for,
+                "0.0.0.0") ~ my_acl) { ... }
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="real-realstring-real">
+        <title>REAL real(STRING, REAL)</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                REAL real(STRING, REAL)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Converts the string <emphasis>s</emphasis> to a real. If
+                <emphasis>s</emphasis> fails to parse,
+                <emphasis>fallback</emphasis> will be returned.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Example
+            </term>
+            <listitem>
+              <para>
+                set req.http.x-real = std.real(req.http.x-foo, 0.0);
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="time-real2timereal">
+        <title>TIME real2time(REAL)</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                TIME real2time(REAL)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Converts the real <emphasis>r</emphasis> to a time.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Example
+            </term>
+            <listitem>
+              <para>
+                set req.http.x-time = std.real2time(1140618699.00);
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="int-time2integertime">
+        <title>INT time2integer(TIME)</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                INT time2integer(TIME)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Converts the time <emphasis>t</emphasis> to a integer.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Example
+            </term>
+            <listitem>
+              <para>
+                set req.http.x-int = std.time2integer(now);
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="real-time2realtime">
+        <title>REAL time2real(TIME)</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                REAL time2real(TIME)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Converts the time <emphasis>t</emphasis> to a real.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Example
+            </term>
+            <listitem>
+              <para>
+                set req.http.x-real = std.time2real(now);
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="bool-healthybackend">
+        <title>BOOL healthy(BACKEND)</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                BOOL healthy(BACKEND)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Returns true if the backend is healthy.
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="int-portip">
+        <title>INT port(IP)</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                INT port(IP)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Returns the port number of an IP address.
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="void-rollbackhttp">
+        <title>VOID rollback(HTTP)</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                VOID rollback(HTTP)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Restore <emphasis>h</emphasis> HTTP headers to their
+                original state.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Example
+            </term>
+            <listitem>
+              <para>
+                std.rollback(bereq);
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="void-timestampstring">
+        <title>VOID timestamp(STRING)</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                VOID timestamp(STRING)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Introduces a timestamp in the log with the current time.
+                Uses the argument as the timespamp label. This is useful
+                to time the execution of lengthy VCL procedures, and
+                makes the timestamps inserted automatically by Varnish
+                more accurate.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Example
+            </term>
+            <listitem>
+              <para>
+                std.timestamp("curl-request");
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="string-querysortstring">
+        <title>STRING querysort(STRING)</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                STRING querysort(STRING)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Sorts the querystring for cache normalization purposes.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Example
+            </term>
+            <listitem>
+              <para>
+                set req.url = std.querysort(req.url);
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="string-strstrstring-string">
+        <title>STRING strstr(STRING, STRING)</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                STRING strstr(STRING, STRING)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Returns the substring if the second string is a
+                substring of the first string. Note that the comparison
+                is case sensitive. You can use the tolower function on
+                both strings if you want case insensitivity.
+              </para>
+              <blockquote>
+                <para>
+                  If there is no match a NULL pointer is returned which
+                  would evaluate to false in an if-test.
+                </para>
+              </blockquote>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Example
+            </term>
+            <listitem>
+              <para>
+                if (std.strstr(req.url, req.http.x-restrict))
               </para>
             </listitem>
           </varlistentry>
@@ -565,13 +941,6 @@
         This document is licensed under the same licence as Varnish
         itself. See LICENCE for details.
       </para>
-      <itemizedlist>
-        <listitem>
-          <para>
-            Copyright (c) 2011 Varnish Software
-          </para>
-        </listitem>
-      </itemizedlist>
     </section>
   </section>
 </section>

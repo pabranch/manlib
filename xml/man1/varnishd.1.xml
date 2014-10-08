@@ -154,10 +154,10 @@
           <listitem>
             <para>
               Specifies size of shmlog file. shl is the store for the
-              shared memory log records [80m], free is the store for
-              other allocations [1m] and fill determines how the log is
-              [+]. Scaling suffixes like 'k', 'm' can be used up to
-              (e)tabytes. Default is 80 Megabytes.
+              shared memory log records [80M], free is the store for
+              other allocations [1M] and fill determines how the log is
+              [+]. Scaling suffixes like 'k', 'M' can be used up to
+              (E)xabytes. Default is 80 Megabytes.
             </para>
           </listitem>
         </varlistentry>
@@ -477,6 +477,38 @@
               </para>
             </listitem>
           </varlistentry>
+          <varlistentry>
+            <term>
+              experimental
+            </term>
+            <listitem>
+              <para>
+                We're not really sure about this parameter, tell us what
+                you find.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              wizard
+            </term>
+            <listitem>
+              <para>
+                Do not touch unless you <emphasis>really</emphasis> know
+                what you're doing.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              only_root
+            </term>
+            <listitem>
+              <para>
+                Only works if varnishd is running as root.
+              </para>
+            </listitem>
+          </varlistentry>
         </variablelist>
         <para>
           Here is a list of all parameters, current as of last time we
@@ -494,6 +526,53 @@
           values listed here, in order to conserve VM space.
         </para>
       </section>
+    </section>
+    <section xml:id="exit-codes">
+      <title>EXIT CODES</title>
+      <para>
+        Varnish and bundled tools will, in most cases, exit with one of
+        the following codes
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+            0 OK
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            1 Some error which could be system-dependend and/or
+            transient
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            2 Serious configuration / parameter error - retrying with
+            the same configuration / parameters is most likely useless
+          </para>
+        </listitem>
+      </itemizedlist>
+      <para>
+        The varnishd master process may also OR its exit code
+      </para>
+      <itemizedlist>
+        <listitem>
+          <para>
+            with 0x20 when the varnishd child process died,
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            with 0x40 when the varnishd child process was terminated by
+            a signal and
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+            with 0x80 when a core was dumped.
+          </para>
+        </listitem>
+      </itemizedlist>
     </section>
     <section xml:id="see-also">
       <title>SEE ALSO</title>
