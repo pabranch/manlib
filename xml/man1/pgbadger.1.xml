@@ -24,6 +24,8 @@ use - as filename. Note that input from stdin will not work with csvlog.</synops
 -c | --dbclient host   : only report on entries for the given client host.
 -C | --nocomment       : remove comments like /* ... */ from queries.
 -d | --dbname database : only report on entries for the given database.
+-D | --dns-resolv      : client ip adresses are replaced by their DNS name.
+                         Be warned that this can really slow down pgBadger.
 -e | --end datetime    : end date/time for the data to be parsed in log.
 -f | --format logtype  : possible values: syslog,stderr,csv. Default: stderr.
 -G | --nograph         : disable graphs on HTML output. Enabled by default.
@@ -397,6 +399,13 @@ log_autovacuum_min_duration = 0</screen>
     <screen>lc_messages='C'</screen>
     <para>
       but this is not only recommended by pgBadger.
+    </para>
+    <para>
+      Note: the session line [%l-1] is just used to match the default
+      prefix for "stderr". The -1 has no real purpose and basically is not
+      used in Pgbadger statistics / graphs. You can safely removed them
+      from the log_line_prefix but you will need to set the --prefix
+      command line option.
     </para>
   </refsection>
   <refsection xml:id="sources.pgbadger.doc.pgBadger.pod:log_min_duration_statement_log_duration_and_log_statement"><title>log_min_duration_statement, log_duration and log_statement</title>

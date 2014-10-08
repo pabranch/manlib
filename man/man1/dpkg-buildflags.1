@@ -2,7 +2,7 @@
 .\"
 .\" Copyright © 2010-2011 Raphaël Hertzog <hertzog@debian.org>
 .\" Copyright © 2011 Kees Cook <kees@debian.org>
-.\" Copyright © 2011-2013 Guillem Jover <guillem@debian.org>
+.\" Copyright © 2011-2014 Guillem Jover <guillem@debian.org>
 .\"
 .\" This is free software; you can redistribute it and/or modify
 .\" it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 .\" You should have received a copy of the GNU General Public License
 .\" along with this program.  If not, see <https://www.gnu.org/licenses/>.
 .
-.TH dpkg\-buildflags 1 "2013-10-20" "Debian Project" "dpkg suite"
+.TH dpkg\-buildflags 1 "2014-09-04" "Debian Project" "dpkg suite"
 .SH NAME
 dpkg\-buildflags \- returns build flags to use during package build
 .
@@ -135,7 +135,8 @@ the flag is set/modified by an environment-specific configuration.
 .TP
 .BI \-\-query\-features " area"
 Print the features enabled for a given area. The only currently recognized
-area is \fBhardening\fP, see the \fBFEATURE AREAS\fP section for more details.
+areas are \fBqa\fP, \fBreproducible\fP and \fBhardening\fP,
+see the \fBFEATURE AREAS\fP section for more details.
 Exits with 0 if the area is known otherwise exits with 1.
 .IP
 The output is in RFC822 format, with one section per feature.
@@ -196,26 +197,45 @@ New flags might be added in the future if the need arises (for example
 to support other languages).
 .
 .SH FEATURE AREAS
-.SS Hardening
-Several compile-time options (detailed below) can be used to help harden
-a resulting binary against memory corruption attacks, or provide
-additional warning messages during compilation. Except as noted below,
-these are enabled by default for architectures that support them.
 .P
-Each hardening feature can be enabled and disabled in the
-\fBDEB_BUILD_MAINT_OPTIONS\fP environment variable's \fBhardening\fP
-value with the "+" and "\-" modifier. For example, to enable the
-"pie" feature and disable the "fortify" feature you can do this
-in \fBdebian/rules\fP:
+Each area feature can be enabled and disabled in the \fBDEB_BUILD_OPTIONS\fP
+and \fBDEB_BUILD_MAINT_OPTIONS\fP environment variable's area value with the
+"+" and "\-" modifier.
+For example, to enable the \fBhardening\fP "pie" feature and disable the
+"fortify" feature you can do this in \fBdebian/rules\fP:
 .P
   export DEB_BUILD_MAINT_OPTIONS=hardening=+pie,\-fortify
 .P
-The special feature \fBall\fP can be used to enable or disable all
-hardening features at the same time. Thus disabling everything and
-enabling only "format" and "fortify" can be achieved with:
+The special feature \fBall\fP (valid in any area) can be used to enable or
+disable all area features at the same time.
+Thus disabling everything in the \fBhardening\fP area and enabling only
+"format" and "fortify" can be achieved with:
 .P
   export DEB_BUILD_MAINT_OPTIONS=hardening=\-all,+format,+fortify
 .
+.SS Quality Assurance (QA)
+Several compile-time options (detailed below) can be used to help detect
+problems in the source code or build system.
+.TP
+.B bug
+This setting (disabled by default) adds any warning option that reliably
+detects problematic source code. The warnings are fatal.
+.TP
+.B canary
+This setting (disabled by default) adds dummy canary options to the build
+flags, so that the build logs can be checked for how the build flags
+propagate and to allow finding any omission of normal build flag settings.
+The only currently supported flags are \fBCPPFLAGS\fP, \fBCFLAGS\fP,
+\fBOBJCFLAGS\fP, \fBCXXFLAGS\fP and \fBOBJCXXFLAGS\fP with flags set
+to \fB\-D__DEB_CANARY_\fP\fIflag\fP_\fIrandom-id\fP\fB__\fP, and
+\fBLDFLAGS\fP set to \fB\-Wl,\-z,deb-canary\-\fP\fIrandom-id\fP.
+.
+.SS Hardening
+Several compile-time options (detailed below) can be used to help harden
+a resulting binary against memory corruption attacks, or provide
+additional warning messages during compilation.
+Except as noted below, these are enabled by default for architectures
+that support them.
 .TP
 .B format
 This setting (enabled by default) adds
@@ -318,6 +338,18 @@ architectures (most notably i386) can see performance losses of up to
 15% in very text-segment-heavy application workloads; most workloads
 see less than 1%. Architectures with more general registers (e.g. amd64)
 do not see as high a worst-case penalty.
+.SS Reproducibility
+The compile-time options detailed below can be used to help improve
+build reproducibility or provide additional warning messages during
+compilation. Except as noted below, these are enabled by default for
+architectures that support them.
+.TP
+.B timeless
+This setting (disabled by default) adds
+.B \-Wdate\-time
+to \fBCPPFLAGS\fP.
+This will cause warnings when the \fB__TIME__\fP, \fB__DATE__\fP and
+\fB__TIMESTAMP__\fP macros are used.
 .
 .SH ENVIRONMENT
 There are 2 sets of environment variables doing the same operations, the
@@ -352,10 +384,14 @@ returned for the given \fIflag\fP.
 This variable can be used to prepend supplementary options to the value
 returned for the given \fIflag\fP.
 .TP
+.B DEB_BUILD_OPTIONS
+.TQ
 .B DEB_BUILD_MAINT_OPTIONS
-This variable can be used to disable/enable various hardening build
-flags through the \fBhardening\fP option. See the \fBFEATURE AREAS\fP section
-for details.
+These variables can be used by a user or maintainer to disable/enable
+various area features that affect build flags.
+The \fBDEB_BUILD_MAINT_OPTIONS\fP variable overrides any setting in the
+\fBDEB_BUILD_OPTIONS\fP feature areas.
+See the \fBFEATURE AREAS\fP section for details.
 .
 .SH FILES
 .SS Configuration files
