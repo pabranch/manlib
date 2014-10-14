@@ -16,7 +16,8 @@
 <refsynopsisdiv id="_synopsis">
 <blockquote>
 <literallayout><emphasis>git push</emphasis> [--all | --mirror | --tags] [--follow-tags] [-n | --dry-run] [--receive-pack=&lt;git-receive-pack&gt;]
-           [--repo=&lt;repository&gt;] [-f | --force] [--prune] [-v | --verbose] [-u | --set-upstream]
+           [--repo=&lt;repository&gt;] [-f | --force] [--prune] [-v | --verbose]
+           [-u | --set-upstream] [--signed]
            [--force-with-lease[=&lt;refname&gt;[:&lt;expect&gt;]]]
            [--no-verify] [&lt;repository&gt; [&lt;refspec&gt;&#8230;]]</literallayout>
 </blockquote>
@@ -201,6 +202,21 @@ already exists on the remote side.</simpara>
         and also push annotated tags in <literal>refs/tags</literal> that are missing
         from the remote but are pointing at commit-ish that are
         reachable from the refs being pushed.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--signed
+</term>
+<listitem>
+<simpara>
+        GPG-sign the push request to update refs on the receiving
+        side, to allow it to be checked by the hooks and/or be
+        logged.  See <citerefentry>
+<refentrytitle>git-receive-pack</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> for the details
+        on the receiving end.
 </simpara>
 </listitem>
 </varlistentry>
