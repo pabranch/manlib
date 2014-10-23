@@ -29,7 +29,7 @@
 .\"     add more details.
 .\" 2010-11-16, mtk, Added documentation of preadv() and pwritev()
 .\"
-.TH READV 2  2014-08-19 "Linux" "Linux Programmer's Manual"
+.TH READV 2  2014-10-15 "Linux" "Linux Programmer's Manual"
 .SH NAME
 readv, writev, preadv, pwritev \- read or write data into multiple buffers
 .SH SYNOPSIS
@@ -255,6 +255,21 @@ The wrapper function for
 .BR writev ()
 performs the analogous task using a temporary buffer and a call to
 .BR write (2).
+
+The raw
+.BR preadv ()
+and
+.BR pwritev ()
+system calls have call signatures that differ slightly from that of the
+corresponding GNU C library wrapper functions shown in the SYNOPSIS.
+The final argument,
+.IR offset ,
+is unpacked by the wrapper functions into two arguments in the system calls:
+
+.BI "    unsigned long " pos_l ", unsigned long " pos
+
+These arguments contain, respectively, the low order and high order 32 bits of
+.IR offset .
 .SH BUGS
 It is not advisable to mix calls to
 .BR readv ()

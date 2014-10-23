@@ -43,6 +43,8 @@ use - as filename. Note that input from stdin will not work with csvlog.</synops
                          report per day with a log rotated each week.
 -m | --maxlength size  : maximum length of a query, it will be restricted to
                          the given size. Default: no truncate
+-M | --no-multiline    : do not collect multiline statement to avoid garbage
+                         especially on errors that generate a huge report.
 -n | --nohighlight     : disable SQL code highlighting.
 -N | --appname name    : only report on entries for given application name
 -o | --outfile filename: define the filename for the output. Default depends
@@ -238,7 +240,8 @@ ueries by type (select/insert/update/delete).
 Distribution of queries type per database/application
 Sessions per database/user/client.
 Connections per database/user/client.
-Autovacuum and autoanalyze per table.</screen>
+Autovacuum and autoanalyze per table.
+Histogram of sessions times.</screen>
     <para>
       All charts are zoomable and can be saved as PNG images. SQL queries
       reported are highlighted and beautified automatically.
@@ -363,21 +366,22 @@ make &amp;&amp; sudo make install</screen>
     </para>
     <screen>log_line_prefix = '%t [%p]: [%l-1] '</screen>
     <para>
-      Log line prefix could add user and database name as follows:
+      Log line prefix could add user, database name and client ip address
+      as follows:
     </para>
-    <screen>log_line_prefix = '%t [%p]: [%l-1] user=%u,db=%d '</screen>
+    <screen>log_line_prefix = '%t [%p]: [%l-1] user=%u,db=%d,client=%h '</screen>
     <para>
       or for syslog log file format:
     </para>
-    <screen>log_line_prefix = 'user=%u,db=%d '</screen>
+    <screen>log_line_prefix = 'user=%u,db=%d,client=%h '</screen>
     <para>
       Log line prefix for stderr output could also be:
     </para>
-    <screen>log_line_prefix = '%t [%p]: [%l-1] db=%d,user=%u '</screen>
+    <screen>log_line_prefix = '%t [%p]: [%l-1] db=%d,user=%u,client=%h '</screen>
     <para>
       or for syslog output:
     </para>
-    <screen>log_line_prefix = 'db=%d,user=%u '</screen>
+    <screen>log_line_prefix = 'db=%d,user=%u,client=%h '</screen>
     <para>
       You need to enable other parameters in postgresql.conf to get more
       information from your log files:

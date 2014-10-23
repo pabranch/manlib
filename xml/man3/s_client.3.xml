@@ -65,6 +65,9 @@
 [<emphasis role="bold">-no_ssl2</emphasis>]
 [<emphasis role="bold">-no_ssl3</emphasis>]
 [<emphasis role="bold">-no_tls1</emphasis>]
+[<emphasis role="bold">-no_tls1_1</emphasis>]
+[<emphasis role="bold">-no_tls1_2</emphasis>]
+[<emphasis role="bold">-fallback_scsv</emphasis>]
 [<emphasis role="bold">-bugs</emphasis>]
 [<emphasis role="bold">-cipher cipherlist</emphasis>]
 [<emphasis role="bold">-serverpref</emphasis>]
@@ -380,7 +383,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-ssl2_-ssl3_-tls1_-no_ssl2_-no_ssl3_-no_tls1"/><emphasis role="bold">-ssl2</emphasis>, <emphasis role="bold">-ssl3</emphasis>, <emphasis role="bold">-tls1</emphasis>, <emphasis role="bold">-no_ssl2</emphasis>, <emphasis role="bold">-no_ssl3</emphasis>, <emphasis role="bold">-no_tls1</emphasis></term>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-ssl2_-ssl3_-tls1_-no_ssl2_-no_ssl3_-no_tls1_-no_tls1_1_-no_tls1_2"/><emphasis role="bold">-ssl2</emphasis>, <emphasis role="bold">-ssl3</emphasis>, <emphasis role="bold">-tls1</emphasis>, <emphasis role="bold">-no_ssl2</emphasis>, <emphasis role="bold">-no_ssl3</emphasis>, <emphasis role="bold">-no_tls1</emphasis>, <emphasis role="bold">-no_tls1_1</emphasis>, <emphasis role="bold">-no_tls1_2</emphasis></term>
           <listitem>
             <para>
 	      these options disable the use of certain SSL or TLS
@@ -389,11 +392,17 @@
 	      to use SSL v3, SSL v2 or TLS as appropriate.
             </para>
             <para>
-	      Unfortunately there are a lot of ancient and broken servers
-	      in use which cannot handle this technique and will fail to
-	      connect. Some servers only work if TLS is turned off with the
-	      <emphasis role="bold">-no_tls</emphasis> option others will
-	      only support SSL v2 and may need the <emphasis role="bold">-ssl2</emphasis> option.
+	      Unfortunately there are still ancient and broken servers in
+	      use which cannot handle this technique and will fail to
+	      connect. Some servers only work if TLS is turned off.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-fallback_scsv"/><emphasis role="bold">-fallback_scsv</emphasis></term>
+          <listitem>
+            <para>
+	      Send TLS_FALLBACK_SCSV in the ClientHello.
             </para>
           </listitem>
         </varlistentry>

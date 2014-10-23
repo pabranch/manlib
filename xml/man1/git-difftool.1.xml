@@ -163,6 +163,21 @@ instead.  <literal>--no-symlinks</literal> is the default on Windows.</simpara>
 </simpara>
 </listitem>
 </varlistentry>
+<varlistentry>
+<term>
+--[no-]trust-exit-code
+</term>
+<listitem>
+<simpara>
+        <emphasis>git-difftool</emphasis> invokes a diff tool individually on each file.
+        Errors reported by the diff tool are ignored by default.
+        Use <literal>--trust-exit-code</literal> to make <emphasis>git-difftool</emphasis> exit when an
+        invoked diff tool returns a non-zero exit code.
+</simpara>
+<simpara><emphasis>git-difftool</emphasis> will forward the exit code of the invoked tool when
+<emphasis>--trust-exit-code</emphasis> is used.</simpara>
+</listitem>
+</varlistentry>
 </variablelist>
 <simpara>See <citerefentry>
 <refentrytitle>git-diff</refentrytitle><manvolnum>1</manvolnum>
@@ -223,6 +238,17 @@ difftool.prompt
 <simpara>
         Prompt before each invocation of the diff tool.
 </simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+difftool.trustExitCode
+</term>
+<listitem>
+<simpara>
+        Exit difftool if the invoked diff tool returns a non-zero exit status.
+</simpara>
+<simpara>See the <literal>--trust-exit-code</literal> option above for more details.</simpara>
 </listitem>
 </varlistentry>
 </variablelist>

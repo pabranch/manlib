@@ -336,7 +336,7 @@
                                 used, zero or more commands may be
                                 specified. This can be specified by
                                 providing multiple command lines in
-                                the same directive , or alternatively,
+                                the same directive, or alternatively,
                                 this directive may be specified more
                                 than once with the same effect. If the
                                 empty string is assigned to this
@@ -519,7 +519,7 @@
                                 when <varname>Type=oneshot</varname> is
                                 used, in which case the timeout
                                 is disabled by default
-                                (see <citerefentry><refentrytitle>systemd-systemd.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>).
+                                (see <citerefentry><refentrytitle>systemd-system.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>).
                                 </para></listitem>
                         </varlistentry>
 
@@ -540,7 +540,7 @@
                                 the timeout logic. Defaults to
                                 <varname>DefaultTimeoutStopSec=</varname> from the
                                 manager configuration file
-                                (see <citerefentry><refentrytitle>systemd-systemd.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>).
+                                (see <citerefentry><refentrytitle>systemd-system.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>).
                                 </para></listitem>
                         </varlistentry>
 
@@ -564,8 +564,9 @@
                                 (i.e. the "keep-alive ping"). If the time
                                 between two such calls is larger than
                                 the configured time, then the service
-                                is placed in a failed state. By
-                                setting <varname>Restart=</varname> to
+                                is placed in a failed state and it will
+                                be terminated with <varname>SIGABRT</varname>.
+                                By setting <varname>Restart=</varname> to
                                 <option>on-failure</option> or
                                 <option>always</option>, the service
                                 will be automatically restarted. The
@@ -939,21 +940,24 @@
                                 <term><varname>Sockets=</varname></term>
                                 <listitem><para>Specifies the name of
                                 the socket units this service shall
-                                inherit the sockets from when the
-                                service is started. Normally it
-                                should not be necessary to use this
-                                setting as all sockets whose unit
+                                inherit socket file descriptors
+                                from when the service is
+                                started. Normally it should not be
+                                necessary to use this setting as all
+                                socket file descriptors whose unit
                                 shares the same name as the service
-                                (ignoring the different suffix of course)
-                                are passed to the spawned
-                                process.</para>
+                                (subject to the different unit name
+                                suffix of course) are passed to the
+                                spawned process.</para>
 
-                                <para>Note that the same socket may be
-                                passed to multiple processes at the
-                                same time. Also note that a different
-                                service may be activated on incoming
-                                traffic than that which inherits the
-                                sockets. Or in other words: the
+                                <para>Note that the same socket file
+                                descriptors may be passed to multiple
+                                processes simultaneously. Also note
+                                that a different service may be
+                                activated on incoming socket traffic
+                                than the one which is ultimately
+                                configured to inherit the socket file
+                                descriptors. Or in other words: the
                                 <varname>Service=</varname> setting of
                                 <filename>.socket</filename> units
                                 does not have to match the inverse of

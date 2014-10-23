@@ -45,11 +45,11 @@
                         <varname>$XDG_SESSION_ID</varname> environment
                         variable is initialized. If auditing is
                         available and
-                        <command>pam_loginuid.so</command> run before
+                        <command>pam_loginuid.so</command> was run before
                         this module (which is highly recommended), the
                         variable is initialized from the auditing
                         session id
-                        (<filename>/proc/self/sessionid</filename>). Otherwise
+                        (<filename>/proc/self/sessionid</filename>). Otherwise,
                         an independent session counter is
                         used.</para></listitem>
 
@@ -57,21 +57,23 @@
                         created for the session. If this is the first
                         concurrent session of the user, an implicit
                         slice below <filename>user.slice</filename> is
-                        automatically created and the scope placed in
-                        it. In instance of the system service
-                        <filename>user@.service</filename> which runs
-                        the systemd user manager
-                        instance.</para></listitem>
+                        automatically created and the scope placed into
+                        it. An instance of the system service
+                        <filename>user@.service</filename>, which runs
+                        the systemd user manager instance, is started.
+                        </para></listitem>
                 </orderedlist>
 
                 <para>On logout, this module ensures the following:</para>
 
                 <orderedlist>
-                        <listitem><para>If this is enabled, all
+                        <listitem><para>If enabled in
+                        <citerefentry><refentrytitle>logind.conf</refentrytitle>
+                        <manvolnum>5</manvolnum></citerefentry>, all
                         processes of the session are terminated. If
-                        the last concurrent session of a user ends, his
-                        user systemd instance will be terminated too,
-                        and so will the user's slice
+                        the last concurrent session of a user ends,
+                        the user's systemd instance will be
+                        terminated too, and so will the user's slice
                         unit.</para></listitem>
 
                         <listitem><para>If the last concurrent session
@@ -173,9 +175,9 @@
                                 to the user login time on the
                                 machine. It is automatically created
                                 the first time a user logs in and
-                                removed on his final logout. If a user
-                                logs in twice at the same time, both
-                                sessions will see the same
+                                removed on the user's final logout. If
+                                a user logs in twice at the same time,
+                                both sessions will see the same
                                 <varname>$XDG_RUNTIME_DIR</varname>
                                 and the same contents. If a user logs
                                 in once, then logs out again, and logs
@@ -184,17 +186,20 @@
                                 applications should not rely on this
                                 behavior and must be able to deal with
                                 stale files. To store session-private
-                                data in this directory, the user should
-                                include the value of <varname>$XDG_SESSION_ID</varname>
-                                in the filename. This directory shall
-                                be used for runtime file system
-                                objects such as <constant>AF_UNIX</constant> sockets,
-                                FIFOs, PID files and similar. It is
-                                guaranteed that this directory is
-                                local and offers the greatest possible
-                                file system feature set the
-                                operating system
-                                provides.</para></listitem>
+                                data in this directory, the user
+                                should include the value of
+                                <varname>$XDG_SESSION_ID</varname> in
+                                the filename. This directory shall be
+                                used for runtime file system objects
+                                such as <constant>AF_UNIX</constant>
+                                sockets, FIFOs, PID files and
+                                similar. It is guaranteed that this
+                                directory is local and offers the
+                                greatest possible file system feature
+                                set the operating system provides. For
+                                further details see the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html">XDG
+                                Base Directory
+                                Specification</link>.</para></listitem>
                         </varlistentry>
 
                 </variablelist>
@@ -239,8 +244,13 @@
                                 identifiers and capitalization as for
                                 <varname>$XDG_CURRENT_DESKTOP</varname>,
                                 as defined by the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://standards.freedesktop.org/desktop-entry-spec/latest/">Desktop
-                                Entry
-                                Specification</link>. See
+                                Entry Specification</link>. (However,
+                                note that
+                                <varname>$XDG_SESSION_DESKTOP</varname>
+                                only takes a single item, and not a
+                                colon-separated list like
+                                <varname>$XDG_CURRENT_DESKTOP</varname>.)
+                                See
                                 <citerefentry><refentrytitle>sd_session_get_desktop</refentrytitle><manvolnum>3</manvolnum></citerefentry>
                                 for more details.</para></listitem>
                         </varlistentry>

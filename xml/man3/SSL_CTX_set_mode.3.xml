@@ -93,6 +93,21 @@ long SSL_get_mode(SSL *ssl);</synopsis>
             </para>
           </listitem>
         </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_mode.pod:SSL_MODE_SEND_FALLBACK_SCSV"/>SSL_MODE_SEND_FALLBACK_SCSV</term>
+          <listitem>
+            <para>
+	      Send TLS_FALLBACK_SCSV in the ClientHello. To be set only by
+	      applications that reconnect with a downgraded protocol
+	      version; see draft-ietf-tls-downgrade-scsv-00 for details.
+            </para>
+            <para>
+	      DO NOT ENABLE THIS if your application attempts a normal
+	      handshake. Only use this in explicit fallback retries,
+	      following the guidance in draft-ietf-tls-downgrade-scsv-00.
+            </para>
+          </listitem>
+        </varlistentry>
       </variablelist>
     </para>
   </refsection>

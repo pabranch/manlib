@@ -7,7 +7,7 @@
 <refentrytitle>btrfs-subvolume</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.16.2</refmiscinfo>
+<refmiscinfo class="version">v3.17</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -347,6 +347,32 @@ List the recently modified files in a subvolume, after <emphasis>&lt;last_gen&gt
 <simpara>
 Show information of a given subvolume in the <emphasis>&lt;path&gt;</emphasis>.
 </simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">sync</emphasis> <emphasis>&lt;path&gt;</emphasis> [subvolid&#8230;]
+</term>
+<listitem>
+<simpara>
+Wait until given subvolume(s) are completely removed from the filesystem
+after deletion. If no subvolume id is given, wait until all ongoing deletion
+requests are complete. This may take long if new deleted subvolumes appear
+during the sleep interval.
+</simpara>
+<simpara><literal>Options</literal></simpara>
+<variablelist>
+<varlistentry>
+<term>
+-s <emphasis>&lt;N&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+sleep N seconds between checks (default: 1)
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
 </listitem>
 </varlistentry>
 </variablelist>

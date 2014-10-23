@@ -7,7 +7,7 @@
 <refentrytitle>btrfs-balance</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.16.2</refmiscinfo>
+<refmiscinfo class="version">v3.17</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -242,6 +242,18 @@ specified as <emphasis>&lt;start..end&gt;</emphasis>.
 <simpara>
 Convert each selected block group to the given profile name identified by
 parameters.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">limit</emphasis>
+</term>
+<listitem>
+<simpara>
+Process only given number of chunks, after all filters apply. This can be used
+to specifically target a chunk in connection with other filters (drange,
+vrange) or just simply limit the amount of work done by a single balance run.
 </simpara>
 </listitem>
 </varlistentry>

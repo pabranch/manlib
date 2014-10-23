@@ -7,7 +7,7 @@
 <refentrytitle>btrfs-filesystem</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.16.2</refmiscinfo>
+<refmiscinfo class="version">v3.17</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -28,14 +28,110 @@ resizing, defragment.</simpara>
 <variablelist>
 <varlistentry>
 <term>
-<emphasis role="strong">df</emphasis> <emphasis>&lt;path&gt;</emphasis> [<emphasis>&lt;path&gt;</emphasis>&#8230;]
+<emphasis role="strong">df</emphasis> [options] <emphasis>&lt;path&gt;</emphasis>
 </term>
 <listitem>
 <simpara>
 Show space usage information for a mount point.
 </simpara>
+<simpara><literal>Options</literal></simpara>
+<variablelist>
+<varlistentry>
+<term>
+-b|--raw
+</term>
+<listitem>
+<simpara>
+raw numbers in bytes, without the <emphasis>B</emphasis> suffix
+</simpara>
 </listitem>
 </varlistentry>
+<varlistentry>
+<term>
+-h
+</term>
+<listitem>
+<simpara>
+print human friendly numbers, base 1024, this is the default
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-H
+</term>
+<listitem>
+<simpara>
+print human friendly numbers, base 1000
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--iec
+</term>
+<listitem>
+<simpara>
+select the 1024 base for the following options, according to the IEC standard
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--si
+</term>
+<listitem>
+<simpara>
+select the 1000 base for the following options, according to the SI standard
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-k|--kbytes
+</term>
+<listitem>
+<simpara>
+show sizes in KiB, or kB with --si
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-m|--mbytes
+</term>
+<listitem>
+<simpara>
+show sizes in MiB, or mB with --si
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-g|--gbytes
+</term>
+<listitem>
+<simpara>
+show sizes in GiB, or gB with --si
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-t|--tbytes
+</term>
+<listitem>
+<simpara>
+show sizes in TiB, or tB with --si
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+<simpara>If conflicting options are passed, the last one takes precedence.</simpara>
+<variablelist>
 <varlistentry>
 <term>
 <emphasis role="strong">show</emphasis> [--mounted|--all-devices|<emphasis>&lt;path&gt;</emphasis>|<emphasis>&lt;uuid&gt;</emphasis>|<emphasis>&lt;device&gt;</emphasis>|<emphasis>&lt;label&gt;</emphasis>]

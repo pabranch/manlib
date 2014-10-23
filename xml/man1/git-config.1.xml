@@ -951,19 +951,30 @@ core.fileMode
 </term>
 <listitem>
 <simpara>
-        If false, the executable bit differences between the index and
-        the working tree are ignored; useful on broken filesystems like FAT.
-        See <citerefentry>
-<refentrytitle>git-update-index</refentrytitle><manvolnum>1</manvolnum>
-</citerefentry>.
+        Tells Git if the executable bit of files in the working tree
+        is to be honored.
 </simpara>
-<simpara>The default is true, except <citerefentry>
+<simpara>Some filesystems lose the executable bit when a file that is
+marked as executable is checked out, or checks out an
+non-executable file with executable bit on.
+<citerefentry>
 <refentrytitle>git-clone</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry> or <citerefentry>
 <refentrytitle>git-init</refentrytitle><manvolnum>1</manvolnum>
-</citerefentry>
-will probe and set core.fileMode false if appropriate when the
-repository is created.</simpara>
+</citerefentry> probe the filesystem
+to see if it handles the executable bit correctly
+and this variable is automatically set as necessary.</simpara>
+<simpara>A repository, however, may be on a filesystem that handles
+the filemode correctly, and this variable is set to <emphasis>true</emphasis>
+when created, but later may be made accessible from another
+environment that loses the filemode (e.g. exporting ext4 via
+CIFS mount, visiting a Cygwin created repository with
+Git for Windows or Eclipse).
+In such a case it may be necessary to set this variable to <emphasis>false</emphasis>.
+See <citerefentry>
+<refentrytitle>git-update-index</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>.</simpara>
+<simpara>The default is true (when core.filemode is not specified in the config file).</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -2164,7 +2175,27 @@ color.grep.&lt;slot&gt;
 </term>
 <listitem>
 <simpara>
-        matching text
+        matching text (same as setting <literal>matchContext</literal> and <literal>matchSelected</literal>)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<literal>matchContext</literal>
+</term>
+<listitem>
+<simpara>
+        matching text in context lines
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<literal>matchSelected</literal>
+</term>
+<listitem>
+<simpara>
+        matching text in selected lines
 </simpara>
 </listitem>
 </varlistentry>
@@ -4888,6 +4919,22 @@ mergetool.&lt;tool&gt;.trustExitCode
 </varlistentry>
 <varlistentry>
 <term>
+mergetool.meld.hasOutput
+</term>
+<listitem>
+<simpara>
+        Older versions of <literal>meld</literal> do not support the <literal>--output</literal> option.
+        Git will attempt to detect whether <literal>meld</literal> supports <literal>--output</literal>
+        by inspecting the output of <literal>meld --help</literal>.  Configuring
+        <literal>mergetool.meld.hasOutput</literal> will make Git skip these checks and
+        use the configured value instead.  Setting <literal>mergetool.meld.hasOutput</literal>
+        to <literal>true</literal> tells Git to unconditionally use the <literal>--output</literal> option,
+        and <literal>false</literal> avoids using <literal>--output</literal>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 mergetool.keepBackup
 </term>
 <listitem>
@@ -4910,6 +4957,19 @@ mergetool.keepTemporaries
         variable is set to <literal>true</literal>, then these temporary files will be
         preserved, otherwise they will be removed after the tool has
         exited. Defaults to <literal>false</literal>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+mergetool.writeToTemp
+</term>
+<listitem>
+<simpara>
+        Git writes temporary <emphasis>BASE</emphasis>, <emphasis>LOCAL</emphasis>, and <emphasis>REMOTE</emphasis> versions of
+        conflicting files in the worktree by default.  Git will attempt
+        to use a temporary directory for these files when set <literal>true</literal>.
+        Defaults to <literal>false</literal>.
 </simpara>
 </listitem>
 </varlistentry>
@@ -5026,12 +5086,13 @@ pack.windowMemory
 </term>
 <listitem>
 <simpara>
-        The window memory size limit used by <citerefentry>
+        The maximum size of memory that is consumed by each thread
+        in <citerefentry>
 <refentrytitle>git-pack-objects</refentrytitle><manvolnum>1</manvolnum>
-</citerefentry>
-        when no limit is given on the command line.  The value can be
-        suffixed with "k", "m", or "g".  Defaults to 0, meaning no
-        limit.
+</citerefentry> for pack window memory when
+        no limit is given on the command line.  The value can be
+        suffixed with "k", "m", or "g".  When left unconfigured (or
+        set explicitly to 0), there will be no limit.
 </simpara>
 </listitem>
 </varlistentry>

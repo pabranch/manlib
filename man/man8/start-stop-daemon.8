@@ -35,14 +35,16 @@ Using one of the matching options, \fBstart\-stop\-daemon\fP
 can be configured to find existing instances of a running process.
 .PP
 Note: unless
+.B \-\-pid
+or
 .B \-\-pidfile
-is specified,
+are specified,
 .B start\-stop\-daemon
 behaves similar to
 .BR killall (1).
 .B start\-stop\-daemon
 will scan the process table looking for any processes which
-match the process name, uid, and/or gid (if specified). Any
+match the process name, parent pid, uid, and/or gid (if specified). Any
 matching process will prevent
 .BR \-\-start
 from starting the daemon. All matching processes will be sent the TERM
@@ -286,13 +288,22 @@ option will make
 create the file referenced with
 .B \-\-pidfile
 and place the pid into it just before executing the process. Note, the
-file will not be removed when stopping the program.
+file will only be removed when stopping the program if
+\fB\-\-remove\-pidfile\fP is used.
 .B NOTE:
 This feature may not work in all cases. Most notably when the program
 being executed forks from its main process. Because of this, it is usually
 only useful when combined with the
 .B \-\-background
 option.
+.TP
+.B \-\-remove\-pidfile
+Used when stopping a program that does not remove its own pid file. This
+option will make
+.B start\-stop\-daemon
+remove the file referenced with
+.B \-\-pidfile
+after terminating the process.
 .TP
 .BR \-v ", " \-\-verbose
 Print verbose informational messages.

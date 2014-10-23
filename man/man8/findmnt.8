@@ -198,6 +198,10 @@ to specify the filesystem types on which no action should be taken.  For
 more details see
 .BR mount (8).
 .TP
+.BR \-U , " \-\-uniq"
+Ignore filesystems with duplicate mount targets, thus effectively skipping
+over-mounted mount points.
+.TP
 .BR \-u , " \-\-notruncate"
 Do not truncate text in columns.  The default is to not truncate the
 .BR TARGET ,
@@ -243,8 +247,10 @@ Monitors remounts to read-only mode on all ext3 filesystems.
 overrides the default location of the fstab file
 .IP LIBMOUNT_MTAB=<path>
 overrides the default location of the mtab file
-.IP LIBMOUNT_DEBUG=0xffff
-enables debug output
+.IP LIBMOUNT_DEBUG=all
+enables libmount debug output
+.IP LIBSMARTCOLS_DEBUG=all
+enables libsmartcols debug output
 .SH AUTHORS
 .nf
 Karel Zak <kzak@redhat.com>

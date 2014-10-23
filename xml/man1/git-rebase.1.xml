@@ -28,16 +28,18 @@
 <literal>git checkout &lt;branch&gt;</literal> before doing anything else.  Otherwise
 it remains on the current branch.</simpara>
 <simpara>If &lt;upstream&gt; is not specified, the upstream configured in
-branch.&lt;name&gt;.remote and branch.&lt;name&gt;.merge options will be used; see
+branch.&lt;name&gt;.remote and branch.&lt;name&gt;.merge options will be used (see
 <citerefentry>
 <refentrytitle>git-config</refentrytitle><manvolnum>1</manvolnum>
-</citerefentry> for details.  If you are currently not on any
-branch or if the current branch does not have a configured upstream,
-the rebase will abort.</simpara>
+</citerefentry> for details) and the <literal>--fork-point</literal> option is
+assumed.  If you are currently not on any branch or if the current
+branch does not have a configured upstream, the rebase will abort.</simpara>
 <simpara>All changes made by commits in the current branch but that are not
 in &lt;upstream&gt; are saved to a temporary area.  This is the same set
-of commits that would be shown by <literal>git log &lt;upstream&gt;..HEAD</literal> (or
-<literal>git log HEAD</literal>, if --root is specified).</simpara>
+of commits that would be shown by <literal>git log &lt;upstream&gt;..HEAD</literal>; or by
+<literal>git log 'fork_point'..HEAD</literal>, if <literal>--fork-point</literal> is active (see the
+description on <literal>--fork-point</literal> below); or by <literal>git log HEAD</literal>, if the
+<literal>--root</literal> option is specified.</simpara>
 <simpara>The current branch is reset to &lt;upstream&gt;, or &lt;newbase&gt; if the
 --onto option was supplied.  This has the exact same effect as
 <literal>git reset --hard &lt;upstream&gt;</literal> (or &lt;newbase&gt;).  ORIG_HEAD is set
@@ -474,15 +476,19 @@ the reversion" (see the
 </term>
 <listitem>
 <simpara>
-        Use <emphasis>git merge-base --fork-point</emphasis> to find a better common ancestor
-        between <literal>upstream</literal> and <literal>branch</literal> when calculating which commits have
-        have been introduced by <literal>branch</literal> (see <citerefentry>
-<refentrytitle>git-merge-base</refentrytitle><manvolnum>1</manvolnum>
-</citerefentry>).
+        Use reflog to find a better common ancestor between &lt;upstream&gt;
+        and &lt;branch&gt; when calculating which commits have been
+        introduced by &lt;branch&gt;.
 </simpara>
-<simpara>If no non-option arguments are given on the command line, then the default is
-<literal>--fork-point @{u}</literal> otherwise the <literal>upstream</literal> argument is interpreted literally
-unless the <literal>--fork-point</literal> option is specified.</simpara>
+<simpara>When --fork-point is active, <emphasis>fork_point</emphasis> will be used instead of
+&lt;upstream&gt; to calculate the set of commits to rebase, where
+<emphasis>fork_point</emphasis> is the result of <literal>git merge-base --fork-point &lt;upstream&gt;
+&lt;branch&gt;</literal> command (see <citerefentry>
+<refentrytitle>git-merge-base</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>).  If <emphasis>fork_point</emphasis>
+ends up being empty, the &lt;upstream&gt; will be used as a fallback.</simpara>
+<simpara>If either &lt;upstream&gt; or --root is given on the command line, then the
+default is <literal>--no-fork-point</literal>, otherwise the default is <literal>--fork-point</literal>.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
