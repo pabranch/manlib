@@ -70,9 +70,10 @@
         <term><option>--state=</option></term>
 
         <listitem>
-        <para>The argument should be a comma-separated list of unit LOAD,
-        SUB, or ACTIVE states. When listing units, show only those
-        in specified states.</para>
+        <para>The argument should be a comma-separated list of unit
+        LOAD, SUB, or ACTIVE states. When listing units, show only
+        those in specified states. Use <option>--state=failed</option>
+        to show only failed units.</para>
         </listitem>
       </varlistentry>
 
@@ -306,6 +307,11 @@
       implied default.</para>
     </listitem>
   </varlistentry>
+
+      <!-- we do not document -failed here, as it has been made
+           redundant by -state=failed, which it predates. To keep
+           things simple we only document the new switch, while
+           keeping the old one around for compatibility only. -->
 
       <varlistentry>
         <term><option>--no-wall</option></term>
@@ -608,7 +614,7 @@ kobject-uevent 1 systemd-udevd-kernel.socket systemd-udevd.service
             </para>
 
             <para>See also the options <option>--show-types</option>,
-            <option>--all</option>, and <option>--failed</option>.</para>
+            <option>--all</option>, and <option>--state=</option>.</para>
           </listitem>
         </varlistentry>
 
@@ -622,7 +628,7 @@ kobject-uevent 1 systemd-udevd-kernel.socket systemd-udevd.service
             </para>
 
             <para>See also the options <option>--all</option> and
-            <option>--failed</option>.</para>
+            <option>--state=</option>.</para>
           </listitem>
         </varlistentry>
 
@@ -1013,7 +1019,7 @@ kobject-uevent 1 systemd-udevd-kernel.socket systemd-udevd.service
                 <tbody>
                   <row>
                     <entry><literal>enabled</literal></entry>
-                    <entry morerows="1">Enabled through a symlink in <filename>.wants</filename> directory (permanently or just in <filename>/run</filename>)</entry>
+                    <entry morerows="1">Enabled through a symlink in <filename>.wants</filename> directory (permanently or just in <filename>/run</filename>).</entry>
                     <entry morerows="1">0</entry>
                   </row>
                   <row>
@@ -1021,7 +1027,7 @@ kobject-uevent 1 systemd-udevd-kernel.socket systemd-udevd.service
                   </row>
                   <row>
                     <entry><literal>linked</literal></entry>
-                    <entry morerows="1">Made available through a symlink to the unit file (permanently or just in <filename>/run</filename>)</entry>
+                    <entry morerows="1">Made available through a symlink to the unit file (permanently or just in <filename>/run</filename>).</entry>
                     <entry morerows="1">1</entry>
                   </row>
                   <row>
@@ -1029,7 +1035,7 @@ kobject-uevent 1 systemd-udevd-kernel.socket systemd-udevd.service
                   </row>
                   <row>
                     <entry><literal>masked</literal></entry>
-                    <entry morerows="1">Disabled entirely (permanently or just in <filename>/run</filename>)</entry>
+                    <entry morerows="1">Disabled entirely (permanently or just in <filename>/run</filename>).</entry>
                     <entry morerows="1">1</entry>
                   </row>
                   <row>
@@ -1037,12 +1043,17 @@ kobject-uevent 1 systemd-udevd-kernel.socket systemd-udevd.service
                   </row>
                   <row>
                     <entry><literal>static</literal></entry>
-                    <entry>Unit is not enabled, but has no provisions for enabling in [Install] section</entry>
+                    <entry>Unit file is not enabled, and has no provisions for enabling in the <literal>[Install]</literal> section.</entry>
+                    <entry>0</entry>
+                  </row>
+                  <row>
+                    <entry><literal>indirect</literal></entry>
+                    <entry>Unit file itself is not enabled, but it has a non-empty <varname>Also=</varname> setting in the <literal>[Install]</literal> section, listing other unit files that might be enabled.</entry>
                     <entry>0</entry>
                   </row>
                   <row>
                     <entry><literal>disabled</literal></entry>
-                    <entry>Unit is not enabled</entry>
+                    <entry>Unit file is not enabled.</entry>
                     <entry>1</entry>
                   </row>
                 </tbody>

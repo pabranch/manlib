@@ -115,6 +115,15 @@
         </listitem>
       </varlistentry>
 
+      <varlistentry>
+        <term><option>--list</option></term>
+
+        <listitem>
+          <para>When used with the <command>tree</command> shows a
+          flat list of object paths instead of a tree.</para>
+        </listitem>
+      </varlistentry>
+
       <varlistentry xml:id="user">
     <term><option>--user</option></term>
 
@@ -191,8 +200,18 @@
       <varlistentry>
         <term><command>list</command></term>
 
-        <listitem><para>Show endpoints attached to the bus. This is
-        the default if no command is specified.</para></listitem>
+        <listitem><para>Show service names on the bus. This is the
+        default if no command is specified.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><command>tree</command>  <arg choice="opt" rep="repeat"><replaceable>NAME</replaceable></arg></term>
+
+        <listitem><para>Shows an object tree of one or more
+        services. If <replaceable>NAME</replaceable> is specified,
+        show object tree of the specified services only. Otherwise,
+        show all object trees of all services on the bus that acquired
+        at least one well-known name.</para></listitem>
       </varlistentry>
 
       <varlistentry>
@@ -220,7 +239,7 @@
         <term><command>status</command>  <arg choice="plain" rep="norepeat"><replaceable>NAME</replaceable></arg></term>
 
         <listitem><para>Show process information and credentials of a
-        bus endpoint.</para></listitem>
+        bus service.</para></listitem>
       </varlistentry>
 
       <varlistentry>
