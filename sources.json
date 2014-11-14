@@ -233,6 +233,24 @@ rsync --checksum sources/libcap/doc/*.3 man/man3/;
 rsync --checksum sources/libcap/doc/*.8 man/man8/"
   },
 
+  /* This overwrites files from another repo, not sure if useful one to have:
+  "libtirpc": {
+    "type": "git",
+    "url": "git://git.infradead.org/users/steved/libtirpc.git",
+    "sparse": "man/",
+    "cmd": "find sources/libtirpc/man/ -name '*.3t' -exec bash -c 'rsync --checksum {} man/man3/$(basename -s t {})' \\;;
+rsync --checksum sources/libtirpc/man/*.5 man/man5/"
+  },
+  */
+
+  // (cd sources/libXi; ./autogen.sh) Then set .SECONDARY: to blank in man/Makefile to stop it deleting intermediate xml files.
+  "libXi": {
+    "type": "git",
+    "url": "git://anongit.freedesktop.org/xorg/lib/libXi",
+    "cmd": "(cd sources/libXi/man; make);
+for f in sources/libXi/man/*.xml; do xsltproc -o xml/man3/$(basename -s .xml $f).3.xml --xinclude utils/db4-upgrade.xsl $f; done;"
+  },
+
   "linux-pam": {
     "type": "git",
     "url": "https://git.fedorahosted.org/git/linux-pam.git",

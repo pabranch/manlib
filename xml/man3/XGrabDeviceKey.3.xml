@@ -1,0 +1,155 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>xgrabdevicekey</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>XGrabDeviceKey</refname>
+    <refname>XUngrabDeviceKey</refname>
+    <refpurpose>grab/ungrab extension input    device Keys</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<literallayout class="monospaced">#include &lt;X11/extensions/XInput.h&gt;</literallayout>
+<literallayout class="monospaced">int XGrabDeviceKey( Display *display,
+                    XDevice *device,
+                    unsigned int key,
+                    unsigned int modifiers,
+                    XDevice *modifier_device,
+                    Window grab_window,
+                    Bool owner_events,
+                    unsigned int event_count,
+                    XEventClass *event_list,
+                    int this_device_mode,
+                    int other_devices_mode);</literallayout>
+<literallayout class="monospaced">int XUngrabDeviceKey( Display *display,
+                      XDevice *device,
+                      unsigned int key,
+                      unsigned int modifiers,
+                      XDevice *modifier_device,
+                      Window grab_window);</literallayout>
+<literallayout class="monospaced">display
+       Specifies the connection to the X server.</literallayout>
+<literallayout class="monospaced">device
+       Specifies the device that is to be grabbed or released.</literallayout>
+<literallayout class="monospaced">Key
+       Specifies the device Key that is to be grabbed released
+       or AnyKey.</literallayout>
+<literallayout class="monospaced">modifiers
+       Specifies the set of keymasks or AnyModifier.The mask is
+       the bitwise inclusive OR of the valid keymask bits.Valid
+       bits are: ShiftMask, LockMask, ControlMask, Mod1Mask,
+       Mod2Mask,Mod3Mask, Mod4Mask, Mod5Mask.</literallayout>
+<literallayout class="monospaced">modifier_device
+       Specifies the device whose modifiers are to be used. If
+       a modifier_device ofNULL is specified, the X keyboard
+       will be used as the modifier_device.</literallayout>
+<literallayout class="monospaced">grab_window
+       Specifies the grab window.</literallayout>
+<literallayout class="monospaced">owner_events
+       Specifies a Boolean value that indicates whether the
+       deviceevents are to be reported as usual or reported
+       with respect to the grab windowif selected by the event
+       list.</literallayout>
+<literallayout class="monospaced">event_count
+       Specifies the number of event classes in the event list.</literallayout>
+<literallayout class="monospaced">event_list
+       Specifies which device events are reported to the
+       client.</literallayout>
+<literallayout class="monospaced">this_device_mode
+       Specifies further processing of events from this
+       device.You can pass GrabModeSync or GrabModeAsync.</literallayout>
+<literallayout class="monospaced">other_devices_mode
+       Specifies further processing of events from other
+       devices.You can pass GrabModeSyncor GrabModeAsync.</literallayout>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<literallayout class="monospaced">The XGrabDeviceKey request establishes a passive grab. In the
+future, the device is actively grabbed (as for XGrabDevice, the
+last-device-grab time is set to the time at which the Key was
+pressed (as transmitted in the DeviceKeyPress event), and the
+DeviceKeyPress event is reported if all of the following
+conditions are true:
+  * The device is not grabbed, and the specified key is
+    logically pressed when the specified modifier keys are
+    logically down, and no other keys or modifier keys are
+    logically down.
+  * The grab_window is an ancestor (or is) the focus window OR
+    the grab window is a descendant of the focus window and
+    contains the device.
+  * The confine_to window (if any) is viewable.
+  * A passive grab on the same key/modifier combination does
+    not exist on any ancestor of grab_window.</literallayout>
+<literallayout class="monospaced">The interpretation of the remaining arguments is as for
+XGrabDevice. The active grab is terminated automatically when
+the logical state of the device has the specified key released.</literallayout>
+<literallayout class="monospaced">Note that the logical state of a device (as seen by means of
+the X protocol ) may lag the physical state if device event
+processing is frozen.</literallayout>
+<literallayout class="monospaced">If the key is not AnyKey, it must be in the range specified by
+min_keycode and max_keycode as returned by the
+XListInputDevices request. Otherwise, a BadValue error results.</literallayout>
+<literallayout class="monospaced">This request overrides all previous grabs by the same client on
+the same Key/modifier combinations on the same window. A
+modifier of AnyModifier is equivalent to issuing the grab
+request for all possible modifier combinations (including the
+combination of no modifiers). It is not required that all
+modifiers specified have currently assigned KeyCodes. A key of
+AnyKey is equivalent to issuing the request for all possible
+keys. Otherwise, it is not required that the specified key
+currently be assigned to a physical Key.</literallayout>
+<literallayout class="monospaced">If a modifier_device of NULL is specified, the X keyboard will
+be used as the modifier_device.</literallayout>
+<literallayout class="monospaced">If some other client has already issued a XGrabDeviceKey with
+the same Key/modifier combination on the same window, a
+BadAccess error results. When using AnyModifier or AnyKey, the
+request fails completely, and a BadAccess error results (no
+grabs are established) if there is a conflicting grab for any
+combination.XGrabDeviceKey has no effect on an active grab.</literallayout>
+<literallayout class="monospaced">XGrabDeviceKey can generate BadAccess, BadClass, BadDevice,
+BadMatch, BadValue, and BadWindow errors. It returns Success on
+successful completion of the request.</literallayout>
+<literallayout class="monospaced">The XUngrabDeviceKey request releases the passive grab for a
+key/modifier combination on the specified window if it was
+grabbed by this client. A modifier of AnyModifier is equivalent
+to issuing the ungrab request for all possible modifier
+combinations, including the combination of no modifiers. A Key
+of AnyKey is equivalent to issuing the request for all possible
+Keys.XUngrabDeviceKey has no effect on an active grab.</literallayout>
+<literallayout class="monospaced">If a modifier_device of NULL is specified, the X keyboard will
+be used as the modifier_device.</literallayout>
+<literallayout class="monospaced">XUngrabDeviceKey can generate BadDevice, BadMatch, BadValue and
+BadWindow errors.</literallayout>
+</refsect1>
+<refsect1 xml:id="_diagnostics">
+<title>DIAGNOSTICS</title>
+<literallayout class="monospaced">BadDevice
+       An invalid device was specified. The specified device
+       does not exist or has not been opened by this client via
+       XOpenInputDevice. This error may also occur if the
+       specified device is the X keyboard or X pointer device.</literallayout>
+<literallayout class="monospaced">BadMatch
+       This error may occur if an XGrabDeviceKey request was
+       made specifying a device that has no keys, or a modifier
+       device that has no keys.</literallayout>
+<literallayout class="monospaced">BadValue
+       Some numeric value falls outside the range of values
+       accepted by the request. Unless a specific range is
+       specified for an argument, the full range defined by the
+       argument's type is accepted. Any argument defined as a
+       set of alternatives can generate this error.</literallayout>
+<literallayout class="monospaced">BadWindow
+       A value for a Window argument does not name a defined
+       Window.</literallayout>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<literallayout class="monospaced">XAllowDeviceEvents(3), XGrabDevice(3), XGrabDeviceButton(3)</literallayout>
+</refsect1>
+</refentry>

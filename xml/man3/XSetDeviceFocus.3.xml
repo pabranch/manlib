@@ -1,0 +1,137 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>xsetdevicefocus</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>XSetDeviceFocus</refname>
+    <refname>XGetDeviceFocus</refname>
+    <refpurpose>control extension input    device focus</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<literallayout class="monospaced">#include &lt;X11/extensions/XInput.h&gt;</literallayout>
+<literallayout class="monospaced">XSetDeviceFocus( Display *display,
+                 XDevice *device,
+                 Window focus,
+                 int revert_to,
+                 Time time);</literallayout>
+<literallayout class="monospaced">XGetDeviceFocus( Display *display,
+                 XDevice *device,
+                 Window *focus_return,
+                 int *revert_to_return,
+                 int * time_return);</literallayout>
+<simpara>Arguments</simpara>
+<literallayout class="monospaced">display
+       Specifies the connection to the X server.</literallayout>
+<literallayout class="monospaced">device
+       Specifies the device whose focus is to be queried or
+       changed.</literallayout>
+<literallayout class="monospaced">focus
+       Specifies the window, PointerRoot, FollowKeyboard,or
+       None.</literallayout>
+<literallayout class="monospaced">focus_return
+       Returns the focus window, PointerRoot, FollowKeyboard,or
+       None.</literallayout>
+<literallayout class="monospaced">revert_to
+       Specifies where the input focus reverts to if the window
+       becomes notviewable.You can pass RevertToParent,
+       RevertToPointerRoot, RevertToFollowKeyboard,or
+       RevertToNone.</literallayout>
+<literallayout class="monospaced">revert_to_return
+       Returns the current focus state RevertToParent,
+       RevertToPointerRoot, RevertToFollowKeyboard,or
+       RevertToNone.</literallayout>
+<literallayout class="monospaced">time_return
+       Returns the last_focus_time for the device.</literallayout>
+<literallayout class="monospaced">time
+       Specifies the time.You can pass either a timestamp or
+       CurrentTime.</literallayout>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<literallayout class="monospaced">The XSetDeviceFocus request changes the focus of the specified
+device and its last-focus-change time. It has no effect if the
+specified time is earlier than the current last-focus-change
+time or is later than the current X server time. Otherwise, the
+last-focus-change time is set to the specified time CurrentTime
+is replaced by the current X server time). XSetDeviceFocus
+causes the X server to generate DeviceFocusIn and
+DeviceFocusOut events.</literallayout>
+<literallayout class="monospaced">Depending on the focus argument, the following occurs:
+  * If focus is None , all device events are discarded until a
+    new focus window is set, and the revert_to argument is
+    ignored.
+  * If focus is a window, it becomes the device's focus window.
+    If a generated device event would normally be reported to
+    this window or one of its inferiors, the event is reported
+    as usual. Otherwise, the event is reported relative to the
+    focus window.
+  * If focus is PointerRoot, the focus window is dynamically
+    taken to be the root window of whatever screen the pointer
+    is on at each event from the specified device. In this
+    case, the revert_to argument is ignored.
+  * If focus is FollowKeyboard, the focus window is dynamically
+    taken to be the window to which the X keyboard focus is set
+    at each input event.</literallayout>
+<literallayout class="monospaced">The specified focus window must be viewable at the time
+XSetDeviceFocus is called, or a BadMatch error results. If the
+focus window later becomes not viewable, the X server evaluates
+the revert_to argument to determine the new focus window as
+follows:
+  * If revert_to is RevertToParent, the focus reverts to the
+    parent (or the closest viewable ancestor), and the new
+    revert_to value is taken to be RevertToNone.
+  * If revert_to is RevertToPointerRoot,
+    RevertToFollowKeyboard, or RevertToNone, the focus reverts
+    to PointerRoot, FollowKeyboard, or None, respectively.</literallayout>
+<literallayout class="monospaced">When the focus reverts, the X server generates DeviceFocusIn
+and DeviceFocusOut events, but the last-focus-change time is
+not affected.</literallayout>
+<literallayout class="monospaced">Input extension devices are not required to support the ability
+to be focused. Attempting to set the focus of a device that
+does not support this request will result in a BadMatch error.
+Whether or not given device can support this request can be
+determined by the information returned by XOpenDevice. For
+those devices that support focus, XOpenDevice will return an
+XInputClassInfo structure with the input_class field equal to
+the constant FocusClass (defined in the file XI.h).</literallayout>
+<literallayout class="monospaced">XSetDeviceFocus can generate BadDevice, BadMatch, BadValue, and
+BadWindow errors.</literallayout>
+<literallayout class="monospaced">The XGetDeviceFocus request returns the focus window and the
+current focus state.</literallayout>
+<literallayout class="monospaced">Not all input extension devices can be focused. Attempting to
+query the focus state of a device that can't be focused results
+in a BadMatch error. A device that can be focused returns
+information for input Class Focus when an XOpenDevice request
+is made.</literallayout>
+<literallayout class="monospaced">XGetDeviceFocus can generate BadDevice, and BadMatch errors.</literallayout>
+</refsect1>
+<refsect1 xml:id="_diagnostics">
+<title>DIAGNOSTICS</title>
+<literallayout class="monospaced">BadDevice
+       An invalid device was specified. The specified device
+       does not exist or has not been opened by this client via
+       XOpenInputDevice. This error may also occur if the
+       specified device is the X keyboard or X pointer device.</literallayout>
+<literallayout class="monospaced">BadValue
+       Some numeric value falls outside the range of values
+       accepted by the request. Unless a specific range is
+       specified for an argument, the full range defined by the
+       argument's type is accepted. Any argument defined as a
+       set of alternatives can generate this error.</literallayout>
+<literallayout class="monospaced">BadWindow
+       A value for a Window argument does not name a defined
+       Window.</literallayout>
+<literallayout class="monospaced">BadMatch
+       This error may occur if an XGetDeviceFocus or
+       XSetDeviceFocus request was made specifying a device
+       that the server implementation does not allow to be
+       focused.</literallayout>
+</refsect1>
+</refentry>

@@ -1,0 +1,68 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>xsetdevicevaluators</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>XSetDeviceValuators</refname>
+    <refpurpose>initialize the valuators on an extension input device</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<literallayout class="monospaced">#include &lt;X11/extensions/XInput.h&gt;</literallayout>
+<literallayout class="monospaced">XSetDeviceValuators( Display *display,
+                     XDevice *device,
+                     int *valuators,
+                     int first_valuator,
+                     int num_valuators);</literallayout>
+<literallayout class="monospaced">display
+       Specifies the connection to the X server.</literallayout>
+<literallayout class="monospaced">device
+       Specifies the device whose valuators are to be
+       initialized.</literallayout>
+<literallayout class="monospaced">valuators
+       Specifies a pointer to an array of integer values to be
+       used to initialize thedevice valuators.</literallayout>
+<literallayout class="monospaced">first_valuator
+       Specifies the first valuator to be set. Valuators are
+       numbered beginning withzero.</literallayout>
+<literallayout class="monospaced">num_valuators
+       Specifies the number of valuators to be set.</literallayout>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<literallayout class="monospaced">The XSetDeviceValuators request sets the current values of the
+valuators of an input device. The valuators in the range
+first_valuator to (first_valuator + num_valuators) are set to
+the specified values. Valuators are numbered beginning with 0.
+Not all input devices support initialization of valuator
+values. If this request is made to a device that does not
+support valuators initialization, a BadMatch error will occur.</literallayout>
+<literallayout class="monospaced">If the request succeeds, a status of Success is returned. If
+another client has the device grabbed, a status of
+AlreadyGrabbed is returned.</literallayout>
+<literallayout class="monospaced">XSetDeviceValuators can generate a BadLength, BadDevice,
+BadMatch, or BadValue error.</literallayout>
+</refsect1>
+<refsect1 xml:id="_diagnostics">
+<title>DIAGNOSTICS</title>
+<literallayout class="monospaced">BadDevice
+       An invalid device was specified. The specified device
+       does not exist or has not been opened by this client via
+       XOpenInputDevice.</literallayout>
+<literallayout class="monospaced">BadMatch
+       This error may occur if an XSetDeviceValuators request
+       is made specifying a device that has no valuators and
+       reports no axes of motion, or if such a request is made
+       specifying a device that does not support valuator
+       initialization.</literallayout>
+<literallayout class="monospaced">BadValue
+       An invalid first_valuator or num_valuators values was
+       specified.</literallayout>
+</refsect1>
+</refentry>

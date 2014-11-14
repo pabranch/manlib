@@ -1,0 +1,89 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>xiquerypointer</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>XIQueryPointer</refname>
+    <refpurpose>get device pointer coordinates.</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<literallayout class="monospaced">#include &lt;X11/extensions/XInput2.h&gt;</literallayout>
+<literallayout class="monospaced">Bool XIQueryPointer( Display *display,
+                     int deviceid,
+                     Window win,
+                     Window *root_return,
+                     Window *child_return,
+                     double *root_x_return,
+                     double *root_y_return,
+                     double *win_x_return,
+                     double *win_y_return,
+                     XIButtonState *buttons_return,
+                     XIModifierState *modifiers_return,
+                     XIGroupState *group_return);</literallayout>
+<literallayout class="monospaced">buttons_return
+       Returns the current button state.</literallayout>
+<literallayout class="monospaced">child_return
+       Returns the child window that the pointer is located in,
+       if any.</literallayout>
+<literallayout class="monospaced">deviceid
+       Specifies the device to query.</literallayout>
+<literallayout class="monospaced">display
+       Specifies the connection to the X server.</literallayout>
+<literallayout class="monospaced">group_return
+       Returns the current group state.</literallayout>
+<literallayout class="monospaced">modifiers_return
+       Returns the current state of the modifier keys.</literallayout>
+<literallayout class="monospaced">root_return
+       Returns the root window that the pointer is in.</literallayout>
+<literallayout class="monospaced">root_x_return, root_y_return
+       Return the pointer coordinates relative to the root
+       window's origin.</literallayout>
+<literallayout class="monospaced">win
+       Specifies the window.</literallayout>
+<literallayout class="monospaced">win_x_return, win_y_return
+       Return the pointer coordinates relative to the specified
+       window.</literallayout>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<literallayout class="monospaced">The XIQueryPointer function returns the root window the
+device's pointer is logically on and the pointer coordinates
+relative to the root window's origin. If XIQueryPointer returns
+False, the pointer is not on the same screen as the specified
+window, and XIQueryPointer returns None to child_return and
+zero to win_x_return and win_y_return. If XIQueryPointer
+returns True, the pointer coordinates returned to win_x_return
+and win_y_return are relative to the origin of the specified
+window. In this case, XIQueryPointer returns the child that
+contains the pointer, if any, or else None to child_return.</literallayout>
+<literallayout class="monospaced">XIQueryPointer returns the current logical state of the buttons
+buttons_return. The keyboard paired with the master pointer is
+selected to obtain the data for modifiers_return and
+group_return.</literallayout>
+<literallayout class="monospaced">The mask field in buttons_return is dynamically allocated and
+must be freed by the caller.</literallayout>
+<literallayout class="monospaced">XIQueryPointer is identical to XQueryPointer but specifies the
+device explicitly.</literallayout>
+<literallayout class="monospaced">XIQueryPointer can generate a BadDevice and a BadWindow error.</literallayout>
+</refsect1>
+<refsect1 xml:id="_diagnostics">
+<title>DIAGNOSTICS</title>
+<literallayout class="monospaced">BadDevice
+       An invalid device was specified. The device does not
+       exist or is not a pointer device.</literallayout>
+<literallayout class="monospaced">BadWindow
+       A value for a Window argument does not name a defined
+       window.</literallayout>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<literallayout class="monospaced">XQueryPointer(3)</literallayout>
+</refsect1>
+</refentry>

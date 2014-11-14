@@ -1,0 +1,64 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>xchangekeyboarddevice</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>XChangeKeyboardDevice</refname>
+    <refpurpose>change which device is used as the X    keyboard</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<literallayout class="monospaced">#include &lt;X11/extensions/XInput.h&gt;</literallayout>
+<literallayout class="monospaced">Status XChangeKeyboardDevice( Display *display,
+                              XDevice *device);</literallayout>
+<literallayout class="monospaced">display
+       Specifies the connection to the X server.</literallayout>
+<literallayout class="monospaced">device
+       Specifies the device to be used as the X keyboard.</literallayout>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<literallayout class="monospaced">The XChangeKeyboardDevice request causes the server to use the
+specified device as the X keyboard. The device must have been
+previously opened by the requesting client via XOpenDevice or a
+BadDevice error will result. The device must support input
+class Keys, or a BadMatch error will result. If the server
+implementation does not support using the requested device as
+the X keyboard, a BadDevice error will result.</literallayout>
+<literallayout class="monospaced">If the specified device is grabbed by another client,
+AlreadyGrabbed is returned. If the specified device is frozen
+by a grab on another device, GrabFrozen is returned. If the
+request is successful, Success is returned.</literallayout>
+<literallayout class="monospaced">If the request succeeds, a ChangeDeviceNotify event is sent to
+all clients that have selected that event. A MappingNotify
+event with request = MappingKeyboard is sent to all clients.
+The specified device becomes the X keyboard and the old X
+keyboard becomes accessible through the input extension
+protocol requests.</literallayout>
+<literallayout class="monospaced">XChangeKeyboardDevice can generate a BadDevice or a BadMatch
+error.</literallayout>
+</refsect1>
+<refsect1 xml:id="_diagnostics">
+<title>DIAGNOSTICS</title>
+<literallayout class="monospaced">BadDevice
+       An invalid device was specified. The specified device
+       does not exist, has not been opened by this client via
+       XOpenInputDevice, or is already one of the core X device
+       (pointer or keyboard). This error may also occur if the
+       server implementation does not support using the
+       specified device as the X keyboard.</literallayout>
+<literallayout class="monospaced">BadMatch
+       This error may occur if an XChangeKeyboardDevice request
+       was made specifying a device that has no keys.</literallayout>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<literallayout class="monospaced">XChangePointerDevice(3)</literallayout>
+</refsect1>
+</refentry>

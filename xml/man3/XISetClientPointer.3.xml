@@ -1,0 +1,62 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>xisetclientpointer</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>XISetClientPointer</refname>
+    <refname>XIGetClientPointer</refname>
+    <refpurpose>set or get the    ClientPointer device.</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<literallayout class="monospaced">#include &lt;X11/extensions/XInput2.h&gt;</literallayout>
+<literallayout class="monospaced">XISetClientPointer( Display *display,
+                    Window win,
+                    int deviceid);</literallayout>
+<literallayout class="monospaced">Bool XIGetClientPointer( Display *display,
+                         Window win,
+                         int *device);</literallayout>
+<literallayout class="monospaced">display
+       Specifies the connection to the X server.</literallayout>
+<literallayout class="monospaced">win
+       Specifies a window belonging to the client. May be None.</literallayout>
+<literallayout class="monospaced">deviceid
+       Specifies the ClientPointer device.</literallayout>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<literallayout class="monospaced">The ClientPointer is the device that is percieved to be the
+core pointer for non-XI protocol requests and replies. Each
+time a protocol message needs device-dependent data and the
+device is not explicitly given, the ClientPointer device is
+used to obtain the data. For example, a XQueryPointer request
+will return the coordinates of the ClientPointer.</literallayout>
+<literallayout class="monospaced">XISetClientPointer request sets the ClientPointer device for
+the client that owns the given window. If win is None, the
+requesting client's ClientPointer is set to the device
+specified with deviceid. Only master pointer devices can be set
+as ClientPointer.</literallayout>
+<literallayout class="monospaced">XISetClientPointer and can generate a BadDevice and a BadWindow
+error.</literallayout>
+<literallayout class="monospaced">The XIGetClientPointer request returns the ClientPointer's
+device ID for the client that owns the given window. If win is
+None, the requesting client's ClientPointer is returned.</literallayout>
+<literallayout class="monospaced">win may be a client ID instead of a window.</literallayout>
+<literallayout class="monospaced">XIGetClientPointer can generate a BadWindow error.</literallayout>
+</refsect1>
+<refsect1 xml:id="_diagnostics">
+<title>DIAGNOSTICS</title>
+<literallayout class="monospaced">BadDevice
+       An invalid device was specified. The device does not
+       exist or is not a master pointer device.</literallayout>
+<literallayout class="monospaced">BadWindow
+       A value for a Window argument does not name a defined
+       window.</literallayout>
+</refsect1>
+</refentry>

@@ -1,0 +1,89 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>xsetdevicebuttonmapping</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>XSetDeviceButtonMapping</refname>
+    <refname>XGetDeviceButtonMapping</refname>
+    <refpurpose>query or    change device button mappings</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<literallayout class="monospaced">#include &lt;X11/extensions/XInput.h&gt;</literallayout>
+<literallayout class="monospaced">int XSetDeviceButtonMapping( Display *display,
+                             XDevice *device,
+                             unsigned char map[],
+                             int nmap);</literallayout>
+<literallayout class="monospaced">int XGetDeviceButtonMapping( Display *display,
+                             XDevice *device,
+                             unsigned char map_return[],
+                             int nmap);</literallayout>
+<literallayout class="monospaced">display
+       Specifies the connection to the X server.</literallayout>
+<literallayout class="monospaced">device
+       Specifies the device whose button mapping is to be
+       queried or changed.</literallayout>
+<literallayout class="monospaced">map
+       Specifies the mapping list.</literallayout>
+<literallayout class="monospaced">map_return
+       Returns the mapping list.</literallayout>
+<literallayout class="monospaced">nmap
+       Specifies the number of items in the mapping list.</literallayout>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<literallayout class="monospaced">The XSetDeviceButtonMapping request sets the mapping of the
+specified device. If it succeeds, the X server generates a
+DeviceMappingNotify event, and XSetDeviceButtonMapping returns
+MappingSuccess. Element map[i] defines the logical button
+number for the physical button i+1. The length of the list must
+be the same as XGetDeviceButtonMapping would return, or a
+BadValue error results. A zero element disables a button, and
+elements are not restricted in value by the number of physical
+buttons. However, no two elements can have the same nonzero
+value, or a BadValue error results. If any of the buttons to be
+altered are logically in the down state,
+XSetDeviceButtonMapping returns MappingBusy, and the mapping is
+not changed.</literallayout>
+<literallayout class="monospaced">XSetDeviceButtonMapping can generate BadDevice, BadMatch, and
+BadValue errors.</literallayout>
+<literallayout class="monospaced">The XGetDeviceButtonMapping request returns the current mapping
+of the specified device. Buttons are numbered starting from
+one.XGetDeviceButtonMapping returns the number of physical
+buttons actually on the device. The nominal mapping for a
+device is map[i]=i+1. The nmap argument specifies the length of
+the array where the device mapping is returned, and only the
+first nmap elements are returned in map_return.</literallayout>
+<literallayout class="monospaced">XGetDeviceButtonMapping can generate BadDevice or BadMatch
+errors.</literallayout>
+</refsect1>
+<refsect1 xml:id="_diagnostics">
+<title>DIAGNOSTICS</title>
+<literallayout class="monospaced">BadDevice
+       An invalid device was specified. The specified device
+       does not exist or has not been opened by this client via
+       XOpenInputDevice. This error may also occur if the
+       specified device is the X keyboard or X pointer device.</literallayout>
+<literallayout class="monospaced">BadMatch
+       This error may occur if an XGetDeviceButtonMapping or
+       XSetDeviceButtonMapping request was made specifying a
+       device that has no buttons.</literallayout>
+<literallayout class="monospaced">BadValue
+       Some numeric value falls outside the range of values
+       accepted by the request. Unless a specific range is
+       specified for an argument, the full range defined by the
+       argument's type is accepted. Any argument defined as a
+       set of alternatives can generate this error.</literallayout>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<literallayout class="monospaced">XChangeDeviceKeyboardControl(3), XChangeDeviceKeyMapping(3),
+XChangeDeviceModifierMapping(3)</literallayout>
+</refsect1>
+</refentry>

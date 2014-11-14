@@ -1,0 +1,55 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>xsetdevicemode</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>XSetDeviceMode</refname>
+    <refpurpose>change the mode of a device</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<literallayout class="monospaced">#include &lt;X11/extensions/XInput.h&gt;</literallayout>
+<literallayout class="monospaced">XSetDeviceMode( Display *display,
+                XDevice *device,
+                int mode);</literallayout>
+<literallayout class="monospaced">display
+       Specifies the connection to the X server.</literallayout>
+<literallayout class="monospaced">device
+       Specifies the device whose mode is to be changed.</literallayout>
+<literallayout class="monospaced">mode
+       Specifies the mode.You can pass Absolute,or Relative.</literallayout>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<literallayout class="monospaced">The XSetDeviceMode request changes the mode of an input device
+that is capable of reporting either absolute positional
+information or relative motion information. Not all input
+devices are capable of reporting motion data, and not all are
+capable of changing modes from Absolute to Relative.</literallayout>
+<literallayout class="monospaced">XSetDeviceMode can generate a BadDevice or BadMode error.</literallayout>
+</refsect1>
+<refsect1 xml:id="_diagnostics">
+<title>DIAGNOSTICS</title>
+<literallayout class="monospaced">BadDevice
+       An invalid device was specified. The specified device
+       does not exist or has not been opened by this client via
+       XOpenInputDevice. This error may also occur if some
+       other client has caused the specified device to become
+       the X keyboard or X pointer device via the
+       XChangeKeyboardDevice or XChangePointerDevice requests.</literallayout>
+<literallayout class="monospaced">BadMatch
+       This error may occur if an XSetDeviceMode request is
+       made specifying a device that has no valuators and
+       reports no axes of motion.</literallayout>
+<literallayout class="monospaced">BadMode
+       An invalid mode was specified. This error will also be
+       returned if the specified device is not capable of
+       supporting the XSetDeviceMode request.</literallayout>
+</refsect1>
+</refentry>

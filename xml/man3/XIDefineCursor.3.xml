@@ -1,0 +1,69 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>xidefinecursor</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>XIDefineCursor</refname>
+    <refname>XIUndefineCursor</refname>
+    <refpurpose>define device cursors.</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<literallayout class="monospaced">#include &lt;X11/extensions/XInput2.h&gt;</literallayout>
+<literallayout class="monospaced">int XIDefineCursor( Display *display,
+                    int deviceid,
+                    Window win,
+                    Cursor cursor);</literallayout>
+<literallayout class="monospaced">int XIUndefineCursor( Display *display,
+                      int deviceid,
+                      Window win);</literallayout>
+<literallayout class="monospaced">cursor
+       Specifies the cursor that is to be displayed or None.</literallayout>
+<literallayout class="monospaced">deviceid
+       Specifies the device whose cursor is to change.</literallayout>
+<literallayout class="monospaced">display
+       Specifies the connection to the X server.</literallayout>
+<literallayout class="monospaced">win
+       Specifies the window.</literallayout>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<literallayout class="monospaced">If a cursor is set, it will be used when the device's pointer
+is in the window. If the cursor is None, it is equivalent to
+XIUndefineCursor.</literallayout>
+<literallayout class="monospaced">The deviceid must be a master pointer device or a BadDevice error is
+returned.</literallayout>
+<literallayout class="monospaced">XIDefineCursor can generate BadDevice, BadCursor and BadWindow.</literallayout>
+<literallayout class="monospaced">The XIUndefineCursor function undoes the effect of a previous
+XIDefineCursor for this window. When the pointer is in the
+window, the window's default cursor will now be used. If no
+default cursor is defined, the parent's cursor for this device
+will be used (if defined) or the parent's default cursor will
+be used.</literallayout>
+<literallayout class="monospaced">XIDefineCursor and XIUndefineCursor are identical to
+XDefineCursor and XUndefineCursor but specify the device
+explicitly.</literallayout>
+<literallayout class="monospaced">XIUndefineCursor can generate a BadDevice and a BadWindow
+error.</literallayout>
+</refsect1>
+<refsect1 xml:id="_diagnostics">
+<title>DIAGNOSTICS</title>
+<literallayout class="monospaced">BadCursor
+       A value for a cursor argument does not name a defined
+       cursor.</literallayout>
+<literallayout class="monospaced">BadDevice
+       An invalid device was specified. The device does not
+       exist or is not a pointer device.</literallayout>
+<literallayout class="monospaced">BadWindow
+       A value for a Window argument does not name a defined
+       window.</literallayout>
+<simpara>See also</simpara>
+<literallayout class="monospaced">XDefineCursor, XUndefineCursor</literallayout>
+</refsect1>
+</refentry>

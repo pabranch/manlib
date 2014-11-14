@@ -1,0 +1,100 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>xopendevice</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>XOpenDevice</refname>
+    <refname>XCloseDevice</refname>
+    <refpurpose>open or close an extension input    device</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<literallayout class="monospaced">#include &lt;X11/extensions/XInput.h&gt;</literallayout>
+<literallayout class="monospaced">XDevice *XOpenDevice( Display *display,
+                      XID device_id);</literallayout>
+<literallayout class="monospaced">XCloseDevice( Display *display,
+              XDevice *device);</literallayout>
+<literallayout class="monospaced">display
+       Specifies the connection to the X server.</literallayout>
+<literallayout class="monospaced">device_id
+       Specifies the id of the device to be opened</literallayout>
+<literallayout class="monospaced">device
+       Specifies the device to be closed</literallayout>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<literallayout class="monospaced">The XOpenDevice request makes an input device accessible to a
+client through input extension protocol requests. If
+successful, it returns a pointer to an XDevice structure.</literallayout>
+<literallayout class="monospaced">The XCloseDevice request makes an input device inaccessible to
+a client through input extension protocol requests. Before
+terminating, and client that has opened input devices through
+the input extension should close them via CloseDevice.</literallayout>
+<literallayout class="monospaced">When a client makes an XCloseDevice request, any active grabs
+that the client has on the device are released. Any event
+selections that the client has are deleted, as well as any
+passive grabs. If the requesting client is the last client
+accessing the device, the server may disable all access by X to
+the device.</literallayout>
+<literallayout class="monospaced">XOpenDevice and XCloseDevice can generate a BadDevice error.</literallayout>
+<simpara>Structures</simpara>
+<literallayout class="monospaced">The XDevice structure returned by XOpenDevice contains:
+             typedef struct {
+             XID device_id;
+             int num_classes;
+             XInputClassInfo *classes;
+             } XDevice;</literallayout>
+<literallayout class="monospaced">The classes field is a pointer to an array of XInputClassInfo
+structures. Each element of this array contains an event type
+base for a class of input supported by the specified device.
+The num_classes field indicates the number of elements in the
+classes array.</literallayout>
+<literallayout class="monospaced">The XInputClassInfo structure contains:</literallayout>
+<literallayout class="monospaced">typedef struct {
+    unsigned char input_class;
+    unsigned char event_type_base;
+} XInputClassInfo;</literallayout>
+<literallayout class="monospaced">The input_class field identifies one class of input supported
+by the device. Defined types include KeyClass, ButtonClass,
+ValuatorClass, ProximityClass, FeedbackClass, FocusClass, and
+OtherClass. The event_type_base identifies the event type of
+the first event in that class.</literallayout>
+<literallayout class="monospaced">The information contained in the XInputClassInfo structure is
+used by macros to obtain the event classes that clients use in
+making XSelectExtensionEvent requests. Currently defined macros
+include DeviceKeyPress, DeviceKeyRelease, DeviceButtonPress,
+DeviceButtonRelese, DeviceMotionNotify, DeviceFocusIn,
+DeviceFocusOut, ProximityIn, ProximityOut, DeviceStateNotify,
+DeviceMappingNotify, ChangeDeviceNotify,
+DevicePointerMotionHint, DeviceButton1Motion,
+DeviceButton2Motion, DeviceButton3Motion, DeviceButton4Motion,
+DeviceButton5Motion, DeviceButtonMotion, DeviceOwnerGrabButton,
+DeviceButtonPressGrab, and NoExtensionEvent.</literallayout>
+<literallayout class="monospaced">To obtain the proper event class for a particular device, one
+of the above macros is invoked using the XDevice structure for
+that device. For example,
+             DeviceKeyPress (*device, type, eventclass);</literallayout>
+<literallayout class="monospaced">returns the DeviceKeyPress event type and the eventclass for
+DeviceKeyPress events from the specified device.</literallayout>
+<literallayout class="monospaced">This eventclass can then be used in an XSelectExtensionEvent
+request to ask the server to send DeviceKeyPress events from
+this device. When a selected event is received via XNextEvent,
+the type can be used for comparison with the type in the event.</literallayout>
+</refsect1>
+<refsect1 xml:id="_diagnostics">
+<title>DIAGNOSTICS</title>
+<literallayout class="monospaced">BadDevice
+       An invalid device was specified. The specified device
+       does not exist, or is the X keyboard or X pointer. This
+       error may also occur if some other client has caused the
+       specified device to become the X keyboard or X pointer
+       device via the XChangeKeyboardDevice or
+       XChangePointerDevice requests.</literallayout>
+</refsect1>
+</refentry>

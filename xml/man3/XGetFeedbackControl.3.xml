@@ -1,0 +1,238 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>xgetfeedbackcontrol</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>XGetFeedbackControl</refname>
+    <refname>XChangeFeedbackControl</refname>
+    <refpurpose>query and change    input device feedbacks</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<literallayout class="monospaced">#include &lt;X11/extensions/XInput.h&gt;</literallayout>
+<literallayout class="monospaced">XFeedbackState *XGetFeedbackControl( Display *display,
+                                     XDevice *device,
+                                     int *num_feedbacks);</literallayout>
+<literallayout class="monospaced">int XChangeFeedbackControl( Display *display,
+                            XDevice *device,
+                            Mask mask,
+                            XFeedbackControl *control);</literallayout>
+<literallayout class="monospaced">display
+       Specifies the connection to the X server.</literallayout>
+<literallayout class="monospaced">device
+       Specifies the device whose feedbacks are to be queried
+       or modified.</literallayout>
+<literallayout class="monospaced">num_feedbacks
+       Specifies an address into which the number of feedbacks
+       supported by thedevice is to be returned.</literallayout>
+<literallayout class="monospaced">mask
+       Specifies a mask specific to each type of feedback that
+       describes howthe feedback is to be modified.</literallayout>
+<literallayout class="monospaced">control
+       Specifies the address of an XFeedbackControl structure
+       that containsthe new values for the feedback.</literallayout>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<literallayout class="monospaced">These requests are provided to manipulate those input devices
+that support feedbacks. A BadMatch error will be generated if
+the requested device does not support feedbacks. Whether or not
+a given device supports feedbacks can be determined by
+examining the information returned by the XOpenDevice request.
+For those devices that support feedbacks, XOpenDevice will
+return an XInputClassInfo structure with the input_class field
+equal to the constant FeedbackClass (defined in the file XI.h).</literallayout>
+<literallayout class="monospaced">The XGetFeedbackControl request returns a pointer to a list of
+XFeedbackState structures. Each item in this list describes one
+of the feedbacks supported by the device. The items are
+variable length, so each contains its length to allow traversal
+to the next item in the list.</literallayout>
+<literallayout class="monospaced">The feedback classes that are currently defined are:
+KbdFeedbackClass, PtrFeedbackClass, StringFeedbackClass,
+IntegerFeedbackClass, LedFeedbackClass, and BellFeedbackClass.
+These constants are defined in the file XI.h. An input device
+may support zero or more classes of feedback, and may support
+multiple feedbacks of the same class. Each feedback contains a
+class identifier and an id that is unique within that class for
+that input device. The id is used to identify the feedback when
+making an XChangeFeedbackControl request.</literallayout>
+<literallayout class="monospaced">XGetFeedbackControl can generate a BadDevice or BadMatch error.</literallayout>
+<literallayout class="monospaced">The XChangeFeedbackControl request modifies the values of one
+feedback on the specified device. The feedback is identified by
+the id field of the XFeedbackControl structure that is passed
+with the request. The fields of the feedback that are to be
+modified are identified by the bits of the mask that is passed
+with the request.</literallayout>
+<literallayout class="monospaced">XChangeFeedbackControl can generate a BadDevice, BadMatch, or
+BadValue error.</literallayout>
+<refsect2 xml:id="_structures">
+<title>Structures</title>
+<literallayout class="monospaced">Each class of feedback is described by a structure specific to
+that class. These structures are defined in the file XInput.h.
+XFeedbackState and XFeedbackControl are generic structures that
+contain three fields that are at the beginning of each class of
+feedback:</literallayout>
+<literallayout class="monospaced">typedef struct {
+    XID class;
+    int length;
+    XID id;
+} XFeedbackState, XFeedbackControl;</literallayout>
+<literallayout class="monospaced">The XKbdFeedbackState structure defines the attributes that are
+returned for feedbacks equivalent to those on the X keyboard.</literallayout>
+<literallayout class="monospaced">typedef struct {
+    XID class;
+    int length;
+    XID id;
+    int click;
+    int percent;
+    int pitch;
+    int duration;
+    int led_mask;
+    int global_auto_repeat;
+    char auto_repeats[32];
+} XKbdFeedbackState;</literallayout>
+<literallayout class="monospaced">The XPtrFeedbackState structure defines the attributes that are
+returned for feedbacks equivalent to those on the the X
+pointer.</literallayout>
+<literallayout class="monospaced">typedef struct {
+    XID class;
+    int length;
+    XID id;
+    int accelNum;
+    int accelDenom;
+    int threshold;
+} XPtrFeedbackState;</literallayout>
+<literallayout class="monospaced">The XIntegerFeedbackState structure defines attributes that are
+returned for integer feedbacks.</literallayout>
+<literallayout class="monospaced">typedef struct {
+    XID class;
+    int length;
+    XID id;
+    int resolution;
+    int minVal;
+    int maxVal;
+} XIntegerFeedbackState;</literallayout>
+<literallayout class="monospaced">The XStringFeedbackState structure defines the attributes that
+are returned for string feedbacks.</literallayout>
+<literallayout class="monospaced">typedef struct {
+    XID class;
+    int length;
+    XID id;
+    int max_symbols;
+    int num_syms_supported;
+    KeySym *syms_supported;
+} XStringFeedbackState;</literallayout>
+<literallayout class="monospaced">The XBellFeedbackState structure defines the attributes that
+are returned for bell feedbacks.</literallayout>
+<literallayout class="monospaced">typedef struct {
+    XID class;
+    int length;
+    XID id;
+    int percent;
+    int pitch;
+    int duration;
+} XBellFeedbackState;</literallayout>
+<literallayout class="monospaced">The XLedFeedbackState structure defines the attributes that are
+returned for LED feedbacks.</literallayout>
+<literallayout class="monospaced">typedef struct {
+    XID class;
+    int length;
+    XID id;
+    int led_values;
+} XLedFeedbackState;</literallayout>
+<literallayout class="monospaced">The XPrtFeedbackControl structure defines the attributes that
+can be controlled for pointer feedbacks.</literallayout>
+<literallayout class="monospaced">typedef struct {
+    XID class;
+    int length;
+    XID id;
+    int accelNum;
+    int accelDenom;
+    int threshold;
+} XPtrFeedbackControl;</literallayout>
+<literallayout class="monospaced">The XKbdFeedbackControl structure defines the attributes that
+can be controlled for keyboard feedbacks.</literallayout>
+<literallayout class="monospaced">typedef struct {
+    XID class;
+    int length;
+    XID id;
+    int click;
+    int percent;
+    int pitch;
+    int duration;
+    int led_mask;
+    int led_value;
+    int key;
+    int auto_repeat_mode;
+} XKbdFeedbackControl;</literallayout>
+<literallayout class="monospaced">The XStringFeedbackControl structure defines the attributes
+that can be controlled for string feedbacks.</literallayout>
+<literallayout class="monospaced">typedef struct {
+    XID class;
+    int length;
+    XID id;
+    int num_keysyms;
+    KeySym  *syms_to_display;
+} XStringFeedbackControl;</literallayout>
+<literallayout class="monospaced">The XIntegerFeedbackControl structure defines the attributes
+that can be controlled for integer feedbacks.</literallayout>
+<literallayout class="monospaced">typedef struct {
+    XID class;
+    int length;
+    XID id;
+    int int_to_display;
+} XIntegerFeedbackControl;</literallayout>
+<literallayout class="monospaced">The XBellFeedbackControl structure defines the attributes that
+can be controlled for bell feedbacks.</literallayout>
+<literallayout class="monospaced">typedef struct {
+    XID     class;
+    int     length;
+    XID     id;
+    int     percent;
+    int     pitch;
+    int     duration;
+} XBellFeedbackControl;</literallayout>
+<literallayout class="monospaced">The XLedFeedbackControl structure defines the attributes that
+can be controlled for LED feedbacks.</literallayout>
+<literallayout class="monospaced">typedef struct {
+    XID     class;
+    int     length;
+    XID     id;
+    int     led_mask;
+    int     led_values;
+} XLedFeedbackControl;</literallayout>
+</refsect2>
+</refsect1>
+<refsect1 xml:id="_diagnostics">
+<title>DIAGNOSTICS</title>
+<literallayout class="monospaced">BadDevice
+       An invalid device was specified. The specified device
+       does not exist or has not been opened by this client via
+       XOpenInputDevice. This error may also occur if some
+       other client has caused the specified device to become
+       the X keyboard or X pointer device via the
+       XChangeKeyboardDevice or XChangePointerDevice requests.</literallayout>
+<literallayout class="monospaced">BadMatch
+       This error may occur if an XGetFeedbackControl request
+       was made specifying a device that has no feedbacks, or
+       an XChangeFeedbackControl request was made with an
+       XFeedbackControl structure that contains an invalid
+       feedback type. It may also occur if an invalid
+       combination of mask bits is specified ( DvKey but no
+       DvAutoRepeatMode for keyboard feedbacks), or if an
+       invalid KeySym is specified for a string feedback.</literallayout>
+<literallayout class="monospaced">BadValue
+       Some numeric value falls outside the range of values
+       accepted by the XChangeFeedbackControl request. Unless a
+       specific range is specified for an argument, the full
+       range defined by the argument's type is accepted. Any
+       argument defined as a set of alternatives can generate
+       this error.</literallayout>
+</refsect1>
+</refentry>

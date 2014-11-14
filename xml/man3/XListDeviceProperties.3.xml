@@ -1,0 +1,51 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>xlistdeviceproperties</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>XListDeviceProperties</refname>
+    <refpurpose>List a device's properties.</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<literallayout class="monospaced">#include &lt;X11/extensions/XInput.h&gt;</literallayout>
+<literallayout class="monospaced">Atom* XListDeviceProperties( Display *display,
+                             XDevice *device,
+                             int *nprops_return);</literallayout>
+<literallayout class="monospaced">display
+       Specifies the connection to the X server.</literallayout>
+<literallayout class="monospaced">device
+       The device to list the properties for.</literallayout>
+<literallayout class="monospaced">nprops_return
+       Specifies the number of Atoms returned.</literallayout>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<literallayout class="monospaced">The XListDeviceProperties function returns a list of the
+properties associated with the input device specified in
+device. Each device may have an arbitrary number of properties
+attached, some of which were created by the driver and/or
+server, others created by clients at runtime.</literallayout>
+<literallayout class="monospaced">The client is expected to free the list of properties using
+XFree.</literallayout>
+<literallayout class="monospaced">XListDeviceProperties can generate a BadDevice error.</literallayout>
+</refsect1>
+<refsect1 xml:id="_diagnostics">
+<title>DIAGNOSTICS</title>
+<literallayout class="monospaced">BadDevice
+       An invalid device was specified. The device does not
+       exist.</literallayout>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<literallayout class="monospaced">XChangeDeviceProperty(3),
+XGetDeviceProperty(3),
+XDeleteDeviceProperty(3)</literallayout>
+</refsect1>
+</refentry>

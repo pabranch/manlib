@@ -1,0 +1,51 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>xilistproperties</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>XIListProperties</refname>
+    <refpurpose>List a device's properties.</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<literallayout class="monospaced">#include &lt;X11/extensions/XInput2.h&gt;</literallayout>
+<literallayout class="monospaced">Atom* XListProperties( Display *display,
+                       int deviceid,
+                       int *nprops_return);</literallayout>
+<literallayout class="monospaced">display
+       Specifies the connection to the X server.</literallayout>
+<literallayout class="monospaced">deviceid
+       The device to list the properties for.</literallayout>
+<literallayout class="monospaced">nprops_return
+       Specifies the number of Atoms returned.</literallayout>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>The XIListProperties function returns a list of the
+properties associated with the input device specified with
+deviceid. Each device may have an arbitrary number of properties
+attached, some of which were created by the driver and/or
+server, others created by clients at runtime.</simpara>
+<simpara>The client is expected to free the list of properties using
+XFree.</simpara>
+<simpara>XIListProperties can generate a BadDevice error.</simpara>
+</refsect1>
+<refsect1 xml:id="_diagnostics">
+<title>DIAGNOSTICS</title>
+<simpara>BadDevice
+        An invalid device was specified. The device does not
+        exist.</simpara>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<simpara>XIChangeProperty(3),
+XIGetProperty(3),
+XIDeleteProperty(3)</simpara>
+</refsect1>
+</refentry>

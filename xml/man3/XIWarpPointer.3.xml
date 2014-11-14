@@ -1,0 +1,81 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>xiwarppointer</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>XIWarpPointer</refname>
+    <refpurpose>move a device's pointer.</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<literallayout class="monospaced">#include &lt;X11/extensions/XInput2.h&gt;</literallayout>
+<literallayout class="monospaced">Bool XIWarpPointer( Display *display,
+                    int deviceid,
+                    Window src_w,
+                    Window dest_w,
+                    double src_x,
+                    double src_y,
+                    int src_width,
+                    int src_height,
+                    double dest_x,
+                    double dest_y);</literallayout>
+<literallayout class="monospaced">dest_w
+       Specifies the destination window or None.</literallayout>
+<literallayout class="monospaced">dest_x, dest_y
+       Specify the x and y coordinates within the destination
+       window.</literallayout>
+<literallayout class="monospaced">deviceid
+       Specifies the master pointer device or floating slave
+       device to move.</literallayout>
+<literallayout class="monospaced">display
+       Specifies the connection to the X server.</literallayout>
+<literallayout class="monospaced">src_x, src_y, src_width, src_height
+       Specify a rectangle in the source window.</literallayout>
+<literallayout class="monospaced">src_w
+       Specifies the source window or None.</literallayout>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<literallayout class="monospaced">If dest_w is None, XIWarpPointer moves the pointer by the
+offsets (dest_x, dest_y) relative to the current position of
+the pointer. If dest_w is a window, XIWarpPointer moves the
+pointer to the offsets (dest_x, dest_y) relative to the origin
+of dest_w. However, if src_w is a window, the move only takes
+place if the window src_w contains the pointer and if the
+specified rectangle of src_w contains the pointer.</literallayout>
+<literallayout class="monospaced">The src_x and src_y coordinates are relative to the origin of
+src_w. If src_height is zero, it is replaced with the current
+height of src_w minus src_y. If src_width is zero, it is
+replaced with the current width of src_w minus src_x.</literallayout>
+<literallayout class="monospaced">There is seldom any reason for calling this function. The
+pointer should normally be left to the user. If you do use this
+function, however, it generates events just as if the user had
+instantaneously moved the pointer from one position to another.
+Note that you cannot use XIWarpPointer to move the pointer
+outside the confine_to window of an active pointer grab. An
+attempt to do so will only move the pointer as far as the
+closest edge of the confine_to window.</literallayout>
+<literallayout class="monospaced">XIWarpPointer is identical to XWarpPointer but specifies the
+device explicitly.</literallayout>
+<literallayout class="monospaced">XIWarpPointer can generate a BadDevice and a BadWindow error.</literallayout>
+</refsect1>
+<refsect1 xml:id="_diagnostics">
+<title>DIAGNOSTICS</title>
+<literallayout class="monospaced">BadDevice
+       An invalid device was specified. The device does not
+       exist or is not a pointer device.</literallayout>
+<literallayout class="monospaced">BadWindow
+       A value for a Window argument does not name a defined
+       window.</literallayout>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<literallayout class="monospaced">XWarpPointer(3)</literallayout>
+</refsect1>
+</refentry>

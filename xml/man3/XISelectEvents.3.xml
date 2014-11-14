@@ -1,0 +1,85 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>xiselectevents</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>XISelectEvents</refname>
+    <refname>XIGetSelectedEvents</refname>
+    <refpurpose>select for or get selected XI2 events on the window.</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<literallayout class="monospaced">#include &lt;X11/extensions/XInput2.h&gt;</literallayout>
+<literallayout class="monospaced">Status XISelectEvents( Display *display,
+                       Window win,
+                       XIEventMask *masks,
+                       int num_masks);</literallayout>
+<literallayout class="monospaced">display
+       Specifies the connection to the X server.</literallayout>
+<literallayout class="monospaced">masks
+       Device event mask.</literallayout>
+<literallayout class="monospaced">num_masks
+       Number of masks in masks.</literallayout>
+<literallayout class="monospaced">win
+       Specifies the window.</literallayout>
+<literallayout class="monospaced">XIEventMask *XIGetSelectedEvents( Display *display,
+                                  Window win,
+                                  int *num_masks_return);</literallayout>
+<literallayout class="monospaced">display
+       Specifies the connection to the X server.</literallayout>
+<literallayout class="monospaced">num_masks_return
+       Number of masks in the return value.</literallayout>
+<literallayout class="monospaced">win
+       Specifies the window.</literallayout>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<literallayout class="monospaced">XI2 events must be selected using XISelectEvents.</literallayout>
+<literallayout class="monospaced">XISelectEvents sets the event mask for this client on win.
+Further events are only reported to this client if the event
+type matches the selected event mask. The masks overrides the
+previously selected event mask for the given device.</literallayout>
+<literallayout class="monospaced">If deviceid is a valid device, the event mask is selected only
+for this device. If deviceid is XIAllDevices or
+XIAllMasterDevices, the event mask is selected for all devices
+or all master devices, respectively. The effective event mask
+is the bit-wise OR of the XIAllDevices, XIAllMasterDevices and
+the respective device's event mask.</literallayout>
+<literallayout class="monospaced">typedef struct {
+    int deviceid;
+    int mask_len;
+    unsigned char* mask;
+} XIEventMask;</literallayout>
+<literallayout class="monospaced">The mask_len specifies the length of mask in bytes. mask is a
+binary mask in the form of (1 &lt;&lt; event type). deviceid must be
+either a device or XIAllDevices or XIAllMasterDevices. A client
+may submit several masks with the same deviceid in one request
+but only the last mask will be effective.</literallayout>
+<literallayout class="monospaced">XISelectEvents can generate a BadValue, a BadDevice, and a
+BadWindow error.</literallayout>
+<literallayout class="monospaced">XIGetSelectedEvents returns the events selected by this client on the given
+window. If no events were selected on this window, XIGetSelectedEvents
+returns NULL and num_masks_return is set to 0. If an internal error occurs,
+XIGetSelectedEvents returns NULL and num_masks_return is set to -1.
+Otherwise, XIGetSelectedEvent returns the selected event masks for all
+devices including the masks for XIAllDevices and XIAllMasterDevices</literallayout>
+<literallayout class="monospaced">The caller must free the returned data using XFree().</literallayout>
+</refsect1>
+<refsect1 xml:id="_diagnostics">
+<title>DIAGNOSTICS</title>
+<literallayout class="monospaced">BadValue
+       A value is outside of the permitted range.</literallayout>
+<literallayout class="monospaced">BadWindow
+       A value for a Window argument does not name a defined
+       window.</literallayout>
+<literallayout class="monospaced">BadDevice
+       An invalid device was specified. The device does not
+       exist.</literallayout>
+</refsect1>
+</refentry>
