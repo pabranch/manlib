@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>stg-export</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">StGit</refmiscinfo>
+<refmiscinfo class="manual">StGit Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>stg-export</refname>
+  <refpurpose>Export patches to a directory</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<blockquote>
+<literallayout><emphasis>stg</emphasis> export [options] [--] [&lt;patch1&gt;] [&lt;patch2&gt;] [&lt;patch3&gt;..&lt;patch4&gt;]</literallayout>
+</blockquote>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>Export a range of applied patches to a given directory (defaults to
+<emphasis>patches-&lt;branch&gt;</emphasis>) in a standard unified GNU diff format. A template
+file (defaulting to <emphasis>.git/patchexport.tmpl</emphasis> or
+<emphasis>~/.stgit/templates/patchexport.tmpl</emphasis> or
+<emphasis>/usr/share/stgit/templates/patchexport.tmpl</emphasis>) can be used for the
+patch format. The following variables are supported in the template
+file:</simpara>
+<literallayout class="monospaced">%(description)s - patch description
+%(shortdescr)s  - the first line of the patch description
+%(longdescr)s   - the rest of the patch description, after the first line
+%(diffstat)s    - the diff statistics
+%(authname)s    - author's name
+%(authemail)s   - author's e-mail
+%(authdate)s    - patch creation date
+%(commname)s    - committer's name
+%(commemail)s   - committer's e-mail</literallayout>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-d DIR
+</term>
+<term>
+--dir DIR
+</term>
+<listitem>
+<simpara>
+        Export patches to DIR instead of the default.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-p
+</term>
+<term>
+--patch
+</term>
+<listitem>
+<simpara>
+        Append .patch to the patch names.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-e EXTENSION
+</term>
+<term>
+--extension EXTENSION
+</term>
+<listitem>
+<simpara>
+        Append .EXTENSION to the patch names.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-n
+</term>
+<term>
+--numbered
+</term>
+<listitem>
+<simpara>
+        Prefix the patch names with order numbers.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-t FILE
+</term>
+<term>
+--template FILE
+</term>
+<listitem>
+<simpara>
+        Use FILE as a template.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-b BRANCH
+</term>
+<term>
+--branch BRANCH
+</term>
+<listitem>
+<simpara>
+        Use BRANCH instead of the default branch.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-s
+</term>
+<term>
+--stdout
+</term>
+<listitem>
+<simpara>
+        Dump the patches to the standard output.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-O OPTIONS
+</term>
+<term>
+--diff-opts OPTIONS
+</term>
+<listitem>
+<simpara>
+        Extra options to pass to "git diff".
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_stgit">
+<title>StGit</title>
+<simpara>Part of the StGit suite - see <citerefentry>
+<refentrytitle>stg</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry></simpara>
+</refsect1>
+</refentry>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>stg-pop</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">StGit</refmiscinfo>
+<refmiscinfo class="manual">StGit Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>stg-pop</refname>
+  <refpurpose>Pop one or more patches from the stack</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<blockquote>
+<literallayout><emphasis>stg</emphasis> pop [options] [--] [&lt;patch1&gt;] [&lt;patch2&gt;] [&lt;patch3&gt;..&lt;patch4&gt;]</literallayout>
+</blockquote>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>Pop the topmost patch or a range of patches from the stack. The
+command fails if there are conflicts or local changes (and --keep was
+not specified).</simpara>
+<simpara>A series of pop and push operations are performed so that only the
+patches passed on the command line are popped from the stack. Some of
+the push operations may fail because of conflicts ("stg undo" would
+revert the last push operation).</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-a
+</term>
+<term>
+--all
+</term>
+<listitem>
+<simpara>
+        Pop all the applied patches.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-n NUMBER
+</term>
+<term>
+--number NUMBER
+</term>
+<listitem>
+<simpara>
+        Pop the specified number of patches.
+</simpara>
+<simpara>With a negative number, pop all but that many patches.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-k
+</term>
+<term>
+--keep
+</term>
+<listitem>
+<simpara>
+        Keep the local changes.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_stgit">
+<title>StGit</title>
+<simpara>Part of the StGit suite - see <citerefentry>
+<refentrytitle>stg</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry></simpara>
+</refsect1>
+</refentry>

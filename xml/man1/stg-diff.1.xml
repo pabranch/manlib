@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>stg-diff</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">StGit</refmiscinfo>
+<refmiscinfo class="manual">StGit Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>stg-diff</refname>
+  <refpurpose>Show the tree diff</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<blockquote>
+<literallayout><emphasis>stg</emphasis> diff [options] [--] [&lt;files or dirs&gt;]</literallayout>
+</blockquote>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>Show the diff (default) or diffstat between the current working copy
+or a tree-ish object and another tree-ish object (defaulting to HEAD).
+File names can also be given to restrict the diff output. The
+tree-ish object has the format accepted by the <citerefentry>
+  <refentrytitle>stg-id</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> command.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-r rev1[..[rev2]]
+</term>
+<term>
+--range rev1[..[rev2]]
+</term>
+<listitem>
+<simpara>
+        Show the diff between revisions.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-s
+</term>
+<term>
+--stat
+</term>
+<listitem>
+<simpara>
+        Show the stat instead of the diff.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-O OPTIONS
+</term>
+<term>
+--diff-opts OPTIONS
+</term>
+<listitem>
+<simpara>
+        Extra options to pass to "git diff".
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_stgit">
+<title>StGit</title>
+<simpara>Part of the StGit suite - see <citerefentry>
+<refentrytitle>stg</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry></simpara>
+</refsect1>
+</refentry>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>stg-delete</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">StGit</refmiscinfo>
+<refmiscinfo class="manual">StGit Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>stg-delete</refname>
+  <refpurpose>Delete patches</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<blockquote>
+<literallayout><emphasis>stg</emphasis> delete [options] [--] &lt;patch1&gt; [&lt;patch2&gt;] [&lt;patch3&gt;..&lt;patch4&gt;]</literallayout>
+</blockquote>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>Delete the patches passed as arguments.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+--spill
+</term>
+<listitem>
+<simpara>
+        Delete the patches, but do not touch the index and worktree.
+        This only works with applied patches at the top of the stack.
+        The effect is to "spill" the patch contents into the index and
+        worktree. This can be useful e.g. if you want to split a patch
+        into several smaller pieces.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-b BRANCH
+</term>
+<term>
+--branch BRANCH
+</term>
+<listitem>
+<simpara>
+        Use BRANCH instead of the default branch.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-t
+</term>
+<term>
+--top
+</term>
+<listitem>
+<simpara>
+        Delete top patch.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_stgit">
+<title>StGit</title>
+<simpara>Part of the StGit suite - see <citerefentry>
+<refentrytitle>stg</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry></simpara>
+</refsect1>
+</refentry>

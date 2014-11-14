@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>stg-reset</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">StGit</refmiscinfo>
+<refmiscinfo class="manual">StGit Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>stg-reset</refname>
+  <refpurpose>Reset the patch stack to an earlier state</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<blockquote>
+<literallayout><emphasis>stg</emphasis> reset [options] [--] [&lt;state&gt; [&lt;patchnames&gt;]]</literallayout>
+</blockquote>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>Reset the patch stack to an earlier state. If no state is specified,
+reset only the changes in the worktree.</simpara>
+<simpara>The state is specified with a commit id from a stack log; "stg log" lets
+you view this log, and "stg reset" lets you reset to any state you see
+in the log. If one or more patch names are given, reset only those
+patches, and leave the rest alone.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+--hard
+</term>
+<listitem>
+<simpara>
+        Discard changes in your index/worktree.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_stgit">
+<title>StGit</title>
+<simpara>Part of the StGit suite - see <citerefentry>
+<refentrytitle>stg</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry></simpara>
+</refsect1>
+</refentry>

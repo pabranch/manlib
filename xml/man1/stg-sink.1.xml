@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>stg-sink</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">StGit</refmiscinfo>
+<refmiscinfo class="manual">StGit Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>stg-sink</refname>
+  <refpurpose>Send patches deeper down the stack</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<blockquote>
+<literallayout><emphasis>stg</emphasis> sink [-t &lt;target patch&gt;] [-n] [--] [&lt;patches&gt;]</literallayout>
+</blockquote>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>This is the opposite operation of <citerefentry>
+  <refentrytitle>stg-float</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>: move the specified
+patches down the stack.  It is for example useful to group stable
+patches near the bottom of the stack, where they are less likely to be
+impacted by the push of another patch, and from where they can be more
+easily committed or pushed.</simpara>
+<simpara>If no patch is specified on command-line, the current patch gets sunk.
+By default patches are sunk to the bottom of the stack, but the <emphasis>--to</emphasis>
+option allows one to place them under any applied patch.</simpara>
+<simpara>Sinking internally involves popping all patches (or all patches
+including &lt;target patch&gt;), then pushing the patches to sink, and then
+(unless <emphasis>--nopush</emphasis> is also given) pushing back into place the
+formerly-applied patches.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-n
+</term>
+<term>
+--nopush
+</term>
+<listitem>
+<simpara>
+        Do not push back on the stack the formerly-applied patches.
+        Only the patches to sink are pushed.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-t TARGET
+</term>
+<term>
+--to TARGET
+</term>
+<listitem>
+<simpara>
+        Specify a target patch to place the patches below, instead of
+        sinking them to the bottom of the stack.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-k
+</term>
+<term>
+--keep
+</term>
+<listitem>
+<simpara>
+        Keep the local changes.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_stgit">
+<title>StGit</title>
+<simpara>Part of the StGit suite - see <citerefentry>
+<refentrytitle>stg</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry></simpara>
+</refsect1>
+</refentry>

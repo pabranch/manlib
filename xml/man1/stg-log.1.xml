@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>stg-log</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">StGit</refmiscinfo>
+<refmiscinfo class="manual">StGit Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>stg-log</refname>
+  <refpurpose>Display the patch changelog</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<blockquote>
+<literallayout><emphasis>stg</emphasis> log [options] [--] [&lt;patches&gt;]</literallayout>
+</blockquote>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>List the history of the patch stack: the stack log. If one or more
+patch names are given, limit the list to the log entries that touch
+the named patches.</simpara>
+<simpara>"stg undo" and "stg redo" let you step back and forth in the patch
+stack. "stg reset" lets you go directly to any state.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-b BRANCH
+</term>
+<term>
+--branch BRANCH
+</term>
+<listitem>
+<simpara>
+        Use BRANCH instead of the default one.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-d
+</term>
+<term>
+--diff
+</term>
+<listitem>
+<simpara>
+        Show the refresh diffs.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-n NUMBER
+</term>
+<term>
+--number NUMBER
+</term>
+<listitem>
+<simpara>
+        Limit the output to NUMBER commits.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-f
+</term>
+<term>
+--full
+</term>
+<listitem>
+<simpara>
+        Show the full commit ids.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-g
+</term>
+<term>
+--graphical
+</term>
+<listitem>
+<simpara>
+        Run gitk instead of printing.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--clear
+</term>
+<listitem>
+<simpara>
+        Clear the log history.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_stgit">
+<title>StGit</title>
+<simpara>Part of the StGit suite - see <citerefentry>
+<refentrytitle>stg</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry></simpara>
+</refsect1>
+</refentry>

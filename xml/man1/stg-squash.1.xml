@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>stg-squash</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">StGit</refmiscinfo>
+<refmiscinfo class="manual">StGit Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>stg-squash</refname>
+  <refpurpose>Squash two or more patches into one</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<blockquote>
+<literallayout><emphasis>stg</emphasis> squash [options] [--] &lt;patches&gt;</literallayout>
+</blockquote>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>Squash two or more patches, creating one big patch that contains all
+their changes. In more detail:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>
+Pop all the given patches, plus any other patches on top of them.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Push the given patches in the order they were given on the
+     command line.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Squash the given patches into one big patch.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Allow the user to edit the commit message of the new patch
+     interactively.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Push the other patches that were popped in step (1).
+</simpara>
+</listitem>
+</orderedlist>
+<simpara>Conflicts can occur whenever we push a patch; that is, in step (2) and
+(5). If there are conflicts, the command will stop so that you can
+resolve them.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-n NAME
+</term>
+<term>
+--name NAME
+</term>
+<listitem>
+<simpara>
+        Name of squashed patch.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-m MESSAGE
+</term>
+<term>
+--message MESSAGE
+</term>
+<listitem>
+<simpara>
+        Use MESSAGE instead of invoking the editor.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-f FILE
+</term>
+<term>
+--file FILE
+</term>
+<listitem>
+<simpara>
+        Use the contents of FILE instead of invoking the editor.
+        (If FILE is "-", write to stdout.)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--save-template FILE
+</term>
+<listitem>
+<simpara>
+        Instead of running the command, just write the message
+        template to FILE, and exit. (If FILE is "-", write to
+        stdout.)
+</simpara>
+<simpara>When driving StGit from another program, it is often
+useful to first call a command with <emphasis>--save-template</emphasis>,
+then let the user edit the message, and then call the
+same command with <emphasis>--file</emphasis>.</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_stgit">
+<title>StGit</title>
+<simpara>Part of the StGit suite - see <citerefentry>
+<refentrytitle>stg</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry></simpara>
+</refsect1>
+</refentry>

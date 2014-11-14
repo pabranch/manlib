@@ -497,6 +497,14 @@ find sources/sox/ -name '*.3' -exec rsync --checksum {} man/man3/ \\;;
 find sources/sox/ -name '*.7' -exec rsync --checksum {} man/man7/ \\;"
   },
 
+  // Set .SECONDARY: to blank in Documentation/Makefile to stop it deleting intermediate xml files.
+  "stgit": {
+    "type": "git",
+    "url": "git://repo.or.cz/stgit.git",
+    //"sparse": "Documentation/",
+    "cmd": "find sources/stgit/Documentation -name '*.xml' -exec bash -c 'rsync --checksum {} xml/man1/$(basename -s .xml {}).1.xml' \\;"
+  },
+
   "strace": {
     "type": "git",
     "url": "git://git.code.sf.net/p/strace/code",
@@ -608,5 +616,9 @@ rsync --checksum sources/yum/docs/*.8 man/man8/"
 rsync --checksum sources/yum-utils/docs/*.5 man/man5/;
 rsync --checksum sources/yum-utils/docs/*.8 man/man8/"
   }
+
+  /* zarafa provides source: http://download.zarafa.com/community/final/
+     but will be annoying to keep up to date, and the DocBook version is all one file.
+  */
 
 }

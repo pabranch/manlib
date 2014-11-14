@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>stg-mail</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">StGit</refmiscinfo>
+<refmiscinfo class="manual">StGit Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>stg-mail</refname>
+  <refpurpose>Send a patch or series of patches by e-mail</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<blockquote>
+<literallayout><emphasis>stg</emphasis> mail  [options] [--] [&lt;patch1&gt;] [&lt;patch2&gt;] [&lt;patch3&gt;..&lt;patch4&gt;]</literallayout>
+</blockquote>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>Send a patch or a range of patches by e-mail using the SMTP server
+specified by the <emphasis>stgit.smtpserver</emphasis> configuration option, or the
+<emphasis>--smtp-server</emphasis> command line option. This option can also be an
+absolute path to <emphasis>sendmail</emphasis> followed by command line arguments.</simpara>
+<simpara>The From address and the e-mail format are generated from the template
+file passed as argument to <emphasis>--template</emphasis> (defaulting to
+<emphasis>.git/patchmail.tmpl</emphasis> or <emphasis>~/.stgit/templates/patchmail.tmpl</emphasis> or
+<emphasis>/usr/share/stgit/templates/patchmail.tmpl</emphasis>). A patch can be sent as
+attachment using the --attach option in which case the
+<emphasis>mailattch.tmpl</emphasis> template will be used instead of <emphasis>patchmail.tmpl</emphasis>.</simpara>
+<simpara>The To/Cc/Bcc addresses can either be added to the template file or
+passed via the corresponding command line options. They can be e-mail
+addresses or aliases which are automatically expanded to the values
+stored in the [mail "alias"] section of GIT configuration files.</simpara>
+<simpara>A preamble e-mail can be sent using the <emphasis>--cover</emphasis> and/or
+<emphasis>--edit-cover</emphasis> options. The first allows the user to specify a file to
+be used as a template. The latter option will invoke the editor on the
+specified file (defaulting to <emphasis>.git/covermail.tmpl</emphasis> or
+<emphasis>~/.stgit/templates/covermail.tmpl</emphasis> or
+<emphasis>/usr/share/stgit/templates/covermail.tmpl</emphasis>).</simpara>
+<simpara>All the subsequent e-mails appear as replies to the first e-mail sent
+(either the preamble or the first patch). E-mails can be seen as
+replies to a different e-mail by using the <emphasis>--in-reply-to</emphasis> option.</simpara>
+<simpara>SMTP authentication is also possible with <emphasis>--smtp-user</emphasis> and
+<emphasis>--smtp-password</emphasis> options, also available as configuration settings:
+<emphasis>smtpuser</emphasis> and <emphasis>smtppassword</emphasis>. TLS encryption can be enabled by
+<emphasis>--smtp-tls</emphasis> option and <emphasis>smtptls</emphasis> setting.</simpara>
+<simpara>The following variables are accepted by both the preamble and the
+patch e-mail templates:</simpara>
+<literallayout class="monospaced">%(diffstat)s     - diff statistics
+%(number)s       - empty if only one patch is sent or 'patchnr/totalnr'
+%(snumber)s      - stripped version of '%(number)s'
+%(nspace)s       - ' ' if %(number)s is non-empty, otherwise empty string
+%(patchnr)s      - patch number
+%(sender)s       - 'sender'  or 'authname &lt;authemail&gt;' as per the config file
+%(totalnr)s      - total number of patches to be sent
+%(version)s      - 'version' string passed on the command line (or empty)
+%(vspace)s       - ' ' if %(version)s is non-empty, otherwise empty string</literallayout>
+<simpara>In addition to the common variables, the preamble e-mail template
+accepts the following:</simpara>
+<literallayout class="monospaced">%(shortlog)s     - first line of each patch description, listed by author</literallayout>
+<simpara>In addition to the common variables, the patch e-mail template accepts
+the following:</simpara>
+<literallayout class="monospaced">%(authdate)s     - patch creation date
+%(authemail)s    - author's email
+%(authname)s     - author's name
+%(commemail)s    - committer's e-mail
+%(commname)s     - committer's name
+%(diff)s         - unified diff of the patch
+%(fromauth)s     - 'From: author\n\n' if different from sender
+%(longdescr)s    - the rest of the patch description, after the first line
+%(patch)s        - patch name
+%(prefix)s       - 'prefix' string passed on the command line
+%(pspace)s       - ' ' if %(prefix)s is non-empty, otherwise empty string
+%(shortdescr)s   - the first line of the patch description</literallayout>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-a
+</term>
+<term>
+--all
+</term>
+<listitem>
+<simpara>
+        E-mail all the applied patches.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--to TO
+</term>
+<listitem>
+<simpara>
+        Add TO to the To: list.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--cc CC
+</term>
+<listitem>
+<simpara>
+        Add CC to the Cc: list.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--bcc BCC
+</term>
+<listitem>
+<simpara>
+        Add BCC to the Bcc: list.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--auto
+</term>
+<listitem>
+<simpara>
+        Automatically cc the patch signers.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--no-thread
+</term>
+<listitem>
+<simpara>
+        Do not send subsequent messages as replies.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--unrelated
+</term>
+<listitem>
+<simpara>
+        Send patches without sequence numbering.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--attach
+</term>
+<listitem>
+<simpara>
+        Send a patch as attachment.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--attach-inline
+</term>
+<listitem>
+<simpara>
+        Send a patch inline and as an attachment.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-v VERSION
+</term>
+<term>
+--version VERSION
+</term>
+<listitem>
+<simpara>
+        Add VERSION to the [PATCH &#8230;] prefix.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--prefix PREFIX
+</term>
+<listitem>
+<simpara>
+        Add PREFIX to the [&#8230; PATCH &#8230;] prefix.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-t FILE
+</term>
+<term>
+--template FILE
+</term>
+<listitem>
+<simpara>
+        Use FILE as the message template.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-c FILE
+</term>
+<term>
+--cover FILE
+</term>
+<listitem>
+<simpara>
+        Send FILE as the cover message.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-e
+</term>
+<term>
+--edit-cover
+</term>
+<listitem>
+<simpara>
+        Edit the cover message before sending.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-E
+</term>
+<term>
+--edit-patches
+</term>
+<listitem>
+<simpara>
+        Edit each patch before sending.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-s SECONDS
+</term>
+<term>
+--sleep SECONDS
+</term>
+<listitem>
+<simpara>
+        Sleep for SECONDS between e-mails sending.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--in-reply-to REFID
+</term>
+<listitem>
+<simpara>
+        Use REFID as the reference id.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--smtp-server HOST[:PORT] or "/path/to/sendmail -t -i"
+</term>
+<listitem>
+<simpara>
+        SMTP server or command to use for sending mail.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-u USER
+</term>
+<term>
+--smtp-user USER
+</term>
+<listitem>
+<simpara>
+        Username for SMTP authentication.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-p PASSWORD
+</term>
+<term>
+--smtp-password PASSWORD
+</term>
+<listitem>
+<simpara>
+        Password for SMTP authentication.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-T
+</term>
+<term>
+--smtp-tls
+</term>
+<listitem>
+<simpara>
+        Use SMTP with TLS encryption.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-b BRANCH
+</term>
+<term>
+--branch BRANCH
+</term>
+<listitem>
+<simpara>
+        Use BRANCH instead of the default branch.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-m
+</term>
+<term>
+--mbox
+</term>
+<listitem>
+<simpara>
+        Generate an mbox file instead of sending.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--git
+</term>
+<listitem>
+<simpara>
+        Use git send-email (EXPERIMENTAL).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-O OPTIONS
+</term>
+<term>
+--diff-opts OPTIONS
+</term>
+<listitem>
+<simpara>
+        Extra options to pass to "git diff".
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_stgit">
+<title>StGit</title>
+<simpara>Part of the StGit suite - see <citerefentry>
+<refentrytitle>stg</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry></simpara>
+</refsect1>
+</refentry>

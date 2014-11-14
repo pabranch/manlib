@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>stg-new</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">StGit</refmiscinfo>
+<refmiscinfo class="manual">StGit Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>stg-new</refname>
+  <refpurpose>Create a new, empty patch</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<blockquote>
+<literallayout><emphasis>stg</emphasis> new [options] [--] [&lt;name&gt;]</literallayout>
+</blockquote>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>Create a new, empty patch on the current stack. The new patch is
+created on top of the currently applied patches, and is made the new
+top of the stack. Uncommitted changes in the work tree are not
+included in the patch&#8201;&#8212;&#8201;that is handled by <citerefentry>
+  <refentrytitle>stg-refresh</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>.</simpara>
+<simpara>The given name must be unique in the stack, and may only contain
+alphanumeric characters, dashes and underscores. If no name is given,
+one is generated from the first line of the patch&#8217;s commit message.</simpara>
+<simpara>An editor will be launched to edit the commit message to be used for
+the patch, unless the <emphasis>--message</emphasis> flag already specified one. The
+<emphasis>patchdescr.tmpl</emphasis> template file (if available) is used to pre-fill the
+editor.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+--author "NAME &lt;EMAIL&gt;"
+</term>
+<listitem>
+<simpara>
+        Set the author details.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--authname NAME
+</term>
+<listitem>
+<simpara>
+        Set the author name.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--authemail EMAIL
+</term>
+<listitem>
+<simpara>
+        Set the author email.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--authdate DATE
+</term>
+<listitem>
+<simpara>
+        Set the author date.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-m MESSAGE
+</term>
+<term>
+--message MESSAGE
+</term>
+<listitem>
+<simpara>
+        Use MESSAGE instead of invoking the editor.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-f FILE
+</term>
+<term>
+--file FILE
+</term>
+<listitem>
+<simpara>
+        Use the contents of FILE instead of invoking the editor.
+        (If FILE is "-", write to stdout.)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--save-template FILE
+</term>
+<listitem>
+<simpara>
+        Instead of running the command, just write the message
+        template to FILE, and exit. (If FILE is "-", write to
+        stdout.)
+</simpara>
+<simpara>When driving StGit from another program, it is often
+useful to first call a command with <emphasis>--save-template</emphasis>,
+then let the user edit the message, and then call the
+same command with <emphasis>--file</emphasis>.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--sign
+</term>
+<listitem>
+<simpara>
+        Add a "Signed-off-by:" to the end of the patch.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--ack
+</term>
+<listitem>
+<simpara>
+        Add an "Acked-by:" line to the end of the patch.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_stgit">
+<title>StGit</title>
+<simpara>Part of the StGit suite - see <citerefentry>
+<refentrytitle>stg</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry></simpara>
+</refsect1>
+</refentry>

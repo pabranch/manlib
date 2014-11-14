@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>stg-push</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">StGit</refmiscinfo>
+<refmiscinfo class="manual">StGit Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>stg-push</refname>
+  <refpurpose>Push one or more patches onto the stack</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<blockquote>
+<literallayout><emphasis>stg</emphasis> push [options] [--] [&lt;patch1&gt;] [&lt;patch2&gt;] [&lt;patch3&gt;..&lt;patch4&gt;]</literallayout>
+</blockquote>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>Push one or more patches (defaulting to the first unapplied one) onto
+the stack. The <emphasis>push</emphasis> operation allows patch reordering by commuting
+them with the three-way merge algorithm. If there are conflicts while
+pushing a patch, those conflicts are written to the work tree, and the
+command halts. Conflicts raised during the push operation have to be
+fixed and the <emphasis>git add --update</emphasis> command run (alternatively, you may
+undo the conflicting push with <emphasis>stg undo</emphasis>).</simpara>
+<simpara>The command also notifies when the patch becomes empty (fully merged
+upstream) or is modified (three-way merged) by the <emphasis>push</emphasis> operation.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-a
+</term>
+<term>
+--all
+</term>
+<listitem>
+<simpara>
+        Push all the unapplied patches.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-n NUMBER
+</term>
+<term>
+--number NUMBER
+</term>
+<listitem>
+<simpara>
+        Push the specified number of patches.
+</simpara>
+<simpara>With a negative number, push all but that many patches.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--reverse
+</term>
+<listitem>
+<simpara>
+        Push the patches in reverse order.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--set-tree
+</term>
+<listitem>
+<simpara>
+        Push the patches, but don&#8217;t perform a merge. Instead, the
+        resulting tree will be identical to the tree that the patch
+        previously created.
+</simpara>
+<simpara>This can be useful when splitting a patch by first popping the
+patch and creating a new patch with some of the
+changes. Pushing the original patch with <emphasis>--set-tree</emphasis> will
+avoid conflicts and only the remaining changes will be in the
+patch.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-k
+</term>
+<term>
+--keep
+</term>
+<listitem>
+<simpara>
+        Keep the local changes.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-m
+</term>
+<term>
+--merged
+</term>
+<listitem>
+<simpara>
+        Check for patches merged upstream.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_stgit">
+<title>StGit</title>
+<simpara>Part of the StGit suite - see <citerefentry>
+<refentrytitle>stg</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry></simpara>
+</refsect1>
+</refentry>

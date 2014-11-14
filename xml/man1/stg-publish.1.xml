@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>stg-publish</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">StGit</refmiscinfo>
+<refmiscinfo class="manual">StGit Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>stg-publish</refname>
+  <refpurpose>Push the stack changes to a merge-friendly branch</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<blockquote>
+<literallayout><emphasis>stg</emphasis> publish [options] [--] [branch]</literallayout>
+</blockquote>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>This command commits a set of changes on a separate (called public) branch
+based on the modifications of the given or current stack. The history of the
+public branch is not re-written, making it merge-friendly and feasible for
+publishing. The heads of the stack and public branch may be different but the
+corresponding tree objects are always the same.</simpara>
+<simpara>If the trees of the stack and public branch are different (otherwise the
+command has no effect), StGit first checks for a rebase of the stack since the
+last publishing. If a rebase is detected, StGit creates a commit on the public
+branch corresponding to a merge between the new stack base and the latest
+public head.</simpara>
+<simpara>If no rebasing was detected, StGit checks for new patches that may have been
+created on top of the stack since the last publishing. If new patches are
+found and are not empty, they are checked into the public branch keeping the
+same commit information (e.g. log message, author, committer, date).</simpara>
+<simpara>If the above tests fail (e.g. patches modified or removed), StGit creates a
+new commit on the public branch having the same tree as the stack but the
+public head as its parent. The editor will be invoked if no "--message" option
+is given.</simpara>
+<simpara>It is recommended that stack modifications falling in different categories as
+described above are separated by a publish command in order to keep the public
+branch history cleaner (otherwise StGit would generate a big commit including
+several stack modifications).</simpara>
+<simpara>The <emphasis>--unpublished</emphasis> option can be used to check if there are applied patches
+that have not been published to the public branch. This is done by trying to
+revert the patches in the public tree (similar to the <emphasis>push --merged</emphasis>
+detection). The <emphasis>--last</emphasis> option tries to find the last published patch by
+checking the SHA1 of the patch tree agains the public tree. This may fail if
+the stack was rebased since the last publish command.</simpara>
+<simpara>The public branch name can be set via the branch.&lt;branch&gt;.public configuration
+variable (defaulting to "&lt;branch&gt;.public").</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-b BRANCH
+</term>
+<term>
+--branch BRANCH
+</term>
+<listitem>
+<simpara>
+        Use BRANCH instead of the default branch.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-l
+</term>
+<term>
+--last
+</term>
+<listitem>
+<simpara>
+        Show the last published patch.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-u
+</term>
+<term>
+--unpublished
+</term>
+<listitem>
+<simpara>
+        Show applied patches that have not been published.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--author "NAME &lt;EMAIL&gt;"
+</term>
+<listitem>
+<simpara>
+        Set the author details.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--authname NAME
+</term>
+<listitem>
+<simpara>
+        Set the author name.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--authemail EMAIL
+</term>
+<listitem>
+<simpara>
+        Set the author email.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--authdate DATE
+</term>
+<listitem>
+<simpara>
+        Set the author date.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-m MESSAGE
+</term>
+<term>
+--message MESSAGE
+</term>
+<listitem>
+<simpara>
+        Use MESSAGE instead of invoking the editor.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-f FILE
+</term>
+<term>
+--file FILE
+</term>
+<listitem>
+<simpara>
+        Use the contents of FILE instead of invoking the editor.
+        (If FILE is "-", write to stdout.)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--sign
+</term>
+<listitem>
+<simpara>
+        Add a "Signed-off-by:" to the end of the patch.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--ack
+</term>
+<listitem>
+<simpara>
+        Add an "Acked-by:" line to the end of the patch.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_stgit">
+<title>StGit</title>
+<simpara>Part of the StGit suite - see <citerefentry>
+<refentrytitle>stg</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry></simpara>
+</refsect1>
+</refentry>

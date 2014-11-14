@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>stg-branch</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">StGit</refmiscinfo>
+<refmiscinfo class="manual">StGit Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>stg-branch</refname>
+  <refpurpose>Branch operations: switch, list, create, rename, delete, ...</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<blockquote>
+<literallayout><emphasis>stg</emphasis> branch
+<emphasis>stg</emphasis> branch [--merge] [--] &lt;branch&gt;
+<emphasis>stg</emphasis> branch --list
+<emphasis>stg</emphasis> branch --create [--] &lt;new-branch&gt; [&lt;committish&gt;]
+<emphasis>stg</emphasis> branch --clone [--] [&lt;new-branch&gt;]
+<emphasis>stg</emphasis> branch --rename [--] &lt;old-name&gt; &lt;new-name&gt;
+<emphasis>stg</emphasis> branch --protect [--] [&lt;branch&gt;]
+<emphasis>stg</emphasis> branch --unprotect [--] [&lt;branch&gt;]
+<emphasis>stg</emphasis> branch --delete [--force] [--] &lt;branch&gt;
+<emphasis>stg</emphasis> branch --cleanup [--force] [--] [&lt;branch&gt;]
+<emphasis>stg</emphasis> branch --description=&lt;description&gt; [--] [&lt;branch&gt;]</literallayout>
+</blockquote>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>Create, clone, switch between, rename, or delete development branches
+within a git repository.</simpara>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis>stg branch</emphasis>
+</term>
+<listitem>
+<simpara>
+        Display the name of the current branch.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis>stg branch</emphasis> &lt;branch&gt;
+</term>
+<listitem>
+<simpara>
+        Switch to the given branch.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-l
+</term>
+<term>
+--list
+</term>
+<listitem>
+<simpara>
+        List each branch in the current repository, followed by its
+        branch description (if any). The current branch is prefixed
+        with <emphasis>&gt;</emphasis>. Branches that have been initialized for StGit (with
+        <citerefentry>
+  <refentrytitle>stg-init</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>) are prefixed with <emphasis>s</emphasis>. Protected branches are
+        prefixed with <emphasis>p</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-c
+</term>
+<term>
+--create
+</term>
+<listitem>
+<simpara>
+        Create (and switch to) a new branch. The new branch is already
+        initialized as an StGit patch stack, so you do not have to run
+        <citerefentry>
+  <refentrytitle>stg-init</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> manually. If you give a committish argument,
+        the new branch is based there; otherwise, it is based at the
+        current HEAD.
+</simpara>
+<simpara>StGit will try to detect the branch off of which the new
+branch is forked, as well as the remote repository from which
+that parent branch is taken (if any), so that running
+<citerefentry>
+  <refentrytitle>stg-pull</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> will automatically pull new commits from the
+correct branch. It will warn if it cannot guess the parent
+branch (e.g. if you do not specify a branch name as
+committish).</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--clone
+</term>
+<listitem>
+<simpara>
+        Clone the current branch, under the name &lt;new-branch&gt; if
+        specified, or using the current branch&#8217;s name plus a
+        timestamp.
+</simpara>
+<simpara>The description of the new branch is set to tell it is a clone
+of the current branch. The parent information of the new
+branch is copied from the current branch.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-r
+</term>
+<term>
+--rename
+</term>
+<listitem>
+<simpara>
+        Rename an existing branch.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-p
+</term>
+<term>
+--protect
+</term>
+<listitem>
+<simpara>
+        Prevent StGit from modifying a branch&#8201;&#8212;&#8201;either the current
+        one, or one named on the command line.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-u
+</term>
+<term>
+--unprotect
+</term>
+<listitem>
+<simpara>
+        Allow StGit to modify a branch&#8201;&#8212;&#8201;either the current one, or
+        one named on the command line. This undoes the effect of an
+        earlier <emphasis>stg branch --protect</emphasis> command.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--delete
+</term>
+<listitem>
+<simpara>
+        Delete the named branch. If there are any patches left in the
+        branch, StGit will refuse to delete it unless you give the
+        <emphasis>--force</emphasis> flag.
+</simpara>
+<simpara>A protected branch cannot be deleted; it must be unprotected
+first (see <emphasis>--unprotect</emphasis> above).</simpara>
+<simpara>If you delete the current branch, you are switched to the
+"master" branch, if it exists.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--cleanup
+</term>
+<listitem>
+<simpara>
+        Remove the StGit information for the current or given branch. If there
+        are patches left in the branch, StGit refuses the operation unless
+        <emphasis>--force</emphasis> is given.
+</simpara>
+<simpara>A protected branch cannot be cleaned up; it must be unprotected first
+(see <emphasis>--unprotect</emphasis> above).</simpara>
+<simpara>A cleaned up branch can be re-initialised using the <emphasis>stg init</emphasis>
+command.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-d DESCRIPTION
+</term>
+<term>
+--description DESCRIPTION
+</term>
+<listitem>
+<simpara>
+        Set the branch description.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--merge
+</term>
+<listitem>
+<simpara>
+        Merge work tree changes into the other branch.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--force
+</term>
+<listitem>
+<simpara>
+        Force a delete when the series is not empty.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_stgit">
+<title>StGit</title>
+<simpara>Part of the StGit suite - see <citerefentry>
+<refentrytitle>stg</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry></simpara>
+</refsect1>
+</refentry>

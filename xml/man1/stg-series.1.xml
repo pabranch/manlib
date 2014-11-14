@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>stg-series</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">StGit</refmiscinfo>
+<refmiscinfo class="manual">StGit Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>stg-series</refname>
+  <refpurpose>Print the patch series</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<blockquote>
+<literallayout><emphasis>stg</emphasis> series [options] [--] [&lt;patch-range&gt;]</literallayout>
+</blockquote>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>Show all the patches in the series, or just those in the given range,
+ordered from top to bottom.</simpara>
+<simpara>The applied patches are prefixed with a <literal>+</literal> (except the current patch,
+which is prefixed with a <literal>&gt;</literal>), the unapplied patches with a <literal>-</literal>, and
+the hidden patches with a <literal>!</literal>.</simpara>
+<simpara>Empty patches are prefixed with a <emphasis>0</emphasis>.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-b BRANCH
+</term>
+<term>
+--branch BRANCH
+</term>
+<listitem>
+<simpara>
+        Use BRANCH instead of the default branch.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-a
+</term>
+<term>
+--all
+</term>
+<listitem>
+<simpara>
+        Show all patches, including the hidden ones.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-A
+</term>
+<term>
+--applied
+</term>
+<listitem>
+<simpara>
+        Show the applied patches only.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-U
+</term>
+<term>
+--unapplied
+</term>
+<listitem>
+<simpara>
+        Show the unapplied patches only.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-H
+</term>
+<term>
+--hidden
+</term>
+<listitem>
+<simpara>
+        Show the hidden patches only.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-m BRANCH
+</term>
+<term>
+--missing BRANCH
+</term>
+<listitem>
+<simpara>
+        Show patches in BRANCH missing in current.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-c
+</term>
+<term>
+--count
+</term>
+<listitem>
+<simpara>
+        Print the number of patches in the series.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-d
+</term>
+<term>
+--description
+</term>
+<listitem>
+<simpara>
+        Show a short description for each patch.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--author
+</term>
+<listitem>
+<simpara>
+        Show the author name for each patch.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-e
+</term>
+<term>
+--empty
+</term>
+<listitem>
+<simpara>
+        Before the <literal>+</literal>, <literal>&gt;</literal>, <literal>-</literal>, and <literal>!</literal> prefixes, print a column
+        that contains either <literal>0</literal> (for empty patches) or a space (for
+        non-empty patches).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--showbranch
+</term>
+<listitem>
+<simpara>
+        Append the branch name to the listed patches.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--noprefix
+</term>
+<listitem>
+<simpara>
+        Do not show the patch status prefix.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-s
+</term>
+<term>
+--short
+</term>
+<listitem>
+<simpara>
+        List just the patches around the topmost patch.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_stgit">
+<title>StGit</title>
+<simpara>Part of the StGit suite - see <citerefentry>
+<refentrytitle>stg</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry></simpara>
+</refsect1>
+</refentry>

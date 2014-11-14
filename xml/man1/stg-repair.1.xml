@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>stg-repair</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">StGit</refmiscinfo>
+<refmiscinfo class="manual">StGit Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>stg-repair</refname>
+  <refpurpose>Fix StGit metadata if branch was modified with git commands</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<blockquote>
+<literallayout><emphasis>stg</emphasis> repair</literallayout>
+</blockquote>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>If you modify an StGit stack (branch) with some git commands&#8201;&#8212;&#8201;such
+as commit, pull, merge, and rebase&#8201;&#8212;&#8201;you will leave the StGit
+metadata in an inconsistent state. In that situation, you have two
+options:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>
+Use "stg undo" to undo the effect of the git commands. (If you
+     know what you are doing and want more control, "git reset" or
+     similar will work too.)
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Use "stg repair". This will fix up the StGit metadata to
+     accommodate the modifications to the branch. Specifically, it will
+     do the following:
+</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+If you have made regular git commits on top of your stack of
+         StGit patches, "stg repair" makes new StGit patches out of
+         them, preserving their contents.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+However, merge commits cannot become patches; if you have
+         committed a merge on top of your stack, "repair" will simply
+         mark all patches below the merge unapplied, since they are no
+         longer reachable. If this is not what you want, use "stg
+         undo" to get rid of the merge and run "stg repair" again.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+The applied patches are supposed to be precisely those that
+         are reachable from the branch head. If you have used e.g.
+         "git reset" to move the head, some applied patches may no
+         longer be reachable, and some unapplied patches may have
+         become reachable. "stg repair" will correct the appliedness
+         of such patches.
+</simpara>
+<literallayout class="monospaced">"stg repair" will fix these inconsistencies reliably, so as long
+as you like what it does, you have no reason to avoid causing
+them in the first place. For example, you might find it
+convenient to make commits with a graphical tool and then have
+"stg repair" make proper patches of the commits.</literallayout>
+</listitem>
+</itemizedlist>
+</listitem>
+</orderedlist>
+<note><simpara>If using git commands on the stack was a mistake, running "stg
+repair" is <emphasis>not</emphasis> what you want. In that case, what you want is option
+(1) above.</simpara></note>
+</refsect1>
+<refsect1 id="_stgit">
+<title>StGit</title>
+<simpara>Part of the StGit suite - see <citerefentry>
+<refentrytitle>stg</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry></simpara>
+</refsect1>
+</refentry>

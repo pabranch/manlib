@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>stg-rebase</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">StGit</refmiscinfo>
+<refmiscinfo class="manual">StGit Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>stg-rebase</refname>
+  <refpurpose>Move the stack base to another point in history</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<blockquote>
+<literallayout><emphasis>stg</emphasis> rebase [options] [--] &lt;new-base-id&gt;</literallayout>
+</blockquote>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>Pop all patches from current stack, move the stack base to the given
+&lt;new-base-id&gt; and push the patches back.</simpara>
+<simpara>If you experience merge conflicts, resolve the problem and continue
+the rebase by executing the following sequence:</simpara>
+<literallayout class="monospaced">$ git add --update
+$ stg refresh
+$ stg goto top-patch</literallayout>
+<simpara>Or if you want to skip that patch:</simpara>
+<literallayout class="monospaced">$ stg undo --hard
+$ stg push next-patch..top-patch</literallayout>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-n
+</term>
+<term>
+--nopush
+</term>
+<listitem>
+<simpara>
+        Do not push the patches back after rebasing.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-m
+</term>
+<term>
+--merged
+</term>
+<listitem>
+<simpara>
+        Check for patches merged upstream.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_stgit">
+<title>StGit</title>
+<simpara>Part of the StGit suite - see <citerefentry>
+<refentrytitle>stg</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry></simpara>
+</refsect1>
+</refentry>

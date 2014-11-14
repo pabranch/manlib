@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>stg-refresh</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">StGit</refmiscinfo>
+<refmiscinfo class="manual">StGit Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>stg-refresh</refname>
+  <refpurpose>Generate a new commit for the current patch</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<blockquote>
+<literallayout><emphasis>stg</emphasis> refresh [options] [--] [&lt;files or dirs&gt;]</literallayout>
+</blockquote>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>Include the latest work tree and index changes in the current patch.
+This command generates a new git commit object for the patch; the old
+commit is no longer visible.</simpara>
+<simpara>Refresh will warn if the index is dirty, and require use of either the <emphasis>--index</emphasis>
+or <emphasis>--force</emphasis> options to override this check. This is to prevent accidental full
+refresh when only some changes were staged using git add interative mode.</simpara>
+<simpara>You may optionally list one or more files or directories relative to
+the current working directory; if you do, only matching files will be
+updated.</simpara>
+<simpara>Behind the scenes, stg refresh first creates a new temporary patch
+with your updates, and then merges that patch into the patch you asked
+to have refreshed. If you asked to refresh a patch other than the
+topmost patch, there can be conflicts; in that case, the temporary
+patch will be left for you to take care of, for example with stg
+squash.</simpara>
+<simpara>The creation of the temporary patch is recorded in a separate entry in
+the patch stack log; this means that one undo step will undo the merge
+between the other patch and the temp patch, and two undo steps will
+additionally get rid of the temp patch.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-u
+</term>
+<term>
+--update
+</term>
+<listitem>
+<simpara>
+        Only update the current patch files.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-i
+</term>
+<term>
+--index
+</term>
+<listitem>
+<simpara>
+        Instead of setting the patch top to the current contents of
+        the worktree, set it to the current contents of the index.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-F
+</term>
+<term>
+--force
+</term>
+<listitem>
+<simpara>
+        Instead of warning the user when some work has already been staged (such
+        as with git add interactive mode) force a full refresh.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-p PATCH
+</term>
+<term>
+--patch PATCH
+</term>
+<listitem>
+<simpara>
+        Refresh (applied) PATCH instead of the top patch.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-e
+</term>
+<term>
+--edit
+</term>
+<listitem>
+<simpara>
+        Invoke an editor for the patch description.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-a NOTE
+</term>
+<term>
+--annotate NOTE
+</term>
+<listitem>
+<simpara>
+        Annotate the patch log entry.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-m MESSAGE
+</term>
+<term>
+--message MESSAGE
+</term>
+<listitem>
+<simpara>
+        Use MESSAGE instead of invoking the editor.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-f FILE
+</term>
+<term>
+--file FILE
+</term>
+<listitem>
+<simpara>
+        Use the contents of FILE instead of invoking the editor.
+        (If FILE is "-", write to stdout.)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--sign
+</term>
+<listitem>
+<simpara>
+        Add a "Signed-off-by:" to the end of the patch.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--ack
+</term>
+<listitem>
+<simpara>
+        Add an "Acked-by:" line to the end of the patch.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--author "NAME &lt;EMAIL&gt;"
+</term>
+<listitem>
+<simpara>
+        Set the author details.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--authname NAME
+</term>
+<listitem>
+<simpara>
+        Set the author name.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--authemail EMAIL
+</term>
+<listitem>
+<simpara>
+        Set the author email.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--authdate DATE
+</term>
+<listitem>
+<simpara>
+        Set the author date.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_stgit">
+<title>StGit</title>
+<simpara>Part of the StGit suite - see <citerefentry>
+<refentrytitle>stg</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry></simpara>
+</refsect1>
+</refentry>

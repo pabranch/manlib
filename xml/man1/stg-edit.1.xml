@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>stg-edit</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">StGit</refmiscinfo>
+<refmiscinfo class="manual">StGit Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>stg-edit</refname>
+  <refpurpose>Edit a patch description or diff</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<blockquote>
+<literallayout><emphasis>stg</emphasis> edit [options] [--] [&lt;patch&gt;]</literallayout>
+</blockquote>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>Edit the description and author information of the given patch (or the
+current patch if no patch name was given). With --diff, also edit the
+diff.</simpara>
+<simpara>The editor is invoked with the following contents:</simpara>
+<literallayout class="monospaced">From: A U Thor &lt;author@example.com&gt;
+Date: creation date</literallayout>
+<literallayout class="monospaced">Patch description</literallayout>
+<simpara>If --diff was specified, the diff appears at the bottom, after a
+separator:</simpara>
+<literallayout class="monospaced">---</literallayout>
+<literallayout class="monospaced">Diff text</literallayout>
+<simpara>Command-line options can be used to modify specific information
+without invoking the editor. (With the --edit option, the editor is
+invoked even if such command-line options are given.)</simpara>
+<simpara>If the patch diff is edited but does not apply, no changes are made to
+the patch at all. The edited patch is saved to a file which you can
+feed to "stg edit --file", once you have made sure it does apply.</simpara>
+<simpara>With --set-tree you set the git tree of the patch to the specified
+TREE-ISH without changing the tree of any other patches. When used on
+the top patch, the index and work tree will be updated to match the
+tree.  This low-level option is primarily meant to be used by tools
+built on top of StGit, such as the Emacs mode. See also the --set-tree
+flag of stg push.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-d
+</term>
+<term>
+--diff
+</term>
+<listitem>
+<simpara>
+        Edit the patch diff.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-e
+</term>
+<term>
+--edit
+</term>
+<listitem>
+<simpara>
+        Invoke interactive editor.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--sign
+</term>
+<listitem>
+<simpara>
+        Add a "Signed-off-by:" to the end of the patch.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--ack
+</term>
+<listitem>
+<simpara>
+        Add an "Acked-by:" line to the end of the patch.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-m MESSAGE
+</term>
+<term>
+--message MESSAGE
+</term>
+<listitem>
+<simpara>
+        Use MESSAGE instead of invoking the editor.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-f FILE
+</term>
+<term>
+--file FILE
+</term>
+<listitem>
+<simpara>
+        Use the contents of FILE instead of invoking the editor.
+        (If FILE is "-", write to stdout.)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--save-template FILE
+</term>
+<listitem>
+<simpara>
+        Instead of running the command, just write the message
+        template to FILE, and exit. (If FILE is "-", write to
+        stdout.)
+</simpara>
+<simpara>When driving StGit from another program, it is often
+useful to first call a command with <emphasis>--save-template</emphasis>,
+then let the user edit the message, and then call the
+same command with <emphasis>--file</emphasis>.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--author "NAME &lt;EMAIL&gt;"
+</term>
+<listitem>
+<simpara>
+        Set the author details.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--authname NAME
+</term>
+<listitem>
+<simpara>
+        Set the author name.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--authemail EMAIL
+</term>
+<listitem>
+<simpara>
+        Set the author email.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--authdate DATE
+</term>
+<listitem>
+<simpara>
+        Set the author date.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-O OPTIONS
+</term>
+<term>
+--diff-opts OPTIONS
+</term>
+<listitem>
+<simpara>
+        Extra options to pass to "git diff".
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-t TREE-ISH
+</term>
+<term>
+--set-tree TREE-ISH
+</term>
+<listitem>
+<simpara>
+        Set the git tree of the patch to TREE-ISH.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_stgit">
+<title>StGit</title>
+<simpara>Part of the StGit suite - see <citerefentry>
+<refentrytitle>stg</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry></simpara>
+</refsect1>
+</refentry>

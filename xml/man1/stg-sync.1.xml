@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>stg-sync</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">StGit</refmiscinfo>
+<refmiscinfo class="manual">StGit Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>stg-sync</refname>
+  <refpurpose>Synchronise patches with a branch or a series</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<blockquote>
+<literallayout><emphasis>stg</emphasis> sync [options] [--] [&lt;patch1&gt;] [&lt;patch2&gt;] [&lt;patch3&gt;..&lt;patch4&gt;]</literallayout>
+</blockquote>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>For each of the specified patches perform a three-way merge with the
+same patch in the specified branch or series. The command can be used
+for keeping patches on several branches in sync. Note that the
+operation may fail for some patches because of conflicts. The patches
+in the series must apply cleanly.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-a
+</term>
+<term>
+--all
+</term>
+<listitem>
+<simpara>
+        Synchronise all the applied patches.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-B REF-BRANCH
+</term>
+<term>
+--ref-branch REF-BRANCH
+</term>
+<listitem>
+<simpara>
+        Syncronise patches with BRANCH.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-s SERIES
+</term>
+<term>
+--series SERIES
+</term>
+<listitem>
+<simpara>
+        Syncronise patches with SERIES.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_stgit">
+<title>StGit</title>
+<simpara>Part of the StGit suite - see <citerefentry>
+<refentrytitle>stg</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry></simpara>
+</refsect1>
+</refentry>

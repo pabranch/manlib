@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>stg-pick</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">StGit</refmiscinfo>
+<refmiscinfo class="manual">StGit Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>stg-pick</refname>
+  <refpurpose>Import a patch from a different branch or a commit object</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<blockquote>
+<literallayout><emphasis>stg</emphasis> pick [options] [--] ([&lt;patch1&gt;] [&lt;patch2&gt;] [&lt;patch3&gt;..&lt;patch4&gt;])|&lt;commit&gt;</literallayout>
+</blockquote>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>Import one or more patches from a different branch or a commit object
+into the current series. By default, the name of the imported patch is
+used as the name of the current patch. It can be overridden with the
+<emphasis>--name</emphasis> option. A commit object can be reverted with the <emphasis>--revert</emphasis>
+option. The log and author information are those of the commit
+object.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-n NAME
+</term>
+<term>
+--name NAME
+</term>
+<listitem>
+<simpara>
+        Use NAME as the patch name.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-B REF-BRANCH
+</term>
+<term>
+--ref-branch REF-BRANCH
+</term>
+<listitem>
+<simpara>
+        Pick patches from BRANCH.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-r
+</term>
+<term>
+--revert
+</term>
+<listitem>
+<simpara>
+        Revert the given commit object.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-p COMMITID
+</term>
+<term>
+--parent COMMITID
+</term>
+<listitem>
+<simpara>
+        Use COMMITID as parent.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-x
+</term>
+<term>
+--expose
+</term>
+<listitem>
+<simpara>
+        Append the imported commit id to the patch log.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--fold
+</term>
+<listitem>
+<simpara>
+        Fold the commit object into the current patch.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--update
+</term>
+<listitem>
+<simpara>
+        Like fold but only update the current patch files.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-f FILE
+</term>
+<term>
+--file FILE
+</term>
+<listitem>
+<simpara>
+        Only fold the given file (can be used multiple times).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--unapplied
+</term>
+<listitem>
+<simpara>
+        Keep the patch unapplied.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_stgit">
+<title>StGit</title>
+<simpara>Part of the StGit suite - see <citerefentry>
+<refentrytitle>stg</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry></simpara>
+</refsect1>
+</refentry>
