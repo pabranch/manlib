@@ -1,0 +1,177 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>trace-cmd-split</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>trace-cmd-split</refname>
+    <refpurpose>split a trace.dat file into smaller files</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis role="strong">trace-cmd split</emphasis> [<emphasis>OPTIONS</emphasis>] [<emphasis>start-time</emphasis> [<emphasis>end-time</emphasis>]]</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>The trace-cmd(1) split is used to break up a trace.dat into small files.
+The <emphasis>start-time</emphasis> specifies where the new file will start at. Using
+<emphasis>trace-cmd-report(1)</emphasis> and copying the time stamp given at a particular event,
+can be used as input for either <emphasis>start-time</emphasis> or <emphasis>end-time</emphasis>. The split will
+stop creating files when it reaches an event after <emphasis>end-time</emphasis>. If only the
+end-time is needed, use 0.0 as the start-time.</simpara>
+<simpara>If start-time is left out, then the split will start at the beginning of the
+file. If end-time is left out, then split will continue to the end unless it
+meets one of the requirements specified by the options.</simpara>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">-i</emphasis> <emphasis>file</emphasis>
+</term>
+<listitem>
+<simpara>
+    If this option is not specified, then the split command will look for the
+    file named <emphasis>trace.dat</emphasis>. This options will allow the reading of another
+    file other than <emphasis>trace.dat</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-o</emphasis> <emphasis>file</emphasis>
+</term>
+<listitem>
+<simpara>
+    By default, the split command will use the input file name as a basis of
+    where to write the split files. The output file will be the input file
+    with an attached '.#\' to the end: trace.dat.1, trace.dat.2, etc.
+</simpara>
+<literallayout class="monospaced">This option will change the name of the base file used.</literallayout>
+<literallayout class="monospaced">-o file  will create file.1, file.2, etc.</literallayout>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-s</emphasis> <emphasis>seconds</emphasis>
+</term>
+<listitem>
+<simpara>
+    This specifies how many seconds should be recorded before the new file
+    should stop.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-m</emphasis> <emphasis>milliseconds</emphasis>
+</term>
+<listitem>
+<simpara>
+    This specifies how many milliseconds should be recorded before the new
+    file should stop.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-u</emphasis> <emphasis>microseconds</emphasis>
+</term>
+<listitem>
+<simpara>
+    This specifies how many microseconds should be recorded before the new
+    file should stop.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-e</emphasis> <emphasis>events</emphasis>
+</term>
+<listitem>
+<simpara>
+    This specifies how many events should be recorded before the new file
+    should stop.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-p</emphasis> <emphasis>pages</emphasis>
+</term>
+<listitem>
+<simpara>
+    This specifies the number of pages that should be recorded before the new
+    file should stop.
+</simpara>
+<literallayout class="monospaced">Note: only one of *-p*, *-e*, *-u*, *-m*, *-s* may be specified at a time.</literallayout>
+<literallayout class="monospaced">If *-p* is specified, then *-c* is automatically set.</literallayout>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-r</emphasis>
+</term>
+<listitem>
+<simpara>
+    This option causes the break up to repeat until end-time is reached (or
+    end of the input if end-time is not specified).
+</simpara>
+<literallayout class="monospaced">trace-cmd split -r -e 10000</literallayout>
+<literallayout class="monospaced">This will break up trace.dat into several smaller files, each with at most
+10,000 events in it.</literallayout>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-c</emphasis>
+</term>
+<listitem>
+<simpara>
+    This option causes the above break up to be per CPU.
+</simpara>
+<literallayout class="monospaced">trace-cmd split -c -p 10</literallayout>
+<literallayout class="monospaced">This will create a file that has 10 pages per each CPU from the input.</literallayout>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-C</emphasis> <emphasis>cpu</emphasis>
+</term>
+<listitem>
+<simpara>
+    This option will split for a single CPU. Only the cpu named will be extracted
+    from the file.
+</simpara>
+<literallayout class="monospaced">trace-cmd split -C 1</literallayout>
+<literallayout class="monospaced">This will split out all the events for cpu 1 in the file.</literallayout>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<simpara>trace-cmd(1), trace-cmd-record(1), trace-cmd-report(1), trace-cmd-start(1),
+trace-cmd-stop(1), trace-cmd-extract(1), trace-cmd-reset(1),
+trace-cmd-list(1), trace-cmd-listen(1)</simpara>
+</refsect1>
+<refsect1 xml:id="_author">
+<title>AUTHOR</title>
+<simpara>Written by Steven Rostedt, &lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="mailto:rostedt@goodmis.org">rostedt@goodmis.org</link>&gt;</simpara>
+</refsect1>
+<refsect1 xml:id="_resources">
+<title>RESOURCES</title>
+<simpara>git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git</simpara>
+</refsect1>
+<refsect1 xml:id="_copying">
+<title>COPYING</title>
+<simpara>Copyright (C) 2010 Red Hat, Inc. Free use of this software is granted under
+the terms of the GNU Public License (GPL).</simpara>
+</refsect1>
+</refentry>

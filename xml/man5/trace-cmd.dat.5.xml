@@ -1,0 +1,201 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>trace-cmd.dat</refentrytitle>
+<manvolnum>5</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>trace-cmd.dat</refname>
+    <refpurpose>trace-cmd file format</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis role="strong">trace-cmd.dat</emphasis> ignore</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>The trace-cmd(1) utility produces a "trace.dat" file. The file may also
+be named anything depending if the user specifies a different output name,
+but it must have a certain binary format. The file is used
+by trace-cmd to save kernel traces into it and be able to extract
+the trace from it at a later point (see <emphasis role="strong">trace-cmd-report(1)</emphasis>).</simpara>
+</refsect1>
+<refsect1 xml:id="_initial_format">
+<title>INITIAL FORMAT</title>
+<literallayout class="monospaced">The first three bytes contain the magic value:</literallayout>
+<literallayout class="monospaced">0x17 0x08  0x44</literallayout>
+<literallayout class="monospaced">The next 7 bytes contain the characters:</literallayout>
+<literallayout class="monospaced">"tracing"</literallayout>
+<literallayout class="monospaced">The next set of characters contain a null '\0' terminated string
+that contains the version of the file (for example):</literallayout>
+<literallayout class="monospaced">"6\0"</literallayout>
+<literallayout class="monospaced">The next 1 byte contains the flags for the file endianess:</literallayout>
+<literallayout class="monospaced">0 = little endian
+1 = big endian</literallayout>
+<literallayout class="monospaced">The next byte contains the number of bytes per "long" value:</literallayout>
+<literallayout class="monospaced">4 - 32-bit long values
+8 - 64-bit long values</literallayout>
+<literallayout class="monospaced">Note: This is the long size of the target's userspace. Not the
+kernel space size.</literallayout>
+<literallayout class="monospaced">[ Now all numbers are written in file defined endianess. ]</literallayout>
+<literallayout class="monospaced">The next 4 bytes are a 32-bit word that defines what the traced
+host machine page size was.</literallayout>
+</refsect1>
+<refsect1 xml:id="_header_info_format">
+<title>HEADER INFO FORMAT</title>
+<literallayout class="monospaced">Directly after the initial format comes information about the
+trace headers recorded from the target box.</literallayout>
+<literallayout class="monospaced">The next 12 bytes contain the string:</literallayout>
+<literallayout class="monospaced">"header_page\0"</literallayout>
+<literallayout class="monospaced">The next 8 bytes are a 64-bit word containing the size of the
+page header information stored next.</literallayout>
+<literallayout class="monospaced">The next set of data is of the size read from the previous 8 bytes,
+and contains the data retrieved from debugfs/tracing/events/header_page.</literallayout>
+<literallayout class="monospaced">Note: The size of the second field \fBcommit\fR contains the target
+kernel long size. For example:</literallayout>
+<literallayout class="monospaced">field: local_t commit;        offset:8;       \fBsize:8;\fR   signed:1;</literallayout>
+<literallayout class="monospaced">shows the kernel has a 64-bit long.</literallayout>
+<literallayout class="monospaced">The next 13 bytes contain the string:</literallayout>
+<literallayout class="monospaced">"header_event\0"</literallayout>
+<literallayout class="monospaced">The next 8 bytes are a 64-bit word containing the size of the
+event header information stored next.</literallayout>
+<literallayout class="monospaced">The next set of data is of the size read from the previous 8 bytes
+and contains the data retrieved from debugfs/tracing/events/header_event.</literallayout>
+<literallayout class="monospaced">This data allows the trace-cmd tool to know if the ring buffer format
+of the kernel made any changes.</literallayout>
+</refsect1>
+<refsect1 xml:id="_ftrace_event_formats">
+<title>FTRACE EVENT FORMATS</title>
+<literallayout class="monospaced">Directly after the header information comes the information about
+the Ftrace specific events. These are the events used by the Ftrace plugins
+and are not enabled by the event tracing.</literallayout>
+<literallayout class="monospaced">The next 4 bytes contain a 32-bit word of the number of Ftrace event
+format files that are stored in the file.</literallayout>
+<literallayout class="monospaced">For the number of times defined by the previous 4 bytes is the
+following:</literallayout>
+<literallayout class="monospaced">8 bytes for the size of the Ftrace event format file.</literallayout>
+<literallayout class="monospaced">The Ftrace event format file copied from the target machine:
+debugfs/tracing/events/ftrace/&lt;event&gt;/format</literallayout>
+</refsect1>
+<refsect1 xml:id="_event_formats">
+<title>EVENT FORMATS</title>
+<literallayout class="monospaced">Directly after the Ftrace formats comes the information about
+the event layout.</literallayout>
+<literallayout class="monospaced">The next 4 bytes are a 32-bit word containing the number of
+event systems that are stored in the file. These are the
+directories in debugfs/tracing/events excluding the \fBftrace\fR
+directory.</literallayout>
+<literallayout class="monospaced">For the number of times defined by the previous 4 bytes is the
+following:</literallayout>
+<literallayout class="monospaced">A null-terminated string containing the system name.</literallayout>
+<literallayout class="monospaced">4 bytes containing a 32-bit word containing the number
+of events within the system.</literallayout>
+<literallayout class="monospaced">For the number of times defined in the previous 4 bytes is the
+following:</literallayout>
+<literallayout class="monospaced">8 bytes for the size of the event format file.</literallayout>
+<literallayout class="monospaced">The event format file copied from the target machine:
+debugfs/tracing/events/&lt;system&gt;/&lt;event&gt;/format</literallayout>
+</refsect1>
+<refsect1 xml:id="_kallsyms_information">
+<title>KALLSYMS INFORMATION</title>
+<literallayout class="monospaced">Directly after the event formats comes the information of the mapping
+of function addresses to the function names.</literallayout>
+<literallayout class="monospaced">The next 4 bytes are a 32-bit word containing the size of the
+data holding the function mappings.</literallayout>
+<literallayout class="monospaced">The next set of data is of the size defined by the previous 4 bytes
+and contains the information from the target machine's file:
+/proc/kallsyms</literallayout>
+</refsect1>
+<refsect1 xml:id="_trace_printk_information">
+<title>TRACE_PRINTK INFORMATION</title>
+<literallayout class="monospaced">If a developer used trace_printk() within the kernel, it may
+store the format string outside the ring buffer.
+This information can be found in:
+debugfs/tracing/printk_formats</literallayout>
+<literallayout class="monospaced">The next 4 bytes are a 32-bit word containing the size of the
+data holding the printk formats.</literallayout>
+<literallayout class="monospaced">The next set of data is of the size defined by the previous 4 bytes
+and contains the information from debugfs/tracing/printk_formats.</literallayout>
+</refsect1>
+<refsect1 xml:id="_process_information">
+<title>PROCESS INFORMATION</title>
+<literallayout class="monospaced">Directly after the trace_printk formats comes the information mapping
+a PID to a process name.</literallayout>
+<literallayout class="monospaced">The next 8 bytes contain a 64-bit word that holds the size of the
+data mapping the PID to a process name.</literallayout>
+<literallayout class="monospaced">The next set of data is of the size defined by the previous 8 bytes
+and contains the information from debugfs/tracing/saved_cmdlines.</literallayout>
+</refsect1>
+<refsect1 xml:id="_rest_of_trace_cmd_header">
+<title>REST OF TRACE-CMD HEADER</title>
+<literallayout class="monospaced">Directly after the process information comes the last bit of the
+trace.dat file header.</literallayout>
+<literallayout class="monospaced">The next 4 bytes are a 32-bit word defining the number of CPUs that
+were discovered on the target machine (and has matching trace data
+for it).</literallayout>
+<literallayout class="monospaced">The next 10 bytes are one of the following:</literallayout>
+<literallayout class="monospaced">"options  \0"</literallayout>
+<literallayout class="monospaced">"latency  \0"</literallayout>
+<literallayout class="monospaced">"flyrecord\0"</literallayout>
+<literallayout class="monospaced">If it is "options  \0" then:</literallayout>
+<literallayout class="monospaced">The next 2 bytes are a 16-bit word defining the current option.
+If the the value is zero then there are no more options.</literallayout>
+<literallayout class="monospaced">Otherwise, the next 4 bytes contain a 32-bit word containing the
+option size. If the reader does not know how to handle the option
+it can simply skip it. Currently there are no options defined,
+but this is here to extend the data.</literallayout>
+<literallayout class="monospaced">The next option will be directly after the previous option, and
+the options ends with a zero in the option type field.</literallayout>
+<literallayout class="monospaced">The next 10 bytes after the options are one of the following:</literallayout>
+<literallayout class="monospaced">"latency  \0"</literallayout>
+<literallayout class="monospaced">"flyrecord\0"</literallayout>
+<literallayout class="monospaced">which would follow the same as if options were not present.</literallayout>
+<literallayout class="monospaced">If the value is "latency  \0", then the rest of the file is
+simply ASCII text that was taken from the target's:
+debugfs/tracing/trace</literallayout>
+<literallayout class="monospaced">If the value is "flyrecord\0", the following is present:</literallayout>
+<literallayout class="monospaced">For the number of CPUs that were read earlier, the
+following is present:</literallayout>
+<literallayout class="monospaced">8 bytes that are a 64-bit word containing the offset into the file
+that holds the data for the CPU.</literallayout>
+<literallayout class="monospaced">8 bytes that are a 64-bit word containing the size of the CPU
+data at that offset.</literallayout>
+</refsect1>
+<refsect1 xml:id="_cpu_data">
+<title>CPU DATA</title>
+<literallayout class="monospaced">The CPU data is located in the part of the file that is specified
+in the end of the header. Padding is placed between the header and
+the CPU data, placing the CPU data at a page aligned (target page) position
+in the file.</literallayout>
+<literallayout class="monospaced">This data is copied directly from the Ftrace ring buffer and is of the
+same format as the ring buffer specified by the event header files
+loaded in the header format file.</literallayout>
+<literallayout class="monospaced">The trace-cmd tool will try to \fBmmap(2)\fR the data page by page with the
+target's page size if possible. If it fails to mmap, it will just read the
+data instead.</literallayout>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<simpara>trace-cmd(1), trace-cmd-record(1), trace-cmd-report(1), trace-cmd-start(1),
+trace-cmd-stop(1), trace-cmd-extract(1), trace-cmd-reset(1),
+trace-cmd-split(1), trace-cmd-list(1), trace-cmd-listen(1),
+trace-cmd.dat(5)</simpara>
+</refsect1>
+<refsect1 xml:id="_author">
+<title>AUTHOR</title>
+<simpara>Written by Steven Rostedt, &lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="mailto:rostedt@goodmis.org">rostedt@goodmis.org</link>&gt;</simpara>
+</refsect1>
+<refsect1 xml:id="_resources">
+<title>RESOURCES</title>
+<simpara>git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git</simpara>
+</refsect1>
+<refsect1 xml:id="_copying">
+<title>COPYING</title>
+<simpara>Copyright (C) 2010 Red Hat, Inc. Free use of this software is granted under
+the terms of the GNU Public License (GPL).</simpara>
+</refsect1>
+</refentry>

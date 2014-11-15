@@ -1,0 +1,87 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>trace-cmd</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>trace-cmd</refname>
+    <refpurpose>interacts with Ftrace Linux kernel internal tracer</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis role="strong">trace-cmd</emphasis> <emphasis>COMMAND</emphasis> [<emphasis>OPTIONS</emphasis>]</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>The trace-cmd(1) command interacts with the Ftrace tracer that is built inside
+the Linux kernel. It interfaces with the Ftrace specific files found in the
+debugfs file system under the tracing directory. A <emphasis>COMMAND</emphasis> must be
+specified to tell trace-cmd what to do.</simpara>
+</refsect1>
+<refsect1 xml:id="_commands">
+<title>COMMANDS</title>
+<literallayout class="monospaced">record  - record a live trace and write a trace.dat file to the
+          local disk or to the network.</literallayout>
+<literallayout class="monospaced">report  - reads a trace.dat file and converts the binary data to a
+          ASCII text readable format.</literallayout>
+<literallayout class="monospaced">hist    - show a histogram of the events.</literallayout>
+<literallayout class="monospaced">options - list the plugin options that are available to *report*</literallayout>
+<literallayout class="monospaced">start   - start the tracing without recording to a trace.dat file.</literallayout>
+<literallayout class="monospaced">stop    - stop tracing (only disables recording, overhead of tracer
+          is still in effect)</literallayout>
+<literallayout class="monospaced">restart - restart tracing from a previous stop (only effects recording)</literallayout>
+<literallayout class="monospaced">extract - extract the data from the kernel buffer and create a trace.dat
+          file.</literallayout>
+<literallayout class="monospaced">reset   - disables all tracing and gives back the system performance.
+          (clears all data from the kernel buffers)</literallayout>
+<literallayout class="monospaced">split   - splits a trace.dat file into smaller files.</literallayout>
+<literallayout class="monospaced">list    - list the available plugins or events that can be recorded.</literallayout>
+<literallayout class="monospaced">listen  - open up a port to listen for remote tracing connections.</literallayout>
+<literallayout class="monospaced">restore - restore the data files of a crashed run of trace-cmd record</literallayout>
+<literallayout class="monospaced">stack   - run and display the stack tracer</literallayout>
+<literallayout class="monospaced">check-events - parse format strings for all trace events and return
+               whether all formats are parseable</literallayout>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">-h</emphasis>, --help
+</term>
+<listitem>
+<simpara>
+    Display the help text.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+<simpara>Other options see the man page for the corresponding command.</simpara>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<simpara>trace-cmd-record(1), trace-cmd-report(1), trace-cmd-hist(1), trace-cmd-start(1),
+trace-cmd-stop(1), trace-cmd-extract(1), trace-cmd-reset(1),
+trace-cmd-restore(1), trace-cmd-stack(1),
+trace-cmd-split(1), trace-cmd-list(1), trace-cmd-listen(1),
+trace-cmd.dat(5), trace-cmd-check-events(1)</simpara>
+</refsect1>
+<refsect1 xml:id="_author">
+<title>AUTHOR</title>
+<simpara>Written by Steven Rostedt, &lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="mailto:rostedt@goodmis.org">rostedt@goodmis.org</link>&gt;</simpara>
+</refsect1>
+<refsect1 xml:id="_resources">
+<title>RESOURCES</title>
+<simpara>git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git</simpara>
+</refsect1>
+<refsect1 xml:id="_copying">
+<title>COPYING</title>
+<simpara>Copyright (C) 2010 Red Hat, Inc. Free use of this software is granted under
+the terms of the GNU Public License (GPL).</simpara>
+</refsect1>
+</refentry>

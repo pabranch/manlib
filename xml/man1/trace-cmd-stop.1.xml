@@ -1,0 +1,80 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>trace-cmd-stop</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>trace-cmd-stop</refname>
+    <refpurpose>stop the Ftrace Linux kernel tracer from writing to the ring buffer.</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis role="strong">trace-cmd stop</emphasis> [<emphasis>OPTIONS</emphasis>]</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>The trace-cmd(1) stop is a complement to <emphasis>trace-cmd-start(1)</emphasis>. This will
+disable Ftrace from writing to the ring buffer. This does not stop the
+overhead that the tracing may incur. Only the updating of the ring buffer is
+disabled, the Ftrace tracing may still be inducing overhead.</simpara>
+<simpara>After stopping the trace, the <emphasis>trace-cmd-extract(1)</emphasis> may strip out the data
+from the ring buffer and create a trace.dat file. The Ftrace pseudo file
+system may also be examined.</simpara>
+<simpara>To disable the tracing completely to remove the overhead it causes, use
+<emphasis>trace-cmd-reset(1)</emphasis>. But after a reset is performed, the data that has been
+recorded is lost.</simpara>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">-B</emphasis> <emphasis>buffer-name</emphasis>
+</term>
+<listitem>
+<simpara>
+    If the kernel supports multiple buffers, this will stop the trace for
+    only the given buffer. It does not affect any other buffer. This may be
+    used multiple times to specify different buffers.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-t</emphasis>
+</term>
+<listitem>
+<simpara>
+    Stops the top level instance buffer. Without the <emphasis role="strong">-B</emphasis> option this is the
+    same as the default. But if <emphasis role="strong">-B</emphasis> is used, this is required if the top
+    level instance buffer should also be stopped.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<simpara>trace-cmd(1), trace-cmd-record(1), trace-cmd-report(1), trace-cmd-start(1),
+trace-cmd-extract(1), trace-cmd-reset(1), trace-cmd-split(1),
+trace-cmd-list(1), trace-cmd-listen(1)</simpara>
+</refsect1>
+<refsect1 xml:id="_author">
+<title>AUTHOR</title>
+<simpara>Written by Steven Rostedt, &lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="mailto:rostedt@goodmis.org">rostedt@goodmis.org</link>&gt;</simpara>
+</refsect1>
+<refsect1 xml:id="_resources">
+<title>RESOURCES</title>
+<simpara>git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git</simpara>
+</refsect1>
+<refsect1 xml:id="_copying">
+<title>COPYING</title>
+<simpara>Copyright (C) 2010 Red Hat, Inc. Free use of this software is granted under
+the terms of the GNU Public License (GPL).</simpara>
+</refsect1>
+</refentry>

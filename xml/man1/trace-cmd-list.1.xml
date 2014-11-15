@@ -1,0 +1,167 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>trace-cmd-list</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>trace-cmd-list</refname>
+    <refpurpose>list available plugins, events or options for Ftrace.</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis role="strong">trace-cmd list</emphasis> [<emphasis>OPTIONS</emphasis>]</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>The trace-cmd(1) list displays the available plugins, events or Ftrace options
+that are configured on the current machine.  If no option is given, then it
+lists all plugins, events and Ftrace options to standard output.</simpara>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">-e</emphasis> [<emphasis>regex</emphasis>]
+</term>
+<listitem>
+<simpara>
+    This option will list the available events that are enabled on the
+    local system.
+</simpara>
+<literallayout class="monospaced">It takes an optional argument that uses 'regcomp(3)' expressions to seach.</literallayout>
+<literallayout class="monospaced">trace-cmd list -e '^sys.*'</literallayout>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-F</emphasis>
+</term>
+<listitem>
+<simpara>
+    Used with <emphasis role="strong">-e</emphasis> <emphasis>regex</emphasis> to show those events formats.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-l</emphasis>
+</term>
+<listitem>
+<simpara>
+    Used with <emphasis role="strong">-e</emphasis> <emphasis>regex</emphasis> to show those events filters.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-R</emphasis>
+</term>
+<listitem>
+<simpara>
+    Used with <emphasis role="strong">-e</emphasis> <emphasis>regex</emphasis> to show those events triggers.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-t</emphasis>
+</term>
+<listitem>
+<simpara>
+    This option will list the available tracers that are enabled on the
+    local system.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-p</emphasis>
+</term>
+<listitem>
+<simpara>
+    Same as <emphasis role="strong">-t</emphasis> and only for legacy purposes.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-o</emphasis>
+</term>
+<listitem>
+<simpara>
+    This option will list the available Ftrace options that are configured on
+    the local system.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-f</emphasis> [<emphasis>regex</emphasis>]
+</term>
+<listitem>
+<simpara>
+    This option will list the available filter functions. These are the list of
+    functions on the system that you can trace, or filter on.
+    It takes an optional argument that uses <emphasis>regcomp(3)</emphasis> expressions to seach.
+</simpara>
+<literallayout class="monospaced">trace-cmd list -f '^sched.*'</literallayout>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-P</emphasis>
+</term>
+<listitem>
+<simpara>
+    List the plugin files that get loaded on trace-cmd report.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-O</emphasis>
+</term>
+<listitem>
+<simpara>
+    List plugin options that can be used by trace-cmd report <emphasis role="strong">-O</emphasis> option.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-B</emphasis>
+</term>
+<listitem>
+<simpara>
+    List defined buffer instances (sub buffers).
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<simpara>trace-cmd(1), trace-cmd-record(1), trace-cmd-report(1), trace-cmd-start(1),
+trace-cmd-stop(1), trace-cmd-extract(1), trace-cmd-reset(1),
+trace-cmd-split(1), trace-cmd-listen(1)</simpara>
+</refsect1>
+<refsect1 xml:id="_author">
+<title>AUTHOR</title>
+<simpara>Written by Steven Rostedt, &lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="mailto:rostedt@goodmis.org">rostedt@goodmis.org</link>&gt;</simpara>
+</refsect1>
+<refsect1 xml:id="_resources">
+<title>RESOURCES</title>
+<simpara>git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git</simpara>
+</refsect1>
+<refsect1 xml:id="_copying">
+<title>COPYING</title>
+<simpara>Copyright (C) 2010 Red Hat, Inc. Free use of this software is granted under
+the terms of the GNU Public License (GPL).</simpara>
+</refsect1>
+</refentry>

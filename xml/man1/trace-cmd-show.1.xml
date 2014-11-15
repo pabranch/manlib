@@ -1,0 +1,213 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>trace-cmd-show</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>trace-cmd-show</refname>
+    <refpurpose>show the contents of the Ftrace Linux kernel tracing buffer.</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis role="strong">trace-cmd show</emphasis> [<emphasis>OPTIONS</emphasis>]</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>The trace-cmd(1) show displays the contents of one of the Ftrace Linux
+kernel tracing files: trace, snapshot, or trace_pipe. It is basically
+the equivalent of doing:</simpara>
+<literallayout class="monospaced">cat /sys/kernel/debug/tracing/trace</literallayout>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">-p</emphasis>
+</term>
+<listitem>
+<simpara>
+    Instead of displaying the contents of the "trace" file, use the
+    "trace_pipe" file. The difference between the two is that the "trace"
+    file is static. That is, if tracing is stopped, the "trace" file
+    will show the same contents each time.
+</simpara>
+<literallayout class="monospaced">The "trace_pipe" file is a consuming read, where a read of the file
+will consume the output of what was read and it will not read the
+same thing a second time even if tracing is stopped. This file
+als will block. If no data is available, trace-cmd show will stop
+and wait for data to appear.</literallayout>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-s</emphasis>
+</term>
+<listitem>
+<simpara>
+    Instead of reading the "trace" file, read the snapshot file. The snapshot
+    is made by an application writing into it and the kernel will perform
+    as swap between the currently active buffer and the current snapshot
+    buffer. If no more swaps are made, the snapshot will remain static.
+    This is not a consuming read.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-c</emphasis> <emphasis>cpu</emphasis>
+</term>
+<listitem>
+<simpara>
+    Read only the trace file for a specified CPU.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-f</emphasis>
+</term>
+<listitem>
+<simpara>
+    Display the full path name of the file that is being displayed.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-B</emphasis> <emphasis>buf</emphasis>
+</term>
+<listitem>
+<simpara>
+    If a buffer instance was created, then the <emphasis role="strong">-B</emphasis> option will access the
+    files associated with the given buffer.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--tracing_on</emphasis>
+</term>
+<listitem>
+<simpara>
+    Show if tracing is on for the given instance.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--current_tracer</emphasis>
+</term>
+<listitem>
+<simpara>
+    Show what the current tracer is.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--buffer_size</emphasis>
+</term>
+<listitem>
+<simpara>
+    Show the current buffer size (per-cpu)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--buffer_total_size</emphasis>
+</term>
+<listitem>
+<simpara>
+     Show the total size of all buffers.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--ftrace_filter</emphasis>
+</term>
+<listitem>
+<simpara>
+     Show what function filters are set.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--ftrace_notrace</emphasis>
+</term>
+<listitem>
+<simpara>
+     Show what function disabled filters are set.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--ftrace_pid</emphasis>
+</term>
+<listitem>
+<simpara>
+     Show the PIDs the function tracer is limited to (if any).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--graph_function</emphasis>
+</term>
+<listitem>
+<simpara>
+     Show the functions that will be graphed.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--graph_notrace</emphasis>
+</term>
+<listitem>
+<simpara>
+     Show the functions that will not be graphed.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--cpumask</emphasis>
+</term>
+<listitem>
+<simpara>
+     Show the mask of CPUs that tracing will trace.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<simpara>trace-cmd(1), trace-cmd-record(1), trace-cmd-report(1), trace-cmd-start(1),
+trace-cmd-extract(1), trace-cmd-reset(1), trace-cmd-split(1),
+trace-cmd-list(1), trace-cmd-listen(1)</simpara>
+</refsect1>
+<refsect1 xml:id="_author">
+<title>AUTHOR</title>
+<simpara>Written by Steven Rostedt, &lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="mailto:rostedt@goodmis.org">rostedt@goodmis.org</link>&gt;</simpara>
+</refsect1>
+<refsect1 xml:id="_resources">
+<title>RESOURCES</title>
+<simpara>git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git</simpara>
+</refsect1>
+<refsect1 xml:id="_copying">
+<title>COPYING</title>
+<simpara>Copyright (C) 2010 Red Hat, Inc. Free use of this software is granted under
+the terms of the GNU Public License (GPL).</simpara>
+</refsect1>
+</refentry>

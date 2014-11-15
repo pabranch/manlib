@@ -1,0 +1,107 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>trace-cmd-reset</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>trace-cmd-reset</refname>
+    <refpurpose>turn off all Ftrace tracing to bring back full performance</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis role="strong">trace-cmd reset</emphasis> [<emphasis>OPTIONS</emphasis>]</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>The trace-cmd(1) reset command turns off all tracing of Ftrace. This will
+bring back the performance of the system before tracing was enabled. This is
+necessary since <emphasis>trace-cmd-record(1)</emphasis>, <emphasis>trace-cmd-stop(1)</emphasis> and
+<emphasis>trace-cmd-extract(1)</emphasis> do not disable the tracer, event after the data has
+been pulled from the buffers. The rational is that the user may want to
+manually enable the tracer with the Ftrace pseudo file system, or examine other
+parts of Ftrace to see what trace-cmd did. After the reset command happens,
+the data in the ring buffer, and the options that were used are all lost.</simpara>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">-b</emphasis> <emphasis>buffer_size</emphasis>
+</term>
+<listitem>
+<simpara>
+    When the kernel boots, the Ftrace ring buffer is of a minimal size (3
+    pages per CPU). The first time the tracer is used, the ring buffer size
+    expands to what it was set for (default 1.4 Megs per CPU).
+</simpara>
+<literallayout class="monospaced">If no more tracing is to be done, this option allows you to shrink the
+ring buffer down to free up available memory.</literallayout>
+<literallayout class="monospaced">trace-cmd reset -b 1</literallayout>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-B</emphasis> <emphasis>buffer-name</emphasis>
+</term>
+<listitem>
+<simpara>
+    If the kernel supports multiple buffers, this will reset the trace for
+    only the given buffer. It does not affect any other buffer. This may be
+    used multiple times to specify different buffers. The top level buffer
+    will not be reset if this option is given (unless the <emphasis role="strong">-t</emphasis> option is
+    also supplied).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-d</emphasis>
+</term>
+<listitem>
+<simpara>
+    Delete the previously specified buffer instance that was specified by
+    the <emphasis role="strong">-B</emphasis> option. It is invalid to use with <emphasis role="strong">-t</emphasis> as the top level instance
+    can not be deleted.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-t</emphasis>
+</term>
+<listitem>
+<simpara>
+    Resets the top level instance buffer. Without the <emphasis role="strong">-B</emphasis> option this is the
+    same as the default. But if <emphasis role="strong">-B</emphasis> is used, this is required if the top
+    level instance buffer should also be reset.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<simpara>trace-cmd(1), trace-cmd-record(1), trace-cmd-report(1), trace-cmd-start(1),
+trace-cmd-stop(1), trace-cmd-extract(1), trace-cmd-split(1),
+trace-cmd-list(1), trace-cmd-listen(1)</simpara>
+</refsect1>
+<refsect1 xml:id="_author">
+<title>AUTHOR</title>
+<simpara>Written by Steven Rostedt, &lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="mailto:rostedt@goodmis.org">rostedt@goodmis.org</link>&gt;</simpara>
+</refsect1>
+<refsect1 xml:id="_resources">
+<title>RESOURCES</title>
+<simpara>git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git</simpara>
+</refsect1>
+<refsect1 xml:id="_copying">
+<title>COPYING</title>
+<simpara>Copyright (C) 2010 Red Hat, Inc. Free use of this software is granted under
+the terms of the GNU Public License (GPL).</simpara>
+</refsect1>
+</refentry>

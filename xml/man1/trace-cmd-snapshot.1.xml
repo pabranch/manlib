@@ -1,0 +1,109 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>trace-cmd-snapshot</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>trace-cmd-snapshot</refname>
+    <refpurpose>take, reset, free, or show a Ftrace kernel snapshot</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis role="strong">trace-cmd snapshot</emphasis> [<emphasis>OPTIONS</emphasis>]</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>The trace-cmd(1) snapshot controls or displays the Ftrace Linux kernel
+snapshot feature (if the kernel supports it). This is useful to "freeze"
+an instance of a live trace but without stopping the trace.</simpara>
+<literallayout class="monospaced"> trace-cmd start -p function
+ trace-cmd snapshot -s
+ trace-cmd snapshot
+[ dumps the content of buffer at 'trace-cmd snapshot -s' ]
+ trace-cmd snapshot -s
+ trace-cmd snapshot
+[ dumps the new content of the buffer at the last -s operation ]</literallayout>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">-s</emphasis>
+</term>
+<listitem>
+<simpara>
+    Take a snapshot of the currently running buffer.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-r</emphasis>
+</term>
+<listitem>
+<simpara>
+    Clear out the buffer.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-f</emphasis>
+</term>
+<listitem>
+<simpara>
+    Free the snapshot buffer. The buffer takes up memory inside the
+    kernel. It is best to free it when not in use. The first -s
+    operation will allocate it if it is not already allocated.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-c</emphasis> <emphasis>cpu</emphasis>
+</term>
+<listitem>
+<simpara>
+    Operate on a per cpu snapshot (may not be fully supported by all kernels)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-B</emphasis> <emphasis>buf</emphasis>
+</term>
+<listitem>
+<simpara>
+    If a buffer instance was created, then the <emphasis role="strong">-B</emphasis> option will operate on
+    the snapshot within the buffer.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<simpara>trace-cmd(1), trace-cmd-record(1), trace-cmd-report(1), trace-cmd-start(1),
+trace-cmd-extract(1), trace-cmd-reset(1), trace-cmd-split(1),
+trace-cmd-list(1), trace-cmd-listen(1)</simpara>
+</refsect1>
+<refsect1 xml:id="_author">
+<title>AUTHOR</title>
+<simpara>Written by Steven Rostedt, &lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="mailto:rostedt@goodmis.org">rostedt@goodmis.org</link>&gt;</simpara>
+</refsect1>
+<refsect1 xml:id="_resources">
+<title>RESOURCES</title>
+<simpara>git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git</simpara>
+</refsect1>
+<refsect1 xml:id="_copying">
+<title>COPYING</title>
+<simpara>Copyright (C) 2010 Red Hat, Inc. Free use of this software is granted under
+the terms of the GNU Public License (GPL).</simpara>
+</refsect1>
+</refentry>

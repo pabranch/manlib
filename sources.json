@@ -557,11 +557,11 @@ find sources/systemd/man -name '*.xml' -print0 | while read -d $'\\0' -r file ; 
     "cmd": "rsync --checksum sources/tcpdump/tcpdump.1.in man/man1/tcpdump.1"
   },
 
-  "tmux": {
+  "trace-cmd": {
     "type": "git",
-    "url": "git://git.code.sf.net/p/tmux/tmux-code",
-    "sparse": "tmux.1",
-    "cmd": "rsync --checksum sources/tmux/tmux.1 man/man1/"
+    "url": "git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git",
+    "sparse": "Documentation",
+    "cmd": "find sources/trace-cmd/Documentation -name '*.txt' -exec bash -c 'bn=$(basename -s .txt {}); asciidoc -d manpage -b docbook -o- {} | xsltproc utils/db4-upgrade.xsl - > xml/man${bn: -1:1}/$bn.xml' \\;"
   },
 
   "util-linux": {

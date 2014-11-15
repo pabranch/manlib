@@ -1,0 +1,117 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>trace-cmd-extract</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>trace-cmd-extract</refname>
+    <refpurpose>extract out the data from the Ftrace Linux tracer.</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis role="strong">trace-cmd extract [<emphasis>OPTIONS</emphasis>]</emphasis></simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>The trace-cmd(1) extract is usually used after <emphasis>trace-cmd-start(1)</emphasis> and
+<emphasis>trace-cmd-stop(1)</emphasis>. It can be used after the Ftrace tracer has been started
+manually through the Ftrace pseudo file system.</simpara>
+<simpara>The extract command creates a trace.dat file that can be used by
+<emphasis>trace-cmd-report(1)</emphasis> to read from. It reads the kernel internal ring buffer
+to produce the trace.dat file.</simpara>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">-p</emphasis> <emphasis>plugin</emphasis>
+</term>
+<listitem>
+<simpara>
+    Although <emphasis role="strong">extract</emphasis> does not start any traces, some of the plugins require
+    just reading the output in ASCII format. These are the latency tracers,
+    since the latency tracers have a separate internal buffer. The plugin
+    option is therefore only necessary for the <emphasis>wakeup</emphasis>, <emphasis>wakeup-rt</emphasis>,
+    <emphasis>irqsoff</emphasis>, <emphasis>preemptoff</emphasis> and <emphasis>preemptirqsoff</emphasis> plugins.
+</simpara>
+<literallayout class="monospaced">With out this option, the extract command will extract from the internal
+Ftrace buffers.</literallayout>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-O</emphasis> <emphasis>option</emphasis>
+</term>
+<listitem>
+<simpara>
+    If a latency tracer is being extracted, and the <emphasis role="strong">-p</emphasis> option is used, then
+    there are some Ftrace options that can change the format. This will update
+    those options before extracting.  To see the list of options see
+    <emphasis>trace-cmd-list</emphasis>. To enable an option, write its name, to disable the
+    option append the characters <emphasis>no</emphasis> to it. For example: <emphasis>noprint-parent</emphasis>
+    will disable the <emphasis>print-parent</emphasis> option that prints the parent function in
+    printing a function event.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-o</emphasis> <emphasis>outputfile</emphasis>
+</term>
+<listitem>
+<simpara>
+    By default, the extract command will create a <emphasis>trace.dat</emphasis> file. This
+    option will change where the file is written to.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-s</emphasis>
+</term>
+<listitem>
+<simpara>
+    Extract from the snapshot buffer (if the kernel supports it).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--date</emphasis>
+</term>
+<listitem>
+<simpara>
+    This is the same as the trace-cmd-record(1) --date option, but it
+    does cause the extract routine to disable all tracing. That is,
+    the end of the extract will perform something similar to trace-cmd-reset(1).
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<simpara>trace-cmd(1), trace-cmd-record(1), trace-cmd-report(1), trace-cmd-start(1),
+trace-cmd-stop(1), trace-cmd-reset(1), trace-cmd-split(1),
+trace-cmd-list(1), trace-cmd-listen(1)</simpara>
+</refsect1>
+<refsect1 xml:id="_author">
+<title>AUTHOR</title>
+<simpara>Written by Steven Rostedt, &lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="mailto:rostedt@goodmis.org">rostedt@goodmis.org</link>&gt;</simpara>
+</refsect1>
+<refsect1 xml:id="_resources">
+<title>RESOURCES</title>
+<simpara>git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git</simpara>
+</refsect1>
+<refsect1 xml:id="_copying">
+<title>COPYING</title>
+<simpara>Copyright (C) 2010 Red Hat, Inc. Free use of this software is granted under
+the terms of the GNU Public License (GPL).</simpara>
+</refsect1>
+</refentry>
