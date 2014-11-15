@@ -1,0 +1,67 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>abrt-action-analyze-c</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>abrt-action-analyze-c</refname>
+    <refpurpose>Calculate and save UUID for a problem data directory DIR with coredump.</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis>abrt-action-analyze-c</emphasis> [-v] [-d DIR]</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>The tool reads the file named <emphasis>coredump</emphasis> from a problem data
+directory, processes it and generates a universally unique identifier
+(UUID). Then it saves this data as new element <emphasis>uuid</emphasis>.</simpara>
+<refsect2 xml:id="_integration_with_abrt_events">
+<title>Integration with ABRT events</title>
+<simpara><emphasis>abrt-action-analyze-c</emphasis> can be used to generate the UUID
+of a newly saved coredump.</simpara>
+<screen>EVENT=post-create analyzer=CCpp   abrt-action-analyze-c</screen>
+</refsect2>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-d DIR
+</term>
+<listitem>
+<simpara>
+   Path to a problem directory. Current working directory is used when
+   this option is not provided.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-v
+</term>
+<listitem>
+<simpara>
+   Be more verbose. Can be given multiple times.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_authors">
+<title>AUTHORS</title>
+<itemizedlist>
+<listitem>
+<simpara>
+ABRT team
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect1>
+</refentry>

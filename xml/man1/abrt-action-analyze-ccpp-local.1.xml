@@ -1,0 +1,77 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>abrt-action-analyze-ccpp-local</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>abrt-action-analyze-ccpp-local</refname>
+    <refpurpose>Generates backtrace and search for duplicates</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara>abrt-action-analyze-ccpp-local [--without-di][--without-bz][--without-bodhi]</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>This tool downloads debuginfo and generates a backtrace
+for coredump in the problem directory, also checks for existing duplicates in
+bugzilla and possible updates related to the detected crash</simpara>
+<refsect2 xml:id="_integration_with_abrt_events">
+<title>Integration with ABRT events</title>
+<simpara><emphasis>abrt-action-analyze-ccpp-local</emphasis> is used in the analyze step when processing
+C/C++ crashes</simpara>
+<screen>EVENT=analyze_LocalGDB analyzer=CCpp
+    abrt-action-analyze-ccpp-local</screen>
+</refsect2>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+--without-di
+</term>
+<listitem>
+<simpara>
+    Don’t install debuginfo packages
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--without-bz
+</term>
+<listitem>
+<simpara>
+    Don’t search bugzilla for existing duplicates
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--without-bodhi
+</term>
+<listitem>
+<simpara>
+    Don’t search bodhi for existing updates
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_authors">
+<title>AUTHORS</title>
+<itemizedlist>
+<listitem>
+<simpara>
+ABRT team
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect1>
+</refentry>

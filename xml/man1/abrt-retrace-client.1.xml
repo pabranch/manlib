@@ -1,0 +1,217 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>abrt-retrace-client</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>abrt-retrace-client</refname>
+    <refpurpose>Handles the communication with Retrace server.</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis>abrt-retrace-client</emphasis> &lt;operation&gt; [options]</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>This tool is able to communicate with Retrace server: create a new task,
+ask about task’s status, download log or backtrace of a finished task.</simpara>
+<refsect2 xml:id="_integration_with_libreport_events">
+<title>Integration with libreport events</title>
+<simpara><emphasis>abrt-retrace-client</emphasis> can be used as an analyzer for
+application crashes which dump core.</simpara>
+<simpara>Example usage in report_event.conf:</simpara>
+<screen>EVENT=analyze analyzer=CCpp
+        abrt-retrace-client</screen>
+</refsect2>
+</refsect1>
+<refsect1 xml:id="_operations">
+<title>OPERATIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+create
+</term>
+<listitem>
+<simpara>
+   Creates a new task. Prints task ID and password to stdout.
+   Either -d or -c is required.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+status
+</term>
+<listitem>
+<simpara>
+   Prints task's status to stdout. Both -t and -p are required.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+log
+</term>
+<listitem>
+<simpara>
+   Prints finished task's log to stdout. Both -t and -p are required.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+backtrace
+</term>
+<listitem>
+<simpara>
+   Print finished task's backtrace to stdout. Both -t and -p are required.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+batch
+</term>
+<listitem>
+<simpara>
+   Runs all operations in one step: creates a new task, periodically
+   asks for status (the period is specified by --status-delay option)
+   and downloads the result when finished. If the task was successful
+   backtrace file is saved, otherwise log is printed to stdout.
+   Either -c or -d is required.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-v, --verbose
+</term>
+<listitem>
+<simpara>
+   be verbose
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-s, --syslog
+</term>
+<listitem>
+<simpara>
+   log to syslog
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-k, --insecure
+</term>
+<listitem>
+<simpara>
+   allow insecure connection to retrace server
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--url URL
+</term>
+<listitem>
+<simpara>
+   retrace server URL
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--headers
+</term>
+<listitem>
+<simpara>
+   (debug) show received HTTP headers
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-d, --dir DIR
+</term>
+<listitem>
+<simpara>
+   read data from ABRT problem directory
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-c, --core COREDUMP
+</term>
+<listitem>
+<simpara>
+   read data from coredump
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-l, --status-delay
+</term>
+<listitem>
+<simpara>
+   delay for polling operations (seconds)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--no-unlink
+</term>
+<listitem>
+<simpara>
+   (debug) do not delete temporary archive created in /tmp
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-t, --task ID
+</term>
+<listitem>
+<simpara>
+   ID of the task on server
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-p, --password PWD
+</term>
+<listitem>
+<simpara>
+   password of the task on server
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_authors">
+<title>AUTHORS</title>
+<itemizedlist>
+<listitem>
+<simpara>
+ABRT team
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect1>
+</refentry>

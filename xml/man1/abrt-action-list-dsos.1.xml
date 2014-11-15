@@ -1,0 +1,104 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>abrt-action-list-dsos</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>abrt-action-list-dsos</refname>
+    <refpurpose>Prints out DSO from mapped memory regions.</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis>abrt-action-list-dsos</emphasis> [-o OUTFILE] -m PROC_PID_MAP_FILE</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>The tool reads a file containing the mapped memory regions.
+Output is printed to <emphasis>stdout</emphasis> or <emphasis>file</emphasis>.</simpara>
+<simpara>Output format:</simpara>
+<screen>%p %n %v %i</screen>
+<simpara>where</simpara>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis>%p</emphasis>
+</term>
+<listitem>
+<simpara>
+        path to library or binary file, which is mapped in memory region
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis>%n</emphasis>
+</term>
+<listitem>
+<simpara>
+        name, version, release, architecture of package, where <emphasis>%p</emphasis> belongs
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis>%v</emphasis>
+</term>
+<listitem>
+<simpara>
+        vendor of package
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis>%i</emphasis>
+</term>
+<listitem>
+<simpara>
+        installation time
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-o OUTFILE
+</term>
+<listitem>
+<simpara>
+   Output file, if not specified, it is printed to <emphasis>stdout</emphasis>
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-m PROC_PID_MAP_FILE
+</term>
+<listitem>
+<simpara>
+   File containing the mapped memory regions
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_authors">
+<title>AUTHORS</title>
+<itemizedlist>
+<listitem>
+<simpara>
+ABRT team
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect1>
+</refentry>

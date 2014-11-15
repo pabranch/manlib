@@ -1,0 +1,129 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>abrt-auto-reporting</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>abrt-auto-reporting</refname>
+    <refpurpose>Get or modify a value of the auto reporting option</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis>abrt-auto-reporting</emphasis> [-v] [ enabled | yes | 1 | disabled | no | 0 ]</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>Reads the configuration from abrt.conf and saves the changes to the same file.</simpara>
+<simpara>The changes will take effect immediately without necessity to restart any ABRT
+process and will be persistent.</simpara>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis>disabled</emphasis>
+</term>
+<listitem>
+<simpara>
+   User have to report the detect problems manually
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis>enabled</emphasis>
+</term>
+<listitem>
+<simpara>
+   ABRT uploads an uReport which was generated for a detected problem
+   immediately after the detection phase.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+<refsect2 xml:id="_ureport_description">
+<title>uReport description</title>
+<simpara>ABRT supports uReports for four types of crashes: crashes of C/C++ programs
+that result in a core dump, uncaught Python exceptions, uncaught Java
+exceptions and kernel oopses.</simpara>
+<simpara>Each uReport generally contains a stack trace, or multiple stack traces in the
+case of multi-threaded C/C++ and Java programs. The stack trace only describes
+the call stack of the program at the time of the crash and does not contain
+contents of any variables.</simpara>
+<simpara>Every uReport also contains identification of the operating system, versions of
+the RPM packages involved in the crash, and whether the program ran under a
+root user.</simpara>
+<simpara>There are also items specific to each crash type:</simpara>
+<variablelist>
+<varlistentry>
+<term>
+C/C++ crashes
+</term>
+<listitem>
+<simpara>
+    these are path to the executable and signal delivered to the program,
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+Python exceptions
+</term>
+<listitem>
+<simpara>
+    there is the type of the exception (without the error message, which may
+    contain sensitive data),
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+for kernel oopses
+</term>
+<listitem>
+<simpara>
+    these are list of loaded kernel modules, list of taint flags, and full text
+    of the kernel oops.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+<simpara><emphasis>Warning</emphasis>:
+The full text of a kernel oops might contain information like the
+identification of the host hardware type. You should disable the autoreporting
+feature if you do not want to share this information with Red Hat.</simpara>
+</refsect2>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-v, --verbose
+</term>
+<listitem>
+<simpara>
+   Be more verbose. Can be given multiple times.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<simpara>abrt.conf(5)</simpara>
+</refsect1>
+<refsect1 xml:id="_authors">
+<title>AUTHORS</title>
+<itemizedlist>
+<listitem>
+<simpara>
+ABRT team
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect1>
+</refentry>

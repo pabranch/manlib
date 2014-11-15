@@ -1,0 +1,57 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>abrt-harvest-vmcore</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>abrt-harvest-vmcore</refname>
+    <refpurpose>Converts VMCores to ABRT problems</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis>abrt-harvest-vmcore</emphasis></simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>This script is meant to be run once at system startup after abrtd is up and
+running. It moves all vmcore directories in /var/crash (which are presumably
+created by kdump) to abrtd spool directory.</simpara>
+<simpara>The goal is to let abrtd notice and process them as new problem data dirs.</simpara>
+</refsect1>
+<refsect1 xml:id="_files">
+<title>FILES</title>
+<variablelist>
+<varlistentry>
+<term>
+/etc/abrt/plugins/vmcore.conf
+</term>
+<listitem>
+<simpara>
+   Configuration file where user can enable copying or moving VMcore to ABRT
+   problem directory
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<simpara>abrt-vmcore.conf(5)
+abrt.conf(5)</simpara>
+</refsect1>
+<refsect1 xml:id="_authors">
+<title>AUTHORS</title>
+<itemizedlist>
+<listitem>
+<simpara>
+ABRT team
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect1>
+</refentry>

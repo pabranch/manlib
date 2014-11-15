@@ -1,0 +1,110 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>abrt-action-install-debuginfo</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>abrt-action-install-debuginfo</refname>
+    <refpurpose>Install debuginfos for build-ids</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis>abrt-action-install-debuginfo</emphasis> [-vy] [--ids=BUILD_IDS_FILE] [--tmpdir=TMPDIR] [--cache=CACHEDIR[:DEBUGINFODIR1:DEBUGINFODIR2…]] [--size_mb=SIZE] [-e PATH]</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>Installs debuginfos for all build-ids listed in BUILD_IDS_FILE
+to CACHEDIR, using TMPDIR as temporary staging area.
+Old files in CACHEDIR are deleted until it is smaller than SIZE.</simpara>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-v
+</term>
+<listitem>
+<simpara>
+   Be more verbose. Can be given multiple times.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-y
+</term>
+<listitem>
+<simpara>
+   Noninteractive, assume <emphasis>Yes</emphasis> to all questions
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--ids
+</term>
+<listitem>
+<simpara>
+   Path to file with list of build ids. Default: build_ids
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--tmpdir
+</term>
+<listitem>
+<simpara>
+   Path to tmp directory. Default: /tmp/abrt-tmp-debuginfo-RANDOM_SUFFIX
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--cache
+</term>
+<listitem>
+<simpara>
+   Path to cache directory. Default: /var/cache/abrt-di
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--size_mb
+</term>
+<listitem>
+<simpara>
+   Default: 4096
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-e,--exact
+</term>
+<listitem>
+<simpara>
+   Download only specified files
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_authors">
+<title>AUTHORS</title>
+<itemizedlist>
+<listitem>
+<simpara>
+ABRT team
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect1>
+</refentry>

@@ -1,0 +1,89 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>abrt-action-generate-backtrace</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>abrt-action-generate-backtrace</refname>
+    <refpurpose>Analyzes coredump, generates and saves backtrace.</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis>abrt-action-generate-backtrace</emphasis> [-v] [-d DIR] [-i DIR1[:DIR2]…] [-t NUM]</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>This tool runs gdb(1) on a file named <emphasis>coredump</emphasis> in problem directory DIR.
+gdb(1) generates backtrace and other diagnostic information about the state
+of the application at the moment when coredump was generated.
+Then the tool saves it as new element <emphasis>backtrace</emphasis> in this problem directory.</simpara>
+<refsect2 xml:id="_integration_with_libreport_events">
+<title>Integration with libreport events</title>
+<simpara><emphasis>abrt-action-generate-backtrace</emphasis> can be used as an analyzer for
+application crashes which dump core.</simpara>
+<simpara>Example usage in report_event.conf:</simpara>
+<screen>EVENT=analyze analyzer=CCpp
+        abrt-action-generate-backtrace</screen>
+</refsect2>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-d DIR
+</term>
+<listitem>
+<simpara>
+   Path to problem directory.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-v
+</term>
+<listitem>
+<simpara>
+   Be more verbose. Can be given multiple times.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-i DIR1[:DIR2]
+</term>
+<listitem>
+<simpara>
+   Additional debuginfo directories
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-t NUM
+</term>
+<listitem>
+<simpara>
+   Kill gdb if it runs for more than NUM seconds
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_authors">
+<title>AUTHORS</title>
+<itemizedlist>
+<listitem>
+<simpara>
+ABRT team
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect1>
+</refentry>

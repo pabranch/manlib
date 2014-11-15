@@ -1,0 +1,142 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>abrt-action-notify</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>abrt-action-notify</refname>
+    <refpurpose>Announces a new occurrence of problem via all accessible channels</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis>abrt-action-notify</emphasis> [-h] -d PROBLEM_DIR [-v] [-a] [-e AUTOREPORTING_EVENT]</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>The current implementation emits a D-Bus signal on System bus in path
+/org/freedesktop/problems of org.freedesktop.problems interface for Crash
+member.</simpara>
+<refsect2 xml:id="_integration_with_abrt_events">
+<title>Integration with ABRT events</title>
+<simpara><emphasis>abrt-action-notify</emphasis> is used to notify new problems and consecutive occurrences
+of a single problem for all crash types.</simpara>
+<screen>EVENT=notify package!=
+    abrt-action-notify</screen>
+</refsect2>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-v, --verbose
+</term>
+<listitem>
+<simpara>
+   Be verbose
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-d, --problem-dir PROBLEM_DIR
+</term>
+<listitem>
+<simpara>
+   Problem directory [Default: current directory]
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-h, --help
+</term>
+<listitem>
+<simpara>
+   Show help message
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-a, --autoreporting
+</term>
+<listitem>
+<simpara>
+   Force to run autoreporting event
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-e, --autoreporting-event AUTOREPORTING_EVENT
+</term>
+<listitem>
+<simpara>
+   Overwrite autoreporting event name
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_environment">
+<title>ENVIRONMENT</title>
+<variablelist>
+<varlistentry>
+<term>
+ABRT_VERBOSE
+</term>
+<listitem>
+<simpara>
+   ABRT verbosity level
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_files">
+<title>FILES</title>
+<simpara>/etc/abrt/abrt.conf</simpara>
+<variablelist>
+<varlistentry>
+<term>
+AutoreportingEnabled
+</term>
+<listitem>
+<simpara>
+   If enabled, abrt-action-notify runs AutoreportingEvent
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+AutoreportingEvent
+</term>
+<listitem>
+<simpara>
+   Name of event to be run if autoreporting is enabled
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<simpara>abrt.conf(5)</simpara>
+</refsect1>
+<refsect1 xml:id="_authors">
+<title>AUTHORS</title>
+<itemizedlist>
+<listitem>
+<simpara>
+ABRT team
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect1>
+</refentry>

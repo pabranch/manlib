@@ -1,0 +1,95 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>abrt-configuration</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>abrt-configuration</refname>
+    <refpurpose>dbus server for reading/writing ABRT configuration</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis>abrt-configuration</emphasis> [-v[v]…] [-t NUM]</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara><emphasis>abrt-configuration</emphasis> allows other programs to read/write ABRT configuration over
+D-Bus.</simpara>
+<simpara>Normally <emphasis>abrt-configuration</emphasis> is started by D-Bus daemon on demand, and terminates
+after a timeout.</simpara>
+<simpara>The server listens on <emphasis>com.redhat.problem.configuration</emphasis> address on the system
+bus and exports the configuration as D-Bus objects identified by D-Bus path and
+D-Bus interface. The configuration objects are created from D-BUS Object
+Introspection XML files placed in /usr/share/problems/config/interfaces directory.</simpara>
+<simpara>Each file must contain exactly one <emphasis>node</emphasis> element with one <emphasis>interface</emphasis> element
+and the interface must contain only <emphasis>property</emphasis> elements. The node element must
+also have both <emphasis>com.redhat.problems.configuration.ConfFile</emphasis> and
+<emphasis>com.rehdat.problems.configuration.DefaultConfFile</emphasis> annotations elements which
+provide path to the working configuration file, where the changes are written,
+and to the default configuration file.</simpara>
+<simpara><emphasis>property</emphasis> elements can also have the path annotations but they must be
+specified both or neither. 'propety’s name must be equal to some option from
+the configuration files and its type must be one of the following D-Bus types:
+b,i,s,as.</simpara>
+<simpara>The server allows all users to read the configuration, but modifications are
+authorized over PolicyKit with <emphasis>com.redhat.problem.configuration.update</emphasis> policy.</simpara>
+<refsect2 xml:id="_example_of_the_configuration_xml_file">
+<title>Example of the configuration XML file:</title>
+<screen>&lt;node name="/com/redhat/problems/configuration/ccpp"&gt;
+    &lt;annotation name="com.redhat.problems.ConfFile" value="/etc/abrt/plugins/CCpp.conf" /&gt;
+    &lt;annotation name="com.redhat.problems.DefaultConfFile" value="/usr/share/abrt/conf.d/plugins/CCpp.conf" /&gt;
+
+    &lt;interface name="com.redhat.problems.configuration.ccpp"&gt;
+        &lt;property name="MakeCompatCore" type="b" access="readwrite"/&gt;
+        &lt;property name="SaveBinaryImage" type="b" access="readwrite"/&gt;
+        &lt;property name="VerboseLog" type="i" access="readwrite"/&gt;
+        &lt;property name="DebuginfoLocation" type="s" access="readwrite"/&gt;
+    &lt;/interface&gt;
+&lt;/node&gt;</screen>
+</refsect2>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-v
+</term>
+<listitem>
+<simpara>
+   Log more detailed debugging information.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-t NUM
+</term>
+<listitem>
+<simpara>
+   Exit after NUM seconds of inactivity.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_authors">
+<title>AUTHORS</title>
+<itemizedlist>
+<listitem>
+<simpara>
+ABRT team
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<simpara>abrt.conf(5)</simpara>
+</refsect1>
+</refentry>

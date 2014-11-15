@@ -1,0 +1,92 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>abrt.conf</refentrytitle>
+<manvolnum>5</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>abrt.conf</refname>
+    <refpurpose>Configuration file for abrt.</refpurpose>
+</refnamediv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara><emphasis>abrt</emphasis> is a daemon that watches for application crashes. When a crash occurs, it
+collects the problem data and takes action according to its configuration. This
+document describes abrt’s configuration file.</simpara>
+<simpara>The configuration file consists of items in the format "Option = Value".
+A description of each item follows:</simpara>
+<variablelist>
+<varlistentry>
+<term>
+DumpLocation = <emphasis>directory</emphasis>
+</term>
+<listitem>
+<simpara>
+   The directory where should <emphasis>abrt</emphasis> store coredumps and all files which are
+   needed for reporting. The default is /var/tmp/abrt.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+MaxCrashReportsSize = <emphasis>number</emphasis>
+</term>
+<listitem>
+<simpara>
+   The maximum disk space (specified in megabytes) that <emphasis>abrt</emphasis>
+   will use for all the crash dumps. Specify a value here to ensure
+   that the crash dumps will not fill all available storage space.
+   The default is 1000.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+WatchCrashdumpArchiveDir = <emphasis>directory</emphasis>
+</term>
+<listitem>
+<simpara>
+   The daemon will watch this directory and call <emphasis>abrt-handle-upload</emphasis> on files
+   which appear there. This is used to auto-unpack crashdump tarballs uploaded
+   via ftp, scp, etc. The directory must exist and be writable for <emphasis>abrt</emphasis>.
+   There is no default.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+DeleteUploaded = <emphasis>yes/no</emphasis>
+</term>
+<listitem>
+<simpara>
+   The daemon will delete an uploaded crashdump archive after an atempt to
+   unpack it. An archive will be delete whether unpacking finishes successfully
+   or not.
+   The default value is <emphasis>no</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<simpara>abrtd(8)
+abrt-action-save-package-data.conf(5)
+abrt-handle-upload(1)</simpara>
+</refsect1>
+<refsect1 xml:id="_authors">
+<title>AUTHORS</title>
+<itemizedlist>
+<listitem>
+<simpara>
+ABRT team
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect1>
+</refentry>

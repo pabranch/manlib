@@ -1,0 +1,108 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>abrt-server</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>abrt-server</refname>
+    <refpurpose>Unix socket for ABRT.</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis>abrt-server</emphasis> [-u UID] [-spv[v]…]</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara><emphasis>abrt-server</emphasis> is executed by abrtd daemon to handle socket
+connections.  Every application in system is able to invoke creation
+of a new problem directory by following the communication protocol
+(described below in section <emphasis>PROTOCOL</emphasis>).</simpara>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-u UID
+</term>
+<listitem>
+<simpara>
+   Use UID as client uid
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-s
+</term>
+<listitem>
+<simpara>
+   Log to system log.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-p
+</term>
+<listitem>
+<simpara>
+   Add program names to log.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-v
+</term>
+<listitem>
+<simpara>
+   Log more detailed debugging information.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_protocol">
+<title>Protocol</title>
+<simpara>Initializing new dump:
+connect to UNIX domain socket /var/run/abrt.socket</simpara>
+<simpara>Providing data (writting data to the socket):</simpara>
+<screen>-&gt; "POST / HTTP/1.1\r\n"
+-&gt; "\r\n"
+-&gt; "type=string\0"
+   string, maximum length 100 bytes
+-&gt; "reason=string\0"
+   string, maximum length 512 bytes
+-&gt; "pid=number\0"
+   number, 0 - PID_MAX (/proc/sys/kernel/pid_max)
+-&gt; "executable=string\0"
+   string, maximum length ~MAX_PATH
+-&gt; "backtrace=string\0"
+   string, maximum length 1 MB
+-&gt; (close writing half of the socket)
+&lt;- "HTTP/1.1 201 \r\n"
+&lt;- "\r\n"</screen>
+<simpara>Deleting problem directory:</simpara>
+<screen>-&gt; "DELETE &lt;directory_name&gt; HTTP/1.1\r\n"
+-&gt; "\r\n"
+-&gt; (close writing half of the socket)
+&lt;- "HTTP/1.1 200 \r\n"
+&lt;- "\r\n"</screen>
+</refsect1>
+<refsect1 xml:id="_authors">
+<title>AUTHORS</title>
+<itemizedlist>
+<listitem>
+<simpara>
+ABRT team
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect1>
+</refentry>

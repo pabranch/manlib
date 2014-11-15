@@ -1,0 +1,69 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>abrt-action-perform-ccpp-analysis</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>abrt-action-perform-ccpp-analysis</refname>
+    <refpurpose>Allows users to select acceptable way of core dump analysis</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis>abrt-action-perform-ccpp-analysis</emphasis> [-h] [-d PROBLEM_DIR]</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>This tool allows user to select between local and remote core dump analysis.
+The local analysis may require to download huge amount of data but is
+completely safe. On the contrary the remote analysis only needs to upload the
+core dump to retrace server but the core dump may contain security sensitive
+data.</simpara>
+<refsect2 xml:id="_integration_with_abrt_events">
+<title>Integration with ABRT events</title>
+<simpara><emphasis>abrt-action-perform-ccpp-analysis</emphasis> is used in the analyze step when processing
+C/C++ crashes</simpara>
+<screen>EVENT=analyze_CCpp analyzer=CCpp
+    abrt-action-perform-ccpp-analysis</screen>
+</refsect2>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-d, --problem-dir PROBLEM_DIR
+</term>
+<listitem>
+<simpara>
+   Problem directory [Default: current directory]
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-h, --help
+</term>
+<listitem>
+<simpara>
+   Show help message
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_authors">
+<title>AUTHORS</title>
+<itemizedlist>
+<listitem>
+<simpara>
+ABRT team
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect1>
+</refentry>

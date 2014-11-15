@@ -1,0 +1,172 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>abrt-dump-journal-oops</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>abrt-dump-journal-oops</refname>
+    <refpurpose>Extract oops from systemd-journal</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis>abrt-dump-journal-oops</emphasis> [-vsoxtf] [-e]/[-c CURSOR] [-d DIR]/[-D]</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>This tool creates problem directory from oops extracted from systemd-journal.
+The tool can follow systemd-journal and extract oopses in time of their
+occurrence.</simpara>
+<simpara>The following start from the last seen cursor. If the last seen cursor file
+does not exist, the following start by scanning the entire sytemd-journal or
+from the end if <emphasis>-e</emphasis> option is specified.</simpara>
+</refsect1>
+<refsect1 xml:id="_files">
+<title>FILES</title>
+<variablelist>
+<varlistentry>
+<term>
+/etc/abrt/plugins/oops.conf
+</term>
+<listitem>
+<simpara>
+   Configuration file where user can disable detection of non-fatal MCEs
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+/var/lib/abrt/abrt-dump-journal-oops.state
+</term>
+<listitem>
+<simpara>
+   State file where systemd-journal cursor to the last seen message is saved
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-v, --verbose
+</term>
+<listitem>
+<simpara>
+   Be more verbose. Can be given multiple times.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-s
+</term>
+<listitem>
+<simpara>
+   Log to syslog
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-o
+</term>
+<listitem>
+<simpara>
+   Print found oopses on standard output
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-d DIR
+</term>
+<listitem>
+<simpara>
+   Create new problem directory in DIR for every oops found
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-D
+</term>
+<listitem>
+<simpara>
+   Same as -d DumpLocation, DumpLocation is specified in abrt.conf
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-s CURSOR
+</term>
+<listitem>
+<simpara>
+   Starts scannig systemd-journal from CURSOR
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-e
+</term>
+<listitem>
+<simpara>
+   Starts following systemd-journal from the end
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-x
+</term>
+<listitem>
+<simpara>
+   Make the problem directory world readable. Usable only with -d/-D
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-t
+</term>
+<listitem>
+<simpara>
+   Throttle problem directory creation to 1 per second
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-f
+</term>
+<listitem>
+<simpara>
+   Follow systemd-journal
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<simpara>abrt.conf(5)</simpara>
+</refsect1>
+<refsect1 xml:id="_authors">
+<title>AUTHORS</title>
+<itemizedlist>
+<listitem>
+<simpara>
+ABRT team
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect1>
+</refentry>

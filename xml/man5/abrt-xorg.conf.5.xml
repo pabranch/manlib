@@ -1,0 +1,52 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>abrt-xorg.conf</refentrytitle>
+<manvolnum>5</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>abrt-xorg.conf</refname>
+    <refpurpose>Configuration file for abrt-action-analyze-xorg</refpurpose>
+</refnamediv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>The <emphasis>abrt-action-analyze-xorg</emphasis> tool processes Xorg crash problem data
+and generates deduplication hashes for it.</simpara>
+<simpara>The configuration file consists of items in the format "Option = Value".
+Currently, only one item exists:</simpara>
+<variablelist>
+<varlistentry>
+<term>
+BlacklistedXorgModules = <emphasis>moduleName</emphasis>, <emphasis>moduleName</emphasis> …
+</term>
+<listitem>
+<simpara>
+   Xorg crash will be ignored if any of the listed Xorg modules were loaded
+   at the time of the crash. Module names should be without "_drv.so" suffix:
+   use <emphasis>buggymodule</emphasis>, not <emphasis>buggymodule_drv</emphasis> or <emphasis>buggymodule_drv.so</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<simpara>abrt-action-analyze-xorg(1)
+abrt.conf(5)</simpara>
+</refsect1>
+<refsect1 xml:id="_authors">
+<title>AUTHORS</title>
+<itemizedlist>
+<listitem>
+<simpara>
+ABRT team
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect1>
+</refentry>

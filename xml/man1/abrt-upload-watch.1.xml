@@ -1,0 +1,134 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>abrt-upload-watch</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>abrt-upload-watch</refname>
+    <refpurpose>Watch upload directory and unpacks incoming archives into DumpLocation</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis>abrt-upload-watch</emphasis> [-vs] [-w NUM_WORKERS] [-c CACHE_SIZE_MIB] [UPLOAD_DIRECTORY]</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-v, --verbose
+</term>
+<listitem>
+<simpara>
+   Be more verbose. Can be given multiple times.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-s
+</term>
+<listitem>
+<simpara>
+   Log to syslog
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-d
+</term>
+<listitem>
+<simpara>
+   Daemonize
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-w NUM_WORKERS
+</term>
+<listitem>
+<simpara>
+   Number of concurrent workers. Default is 10
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-c CACHE_SIZE_MIB
+</term>
+<listitem>
+<simpara>
+   Maximal cache size in MiB. Default is 4
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+UPLOAD_DIRECTORY
+</term>
+<listitem>
+<simpara>
+   Watched directory. Default is a value of WatchCrashdumpArchiveDir option from abrt.conf
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_files">
+<title>FILES</title>
+<simpara>Uses these three configuration options from file <emphasis>/etc/abrt/abrt.conf</emphasis>:</simpara>
+<variablelist>
+<varlistentry>
+<term>
+WatchCrashdumpArchiveDir
+</term>
+<listitem>
+<simpara>
+   Default upload directory
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+DumpLocation
+</term>
+<listitem>
+<simpara>
+   Place where uploaded archives are unpacked
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+DeleteUploaded
+</term>
+<listitem>
+<simpara>
+   Specifies if uploaded archives are deleted after unpacking
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<simpara>abrt.conf(5)</simpara>
+</refsect1>
+<refsect1 xml:id="_authors">
+<title>AUTHORS</title>
+<itemizedlist>
+<listitem>
+<simpara>
+ABRT team
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect1>
+</refentry>

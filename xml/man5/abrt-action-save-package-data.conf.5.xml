@@ -1,0 +1,87 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>abrt-action-save-package-data.conf</refentrytitle>
+<manvolnum>5</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>abrt-action-save-package-data.conf</refname>
+    <refpurpose>Configuration file for abrt-action-save-package-data</refpurpose>
+</refnamediv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>The <emphasis>abrt-action-save-package-data</emphasis> tool queries RPM database and saves package
+and component name to problem data.</simpara>
+<simpara>The configuration file consists of items in the format "Option = Value".
+A description of each item follows:</simpara>
+<variablelist>
+<varlistentry>
+<term>
+OpenGPGCheck = <emphasis>yes</emphasis> | <emphasis>no</emphasis>
+</term>
+<listitem>
+<simpara>
+   When set to <emphasis>yes</emphasis>, <emphasis>abrt</emphasis> will handle only crashes in executables which belong
+   to an installed package with valid GPG signature.
+   The default is <emphasis>yes</emphasis>.
+   The files containing trusted GPG keys which are used to verify
+   the signatures are listed in the gpg_keys.conf configuration file.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+BlackList = <emphasis>packageName</emphasis>, <emphasis>packageName</emphasis> …
+</term>
+<listitem>
+<simpara>
+   <emphasis>abrt</emphasis> will ignore packages in this list and will not handle their crashes.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+BlackListedPaths = <emphasis><literal>/path/to/ignore/*</literal></emphasis>, <emphasis><literal>*/another/ignored/path*</literal></emphasis> …
+</term>
+<listitem>
+<simpara>
+   <emphasis>abrt</emphasis> will ignore crashes in executables whose absolute path matches
+   one of specified patterns.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+ProcessUnpackaged = <emphasis>yes</emphasis> | <emphasis>no</emphasis>
+</term>
+<listitem>
+<simpara>
+   When set to <emphasis>yes</emphasis>, <emphasis>abrt</emphasis> will catch all crashes in the system.
+   When set to <emphasis>no</emphasis>, it will catch crashes only in executables which belong
+   to an installed package.
+   The default is <emphasis>no</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<simpara>abrt.conf(5)</simpara>
+</refsect1>
+<refsect1 xml:id="_authors">
+<title>AUTHORS</title>
+<itemizedlist>
+<listitem>
+<simpara>
+ABRT team
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect1>
+</refentry>

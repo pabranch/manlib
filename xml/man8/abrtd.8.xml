@@ -1,0 +1,105 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>abrtd</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>abrtd</refname>
+    <refpurpose>automated bug reporting tool's daemon.</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis>abrtd</emphasis> [-dsv[v]…]</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara><emphasis>abrtd</emphasis> is a daemon that watches for application crashes. When a crash occurs,
+it collects the problem data (core file, application’s command line etc.) and
+takes action according to the type of application that crashed and according to
+the configuration in the <emphasis>abrt.conf</emphasis> config file. There are plugins for various
+actions: for example to report the crash to Bugzilla, to mail the report, or to
+transfer the report via FTP or SCP. See the manual pages for the respective
+plugins.</simpara>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-v
+</term>
+<listitem>
+<simpara>
+   Log more detailed debugging information.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-d
+</term>
+<listitem>
+<simpara>
+   Stay in the foreground and log to standard error.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-s
+</term>
+<listitem>
+<simpara>
+   Log to system log even with option -d.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-t NUM
+</term>
+<listitem>
+<simpara>
+   Exit after NUM seconds of inactivity.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-p
+</term>
+<listitem>
+<simpara>
+   Add program names to log.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_caveats">
+<title>CAVEATS</title>
+<simpara>When you use some other crash-catching tool specific for an application or an
+application type (for example BugBuddy for GNOME applications), crashes of this
+type will be handled by that tool and not by <emphasis>abrtd</emphasis>. If you want <emphasis>abrtd</emphasis> to
+handle these crashes, turn off the higher-level crash-catching tool.</simpara>
+</refsect1>
+<refsect1 xml:id="_authors">
+<title>AUTHORS</title>
+<itemizedlist>
+<listitem>
+<simpara>
+ABRT team
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<simpara>abrt.conf(5)</simpara>
+</refsect1>
+</refentry>

@@ -12,6 +12,14 @@ Use rsync --checksum to preserve the timestamps of files in xml/ and man/ if the
     "cmd": "rsync -a --checksum --exclude=Makefile --exclude=Makemodule.am sources/acl/man/ man"
   },
 
+  "abrt": {
+    "type": "git",
+    "url": "https://github.com/abrt/abrt.git",
+    "sparse": "doc/",
+    "cmd": "find sources/abrt/doc -name '*.txt' ! -name fork.txt ! -name MCE_readme.txt -exec bash -c 'n=$(grep `basename {}` sources/abrt/doc/Makefile.am | cut -c 4); asciidoc -d manpage -b docbook -o- {} | xsltproc utils/db4-upgrade.xsl - > xml/man$n/$(basename -s .txt {}).$n.xml' \\;;
+rsync --checksum sources/abrt/doc/*.5 man/man5/;"
+  },
+
   "acct": {
     "type": "svn",
     "url": "svn://svn.savannah.gnu.org/acct/trunk",
