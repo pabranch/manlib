@@ -15,40 +15,38 @@ void OPENSSL_no_config(void);</synopsis>
   <refsection xml:id="sources.openssl.doc.crypto.OPENSSL_config.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
       OPENSSL_config() configures OpenSSL using the standard <emphasis role="bold">openssl.cnf</emphasis> configuration file name using
-      <emphasis role="bold">config_name</emphasis>. If <emphasis role="bold">config_name</emphasis> is NULL then the default name
-      <emphasis role="bold">openssl_conf</emphasis> will be used. Any
-      errors are ignored. Further calls to OPENSSL_config() will have no
-      effect. The configuration file format is documented in the conf(5)
-      manual page.
+      <emphasis role="bold">config_name</emphasis>. If <emphasis role="bold">config_name</emphasis> is NULL then the file specified in
+      the environment variable <emphasis role="bold">OPENSSL_CONF</emphasis> will be used, and if that is not
+      set then a system default location is used. In case of error, a
+      message is printed to <emphasis role="bold">stderr</emphasis> and the
+      routine exit's. Multiple calls have no effect.
     </para>
     <para>
       OPENSSL_no_config() disables configuration. If called before
       OPENSSL_config() no configuration takes place.
     </para>
+    <para>
+      Applications should free up configuration at application closedown by
+      calling CONF_modules_free().
+    </para>
+    <para>
+      If the application is built with <emphasis role="bold">OPENSSL_LOAD_CONF</emphasis> defined, then a call to
+      OpenSSL_add_all_algorithms() will implicitly call OPENSSL_config()
+      first.
+    </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.OPENSSL_config.pod:NOTES"><title>NOTES</title>
     <para>
+      The OPENSSL_config() function is designed to be a very simple "call
+      it and forget it" function. It is however <emphasis role="bold">much</emphasis> better than nothing. Applications which
+      need finer control over their configuration functionality should use
+      the configuration functions such as CONF_modules_load() directly.
+    </para>
+    <para>
       It is <emphasis role="bold">strongly</emphasis> recommended that
       <emphasis role="bold">all</emphasis> new applications call
-      OPENSSL_config() or the more sophisticated functions such as
       CONF_modules_load() during initialization (that is before starting
-      any threads). By doing this an application does not need to keep
-      track of all configuration options and some new functionality can be
-      supported automatically.
-    </para>
-    <para>
-      It is also possible to automatically call OPENSSL_config() when an
-      application calls OPENSSL_add_all_algorithms() by compiling an
-      application with the preprocessor symbol <emphasis role="bold">OPENSSL_LOAD_CONF</emphasis> #define'd. In this way
-      configuration can be added without source changes.
-    </para>
-    <para>
-      The environment variable <emphasis role="bold">OPENSSL_CONF</emphasis> can be set to specify the
-      location of the configuration file.
-    </para>
-    <para>
-      Currently ASN1 OBJECTs and ENGINE configuration can be performed
-      future versions of OpenSSL will add new configuration options.
+      any threads).
     </para>
     <para>
       There are several reasons why calling the OpenSSL configuration
@@ -63,24 +61,6 @@ void OPENSSL_no_config(void);</synopsis>
       about ENGINE control operations because they can be performed by
       editing a configuration file.
     </para>
-    <para>
-      Applications should free up configuration at application closedown by
-      calling CONF_modules_free().
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OPENSSL_config.pod:RESTRICTIONS"><title>RESTRICTIONS</title>
-    <para>
-      The OPENSSL_config() function is designed to be a very simple "call
-      it and forget it" function. As a result its behaviour is somewhat
-      limited. It ignores all errors silently and it can only load from the
-      standard configuration file location for example.
-    </para>
-    <para>
-      It is however <emphasis role="bold">much</emphasis> better than
-      nothing. Applications which need finer control over their
-      configuration functionality should use the configuration functions
-      such as CONF_load_modules() directly.
-    </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.OPENSSL_config.pod:RETURN_VALUES"><title>RETURN VALUES</title>
     <para>
@@ -89,7 +69,7 @@ void OPENSSL_no_config(void);</synopsis>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.OPENSSL_config.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      conf(5), CONF_load_modules_file(3), CONF_modules_free(3)
+      conf(5), CONF_modules_load_file(3), CONF_modules_free(3)
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.OPENSSL_config.pod:HISTORY"><title>HISTORY</title>
