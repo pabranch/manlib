@@ -1,0 +1,42 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="ostree">
+
+    <info>
+        
+        <productname>OSTree</productname>
+
+        <authorgroup>
+            <author><personname><firstname>Colin</firstname><surname>Walters</surname></personname><contrib>Developer</contrib><email>walters@verbum.org</email></author>
+        </authorgroup>
+    </info>
+
+    <refmeta>
+        <refentrytitle>ostree admin os-init</refentrytitle>
+        <manvolnum>1</manvolnum>
+    </refmeta>
+
+    <refnamediv>
+        <refname>ostree-admin-os-init</refname>
+        <refpurpose>Initialize empty state for a given operating system</refpurpose>
+    </refnamediv>
+
+    <refsynopsisdiv>
+            <cmdsynopsis sepchar=" ">
+                <command>ostree admin os-init <arg choice="req" rep="norepeat">OSNAME</arg></command>
+            </cmdsynopsis>
+    </refsynopsisdiv>
+
+    <refsect1>
+        <title>Description</title>
+
+        <para>
+            Initializes an new state for an operating system.  Ensures that the core subdirectories of /var (/tmp, /lib, /run, and /lock) exist and initialize the given OSNAME as OSTree root.  Each deployment location is comprised of a single shared <filename>var</filename> and a set of deployments (chroots).
+        </para>
+    </refsect1>
+
+    <refsect1>
+        <title>Example</title>
+        <para><command>$ ostree admin os-init gnome-ostree</command></para>
+        ostree/deploy/gnome-ostree initialized as OSTree root
+    </refsect1>
+</refentry>

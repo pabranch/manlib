@@ -1,0 +1,67 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="ostree">
+
+    <info>
+        
+        <productname>OSTree</productname>
+
+        <authorgroup>
+            <author><personname><firstname>Colin</firstname><surname>Walters</surname></personname><contrib>Developer</contrib><email>walters@verbum.org</email></author>
+        </authorgroup>
+    </info>
+
+    <refmeta>
+        <refentrytitle>ostree pull-local</refentrytitle>
+        <manvolnum>1</manvolnum>
+    </refmeta>
+
+    <refnamediv>
+        <refname>ostree-pull-local</refname>
+        <refpurpose>Copy data from a source repository</refpurpose>
+    </refnamediv>
+
+    <refsynopsisdiv>
+            <cmdsynopsis sepchar=" ">
+                <command>ostree pull-local <arg choice="opt" rep="repeat">OPTIONS</arg> <arg choice="req" rep="norepeat">SOURCE_REPO</arg> <arg choice="opt" rep="repeat">REFS</arg> </command>
+            </cmdsynopsis>
+    </refsynopsisdiv>
+
+    <refsect1>
+        <title>Description</title>
+
+        <para>
+            Copies data from a given repository; optimized for copies only between repositories on the same system.
+        </para>
+    </refsect1>
+
+    <refsect1>
+        <title>Options</title>
+
+        <variablelist>
+            <varlistentry>
+                <term><option>--remote</option>="REMOTE"</term>
+
+                <listitem><para>
+                    Add REMOTE to refspec.
+                </para></listitem>
+            </varlistentry>
+
+            <varlistentry>
+                <term><option>--disable-fsync</option></term>
+
+                <listitem><para>
+                    Do no invoke fsync().
+                </para></listitem>
+            </varlistentry>
+        </variablelist>
+    </refsect1>
+
+<!-- This is just copied output.  Still not sure entirely what it does.  Rework -->
+    <refsect1>
+        <title>Example</title>
+        <para><command>$ ostree pull-local /ostree/repo</command></para>
+        Enumerating objects...
+        pull: 25709/25709 scanned, 0 objects copied
+        Writing 5 refs
+    </refsect1>
+</refentry>

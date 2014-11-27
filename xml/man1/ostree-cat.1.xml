@@ -1,0 +1,43 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="ostree">
+
+    <info>
+        
+        <productname>OSTree</productname>
+
+        <authorgroup>
+            <author><personname><firstname>Colin</firstname><surname>Walters</surname></personname><contrib>Developer</contrib><email>walters@verbum.org</email></author>
+        </authorgroup>
+    </info>
+
+    <refmeta>
+        <refentrytitle>ostree cat</refentrytitle>
+        <manvolnum>1</manvolnum>
+    </refmeta>
+
+    <refnamediv>
+        <refname>ostree-cat</refname>
+        <refpurpose>Display or concatenate contents of files</refpurpose>
+    </refnamediv>
+
+    <refsynopsisdiv>
+            <cmdsynopsis sepchar=" ">
+                <command>ostree cat <arg choice="req" rep="norepeat">COMMIT</arg> <arg choice="req" rep="repeat">PATH</arg></command>
+            </cmdsynopsis>
+    </refsynopsisdiv>
+
+    <refsect1>
+        <title>Description</title>
+
+        <para>
+            This command functions much like the typical Unix "cat" command, in that it displays the contents of a file, or concatenates them given two or more files.  However, this command requires the user to specify a commit - a checksum or refspec corresponding to a given build.  If you use a refspec, OSTree will refer to the most recent commit, unless you specify a parent build using the carat (^) at the end of the refspec.  It will then operate the command in that given commit.
+        </para>
+
+    </refsect1>
+
+    <refsect1>
+        <title>Example</title>
+        <para><command>$ ostree cat my-branch helloworld.txt</command></para>
+        Hello, world!
+    </refsect1>
+</refentry>

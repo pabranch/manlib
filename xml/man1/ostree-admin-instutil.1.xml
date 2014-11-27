@@ -1,0 +1,62 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="ostree">
+
+    <info>
+        
+        <productname>OSTree</productname>
+
+        <authorgroup>
+            <author><personname><firstname>Colin</firstname><surname>Walters</surname></personname><contrib>Developer</contrib><email>walters@verbum.org</email></author>
+        </authorgroup>
+    </info>
+
+    <refmeta>
+        <refentrytitle>ostree admin instutil</refentrytitle>
+        <manvolnum>1</manvolnum>
+    </refmeta>
+
+    <refnamediv>
+        <refname>ostree-admin-instutil</refname>
+        <refpurpose>Utility functions intended primarily for operating system installation programs</refpurpose>
+    </refnamediv>
+
+    <refsynopsisdiv>
+            <cmdsynopsis sepchar=" ">
+                <command>ostree admin instutil <arg choice="req" rep="norepeat">SUBCOMMAND</arg> <arg choice="opt" rep="norepeat">ARGS</arg></command>
+            </cmdsynopsis>
+    </refsynopsisdiv>
+
+    <refsect1>
+        <title>Description</title>
+
+        <para>
+            Use the subcommands to toggle admin installation utilities for selinux policies and kernel arguments.
+        </para>
+    </refsect1>
+
+<!-- Give more details on each subcommand?  They don't have separate manpages -->
+    <refsect1>
+        <title>Subcommands</title>
+
+        <variablelist>
+            <varlistentry>
+                <term><command>selinux-ensure-labeled <arg choice="opt" rep="norepeat">SUBPATH PREFIX</arg></command></term>
+
+                <listitem><para>
+                    Ensure all files and directories are labeled according to SELinux policy of the first deployment.
+                </para></listitem>
+            </varlistentry>
+
+            <varlistentry>
+                <term><command>set-kargs <arg choice="opt" rep="norepeat">--merge</arg> <arg choice="opt" rep="norepeat">--import-proc-cmdline</arg> <arg choice="opt" rep="norepeat">--append="NAME=VALUE"</arg> <arg choice="opt" rep="norepeat">--replace="NAME=VALUE"</arg> <arg choice="opt" rep="norepeat">MORE_APPEND_ARGS</arg></command></term>
+
+                <listitem><para>
+                    Replace the kernel arguments of the default deployment. The new arguments are based
+                    on an empty list (the default), the current options (--merge), or the arguments
+                    of the loaded kernel (--import-proc-cmdline), and new options either are added to the
+                    end (--append="NAME=VALUE") or replace existing arguments of the same name (--replace="NAME=VALUE").
+                </para></listitem>
+            </varlistentry>
+        </variablelist>
+    </refsect1>
+</refentry>

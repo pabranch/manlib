@@ -1,0 +1,66 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="ostree">
+
+    <info>
+        
+        <productname>OSTree</productname>
+
+        <authorgroup>
+            <author><personname><firstname>Colin</firstname><surname>Walters</surname></personname><contrib>Developer</contrib><email>walters@verbum.org</email></author>
+        </authorgroup>
+    </info>
+
+    <refmeta>
+        <refentrytitle>ostree fsck</refentrytitle>
+        <manvolnum>1</manvolnum>
+    </refmeta>
+
+    <refnamediv>
+        <refname>ostree-fsck</refname>
+        <refpurpose>Check the repository for consistency</refpurpose>
+    </refnamediv>
+
+    <refsynopsisdiv>
+            <cmdsynopsis sepchar=" ">
+                <command>ostree fsck <arg choice="opt" rep="repeat">OPTIONS</arg></command>
+            </cmdsynopsis>
+    </refsynopsisdiv>
+
+    <refsect1>
+        <title>Description</title>
+
+        <para>
+            Checks the repository to verify the content integrity of commit objects.  Looks for missing and corrupted objects and metadata, and validates directory structure and metadata.
+        </para>
+    </refsect1>
+
+    <refsect1>
+        <title>Options</title>
+
+        <variablelist>
+            <varlistentry>
+                <term><option>--quiet</option>,<option>-q</option></term>
+                <listitem><para>
+                    Only print error messages.
+                </para></listitem>
+            </varlistentry>
+
+            <varlistentry>
+                <term><option>--delete</option></term>
+                <listitem><para>
+                   Remove corrupted objects.
+                </para></listitem>
+            </varlistentry>
+        </variablelist>
+    </refsect1>
+
+<!-- What does it look like when it finds corrupted objects?-->
+    <refsect1>
+        <title>Example</title>
+        <para><command>$ ostree fsck</command></para>
+        Enumerating objects...
+        Verifying content integrity of of 2 commit objects
+        0/2572 objects
+        2571/2572 objects
+    </refsect1>
+</refentry>

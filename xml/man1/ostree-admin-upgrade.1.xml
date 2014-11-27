@@ -1,0 +1,73 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="ostree">
+
+    <info>
+        
+        <productname>OSTree</productname>
+
+        <authorgroup>
+            <author><personname><firstname>Colin</firstname><surname>Walters</surname></personname><contrib>Developer</contrib><email>walters@verbum.org</email></author>
+        </authorgroup>
+    </info>
+
+    <refmeta>
+        <refentrytitle>ostree admin upgrade</refentrytitle>
+        <manvolnum>1</manvolnum>
+    </refmeta>
+
+    <refnamediv>
+        <refname>ostree-admin-upgrade</refname>
+        <refpurpose>Construct new tree from current origin and deploy it, if it changed</refpurpose>
+    </refnamediv>
+
+    <refsynopsisdiv>
+            <cmdsynopsis sepchar=" ">
+                <command>ostree admin upgrade <arg choice="opt" rep="repeat">OPTIONS</arg></command>
+            </cmdsynopsis>
+    </refsynopsisdiv>
+
+    <refsect1>
+        <title>Description</title>
+
+        <para>
+            Downloads the latest version of the current ref from the build server and deploys it, if it changed.  Reboot the machine for the changes to take effect.
+        </para>
+    </refsect1>
+
+    <refsect1>
+        <title>Options</title>
+
+        <variablelist>
+            <varlistentry>
+                <term><option>--os</option>="OSNAME"</term>
+
+                <listitem><para>
+                    Use a different operating system root than the current one.
+                </para></listitem>
+            </varlistentry>
+
+            <varlistentry>
+                <term><option>--reboot</option>,<option>-r</option></term>
+
+                <listitem><para>
+                    Reboot after a successful upgrade.
+                </para></listitem>
+            </varlistentry>
+            
+            <varlistentry>
+                <term><option>--allow-downgrade</option></term>
+
+                <listitem><para>
+                    Permit deployment of chronologically older trees.
+                </para></listitem>
+            </varlistentry>
+        </variablelist>
+    </refsect1>
+
+<!-- Can we have a real example with output? -->
+    <refsect1>
+        <title>Example</title>
+        <para><command>$ ostree admin upgrade</command></para>
+        No update available.
+    </refsect1>
+</refentry>

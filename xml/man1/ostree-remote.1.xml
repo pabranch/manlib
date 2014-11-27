@@ -1,0 +1,70 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="ostree">
+
+    <info>
+        
+        <productname>OSTree</productname>
+
+        <authorgroup>
+            <author><personname><firstname>Colin</firstname><surname>Walters</surname></personname><contrib>Developer</contrib><email>walters@verbum.org</email></author>
+        </authorgroup>
+    </info>
+
+    <refmeta>
+        <refentrytitle>ostree remote</refentrytitle>
+        <manvolnum>1</manvolnum>
+    </refmeta>
+
+    <refnamediv>
+        <refname>ostree-remote</refname>
+        <refpurpose>Control remote repository configuration</refpurpose>
+    </refnamediv>
+
+    <refsynopsisdiv>
+            <cmdsynopsis sepchar=" ">
+                <command>ostree remote <arg choice="opt" rep="repeat">OPTIONS</arg> add <arg choice="req" rep="norepeat">NAME</arg> <arg choice="req" rep="norepeat">URL</arg> <arg choice="opt" rep="repeat">BRANCH</arg></command>
+            </cmdsynopsis>
+            <cmdsynopsis sepchar=" ">
+                <command>ostree remote delete <arg choice="req" rep="norepeat">NAME</arg></command>
+            </cmdsynopsis>
+            <cmdsynopsis sepchar=" ">
+                <command>ostree remote show-url <arg choice="req" rep="norepeat">NAME</arg></command>
+            </cmdsynopsis>
+    </refsynopsisdiv>
+
+    <refsect1>
+        <title>Description</title>
+
+        <para>
+            Changes remote respository configurations.  The NAME refers to the name of the remote.
+        </para>
+    </refsect1>
+
+    <refsect1>
+        <title>Options</title>
+
+        <variablelist>
+            <varlistentry>
+                <term><option>--set</option>="KEY=VALUE"</term>
+
+                <listitem><para>
+                    Set config option KEY=VALUE for remote.
+                </para></listitem>
+            </varlistentry>
+
+            <varlistentry>
+                <term><option>--no-gpg-verify</option></term>
+
+                <listitem><para>
+                    Disable GPG verification.
+                </para></listitem>
+            </varlistentry>
+        </variablelist>
+    </refsect1>
+
+    <refsect1>
+        <title>Example</title>
+        <para><command>$ ostree remote show-url local</command></para>
+        http://192.168.122.1/repo
+    </refsect1>
+</refentry>

@@ -1,0 +1,44 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="ostree">
+
+    <info>
+        
+        <productname>OSTree</productname>
+
+        <authorgroup>
+            <author><personname><firstname>Colin</firstname><surname>Walters</surname></personname><contrib>Developer</contrib><email>walters@verbum.org</email></author>
+        </authorgroup>
+    </info>
+
+    <refmeta>
+        <refentrytitle>ostree rev-parse</refentrytitle>
+        <manvolnum>1</manvolnum>
+    </refmeta>
+
+    <refnamediv>
+        <refname>ostree-rev-parse</refname>
+        <refpurpose>Output the target of a rev</refpurpose>
+    </refnamediv>
+
+    <refsynopsisdiv>
+            <cmdsynopsis sepchar=" ">
+                <command>ostree rev-parse <arg choice="req" rep="norepeat">REV</arg> <arg choice="req" rep="norepeat">PATH</arg> </command>
+            </cmdsynopsis>
+    </refsynopsisdiv>
+
+
+<!-- Is this accurate for all cases?  This is what I observed -->
+    <refsect1>
+        <title>Description</title>
+
+        <para>
+            Given a REV, outputs the checksum of the latest commit of that revision.  
+        </para>
+    </refsect1>
+
+    <refsect1>
+        <title>Example</title>
+        <para><command>$ ostree rev-parse my-branch</command></para>
+        ce19c41036cc45e49b0cecf6b157523c2105c4de1ce30101def1f759daafcc3e
+    </refsect1>
+</refentry>

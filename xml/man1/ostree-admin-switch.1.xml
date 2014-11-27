@@ -1,0 +1,56 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="ostree">
+
+    <info>
+        
+        <productname>OSTree</productname>
+
+        <authorgroup>
+            <author><personname><firstname>Colin</firstname><surname>Walters</surname></personname><contrib>Developer</contrib><email>walters@verbum.org</email></author>
+        </authorgroup>
+    </info>
+
+    <refmeta>
+        <refentrytitle>ostree admin switch</refentrytitle>
+        <manvolnum>1</manvolnum>
+    </refmeta>
+
+    <refnamediv>
+        <refname>ostree-admin-switch</refname>
+        <refpurpose>Construct new tree from current origin and deploy it, if it changed</refpurpose>
+    </refnamediv>
+
+    <refsynopsisdiv>
+            <cmdsynopsis sepchar=" ">
+                <command>ostree admin switch <arg choice="req" rep="norepeat">REF</arg> </command>
+            </cmdsynopsis>
+    </refsynopsisdiv>
+
+    <refsect1>
+        <title>Description</title>
+
+        <para>
+            Choose a different REF forom the current remote to track.  This is the ref that will be "tracked" and upgraded with <command>ostree admin upgrade</command>.  Like an upgrade, the operating system state will be preserved.
+        </para>
+    </refsect1>
+
+    <refsect1>
+        <title>Options</title>
+
+        <variablelist>
+            <varlistentry>
+                <term><option>--os</option>="OSNAME"</term>
+
+                <listitem><para>
+                    Use a different operating system root than the current one.
+                </para></listitem>
+            </varlistentry>
+        </variablelist>
+    </refsect1>
+
+    <refsect1>
+        <title>Example</title>
+
+        <para><command>$ ostree admin switch fedostree/20/workstation/gnome/core</command></para>
+    </refsect1>    
+</refentry>

@@ -1,0 +1,82 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="ostree">
+
+    <info>
+        
+        <productname>OSTree</productname>
+
+        <authorgroup>
+            <author><personname><firstname>Colin</firstname><surname>Walters</surname></personname><contrib>Developer</contrib><email>walters@verbum.org</email></author>
+        </authorgroup>
+    </info>
+
+    <refmeta>
+        <refentrytitle>ostree admin</refentrytitle>
+        <manvolnum>1</manvolnum>
+    </refmeta>
+
+    <refnamediv>
+        <refname>ostree-admin</refname>
+        <refpurpose>Use one of the ostree admin commands</refpurpose>
+    </refnamediv>
+
+    <refsynopsisdiv>
+            <cmdsynopsis sepchar=" ">
+                <command>ostree admin <arg choice="req" rep="norepeat">SUBCOMMAND</arg></command>
+            </cmdsynopsis>
+    </refsynopsisdiv>
+
+    <refsect1>
+        <title>Description</title>
+
+        <para>
+            Use ostree admin subcommands.
+        </para>
+    </refsect1>
+
+    <refsect1>
+        <title>Subcommands</title>
+
+        <variablelist>
+            <varlistentry><term><command>cleanup</command></term></varlistentry>
+            <varlistentry><term><command>config-diff</command></term></varlistentry>
+            <varlistentry><term><command>deploy</command></term></varlistentry>
+            <varlistentry><term><command>init-fs</command></term></varlistentry>
+            <varlistentry><term><command>instutil</command></term></varlistentry>
+            <varlistentry><term><command>os-init</command></term></varlistentry>
+            <varlistentry><term><command>status</command></term></varlistentry>
+            <varlistentry><term><command>switch</command></term></varlistentry>
+            <varlistentry><term><command>undeploy</command></term></varlistentry>
+            <varlistentry><term><command>upgrade</command></term></varlistentry>            
+        </variablelist>
+
+        <para>
+            View manpages for each admin subcommand using, for example:
+        </para>
+        <para>
+            <command>$ man ostree-admin cleanup</command>
+        </para>
+    </refsect1>
+    <refsect1>
+        <title>Options</title>
+        <variablelist>
+            <varlistentry>
+                <term><option>--help</option>, <option>-h</option></term>
+                <listitem><para>Usage help</para></listitem>
+            </varlistentry>
+
+<!-- What is a sysroot specifically?  More details needed here-->
+            <varlistentry>
+                <term><option>--sysroot</option>="PATH"</term>
+                <listitem><para>Creates a new OSTree sysroot at PATH</para></listitem>
+            </varlistentry>
+
+            <varlistentry>
+                <term><option>--print-current-dir</option></term>
+                <listitem><para>
+                  Prints the full path to the deployment directory for the currently active deployment in the specified sysroot to standard out. This is incompatible with specifying a subcommand.
+                </para></listitem>
+            </varlistentry>
+        </variablelist>
+    </refsect1>
+</refentry>

@@ -1,0 +1,67 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="ostree.repo">
+
+        <info>
+                
+                <productname>OSTree</productname>
+
+                <authorgroup>
+                        <author><personname><firstname>Colin</firstname><surname>Walters</surname></personname><contrib>Developer</contrib><email>walters@verbum.org</email></author>
+                </authorgroup>
+        </info>
+
+        <refmeta>
+                <refentrytitle>ostree.repo</refentrytitle>
+                <manvolnum>5</manvolnum>
+        </refmeta>
+
+        <refnamediv>
+                <refname>ostree.repo</refname>
+                <refpurpose>OSTree repository configuration and layout</refpurpose>
+        </refnamediv>
+
+        <refsect1>
+                <title>Description</title>
+
+                <para>
+		  An OSTree repository is structurally similar to a
+		  git repository; it is a content-addressed object
+		  store containing filesystem trees.  However, unlike
+		  git, ostree is designed to store operating system
+		  binaries.  It records the Unix uid and gid,
+		  permissions, as well as extended attributes.
+		</para>
+		
+		<para>
+		  A repository can be in one of two modes;
+		  <literal>bare</literal>, which is designed as a hard
+		  link source for operating system checkouts, and
+		  <literal>archive-z2</literal>, which is designed for
+		  static HTTP servers.
+		</para>
+
+		<para>
+		  There is a system repository located at
+		  <filename>/ostree/repo</filename>.  If no repository
+		  is specified, the <command>ostree</command> as well
+		  as many API calls will use it by default.
+		</para>
+        </refsect1>
+
+        <refsect1>
+                <title>Components of a repository</title>
+
+		<para>
+		  The only user-editable component is the
+		  <filename>config</filename> file.  For more
+		  information, see <citerefentry><refentrytitle>ostree.repo-config</refentrytitle><manvolnum>5</manvolnum></citerefentry>.
+		</para>
+	</refsect1>
+
+        <refsect1>
+                <title>See Also</title>
+                <para>
+                        <citerefentry><refentrytitle>ostree</refentrytitle><manvolnum>1</manvolnum></citerefentry>, <citerefentry><refentrytitle>ostree.repo-config</refentrytitle><manvolnum>1</manvolnum></citerefentry>
+		</para>
+	</refsect1>
+</refentry>

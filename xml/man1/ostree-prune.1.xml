@@ -1,0 +1,74 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="ostree">
+
+    <info>
+        
+        <productname>OSTree</productname>
+
+        <authorgroup>
+            <author><personname><firstname>Colin</firstname><surname>Walters</surname></personname><contrib>Developer</contrib><email>walters@verbum.org</email></author>
+        </authorgroup>
+    </info>
+
+    <refmeta>
+        <refentrytitle>ostree prune</refentrytitle>
+        <manvolnum>1</manvolnum>
+    </refmeta>
+
+    <refnamediv>
+        <refname>ostree-prune</refname>
+        <refpurpose>Search for unreachable objects</refpurpose>
+    </refnamediv>
+
+    <refsynopsisdiv>
+            <cmdsynopsis sepchar=" ">
+                <command>ostree prune <arg choice="opt" rep="repeat">OPTIONS</arg></command>
+            </cmdsynopsis>
+    </refsynopsisdiv>
+
+    <refsect1>
+        <title>Description</title>
+
+        <para>
+            This searches for unreachable objects in the current repository.  If unreachable objects are found, the command delete them to free space.  If the <option>--no-prune</option> option is invoked, the command will just print unreachable objects and recommend deleting them.
+        </para>
+    </refsect1>
+
+    <refsect1>
+        <title>Options</title>
+
+        <variablelist>
+            <varlistentry>
+                <term><option>--no-prune</option></term>
+
+                <listitem><para>
+                    Only display unreachable objects; don't delete.
+                </para></listitem>
+            </varlistentry>
+
+            <varlistentry>
+                <term><option>--refs-only</option></term>
+
+                <listitem><para>
+                    Only compute reachability via refs.
+                </para></listitem>
+            </varlistentry>
+
+            <varlistentry>
+                <term><option>--depth</option>=DEPTH</term>
+
+                <listitem><para>
+                    Only traverse DEPTH (integer) parents for each commit (default: -1=infinite).
+                </para></listitem>
+            </varlistentry>
+        </variablelist>
+    </refsect1>
+
+<!-- Can we have an example for when it DOES prune? -->
+    <refsect1>
+        <title>Example</title>
+        <para><command>$ ostree prune</command></para>
+        Total objects: 25627
+        No unreachable objects
+    </refsect1>
+</refentry>

@@ -1,0 +1,161 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="ostree.repo-config">
+
+  <info>
+    
+    <productname>OSTree</productname>
+
+    <authorgroup>
+      <author><personname><firstname>Colin</firstname><surname>Walters</surname></personname><contrib>Developer</contrib><email>walters@verbum.org</email></author>
+    </authorgroup>
+  </info>
+
+  <refmeta>
+    <refentrytitle>ostree.repo-config</refentrytitle>
+    <manvolnum>5</manvolnum>
+  </refmeta>
+
+  <refnamediv>
+    <refname>ostree.repo-config</refname>
+    <refpurpose>OSTree repository configuration</refpurpose>
+  </refnamediv>
+
+  <refsect1>
+    <title>Description</title>
+
+    <para>
+      The <filename>config</filename> file in an OSTree
+      repository is a "keyfile" in the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://standards.freedesktop.org/desktop-entry-spec/latest/">XDG
+      Desktop Entry Specification</link> format.  It has
+      several global flags, as well as zero or more remote
+      entries which describe how to access remote
+      repositories.
+    </para>
+    
+    <para>
+      See <citerefentry><refentrytitle>ostree.repo</refentrytitle><manvolnum>5</manvolnum></citerefentry> for more information
+      about OSTree repositories.
+    </para>
+  </refsect1>
+
+  <refsect1>
+    <title>[core] Section Options</title>
+
+    <para>
+      Repository-global options.  The following entries are defined:
+    </para>
+
+    <variablelist>
+      <varlistentry>
+        <term><varname>mode</varname></term>
+        <listitem><para>One of <literal>bare</literal> or <literal>archive-z2</literal>.  </para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><varname>repo_version</varname></term>
+        <listitem><para>Currently, this must be set to <literal>1</literal>.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><varname>fsync</varname></term>
+        <listitem><para>Boolean value controlling whether or not to
+        ensure files are on stable storage when performing operations
+        such as commits, pulls, and checkouts.  Defaults to
+        <literal>true</literal>.</para>
+	<para>
+	  If you disable fsync, OSTree will no longer be robust
+	  against kernel crashes or power loss.
+	</para>
+	<para>
+	  You might choose to disable this for local development
+	  repositories, under the assumption they can be recreated from
+	  source.  Similarly, you could disable for a mirror where you could
+	  re-pull.
+	</para>
+	<para>
+	  For the system repository, you might choose to disable fsync
+	  if you have uninterruptable power supplies and a well tested
+	  kernel.
+	</para>
+	</listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1>
+    <title>[remote "name"] Section Options</title>
+    
+    <para>
+      Describes a remote repository location.
+    </para>
+
+    <variablelist>
+      <varlistentry>
+        <term><varname>url</varname></term>
+        <listitem><para>Must be present; declares URL for accessing
+        this remote.  The only supported schemes are the moment are
+        <literal>file</literal>, <literal>http</literal>, and
+        <literal>https</literal>.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><varname>proxy</varname></term>
+        <listitem><para>A string value, if given should be a URL for a
+        HTTP proxy to use for access to this repository.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><varname>gpg-verify</varname></term>
+        <listitem><para>A boolean value, defaults to true.
+        Controls whether or not OSTree will require commits to be
+        signed by a known GPG key.  For more information, see the
+        <citerefentry><refentrytitle>ostree</refentrytitle><manvolnum>1</manvolnum></citerefentry>
+        manual under GPG.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><varname>tls-permissive</varname></term>
+        <listitem><para>A boolean value, defaults to false.  By
+        default, server TLS certificates will be checked against the
+        system certificate store.  If this variable is set, any
+        certificate will be accepted.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><varname>tls-client-cert-path</varname></term>
+        <listitem><para>Path to file for client-side certificate, to present when making requests to this repository.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><varname>tls-client-key-path</varname></term>
+        <listitem><para>Path to file containing client-side certificate key, to present when making requests to this repository.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><varname>tls-ca-path</varname></term>
+        <listitem><para>Path to file containing trusted anchors instead of the system CA database.</para></listitem>
+      </varlistentry>
+    </variablelist>
+
+  </refsect1>
+
+  <refsect1>
+    <title>/etc/ostree/remotes.d</title>
+
+    <para>
+      In addition to the <filename>/ostree/repo/config</filename>
+      file, remotes may also be specified in
+      <filename>/etc/ostree/remotes.d</filename>.  The remote
+      configuration file must end in <literal>.conf</literal>; files
+      whose name does not end in <literal>.conf</literal> will be
+      ignored.
+    </para>
+  </refsect1>
+  
+  <refsect1>
+    <title>See Also</title>
+    <para>
+      <citerefentry><refentrytitle>ostree</refentrytitle><manvolnum>1</manvolnum></citerefentry>, <citerefentry><refentrytitle>ostree.repo</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+    </para>
+  </refsect1>
+</refentry>
