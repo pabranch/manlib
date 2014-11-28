@@ -16,24 +16,74 @@
 
         <refnamediv>
                 <refname>systemd-system.conf</refname>
+                <refname>system.conf.d</refname>
                 <refname>systemd-user.conf</refname>
-                <refpurpose>System and session service manager configuration file</refpurpose>
+                <refname>user.conf.d</refname>
+                <refpurpose>System and session service manager configuration files</refpurpose>
         </refnamediv>
 
         <refsynopsisdiv>
                 <para><filename>/etc/systemd/system.conf</filename></para>
+                <para><filename>/etc/systemd/system.conf.d/*.conf</filename></para>
+                <para><filename>/run/systemd/system.conf.d/*.conf</filename></para>
+                <para><filename>/usr/lib/systemd/system.conf.d/*.conf</filename></para>
                 <para><filename>/etc/systemd/user.conf</filename></para>
+                <para><filename>/etc/systemd/user.conf.d/*.conf</filename></para>
+                <para><filename>/run/systemd/user.conf.d/*.conf</filename></para>
+                <para><filename>/usr/lib/systemd/user.conf.d/*.conf</filename></para>
         </refsynopsisdiv>
 
         <refsect1>
                 <title>Description</title>
 
-                <para>When run as system instance systemd reads the
-                configuration file <filename>system.conf</filename>,
-                otherwise <filename>user.conf</filename>. These
+                <para>When run as a system instance, systemd interprets the
+                configuration file <filename>system.conf</filename> and the
+                files in <filename>system.conf.d</filename> directories; when
+                run as a user instance, systemd interprets the configuration
+                file <filename>user.conf</filename> and the files in
+                <filename>user.conf.d</filename> directories. These
                 configuration files contain a few settings controlling
                 basic manager operations.</para>
         </refsect1>
+
+        <refsection xml:id="confd">
+    <title>Configuration Directories and Precedence</title>
+
+    <para>Configuration files are read from directories in
+    <filename>/etc/</filename>, <filename>/run/</filename>, and
+    <filename>/usr/lib/</filename>, in order of precedence.
+    Each configuration file in these configuration directories shall be named in
+    the style of <filename><replaceable>filename</replaceable>.conf</filename>.
+    Files in <filename>/etc/</filename> override files with the same name in
+    <filename>/run/</filename> and <filename>/usr/lib/</filename>. Files in
+    <filename>/run/</filename> override files with the same name in
+    <filename>/usr/lib/</filename>.</para>
+
+    <para>Packages should install their configuration files in
+    <filename>/usr/lib/</filename>. Files in <filename>/etc/</filename> are
+    reserved for the local administrator, who may use this logic to override the
+    configuration files installed by vendor packages. All configuration files
+    are sorted by their filename in lexicographic order, regardless of which of
+    the directories they reside in. If multiple files specify the same option,
+    the entry in the file with the lexicographically latest name will take
+    precedence. It is recommended to prefix all filenames with a two-digit number
+    and a dash, to simplify the ordering of the files.</para>
+
+    <para>If the administrator wants to disable a configuration file supplied by
+    the vendor, the recommended way is to place a symlink to
+    <filename>/dev/null</filename> in the configuration directory in
+    <filename>/etc/</filename>, with the same filename as the vendor
+    configuration file.</para>
+  </refsection>
+        <refsection xml:id="conf">
+    <title>Configuration File</title>
+
+    <para>Configuration is also read from a single configuration file in
+    <filename>/etc/</filename>. This file is read before any of the
+    configuration directories, and has the lowest precedence; entries in a file
+    in any configuration directory override entries in the single configuration
+    file.</para>
+  </refsection>
 
         <refsect1>
                 <title>Options</title>

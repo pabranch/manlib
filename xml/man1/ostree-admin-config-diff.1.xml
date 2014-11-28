@@ -22,7 +22,7 @@
 
     <refsynopsisdiv>
             <cmdsynopsis sepchar=" ">
-                <command>ostree admin config-diff <arg choice="opt" rep="repeat">OPTIONS</arg></command>
+                <command>ostree admin config-diff</command> <arg choice="opt" rep="repeat">OPTIONS</arg>
             </cmdsynopsis>
     </refsynopsisdiv>
 
@@ -30,7 +30,7 @@
         <title>Description</title>
 
         <para>
-            Prints the differences between the current /etc directory and the default configuration in /usr/etc.  Newly added files (present in /etc but not in /usr/etc) will be prefixed with 'A'. Mnodified files will be prefixed with 'M', and deleted files with 'D'.
+            Prints the differences between the current /etc directory and the default configuration in /usr/etc.  Newly added files (present in /etc but not in /usr/etc) will be prefixed with 'A'. Modified files will be prefixed with 'M', and deleted files with 'D'.
         </para>
     </refsect1>
 
@@ -51,7 +51,9 @@
     <refsect1>
         <title>Example</title>
         <para><command>$ ostree admin config-diff</command></para>
+	<programlisting>
         M   shadow
         A   example.txt
+	</programlisting>
     </refsect1>
 </refentry>

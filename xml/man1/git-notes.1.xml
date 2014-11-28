@@ -16,10 +16,10 @@
 <refsynopsisdiv id="_synopsis">
 <blockquote>
 <literallayout><emphasis>git notes</emphasis> [list [&lt;object&gt;]]
-<emphasis>git notes</emphasis> add [-f] [-F &lt;file&gt; | -m &lt;msg&gt; | (-c | -C) &lt;object&gt;] [&lt;object&gt;]
+<emphasis>git notes</emphasis> add [-f] [--allow-empty] [-F &lt;file&gt; | -m &lt;msg&gt; | (-c | -C) &lt;object&gt;] [&lt;object&gt;]
 <emphasis>git notes</emphasis> copy [-f] ( --stdin | &lt;from-object&gt; &lt;to-object&gt; )
-<emphasis>git notes</emphasis> append [-F &lt;file&gt; | -m &lt;msg&gt; | (-c | -C) &lt;object&gt;] [&lt;object&gt;]
-<emphasis>git notes</emphasis> edit [&lt;object&gt;]
+<emphasis>git notes</emphasis> append [--allow-empty] [-F &lt;file&gt; | -m &lt;msg&gt; | (-c | -C) &lt;object&gt;] [&lt;object&gt;]
+<emphasis>git notes</emphasis> edit [--allow-empty] [&lt;object&gt;]
 <emphasis>git notes</emphasis> show [&lt;object&gt;]
 <emphasis>git notes</emphasis> merge [-v | -q] [-s &lt;strategy&gt; ] &lt;notes-ref&gt;
 <emphasis>git notes</emphasis> merge --commit [-v | -q]
@@ -274,6 +274,17 @@ get-ref
 </varlistentry>
 <varlistentry>
 <term>
+--allow-empty
+</term>
+<listitem>
+<simpara>
+        Allow an empty note object to be stored. The default behavior is
+        to automatically remove empty notes.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 --ref &lt;ref&gt;
 </term>
 <listitem>
@@ -464,7 +475,7 @@ arbitrary files using <emphasis>git hash-object</emphasis>:</simpara>
 <literallayout class="monospaced">
 &#10;.ft C&#10;$ cc *.c
 $ blob=$(git hash-object -w a.out)
-$ git notes --ref=built add -C "$blob" HEAD&#10;.ft&#10;
+$ git notes --ref=built add --allow-empty -C "$blob" HEAD&#10;.ft&#10;
 </literallayout>
 <simpara>(You cannot simply use <literal>git notes --ref=built add -F a.out HEAD</literal>
 because that is not binary-safe.)

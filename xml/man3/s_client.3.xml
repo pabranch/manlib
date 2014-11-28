@@ -59,10 +59,8 @@
 [<emphasis role="bold">-ign_eof</emphasis>]
 [<emphasis role="bold">-no_ign_eof</emphasis>]
 [<emphasis role="bold">-quiet</emphasis>]
-[<emphasis role="bold">-ssl2</emphasis>]
 [<emphasis role="bold">-ssl3</emphasis>]
 [<emphasis role="bold">-tls1</emphasis>]
-[<emphasis role="bold">-no_ssl2</emphasis>]
 [<emphasis role="bold">-no_ssl3</emphasis>]
 [<emphasis role="bold">-no_tls1</emphasis>]
 [<emphasis role="bold">-no_tls1_1</emphasis>]
@@ -383,13 +381,13 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-ssl2_-ssl3_-tls1_-no_ssl2_-no_ssl3_-no_tls1_-no_tls1_1_-no_tls1_2"/><emphasis role="bold">-ssl2</emphasis>, <emphasis role="bold">-ssl3</emphasis>, <emphasis role="bold">-tls1</emphasis>, <emphasis role="bold">-no_ssl2</emphasis>, <emphasis role="bold">-no_ssl3</emphasis>, <emphasis role="bold">-no_tls1</emphasis>, <emphasis role="bold">-no_tls1_1</emphasis>, <emphasis role="bold">-no_tls1_2</emphasis></term>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-ssl3_-tls1_-no_ssl3_-no_tls1_-no_tls1_1_-no_tls1_2"/><emphasis role="bold">-ssl3</emphasis>, <emphasis role="bold">-tls1</emphasis>, <emphasis role="bold">-no_ssl3</emphasis>, <emphasis role="bold">-no_tls1</emphasis>, <emphasis role="bold">-no_tls1_1</emphasis>, <emphasis role="bold">-no_tls1_2</emphasis></term>
           <listitem>
             <para>
 	      these options disable the use of certain SSL or TLS
 	      protocols. By default the initial handshake uses a method
 	      which should be compatible with all servers and permit them
-	      to use SSL v3, SSL v2 or TLS as appropriate.
+	      to use SSL v3 or TLS as appropriate.
             </para>
             <para>
 	      Unfortunately there are still ancient and broken servers in
@@ -432,14 +430,6 @@
 	      modified. Although the server determines which cipher suite
 	      is used it should take the first supported cipher in the list
 	      sent by the client. See the <emphasis role="bold">ciphers</emphasis> command for more information.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-serverpref"/><emphasis role="bold">-serverpref</emphasis></term>
-          <listitem>
-            <para>
-	      use the server's cipher preferences; only used for SSLV2.
             </para>
           </listitem>
         </varlistentry>
@@ -584,8 +574,8 @@
     </para>
     <para>
       If the handshake fails then there are several possible causes, if it
-      is nothing obvious like no client certificate then the <emphasis role="bold">-bugs</emphasis>, <emphasis role="bold">-ssl2</emphasis>,
-      <emphasis role="bold">-ssl3</emphasis>, <emphasis role="bold">-tls1</emphasis>, <emphasis role="bold">-no_ssl2</emphasis>, <emphasis role="bold">-no_ssl3</emphasis>, <emphasis role="bold">-no_tls1</emphasis> options can be tried in case it is a
+      is nothing obvious like no client certificate then the <emphasis role="bold">-bugs</emphasis>, <emphasis role="bold">-ssl3</emphasis>,
+      <emphasis role="bold">-tls1</emphasis>, <emphasis role="bold">-no_ssl3</emphasis>, <emphasis role="bold">-no_tls1</emphasis> options can be tried in case it is a
       buggy server. In particular you should play with these options
       <emphasis role="bold">before</emphasis> submitting a bug report to an
       OpenSSL mailing list.
@@ -611,12 +601,6 @@
       If there are problems verifying a server certificate then the
       <emphasis role="bold">-showcerts</emphasis> option can be used to
       show the whole chain.
-    </para>
-    <para>
-      Since the SSLv23 client hello cannot include compression methods or
-      extensions these will only be supported if its use is disabled, for
-      example by using the <emphasis role="bold">-no_sslv2</emphasis>
-      option.
     </para>
     <para>
       The <emphasis role="bold">s_client</emphasis> utility is a test tool

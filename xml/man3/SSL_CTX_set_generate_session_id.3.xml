@@ -35,11 +35,11 @@ int SSL_has_matching_session_id(const SSL *ssl, const unsigned char *id,
     <para>
       When a new session is established between client and server, the
       server generates a session id. The session id is an arbitrary
-      sequence of bytes. The length of the session id is 16 bytes for SSLv2
-      sessions and between 1 and 32 bytes for SSLv3/TLSv1. The session id
-      is not security critical but must be unique for the server.
-      Additionally, the session id is transmitted in the clear when reusing
-      the session so it must not contain sensitive information.
+      sequence of bytes. The length of the session id is between 1 and 32
+      bytes.  The session id is not security critical but must be unique
+      for the server. Additionally, the session id is transmitted in the
+      clear when reusing the session so it must not contain sensitive
+      information.
     </para>
     <para>
       Without a callback being set, an OpenSSL server will generate a
@@ -58,13 +58,6 @@ int SSL_has_matching_session_id(const SSL *ssl, const unsigned char *id,
       <emphasis role="bold">id_len</emphasis>; the callback <emphasis role="bold">must never</emphasis> increase <emphasis role="bold">id_len</emphasis> or write to the location <emphasis role="bold">id</emphasis> exceeding the given limit.
     </para>
     <para>
-      If a SSLv2 session id is generated and <emphasis role="bold">id_len</emphasis> is reduced, it will be restored after
-      the callback has finished and the session id will be padded with
-      0x00. It is not recommended to change the <emphasis role="bold">id_len</emphasis> for SSLv2 sessions. The callback can
-      use the SSL_get_version(3) function to check, whether the session is
-      of type SSLv2.
-    </para>
-    <para>
       The location <emphasis role="bold">id</emphasis> is filled with 0x00
       before the callback is called, so the callback may only fill part of
       the possible length and leave <emphasis role="bold">id_len</emphasis>
@@ -73,19 +66,19 @@ int SSL_has_matching_session_id(const SSL *ssl, const unsigned char *id,
     <para>
       Since the sessions must be distinguished, session ids must be unique.
       Without the callback a random number is used, so that the probability
-      of generating the same session id is extremely small (2^128 possible
-      ids for an SSLv2 session, 2^256 for SSLv3/TLSv1). In order to assure
-      the uniqueness of the generated session id, the callback must call
-      SSL_has_matching_session_id() and generate another id if a conflict
-      occurs. If an id conflict is not resolved, the handshake will fail.
-      If the application codes e.g. a unique host id, a unique process
-      number, and a unique sequence number into the session id, uniqueness
-      could easily be achieved without randomness added (it should however
-      be taken care that no confidential information is leaked this way).
-      If the application can not guarantee uniqueness, it is recommended to
-      use the maximum <emphasis role="bold">id_len</emphasis> and fill in
-      the bytes not used to code special information with random data to
-      avoid collisions.
+      of generating the same session id is extremely small (2^256 for
+      SSLv3/TLSv1). In order to assure the uniqueness of the generated
+      session id, the callback must call SSL_has_matching_session_id() and
+      generate another id if a conflict occurs. If an id conflict is not
+      resolved, the handshake will fail. If the application codes e.g. a
+      unique host id, a unique process number, and a unique sequence number
+      into the session id, uniqueness could easily be achieved without
+      randomness added (it should however be taken care that no
+      confidential information is leaked this way). If the application can
+      not guarantee uniqueness, it is recommended to use the maximum
+      <emphasis role="bold">id_len</emphasis> and fill in the bytes not
+      used to code special information with random data to avoid
+      collisions.
     </para>
     <para>
       SSL_has_matching_session_id() will only query the internal session
@@ -96,12 +89,6 @@ int SSL_has_matching_session_id(const SSL *ssl, const unsigned char *id,
       id. Collisions can also occur when using an external session cache,
       since the external cache is not tested with
       SSL_has_matching_session_id() and the same race condition applies.
-    </para>
-    <para>
-      When calling SSL_has_matching_session_id() for an SSLv2 session with
-      reduced <emphasis role="bold">id_len</emphasis>, the match operation
-      will be performed using the fixed length required and with a 0x00
-      padded id.
     </para>
     <para>
       The callback must return 0 if it cannot generate a session id for
@@ -120,29 +107,23 @@ static int generate_session_id(const SSL *ssl, unsigned char *id,
                              unsigned int *id_len)
      {
      unsigned int count = 0;
-     const char *version;
-
-version = SSL_get_version(ssl);
-if (!strcmp(version, "SSLv2"))
-    /* we must not change id_len */;
-
-do      {
-        RAND_pseudo_bytes(id, *id_len);
-        /* Prefix the session_id with the required prefix. NB: If our
-         * prefix is too long, clip it - but there will be worse effects
-         * anyway, eg. the server could only possibly create 1 session
-         * ID (ie. the prefix!) so all future session negotiations will
-         * fail due to conflicts. */
-        memcpy(id, session_id_prefix,
-                (strlen(session_id_prefix) &lt; *id_len) ?
-                strlen(session_id_prefix) : *id_len);
-        }
-while(SSL_has_matching_session_id(ssl, id, *id_len) &amp;&amp;
-        (++count &lt; MAX_SESSION_ID_ATTEMPTS));
-if(count &gt;= MAX_SESSION_ID_ATTEMPTS)
-        return 0;
-return 1;
-}
+     do      {
+             RAND_pseudo_bytes(id, *id_len);
+             /* Prefix the session_id with the required prefix. NB: If our
+              * prefix is too long, clip it - but there will be worse effects
+              * anyway, eg. the server could only possibly create 1 session
+              * ID (ie. the prefix!) so all future session negotiations will
+              * fail due to conflicts. */
+             memcpy(id, session_id_prefix,
+                     (strlen(session_id_prefix) &lt; *id_len) ?
+                     strlen(session_id_prefix) : *id_len);
+             }
+     while(SSL_has_matching_session_id(ssl, id, *id_len) &amp;&amp;
+             (++count &lt; MAX_SESSION_ID_ATTEMPTS));
+     if(count &gt;= MAX_SESSION_ID_ATTEMPTS)
+             return 0;
+     return 1;
+     }
 
 </screen>
   </refsection>

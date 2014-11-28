@@ -168,11 +168,11 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:-no_ssl2_-no_ssl3_-no_tls1_-no_tls1_1_-no_tls1_2"/><emphasis role="bold">-no_ssl2</emphasis>, <emphasis role="bold">-no_ssl3</emphasis>, <emphasis role="bold">-no_tls1</emphasis>, <emphasis role="bold">-no_tls1_1</emphasis>, <emphasis role="bold">-no_tls1_2</emphasis></term>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:-no_ssl3_-no_tls1_-no_tls1_1_-no_tls1_2"/><emphasis role="bold">-no_ssl3</emphasis>, <emphasis role="bold">-no_tls1</emphasis>, <emphasis role="bold">-no_tls1_1</emphasis>, <emphasis role="bold">-no_tls1_2</emphasis></term>
           <listitem>
             <para>
-	      Disables protocol support for SSLv2, SSLv3, TLS 1.0, TLS 1.1
-	      or TLS 1.2 by setting the corresponding options <emphasis role="bold">SSL_OP_NO_SSL2</emphasis>, <emphasis role="bold">SSL_OP_NO_SSL3</emphasis>, <emphasis role="bold">SSL_OP_NO_TLS1</emphasis>, <emphasis role="bold">SSL_OP_NO_TLS1_1</emphasis> and <emphasis role="bold">SSL_OP_NO_TLS1_2</emphasis> respectively. 
+	      Disables protocol support for SSLv3, TLS 1.0, TLS 1.1 or TLS
+	      1.2 by setting the corresponding options <emphasis role="bold">SSL_OP_NO_SSL3</emphasis>, <emphasis role="bold">SSL_OP_NO_TLS1</emphasis>, <emphasis role="bold">SSL_OP_NO_TLS1_1</emphasis> and <emphasis role="bold">SSL_OP_NO_TLS1_2</emphasis> respectively. 
             </para>
           </listitem>
         </varlistentry>
@@ -424,8 +424,8 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
 	      disable. If an protocol is preceded by <emphasis role="bold">-</emphasis> that version is disabled. All
 	      versions are enabled by default, though applications may
 	      choose to explicitly disable some. Currently supported
-	      protocol values are <emphasis role="bold">SSLv2</emphasis>,
-	      <emphasis role="bold">SSLv3</emphasis>, <emphasis role="bold">TLSv1</emphasis>, <emphasis role="bold">TLSv1.1</emphasis> and <emphasis role="bold">TLSv1.2</emphasis>. The special value <emphasis role="bold">ALL</emphasis> refers to all supported versions.
+	      protocol values are <emphasis role="bold">SSLv3</emphasis>,
+	      <emphasis role="bold">TLSv1</emphasis>, <emphasis role="bold">TLSv1.1</emphasis> and <emphasis role="bold">TLSv1.2</emphasis>. The special value <emphasis role="bold">ALL</emphasis> refers to all supported versions. 
             </para>
           </listitem>
         </varlistentry>
@@ -660,6 +660,11 @@ SSL_CONF_cmd(ctx, "Protocol", "-SSLv2");</screen>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:HISTORY"><title>HISTORY</title>
     <para>
       SSL_CONF_cmd() was first added to OpenSSL 1.0.2
+    </para>
+    <para>
+      <emphasis role="bold">SSL_OP_NO_SSL2</emphasis> doesn't have effect
+      anymore since 1.1.0 but the define is kept for backward
+      compatibility.
     </para>
   </refsection>
 </refentry>

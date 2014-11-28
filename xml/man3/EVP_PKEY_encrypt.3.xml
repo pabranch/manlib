@@ -54,19 +54,24 @@ int EVP_PKEY_encrypt(EVP_PKEY_CTX *ctx,
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_encrypt.pod:EXAMPLE"><title>EXAMPLE</title>
     <para>
-      Encrypt data using OAEP (for RSA keys):
+      Encrypt data using OAEP (for RSA keys). See also PEM_read_PUBKEY(3)
+      or d2i_X509(3) for means to load a public key. You may also simply
+      set 'eng = NULL;' to start with the default OpenSSL RSA
+      implementation:
     </para>
     <screen>#include &amp;lt;openssl/evp.h&amp;gt;
 #include &amp;lt;openssl/rsa.h&amp;gt;
+#include &amp;lt;openssl/engine.h&amp;gt;
 
 EVP_PKEY_CTX *ctx;
+ENGINE *eng;
 unsigned char *out, *in;
 size_t outlen, inlen; 
 EVP_PKEY *key;
-/* NB: assumes key in, inlen are already set up
+/* NB: assumes eng, key, in, inlen are already set up,
  * and that key is an RSA public key
  */
-ctx = EVP_PKEY_CTX_new(key);
+ctx = EVP_PKEY_CTX_new(key,eng);
 if (!ctx)
        /* Error occurred */
 if (EVP_PKEY_encrypt_init(ctx) &lt;= 0)
@@ -90,8 +95,9 @@ if (EVP_PKEY_encrypt(ctx, out, &amp;outlen, in, inlen) &lt;= 0)
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_encrypt.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      EVP_PKEY_CTX_new(3), EVP_PKEY_decrypt(3), EVP_PKEY_sign(3),
-      EVP_PKEY_verify(3), EVP_PKEY_verify_recover(3), EVP_PKEY_derive(3)
+      d2i_X509(3), engine(3), EVP_PKEY_CTX_new(3), EVP_PKEY_decrypt(3),
+      EVP_PKEY_sign(3), EVP_PKEY_verify(3), EVP_PKEY_verify_recover(3),
+      EVP_PKEY_derive(3)
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_encrypt.pod:HISTORY"><title>HISTORY</title>

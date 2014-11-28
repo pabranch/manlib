@@ -46,13 +46,12 @@ int SSL_set_ecdh_auto(SSL *s, int onoff);</synopsis>
       did not send a supported curves extension. 
     </para>
     <para>
-      SSL_get1_shared_curve() returns shared curve <emphasis role="bold">n</emphasis> for <emphasis role="bold">ssl</emphasis>. If
-      <emphasis role="bold">n</emphasis> is -1 then the total number of
-      shared curves is returned, which may be zero. Other than for
-      diagnostic purposes, most applications will only be interested in the
-      first shared curve so <emphasis role="bold">n</emphasis> is normally
-      set to zero. If the value <emphasis role="bold">n</emphasis> is out
-      of range zero is returned.
+      SSL_get_shared_curve() returns shared curve <emphasis role="bold">n</emphasis> for a server-side SSL <emphasis role="bold">ssl</emphasis>. If <emphasis role="bold">n</emphasis> is
+      -1 then the total number of shared curves is returned, which may be
+      zero. Other than for diagnostic purposes, most applications will only
+      be interested in the first shared curve so <emphasis role="bold">n</emphasis> is normally set to zero. If the value
+      <emphasis role="bold">n</emphasis> is out of range, NID_undef is
+      returned.
     </para>
     <para>
       SSL_CTX_set_ecdh_auto() and SSL_set_ecdh_auto() set automatic curve
@@ -96,9 +95,13 @@ int SSL_set_ecdh_auto(SSL *s, int onoff);</synopsis>
       SSL_get1_curves() returns the number of curves, which may be zero.
     </para>
     <para>
-      SSL_get1_shared_curve() returns the NID of shared curve <emphasis role="bold">n</emphasis> of zero if there is no shared curve
-      <emphasis role="bold">n</emphasis> or the number of shared curves if
-      <emphasis role="bold">n</emphasis> is -1.
+      SSL_get_shared_curve() returns the NID of shared curve <emphasis role="bold">n</emphasis> or NID_undef if there is no shared curve
+      <emphasis role="bold">n</emphasis>; or the total number of shared
+      curves if <emphasis role="bold">n</emphasis> is -1.
+    </para>
+    <para>
+      When called on a client <emphasis role="bold">ssl</emphasis>,
+      SSL_get_shared_curve() has no meaning and returns -1.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set1_curves.pod:SEE_ALSO"><title>SEE ALSO</title>

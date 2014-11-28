@@ -50,8 +50,8 @@
           <listitem>
             <para>
 	      That's a dispatch structure describing the internal <emphasis role="bold">ssl</emphasis> library methods/functions which
-	      implement the various protocol versions (SSLv1, SSLv2 and
-	      TLSv1). It's needed to create an <emphasis role="bold">SSL_CTX</emphasis>.
+	      implement the various protocol versions (SSLv3 TLSv1, ...).
+	      It's needed to create an <emphasis role="bold">SSL_CTX</emphasis>.
             </para>
           </listitem>
         </varlistentry>
@@ -151,8 +151,9 @@
           <listitem>
             <para>
 	      That's the sub header file dealing with the combined use of
-	      the SSLv2 and SSLv3 protocols. <emphasis role="italic">Usually you don't have to include it explicitly
-	      because it's already included by ssl.h</emphasis>.
+	      different protocol version. <emphasis role="italic">Usually
+	      you don't have to include it explicitly because it's already
+	      included by ssl.h</emphasis>.
             </para>
           </listitem>
         </varlistentry>
@@ -182,33 +183,6 @@
       </para>
       <para>
         <variablelist>
-          <varlistentry>
-            <term><anchor xml:id="sources.openssl.doc.ssl.ssl.pod:const_SSL_METHOD_SSLv2_client_methodvoid"/>const SSL_METHOD *<emphasis role="bold">SSLv2_client_method</emphasis>(void);</term>
-            <listitem>
-              <para>
-		Constructor for the SSLv2 SSL_METHOD structure for a
-		dedicated client.
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term><anchor xml:id="sources.openssl.doc.ssl.ssl.pod:const_SSL_METHOD_SSLv2_server_methodvoid"/>const SSL_METHOD *<emphasis role="bold">SSLv2_server_method</emphasis>(void);</term>
-            <listitem>
-              <para>
-		Constructor for the SSLv2 SSL_METHOD structure for a
-		dedicated server.
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term><anchor xml:id="sources.openssl.doc.ssl.ssl.pod:const_SSL_METHOD_SSLv2_methodvoid"/>const SSL_METHOD *<emphasis role="bold">SSLv2_method</emphasis>(void);</term>
-            <listitem>
-              <para>
-		Constructor for the SSLv2 SSL_METHOD structure for combined
-		client and server.
-              </para>
-            </listitem>
-          </varlistentry>
           <varlistentry>
             <term><anchor xml:id="sources.openssl.doc.ssl.ssl.pod:const_SSL_METHOD_SSLv3_client_methodvoid"/>const SSL_METHOD *<emphasis role="bold">SSLv3_client_method</emphasis>(void);</term>
             <listitem>
@@ -300,7 +274,7 @@
             <listitem>
               <para>
 		Return the internal name of <emphasis role="italic">cipher</emphasis> as a string. These are the
-		various strings defined by the <emphasis role="italic">SSL2_TXT_xxx</emphasis>, <emphasis role="italic">SSL3_TXT_xxx</emphasis> and <emphasis role="italic">TLS1_TXT_xxx</emphasis> definitions in the
+		various strings defined by the <emphasis role="italic">SSL3_TXT_xxx</emphasis> and <emphasis role="italic">TLS1_TXT_xxx</emphasis> definitions in the
 		header files.
               </para>
             </listitem>
@@ -1712,6 +1686,9 @@
   <refsection xml:id="sources.openssl.doc.ssl.ssl.pod:HISTORY"><title>HISTORY</title>
     <para>
       The ssl(3) document appeared in OpenSSL 0.9.2
+    </para>
+    <para>
+      <emphasis role="bold">SSLv2_client_method</emphasis>, <emphasis role="bold">SSLv2_server_method</emphasis> and <emphasis role="bold">SSLv2_method</emphasis> where removed in OpenSSL 1.1.0.
     </para>
   </refsection>
 </refentry>

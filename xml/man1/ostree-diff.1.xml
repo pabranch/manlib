@@ -22,7 +22,7 @@
 
     <refsynopsisdiv>
             <cmdsynopsis sepchar=" ">
-                <command>ostree diff <arg choice="opt" rep="repeat">OPTIONS</arg> <arg choice="req" rep="norepeat">REV</arg> <arg choice="req" rep="norepeat">TARGETDIR</arg></command>
+                <command>ostree diff</command> <arg choice="opt" rep="repeat">OPTIONS</arg> <arg choice="req" rep="norepeat">REV</arg> <arg choice="req" rep="norepeat">TARGETDIR</arg>
             </cmdsynopsis>
     </refsynopsisdiv>
 
@@ -57,10 +57,14 @@
     <refsect1>
         <title>Example</title>
         <para><command>$ ostree diff my-branch^ my-branch</command></para>
+<programlisting>
         A   /testdirectory
         M   /helloworld.txt
+</programlisting>
 <para><command>$ ostree diff my-branch my-branch^</command></para>
+<programlisting>
         D   /testdirectory
         M   /helloworld.txt
+</programlisting>
     </refsect1>
 </refentry>

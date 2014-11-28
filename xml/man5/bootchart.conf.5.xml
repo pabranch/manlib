@@ -16,22 +16,66 @@
 
         <refnamediv>
                 <refname>bootchart.conf</refname>
-                <refpurpose>Boot performance analysis graphing tool configuration file</refpurpose>
+                <refname>bootchart.conf.d</refname>
+                <refpurpose>Boot performance analysis graphing tool configuration files</refpurpose>
         </refnamediv>
 
         <refsynopsisdiv>
                 <para><filename>/etc/systemd/bootchart.conf</filename></para>
+                <para><filename>/etc/systemd/bootchart.conf.d/*.conf</filename></para>
+                <para><filename>/run/systemd/bootchart.conf.d/*.conf</filename></para>
+                <para><filename>/usr/lib/systemd/bootchart.conf.d/*.conf</filename></para>
         </refsynopsisdiv>
 
         <refsect1>
                 <title>Description</title>
 
                 <para>When starting, systemd-bootchart will read the
-                configuration file <filename>bootchart.conf</filename>.
-                This configuration file determines logging parameters and
-                graph output.</para>
-
+                configuration file
+                <filename>/etc/systemd/bootchart.conf</filename>, followed by
+                the files in the <filename>bootchart.conf.d</filename>
+                directories.  These configuration files determine logging
+                parameters and graph output.</para>
         </refsect1>
+
+        <refsection xml:id="confd">
+    <title>Configuration Directories and Precedence</title>
+
+    <para>Configuration files are read from directories in
+    <filename>/etc/</filename>, <filename>/run/</filename>, and
+    <filename>/usr/lib/</filename>, in order of precedence.
+    Each configuration file in these configuration directories shall be named in
+    the style of <filename><replaceable>filename</replaceable>.conf</filename>.
+    Files in <filename>/etc/</filename> override files with the same name in
+    <filename>/run/</filename> and <filename>/usr/lib/</filename>. Files in
+    <filename>/run/</filename> override files with the same name in
+    <filename>/usr/lib/</filename>.</para>
+
+    <para>Packages should install their configuration files in
+    <filename>/usr/lib/</filename>. Files in <filename>/etc/</filename> are
+    reserved for the local administrator, who may use this logic to override the
+    configuration files installed by vendor packages. All configuration files
+    are sorted by their filename in lexicographic order, regardless of which of
+    the directories they reside in. If multiple files specify the same option,
+    the entry in the file with the lexicographically latest name will take
+    precedence. It is recommended to prefix all filenames with a two-digit number
+    and a dash, to simplify the ordering of the files.</para>
+
+    <para>If the administrator wants to disable a configuration file supplied by
+    the vendor, the recommended way is to place a symlink to
+    <filename>/dev/null</filename> in the configuration directory in
+    <filename>/etc/</filename>, with the same filename as the vendor
+    configuration file.</para>
+  </refsection>
+        <refsection xml:id="conf">
+    <title>Configuration File</title>
+
+    <para>Configuration is also read from a single configuration file in
+    <filename>/etc/</filename>. This file is read before any of the
+    configuration directories, and has the lowest precedence; entries in a file
+    in any configuration directory override entries in the single configuration
+    file.</para>
+  </refsection>
 
         <refsect1>
                 <title>Options</title>

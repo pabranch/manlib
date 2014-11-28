@@ -46,27 +46,6 @@
                 is <literal>#</literal> or <literal>;</literal> are
                 ignored.</para>
 
-                <para>Each configuration file shall be named in the
-                style of <filename><replaceable>program</replaceable>.conf</filename>.
-                Files in <filename>/etc/</filename> override files
-                with the same name in <filename>/usr/lib/</filename>
-                and <filename>/run/</filename>.  Files in
-                <filename>/run/</filename> override files with the same
-                name in <filename>/usr/lib/</filename>. Packages
-                should install their configuration files in
-                <filename>/usr/lib/</filename>. Files in
-                <filename>/etc/</filename> are reserved for the local
-                administrator, who may use this logic to override the
-                configuration files installed by vendor packages. All
-                configuration files are sorted by their filename in
-                lexicographic order, regardless of which of the
-                directories they reside in. If multiple files specify the
-                same variable name, the entry in the file with the
-                lexicographically latest name will be applied. It is
-                recommended to prefix all filenames with a two-digit
-                number and a dash, to simplify the ordering of the
-                files.</para>
-
                 <para>Note that either <literal>/</literal> or
                 <literal>.</literal> may be used as separators within
                 sysctl variable names. If the first separator is a
@@ -84,13 +63,6 @@
                 may be used to refer to
                 <filename>/proc/sys/net/ipv4/conf/enp3s0.200/forwarding</filename>.
                 </para>
-
-                <para>If the administrator wants to disable a
-                configuration file supplied by the vendor, the
-                recommended way is to place a symlink to
-                <filename>/dev/null</filename> in
-                <filename>/etc/sysctl.d/</filename> bearing the
-                same filename.</para>
 
                 <para>The settings configured with
                 <filename>sysctl.d</filename> files will be applied
@@ -117,6 +89,36 @@
                 before sysctl settings are applied (see
                 example below).</para>
         </refsect1>
+
+        <refsection xml:id="confd">
+    <title>Configuration Directories and Precedence</title>
+
+    <para>Configuration files are read from directories in
+    <filename>/etc/</filename>, <filename>/run/</filename>, and
+    <filename>/usr/lib/</filename>, in order of precedence.
+    Each configuration file in these configuration directories shall be named in
+    the style of <filename><replaceable>filename</replaceable>.conf</filename>.
+    Files in <filename>/etc/</filename> override files with the same name in
+    <filename>/run/</filename> and <filename>/usr/lib/</filename>. Files in
+    <filename>/run/</filename> override files with the same name in
+    <filename>/usr/lib/</filename>.</para>
+
+    <para>Packages should install their configuration files in
+    <filename>/usr/lib/</filename>. Files in <filename>/etc/</filename> are
+    reserved for the local administrator, who may use this logic to override the
+    configuration files installed by vendor packages. All configuration files
+    are sorted by their filename in lexicographic order, regardless of which of
+    the directories they reside in. If multiple files specify the same option,
+    the entry in the file with the lexicographically latest name will take
+    precedence. It is recommended to prefix all filenames with a two-digit number
+    and a dash, to simplify the ordering of the files.</para>
+
+    <para>If the administrator wants to disable a configuration file supplied by
+    the vendor, the recommended way is to place a symlink to
+    <filename>/dev/null</filename> in the configuration directory in
+    <filename>/etc/</filename>, with the same filename as the vendor
+    configuration file.</para>
+  </refsection>
 
         <refsect1>
                 <title>Examples</title>

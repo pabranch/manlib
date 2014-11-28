@@ -214,8 +214,38 @@ u root 0 "Superuser" /root</programlisting>
 
         </refsect1>
 
+        <refsection xml:id="confd">
+    <title>Configuration Directories and Precedence</title>
+
+    <para>Configuration files are read from directories in
+    <filename>/etc/</filename>, <filename>/run/</filename>, and
+    <filename>/usr/lib/</filename>, in order of precedence.
+    Each configuration file in these configuration directories shall be named in
+    the style of <filename><replaceable>filename</replaceable>.conf</filename>.
+    Files in <filename>/etc/</filename> override files with the same name in
+    <filename>/run/</filename> and <filename>/usr/lib/</filename>. Files in
+    <filename>/run/</filename> override files with the same name in
+    <filename>/usr/lib/</filename>.</para>
+
+    <para>Packages should install their configuration files in
+    <filename>/usr/lib/</filename>. Files in <filename>/etc/</filename> are
+    reserved for the local administrator, who may use this logic to override the
+    configuration files installed by vendor packages. All configuration files
+    are sorted by their filename in lexicographic order, regardless of which of
+    the directories they reside in. If multiple files specify the same option,
+    the entry in the file with the lexicographically latest name will take
+    precedence. It is recommended to prefix all filenames with a two-digit number
+    and a dash, to simplify the ordering of the files.</para>
+
+    <para>If the administrator wants to disable a configuration file supplied by
+    the vendor, the recommended way is to place a symlink to
+    <filename>/dev/null</filename> in the configuration directory in
+    <filename>/etc/</filename>, with the same filename as the vendor
+    configuration file.</para>
+  </refsection>
+
         <refsect1>
-                <title>Overriding vendor configuration</title>
+                <title>Idempotence</title>
 
                 <para>Note that <command>systemd-sysusers</command>
                 will do nothing if the specified users or groups
@@ -223,31 +253,13 @@ u root 0 "Superuser" /root</programlisting>
                 <filename>sysusers.d</filename> vendor configuration,
                 except to block certain users or groups from being
                 created.</para>
-
-                <para>Files in <filename>/etc/sysusers.d</filename>
-                override files with the same name in
-                <filename>/usr/lib/sysusers.d</filename> and
-                <filename>/run/sysusers.d</filename>. Files in
-                <filename>/run/sysusers.d</filename> override files
-                with the same name in
-                <filename>/usr/lib/sysusers.d</filename>. The scheme is the same as for
-                <citerefentry><refentrytitle>tmpfiles.d</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
-                except for the directory name.</para>
-
-                <para>If the administrator wants to disable a
-                configuration file supplied by the vendor, the
-                recommended way is to place a symlink to
-                <filename>/dev/null</filename> in
-                <filename>/etc/sysusers.d/</filename> bearing the
-                same filename.</para>
         </refsect1>
 
         <refsect1>
                 <title>See Also</title>
                 <para>
                         <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>systemd-sysusers</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>tmpfiles.d</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+                        <citerefentry><refentrytitle>systemd-sysusers</refentrytitle><manvolnum>8</manvolnum></citerefentry>
                 </para>
         </refsect1>
 

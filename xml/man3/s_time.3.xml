@@ -20,7 +20,6 @@
 [<emphasis role="bold">-verify depth</emphasis>]
 [<emphasis role="bold">-nbio</emphasis>]
 [<emphasis role="bold">-time seconds</emphasis>]
-[<emphasis role="bold">-ssl2</emphasis>]
 [<emphasis role="bold">-ssl3</emphasis>]
 [<emphasis role="bold">-bugs</emphasis>]
 [<emphasis role="bold">-cipher cipherlist</emphasis>]</synopsis>
@@ -142,23 +141,21 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.s_time.pod:-ssl2_-ssl3"/><emphasis role="bold">-ssl2</emphasis>, <emphasis role="bold">-ssl3</emphasis></term>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_time.pod:-ssl3"/><emphasis role="bold">-ssl3</emphasis></term>
           <listitem>
             <para>
 	      these options disable the use of certain SSL or TLS
 	      protocols. By default the initial handshake uses a method
 	      which should be compatible with all servers and permit them
-	      to use SSL v3, SSL v2 or TLS as appropriate. The timing
-	      program is not as rich in options to turn protocols on and
-	      off as the s_client(1) program and may not connect to all
-	      servers.
+	      to use SSL v3 or TLS as appropriate. The timing program is
+	      not as rich in options to turn protocols on and off as the
+	      s_client(1) program and may not connect to all servers.
             </para>
             <para>
 	      Unfortunately there are a lot of ancient and broken servers
 	      in use which cannot handle this technique and will fail to
 	      connect. Some servers only work if TLS is turned off with the
-	      <emphasis role="bold">-ssl3</emphasis> option; others will
-	      only support SSL v2 and may need the <emphasis role="bold">-ssl2</emphasis> option.
+	      <emphasis role="bold">-ssl3</emphasis> option.
             </para>
           </listitem>
         </varlistentry>
@@ -212,11 +209,10 @@
     </para>
     <para>
       If the handshake fails then there are several possible causes, if it
-      is nothing obvious like no client certificate then the <emphasis role="bold">-bugs</emphasis>, <emphasis role="bold">-ssl2</emphasis>,
-      <emphasis role="bold">-ssl3</emphasis> options can be tried in case
-      it is a buggy server. In particular you should play with these
-      options <emphasis role="bold">before</emphasis> submitting a bug
-      report to an OpenSSL mailing list.
+      is nothing obvious like no client certificate then the <emphasis role="bold">-bugs</emphasis> and <emphasis role="bold">-ssl3</emphasis> options can be tried in case it is a
+      buggy server. In particular you should play with these options
+      <emphasis role="bold">before</emphasis> submitting a bug report to an
+      OpenSSL mailing list.
     </para>
     <para>
       A frequent problem when attempting to get client certificates working

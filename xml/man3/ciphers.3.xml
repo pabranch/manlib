@@ -12,7 +12,6 @@
 [<emphasis role="bold">-s</emphasis>]
 [<emphasis role="bold">-v</emphasis>]
 [<emphasis role="bold">-V</emphasis>]
-[<emphasis role="bold">-ssl2</emphasis>]
 [<emphasis role="bold">-ssl3</emphasis>]
 [<emphasis role="bold">-tls1</emphasis>]
 [<emphasis role="bold">-stdname</emphasis>]
@@ -44,13 +43,9 @@
           <listitem>
             <para>
 	      Verbose option. List ciphers with a complete description of
-	      protocol version (SSLv2 or SSLv3; the latter includes TLS),
-	      key exchange, authentication, encryption and mac algorithms
-	      used along with any key size restrictions and whether the
-	      algorithm is classed as an "export" cipher. Note that without
-	      the <emphasis role="bold">-v</emphasis> option, ciphers may
-	      seem to appear twice in a cipher list; this is when similar
-	      ciphers are available for SSL v2 and for SSL v3/TLS v1.
+	      protocol version, key exchange, authentication, encryption
+	      and mac algorithms used along with any key size restrictions
+	      and whether the algorithm is classed as an "export" cipher.
             </para>
           </listitem>
         </varlistentry>
@@ -68,14 +63,6 @@
           <listitem>
             <para>
 	      only include SSL v3 ciphers.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:-ssl2"/><emphasis role="bold">-ssl2</emphasis></term>
-          <listitem>
-            <para>
-	      only include SSL v2 ciphers.
             </para>
           </listitem>
         </varlistentry>
@@ -448,12 +435,11 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:TLSv1.2_TLSv1_SSLv3_SSLv2"/><emphasis role="bold">TLSv1.2</emphasis>, <emphasis role="bold">TLSv1</emphasis>, <emphasis role="bold">SSLv3</emphasis>, <emphasis role="bold">SSLv2</emphasis></term>
+          <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:TLSv1.2_TLSv1_SSLv3"/><emphasis role="bold">TLSv1.2</emphasis>, <emphasis role="bold">TLSv1</emphasis>, <emphasis role="bold">SSLv3</emphasis></term>
           <listitem>
             <para>
-	      TLS v1.2, TLS v1.0, SSL v3.0 or SSL v2.0 cipher suites
-	      respectively. Note: there are no ciphersuites specific to TLS
-	      v1.1.
+	      TLS v1.2, TLS v1.0 or SSL v3.0 cipher suites respectively.
+	      Note: there are no ciphersuites specific to TLS v1.1.
             </para>
           </listitem>
         </varlistentry>
@@ -876,17 +862,6 @@ TLS_ECDH_RSA_WITH_CAMELLIA_256_CBC_SHA384    ECDH-RSA-CAMELLIA256-SHA384</screen
 TLS_PSK_WITH_3DES_EDE_CBC_SHA             PSK-3DES-EDE-CBC-SHA
 TLS_PSK_WITH_AES_128_CBC_SHA              PSK-AES128-CBC-SHA
 TLS_PSK_WITH_AES_256_CBC_SHA              PSK-AES256-CBC-SHA</screen>
-    </refsection>
-    <refsection xml:id="sources.openssl.doc.apps.ciphers.pod:Deprecated_SSL_v2.0_cipher_suites."><title>Deprecated SSL v2.0 cipher suites.</title>
-      <screen>SSL_CK_RC4_128_WITH_MD5                 RC4-MD5
-SSL_CK_RC4_128_EXPORT40_WITH_MD5        EXP-RC4-MD5
-SSL_CK_RC2_128_CBC_WITH_MD5             RC2-MD5
-SSL_CK_RC2_128_CBC_EXPORT40_WITH_MD5    EXP-RC2-MD5
-SSL_CK_IDEA_128_CBC_WITH_MD5            IDEA-CBC-MD5
-SSL_CK_DES_64_CBC_WITH_MD5              DES-CBC-MD5
-SSL_CK_DES_192_EDE3_CBC_WITH_MD5        DES-CBC3-MD5
-
-</screen>
     </refsection>
   </refsection>
   <refsection xml:id="sources.openssl.doc.apps.ciphers.pod:NOTES"><title>NOTES</title>

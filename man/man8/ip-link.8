@@ -145,9 +145,14 @@ ip-link \- network device configuration
 .B ip link show
 .RI "[ " DEVICE " | "
 .B group
-.IR GROUP " |"
-.B up
-]
+.IR GROUP " | "
+.BR up " | "
+.B master
+.IR DEVICE " ]"
+
+.ti -8
+.B ip link help
+.RI "[ " TYPE " ]"
 
 .SH "DESCRIPTION"
 .SS ip link add - add virtual link
@@ -242,7 +247,7 @@ For a link of type
 the following additional arguments are supported:
 
 .BI "ip link add " DEVICE
-.BI type " vxlan " id " ID
+.BI type " vxlan " id " ID"
 .R " [ "
 .BI dev " PHYS_DEV "
 .RB " ] [ { " group " | " remote " } "
@@ -448,6 +453,23 @@ or
 when tunneling non-IP packets. The default value is 00.
 
 .in -8
+
+.TP
+IPoIB Type Support
+For a link of type
+.I IPoIB
+the following additional arguments are supported:
+
+.BI "ip link add " DEVICE " name " NAME
+.BI type " ipoib [ " pkey " PKEY ] [" mode " MODE " ]
+
+.in +8
+.sp
+.BI  pkey " PKEY "
+- specifies the IB P-Key to use.
+
+.BI  mode " MODE "
+- specifies the mode (datagram or connected) to use.
 
 .SS ip link delete - delete virtual link
 .I DEVICE
@@ -661,8 +683,15 @@ specifies what group of devices to show.
 .B up
 only display running interfaces.
 
+.TP
+.BI master " DEVICE "
+.I DEVICE
+specifies the master device which enslaves devices to show.
+
+.TP
 The show command has additional formatting options:
 
+.RS
 .TP
 .BR "\-s" , " \-stats", " \-statistics"
 output more statistics about packet usage.
@@ -678,6 +707,13 @@ output statistics with human readable values number followed by suffix
 .TP
 .BR "\-iec"
 print human readable rates in IEC units (ie. 1K = 1024).
+.RE
+
+.SS  ip link help - display help
+
+.PP
+.I "TYPE"
+specifies which help of link type to dislpay.
 
 .SH "EXAMPLES"
 .PP
@@ -699,6 +735,11 @@ Creates a new vlan device eth0.10 on device eth0.
 ip link delete dev eth0.10
 .RS 4
 Removes vlan device.
+.RE
+
+ip link help gre
+.RS 4
+Display help for the gre link type.
 .RE
 
 .SH SEE ALSO
