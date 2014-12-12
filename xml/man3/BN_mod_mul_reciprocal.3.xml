@@ -12,7 +12,6 @@ reciprocal</refpurpose>
   <refsynopsisdiv>
 <synopsis format="linespecific">#include &lt;openssl/bn.h&gt;</synopsis>
 <synopsis format="linespecific">BN_RECP_CTX *BN_RECP_CTX_new(void);
-void BN_RECP_CTX_init(BN_RECP_CTX *recp);
 void BN_RECP_CTX_free(BN_RECP_CTX *recp);</synopsis>
 <synopsis format="linespecific">int BN_RECP_CTX_set(BN_RECP_CTX *recp, const BIGNUM *m, BN_CTX *ctx);</synopsis>
 <synopsis format="linespecific">int BN_div_recp(BIGNUM *dv, BIGNUM *rem, BIGNUM *a, BN_RECP_CTX *recp,
@@ -49,19 +48,8 @@ void BN_RECP_CTX_free(BN_RECP_CTX *recp);</synopsis>
       remainder in <emphasis role="bold">rem</emphasis>.
     </para>
     <para>
-      The <emphasis role="bold">BN_RECP_CTX</emphasis> structure is defined
-      as follows:
-    </para>
-    <screen>typedef struct bn_recp_ctx_st
-       {
-       BIGNUM N;       /* the divisor */
-       BIGNUM Nr;      /* the reciprocal */
-       int num_bits;
-       int shift;
-       int flags;
-       } BN_RECP_CTX;</screen>
-    <para>
-      It cannot be shared between threads.
+      The <emphasis role="bold">BN_RECP_CTX</emphasis> structure cannot be
+      shared between threads.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_reciprocal.pod:RETURN_VALUES"><title>RETURN VALUES</title>
@@ -76,6 +64,25 @@ void BN_RECP_CTX_free(BN_RECP_CTX *recp);</synopsis>
       error codes can be obtained by ERR_get_error(3).
     </para>
   </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_reciprocal.pod:REMOVED_FUNCTIONALITY"><title>REMOVED FUNCTIONALITY</title>
+    <screen>void BN_RECP_CTX_init(BN_RECP_CTX *recp);</screen>
+    <para>
+      BN_RECP_CTX_init() is no longer available as of OpenSSL 1.1.0. It was
+      used to initialize an existing uninitialized <emphasis role="bold">BN_RECP_CTX</emphasis>. Typically this would be done as
+      follows:
+    </para>
+    <screen>BN_RECP_CTX ctx;
+BN_RECP_CTX_init(&amp;ctx);</screen>
+    <para>
+      Applications should replace use of BN_RECP_CTX_init with
+      BN_RECP_CTX_new instead:
+    </para>
+    <screen>BN_RECP_CTX *ctx;
+ctx = BN_RECP_CTX_new();
+if(!ctx) /* Handle error */
+...
+BN_RECP_CTX_free(ctx);</screen>
+  </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_reciprocal.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
       bn(3), ERR_get_error(3), BN_add(3), BN_CTX_new(3)
@@ -86,6 +93,7 @@ void BN_RECP_CTX_free(BN_RECP_CTX *recp);</synopsis>
       <emphasis role="bold">BN_RECP_CTX</emphasis> was added in SSLeay
       0.9.0. Before that, the function BN_reciprocal() was used instead,
       and the BN_mod_mul_reciprocal() arguments were different.
+      BN_RECP_CTX_init was removed in OpenSSL 1.1.0
     </para>
   </refsection>
 </refentry>

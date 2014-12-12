@@ -119,11 +119,13 @@ rsync --checksum sources/dpkg/man/*.8 man/man8/"
     "cmd": "asciidoc -d manpage -b docbook -o- sources/dstat/docs/dstat.1.txt | xsltproc utils/db4-upgrade.xsl - > xml/man1/dstat.1.xml"
   },
 
+
+  /* Use uuidgen.1 from util-linux instead of this one */
   "e2fsprogs": {
     "type": "git",
     "url": "git://git.kernel.org/pub/scm/fs/ext2/e2fsprogs.git",
     "cmd": "(cd sources/e2fsprogs/; mkdir -p build/install; cd build; ../configure; make; make install DESTDIR=$(pwd)/install);
-rsync -a --checksum sources/e2fsprogs/build/install/usr/share/man/ man"
+rsync -a --checksum --exclude=uuidgen.1 --exclude=blkid.8 --exclude=findfs.8 --exclude=fsck.8 sources/e2fsprogs/build/install/usr/share/man/ man"
   },
 
   "findutils": {

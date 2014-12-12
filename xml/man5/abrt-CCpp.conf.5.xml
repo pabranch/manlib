@@ -43,6 +43,37 @@ SaveBinaryImage = <emphasis>yes</emphasis> / <emphasis>no</emphasis> …
 </varlistentry>
 <varlistentry>
 <term>
+CreateCoreBacktrace = <emphasis>yes</emphasis> / <emphasis>no</emphasis> …
+</term>
+<listitem>
+<simpara>
+   When this option is set to <emphasis>yes</emphasis>, core backtrace is generated
+   from the memory image of the crashing process. Only the crash
+   thread is present in the backtrace. This feature requires
+   kernel 3.18 or newer, otherwise the core backtrace is not
+   created.
+   Default is <emphasis>yes</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+SaveFullCore = <emphasis>yes</emphasis> / <emphasis>no</emphasis> …
+</term>
+<listitem>
+<simpara>
+   Save full coredump? If set to <emphasis>no</emphasis>, coredump won’t be saved
+   and you won’t be able to report the crash to Bugzilla. Only
+   useful with <emphasis>CreateCoreBacktrace</emphasis> set to <emphasis>yes</emphasis>. Please
+   note that if this option is set to <emphasis>no</emphasis> and MakeCompatCore
+   is set to <emphasis>yes</emphasis>, the core is still written to the current
+   directory.
+   Default is <emphasis>yes</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 VerboseLog = NUM
 </term>
 <listitem>
@@ -55,7 +86,8 @@ VerboseLog = NUM
 </refsect1>
 <refsect1 xml:id="_see_also">
 <title>SEE ALSO</title>
-<simpara>abrt.conf(5)</simpara>
+<simpara>abrt.conf(5)
+abrt-action-generate-core-backtrace(1)</simpara>
 </refsect1>
 <refsect1 xml:id="_authors">
 <title>AUTHORS</title>
