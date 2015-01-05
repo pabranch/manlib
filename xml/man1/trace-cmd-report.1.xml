@@ -262,6 +262,20 @@ Removing the *-v* will only print out those events.</literallayout>
 </varlistentry>
 <varlistentry>
 <term>
+<emphasis role="strong">--profile</emphasis>
+</term>
+<listitem>
+<simpara>
+    With the <emphasis role="strong">--profile</emphasis> option, "trace-cmd report" will process all the events
+    first, and then output a format showing where tasks have spent their time
+    in the kernel, as well as where they are blocked the most, and where wake up
+    latencies are.
+</simpara>
+<literallayout class="monospaced">See trace-cmd-profile(1) for more details and examples.</literallayout>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 <emphasis role="strong">-R</emphasis>
 </term>
 <listitem>
@@ -442,12 +456,46 @@ tasks. The <emphasis>prio</emphasis> used inside the kernel starts at 0 for high
 That is <emphasis>prio</emphasis> 0 is equivalent to user space real time priority 99, and
 priority 98 is equivalent to user space real time priority 1.
 Prios less than 100 represent Real Time tasks.</simpara>
+<simpara>An example of the profile:</simpara>
+<screen> # trace-cmd record --profile sleep 1
+ # trace-cmd report --profile --comm sleep
+task: sleep-21611
+  Event: sched_switch:R (1) Total: 99442 Avg: 99442 Max: 99442 Min:99442
+     &lt;stack&gt; 1 total:99442 min:99442 max:99442 avg=99442
+       =&gt; ftrace_raw_event_sched_switch (0xffffffff8105f812)
+       =&gt; __schedule (0xffffffff8150810a)
+       =&gt; preempt_schedule (0xffffffff8150842e)
+       =&gt; ___preempt_schedule (0xffffffff81273354)
+       =&gt; cpu_stop_queue_work (0xffffffff810b03c5)
+       =&gt; stop_one_cpu (0xffffffff810b063b)
+       =&gt; sched_exec (0xffffffff8106136d)
+       =&gt; do_execve_common.isra.27 (0xffffffff81148c89)
+       =&gt; do_execve (0xffffffff811490b0)
+       =&gt; SyS_execve (0xffffffff811492c4)
+       =&gt; return_to_handler (0xffffffff8150e3c8)
+       =&gt; stub_execve (0xffffffff8150c699)
+  Event: sched_switch:S (1) Total: 1000506680 Avg: 1000506680 Max: 1000506680 Min:1000506680
+     &lt;stack&gt; 1 total:1000506680 min:1000506680 max:1000506680 avg=1000506680
+       =&gt; ftrace_raw_event_sched_switch (0xffffffff8105f812)
+       =&gt; __schedule (0xffffffff8150810a)
+       =&gt; schedule (0xffffffff815084b8)
+       =&gt; do_nanosleep (0xffffffff8150b22c)
+       =&gt; hrtimer_nanosleep (0xffffffff8108d647)
+       =&gt; SyS_nanosleep (0xffffffff8108d72c)
+       =&gt; return_to_handler (0xffffffff8150e3c8)
+       =&gt; tracesys_phase2 (0xffffffff8150c304)
+  Event: sched_wakeup:21611 (1) Total: 30326 Avg: 30326 Max: 30326 Min:30326
+     &lt;stack&gt; 1 total:30326 min:30326 max:30326 avg=30326
+       =&gt; ftrace_raw_event_sched_wakeup_template (0xffffffff8105f653)
+       =&gt; ttwu_do_wakeup (0xffffffff810606eb)
+       =&gt; ttwu_do_activate.constprop.124 (0xffffffff810607c8)
+       =&gt; try_to_wake_up (0xffffffff8106340a)</screen>
 </refsect1>
 <refsect1 xml:id="_see_also">
 <title>SEE ALSO</title>
 <simpara>trace-cmd(1), trace-cmd-record(1), trace-cmd-start(1), trace-cmd-stop(1),
 trace-cmd-extract(1), trace-cmd-reset(1), trace-cmd-split(1),
-trace-cmd-list(1), trace-cmd-listen(1)</simpara>
+trace-cmd-list(1), trace-cmd-listen(1), trace-cmd-profile(1)</simpara>
 </refsect1>
 <refsect1 xml:id="_author">
 <title>AUTHOR</title>

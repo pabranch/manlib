@@ -7,7 +7,7 @@
 <refentrytitle>btrfs-device</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.16.2</refmiscinfo>
+<refmiscinfo class="version">v3.18-36-g0173148</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -139,6 +139,16 @@ Remove device(s) from a filesystem identified by <emphasis>&lt;path&gt;</emphasi
 </varlistentry>
 <varlistentry>
 <term>
+<emphasis role="strong">ready</emphasis> <emphasis>&lt;device&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Check device to see if it has all of it&#8217;s devices in cache for mounting.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 <emphasis role="strong">scan</emphasis> [(--all-devices|-d)|<emphasis>&lt;device&gt;</emphasis> [<emphasis>&lt;device&gt;</emphasis>&#8230;]]
 </term>
 <listitem>
@@ -150,16 +160,6 @@ If no devices are passed, btrfs uses block devices containing btrfs
 filesystem as listed by blkid.
 Finally, if <emphasis>--all-devices</emphasis> or <emphasis>-d</emphasis> is passed, all the devices under /dev are
 scanned.</simpara>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
-<emphasis role="strong">ready</emphasis> <emphasis>&lt;device&gt;</emphasis>
-</term>
-<listitem>
-<simpara>
-Check device to see if it has all of it&#8217;s devices in cache for mounting.
-</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -186,7 +186,111 @@ Reset stats to zero after reading them.
 </variablelist>
 </listitem>
 </varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">usage</emphasis> [options] <emphasis>&lt;path&gt;</emphasis> [<emphasis>&lt;path&gt;</emphasis>&#8230;]
+</term>
+<listitem>
+<simpara>
+Show detailed information about internal allocations in devices.
+</simpara>
+<simpara><literal>Options</literal></simpara>
+<variablelist>
+<varlistentry>
+<term>
+-b|--raw
+</term>
+<listitem>
+<simpara>
+raw numbers in bytes, without the <emphasis>B</emphasis> suffix
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-h
+</term>
+<listitem>
+<simpara>
+print human friendly numbers, base 1024, this is the default
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-H
+</term>
+<listitem>
+<simpara>
+print human friendly numbers, base 1000
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--iec
+</term>
+<listitem>
+<simpara>
+select the 1024 base for the following options, according to the IEC standard
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--si
+</term>
+<listitem>
+<simpara>
+select the 1000 base for the following options, according to the SI standard
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-k|--kbytes
+</term>
+<listitem>
+<simpara>
+show sizes in KiB, or kB with --si
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-m|--mbytes
+</term>
+<listitem>
+<simpara>
+show sizes in MiB, or MB with --si
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-g|--gbytes
+</term>
+<listitem>
+<simpara>
+show sizes in GiB, or GB with --si
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-t|--tbytes
+</term>
+<listitem>
+<simpara>
+show sizes in TiB, or TB with --si
+</simpara>
+</listitem>
+</varlistentry>
 </variablelist>
+</listitem>
+</varlistentry>
+</variablelist>
+<simpara>If conflicting options are passed, the last one takes precedence.</simpara>
 </refsect1>
 <refsect1 id="_exit_status">
 <title>EXIT STATUS</title>

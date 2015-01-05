@@ -19,7 +19,7 @@
         [--no-reuse-delta] [--delta-base-offset] [--non-empty]
         [--local] [--incremental] [--window=&lt;n&gt;] [--depth=&lt;n&gt;]
         [--revs [--unpacked | --all]] [--stdout | base-name]
-        [--keep-true-parents] &lt; object-list</literallayout>
+        [--shallow] [--keep-true-parents] &lt; object-list</literallayout>
 </blockquote>
 </refsynopsisdiv>
 <refsect1 id="_description">
@@ -340,6 +340,18 @@ self-contained. Use <literal>git index-pack --fix-thin</literal>
 (see <citerefentry>
 <refentrytitle>git-index-pack</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry>) to restore the self-contained property.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--shallow
+</term>
+<listitem>
+<simpara>
+        Optimize a pack that will be provided to a client with a shallow
+        repository.  This option, combined with --thin, can result in a
+        smaller pack at the cost of speed.
+</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>

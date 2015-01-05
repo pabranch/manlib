@@ -215,16 +215,6 @@ specified multiple times.</simpara>
 <title>Network Boot</title>
 <simpara>If your root partition is on a network drive, you have to have the network
 dracut modules installed to create a network aware initramfs image.</simpara>
-<simpara>On a Red Hat Enterprise Linux or Fedora system, this means, you have to install
-the <emphasis>dracut-network</emphasis> rpm package:</simpara>
-<screen># yum install dracut-network</screen>
-<simpara>The resulting initramfs image can be served by a boot manager residing on your
-local hard drive or it can be served by a PXE/TFTP server.</simpara>
-<simpara>How to setup your PXE/TFTP server can be found in the
-<ulink url="http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Storage_Administration_Guide/">Red
-Hat Enterprise Linux 6 Storage Administration Guide</ulink>
-or <ulink url="http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Storage_Administration_Guide/">Red
-Hat Enterprise Linux 7 Storage Administration Guide</ulink>.</simpara>
 <simpara>If you specify ip=dhcp on the kernel command line, then dracut asks a dhcp
 server about the ip adress for the machine. The dhcp server can also serve an
 additional root-path, which will set the root device for dracut. With this
@@ -252,7 +242,7 @@ once more by creating it on the target machine with the --host-only option:</sim
 <simpara>If the boot process does not succeed, you have several options to debug the
 situation. Some of the basic operations are covered here. For more information
 you should also visit:
-<ulink url="http://fedoraproject.org/wiki/How_to_debug_Dracut_problems">http://fedoraproject.org/wiki/How_to_debug_Dracut_problems</ulink></simpara>
+<ulink url="https://www.kernel.org/pub/linux/utils/boot/dracut/dracut.html">https://www.kernel.org/pub/linux/utils/boot/dracut/dracut.html</ulink></simpara>
 <refsect2 id="identifying-your-problem-area">
 <title>Identifying your problem area</title>
 <orderedlist numeration="arabic">

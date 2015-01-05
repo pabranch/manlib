@@ -7,7 +7,7 @@
 <refentrytitle>btrfs-qgroup</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.16.2</refmiscinfo>
+<refmiscinfo class="version">v3.18-36-g0173148</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -32,10 +32,10 @@ One subvolume/snapshot can reach its quota limits if it consumes all the quota
 assigned to it or any of the parent qgroup(s).</simpara>
 <simpara>Also for snapshot, it consumes no quota initially since all its data
 shares with its parent, so only modification in snapshot consumes quota.</simpara>
-<simpara>Every subvolume/snapshot will have its own qgroup with id <emphasis>0/</emphasis>&lt;subvolume id&gt;''
+<simpara>Every subvolume/snapshot will have its own qgroup with id <emphasis>0/<emphasis>&lt;subvolume id&gt;</emphasis></emphasis>
 upon creating, but can be later destroyed by <emphasis role="strong">btrfs qgroup destroy</emphasis> command.</simpara>
 <note><simpara>If the qgroup of a subvolume is destroyed, quota about the subvolume
-will not be functional until qgroup <emphasis>0/</emphasis>&lt;subvolume id&gt;'' is created again.</simpara></note>
+will not be functional until qgroup <emphasis>0/<emphasis>&lt;subvolume id&gt;</emphasis></emphasis> is created again.</simpara></note>
 </refsect1>
 <refsect1 id="_subcommand">
 <title>SUBCOMMAND</title>
@@ -53,24 +53,13 @@ identified by <emphasis>&lt;path&gt;</emphasis>.
 </varlistentry>
 <varlistentry>
 <term>
-<emphasis role="strong">remove</emphasis> <emphasis>&lt;src&gt;</emphasis> <emphasis>&lt;dst&gt;</emphasis> <emphasis>&lt;path&gt;</emphasis>
-</term>
-<listitem>
-<simpara>
-Remove the relationship between child qgroup <emphasis>&lt;src&gt;</emphasis> and parent qgroup <emphasis>&lt;dst&gt;</emphasis> in
-the btrfs filesystem identified by <emphasis>&lt;path&gt;</emphasis>.
-</simpara>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
 <emphasis role="strong">create</emphasis> <emphasis>&lt;qgroupid&gt;</emphasis> <emphasis>&lt;path&gt;</emphasis>
 </term>
 <listitem>
 <simpara>
 Create a subvolume quota group.
 </simpara>
-<simpara>For the <emphasis>0/</emphasis>&lt;subvolume id&gt;'' qgroup, a qgroup can be created even before the
+<simpara>For the <emphasis>0/<emphasis>&lt;subvolume id&gt;</emphasis></emphasis> qgroup, a qgroup can be created even before the
 subvolume created.</simpara>
 </listitem>
 </varlistentry>
@@ -84,6 +73,30 @@ Destroy a qgroup.
 </simpara>
 <simpara>If a qgroup is no isolated,which means it is a parent or child qgroup, it
 can&#8217;t be destroyed.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">limit</emphasis> [options] <emphasis>&lt;size&gt;</emphasis>|none [<emphasis>&lt;qgroupid&gt;</emphasis>] <emphasis>&lt;path&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Limit the size of a qgroup to <emphasis>&lt;size&gt;</emphasis> or no limit in the btrfs filesystem
+identified by <emphasis>&lt;path&gt;</emphasis>.
+</simpara>
+<simpara>If <emphasis>&lt;qgroupid&gt;</emphasis> is not given, qgroup of the subvolume identified by <emphasis>&lt;path&gt;</emphasis>
+is used if possible.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">remove</emphasis> <emphasis>&lt;src&gt;</emphasis> <emphasis>&lt;dst&gt;</emphasis> <emphasis>&lt;path&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Remove the relationship between child qgroup <emphasis>&lt;src&gt;</emphasis> and parent qgroup <emphasis>&lt;dst&gt;</emphasis> in
+the btrfs filesystem identified by <emphasis>&lt;path&gt;</emphasis>.
+</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -158,7 +171,7 @@ list all qgroups which impact the given path(exclude ancestral qgroups)
 </varlistentry>
 <varlistentry>
 <term>
---sort=<emphasis><phrase role="+/-">&lt;attr&gt;</phrase></emphasis>[,<emphasis><phrase role="+/-">&lt;attr&gt;</phrase></emphasis>]&#8230;
+--sort=[+/-]<emphasis>&lt;attr&gt;</emphasis>[,[+/-]<emphasis>&lt;attr&gt;</emphasis>]&#8230;
 </term>
 <listitem>
 <simpara>
@@ -167,23 +180,10 @@ list qgroups in order of <emphasis>&lt;attr&gt;</emphasis>.
 <simpara><emphasis>&lt;attr&gt;</emphasis> can be one or more of qgroupid,rfer,excl,max_rfer,max_excl.</simpara>
 <simpara>Prefix '+' means ascending order and '-' means descending order of <emphasis>&lt;attr&gt;</emphasis>.
 If no prefix is given, use ascending order by default.</simpara>
-<simpara>If multiple '&lt;attr&gt;'s is given, use comma to separate.</simpara>
+<simpara>If multiple <emphasis>&lt;attr&gt;</emphasis>s is given, use comma to separate.</simpara>
 </listitem>
 </varlistentry>
 </variablelist>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
-<emphasis role="strong">limit</emphasis> [options] <emphasis>&lt;size&gt;</emphasis>|none [<emphasis>&lt;qgroupid&gt;</emphasis>] <emphasis>&lt;path&gt;</emphasis>
-</term>
-<listitem>
-<simpara>
-Limit the size of a qgroup to <emphasis>&lt;size&gt;</emphasis> or no limit in the btrfs filesystem
-identified by <emphasis>&lt;path&gt;</emphasis>.
-</simpara>
-<simpara>If <emphasis>&lt;qgroupid&gt;</emphasis> is not given, qgroup of the subvolume identified by <emphasis>&lt;path&gt;</emphasis>
-is used if possible.</simpara>
 </listitem>
 </varlistentry>
 </variablelist>

@@ -1,0 +1,56 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>trace-cmd-stream</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>trace-cmd-stream</refname>
+    <refpurpose>stream a trace to stdout as it is happening</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis role="strong">trace-cmd stream [<emphasis>OPTIONS</emphasis>]</emphasis> [<emphasis>command</emphasis>]</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>The trace-cmd(1) stream will start tracing just like trace-cmd-record(1), except
+it will not record to a file and instead it will read the binary buffer
+as it is happening, convert it to a human readable format and write it to
+stdout.</simpara>
+<simpara>This is basically the same as trace-cmd-start(1) and then doing a trace-cmd-show(1)
+with the <emphasis role="strong">-p</emphasis> option. trace-cmd-stream is not as efficient as reading from the
+pipe file as most of the stream work is done in userspace. This is useful if
+it is needed to do the work mostly in userspace instead of the kernel, and stream
+also helps to debug trace-cmd-profile(1) which uses the stream code to perform
+the live data analysis for the profile.</simpara>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<literallayout class="monospaced">These are the same as trace-cmd-record(1), except that it does not take
+the *-o* option.</literallayout>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<simpara>trace-cmd(1), trace-cmd-record(1), trace-cmd-report(1), trace-cmd-start(1),
+trace-cmd-stop(1), trace-cmd-reset(1), trace-cmd-split(1),
+trace-cmd-list(1), trace-cmd-listen(1)</simpara>
+</refsect1>
+<refsect1 xml:id="_author">
+<title>AUTHOR</title>
+<simpara>Written by Steven Rostedt, &lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="mailto:rostedt@goodmis.org">rostedt@goodmis.org</link>&gt;</simpara>
+</refsect1>
+<refsect1 xml:id="_resources">
+<title>RESOURCES</title>
+<simpara>git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/trace-cmd.git</simpara>
+</refsect1>
+<refsect1 xml:id="_copying">
+<title>COPYING</title>
+<simpara>Copyright (C) 2014 Red Hat, Inc. Free use of this software is granted under
+the terms of the GNU Public License (GPL).</simpara>
+</refsect1>
+</refentry>

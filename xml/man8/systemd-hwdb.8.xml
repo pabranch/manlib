@@ -1,0 +1,80 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="systemd-hwdb" conditional="ENABLE_HWDB">
+  <info>
+    
+    <productname>systemd</productname>
+    <authorgroup>
+      <author><personname><firstname>Kay</firstname><surname>Sievers</surname></personname><contrib>Developer</contrib><email>kay@vrfy.org</email></author>
+      <author><personname><firstname>Tom</firstname><surname>Gundersen</surname></personname><contrib>Developer</contrib><email>teg@jklm.no</email></author>
+    </authorgroup>
+  </info>
+
+  <refmeta>
+    <refentrytitle>systemd-hwdb</refentrytitle>
+    <manvolnum>8</manvolnum>
+  </refmeta>
+
+  <refnamediv>
+    <refname>systemd-hwdb</refname><refpurpose>hardware database management tool</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <cmdsynopsis sepchar=" ">
+      <command>systemd-hwdb <optional>options</optional> update</command>
+    </cmdsynopsis>
+    <cmdsynopsis sepchar=" ">
+      <command>systemd-hwdb <optional>options</optional> query <replaceable>modalias</replaceable></command>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1><title>Description</title>
+    <para><command>systemd-hwdb</command> expects a command and command
+    specific arguments.  It manages the binary hardware database.</para>
+  </refsect1>
+
+  <refsect1><title>Options</title>
+    <variablelist>
+      <varlistentry>
+        <term><option>-h</option></term>
+        <term><option>--help</option></term>
+        <listitem>
+          <para>Print help text.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>--usr</option></term>
+        <listitem>
+          <para>Generate in /usr/lib/udev instead of /etc/udev.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><option>-r</option></term>
+        <term><option>--root=<replaceable>PATH</replaceable></option></term>
+        <listitem>
+          <para>Alternative root path in the filesystem.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <refsect2><title>systemd-hwdb
+      <arg choice="opt" rep="norepeat"><replaceable>options</replaceable></arg>
+      update</title>
+      <para>Update the binary database.</para>
+    </refsect2>
+
+    <refsect2><title>systemd-hwdb
+      <arg choice="opt" rep="norepeat"><replaceable>options</replaceable></arg>
+      query
+      <arg choice="opt" rep="norepeat"><replaceable>MODALIAS</replaceable></arg>
+    </title>
+      <para>Query database and print result.</para>
+    </refsect2>
+  </refsect1>
+
+  <refsect1>
+    <title>See Also</title>
+    <para><citerefentry>
+        <refentrytitle>hwdb</refentrytitle><manvolnum>7</manvolnum>
+    </citerefentry></para>
+  </refsect1>
+</refentry>

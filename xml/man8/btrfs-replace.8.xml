@@ -7,7 +7,7 @@
 <refentrytitle>btrfs-replace</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.16.2</refmiscinfo>
+<refmiscinfo class="version">v3.18-36-g0173148</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -20,14 +20,24 @@
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
 <simpara><emphasis role="strong">btrfs replace</emphasis> is used to replace btrfs managed devices with other device.</simpara>
-<simpara>Note: this is not currently supported for RAID5/6 profiles and must use the
-device add/delete workaround.</simpara>
-<simpara>It is recommended to see <literal>btrfs-device</literal>(8) for more details about btrfs device
-management.</simpara>
+<note><simpara>this is not currently supported for RAID5/6 profiles and must use the
+device add/delete workaround.
+It is recommended to see <literal>btrfs-device</literal>(8) for more details about btrfs device
+management.</simpara></note>
 </refsect1>
 <refsect1 id="_subcommand">
 <title>SUBCOMMAND</title>
 <variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">cancel</emphasis> <emphasis>&lt;mount_point&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Cancel a running device replace operation.
+</simpara>
+</listitem>
+</varlistentry>
 <varlistentry>
 <term>
 <emphasis role="strong">start</emphasis> [-Bfr] <emphasis>&lt;srcdev&gt;</emphasis>|<emphasis>&lt;devid&gt;</emphasis> <emphasis>&lt;targetdev&gt;</emphasis> <emphasis>&lt;path&gt;</emphasis>
@@ -72,9 +82,17 @@ containing a valid btrfs filesystem.
 </simpara>
 <simpara>A valid filesystem is assumed if a btrfs superblock is found which contains a
 correct checksum. Devices which are currently mounted are
-never allowed to be used as the <emphasis>&lt;targetdev&gt;</emphasis>.
--B::::
-no background replace.</simpara>
+never allowed to be used as the <emphasis>&lt;targetdev&gt;</emphasis>.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-B
+</term>
+<listitem>
+<simpara>
+no background replace.
+</simpara>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -102,16 +120,6 @@ operation finishes (or is canceled)
 </listitem>
 </varlistentry>
 </variablelist>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
-<emphasis role="strong">cancel</emphasis> <emphasis>&lt;mount_point&gt;</emphasis>
-</term>
-<listitem>
-<simpara>
-Cancel a running device replace operation.
-</simpara>
 </listitem>
 </varlistentry>
 </variablelist>

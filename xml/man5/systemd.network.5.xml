@@ -193,8 +193,8 @@
                                         <term><varname>DHCP=</varname></term>
                                         <listitem>
                                                 <para>Enables DHCPv4 and/or DHCPv6 support. Accepts
-                                                <literal>both</literal>, <literal>none</literal>,
-                                                <literal>v4</literal> or <literal>v6</literal>.</para>
+                                                <literal>yes</literal>, <literal>no</literal>,
+                                                <literal>ipv4</literal> or <literal>ipv6</literal>.</para>
                                         </listitem>
                                 </varlistentry>
                                 <varlistentry>
@@ -228,6 +228,13 @@
                                                 Link-Local Multicast Name Resolution on the link, when set to
                                                 <literal>resolve</literal> only resolution is enabled, but not
                                                 announcement. Defaults to true.</para>
+                                        </listitem>
+                                </varlistentry>
+                                <varlistentry>
+                                        <term><varname>LLDP=</varname></term>
+                                        <listitem>
+                                                <para>A boolean. When true, enables LLDP link receive support.
+                                                </para>
                                         </listitem>
                                 </varlistentry>
                                 <varlistentry>
@@ -309,6 +316,35 @@
                                         <listitem>
                                                 <para>An NTP server address. This option may be specified more than once.</para>
                                         </listitem>
+                                </varlistentry>
+                                <varlistentry>
+                                        <term><varname>IPForward=</varname></term>
+                                        <listitem><para>Configures IP
+                                        forwarding for the network
+                                        interface. If enabled incoming
+                                        packets on the network
+                                        interface will be forwarded to
+                                        other interfaces according to
+                                        the routing table. Takes
+                                        either a boolean argument, or
+                                        the values
+                                        <literal>ipv4</literal> or
+                                        <literal>ipv6</literal>, which
+                                        only enables IP forwarding for
+                                        the specified address
+                                        family.</para></listitem>
+                                </varlistentry>
+                                <varlistentry>
+                                        <term><varname>IPMasquerade=</varname></term>
+                                        <listitem><para>Configures IP
+                                        masquerading for the network
+                                        interface. If enabled packets
+                                        forwarded from the network
+                                        interface will be appear as
+                                        coming from the local
+                                        host. Takes a boolean
+                                        argument. Implies
+                                        <varname>IPForward=yes</varname>.</para></listitem>
                                 </varlistentry>
                                 <varlistentry>
                                         <term><varname>Bridge=</varname></term>
@@ -522,6 +558,28 @@
         </refsect1>
 
         <refsect1>
+                <title>[BridgeFDB] Section Options</title>
+                        <para>The <literal>[BridgeFDB]</literal> section manages the forwarding database table of a port and accepts the following keys. Specify
+                        several <literal>[BridgeFDB]</literal> sections to configure several static MAC table entries.</para>
+
+                        <variablelist class="network-directives">
+                                <varlistentry>
+                                        <term><varname>MACAddress=</varname></term>
+                                        <listitem>
+                                                <para>As in the <literal>[Network]</literal> section. This key is mandatory.</para>
+                                        </listitem>
+                                </varlistentry>
+                                <varlistentry>
+                                        <term><varname>VLANId=</varname></term>
+                                        <listitem>
+                                                <para>The VLAN Id for the new static MAC table entry.
+                                                If omitted, no VLAN Id info is appended to the new static MAC table entry.</para>
+                                        </listitem>
+                                </varlistentry>
+                        </variablelist>
+        </refsect1>
+
+        <refsect1>
                 <title>Example</title>
                 <example>
                         <title>/etc/systemd/network/50-static.network</title>
@@ -611,6 +669,7 @@ Tunnel=vti-tun</programlisting>
                 <para>
                         <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>systemd-networkd</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+                        <citerefentry><refentrytitle>systemd.link</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>systemd.netdev</refentrytitle><manvolnum>5</manvolnum></citerefentry>
                 </para>
         </refsect1>

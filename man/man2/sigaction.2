@@ -44,7 +44,7 @@
 .\" 2010-06-11 Andi Kleen, add hwpoison signal extensions
 .\" 2010-06-11 mtk, improvements to discussion of various siginfo_t fields.
 .\"
-.TH SIGACTION 2 2014-04-27 "Linux" "Linux Programmer's Manual"
+.TH SIGACTION 2 2014-12-31 "Linux" "Linux Programmer's Manual"
 .SH NAME
 sigaction \- examine and change a signal action
 .SH SYNOPSIS
@@ -116,10 +116,12 @@ and
 .PP
 The
 .I sa_restorer
-element is obsolete and should not be used.
-POSIX does not specify a
+field is not intended for application use.
+(POSIX does not specify a
 .I sa_restorer
-element.
+field.)
+Some further details of purpose of this field can be found in
+.BR sigreturn (2).
 .PP
 .I sa_handler
 specifies the action to be associated with
@@ -238,6 +240,15 @@ See
 .BR signal (7)
 for a discussion of system call restarting.
 .TP
+.BR SA_RESTORER
+.IR "Not intended for application use" .
+This flag is used by C libraries to indicate that the
+.IR sa_restorer
+field contains the address of a "signal trampoline".
+See
+.BR sigreturn (2)
+for more details.
+.TP
 .BR SA_SIGINFO " (since Linux 2.2)"
 The signal handler takes three arguments, not one.
 In this case,
@@ -254,37 +265,44 @@ The
 .I siginfo_t
 argument to
 .I sa_sigaction
-is a struct with the following elements:
+is a struct with the following fields:
 .sp
 .in +4n
 .nf
 siginfo_t {
-    int      si_signo;    /* Signal number */
-    int      si_errno;    /* An errno value */
-    int      si_code;     /* Signal code */
-    int      si_trapno;   /* Trap number that caused
-                             hardware-generated signal
-                             (unused on most architectures) */
+    int      si_signo;     /* Signal number */
+    int      si_errno;     /* An errno value */
+    int      si_code;      /* Signal code */
+    int      si_trapno;    /* Trap number that caused
+                              hardware-generated signal
+                              (unused on most architectures) */
 .\" FIXME
-.\" The siginfo_t 'si_trapno' filed seems to be used only on SPARC and Alpha;
+.\" The siginfo_t 'si_trapno' field seems to be used only on SPARC and Alpha;
 .\" this page could use a little more detail on its purpose there.
-    pid_t    si_pid;      /* Sending process ID */
-    uid_t    si_uid;      /* Real user ID of sending process */
-    int      si_status;   /* Exit value or signal */
-    clock_t  si_utime;    /* User time consumed */
-    clock_t  si_stime;    /* System time consumed */
-    sigval_t si_value;    /* Signal value */
-    int      si_int;      /* POSIX.1b signal */
-    void    *si_ptr;      /* POSIX.1b signal */
-    int      si_overrun;  /* Timer overrun count; POSIX.1b timers */
-    int      si_timerid;  /* Timer ID; POSIX.1b timers */
+    pid_t    si_pid;       /* Sending process ID */
+    uid_t    si_uid;       /* Real user ID of sending process */
+    int      si_status;    /* Exit value or signal */
+    clock_t  si_utime;     /* User time consumed */
+    clock_t  si_stime;     /* System time consumed */
+    sigval_t si_value;     /* Signal value */
+    int      si_int;       /* POSIX.1b signal */
+    void    *si_ptr;       /* POSIX.1b signal */
+    int      si_overrun;   /* Timer overrun count;
+                              POSIX.1b timers */
+    int      si_timerid;   /* Timer ID; POSIX.1b timers */
 .\" In the kernel: si_tid
-    void    *si_addr;     /* Memory location which caused fault */
-    long     si_band;     /* Band event (was \fIint\fP in
-                             glibc 2.3.2 and earlier) */
-    int      si_fd;       /* File descriptor */
-    short    si_addr_lsb; /* Least significant bit of address
-                             (since Linux 2.6.32) */
+    void    *si_addr;      /* Memory location which caused fault */
+    long     si_band;      /* Band event (was \fIint\fP in
+                              glibc 2.3.2 and earlier) */
+    int      si_fd;        /* File descriptor */
+    short    si_addr_lsb;  /* Least significant bit of address
+                              (since Linux 2.6.32) */
+    void    *si_call_addr; /* Address of system call instruction
+                              (since Linux 3.5) */
+    int      si_syscall;   /* Number of attempted system call
+                              (since Linux 3.5) */
+    unsigned int si_arch;  /* Architecture of attempted system call
+                              (since Linux 3.5) */
 }
 .fi
 .in
@@ -438,6 +456,19 @@ field by
 The
 .I si_fd
 field indicates the file descriptor for which the I/O event occurred.
+.IP *
+The
+.B SIGSYS
+signal that is (since Linux 3.5)
+.\" commit a0727e8ce513fe6890416da960181ceb10fbfae6
+generated when a seccomp filter returns
+.B SECCOMP_RET_TRAP
+fills in
+.IR si_call_addr ,
+.IR si_syscall ,
+.IR si_arch ,
+and various other fields as described in
+.BR seccomp (2).
 .PP
 .I si_code
 is a value (not a bit mask)
@@ -483,6 +514,9 @@ or
 .\" SI_DETHREAD is defined in 2.6.9 sources, but isn't implemented
 .\" It appears to have been an idea that was tried during 2.5.6
 .\" through to 2.5.24 and then was backed out.
+.\"
+.\" FIXME .
+.\" Eventually need to add the SYS_SECCOMP code here (see seccomp(2))
 .RE
 .PP
 The following values can be placed in
@@ -800,6 +834,7 @@ See
 .BR signal (2),
 .BR signalfd (2),
 .BR sigpending (2),
+.BR sigreturn (2),
 .BR sigprocmask (2),
 .BR sigsuspend (2),
 .BR wait (2),

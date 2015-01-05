@@ -178,7 +178,9 @@ resulting image is needed, <emphasis role="strong">dracut</emphasis> should be c
 <listitem>
 <simpara>
     Create a so called "monster initrd" which includes all available
-    features and modules.
+    features and modules. This calls dracut with --no-hostonly and
+    --no-hostonly-cmdline parameters internally, instead of the default
+    --hostonly and --hostonly-cmdline.
 </simpara>
 </listitem>
 </varlistentry>
@@ -200,16 +202,6 @@ resulting image is needed, <emphasis role="strong">dracut</emphasis> should be c
 <simpara>
     Disable logging to <emphasis>/var/log/YaST2/mkinitrd.log</emphasis>. This is useful for
     testing if you don’t want to clutter the system log.
-</simpara>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
-<emphasis role="strong">--force</emphasis>
-</term>
-<listitem>
-<simpara>
-    overwrite existing initramfs file.
 </simpara>
 </listitem>
 </varlistentry>

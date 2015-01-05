@@ -132,6 +132,35 @@ current branch.</simpara>
 </varlistentry>
 <varlistentry>
 <term>
+-m
+</term>
+<term>
+--message-id
+</term>
+<listitem>
+<simpara>
+        Pass the <literal>-m</literal> flag to <emphasis>git mailinfo</emphasis> (see <citerefentry>
+<refentrytitle>git-mailinfo</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>),
+        so that the Message-ID header is added to the commit message.
+        The <literal>am.messageid</literal> configuration variable can be used to specify
+        the default behaviour.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--no-message-id
+</term>
+<listitem>
+<simpara>
+        Do not add the Message-ID header to the commit message.
+        <literal>no-message-id</literal> is useful to override <literal>am.messageid</literal>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 -q
 </term>
 <term>
@@ -194,9 +223,6 @@ default.   You can use <literal>--no-utf8</literal> to override this.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term>
---ignore-date
-</term>
 <term>
 --ignore-space-change
 </term>

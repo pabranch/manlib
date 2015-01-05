@@ -15,6 +15,8 @@
 [<emphasis role="bold">-hex</emphasis>]
 [<emphasis role="bold">-binary</emphasis>]
 [<emphasis role="bold">-r</emphasis>]
+[<emphasis role="bold">-hmac arg</emphasis>]
+[<emphasis role="bold">-non-fips-allow</emphasis>]
 [<emphasis role="bold">-out filename</emphasis>]
 [<emphasis role="bold">-sign filename</emphasis>]
 [<emphasis role="bold">-keyform arg</emphasis>]
@@ -84,6 +86,23 @@
             <para>
 	      output the digest in the "coreutils" format used by programs
 	      like <emphasis role="bold">sha1sum</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-hmac_arg"/><emphasis role="bold">-hmac arg</emphasis></term>
+          <listitem>
+            <para>
+	      set the HMAC key to "arg".
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-non-fips-allow"/><emphasis role="bold">-non-fips-allow</emphasis></term>
+          <listitem>
+            <para>
+	      Allow use of non FIPS digest when in FIPS mode.  This has no
+	      effect when not in FIPS mode.
             </para>
           </listitem>
         </varlistentry>
@@ -242,7 +261,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-non-fips-allow"/><emphasis role="bold">-non-fips-allow</emphasis></term>
+          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-non-fips-allow_i1"/><emphasis role="bold">-non-fips-allow</emphasis></term>
           <listitem>
             <para>
 	      enable use of non-FIPS algorithms such as MD5 even in FIPS

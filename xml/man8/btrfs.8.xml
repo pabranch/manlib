@@ -7,7 +7,7 @@
 <refentrytitle>btrfs</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.16.2</refmiscinfo>
+<refmiscinfo class="version">v3.18-36-g0173148</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -38,34 +38,23 @@ detailed help of all the matched commands is showed. For example
 <variablelist>
 <varlistentry>
 <term>
-<emphasis role="strong">subvolume</emphasis>
-</term>
-<listitem>
-<simpara>
-        Create/delete/list/manage btrfs subvolume.<?asciidoc-br?>
-        See <literal>btrfs-subvolume</literal>(8) for details.
-</simpara>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
-<emphasis role="strong">filesystem</emphasis>
-</term>
-<listitem>
-<simpara>
-        Manage a btrfs filesystem, including label setting/sync and so on.<?asciidoc-br?>
-        See <literal>btrfs-filesystem</literal>(8) for details.
-</simpara>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
-<emphasis role="strong">[filesystem] balance</emphasis>
+<emphasis role="strong">balance</emphasis>
 </term>
 <listitem>
 <simpara>
         Balance btrfs filesystem chunks across single or several devices.<?asciidoc-br?>
         See <literal>btrfs-balance</literal>(8) for details.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">check</emphasis>
+</term>
+<listitem>
+<simpara>
+        Do off-line check on a btrfs filesystem.<?asciidoc-br?>
+        See <literal>btrfs-check</literal>(8) for details.
 </simpara>
 </listitem>
 </varlistentry>
@@ -83,23 +72,78 @@ detailed help of all the matched commands is showed. For example
 </varlistentry>
 <varlistentry>
 <term>
-<emphasis role="strong">scrub</emphasis>
+<emphasis role="strong">filesystem</emphasis>
 </term>
 <listitem>
 <simpara>
-        Scrub a btrfs filesystem.<?asciidoc-br?>
-        See <literal>btrfs-scrub</literal>(8) for details.
+        Manage a btrfs filesystem, including label setting/sync and so on.<?asciidoc-br?>
+        See <literal>btrfs-filesystem</literal>(8) for details.
 </simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
 <term>
-<emphasis role="strong">check</emphasis>
+<emphasis role="strong">inspect-internal</emphasis>
 </term>
 <listitem>
 <simpara>
-        Do off-line check on a btrfs filesystem.<?asciidoc-br?>
-        See <literal>btrfs-check</literal>(8) for details.
+        Debug tools for developers/hackers.<?asciidoc-br?>
+        See <literal>btrfs-inspect-internal</literal>(8) for details.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">property</emphasis>
+</term>
+<listitem>
+<simpara>
+        Get/set a property from/to a btrfs object.<?asciidoc-br?>
+        See <literal>btrfs-property</literal>(8) for details.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">qgroup</emphasis>
+</term>
+<listitem>
+<simpara>
+        Manage quota group(qgroup) for btrfs filesystem.<?asciidoc-br?>
+        See <literal>btrfs-qgroup</literal>(8) for details.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">quota</emphasis>
+</term>
+<listitem>
+<simpara>
+        Manage quota on btrfs filesystem like enabling/rescan and etc.<?asciidoc-br?>
+        See <literal>btrfs-quota</literal>(8) and <literal>btrfs-qgroup</literal>(8) for details.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">receive</emphasis>
+</term>
+<listitem>
+<simpara>
+        Receive subvolume data from stdin/file for restore and etc.<?asciidoc-br?>
+        See <literal>btrfs-receive</literal>(8) for details.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">replace</emphasis>
+</term>
+<listitem>
+<simpara>
+        Replace btrfs devices.<?asciidoc-br?>
+        See <literal>btrfs-replace</literal>(8) for details.
 </simpara>
 </listitem>
 </varlistentry>
@@ -127,12 +171,12 @@ detailed help of all the matched commands is showed. For example
 </varlistentry>
 <varlistentry>
 <term>
-<emphasis role="strong">inspect-internal</emphasis>
+<emphasis role="strong">scrub</emphasis>
 </term>
 <listitem>
 <simpara>
-        Debug tools for developers/hackers.<?asciidoc-br?>
-        See <literal>btrfs-inspect-internal</literal>(8) for details.
+        Scrub a btrfs filesystem.<?asciidoc-br?>
+        See <literal>btrfs-scrub</literal>(8) for details.
 </simpara>
 </listitem>
 </varlistentry>
@@ -149,45 +193,12 @@ detailed help of all the matched commands is showed. For example
 </varlistentry>
 <varlistentry>
 <term>
-<emphasis role="strong">receive</emphasis>
+<emphasis role="strong">subvolume</emphasis>
 </term>
 <listitem>
 <simpara>
-        Receive subvolume data from stdin/file for restore and etc.<?asciidoc-br?>
-        See <literal>btrfs-receive</literal>(8) for details.
-</simpara>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
-<emphasis role="strong">quota</emphasis>
-</term>
-<listitem>
-<simpara>
-        Manage quota on btrfs filesystem like enabling/rescan and etc.<?asciidoc-br?>
-        See <literal>btrfs-quota</literal>(8) and <literal>btrfs-qgroup</literal>(8) for details.
-</simpara>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
-<emphasis role="strong">qgroup</emphasis>
-</term>
-<listitem>
-<simpara>
-        Manage quota group(qgroup) for btrfs filesystem.<?asciidoc-br?>
-        See <literal>btrfs-qgroup</literal>(8) for details.
-</simpara>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
-<emphasis role="strong">replace</emphasis>
-</term>
-<listitem>
-<simpara>
-        Replace btrfs devices.<?asciidoc-br?>
-        See <literal>btrfs-replace</literal>(8) for details.
+        Create/delete/list/manage btrfs subvolume.<?asciidoc-br?>
+        See <literal>btrfs-subvolume</literal>(8) for details.
 </simpara>
 </listitem>
 </varlistentry>
@@ -207,19 +218,20 @@ further details.</simpara>
 <refsect1 id="_see_also">
 <title>SEE ALSO</title>
 <simpara><literal>mkfs.btrfs</literal>(8), <literal>ionice</literal>(1),
-<literal>btrfs-subvolume</literal>(8),
-<literal>btrfs-filesystem</literal>(8),
 <literal>btrfs-balance</literal>(8),
-<literal>btrfs-device</literal>(8),
-<literal>btrfs-scrub</literal>(8),
 <literal>btrfs-check</literal>(8),
+<literal>btrfs-device</literal>(8),
+<literal>btrfs-filesystem</literal>(8),
+<literal>btrfs-inspect-internal</literal>(8),
+<literal>btrfs-property</literal>(8),
+<literal>btrfs-qgroup</literal>(8),
+<literal>btrfs-quota</literal>(8),
+<literal>btrfs-receive</literal>(8),
+<literal>btrfs-replace</literal>(8),
 <literal>btrfs-rescue</literal>(8),
 <literal>btrfs-restore</literal>(8),
-<literal>btrfs-inspect-internal</literal>(8),
+<literal>btrfs-scrub</literal>(8),
 <literal>btrfs-send</literal>(8),
-<literal>btrfs-receive</literal>(8),
-<literal>btrfs-quota</literal>(8),
-<literal>btrfs-qgroup</literal>(8),
-<literal>btrfs-replace</literal>(8),</simpara>
+<literal>btrfs-subvolume</literal>(8),</simpara>
 </refsect1>
 </refentry>

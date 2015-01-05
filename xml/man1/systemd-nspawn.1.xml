@@ -136,12 +136,78 @@
                                 <term><option>--directory=</option></term>
 
                                 <listitem><para>Directory to use as
-                                file system root for the container. If
-                                neither <option>--directory=</option>
-                                nor <option>--image=</option> are
+                                file system root for the container.</para>
+
+                                <para>If neither
+                                <option>--directory=</option>, nor
+                                <option>--image=</option> is specified
+                                the directory is determined as
+                                <filename>/var/lib/machines/</filename>
+                                suffixed by the machine name as
+                                specified with
+                                <option>--machine=</option>. If
+                                neither <option>--directory=</option>,
+                                <option>--image=</option>, nor
+                                <option>--machine=</option> are
                                 specified, the current directory will
-                                be used. May not be specified together with
+                                be used. May not be specified together
+                                with
                                 <option>--image=</option>.</para></listitem>
+                        </varlistentry>
+
+                        <varlistentry>
+                                <term><option>--template=</option></term>
+
+                                <listitem><para>Directory or
+                                <literal>btrfs</literal> subvolume to
+                                use as template for the container's
+                                root directory. If this is specified
+                                and the container's root directory (as
+                                configured by
+                                <option>--directory=</option>) does
+                                not yet exist it is created as
+                                <literal>btrfs</literal> subvolume and
+                                populated from this template
+                                tree. Ideally, the specified template
+                                path refers to the root of a
+                                <literal>btrfs</literal> subvolume, in
+                                which case a simple copy-on-write
+                                snapshot is taken, and populating the
+                                root directory is instant. If the
+                                specified template path does not refer
+                                to the root of a
+                                <literal>btrfs</literal> subvolume (or
+                                not even to a <literal>btrfs</literal>
+                                file system at all), the tree is
+                                copied, which can be substantially
+                                more time-consuming. Note that if this
+                                option is used the container's root
+                                directory (in contrast to the template
+                                directory!) must be located on a
+                                <literal>btrfs</literal> file system,
+                                so that the <literal>btrfs</literal>
+                                subvolume may be created. May not be
+                                specified together with
+                                <option>--image=</option> or
+                                <option>--ephemeral</option>.</para></listitem>
+                        </varlistentry>
+
+                        <varlistentry>
+                                <term><option>-x</option></term>
+                                <term><option>--ephemeral</option></term>
+
+                                <listitem><para>If specified, the
+                                container is run with a temporary
+                                <literal>btrfs</literal> snapshot of
+                                its root directory (as configured with
+                                <option>--directory=</option>), that
+                                is removed immediately when the
+                                container terminates. This option is
+                                only supported if the root file system
+                                is <literal>btrfs</literal>. May not
+                                be specified together with
+                                <option>--image=</option> or
+                                <option>--template=</option>.</para></listitem>
                         </varlistentry>
 
                         <varlistentry>
@@ -152,10 +218,13 @@
                                 the root directory for the container
                                 from. Takes a path to a regular file
                                 or to a block device node. The file or
-                                block device must contain a GUID
-                                Partition Table with a root partition
-                                which is mounted as the root directory
-                                of the container. Optionally, it may
+                                block device must contain either an
+                                MBR partition table with a single
+                                partition of type 0x83 that is marked
+                                bootable, or a GUID partition table
+                                with a root partition which is mounted
+                                as the root directory of the
+                                container. Optionally, GPT images may
                                 contain a home and/or a server data
                                 partition which are mounted to the
                                 appropriate places in the
@@ -167,7 +236,9 @@
                                 partitions, swap partitions or EFI
                                 system partitions are not mounted. May
                                 not be specified together with
-                                <option>--directory=</option>.</para></listitem>
+                                <option>--directory=</option>,
+                                <option>--template=</option> or
+                                <option>--ephemeral</option>.</para></listitem>
                         </varlistentry>
 
                         <varlistentry>
@@ -207,13 +278,22 @@
 
                                 <listitem><para>Sets the machine name
                                 for this container. This name may be
-                                used to identify this container on the
-                                host, and is used to initialize the
-                                container's hostname (which the
-                                container can choose to override,
-                                however). If not specified, the last
-                                component of the root directory of the
-                                container is used.</para></listitem>
+                                used to identify this container during
+                                its runtime (for example in tools like
+                                <citerefentry><refentrytitle>machinectl</refentrytitle><manvolnum>1</manvolnum></citerefentry>
+                                and similar), and is used to
+                                initialize the container's hostname
+                                (which the container can choose to
+                                override, however). If not specified,
+                                the last component of the root
+                                directory path of the container is
+                                used, possibly suffixed with a random
+                                identifier in case
+                                <option>--ephemeral</option> mode is
+                                selected. If the root directory
+                                selected is the host's root directory
+                                the host's hostname is used as default
+                                instead.</para></listitem>
                         </varlistentry>
 
                         <varlistentry>
@@ -300,6 +380,7 @@
                         </varlistentry>
 
                         <varlistentry>
+                                <term><option>-n</option></term>
                                 <term><option>--network-veth</option></term>
 
                                 <listitem><para>Create a virtual
@@ -333,6 +414,32 @@
                                 the Ethernet link will use the
                                 <literal>vb-</literal> prefix instead
                                 of <literal>ve-</literal>.</para></listitem>
+                        </varlistentry>
+
+                        <varlistentry>
+                                <term><option>-p</option></term>
+                                <term><option>--port=</option></term>
+
+                                <listitem><para>If private networking
+                                is enabled, maps an IP port on the
+                                host onto an IP port on the
+                                container. Takes a protocol specifier
+                                (either <literal>tcp</literal> or
+                                <literal>udp</literal>), separated by
+                                a colon from a host port number in the
+                                range 1 to 65535, separated by a colon
+                                from a container port number in the
+                                range from 1 to 65535. The protocol
+                                specifier and its separating colon may
+                                be omitted, in which case
+                                <literal>tcp</literal> is assumed.
+                                The container port number and its
+                                colon may be ommitted, in which case
+                                the same port as the host port is
+                                implied. This option is only supported
+                                if private networking is used, such as
+                                <option>--network-veth</option> or
+                                <option>--network-bridge=</option>.</para></listitem>
                         </varlistentry>
 
                         <varlistentry>
@@ -428,7 +535,7 @@
                                 at the same location. <literal>try-host</literal>
                                 and <literal>try-guest</literal> do the same
                                 but do not fail if the host does not have
-                                persistant journalling enabled.
+                                persistent journalling enabled.
                                 If <literal>auto</literal> (the default),
                                 and the right subdirectory of
                                 <filename>/var/log/journal</filename>
@@ -623,13 +730,13 @@
                                 <term><option>--volatile</option><replaceable>=MODE</replaceable></term>
 
                                 <listitem><para>Boots the container in
-                                volatile (ephemeral) mode. When no
-                                mode parameter is passed or when mode
-                                is specified as <literal>yes</literal>
-                                full volatile mode is enabled. This
-                                means the root directory is mounted as
-                                mostly unpopulated
-                                <literal>tmpfs</literal> instance, and
+                                volatile mode. When no mode parameter
+                                is passed or when mode is specified as
+                                <literal>yes</literal> full volatile
+                                mode is enabled. This means the root
+                                directory is mounted as mostly
+                                unpopulated <literal>tmpfs</literal>
+                                instance, and
                                 <filename>/usr</filename> from the OS
                                 tree is mounted into it, read-only
                                 (the system thus starts up with
@@ -647,8 +754,8 @@
                                 changes to the latter are lost on
                                 shutdown). When the mode parameter is
                                 specified as <literal>no</literal>
-                                (the default) the whole OS tree is made
-                                available writable.</para>
+                                (the default) the whole OS tree is
+                                made available writable.</para>
 
                                 <para>Note that setting this to
                                 <literal>yes</literal> or
@@ -686,7 +793,7 @@
                 <example>
                         <title>Boot a minimal Fedora distribution in a container</title>
 
-                        <programlisting># yum -y --releasever=19 --nogpg --installroot=/srv/mycontainer --disablerepo='*' --enablerepo=fedora install systemd passwd yum fedora-release vim-minimal
+                        <programlisting># yum -y --releasever=21 --nogpg --installroot=/srv/mycontainer --disablerepo='*' --enablerepo=fedora install systemd passwd yum fedora-release vim-minimal
 # systemd-nspawn -bD /srv/mycontainer</programlisting>
 
                         <para>This installs a minimal Fedora distribution into
@@ -721,7 +828,7 @@
                 <example>
                         <title>Enable Arch Linux container on boot</title>
 
-                        <programlisting># mv ~/arch-tree /var/lib/container/arch
+                        <programlisting># mv ~/arch-tree /var/lib/machines/arch
 # systemctl enable systemd-nspawn@arch.service
 # systemctl start systemd-nspawn@arch.service</programlisting>
 
@@ -731,13 +838,16 @@
                 </example>
 
                 <example>
-                        <title>Boot into a btrfs snapshot of the host system</title>
+                        <title>Boot into an ephemeral <literal>btrfs</literal> snapshot of the host system</title>
 
-                        <programlisting># btrfs subvolume snapshot / /.tmp
-# systemd-nspawn --private-network -D /.tmp -b</programlisting>
+                        <programlisting># systemd-nspawn -D / -xb</programlisting>
 
                         <para>This runs a copy of the host system in a
-                        btrfs snapshot.</para>
+                        <literal>btrfs</literal> snapshot which is
+                        removed immediately when the container
+                        exits. All file system changes made during
+                        runtime will be lost on shutdown,
+                        hence.</para>
                 </example>
 
                 <example>
@@ -764,7 +874,8 @@
                         <citerefentry project="die-net"><refentrytitle>debootstrap</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
                         <citerefentry project="archlinux"><refentrytitle>pacman</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
                         <citerefentry><refentrytitle>systemd.slice</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>machinectl</refentrytitle><manvolnum>1</manvolnum></citerefentry>
+                        <citerefentry><refentrytitle>machinectl</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+                        <citerefentry><refentrytitle>btrfs</refentrytitle><manvolnum>8</manvolnum></citerefentry>
                 </para>
         </refsect1>
 

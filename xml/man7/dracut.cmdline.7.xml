@@ -255,10 +255,22 @@ by copying the original kernel cmdline parameters.</simpara>
 </term>
 <listitem>
 <simpara>
-    specify how long dracut should wait for devices to appear.
+    specify how long dracut should retry the initqueue to configure devices.
     The default is 30 seconds. After 2/3 of the time, degraded raids are force
     started. If you have hardware, which takes a very long time to announce its
     drives, you might want to extend this value.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rd.timeout=</emphasis><emphasis>&lt;seconds&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    specify how long dracut should wait for devices to appear. The
+    default is <emphasis>0</emphasis>, which means <emphasis>forever</emphasis>. Note that this timeout
+    should be longer than rd.retry to allow for proper configuration.
 </simpara>
 </listitem>
 </varlistentry>

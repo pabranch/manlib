@@ -48,27 +48,31 @@
                                 <term><option>-p</option></term>
                                 <term><option>--property=</option></term>
 
-                                <listitem><para>When showing
-                                machine properties, limit the
-                                output to certain properties as
-                                specified by the argument. If not
-                                specified, all set properties are
-                                shown. The argument should be a
-                                property name, such as
-                                <literal>Name</literal>. If
-                                specified more than once, all
-                                properties with the specified names
-                                are shown.</para></listitem>
+                                <listitem><para>When showing machine
+                                or image properties, limit the output
+                                to certain properties as specified by
+                                the argument. If not specified, all
+                                set properties are shown. The argument
+                                should be a property name, such as
+                                <literal>Name</literal>. If specified
+                                more than once, all properties with
+                                the specified names are
+                                shown.</para></listitem>
                         </varlistentry>
 
                         <varlistentry>
                                 <term><option>-a</option></term>
                                 <term><option>--all</option></term>
 
-                                <listitem><para>When showing
-                                machine properties, show all
-                                properties regardless of whether they are
-                                set or not.</para></listitem>
+                                <listitem><para>When showing machine
+                                or image properties, show all
+                                properties regardless of whether they
+                                are set or not.</para>
+
+                                <para>When listing VM or container
+                                images, do not suppress images
+                                beginning in a dot character
+                                (<literal>.</literal>).</para></listitem>
                         </varlistentry>
 
                         <varlistentry>
@@ -78,6 +82,14 @@
                                 <listitem><para>Do not ellipsize
                                 process tree entries.</para>
                                 </listitem>
+                        </varlistentry>
+
+                        <varlistentry>
+                                <term><option>--no-ask-password</option></term>
+
+                                <listitem><para>Do not query the user
+                                for authentication for privileged
+                                operations.</para></listitem>
                         </varlistentry>
 
                         <varlistentry>
@@ -116,6 +128,53 @@
                                 <listitem><para>Do not print the legend,
                                         i.e. the column headers and the
                                         footer.</para></listitem>
+                        </varlistentry>
+
+                        <varlistentry>
+                                <term><option>--mkdir</option></term>
+
+                                <listitem><para>When used with
+                                <command>bind</command> creates the
+                                destination directory before applying
+                                the bind mount.</para></listitem>
+                        </varlistentry>
+
+
+                        <varlistentry>
+                                <term><option>--read-only</option></term>
+
+                                <listitem><para>When used with
+                                <command>bind</command> applies a
+                                read-only bind
+                                mount.</para></listitem>
+                        </varlistentry>
+
+
+                        <varlistentry>
+                                <term><option>-n</option></term>
+                                <term><option>--lines=</option></term>
+
+                                <listitem><para>When used with
+                                <command>status</command>, controls
+                                the number of journal lines to show,
+                                counting from the most recent
+                                ones. Takes a positive integer
+                                argument. Defaults to 10.</para>
+                                </listitem>
+                        </varlistentry>
+
+                        <varlistentry>
+                                <term><option>-o</option></term>
+                                <term><option>--output=</option></term>
+
+                                <listitem><para>When used with
+                                <command>status</command>, controls
+                                the formatting of the journal entries
+                                that are shown. For the available
+                                choices, see
+                                <citerefentry><refentrytitle>journalctl</refentrytitle><manvolnum>1</manvolnum></citerefentry>.
+                                Defaults to
+                                <literal>short</literal>.</para></listitem>
                         </varlistentry>
 
                         <varlistentry xml:id="host">
@@ -167,40 +226,55 @@
     </listitem>
   </varlistentry>
                 </variablelist>
+        </refsect1>
+
+        <refsect1>
+                <title>Commands</title>
 
                 <para>The following commands are understood:</para>
 
-                <variablelist>
+                <refsect2><title>Machine Commands</title><variablelist>
+
                         <varlistentry>
                                 <term><command>list</command></term>
 
                                 <listitem><para>List currently running
-                                virtual machines and containers.
-                                </para></listitem>
+                                (online) virtual machines and
+                                containers. To enumerate container
+                                images that can be started,
+                                use <command>list-images</command>
+                                (see below).</para></listitem>
                         </varlistentry>
 
                         <varlistentry>
-                                <term><command>status</command> <replaceable>ID</replaceable>...</term>
+                                <term><command>status</command> <replaceable>NAME</replaceable>...</term>
 
                                 <listitem><para>Show terse runtime
                                 status information about one or more
-                                virtual machines and containers. This
-                                function is intended to generate
-                                human-readable output. If you are
-                                looking for computer-parsable output,
-                                use <command>show</command> instead.
-                                </para></listitem>
+                                virtual machines and containers,
+                                followed by the most recent log data
+                                from the journal. This function is
+                                intended to generate human-readable
+                                output. If you are looking for
+                                computer-parsable output, use
+                                <command>show</command> instead. Note
+                                that the log data shown is reported by
+                                the virtual machine or container
+                                manager, and frequently contains
+                                console output of the machine, but not
+                                necessarily journal contents of the
+                                machine itself.</para></listitem>
                         </varlistentry>
 
                         <varlistentry>
-                                <term><command>show</command> <replaceable>ID</replaceable>...</term>
+                                <term><command>show</command> <replaceable>NAME</replaceable>...</term>
 
                                 <listitem><para>Show properties of one
                                 or more registered virtual machines or
                                 containers or the manager itself. If
                                 no argument is specified, properties
                                 of the manager will be shown. If an
-                                ID is specified, properties of this
+                                NAME is specified, properties of this
                                 virtual machine or container are
                                 shown. By default, empty properties
                                 are suppressed. Use
@@ -217,33 +291,95 @@
                         </varlistentry>
 
                         <varlistentry>
-                                <term><command>login</command> <replaceable>ID</replaceable></term>
+                                <term><command>start</command> <replaceable>NAME</replaceable>...</term>
 
-                                <listitem><para>Open a terminal login
+                                <listitem><para>Start a container as a
+                                system service, using
+                                <citerefentry><refentrytitle>systemd-nspawn</refentrytitle><manvolnum>1</manvolnum></citerefentry>.
+                                This starts
+                                <filename>systemd-nspawn@.service</filename>,
+                                instantiated for the specified machine
+                                name, similar to the effect of
+                                <command>systemctl start</command> on
+                                the service
+                                name. <command>systemd-nspawn</command>
+                                looks for a container image by the
+                                specified name in
+                                <filename>/var/lib/machines/</filename>
+                                (and other search paths, see below) and runs
+                                it. Use <command>list-images</command>
+                                (see below), for listing available
+                                container images to start.</para>
+
+                                <para>Note that
+                                <citerefentry><refentrytitle>systemd-machined.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+                                also interfaces with a variety of
+                                other container and VM managers,
+                                <command>systemd-nspawn</command> is
+                                just one implementation of it. Most of
+                                the commands available in
+                                <command>machinectl</command> may be
+                                used on containers or VMs controlled
+                                by other managers, not just
+                                <command>systemd-nspawn</command>. Starting
+                                VMs and container images on those
+                                managers requires manager-specific
+                                tools.</para>
+
+                                <para>To interactively start a
+                                container on the command line with
+                                full access to the container's
+                                console, please invoke
+                                <command>systemd-nspawn</command>
+                                directly. To stop a running container
+                                use <command>machinectl
+                                poweroff</command>, see
+                                below.</para></listitem>
+                        </varlistentry>
+
+                        <varlistentry>
+                                <term><command>login</command> <replaceable>NAME</replaceable></term>
+
+                                <listitem><para>Open an interactive terminal login
                                 session to a container. This will
                                 create a TTY connection to a specific
                                 container and asks for the execution of a
                                 getty on it. Note that this is only
                                 supported for containers running
                                 <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>
-                                as init system.</para></listitem>
+                                as init system.</para>
+
+                                <para>This command will open a full
+                                login prompt on the container, which
+                                then asks for username and
+                                password. Use
+                                <citerefentry><refentrytitle>systemd-run</refentrytitle><manvolnum>1</manvolnum></citerefentry>
+                                with the <option>--machine=</option>
+                                switch to invoke a single command,
+                                either interactively or in the
+                                background within a local
+                                container.</para></listitem>
                         </varlistentry>
 
                         <varlistentry>
-                                <term><command>reboot</command> <replaceable>ID</replaceable>...</term>
+                                <term><command>enable</command> <replaceable>NAME</replaceable>...</term>
+                                <term><command>disable</command> <replaceable>NAME</replaceable>...</term>
 
-                                <listitem><para>Reboot one or more
-                                containers. This will trigger a reboot
-                                by sending SIGINT to the container's
-                                init process, which is roughly
-                                equivalent to pressing Ctrl+Alt+Del on
-                                a non-containerized system, and is
-                                compatible with containers running any
-                                init system.</para></listitem>
+                                <listitem><para>Enable or disable a
+                                container as a system service to start
+                                at system boot, using
+                                <citerefentry><refentrytitle>systemd-nspawn</refentrytitle><manvolnum>1</manvolnum></citerefentry>.
+                                This enables or disables
+                                <filename>systemd-nspawn@.service</filename>,
+                                instantiated for the specified machine
+                                name, similar to the effect of
+                                <command>systemctl enable</command> or
+                                <command>systemctl disable</command>
+                                on the service name.</para></listitem>
                         </varlistentry>
 
                         <varlistentry>
-                                <term><command>poweroff</command> <replaceable>ID</replaceable>...</term>
+                                <term><command>poweroff</command> <replaceable>NAME</replaceable>...</term>
 
                                 <listitem><para>Power off one or more
                                 containers. This will trigger a reboot
@@ -254,12 +390,42 @@
                                 not work on containers that do not run
                                 a
                                 <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>-compatible
-                                init system, such as
-                                sysvinit.</para></listitem>
+                                init system, such as sysvinit. Use
+                                <command>terminate</command> (see
+                                below) to immediately terminate a
+                                container or VM, without cleanly
+                                shutting it down.</para></listitem>
                         </varlistentry>
 
                         <varlistentry>
-                                <term><command>kill</command> <replaceable>ID</replaceable>...</term>
+                                <term><command>reboot</command> <replaceable>NAME</replaceable>...</term>
+
+                                <listitem><para>Reboot one or more
+                                containers. This will trigger a reboot
+                                by sending SIGINT to the container's
+                                init process, which is roughly
+                                equivalent to pressing Ctrl+Alt+Del on
+                                a non-containerized system, and is
+                                compatible with containers running any
+                                system manager.</para></listitem>
+                        </varlistentry>
+
+                        <varlistentry>
+                                <term><command>terminate</command> <replaceable>NAME</replaceable>...</term>
+
+                                <listitem><para>Immediately terminates
+                                a virtual machine or container,
+                                without cleanly shutting it down. This
+                                kills all processes of the virtual
+                                machine or container and deallocates
+                                all resources attached to that
+                                instance. Use
+                                <command>poweroff</command> to issue a
+                                clean shutdown request.</para></listitem>
+                        </varlistentry>
+
+                        <varlistentry>
+                                <term><command>kill</command> <replaceable>NAME</replaceable>...</term>
 
                                 <listitem><para>Send a signal to one
                                 or more processes of the virtual
@@ -274,18 +440,218 @@
                         </varlistentry>
 
                         <varlistentry>
-                                <term><command>terminate</command> <replaceable>ID</replaceable>...</term>
+                                <term><command>bind</command> <replaceable>NAME</replaceable> <replaceable>PATH</replaceable> [<replaceable>PATH</replaceable>]</term>
 
-                                <listitem><para>Terminates a virtual
-                                machine or container. This kills all
-                                processes of the virtual machine or
-                                container and deallocates all
-                                resources attached to that
-                                instance.</para></listitem>
+                                <listitem><para>Bind mounts a
+                                directory from the host into the
+                                specified container. The first
+                                directory argument is the source
+                                directory on the host, the second
+                                directory argument the source
+                                directory on the host. When the latter
+                                is omitted the destination path in the
+                                container is the same as the source
+                                path on the host. When combined with
+                                the <option>--read-only</option>
+                                switch a ready-only bind mount is
+                                created. When combined with the
+                                <option>--mkdir</option> switch the
+                                destination path is first created
+                                before the mount is applied. Note that
+                                this option is currently only
+                                supported for
+                                <citerefentry><refentrytitle>systemd-nspawn</refentrytitle><manvolnum>1</manvolnum></citerefentry>
+                                containers.</para></listitem>
                         </varlistentry>
 
-                </variablelist>
+                        <varlistentry>
+                                <term><command>copy-to</command> <replaceable>NAME</replaceable> <replaceable>PATH</replaceable> [<replaceable>PATH</replaceable>]</term>
 
+                                <listitem><para>Copies files or
+                                directories from the host system into
+                                a running container. Takes a container
+                                name, followed by the source path on
+                                the host and the destination path in
+                                the container. If the destination path
+                                is omitted the same as the source path
+                                is used.</para></listitem>
+                        </varlistentry>
+
+
+                        <varlistentry>
+                                <term><command>copy-from</command> <replaceable>NAME</replaceable> <replaceable>PATH</replaceable> [<replaceable>PATH</replaceable>]</term>
+
+                                <listitem><para>Copies files or
+                                directories from a container into the
+                                host system. Takes a container name,
+                                followed by the source path in the
+                                container the destination path on the
+                                host. If the destination path is
+                                omitted the same as the source path is
+                                used.</para></listitem>
+                        </varlistentry>
+                </variablelist></refsect2>
+
+                <refsect2><title>Image Commands</title><variablelist>
+
+                        <varlistentry>
+                                <term><command>list-images</command></term>
+
+                                <listitem><para>Show a list of locally
+                                installed container and VM
+                                images. This enumerates all raw disk
+                                images and container directories and
+                                subvolumes in
+                                <filename>/var/lib/machines/</filename> (and other search paths, see below). Use
+                                <command>start</command> (see above)
+                                to run a container off one of the
+                                listed images. Note that by default
+                                containers whose name begins with a
+                                dot (<literal>.</literal>) are not
+                                shown. To show these too, specify
+                                <option>--all</option>. Note that a
+                                special image <literal>.host</literal>
+                                always implicitly exists and refers to
+                                the image the host itself is booted
+                                from.</para></listitem>
+                        </varlistentry>
+
+                        <varlistentry>
+                                <term><command>image-status</command> <replaceable>NAME</replaceable>...</term>
+
+                                <listitem><para>Show terse status
+                                information about one or more
+                                container or VM images. This function
+                                is intended to generate human-readable
+                                output. Use
+                                <command>show-image</command> (see
+                                below) to generate computer-parsable
+                                output instead.</para></listitem>
+                        </varlistentry>
+
+                        <varlistentry>
+                                <term><command>show-image</command> <replaceable>NAME</replaceable>...</term>
+
+                                <listitem><para>Show properties of one
+                                or more registered virtual machine or
+                                container images, or the manager
+                                itself. If no argument is specified,
+                                properties of the manager will be
+                                shown. If an NAME is specified,
+                                properties of this virtual machine or
+                                container image are shown. By default,
+                                empty properties are suppressed. Use
+                                <option>--all</option> to show those
+                                too. To select specific properties to
+                                show, use
+                                <option>--property=</option>. This
+                                command is intended to be used
+                                whenever computer-parsable output is
+                                required. Use
+                                <command>image-status</command> if you
+                                are looking for formatted
+                                human-readable
+                                output.</para></listitem>
+                        </varlistentry>
+
+                        <varlistentry>
+                                <term><command>clone</command> <replaceable>NAME</replaceable> <replaceable>NAME</replaceable></term>
+
+                                <listitem><para>Clones a container or
+                                disk image. The arguments specify the
+                                name of the image to clone and the
+                                name of the newly cloned image. Note
+                                that plain directory container images
+                                are cloned into subvolume images with
+                                this command. Note that cloning a
+                                container or VM image is optimized for
+                                btrfs file systems, and might not be
+                                efficient on others, due to file
+                                system limitations.</para></listitem>
+                        </varlistentry>
+
+                        <varlistentry>
+                                <term><command>rename</command> <replaceable>NAME</replaceable> <replaceable>NAME</replaceable></term>
+
+                                <listitem><para>Renames a container or
+                                disk image. The arguments specify the
+                                name of the image to rename and the
+                                new name of the
+                                image.</para></listitem>
+                        </varlistentry>
+
+                        <varlistentry>
+                                <term><command>read-only</command> <replaceable>NAME</replaceable> [<replaceable>BOOL</replaceable>]</term>
+
+                                <listitem><para>Marks or (unmarks) a
+                                container or disk image
+                                read-only. Takes a VM or container
+                                image name, followed by a boolean as
+                                arguments. If the boolean is omitted,
+                                positive is implied, i.e. the image is
+                                marked read-only.</para></listitem>
+                        </varlistentry>
+
+
+                        <varlistentry>
+                                <term><command>remove</command> <replaceable>NAME</replaceable>...</term>
+
+                                <listitem><para>Removes one or more
+                                container or disk images. The special
+                                image <literal>.host</literal>, which
+                                refers to the host's own directory
+                                tree may not be
+                                removed.</para></listitem>
+                        </varlistentry>
+
+
+                </variablelist></refsect2>
+
+        </refsect1>
+
+        <refsect1>
+                <title>Files and Directories</title>
+
+                <para>Machine images are preferably stored in
+                <filename>/var/lib/machines/</filename>, but are also
+                searched for in
+                <filename>/usr/local/lib/machines/</filename> and
+                <filename>/usr/lib/machines/</filename>. For
+                compatibility reasons the directory
+                <filename>/var/lib/container/</filename> is searched,
+                too. Note that images stored below
+                <filename>/usr</filename> are always considered
+                read-only. It is possible to symlink machines images
+                from other directories into
+                <filename>/var/lib/machines/</filename> to make them
+                available for control with
+                <command>machinectl</command>.</para>
+
+                <para>Disk images are understood in three formats:</para>
+
+                <itemizedlist>
+                        <listitem><para>A simple directory tree,
+                        containing the files and directories of the
+                        container to boot.</para></listitem>
+
+                        <listitem><para>A subvolume (on btrfs file
+                        systems), which are similar to the simple
+                        directories, described above. However, they
+                        have additional benefits, such as efficient
+                        cloning and quota reporting.</para></listitem>
+
+                        <listitem><para>"Raw" disk images, i.e. binary
+                        images of disks with a GPT or MBR partition
+                        table. Images of this type are regular
+                        files with the suffix
+                        <literal>.raw</literal>.</para></listitem>
+                </itemizedlist>
+
+                <para>See
+                <citerefentry><refentrytitle>systemd-nspawn</refentrytitle><manvolnum>1</manvolnum></citerefentry>
+                for more information on image formats, in particular
+                it's <option>--directory=</option> and
+                <option>--image=</option> options.</para>
         </refsect1>
 
         <refsect1>

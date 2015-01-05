@@ -7,22 +7,22 @@
 <refentrytitle>btrfs-check</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.17.1</refmiscinfo>
+<refmiscinfo class="version">v3.18-36-g0173148</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
   <refname>btrfs-check</refname>
-  <refpurpose>check or repair a btrfs filesystem offline</refpurpose>
+  <refpurpose>check or repair an unmounted btrfs filesystem</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
 <simpara><emphasis role="strong">btrfs check</emphasis> [options] <emphasis>&lt;device&gt;</emphasis></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
-<simpara><emphasis role="strong">btrfs check</emphasis> is used to check or repair a btrfs filesystem offline.</simpara>
-<note><simpara>Since btrfs is under heavy development especially the <emphasis role="strong">btrfs check</emphasis>
-command, it is <emphasis role="strong">highly</emphasis> recommended to read the following btrfs wiki before
-executing <emphasis role="strong">btrfs check</emphasis> with <emphasis>--repair</emphasis> option:<?asciidoc-br?>
+<simpara><emphasis role="strong">btrfs check</emphasis> is used to check or repair an unmounted btrfs filesystem.</simpara>
+<note><simpara>Since btrfs is under development, the <emphasis role="strong">btrfs check</emphasis> capabilities are
+continuously enhanced. It&#8217;s highly recommended to read the following btrfs
+wiki before executing <emphasis role="strong">btrfs check</emphasis> with <emphasis>--repair</emphasis> option:<?asciidoc-br?>
 <ulink url="https://btrfs.wiki.kernel.org/index.php/Btrfsck">https://btrfs.wiki.kernel.org/index.php/Btrfsck</ulink></simpara></note>
 <simpara><emphasis role="strong">btrfsck</emphasis> is an alias of <emphasis role="strong">btrfs check</emphasis> command and is now deprecated.</simpara>
 </refsect1>
@@ -35,7 +35,8 @@ executing <emphasis role="strong">btrfs check</emphasis> with <emphasis>--repair
 </term>
 <listitem>
 <simpara>
-use '&lt;superblock&gt;'th superblock copy.
+use <emphasis>&lt;superblock&gt;</emphasis>th superblock copy, valid values are 0 up to 2 if the
+respective superblock offset is within the fileystem
 </simpara>
 </listitem>
 </varlistentry>
@@ -45,7 +46,7 @@ use '&lt;superblock&gt;'th superblock copy.
 </term>
 <listitem>
 <simpara>
-try to repair the filesystem.
+try to repair the filesystem
 </simpara>
 </listitem>
 </varlistentry>
@@ -55,7 +56,7 @@ try to repair the filesystem.
 </term>
 <listitem>
 <simpara>
-create a new CRC tree.
+create a new CRC tree and recalculate all checksums
 </simpara>
 </listitem>
 </varlistentry>
@@ -65,7 +66,7 @@ create a new CRC tree.
 </term>
 <listitem>
 <simpara>
-create a new extent tree.
+create a new extent tree
 </simpara>
 </listitem>
 </varlistentry>
@@ -75,7 +76,17 @@ create a new extent tree.
 </term>
 <listitem>
 <simpara>
-verify checkums of data blocks.
+verify checkums of data blocks
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--qgroup-report
+</term>
+<listitem>
+<simpara>
+verify qgroup accounting and compare against filesystem accounting
 </simpara>
 </listitem>
 </varlistentry>
@@ -85,7 +96,17 @@ verify checkums of data blocks.
 </term>
 <listitem>
 <simpara>
-show extent state for a subvolume.
+show extent state for a subvolume
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--tree-root <emphasis>&lt;bytenr&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+use the given bytenr for the tree root
 </simpara>
 </listitem>
 </varlistentry>

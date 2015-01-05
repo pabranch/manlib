@@ -7,7 +7,7 @@
 <refentrytitle>btrfs-property</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.16.2</refmiscinfo>
+<refmiscinfo class="version">v3.18-36-g0173148</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -19,8 +19,9 @@
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
-<simpara><emphasis role="strong">btrfs property</emphasis> is used to get/set/list property, like lable or compression
-state, for given btrfs object.</simpara>
+<simpara><emphasis role="strong">btrfs property</emphasis> is used to get/set/list property for given btrfs object.
+See the description of <emphasis role="strong">get</emphasis> subcommand for more information about
+both btrfs object and property.</simpara>
 <simpara><emphasis role="strong">btrfs property</emphasis> provides an unified and user-friendly method to tune different
 btrfs properties instead of using the traditional method like <literal>chattr</literal>(1) or
 <literal>lsattr</literal>(1).</simpara>
@@ -36,28 +37,48 @@ btrfs properties instead of using the traditional method like <literal>chattr</l
 <simpara>
 Gets a property from a btrfs object.
 </simpara>
-<simpara>If no name is specified, all properties for the given object are
-printed.
-A filesystem object can be a the filesystem itself, a subvolume,
-an inode or a device.</simpara>
-<simpara>The <emphasis>-t '&lt;type&gt;</emphasis>' option can be used to explicitly
+<simpara>A btrfs object, which is set by <emphasis>&lt;object&gt;</emphasis>, can be a btrfs filesystem
+itself, a btrfs subvolume, an inode(file or directory) inside btrfs,
+or a device on which a btrfs exists.</simpara>
+<simpara>The <emphasis>-t <emphasis>&lt;type&gt;</emphasis></emphasis> option can be used to explicitly
 specify what type of object you meant. This is only needed when a
 property could be set for more then one object type.</simpara>
 <simpara>Possible types are <emphasis>s[ubvol]</emphasis>, <emphasis>f[ilesystem]</emphasis>, <emphasis>i[node]</emphasis> and <emphasis>d[evice]</emphasis>.</simpara>
-<simpara>The <emphasis>&lt;object&gt;</emphasis> can be path of btrfs device, btrfs mount point, or any
-directories/files inside btrfs.</simpara>
+<simpara>Set the name of property by <emphasis><emphasis>&lt;name&gt;</emphasis></emphasis>. If no <emphasis><emphasis>&lt;name&gt;</emphasis></emphasis> is specified,
+all properties for the given object are printed. <emphasis><emphasis>&lt;name&gt;</emphasis></emphasis> is one of
+the followings.</simpara>
+<variablelist>
+<varlistentry>
+<term>
+ro
+</term>
+<listitem>
+<simpara>
+read-only flag of subvolume: true or false
+</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
 <term>
-<emphasis role="strong">set</emphasis> [-t <emphasis>&lt;type&gt;</emphasis>] <emphasis>&lt;object&gt;</emphasis> <emphasis>&lt;name&gt;</emphasis> <emphasis>&lt;value&gt;</emphasis>
+label
 </term>
 <listitem>
 <simpara>
-Sets a property on a btrfs object.
+label of device
 </simpara>
-<simpara>See description of <emphasis role="strong">get</emphasis> subcommand for a description of objects and object
-types.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+compression
+</term>
+<listitem>
+<simpara>
+compression setting for an inode: lzo, zlib, or "" (empty string)
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -68,8 +89,18 @@ types.</simpara>
 <simpara>
 Lists available properties with their descriptions for the given object.
 </simpara>
-<simpara>Please see the help of <emphasis role="strong">btrfs property get</emphasis> for a description of
-objects and object types.</simpara>
+<simpara>See the description of <emphasis role="strong">get</emphasis> subcommand for the meaning of each option.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">set</emphasis> [-t <emphasis>&lt;type&gt;</emphasis>] <emphasis>&lt;object&gt;</emphasis> <emphasis>&lt;name&gt;</emphasis> <emphasis>&lt;value&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Sets a property on a btrfs object.
+</simpara>
+<simpara>See the description of <emphasis role="strong">get</emphasis> subcommand for the meaning of each option.</simpara>
 </listitem>
 </varlistentry>
 </variablelist>

@@ -1017,6 +1017,31 @@ core.precomposeunicode
 </varlistentry>
 <varlistentry>
 <term>
+core.protectHFS
+</term>
+<listitem>
+<simpara>
+        If set to true, do not allow checkout of paths that would
+        be considered equivalent to <literal>.git</literal> on an HFS+ filesystem.
+        Defaults to <literal>true</literal> on Mac OS, and <literal>false</literal> elsewhere.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+core.protectNTFS
+</term>
+<listitem>
+<simpara>
+        If set to true, do not allow checkout of paths that would
+        cause problems with the NTFS filesystem, e.g. conflict with
+        8.3 "short" names.
+        Defaults to <literal>true</literal> on Windows, and <literal>false</literal> elsewhere.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 core.trustctime
 </term>
 <listitem>
@@ -1199,17 +1224,19 @@ core.ignoreStat
 </term>
 <listitem>
 <simpara>
-        If true, commands which modify both the working tree and the index
-        will mark the updated paths with the "assume unchanged" bit in the
-        index. These marked files are then assumed to stay unchanged in the
-        working tree, until you mark them otherwise manually - Git will not
-        detect the file changes by lstat() calls. This is useful on systems
-        where those are very slow, such as Microsoft Windows.
-        See <citerefentry>
-<refentrytitle>git-update-index</refentrytitle><manvolnum>1</manvolnum>
-</citerefentry>.
-        False by default.
+        If true, Git will avoid using lstat() calls to detect if files have
+        changed by setting the "assume-unchanged" bit for those tracked files
+        which it has updated identically in both the index and working tree.
 </simpara>
+<simpara>When files are modified outside of Git, the user will need to stage
+the modified files explicitly (e.g. see <emphasis>Examples</emphasis> section in
+<citerefentry>
+<refentrytitle>git-update-index</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>).
+Git will not normally detect changes to those files.</simpara>
+<simpara>This is useful on systems where lstat() calls are very slow, such as
+CIFS/Microsoft Windows.</simpara>
+<simpara>False by default.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -2050,7 +2077,12 @@ accepted are <literal>normal</literal>, <literal>black</literal>, <literal>red</
 <literal>magenta</literal>, <literal>cyan</literal> and <literal>white</literal>; the attributes are <literal>bold</literal>, <literal>dim</literal>, <literal>ul</literal>,
 <literal>blink</literal> and <literal>reverse</literal>.  The first color given is the foreground; the
 second is the background.  The position of the attribute, if any,
-doesn&#8217;t matter.</simpara>
+doesn&#8217;t matter. Attributes may be turned off specifically by prefixing
+them with <literal>no</literal> (e.g., <literal>noreverse</literal>, <literal>noul</literal>, etc).</simpara>
+<simpara>Colors (foreground and background) may also be given as numbers between
+0 and 255; these use ANSI 256-color mode (but note that not all
+terminals may support this).  If your terminal supports it, you may also
+specify 24-bit RGB values as hex, like <literal>#ff0ab3</literal>.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -5568,6 +5600,12 @@ receive.denyCurrentBranch
         proceed. If set to false or "ignore", allow such pushes with no
         message. Defaults to "refuse".
 </simpara>
+<simpara>Another option is "updateInstead" which will update the working
+directory (must be clean) if pushing into the current branch. This option is
+intended for synchronizing working directories when one side is not easily
+accessible via interactive ssh (e.g. a live web site, hence the requirement
+that the working directory be clean). This mode also comes in handy when
+developing inside a VM to test and fix code on different Operating Systems.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -6032,7 +6070,13 @@ sendemail.smtpuser
 sendemail.thread
 </term>
 <term>
+sendemail.transferencoding
+</term>
+<term>
 sendemail.validate
+</term>
+<term>
+sendemail.xmailer
 </term>
 <listitem>
 <simpara>

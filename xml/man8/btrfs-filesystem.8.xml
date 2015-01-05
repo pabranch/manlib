@@ -7,7 +7,7 @@
 <refentrytitle>btrfs-filesystem</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.17.1</refmiscinfo>
+<refmiscinfo class="version">v3.18-36-g0173148</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -124,38 +124,10 @@ show sizes in GiB, or GB with --si
 <simpara>
 show sizes in TiB, or TB with --si
 </simpara>
-</listitem>
-</varlistentry>
-</variablelist>
-</listitem>
-</varlistentry>
-</variablelist>
 <simpara>If conflicting options are passed, the last one takes precedence.</simpara>
-<variablelist>
-<varlistentry>
-<term>
-<emphasis role="strong">show</emphasis> [--mounted|--all-devices|<emphasis>&lt;path&gt;</emphasis>|<emphasis>&lt;uuid&gt;</emphasis>|<emphasis>&lt;device&gt;</emphasis>|<emphasis>&lt;label&gt;</emphasis>]
-</term>
-<listitem>
-<simpara>
-Show the btrfs filesystem with some additional info.
-</simpara>
-<simpara>If no option nor <emphasis>&lt;path&gt;</emphasis>|<emphasis>&lt;uuid&gt;</emphasis>|<emphasis>&lt;device&gt;</emphasis>|<emphasis>&lt;label&gt;</emphasis> is passed, btrfs shows
-information of all the btrfs filesystem both mounted and unmounted.
-If <emphasis>--mounted</emphasis> is passed, it would probe btrfs kernel to list mounted btrfs
-filesystem(s);
-If <emphasis>--all-devices</emphasis> is passed, all the devices under /dev are scanned;
-otherwise the devices list is extracted from the /proc/partitions file.</simpara>
 </listitem>
 </varlistentry>
-<varlistentry>
-<term>
-<emphasis role="strong">sync</emphasis> <emphasis>&lt;path&gt;</emphasis>
-</term>
-<listitem>
-<simpara>
-Force a sync for the filesystem identified by <emphasis>&lt;path&gt;</emphasis>.
-</simpara>
+</variablelist>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -217,7 +189,7 @@ flush filesystem after defragmenting
 </varlistentry>
 <varlistentry>
 <term>
--s <emphasis>&lt;start&gt;</emphasis>
+-s <emphasis>&lt;start&gt;</emphasis>[kKmMgGtTpPeE]
 </term>
 <listitem>
 <simpara>
@@ -227,7 +199,7 @@ defragment only from byte <emphasis>&lt;start&gt;</emphasis> onward
 </varlistentry>
 <varlistentry>
 <term>
--l <emphasis>&lt;len&gt;</emphasis>
+-l <emphasis>&lt;len&gt;</emphasis>[kKmMgGtTpPeE]
 </term>
 <listitem>
 <simpara>
@@ -237,14 +209,15 @@ defragment only up to <emphasis>&lt;len&gt;</emphasis> bytes
 </varlistentry>
 <varlistentry>
 <term>
--t <emphasis>&lt;size&gt;</emphasis>
+-t <emphasis>&lt;size&gt;</emphasis>[kKmMgGtTpPeE]
 </term>
 <listitem>
 <simpara>
 defragment only files at least <emphasis>&lt;size&gt;</emphasis> bytes big
 </simpara>
-<simpara>For <emphasis>&lt;start&gt;</emphasis>, <emphasis>&lt;len&gt;</emphasis>, <emphasis>&lt;size&gt;</emphasis> it is possible to append a suffix
-like <emphasis>k</emphasis> for 1 KBytes, <emphasis>m</emphasis> for 1 MBytes&#8230;</simpara>
+<simpara>For <emphasis>&lt;start&gt;</emphasis>, <emphasis>&lt;len&gt;</emphasis>, <emphasis>&lt;size&gt;</emphasis> it is possible to append
+units designator: 'K', 'M', 'G', 'T', 'P', or 'E', which represent
+KiB, MiB, GiB, TiB, PiB, or EiB, respectively. Case does not matter.</simpara>
 <warning><simpara>defragmenting with kernels up to 2.6.37 will unlink COW-ed copies of data,
 don&#8217;t use it if you use snapshots, have de-duplicated your data or made
 copies with <literal>cp --reflink</literal>.</simpara></warning>
@@ -253,11 +226,24 @@ copies with <literal>cp --reflink</literal>.</simpara></warning>
 </variablelist>
 </listitem>
 </varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">label</emphasis> [<emphasis>&lt;dev&gt;</emphasis>|<emphasis>&lt;mountpoint&gt;</emphasis>] [<emphasis>&lt;newlabel&gt;</emphasis>]
+</term>
+<listitem>
+<simpara>
+Show or update the label of a filesystem.
+</simpara>
+<simpara>[<emphasis>&lt;device&gt;</emphasis>|<emphasis>&lt;mountpoint&gt;</emphasis>] is used to identify the filesystem.
+If a newlabel optional argument is passed, the label is changed.</simpara>
+<note><simpara>the maximum allowable length shall be less than 256 chars</simpara></note>
+</listitem>
+</varlistentry>
 </variablelist>
 <variablelist>
 <varlistentry>
 <term>
-<emphasis role="strong">resize</emphasis> [<emphasis>&lt;devid&gt;</emphasis>:]<emphasis><phrase role="+/-">&lt;size&gt;</phrase></emphasis>[gkm]|[<emphasis>&lt;devid&gt;</emphasis>:]max <emphasis>&lt;path&gt;</emphasis>
+<emphasis role="strong">resize</emphasis> [<emphasis>&lt;devid&gt;</emphasis>:][+/-]<emphasis>&lt;size&gt;</emphasis>[kKmMgGtTpPeE]|[<emphasis>&lt;devid&gt;</emphasis>:]max <emphasis>&lt;path&gt;</emphasis>
 </term>
 <listitem>
 <simpara>
@@ -270,8 +256,8 @@ If the prefix + or - is present the size is increased or decreased
 by the quantity <emphasis>&lt;size&gt;</emphasis>.
 If no units are specified, the unit of the <emphasis>&lt;size&gt;</emphasis> parameter defaults to
 bytes. Optionally, the size parameter may be suffixed by one of the following
-units designators: 'K', 'M', or 'G', kilobytes, megabytes, or gigabytes,
-respectively.
+units designators: 'K', 'M', 'G', 'T', 'P', or 'E', which represent
+KiB, MiB, GiB, TiB, PiB, or EiB, respectively. Case does not matter.
 </simpara>
 <simpara>If 'max' is passed, the filesystem will occupy all available space on the
 device devid.</simpara>
@@ -286,15 +272,142 @@ the same starting disk cylinder as before.</simpara>
 </varlistentry>
 <varlistentry>
 <term>
-<emphasis role="strong">label</emphasis> [<emphasis>&lt;dev&gt;</emphasis>|<emphasis>&lt;mountpoint&gt;</emphasis>] [<emphasis>&lt;newlabel&gt;</emphasis>]
+<emphasis role="strong">show</emphasis> [--mounted|--all-devices|<emphasis>&lt;path&gt;</emphasis>|<emphasis>&lt;uuid&gt;</emphasis>|<emphasis>&lt;device&gt;</emphasis>|<emphasis>&lt;label&gt;</emphasis>]
 </term>
 <listitem>
 <simpara>
-Show or update the label of a filesystem.
+Show the btrfs filesystem with some additional info.
 </simpara>
-<simpara>[<emphasis>&lt;device&gt;</emphasis>|<emphasis>&lt;mountpoint&gt;</emphasis>] is used to identify the filesystem.
-If a newlabel optional argument is passed, the label is changed.
-NOTE: the maximum allowable length shall be less than 256 chars</simpara>
+<simpara>If no option nor <emphasis>&lt;path&gt;</emphasis>|<emphasis>&lt;uuid&gt;</emphasis>|<emphasis>&lt;device&gt;</emphasis>|<emphasis>&lt;label&gt;</emphasis> is passed, btrfs shows
+information of all the btrfs filesystem both mounted and unmounted.
+If <emphasis>--mounted</emphasis> is passed, it would probe btrfs kernel to list mounted btrfs
+filesystem(s);
+If <emphasis>--all-devices</emphasis> is passed, all the devices under /dev are scanned;
+otherwise the devices list is extracted from the /proc/partitions file.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">sync</emphasis> <emphasis>&lt;path&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Force a sync for the filesystem identified by <emphasis>&lt;path&gt;</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">usage</emphasis> [options] <emphasis>&lt;path&gt;</emphasis> [<emphasis>&lt;path&gt;</emphasis>&#8230;]
+</term>
+<listitem>
+<simpara>
+Show detailed information about internal filesystem usage.
+</simpara>
+<simpara><literal>Options</literal></simpara>
+<variablelist>
+<varlistentry>
+<term>
+-b|--raw
+</term>
+<listitem>
+<simpara>
+raw numbers in bytes, without the <emphasis>B</emphasis> suffix
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-h
+</term>
+<listitem>
+<simpara>
+print human friendly numbers, base 1024, this is the default
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-H
+</term>
+<listitem>
+<simpara>
+print human friendly numbers, base 1000
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--iec
+</term>
+<listitem>
+<simpara>
+select the 1024 base for the following options, according to the IEC standard
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--si
+</term>
+<listitem>
+<simpara>
+select the 1000 base for the following options, according to the SI standard
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-k|--kbytes
+</term>
+<listitem>
+<simpara>
+show sizes in KiB, or kB with --si
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-m|--mbytes
+</term>
+<listitem>
+<simpara>
+show sizes in MiB, or MB with --si
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-g|--gbytes
+</term>
+<listitem>
+<simpara>
+show sizes in GiB, or GB with --si
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-t|--tbytes
+</term>
+<listitem>
+<simpara>
+show sizes in TiB, or TB with --si
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-T
+</term>
+<listitem>
+<simpara>
+show data in tabular format
+</simpara>
+<simpara>If conflicting options are passed, the last one takes precedence.</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
 </listitem>
 </varlistentry>
 </variablelist>

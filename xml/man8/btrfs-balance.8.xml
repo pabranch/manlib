@@ -7,7 +7,7 @@
 <refentrytitle>btrfs-balance</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.17</refmiscinfo>
+<refmiscinfo class="version">v3.18-36-g0173148</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -15,27 +15,51 @@
   <refpurpose>balance btrfs filesystem</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<simpara><emphasis role="strong">btrfs [filesystem] balance</emphasis> <emphasis>&lt;subcommand&gt;</emphasis>|<emphasis>&lt;args&gt;</emphasis></simpara>
+<simpara><emphasis role="strong">btrfs balance</emphasis> <emphasis>&lt;subcommand&gt;</emphasis> <emphasis>&lt;args&gt;</emphasis></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
 <simpara><emphasis role="strong">btrfs balance</emphasis> is used to balance chunks in a btrfs filesystem across
 multiple or even single device.</simpara>
 <simpara>See <literal>btrfs-device</literal>(8) for more details about the effect on device management.</simpara>
+<note><simpara>The balance subcommand also exists under the <emphasis role="strong">filesystem</emphasis> namespace. This
+still works for backward compatibility but is deprecated and should not be
+used anymore.</simpara></note>
+<note><simpara>A short syntax <emphasis role="strong">btrfs balance <emphasis>&lt;path&gt;</emphasis></emphasis> works due to backward compatibility
+but is deprecated and should not be used anymore. Use <emphasis role="strong">btrfs balance start</emphasis>
+command instead.</simpara></note>
 </refsect1>
 <refsect1 id="_subcommand">
 <title>SUBCOMMAND</title>
 <variablelist>
 <varlistentry>
 <term>
-<emphasis>&lt;path&gt;</emphasis>
+<emphasis role="strong">cancel</emphasis> <emphasis>&lt;path&gt;</emphasis>
 </term>
 <listitem>
 <simpara>
-Balance chunks across the devices <emphasis role="strong">online</emphasis>.
+Cancel running or paused balance.
 </simpara>
-<simpara><emphasis role="strong">btrfs balance <emphasis>&lt;path&gt;</emphasis></emphasis> is deprecated,
-please use <emphasis role="strong">btrfs balance start</emphasis> command instead.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">pause</emphasis> <emphasis>&lt;path&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Pause running balance.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">resume</emphasis> <emphasis>&lt;path&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Resume interrupted balance.
+</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -109,36 +133,6 @@ force reducing of metadata integrity
 </varlistentry>
 <varlistentry>
 <term>
-<emphasis role="strong">pause</emphasis> <emphasis>&lt;path&gt;</emphasis>
-</term>
-<listitem>
-<simpara>
-Pause running balance.
-</simpara>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
-<emphasis role="strong">cancel</emphasis> <emphasis>&lt;path&gt;</emphasis>
-</term>
-<listitem>
-<simpara>
-Cancel running or paused balance.
-</simpara>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
-<emphasis role="strong">resume</emphasis> <emphasis>&lt;path&gt;</emphasis>
-</term>
-<listitem>
-<simpara>
-Resume interrupted balance.
-</simpara>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
 <emphasis role="strong">status</emphasis> [-v] <emphasis>&lt;path&gt;</emphasis>
 </term>
 <listitem>
@@ -168,11 +162,8 @@ A filter has the following stucture:
 </simpara>
 </listitem>
 </varlistentry>
-<varlistentry>
-<term>
-The available types are: 
-</term>
-<listitem>
+</variablelist>
+<simpara>The available types are:</simpara>
 <variablelist>
 <varlistentry>
 <term>
@@ -271,9 +262,6 @@ useful if e.g. half of the FS was converted earlier.
 <simpara>The soft mode switch is (like every other filter) per-type. This means
 that we can convert for example meta chunks the "hard" way while converting
 data chunks selectively with soft switch.</simpara>
-</listitem>
-</varlistentry>
-</variablelist>
 </listitem>
 </varlistentry>
 </variablelist>

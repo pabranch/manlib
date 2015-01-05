@@ -7,7 +7,7 @@
 <refentrytitle>btrfs-send</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.16.2</refmiscinfo>
+<refmiscinfo class="version">v3.18-36-g0173148</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -21,12 +21,12 @@
 <title>DESCRIPTION</title>
 <simpara>Sends the subvolume(s) specified by <emphasis>&lt;subvol&gt;</emphasis> to stdout.</simpara>
 <simpara>By default, this will send the whole subvolume. To do an incremental
-send, use <emphasis>-p '&lt;parent&gt;</emphasis>'.</simpara>
+send, use <emphasis>-p <emphasis>&lt;parent&gt;</emphasis></emphasis>.</simpara>
 <simpara>If you want to allow btrfs to clone from any additional local snapshots,
-use <emphasis>-c '&lt;clone-src&gt;</emphasis>' (multiple times where applicable).</simpara>
+use <emphasis>-c <emphasis>&lt;clone-src&gt;</emphasis></emphasis> (multiple times where applicable).</simpara>
 <simpara>You must not specify clone sources unless you guarantee that these snapshots
 are exactly in the same state on both sides, the sender and the receiver.</simpara>
-<simpara>It is allowed to omit the <emphasis>-p '&lt;parent&gt;</emphasis>' option when <emphasis>-c '&lt;clone-src&gt;</emphasis>' options
+<simpara>It is allowed to omit the <emphasis>-p <emphasis>&lt;parent&gt;</emphasis></emphasis> option when <emphasis>-c <emphasis>&lt;clone-src&gt;</emphasis></emphasis> options
 are given, in which case <emphasis role="strong">btrfs send</emphasis> will determine a suitable parent among the
 clone sources itself.</simpara>
 <simpara><literal>Options</literal></simpara>

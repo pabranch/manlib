@@ -129,6 +129,35 @@
                                 <constant>SIGTERM</constant>.</para></listitem>
                         </varlistentry>
 
+                        <varlistentry>
+                                <term><option>-n</option></term>
+                                <term><option>--lines=</option></term>
+
+                                <listitem><para>When used with
+                                <command>user-status</command> and
+                                <command>session-status</command>,
+                                controls the number of journal lines
+                                to show, counting from the most recent
+                                ones. Takes a positive integer
+                                argument. Defaults to 10.</para>
+                                </listitem>
+                        </varlistentry>
+
+                        <varlistentry>
+                                <term><option>-o</option></term>
+                                <term><option>--output=</option></term>
+
+                                <listitem><para>When used with
+                                <command>user-status</command> and
+                                <command>session-status</command>,
+                                controls the formatting of the journal
+                                entries that are shown. For the
+                                available choices, see
+                                <citerefentry><refentrytitle>journalctl</refentrytitle><manvolnum>1</manvolnum></citerefentry>.
+                                Defaults to
+                                <literal>short</literal>.</para></listitem>
+                        </varlistentry>
+
                         <varlistentry xml:id="host">
     <term><option>-H</option></term>
     <term><option>--host=</option></term>
@@ -178,10 +207,15 @@
     </listitem>
   </varlistentry>
                 </variablelist>
+        </refsect1>
+
+        <refsect1>
+                <title>Commands</title>
 
                 <para>The following commands are understood:</para>
 
-                <variablelist>
+                <refsect2><title>Session Commands</title><variablelist>
+
                         <varlistentry>
                                 <term><command>list-sessions</command></term>
 
@@ -189,14 +223,19 @@
                         </varlistentry>
 
                         <varlistentry>
-                                <term><command>session-status</command> <replaceable>ID</replaceable>...</term>
+                                <term><command>session-status</command> <optional><replaceable>ID</replaceable>...</optional></term>
 
                                 <listitem><para>Show terse runtime
                                 status information about one or more
-                                sessions. This function is intended to
-                                generate human-readable output. If you
-                                are looking for computer-parsable
-                                output, use
+                                sessions, followed by the most recent
+                                log data from the journal. Takes one
+                                or more session identifiers as
+                                parameters. If no session identifiers
+                                are passed the status of the caller's
+                                session is shown. This function is
+                                intended to generate human-readable
+                                output. If you are looking for
+                                computer-parsable output, use
                                 <command>show-session</command>
                                 instead.</para></listitem>
                         </varlistentry>
@@ -225,23 +264,30 @@
                         </varlistentry>
 
                         <varlistentry>
-                                <term><command>activate</command> <replaceable>ID</replaceable>...</term>
+                                <term><command>activate</command> <optional><replaceable>ID</replaceable></optional></term>
 
-                                <listitem><para>Activate one or more
-                                sessions. This brings one or more
-                                sessions into the foreground, if
-                                another session is currently in the
-                                foreground on the respective
-                                seat.</para></listitem>
+                                <listitem><para>Activate a
+                                session. This brings a session into
+                                the foreground, if another session is
+                                currently in the foreground on the
+                                respective seat. Takes a session
+                                identifier as argument. If no argument
+                                is specified the session of the caller
+                                is put into
+                                foreground.</para></listitem>
                         </varlistentry>
 
                         <varlistentry>
-                                <term><command>lock-session</command> <replaceable>ID</replaceable>...</term>
-                                <term><command>unlock-session</command> <replaceable>ID</replaceable>...</term>
+                                <term><command>lock-session</command> <optional><replaceable>ID</replaceable>...</optional></term>
+                                <term><command>unlock-session</command> <optional><replaceable>ID</replaceable>...</optional></term>
 
                                 <listitem><para>Activates/deactivates
                                 the screen lock on one or more
-                                sessions, if the session supports it.
+                                sessions, if the session supports
+                                it. Takes one or more session
+                                identifiers as arguments. If no
+                                argument is specified the session of
+                                the caller is locked/unlocked.
                                 </para></listitem>
                         </varlistentry>
 
@@ -275,7 +321,9 @@
                                 <option>--signal=</option> to select
                                 the signal to send.</para></listitem>
                         </varlistentry>
+                </variablelist></refsect2>
 
+                <refsect2><title>User Commands</title><variablelist>
                         <varlistentry>
                                 <term><command>list-users</command></term>
 
@@ -284,17 +332,22 @@
                         </varlistentry>
 
                         <varlistentry>
-                                <term><command>user-status</command> <replaceable>USER</replaceable>...</term>
+                                <term><command>user-status</command> <optional><replaceable>USER</replaceable>...</optional></term>
 
                                 <listitem><para>Show terse runtime
                                 status information about one or more
-                                logged in users. This function is
-                                intended to generate human-readable
-                                output. If you are looking for
-                                computer-parsable output, use
-                                <command>show-user</command> instead.
-                                Users may be specified by their
-                                usernames or numeric user IDs.
+                                logged in users, followed by the most
+                                recent log data from the
+                                journal. Takes one or more user names
+                                or numeric user IDs as parameters. If
+                                no parameters are passed the status of
+                                the caller's user is shown. This
+                                function is intended to generate
+                                human-readable output. If you are
+                                looking for computer-parsable output,
+                                use <command>show-user</command>
+                                instead.  Users may be specified by
+                                their usernames or numeric user IDs.
                                 </para></listitem>
                         </varlistentry>
 
@@ -322,8 +375,8 @@
                         </varlistentry>
 
                         <varlistentry>
-                                <term><command>enable-linger</command> <replaceable>USER</replaceable>...</term>
-                                <term><command>disable-linger</command> <replaceable>USER</replaceable>...</term>
+                                <term><command>enable-linger</command> <optional><replaceable>USER</replaceable>...</optional></term>
+                                <term><command>disable-linger</command> <optional><replaceable>USER</replaceable>...</optional></term>
 
                                 <listitem><para>Enable/disable user
                                 lingering for one or more users. If
@@ -332,7 +385,11 @@
                                 boot and kept around after
                                 logouts. This allows users who are not
                                 logged in to run long-running
-                                services.</para></listitem>
+                                services. Takes one or more user names
+                                or numeric UIDs as argument. If no
+                                argument is specified enables/disables
+                                lingering for the user of the session
+                                of the caller.</para></listitem>
                         </varlistentry>
 
                         <varlistentry>
@@ -354,7 +411,9 @@
                                 <option>--signal=</option> to select
                                 the signal to send.</para></listitem>
                         </varlistentry>
+                </variablelist></refsect2>
 
+                <refsect2><title>Seat Commands</title><variablelist>
                         <varlistentry>
                                 <term><command>list-seats</command></term>
 
@@ -364,12 +423,15 @@
                         </varlistentry>
 
                         <varlistentry>
-                                <term><command>seat-status</command> <replaceable>NAME</replaceable>...</term>
+                                <term><command>seat-status</command> <optional><replaceable>NAME</replaceable>...</optional></term>
 
                                 <listitem><para>Show terse runtime
                                 status information about one or more
-                                seats. This function is
-                                intended to generate human-readable
+                                seats. Takes one or more seat names as
+                                parameters. If no seat names are
+                                passed the status of the caller's
+                                session's seat is shown. This function
+                                is intended to generate human-readable
                                 output. If you are looking for
                                 computer-parsable output, use
                                 <command>show-seat</command>
@@ -377,7 +439,7 @@
                         </varlistentry>
 
                         <varlistentry>
-                                <term><command>show-seat</command> <replaceable>NAME</replaceable>...</term>
+                                <term><command>show-seat</command> <optional><replaceable>NAME</replaceable>...</optional></term>
 
                                 <listitem><para>Show properties of one
                                 or more seats or the manager
@@ -441,7 +503,7 @@
                                 and deallocates all runtime resources
                                 attached to them.</para></listitem>
                         </varlistentry>
-                </variablelist>
+                </variablelist></refsect2>
 
         </refsect1>
 

@@ -197,47 +197,26 @@
         </listitem>
       </varlistentry>
 
-      <varlistentry xml:id="user">
-    <term><option>--user</option></term>
+      <varlistentry>
+        <term><option>--pty</option></term>
+        <term><option>-t</option></term>
 
-    <listitem xml:id="user-text">
-      <para>Talk to the service manager of the calling user,
-      rather than the service manager of the system.</para>
-    </listitem>
-  </varlistentry>
-      <varlistentry xml:id="system">
-    <term><option>--system</option></term>
+        <listitem><para>When invoking a command as service connects
+        its standard input and output to the invoking tty via a
+        pseudo TTY device. This allows invoking binaries as services
+        that expect interactive user input, such as interactive
+        command shells.</para></listitem>
+      </varlistentry>
 
-    <listitem xml:id="system-text">
-      <para>Talk to the service manager of the system. This is the
-      implied default.</para>
-    </listitem>
-  </varlistentry>
-      <varlistentry xml:id="host">
-    <term><option>-H</option></term>
-    <term><option>--host=</option></term>
+      <varlistentry>
+        <term><option>--quiet</option></term>
+        <term><option>-q</option></term>
 
-    <listitem xml:id="host-text">
-      <para>Execute the operation remotely. Specify a hostname, or a
-      username and hostname separated by <literal>@</literal>, to
-      connect to. The hostname may optionally be suffixed by a
-      container name, separated by <literal>:</literal>, which
-      connects directly to a specific container on the specified
-      host. This will use SSH to talk to the remote machine manager
-      instance. Container names may be enumerated with
-      <command>machinectl -H
-      <replaceable>HOST</replaceable></command>.</para>
-    </listitem>
-  </varlistentry>
-      <varlistentry xml:id="machine">
-    <term><option>-M</option></term>
-    <term><option>--machine=</option></term>
-
-    <listitem xml:id="machine-text">
-      <para>Execute operation on a local container. Specify a
-      container name to connect to.</para>
-    </listitem>
-  </varlistentry>
+        <listitem><para>Suppresses additional informational output
+        while running. This is particularly useful in combination with
+        <option>--pty</option> when it will suppress the initial
+        message explaining how to terminate the TTY connection.</para></listitem>
+      </varlistentry>
 
       <varlistentry>
         <term><option>--on-active=</option></term>
@@ -286,6 +265,48 @@
         <citerefentry><refentrytitle>systemctl</refentrytitle><manvolnum>1</manvolnum></citerefentry>'s
         <command>set-property</command> command.</para> </listitem>
       </varlistentry>
+
+      <varlistentry xml:id="user">
+    <term><option>--user</option></term>
+
+    <listitem xml:id="user-text">
+      <para>Talk to the service manager of the calling user,
+      rather than the service manager of the system.</para>
+    </listitem>
+  </varlistentry>
+      <varlistentry xml:id="system">
+    <term><option>--system</option></term>
+
+    <listitem xml:id="system-text">
+      <para>Talk to the service manager of the system. This is the
+      implied default.</para>
+    </listitem>
+  </varlistentry>
+      <varlistentry xml:id="host">
+    <term><option>-H</option></term>
+    <term><option>--host=</option></term>
+
+    <listitem xml:id="host-text">
+      <para>Execute the operation remotely. Specify a hostname, or a
+      username and hostname separated by <literal>@</literal>, to
+      connect to. The hostname may optionally be suffixed by a
+      container name, separated by <literal>:</literal>, which
+      connects directly to a specific container on the specified
+      host. This will use SSH to talk to the remote machine manager
+      instance. Container names may be enumerated with
+      <command>machinectl -H
+      <replaceable>HOST</replaceable></command>.</para>
+    </listitem>
+  </varlistentry>
+      <varlistentry xml:id="machine">
+    <term><option>-M</option></term>
+    <term><option>--machine=</option></term>
+
+    <listitem xml:id="machine-text">
+      <para>Execute operation on a local container. Specify a
+      container name to connect to.</para>
+    </listitem>
+  </varlistentry>
 
       <varlistentry xml:id="help">
     <term><option>-h</option></term>
@@ -355,6 +376,13 @@ Dec 08 20:44:38 container systemd[1]: Started /bin/touch /tmp/foo.
 -- Logs begin at Fri 2014-12-05 19:09:21 KST, end at Mon 2014-12-08 20:44:54 KST. --
 Dec 08 20:44:48 container systemd[1]: Starting /bin/touch /tmp/foo...
 Dec 08 20:44:48 container systemd[1]: Started /bin/touch /tmp/foo.</programlisting>
+
+    <para>The following command invokes <filename>/bin/bash</filename>
+    as a service passing its standard input, output and error to
+    the calling TTY.</para>
+
+    <programlisting># systemd-run -t /bin/bash</programlisting>
+
   </refsect1>
 
   <refsect1>

@@ -7,7 +7,7 @@
 <refentrytitle>btrfs-scrub</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.16.2</refmiscinfo>
+<refmiscinfo class="version">v3.18-36-g0173148</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -25,6 +25,34 @@ from all disks and verifying checksums.</simpara>
 <refsect1 id="_subcommand">
 <title>SUBCOMMAND</title>
 <variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">cancel</emphasis> <emphasis>&lt;path&gt;</emphasis>|<emphasis>&lt;device&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+If a scrub is running on the filesystem identified by <emphasis>&lt;path&gt;</emphasis>, cancel it.
+</simpara>
+<simpara>Progress is saved in the scrub progress file and scrubbing can be resumed later
+using the scrub resume command.
+If a <emphasis>&lt;device&gt;</emphasis> is given, the corresponding filesystem is found and
+scrub cancel behaves as if it was called on that filesystem.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">resume</emphasis> [-BdqrR] [-c <emphasis>&lt;ioprio_class&gt;</emphasis> -n <emphasis>&lt;ioprio_classdata&gt;</emphasis>] <emphasis>&lt;path&gt;</emphasis>|<emphasis>&lt;device&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Resume a canceled or interrupted scrub cycle on the filesystem identified by
+<emphasis>&lt;path&gt;</emphasis> or on a given <emphasis>&lt;device&gt;</emphasis>.
+</simpara>
+<simpara>Does not start a new scrub if the last scrub finished successfully.</simpara>
+<simpara><literal>Options</literal></simpara>
+<simpara>see <emphasis role="strong">scrub start</emphasis>.</simpara>
+</listitem>
+</varlistentry>
 <varlistentry>
 <term>
 <emphasis role="strong">start</emphasis> [-BdqrRf] [-c <emphasis>&lt;ioprio_class&gt;</emphasis> -n <emphasis>&lt;ioprio_classdata&gt;</emphasis>] <emphasis>&lt;path&gt;</emphasis>|<emphasis>&lt;device&gt;</emphasis>
@@ -98,9 +126,7 @@ Raw print mode. Print full data instead of summary.
 </term>
 <listitem>
 <simpara>
-Set IO priority class (see
- ionice (1)
-manpage).
+Set IO priority class (see <literal>ionice</literal>(1) manpage).
 </simpara>
 </listitem>
 </varlistentry>
@@ -126,34 +152,6 @@ This is useful when scrub stat record file is damaged.
 </listitem>
 </varlistentry>
 </variablelist>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
-<emphasis role="strong">cancel</emphasis> <emphasis>&lt;path&gt;</emphasis>|<emphasis>&lt;device&gt;</emphasis>
-</term>
-<listitem>
-<simpara>
-If a scrub is running on the filesystem identified by <emphasis>&lt;path&gt;</emphasis>, cancel it.
-</simpara>
-<simpara>Progress is saved in the scrub progress file and scrubbing can be resumed later
-using the scrub resume command.
-If a <emphasis>&lt;device&gt;</emphasis> is given, the corresponding filesystem is found and
-scrub cancel behaves as if it was called on that filesystem.</simpara>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
-<emphasis role="strong">resume</emphasis> [-BdqrR] [-c <emphasis>&lt;ioprio_class&gt;</emphasis> -n <emphasis>&lt;ioprio_classdata&gt;</emphasis>] <emphasis>&lt;path&gt;</emphasis>|<emphasis>&lt;device&gt;</emphasis>
-</term>
-<listitem>
-<simpara>
-Resume a canceled or interrupted scrub cycle on the filesystem identified by
-<emphasis>&lt;path&gt;</emphasis> or on a given <emphasis>&lt;device&gt;</emphasis>.
-</simpara>
-<simpara>Does not start a new scrub if the last scrub finished successfully.</simpara>
-<simpara><literal>Options</literal></simpara>
-<simpara>see <emphasis role="strong">scrub start</emphasis>.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>

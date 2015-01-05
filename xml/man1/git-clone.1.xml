@@ -18,7 +18,7 @@
 <literallayout><emphasis>git clone</emphasis> [--template=&lt;template_directory&gt;]
           [-l] [-s] [--no-hardlinks] [-q] [-n] [--bare] [--mirror]
           [-o &lt;name&gt;] [-b &lt;name&gt;] [-u &lt;upload-pack&gt;] [--reference &lt;repository&gt;]
-          [--separate-git-dir &lt;git dir&gt;]
+          [--dissociate] [--separate-git-dir &lt;git dir&gt;]
           [--depth &lt;depth&gt;] [--[no-]single-branch]
           [--recursive | --recurse-submodules] [--] &lt;repository&gt;
           [&lt;directory&gt;]</literallayout>
@@ -130,7 +130,21 @@ objects from the source repository into a pack in the cloned repository.</simpar
         require fewer objects to be copied from the repository
         being cloned, reducing network and local storage costs.
 </simpara>
-<simpara><emphasis role="strong">NOTE</emphasis>: see the NOTE for the <literal>--shared</literal> option.</simpara>
+<simpara><emphasis role="strong">NOTE</emphasis>: see the NOTE for the <literal>--shared</literal> option, and also the
+<literal>--dissociate</literal> option.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--dissociate
+</term>
+<listitem>
+<simpara>
+        Borrow the objects from reference repositories specified
+        with the <literal>--reference</literal> options only to reduce network
+        transfer and stop borrowing from them after a clone is made
+        by making necessary local copies of borrowed objects.
+</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>

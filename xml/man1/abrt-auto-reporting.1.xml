@@ -11,10 +11,13 @@
 </refmeta>
 <refnamediv>
     <refname>abrt-auto-reporting</refname>
-    <refpurpose>Get or modify a value of the auto reporting option</refpurpose>
+    <refpurpose>Get or modify the auto reporting option values</refpurpose>
 </refnamediv>
 <refsynopsisdiv xml:id="_synopsis">
-<simpara><emphasis>abrt-auto-reporting</emphasis> [-v] [ enabled | yes | 1 | disabled | no | 0 ]</simpara>
+<simpara><emphasis>abrt-auto-reporting</emphasis> [-v] [ enabled | yes | 1 | on | disabled | no | 0 | off ]
+                      [ [--anonymous] |
+                        [--username USERNAME [--password PASSWORD] ] |
+                        [--certificate SOURCE] ]</simpara>
 </refsynopsisdiv>
 <refsect1 xml:id="_description">
 <title>DESCRIPTION</title>
@@ -44,6 +47,8 @@ process and will be persistent.</simpara>
 </listitem>
 </varlistentry>
 </variablelist>
+<simpara>Reads and saves the authentication configuration options in
+/etc/libreport/plugins/ureport.conf and /etc/libreport/plugins/rhtsupport.conf</simpara>
 <refsect2 xml:id="_ureport_description">
 <title>uReport description</title>
 <simpara>ABRT supports uReports for four types of crashes: crashes of C/C++ programs
@@ -91,6 +96,12 @@ for kernel oopses
 </listitem>
 </varlistentry>
 </variablelist>
+<simpara>The authenticated uReports also contains <emphasis role="strong">hostname</emphasis> and <emphasis role="strong">machineid</emphasis> to enable a
+server side filtering at <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://access.redhat.com/">https://access.redhat.com/</link>.</simpara>
+<simpara>The authenticated uReports have the benefit of rich server replies which may
+include a solution for the submitted crash. The authentication is done using
+either Red Hat Subscription Certificates or Red Hat Customer Portal
+credentials.</simpara>
 <simpara><emphasis>Warning</emphasis>:
 The full text of a kernel oops might contain information like the
 identification of the host hardware type. You should disable the autoreporting
@@ -110,11 +121,60 @@ feature if you do not want to share this information with Red Hat.</simpara>
 </simpara>
 </listitem>
 </varlistentry>
+<varlistentry>
+<term>
+-a, --anonymous
+</term>
+<listitem>
+<simpara>
+   Turns the authentication off by clearing both <emphasis>SSLClientAuth</emphasis> and <emphasis>HTTPAuth</emphasis>
+   configuration options in /etc/libreport/plugins/ureport.conf
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-u, --username USERNAME
+</term>
+<listitem>
+<simpara>
+   Turns HTTP Authentication on by setting <emphasis>HTTPAuth</emphasis> configuration option to
+   <emphasis role="strong">rhts-credentials</emphasis> in /etc/libreport/plugins/ureport.conf and storing
+   USERNAME and PASSWORD in /etc/libreport/plugins/rhtsupport.conf
+   Also turns the SSL Client Authentication off, because these methods cannot
+   be used together.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-p, --password PASSWORD
+</term>
+<listitem>
+<simpara>
+   Password for HTTP Authentication. If not provided, a prompt asking for it
+   will be issued.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-c, --certificate SOURCE
+</term>
+<listitem>
+<simpara>
+   Turns SSL Client Authentication on by setting <emphasis>SSLClientAuth</emphasis> configuration
+   option to SOURCE in /etc/libreport/plugins/ureport.conf.
+   Also turns the HTTP Authentication off, because these methods cannot
+   be used together.
+</simpara>
+</listitem>
+</varlistentry>
 </variablelist>
 </refsect1>
 <refsect1 xml:id="_see_also">
 <title>SEE ALSO</title>
-<simpara>abrt.conf(5)</simpara>
+<simpara>abrt.conf(5), ureport.conf(5), rhtsupport.conf(5)</simpara>
 </refsect1>
 <refsect1 xml:id="_authors">
 <title>AUTHORS</title>

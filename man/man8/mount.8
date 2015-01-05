@@ -1,4 +1,3 @@
-'\" t
 .\" Copyright (c) 1996-2004 Andries Brouwer
 .\" Copyright (C) 2006-2012 Karel Zak <kzak@redhat.com>
 .\"
@@ -27,7 +26,6 @@
 .\" You should have received a copy of the GNU General Public License along
 .\" with this program; if not, write to the Free Software Foundation, Inc.,
 .\" 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-.\"
 .\"
 .TH MOUNT 8 "July 2014" "util-linux" "System Administration"
 .SH NAME
@@ -1083,15 +1081,16 @@ are specified.
 .B "mount \-o remount,rw /dev/foo /dir"
 
 After this call all old mount options are replaced and arbitrary stuff from
-fstab is ignored, except the loop= option which is internally generated and
-maintained by the mount command.
+fstab (or mtab) is ignored, except the loop= option which is internally
+generated and maintained by the mount command.
 
 .B "mount \-o remount,rw  /dir"
 
-After this call mount reads fstab (or mtab) and merges these options with
+After this call mount reads fstab and merges these options with
 the options from the command line (\c
 .B \-o\c
-).
+). If no mountpoint found in fstab than remount with unspecified source is
+allowed.
 .TP
 .B ro
 Mount the filesystem read-only.
@@ -3213,4 +3212,3 @@ Karel Zak <kzak@redhat.com>
 .SH AVAILABILITY
 The mount command is part of the util-linux package and is available from
 ftp://ftp.kernel.org/pub/linux/utils/util-linux/.
-
