@@ -293,15 +293,6 @@
         </listitem>
       </varlistentry>
 
-      <varlistentry>
-        <term><option>--no-legend</option></term>
-
-        <listitem>
-          <para>Do not print the legend, i.e. the column headers and
-          the footer with hints.</para>
-        </listitem>
-      </varlistentry>
-
       <varlistentry xml:id="user">
     <term><option>--user</option></term>
 
@@ -556,6 +547,21 @@
     </listitem>
   </varlistentry>
 
+      <varlistentry xml:id="no-pager">
+    <term><option>--no-pager</option></term>
+
+    <listitem>
+      <para>Do not pipe output into a pager.</para>
+    </listitem>
+  </varlistentry>
+      <varlistentry xml:id="no-legend">
+    <term><option>--no-legend</option></term>
+
+    <listitem>
+      <para>Do not print the legend, i.e. column headers and the
+      footer with hints.</para>
+    </listitem>
+  </varlistentry>
       <varlistentry xml:id="help">
     <term><option>-h</option></term>
     <term><option>--help</option></term>
@@ -569,13 +575,6 @@
 
     <listitem xml:id="version-text">
       <para>Print a short version string and exit.</para>
-    </listitem>
-  </varlistentry>
-      <varlistentry xml:id="no-pager">
-    <term><option>--no-pager</option></term>
-
-    <listitem>
-      <para>Do not pipe output into a pager.</para>
     </listitem>
   </varlistentry>
     </variablelist>
@@ -1376,7 +1375,10 @@ kobject-uevent 1 systemd-udevd-kernel.socket systemd-udevd.service
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><command>import-environment <replaceable>VARIABLE</replaceable>...</command></term>
+          <term>
+	    <command>import-environment</command>
+	    <optional><replaceable>VARIABLE...</replaceable></optional>
+	  </term>
 
           <listitem>
             <para>Import all, one or more environment variables set on

@@ -335,7 +335,8 @@ The file referred to by
 .I fd
 is marked immutable (see
 .BR chattr (1)).
-Or:
+.TP
+.B EPERM
 .I mode
 specifies
 .BR FALLOC_FL_PUNCH_HOLE
@@ -347,6 +348,10 @@ the file referred to by
 is marked append-only
 (see
 .BR chattr (1)).
+.TP
+.B EPERM
+The operation was prevented by a file seal; see
+.BR fcntl (2).
 .TP
 .B ESPIPE
 .I fd

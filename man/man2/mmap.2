@@ -465,6 +465,10 @@ but the mapped area belongs to a file on a filesystem that
 was mounted no-exec.
 .\" (Since 2.4.25 / 2.6.0.)
 .TP
+.B EPERM
+The operation was prevented by a file seal; see
+.BR fcntl (2).
+.TP
 .B ETXTBSY
 .B MAP_DENYWRITE
 was set but the object specified by
@@ -710,6 +714,7 @@ main(int argc, char *argv[])
 .fi
 .SH SEE ALSO
 .BR getpagesize (2),
+.BR memfd_create (2),
 .BR mincore (2),
 .BR mlock (2),
 .BR mmap2 (2),

@@ -132,7 +132,8 @@ The
 .I flags
 argument is formed by ORing together zero or more of the following values:
 .TP
-.BR PERF_FLAG_FD_CLOEXEC " (since Linux 3.14)."
+.BR PERF_FLAG_FD_CLOEXEC " (since Linux 3.14)"
+.\" commit a21b0b354d4ac39be691f51c53562e2c24443d9e
 This flag enables the close-on-exec flag for the created
 event file descriptor,
 so that the file descriptor is automatically closed on
@@ -156,12 +157,13 @@ using the
 .B PERF_FLAG_FD_OUTPUT
 flag.
 .TP
-.BR PERF_FLAG_FD_OUTPUT " (broken since Linux 2.6.35)."
+.BR PERF_FLAG_FD_OUTPUT " (broken since Linux 2.6.35)"
 This flag re-routes the event's sampled output to instead
 be included in the mmap buffer of the event specified by
 .IR group_fd .
 .TP
-.BR PERF_FLAG_PID_CGROUP " (since Linux 2.6.39)."
+.BR PERF_FLAG_PID_CGROUP " (since Linux 2.6.39)"
+.\" commit e5d1367f17ba6a6fed5fd8b74e4d5720923e0c25
 This flag activates per-container system-wide monitoring.
 A container
 is an abstraction that isolates a set of resources for finer-grained
@@ -293,6 +295,7 @@ This indicates a "raw" implementation-specific event in the
 .IR config " field."
 .TP
 .BR PERF_TYPE_BREAKPOINT " (since Linux 2.6.33)"
+.\" commit 24f1e32c60c45c89a997c73395b69c8af6f0a84e
 This indicates a hardware breakpoint as provided by the CPU.
 Breakpoints can be read/write accesses to an address as well as
 execution of an instruction address.
@@ -351,12 +354,6 @@ The
 fields are also taken into account in cases where 64 bits is not
 enough to fully specify the event.
 The encoding of these fields are event dependent.
-
-The most significant bit (bit 63) of
-.I config
-signifies CPU-specific (raw) counter configuration data;
-if the most significant bit is unset, the next 7 bits are an event
-type and the rest of the bits are the event identifier.
 
 There are various ways to set the
 .I config
@@ -421,6 +418,7 @@ Stalled cycles during issue.
 Stalled cycles during retirement.
 .TP
 .BR PERF_COUNT_HW_REF_CPU_CYCLES  " (since Linux 3.3)"
+.\" commit c37e17497e01fc0f5d2d6feb5723b210b3ab8890
 Total cycles; not affected by CPU frequency scaling.
 .RE
 .IP
@@ -461,18 +459,21 @@ This counts the number of major page faults.
 These required disk I/O to handle.
 .TP
 .BR PERF_COUNT_SW_ALIGNMENT_FAULTS " (since Linux 2.6.33)"
+.\" commit f7d7986060b2890fc26db6ab5203efbd33aa2497
 This counts the number of alignment faults.
 These happen when unaligned memory accesses happen; the kernel
 can handle these but it reduces performance.
 This happens only on some architectures (never on x86).
 .TP
 .BR PERF_COUNT_SW_EMULATION_FAULTS " (since Linux 2.6.33)"
+.\" commit f7d7986060b2890fc26db6ab5203efbd33aa2497
 This counts the number of emulation faults.
 The kernel sometimes traps on unimplemented instructions
 and emulates them for user space.
 This can negatively impact performance.
 .TP
 .BR PERF_COUNT_SW_DUMMY " (since Linux 3.12)"
+.\" commit fa0097ee690693006ab1aea6c01ad3c851b65c77
 This is a placeholder event that counts nothing.
 Informational sample record types such as mmap or comm
 must be associated with an active event.
@@ -532,7 +533,8 @@ for measuring the Instruction TLB
 .B PERF_COUNT_HW_CACHE_BPU
 for measuring the branch prediction unit
 .TP
-.BR PERF_COUNT_HW_CACHE_NODE " (since Linux 3.0)"
+.BR PERF_COUNT_HW_CACHE_NODE " (since Linux 3.1)"
+.\" commit 89d6c0b5bdbb1927775584dcf532d98b3efe1477
 for measuring local memory accesses
 .RE
 .P
@@ -591,16 +593,16 @@ Its parameters are set in other places.
 .RE
 .TP
 .IR sample_period ", " sample_freq
-A "sampling" counter is one that generates an interrupt
+A "sampling" event is one that generates an overflow notification
 every N events, where N is given by
 .IR sample_period .
-A sampling counter has
+A sampling event has
 .IR sample_period " > 0."
-When an overflow interrupt occurs, requested data is recorded
+When an overflow occurs, requested data is recorded
 in the mmap buffer.
 The
 .I sample_type
-field controls what data is recorded on each interrupt.
+field controls what data is recorded on each overflow.
 
 .I sample_freq
 can be used if you wish to use frequency rather than period.
@@ -665,6 +667,7 @@ Records additional data, if applicable.
 Usually returned by tracepoint events.
 .TP
 .BR PERF_SAMPLE_BRANCH_STACK " (since Linux 3.4)"
+.\" commit bce38cd53e5ddba9cb6d708c4ef3d04a4016ec7e
 This provides a record of recent branches, as provided
 by CPU branch sampling hardware (such as Intel Last Branch Record).
 Not all hardware supports this feature.
@@ -674,25 +677,30 @@ See the
 field for how to filter which branches are reported.
 .TP
 .BR PERF_SAMPLE_REGS_USER " (since Linux 3.7)"
+.\" commit 4018994f3d8785275ef0e7391b75c3462c029e56
 Records the current user-level CPU register state
 (the values in the process before the kernel was called).
 .TP
 .BR PERF_SAMPLE_STACK_USER " (since Linux 3.7)"
+.\" commit c5ebcedb566ef17bda7b02686e0d658a7bb42ee7
 Records the user level stack, allowing stack unwinding.
 .TP
 .BR PERF_SAMPLE_WEIGHT " (since Linux 3.10)"
+.\" commit c3feedf2aaf9ac8bad6f19f5d21e4ee0b4b87e9c
 Records a hardware provided weight value that expresses how
 costly the sampled event was.
 This allows the hardware to highlight expensive events in
 a profile.
 .TP
 .BR PERF_SAMPLE_DATA_SRC " (since Linux 3.10)"
+.\" commit d6be9ad6c960f43800a6f118932bc8a5a4eadcd1
 Records the data source: where in the memory hierarchy
 the data associated with the sampled instruction came from.
 This is only available if the underlying hardware
 supports this feature.
 .TP
 .BR PERF_SAMPLE_IDENTIFIER " (since Linux 3.12)"
+.\" commit ff3d527cebc1fa3707c617bfe9e74f53fcfb0955
 Places the
 .B SAMPLE_ID
 value in a fixed position in the record,
@@ -711,7 +719,7 @@ the format could not be found without knowing what
 event the sample belonged to (causing a circular
 dependency).
 
-This new
+The
 .B PERF_SAMPLE_IDENTIFIER
 setting makes the event stream always parsable
 by putting
@@ -721,7 +729,8 @@ it means having duplicate
 .B SAMPLE_ID
 values in records.
 .TP
-.BR PERF_SAMPLE_TRANSACTION " (Since Linux 3.13)"
+.BR PERF_SAMPLE_TRANSACTION " (since Linux 3.13)"
+.\" commit fdfbbd07e91f8fe387140776f3fd94605f0c89e5
 Records reasons for transactional memory abort events
 (for example, from Intel TSX transactional memory support).
 
@@ -900,10 +909,10 @@ If this bit is set, then
 fork/exit notifications are included in the ring buffer.
 .TP
 .IR "watermark"
-If set, have a sampling interrupt happen when we cross the
+If set, have an overflow notification happen when we cross the
 .I wakeup_watermark
 boundary.
-Otherwise, interrupts happen after
+Otherwise, overflow notifications happen after
 .I wakeup_events
 samples.
 .TP
@@ -1019,7 +1028,7 @@ This union sets how many samples
 .RI ( wakeup_events )
 or bytes
 .RI ( wakeup_watermark )
-happen before an overflow signal happens.
+happen before an overflow notification happens.
 Which one is used is selected by the
 .I watermark
 bit flag.
@@ -1028,11 +1037,16 @@ bit flag.
 only counts
 .B PERF_RECORD_SAMPLE
 record types.
-To receive a signal for every incoming
+To receive overflow notification for all
 .B PERF_RECORD
-type set
+types choose watermark and set
 .I wakeup_watermark
 to 1.
+
+Prior to Linux 3.0 setting
+.I wakeup_events
+to 0 resulted in no overflow notifications;
+more recent kernels treat 0 the same as 1.
 .TP
 .IR "bp_type" " (since Linux 2.6.33)"
 This chooses the breakpoint type.
@@ -1142,15 +1156,19 @@ Any return branch.
 Indirect calls.
 .TP
 .BR PERF_SAMPLE_BRANCH_COND " (since Linux 3.16)"
+.\" commit bac52139f0b7ab31330e98fd87fc5a2664951050
 Conditional branches.
 .TP
 .BR PERF_SAMPLE_BRANCH_ABORT_TX " (since Linux 3.11)"
+.\" commit 135c5612c460f89657c4698fe2ea753f6f667963
 Transactional memory aborts.
 .TP
 .BR PERF_SAMPLE_BRANCH_IN_TX " (since Linux 3.11)"
+.\" commit 135c5612c460f89657c4698fe2ea753f6f667963
 Branch in transactional memory transaction.
 .TP
 .BR PERF_SAMPLE_BRANCH_NO_TX " (since Linux 3.11)"
+.\" commit 135c5612c460f89657c4698fe2ea753f6f667963
 Branch not in transactional memory transaction.
 .RE
 
@@ -1339,9 +1357,9 @@ or
 .I cap_usr_rdpmc
 were actually set.
 
-Starting with 3.12 these are renamed to
+Starting with Linux 3.12, these are renamed to
 .I cap_bit0
-and you should use the new
+and you should use the
 .I cap_user_time
 and
 .I cap_user_rdpmc
@@ -1565,21 +1583,25 @@ Sample happened in user code.
 .B PERF_RECORD_MISC_HYPERVISOR
 Sample happened in the hypervisor.
 .TP
-.B PERF_RECORD_MISC_GUEST_KERNEL
+.BR PERF_RECORD_MISC_GUEST_KERNEL " (since Linux2.6.35)"
+.\" commit 39447b386c846bbf1c56f6403c5282837486200f
 Sample happened in the guest kernel.
 .TP
-.B PERF_RECORD_MISC_GUEST_USER
+.B PERF_RECORD_MISC_GUEST_USER " (since Linux2.6.35)"
+.\" commit 39447b386c846bbf1c56f6403c5282837486200f
 Sample happened in guest user code.
 .RE
 
 .RS
 In addition, one of the following bits can be set:
 .TP
-.B PERF_RECORD_MISC_MMAP_DATA
+.BR PERF_RECORD_MISC_MMAP_DATA " (since Linux 3.10)"
+.\" commit 2fe85427e3bf65d791700d065132772fc26e4d75
 This is set when the mapping is not executable;
 otherwise the mapping is executable.
 .TP
-.B PERF_RECORD_MISC_COMM_EXEC
+.BR PERF_RECORD_MISC_COMM_EXEC " (since Linux 3.16)"
+.\" commit 82b897782d10fcc4930c9d4a15b175348fdd2871
 This is set for a
 .B PERF_RECORD_COMM
 record on kernels more recent than Linux 3.16
@@ -1598,7 +1620,8 @@ to the actual instruction that triggered the event.
 See also
 .IR perf_event_attr.precise_ip .
 .TP
-.B PERF_RECORD_MISC_EXT_RESERVED
+.BR PERF_RECORD_MISC_EXT_RESERVED " (since Linux 2.6.35)"
+.\" commit 1676b8a077c352085d52578fb4f29350b58b6e74
 This indicates there is extended data available (currently not used).
 .RE
 .TP
@@ -2244,52 +2267,52 @@ is the flags information.
 is a string describing the backing of the allocated memory.
 .RE
 .RE
-.SS Signal overflow
-Events can be set to deliver a signal when a threshold is crossed.
-.\" FIXME .
-.\" The following sentence doesn't seem to make sense.
-.\" These system calls do not set up signal handlers.
-The signal handler is set up using the
+.SS Overflow handling
+Events can be set to notify when a threshold is crossed,
+indicating an overflow.
+Overflow conditions can be captured by monitoring the
+event file descriptor with
 .BR poll (2),
 .BR select (2),
-.BR epoll (2)
-and
-.BR fcntl (2),
-system calls.
+or
+.BR epoll (2).
+Alternately, a SIGIO signal handler can be created and
+the event configured with
+.BR fcntl (2)
+to generate SIGIO signals.
 
-To generate signals, sampling must be enabled
+Overflows are only generated by sampling events
 .RI ( sample_period
 must have a nonzero value).
 
-There are two ways to generate signals.
+There are two ways to generate overflow notifications.
 
 The first is to set a
 .I wakeup_events
 or
 .I wakeup_watermark
-value that will generate a signal if a certain number of samples
+value that will trigger if a certain number of samples
 or bytes have been written to the mmap ring buffer.
-In this case, a signal of type
+In this case
 .B POLL_IN
-is sent.
+is indicated.
 
 The other way is by use of the
 .B PERF_EVENT_IOC_REFRESH
 ioctl.
 This ioctl adds to a counter that decrements each time the event overflows.
-When nonzero, a
+When nonzero,
 .B POLL_IN
-signal is sent on overflow, but
-once the value reaches 0, a signal is sent of type
+is indicated, but
+once the counter reaches 0
 .B POLL_HUP
-and
+is indicated and
 the underlying event is disabled.
 
-Note: on newer kernels (since at least as early as Linux 3.2),
-.\" FIXME . Find out when this was introduced
-a signal is provided for every overflow, even if
-.I wakeup_events
-is not set.
+Starting with Linux 3.18,
+.B POLL_HUP
+is indicated if the event being monitored is attached to a different
+process and that process exits.
 .SS rdpmc instruction
 Starting with Linux 3.4 on x86, you can use the
 .I rdpmc
@@ -2341,11 +2364,11 @@ to enable a counter for a number of overflows specified by the argument,
 after which it is disabled.
 Subsequent calls of this ioctl add the argument value to the current
 count.
-A signal with
+An overflow notification with
 .B POLL_IN
 set will happen on each overflow until the
-count reaches 0; when that happens a signal with
-POLL_HUP
+count reaches 0; when that happens a notification with
+.B POLL_HUP
 set is sent and the event is disabled.
 Using an argument of 0 is considered undefined behavior.
 .TP
@@ -2389,11 +2412,13 @@ The argument specifies the desired file descriptor, or \-1 if
 output should be ignored.
 .TP
 .BR PERF_EVENT_IOC_SET_FILTER " (since Linux 2.6.33)"
+.\" commit 6fb2915df7f0747d9044da9dbff5b46dc2e20830
 This adds an ftrace filter to this event.
 
 The argument is a pointer to the desired ftrace filter.
 .TP
 .BR PERF_EVENT_IOC_ID " (since Linux 3.12)"
+.\" commit cf4957f17f2a89984915ea808876d9c82225b862
 This returns the event ID value for the given event file descriptor.
 
 The argument is a pointer to a 64-bit unsigned integer

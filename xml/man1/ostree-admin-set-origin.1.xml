@@ -1,0 +1,69 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="ostree">
+
+    <info>
+        
+        <productname>OSTree</productname>
+
+        <authorgroup>
+            <author><personname><firstname>Colin</firstname><surname>Walters</surname></personname><contrib>Developer</contrib><email>walters@verbum.org</email></author>
+        </authorgroup>
+    </info>
+
+    <refmeta>
+        <refentrytitle>ostree admin set-origin</refentrytitle>
+        <manvolnum>1</manvolnum>
+    </refmeta>
+
+    <refnamediv>
+        <refname>ostree-admin-set-origin</refname>
+        <refpurpose>Change the "origin" (location for upgrades)</refpurpose>
+    </refnamediv>
+
+    <refsynopsisdiv>
+            <cmdsynopsis sepchar=" ">
+                <command>ostree admin set-origin </command> <arg choice="req" rep="norepeat">REMOTENAME</arg> <arg choice="req" rep="norepeat">URL</arg> <arg choice="opt" rep="norepeat">BRANCH</arg>
+            </cmdsynopsis>
+    </refsynopsisdiv>
+
+    <refsect1>
+        <title>Description</title>
+
+        <para>
+            Add a new remote named
+            <replaceable>REMOTENAME</replaceable> (if it does not
+            already exist).  Then change the origin file for the
+            current deployment.  This is the ref that will be
+            "tracked" and upgraded with <command>ostree admin
+            upgrade</command>.
+        </para>
+    </refsect1>
+
+    <refsect1>
+        <title>Options</title>
+
+        <variablelist>
+            <varlistentry>
+                <term><option>--set</option>=KEY=VALUE</term>
+
+                <listitem><para>
+		  Set an option for the remote.
+                </para></listitem>
+		
+	    </varlistentry>
+	    <varlistentry>
+                <term><option>--index</option>=INDEX</term>
+
+                <listitem><para> Change the origin of the deployment
+                numbered <replaceable>INDEX</replaceable> (starting
+                from 0).  </para></listitem>
+            </varlistentry>
+        </variablelist>
+    </refsect1>
+
+    <refsect1>
+        <title>Example</title>
+
+        <para><command>$ ostree admin set-origin exampleos http://os.example.com/repo exampleos/10.0/master/router</command></para>
+    </refsect1>    
+</refentry>
