@@ -93,7 +93,7 @@ to get a list of all supported columns.
 The default list of columns may be extended if \fIlist\fP is
 specified in the format \fI+list\fP (e.g. \fBlsblk -o +UUID\fP).
 .TP
-.BR \-O , " \-\-output-all "
+.BR \-O , " \-\-output\-all "
 Output all available columns.
 .TP
 .BR \-P , " \-\-pairs"
@@ -135,6 +135,17 @@ which is done by using
 This sysfs block directory appeared in kernel 2.6.27 (October 2008).
 In case of problems with a new enough kernel, check that CONFIG_SYSFS
 was enabled at the time of the kernel build.
+
+.SH RETURN CODES
+.IP 0
+success
+.IP 1
+failure
+.IP 32
+not found all specified devices
+.IP 64
+some specified devices found, some not found
+
 .SH AUTHORS
 .nf
 Milan Broz <mbroz@redhat.com>

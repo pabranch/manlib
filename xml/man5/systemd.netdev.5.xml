@@ -57,6 +57,81 @@
         </refsect1>
 
         <refsect1>
+                <title>Supported netdev kinds</title>
+
+                <para>The following kinds of virtual network devices may be configured in <filename>.netdev</filename> files:</para>
+
+                <table>
+                        <title>Supported kinds of virtual network devices</title>
+
+                        <tgroup cols="2">
+                                <colspec colname="kind"/>
+                                <colspec colname="explanation"/>
+                                <thead><row>
+                                        <entry>Kind</entry>
+                                        <entry>Description</entry>
+                                </row></thead>
+                                <tbody>
+                                        <row><entry><varname>bond</varname></entry>
+                                        <entry>A bond device is an aggregation of all its slave devices. See <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://www.kernel.org/doc/Documentation/networking/bonding.txt">Linux Ethernet Bonding Driver HOWTO</link> for details.Local configuration</entry></row>
+
+                                        <row><entry><varname>bridge</varname></entry>
+                                        <entry>A bridge devcie is a software switch, each of its slave devices and the bridge itself are ports of the switch.</entry></row>
+
+                                        <row><entry><varname>dummy</varname></entry>
+                                        <entry>A dummy device drops all packets sent to it.</entry></row>
+
+                                        <row><entry><varname>gre</varname></entry>
+                                        <entry>A Level 3 GRE tunnel over IPv4. See <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://tools.ietf.org/html/rfc2784">RFC 2784</link> for details.</entry></row>
+
+                                        <row><entry><varname>gretap</varname></entry>
+                                        <entry>A Level 2 GRE tunnel over IPv4.</entry></row>
+
+                                        <row><entry><varname>ip6gre</varname></entry>
+                                        <entry>A Level 3 GRE tunnel over IPv6.</entry></row>
+
+                                        <row><entry><varname>ip6tnl</varname></entry>
+                                        <entry>An IPv4 or IPv6 tunnel over IPv6</entry></row>
+
+                                        <row><entry><varname>ip6gretap</varname></entry>
+                                        <entry>An Level 2 GRE tunnel over IPv6.</entry></row>
+
+                                        <row><entry><varname>ipip</varname></entry>
+                                        <entry>An IPv4 over IPv4 tunnel.</entry></row>
+
+                                        <row><entry><varname>ipvlan</varname></entry>
+                                        <entry>An ipvlan device is a stacked device which receives packets from its underlying device based on IP address filtering.</entry></row>
+
+                                        <row><entry><varname>macvlan</varname></entry>
+                                        <entry>A macvlan device is a stacked device which receives packets from its underlying device based on MAC address filtering.</entry></row>
+
+                                        <row><entry><varname>sit</varname></entry>
+                                        <entry>An IPv6 over IPv4 tunnel.</entry></row>
+
+                                        <row><entry><varname>tap</varname></entry>
+                                        <entry>A persistent Level 2 tunnel between a network device and a device node.</entry></row>
+
+                                        <row><entry><varname>tun</varname></entry>
+                                        <entry>A persistent Level 3 tunnel between a network device and a device node.</entry></row>
+
+                                        <row><entry><varname>veth</varname></entry>
+                                        <entry>An ethernet tunnel between a pair of network devices.</entry></row>
+
+                                        <row><entry><varname>vlan</varname></entry>
+                                        <entry>A VLAN is a stacked device which receives packets from its underlying device based on VLAN tagging. See <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.ieee802.org/1/pages/802.1Q.html">IEEE 802.1Q</link> for details.</entry></row>
+
+                                        <row><entry><varname>vti</varname></entry>
+                                        <entry>An IPv4 over IPSec tunnel.</entry></row>
+
+                                        <row><entry><varname>vxlan</varname></entry>
+                                        <entry>A virtual extensible LAN (vxlan), for connecting Cloud computing deployments.</entry></row>
+                                </tbody>
+                        </tgroup>
+                </table>
+
+        </refsect1>
+
+        <refsect1>
                 <title>[Match] Section Options</title>
 
                 <para>A virtual network device is only created if the
@@ -134,15 +209,8 @@
                                 <varlistentry>
                                         <term><varname>Kind=</varname></term>
                                         <listitem>
-                                                <para>The netdev kind. Currently, <literal>bridge</literal>,
-                                                <literal>bond</literal>, <literal>vlan</literal>,
-                                                <literal>macvlan</literal>,
-                                                <literal>ipvlan</literal>, <literal>vxlan</literal>,
-                                                <literal>ipip</literal>, <literal>gre</literal>,
-                                                <literal>sit</literal>, <literal>vti</literal>,
-                                                <literal>veth</literal>, <literal>tun</literal>,
-                                                <literal>tap</literal> and <literal>dummy</literal>
-                                                are supported. This option is compulsory.</para>
+                                                <para>The netdev kind. This option is compulsory. See the <literal>Supported netdev kinds</literal> section
+                                                for the valid keys.</para>
                                         </listitem>
                                 </varlistentry>
                                 <varlistentry>
@@ -302,8 +370,9 @@
                 <title>[Tunnel] Section Options</title>
 
                         <para>The <literal>[Tunnel]</literal> section only applies for netdevs of kind
-                        <literal>ipip</literal>, <literal>sit</literal>, <literal>gre</literal> and
-                        <literal>vti</literal> and accepts the following keys:</para>
+                        <literal>ipip</literal>, <literal>sit</literal>, <literal>gre</literal>, <literal>gretap</literal>,
+                        <literal>ip6gre</literal>, <literal>ip6gretap</literal>, <literal>vti</literal> and <literal>ip6tnl</literal>
+                        and accepts the following keys:</para>
 
                         <variablelist class="network-directives">
                                 <varlistentry>
@@ -344,6 +413,16 @@
                                         <listitem>
                                                 <para>A boolean. When true, enables Path MTU Discovery on the tunnel.</para>
                                         </listitem>
+                                </varlistentry>
+                                <varlistentry>
+                                  <term><varname>Mode=</varname></term>
+                                  <listitem>
+                                    <para>An <literal>ip6tnl</literal> tunnels can have three modes
+                                    <literal>ip6ip6</literal> for IPv6 over IPv6,
+                                    <literal>ipip6</literal> for IPv4 over IPv6 or
+                                    <literal>any</literal> for either.
+                                    </para>
+                                  </listitem>
                                 </varlistentry>
                         </variablelist>
         </refsect1>

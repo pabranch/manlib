@@ -7,7 +7,7 @@
 <refentrytitle>btrfs-qgroup</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.18-36-g0173148</refmiscinfo>
+<refmiscinfo class="version">v3.18.2</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -86,6 +86,30 @@ identified by <emphasis>&lt;path&gt;</emphasis>.
 </simpara>
 <simpara>If <emphasis>&lt;qgroupid&gt;</emphasis> is not given, qgroup of the subvolume identified by <emphasis>&lt;path&gt;</emphasis>
 is used if possible.</simpara>
+<simpara><literal>Options</literal></simpara>
+<variablelist>
+<varlistentry>
+<term>
+-c
+</term>
+<listitem>
+<simpara>
+limit amount of data after compression. This is the default, it is currently not
+possible to turn off this option.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-e
+</term>
+<listitem>
+<simpara>
+limit space exclusively assigned to this qgroup.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -135,7 +159,7 @@ print child qgroup id.
 </term>
 <listitem>
 <simpara>
-print max referenced size of qgroup.
+print limit of referenced size of qgroup.
 </simpara>
 </listitem>
 </varlistentry>
@@ -145,7 +169,7 @@ print max referenced size of qgroup.
 </term>
 <listitem>
 <simpara>
-print max exclusive size of qgroup.
+print limit of exclusive size of qgroup.
 </simpara>
 </listitem>
 </varlistentry>
@@ -166,6 +190,86 @@ list all qgroups which impact the given path(include ancestral qgroups)
 <listitem>
 <simpara>
 list all qgroups which impact the given path(exclude ancestral qgroups)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--raw
+</term>
+<listitem>
+<simpara>
+raw numbers in bytes, without the <emphasis>B</emphasis> suffix.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--human-readable
+</term>
+<listitem>
+<simpara>
+print human friendly numbers, base 1024, this is the default
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--iec
+</term>
+<listitem>
+<simpara>
+select the 1024 base for the following options, according to the IEC standard.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--si
+</term>
+<listitem>
+<simpara>
+select the 1000 base for the following options, according to the SI standard.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--kbytes
+</term>
+<listitem>
+<simpara>
+show sizes in KiB, or kB with --si.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--mbytes
+</term>
+<listitem>
+<simpara>
+show sizes in MiB, or MB with --si.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--gbytes
+</term>
+<listitem>
+<simpara>
+show sizes in GiB, or GB with --si.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--tbytes
+</term>
+<listitem>
+<simpara>
+show sizes in TiB, or TB with --si.
 </simpara>
 </listitem>
 </varlistentry>

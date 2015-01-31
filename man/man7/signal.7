@@ -702,8 +702,12 @@ unless a timeout has been set on the socket (see below).
 File locking interfaces:
 .BR flock (2)
 and
+the
+.BR F_SETLKW
+and
+.BR F_OFD_SETLKW
+operations of
 .BR fcntl (2)
-.BR F_SETLKW .
 .IP *
 POSIX message queue interfaces:
 .BR mq_receive (3),
@@ -716,6 +720,8 @@ and
 .B FUTEX_WAIT
 (since Linux 2.6.22; beforehand, always failed with
 .BR EINTR ).
+.IP *
+.BR getrandom (2).
 .IP *
 .BR pthread_mutex_lock (3),
 .BR pthread_cond_wait (3),

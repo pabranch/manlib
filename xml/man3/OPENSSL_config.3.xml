@@ -17,9 +17,8 @@ void OPENSSL_no_config(void);</synopsis>
       OPENSSL_config() configures OpenSSL using the standard <emphasis role="bold">openssl.cnf</emphasis> configuration file name using
       <emphasis role="bold">config_name</emphasis>. If <emphasis role="bold">config_name</emphasis> is NULL then the file specified in
       the environment variable <emphasis role="bold">OPENSSL_CONF</emphasis> will be used, and if that is not
-      set then a system default location is used. In case of error, a
-      message is printed to <emphasis role="bold">stderr</emphasis> and the
-      routine exit's. Multiple calls have no effect.
+      set then a system default location is used. Errors are silently
+      ignored. Multiple calls have no effect.
     </para>
     <para>
       OPENSSL_no_config() disables configuration. If called before
@@ -41,12 +40,9 @@ void OPENSSL_no_config(void);</synopsis>
       it and forget it" function. It is however <emphasis role="bold">much</emphasis> better than nothing. Applications which
       need finer control over their configuration functionality should use
       the configuration functions such as CONF_modules_load() directly.
-    </para>
-    <para>
-      It is <emphasis role="bold">strongly</emphasis> recommended that
-      <emphasis role="bold">all</emphasis> new applications call
-      CONF_modules_load() during initialization (that is before starting
-      any threads).
+      This function is deprecated and its use should be avoided.
+      Applications should instead call CONF_modules_load() during
+      initialization (that is before starting any threads).
     </para>
     <para>
       There are several reasons why calling the OpenSSL configuration

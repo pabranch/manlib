@@ -1,0 +1,62 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_set_read_ahead.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_set_read_ahead, SSL_CTX_set_default_read_ahead, SSL_CTX_get_read_ahead,
+SSL_CTX_get_default_read_ahead, SSL_set_read_ahead, SSL_get_read_ahead</refname>
+<refpurpose>manage whether to read as many input bytes as possible</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">int SSL_get_read_ahead(const SSL *s);
+void SSL_set_read_ahead(SSL *s, int yes);</synopsis>
+<synopsis format="linespecific">#define SSL_CTX_get_default_read_ahead(ctx)
+#define SSL_CTX_set_default_read_ahead(ctx,m)
+#define SSL_CTX_get_read_ahead(ctx)
+#define SSL_CTX_set_read_ahead(ctx,m)</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_read_ahead.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_CTX_set_read_ahead() and SSL_set_read_ahead() set whether we
+      should read as many input bytes as possible (for non-blocking reads)
+      or not. For example if <emphasis role="bold">x</emphasis> bytes are
+      currently required by OpenSSL, but <emphasis role="bold">y</emphasis>
+      bytes are available from the underlying BIO (where <emphasis role="bold">y</emphasis> &gt; <emphasis role="bold">x</emphasis>),
+      then OpenSSL will read all <emphasis role="bold">y</emphasis> bytes
+      into its buffer (providing that the buffer is large enough) if
+      reading ahead is on, or <emphasis role="bold">x</emphasis> bytes
+      otherwise. The parameter <emphasis role="bold">yes</emphasis> or
+      <emphasis role="bold">m</emphasis> should be 0 to ensure reading
+      ahead is off, or non zero otherwise.
+    </para>
+    <para>
+      SSL_CTX_set_default_read_ahead is a synonym for
+      SSL_CTX_set_read_ahead, and SSL_CTX_get_default_read_ahead is a
+      synonym for SSL_CTX_get_read_ahead.
+    </para>
+    <para>
+      SSL_CTX_get_read_ahead() and SSL_get_read_ahead() indicate whether
+      reading ahead has been set or not.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_read_ahead.pod:NOTES"><title>NOTES</title>
+    <para>
+      These functions have no impact when used with DTLS. The return values
+      for SSL_CTX_get_read_head() and SSL_get_read_ahead() are undefined
+      for DTLS.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_read_ahead.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      SSL_get_read_ahead and SSL_CTX_get_read_ahead return 0 if reading
+      ahead is off, and non zero otherwise.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_read_ahead.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3)
+    </para>
+  </refsection>
+</refentry>

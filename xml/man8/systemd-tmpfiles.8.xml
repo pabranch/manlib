@@ -73,6 +73,7 @@
                                 <varname>w</varname>,
                                 <varname>d</varname>,
                                 <varname>D</varname>,
+                                <varname>v</varname>,
                                 <varname>p</varname>,
                                 <varname>L</varname>,
                                 <varname>c</varname>,
@@ -82,7 +83,10 @@
                                 written to. Files and directories
                                 marked with <varname>z</varname>,
                                 <varname>Z</varname>,
-                                <varname>m</varname> have their
+                                <varname>t</varname>,
+                                <varname>T</varname>,
+                                <varname>a</varname>, and
+                                <varname>A</varname> have their
                                 ownership, access mode and security
                                 labels set. </para></listitem>
                         </varlistentry>
@@ -98,10 +102,13 @@
                         <varlistentry>
                                 <term><option>--remove</option></term>
                                 <listitem><para>If this option is
-                                passed, all files and directories
-                                marked with <varname>r</varname>,
-                                <varname>R</varname> in the
-                                configuration files are
+                                passed, the contents of
+                                directories marked with
+                                <varname>D</varname> or
+                                <varname>R</varname>, and files or
+                                directories themselves marked with
+                                <varname>r</varname> or
+                                <varname>R</varname> are
                                 removed.</para></listitem>
                         </varlistentry>
                         <varlistentry>
@@ -112,15 +119,15 @@
                         </varlistentry>
                         <varlistentry>
                                 <term><option>--prefix=<replaceable>path</replaceable></option></term>
-                                <listitem><para>Only apply rules that
-                                apply to paths with the specified
+                                <listitem><para>Only apply rules with
+                                paths that start with the specified
                                 prefix. This option can be specified
                                 multiple times.</para></listitem>
                         </varlistentry>
                         <varlistentry>
                                 <term><option>--exclude-prefix=<replaceable>path</replaceable></option></term>
-                                <listitem><para>Ignore rules that
-                                apply to paths with the specified
+                                <listitem><para>Ignore rules with
+                                paths that start with the specified
                                 prefix. This option can be specified
                                 multiple times.</para></listitem>
                         </varlistentry>
@@ -160,6 +167,19 @@
 
                 <programlisting>systemd-tmpfiles --remove --create</programlisting>
 
+        </refsect1>
+
+        <refsect1>
+                <title>Unprivileged --cleanup operation</title>
+
+                <para><command>systemd-tmpfiles</command> tries to
+                avoid changing the access and modification times on
+                the directories it accesses, which requires
+                <constant>CAP_ADMIN</constant> privileges. When
+                running as non-root, directories which are checked for
+                files to clean up will have their access time bumped,
+                which might prevent their cleanup.
+                </para>
         </refsect1>
 
         <refsect1>
