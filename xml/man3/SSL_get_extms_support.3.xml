@@ -1,0 +1,36 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_get_extms_support.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_get_extms_support</refname>
+<refpurpose>extended master secret support</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">int SSL_get_extms_support(SSL *ssl);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_extms_support.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_get_extms_support() indicates whether the current session used
+      extended master secret.
+    </para>
+    <para>
+      This function is implemented as a macro.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_extms_support.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      SSL_get_extms_support() returns 1 if the current session used
+      extended master secret, 0 if it did not and -1 if a handshake is
+      currently in progress i.e. it is not possible to determine if
+      extended master secret was used.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_extms_support.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3)
+    </para>
+  </refsection>
+</refentry>

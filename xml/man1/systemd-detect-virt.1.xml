@@ -1,185 +1,177 @@
 <!-- Converted by db4-upgrade version 1.1 -->
 <refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="systemd-detect-virt">
 
-        <info>
-                
-                <productname>systemd</productname>
+  <info>
+    
+    <productname>systemd</productname>
 
-                <authorgroup>
-                        <author><personname><firstname>Lennart</firstname><surname>Poettering</surname></personname><contrib>Developer</contrib><email>lennart@poettering.net</email></author>
-                </authorgroup>
-        </info>
+    <authorgroup>
+      <author><personname><firstname>Lennart</firstname><surname>Poettering</surname></personname><contrib>Developer</contrib><email>lennart@poettering.net</email></author>
+    </authorgroup>
+  </info>
 
-        <refmeta>
-                <refentrytitle>systemd-detect-virt</refentrytitle>
-                <manvolnum>1</manvolnum>
-        </refmeta>
+  <refmeta>
+    <refentrytitle>systemd-detect-virt</refentrytitle>
+    <manvolnum>1</manvolnum>
+  </refmeta>
 
-        <refnamediv>
-                <refname>systemd-detect-virt</refname>
-                <refpurpose>Detect execution in a virtualized environment</refpurpose>
-        </refnamediv>
+  <refnamediv>
+    <refname>systemd-detect-virt</refname>
+    <refpurpose>Detect execution in a virtualized environment</refpurpose>
+  </refnamediv>
 
-        <refsynopsisdiv>
-                <cmdsynopsis sepchar=" ">
-                        <command>systemd-detect-virt <arg choice="opt" rep="repeat">OPTIONS</arg></command>
-                </cmdsynopsis>
-        </refsynopsisdiv>
+  <refsynopsisdiv>
+    <cmdsynopsis sepchar=" ">
+      <command>systemd-detect-virt <arg choice="opt" rep="repeat">OPTIONS</arg></command>
+    </cmdsynopsis>
+  </refsynopsisdiv>
 
-        <refsect1>
-                <title>Description</title>
+  <refsect1>
+    <title>Description</title>
 
-                <para><command>systemd-detect-virt</command> detects
-                execution in a virtualized environment. It identifies
-                the virtualization technology and can distinguish full
-                VM virtualization from container
-                virtualization. <filename>systemd-detect-virt</filename>
-                exits with a return value of 0 (success) if a
-                virtualization technology is detected, and non-zero
-                (error) otherwise. By default any type of
-                virtualization is detected, and the options
-                <option>--container</option> and <option>--vm</option>
-                can be used to limit what types of virtualization are
-                detected.</para>
+    <para><command>systemd-detect-virt</command> detects execution in
+    a virtualized environment. It identifies the virtualization
+    technology and can distinguish full VM virtualization from
+    container virtualization. <filename>systemd-detect-virt</filename>
+    exits with a return value of 0 (success) if a virtualization
+    technology is detected, and non-zero (error) otherwise. By default
+    any type of virtualization is detected, and the options
+    <option>--container</option> and <option>--vm</option> can be used
+    to limit what types of virtualization are detected.</para>
 
-                <para>When executed without <option>--quiet</option>
-                will print a short identifier for the detected
-                virtualization technology. The following technologies
-                are currently identified:</para>
+    <para>When executed without <option>--quiet</option> will print a
+    short identifier for the detected virtualization technology. The
+    following technologies are currently identified:</para>
 
-                <table>
-                  <title>Known virtualization technologies (both
-                  VM, i.e. full hardware virtualization,
-                  and container, i.e. shared kernel virtualization)</title>
-                  <tgroup cols="3" align="left" colsep="1" rowsep="1">
-                    <colspec colname="type"/>
-                    <colspec colname="id"/>
-                    <colspec colname="product"/>
-                    <thead>
-                      <row>
-                        <entry>Type</entry>
-                        <entry>ID</entry>
-                        <entry>Product</entry>
-                      </row>
-                    </thead>
-                    <tbody>
-                      <row>
-                        <entry morerows="8">VM</entry>
-                        <entry><varname>qemu</varname></entry>
-                        <entry>QEMU software virtualization</entry>
-                      </row>
+    <table>
+      <title>Known virtualization technologies (both
+      VM, i.e. full hardware virtualization,
+      and container, i.e. shared kernel virtualization)</title>
+      <tgroup cols="3" align="left" colsep="1" rowsep="1">
+        <colspec colname="type"/>
+        <colspec colname="id"/>
+        <colspec colname="product"/>
+        <thead>
+          <row>
+      <entry>Type</entry>
+      <entry>ID</entry>
+      <entry>Product</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+      <entry morerows="8">VM</entry>
+      <entry><varname>qemu</varname></entry>
+      <entry>QEMU software virtualization</entry>
+          </row>
 
-                      <row>
-                        <entry><varname>kvm</varname></entry>
-                        <entry>Linux KVM kernel virtual machine</entry>
-                      </row>
+          <row>
+      <entry><varname>kvm</varname></entry>
+      <entry>Linux KVM kernel virtual machine</entry>
+          </row>
 
-                      <row>
-                        <entry><varname>zvm</varname></entry>
-                        <entry>s390 z/VM</entry>
-                      </row>
+          <row>
+      <entry><varname>zvm</varname></entry>
+      <entry>s390 z/VM</entry>
+          </row>
 
-                      <row>
-                        <entry><varname>vmware</varname></entry>
-                        <entry>VMware Workstation or Server, and related products</entry>
-                      </row>
+          <row>
+      <entry><varname>vmware</varname></entry>
+      <entry>VMware Workstation or Server, and related products</entry>
+          </row>
 
-                      <row>
-                        <entry><varname>microsoft</varname></entry>
-                        <entry>Hyper-V, also known as Viridian or Windows Server Virtualization</entry>
-                      </row>
+          <row>
+      <entry><varname>microsoft</varname></entry>
+      <entry>Hyper-V, also known as Viridian or Windows Server Virtualization</entry>
+          </row>
 
-                      <row>
-                        <entry><varname>oracle</varname></entry>
-                        <entry>Oracle VM VirtualBox (historically marketed by innotek and Sun Microsystems)</entry>
-                      </row>
+          <row>
+      <entry><varname>oracle</varname></entry>
+      <entry>Oracle VM VirtualBox (historically marketed by innotek and Sun Microsystems)</entry>
+          </row>
 
-                      <row>
-                        <entry><varname>xen</varname></entry>
-                        <entry>Xen hypervisor (only domU, not dom0)</entry>
-                      </row>
+          <row>
+      <entry><varname>xen</varname></entry>
+      <entry>Xen hypervisor (only domU, not dom0)</entry>
+          </row>
 
-                      <row>
-                        <entry><varname>bochs</varname></entry>
-                        <entry>Bochs Emulator</entry>
-                      </row>
+          <row>
+      <entry><varname>bochs</varname></entry>
+      <entry>Bochs Emulator</entry>
+          </row>
 
-                      <row>
-                        <entry><varname>uml</varname></entry>
-                        <entry>User-mode Linux</entry>
-                      </row>
+          <row>
+      <entry><varname>uml</varname></entry>
+      <entry>User-mode Linux</entry>
+          </row>
 
-                      <row>
-                        <entry morerows="5">container</entry>
-                        <entry><varname>openvz</varname></entry>
-                        <entry>OpenVZ/Virtuozzo</entry>
-                      </row>
+          <row>
+      <entry morerows="5">container</entry>
+      <entry><varname>openvz</varname></entry>
+      <entry>OpenVZ/Virtuozzo</entry>
+          </row>
 
-                      <row>
-                        <entry><varname>lxc</varname></entry>
-                        <entry>Linux container implementation by LXC</entry>
-                      </row>
+          <row>
+      <entry><varname>lxc</varname></entry>
+      <entry>Linux container implementation by LXC</entry>
+          </row>
 
-                      <row>
-                        <entry><varname>lxc-libvirt</varname></entry>
-                        <entry>Linux container implementation by libvirt</entry>
-                      </row>
+          <row>
+      <entry><varname>lxc-libvirt</varname></entry>
+      <entry>Linux container implementation by libvirt</entry>
+          </row>
 
-                      <row>
-                         <entry><varname>systemd-nspawn</varname></entry>
-                         <entry>systemd's minimal container implementation, see <citerefentry><refentrytitle>systemd-nspawn</refentrytitle><manvolnum>1</manvolnum></citerefentry></entry>
-                      </row>
+          <row>
+       <entry><varname>systemd-nspawn</varname></entry>
+       <entry>systemd's minimal container implementation, see <citerefentry><refentrytitle>systemd-nspawn</refentrytitle><manvolnum>1</manvolnum></citerefentry></entry>
+          </row>
 
-                      <row>
-                        <entry><varname>docker</varname></entry>
-                        <entry>Docker container manager</entry>
-                      </row>
-                    </tbody>
-                  </tgroup>
-                </table>
+          <row>
+      <entry><varname>docker</varname></entry>
+      <entry>Docker container manager</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
 
-                <para>If multiple virtualization solutions are used,
-                only the "innermost" is detected and identified. That
-                means if both VM virtualization and container
-                virtualization are used in conjunction, only the latter
-                will be identified (unless <option>--vm</option> is
-                passed).</para>
-        </refsect1>
+    <para>If multiple virtualization solutions are used, only the
+    "innermost" is detected and identified. That means if both VM
+    virtualization and container virtualization are used in
+    conjunction, only the latter will be identified (unless
+    <option>--vm</option> is passed).</para>
+  </refsect1>
 
-        <refsect1>
-                <title>Options</title>
+  <refsect1>
+    <title>Options</title>
 
-                <para>The following options are understood:</para>
+    <para>The following options are understood:</para>
 
-                <variablelist>
-                        <varlistentry>
-                                <term><option>-c</option></term>
-                                <term><option>--container</option></term>
+    <variablelist>
+      <varlistentry>
+        <term><option>-c</option></term>
+        <term><option>--container</option></term>
 
-                                <listitem><para>Only detects container
-                                virtualization (i.e. shared kernel
-                                virtualization).</para></listitem>
-                        </varlistentry>
+        <listitem><para>Only detects container virtualization (i.e.
+        shared kernel virtualization).</para></listitem>
+      </varlistentry>
 
-                        <varlistentry>
-                                <term><option>-v</option></term>
-                                <term><option>--vm</option></term>
+      <varlistentry>
+        <term><option>-v</option></term>
+        <term><option>--vm</option></term>
 
-                                <listitem><para>Only detects VM
-                                virtualization (i.e. full hardware
-                                virtualization).</para></listitem>
-                        </varlistentry>
+        <listitem><para>Only detects VM virtualization (i.e. full
+        hardware virtualization).</para></listitem>
+      </varlistentry>
 
-                        <varlistentry>
-                                <term><option>-q</option></term>
-                                <term><option>--quiet</option></term>
+      <varlistentry>
+        <term><option>-q</option></term>
+        <term><option>--quiet</option></term>
 
-                                <listitem><para>Suppress output of the
-                                virtualization technology
-                                identifier.</para></listitem>
-                        </varlistentry>
+        <listitem><para>Suppress output of the virtualization
+        technology identifier.</para></listitem>
+      </varlistentry>
 
-                        <varlistentry xml:id="help">
+      <varlistentry xml:id="help">
     <term><option>-h</option></term>
     <term><option>--help</option></term>
 
@@ -187,30 +179,30 @@
       <para>Print a short help text and exit.
     </para></listitem>
   </varlistentry>
-                        <varlistentry xml:id="version">
+      <varlistentry xml:id="version">
     <term><option>--version</option></term>
 
     <listitem xml:id="version-text">
       <para>Print a short version string and exit.</para>
     </listitem>
   </varlistentry>
-                </variablelist>
+    </variablelist>
 
-        </refsect1>
+  </refsect1>
 
-        <refsect1>
-                <title>Exit status</title>
+  <refsect1>
+    <title>Exit status</title>
 
-                <para>If a virtualization technology is detected, 0 is
-                returned, a non-zero code otherwise.</para>
-        </refsect1>
+    <para>If a virtualization technology is detected, 0 is returned, a
+    non-zero code otherwise.</para>
+  </refsect1>
 
-        <refsect1>
-                <title>See Also</title>
-                <para>
-                        <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>systemd-nspawn</refentrytitle><manvolnum>1</manvolnum></citerefentry>
-                </para>
-        </refsect1>
+  <refsect1>
+    <title>See Also</title>
+    <para>
+      <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>systemd-nspawn</refentrytitle><manvolnum>1</manvolnum></citerefentry>
+    </para>
+  </refsect1>
 
 </refentry>

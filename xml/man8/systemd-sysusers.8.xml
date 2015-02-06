@@ -1,74 +1,70 @@
 <!-- Converted by db4-upgrade version 1.1 -->
 <refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="systemd-sysusers">
 
-        <info>
-                
-                <productname>systemd</productname>
+  <info>
+    
+    <productname>systemd</productname>
 
-                <authorgroup>
-                        <author><personname><firstname>Lennart</firstname><surname>Poettering</surname></personname><contrib>Developer</contrib><email>lennart@poettering.net</email></author>
-                </authorgroup>
-        </info>
+    <authorgroup>
+      <author><personname><firstname>Lennart</firstname><surname>Poettering</surname></personname><contrib>Developer</contrib><email>lennart@poettering.net</email></author>
+    </authorgroup>
+  </info>
 
-        <refmeta>
-                <refentrytitle>systemd-sysusers</refentrytitle>
-                <manvolnum>8</manvolnum>
-        </refmeta>
+  <refmeta>
+    <refentrytitle>systemd-sysusers</refentrytitle>
+    <manvolnum>8</manvolnum>
+  </refmeta>
 
-        <refnamediv>
-                <refname>systemd-sysusers</refname>
-                <refname>systemd-sysusers.service</refname>
-                <refpurpose>Allocate system users and groups</refpurpose>
-        </refnamediv>
+  <refnamediv>
+    <refname>systemd-sysusers</refname>
+    <refname>systemd-sysusers.service</refname>
+    <refpurpose>Allocate system users and groups</refpurpose>
+  </refnamediv>
 
-        <refsynopsisdiv>
-                <cmdsynopsis sepchar=" ">
-                        <command>systemd-sysusers</command>
-                        <arg choice="opt" rep="repeat">OPTIONS</arg>
-                        <arg choice="opt" rep="repeat"><replaceable>CONFIGFILE</replaceable></arg>
-                </cmdsynopsis>
+  <refsynopsisdiv>
+    <cmdsynopsis sepchar=" ">
+      <command>systemd-sysusers</command>
+      <arg choice="opt" rep="repeat">OPTIONS</arg>
+      <arg choice="opt" rep="repeat"><replaceable>CONFIGFILE</replaceable></arg>
+    </cmdsynopsis>
 
-                <para><filename>systemd-sysusers.service</filename></para>
-        </refsynopsisdiv>
+    <para><filename>systemd-sysusers.service</filename></para>
+  </refsynopsisdiv>
 
-        <refsect1>
-                <title>Description</title>
+  <refsect1>
+    <title>Description</title>
 
-                <para><command>systemd-sysusers</command> creates
-                system users and groups, based on the file format and
-                location specified in
-                <citerefentry><refentrytitle>sysusers.d</refentrytitle><manvolnum>5</manvolnum></citerefentry>.
-                </para>
+    <para><command>systemd-sysusers</command> creates system users and
+    groups, based on the file format and location specified in
+    <citerefentry><refentrytitle>sysusers.d</refentrytitle><manvolnum>5</manvolnum></citerefentry>.
+    </para>
 
-                <para>If invoked with no arguments, it applies all
-                directives from all files found. If one or more
-                filenames are passed on the command line, only the
-                directives in these files are applied. If only the
-                basename of a file is specified, all directories as
-                specified in
-                <citerefentry><refentrytitle>sysusers.d</refentrytitle><manvolnum>5</manvolnum></citerefentry>
-                are searched for a matching file. If the string
-                <filename>-</filename> is specified as filenames
-                entries from the standard input of the process are
-                read.</para>
-        </refsect1>
+    <para>If invoked with no arguments, it applies all directives from
+    all files found. If one or more filenames are passed on the
+    command line, only the directives in these files are applied. If
+    only the basename of a file is specified, all directories as
+    specified in
+    <citerefentry><refentrytitle>sysusers.d</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+    are searched for a matching file. If the string
+    <filename>-</filename> is specified as filenames entries from the
+    standard input of the process are read.</para>
+  </refsect1>
 
-        <refsect1>
-                <title>Options</title>
+  <refsect1>
+    <title>Options</title>
 
-                <para>The following options are understood:</para>
+    <para>The following options are understood:</para>
 
-                <variablelist>
-                        <varlistentry>
-                                <term><option>--root=<replaceable>root</replaceable></option></term>
-                                <listitem><para>Takes a directory path
-                                as an argument. All paths will be
-                                prefixed with the given alternate <replaceable>root</replaceable>
-                                path, including config search paths.
-                                </para></listitem>
-                        </varlistentry>
+    <variablelist>
+      <varlistentry>
+        <term><option>--root=<replaceable>root</replaceable></option></term>
+        <listitem><para>Takes a directory path as an argument. All
+        paths will be prefixed with the given alternate
+        <replaceable>root</replaceable> path, including config search
+        paths. </para></listitem>
+      </varlistentry>
 
-                        <varlistentry xml:id="help">
+      <varlistentry xml:id="help">
     <term><option>-h</option></term>
     <term><option>--help</option></term>
 
@@ -76,30 +72,30 @@
       <para>Print a short help text and exit.
     </para></listitem>
   </varlistentry>
-                        <varlistentry xml:id="version">
+      <varlistentry xml:id="version">
     <term><option>--version</option></term>
 
     <listitem xml:id="version-text">
       <para>Print a short version string and exit.</para>
     </listitem>
   </varlistentry>
-                </variablelist>
+    </variablelist>
 
-        </refsect1>
+  </refsect1>
 
-        <refsect1>
-                <title>Exit status</title>
+  <refsect1>
+    <title>Exit status</title>
 
-                <para>On success, 0 is returned, a non-zero failure
-                code otherwise.</para>
-        </refsect1>
+    <para>On success, 0 is returned, a non-zero failure code
+    otherwise.</para>
+  </refsect1>
 
-        <refsect1>
-                <title>See Also</title>
-                <para>
-                        <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>sysusers.d</refentrytitle><manvolnum>5</manvolnum></citerefentry>
-                </para>
-        </refsect1>
+  <refsect1>
+    <title>See Also</title>
+    <para>
+      <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>sysusers.d</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+    </para>
+  </refsect1>
 
 </refentry>

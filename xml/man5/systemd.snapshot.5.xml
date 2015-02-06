@@ -1,60 +1,56 @@
 <!-- Converted by db4-upgrade version 1.1 -->
 <refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="systemd.snapshot">
-        <info>
-                
-                <productname>systemd</productname>
+  <info>
+    
+    <productname>systemd</productname>
 
-                <authorgroup>
-                        <author><personname><firstname>Lennart</firstname><surname>Poettering</surname></personname><contrib>Developer</contrib><email>lennart@poettering.net</email></author>
-                </authorgroup>
-        </info>
+    <authorgroup>
+      <author><personname><firstname>Lennart</firstname><surname>Poettering</surname></personname><contrib>Developer</contrib><email>lennart@poettering.net</email></author>
+    </authorgroup>
+  </info>
 
-        <refmeta>
-                <refentrytitle>systemd.snapshot</refentrytitle>
-                <manvolnum>5</manvolnum>
-        </refmeta>
+  <refmeta>
+    <refentrytitle>systemd.snapshot</refentrytitle>
+    <manvolnum>5</manvolnum>
+  </refmeta>
 
-        <refnamediv>
-                <refname>systemd.snapshot</refname>
-                <refpurpose>Snapshot unit configuration</refpurpose>
-        </refnamediv>
+  <refnamediv>
+    <refname>systemd.snapshot</refname>
+    <refpurpose>Snapshot unit configuration</refpurpose>
+  </refnamediv>
 
-        <refsynopsisdiv>
-                <para><filename><replaceable>snapshot</replaceable>.snapshot</filename></para>
-        </refsynopsisdiv>
+  <refsynopsisdiv>
+    <para><filename><replaceable>snapshot</replaceable>.snapshot</filename></para>
+  </refsynopsisdiv>
 
-        <refsect1>
-                <title>Description</title>
+  <refsect1>
+    <title>Description</title>
 
-                <para>Snapshot units are not configured via unit
-                configuration files. Nonetheless they are named
-                similar to filenames. A unit whose name ends in
-                <literal>.snapshot</literal> refers to a dynamic
-                snapshot of the systemd runtime state.</para>
+    <para>Snapshot units are not configured via unit configuration
+    files. Nonetheless they are named similar to filenames. A unit
+    whose name ends in <literal>.snapshot</literal> refers to a
+    dynamic snapshot of the systemd runtime state.</para>
 
-                <para>Snapshots are not configured on disk but created
-                dynamically via <command>systemctl snapshot</command>
-                (see
-                <citerefentry><refentrytitle>systemctl</refentrytitle><manvolnum>1</manvolnum></citerefentry>
-                for details) or an equivalent command. When created,
-                they will automatically get dependencies on the
-                currently activated units. They act as saved
-                runtime state of the systemd manager. Later on, the
-                user may choose to return to the saved state via
-                <command>systemctl isolate</command>. They are
-                useful to roll back to a defined state after
-                temporarily starting/stopping services or
-                similar.</para>
-        </refsect1>
+    <para>Snapshots are not configured on disk but created dynamically
+    via <command>systemctl snapshot</command> (see
+    <citerefentry><refentrytitle>systemctl</refentrytitle><manvolnum>1</manvolnum></citerefentry>
+    for details) or an equivalent command. When created, they will
+    automatically get dependencies on the currently activated units.
+    They act as saved runtime state of the systemd manager. Later on,
+    the user may choose to return to the saved state via
+    <command>systemctl isolate</command>. They are useful to roll back
+    to a defined state after temporarily starting/stopping services or
+    similar.</para>
+  </refsect1>
 
-        <refsect1>
-                  <title>See Also</title>
-                  <para>
-                          <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
-                          <citerefentry><refentrytitle>systemctl</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
-                          <citerefentry><refentrytitle>systemd.unit</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
-                          <citerefentry><refentrytitle>systemd.directives</refentrytitle><manvolnum>7</manvolnum></citerefentry>
-                  </para>
-        </refsect1>
+  <refsect1>
+      <title>See Also</title>
+      <para>
+        <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+        <citerefentry><refentrytitle>systemctl</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+        <citerefentry><refentrytitle>systemd.unit</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
+        <citerefentry><refentrytitle>systemd.directives</refentrytitle><manvolnum>7</manvolnum></citerefentry>
+      </para>
+  </refsect1>
 
 </refentry>

@@ -75,6 +75,37 @@ tracer. To not enable any tracer, use <emphasis role="strong">-p nop</emphasis>.
 </varlistentry>
 <varlistentry>
 <term>
+<emphasis role="strong">-H</emphasis> <emphasis>event-hooks</emphasis>
+</term>
+<listitem>
+<simpara>
+    Add custom event matching to connect any two events together. Format is:
+    [&lt;start_system&gt;:]&lt;start_event&gt;,&lt;start_match&gt;[,&lt;start_pid&gt;]/
+    [&lt;end_system&gt;:]&lt;end_event&gt;,&lt;end_match&gt;[,&lt;flags&gt;]
+</simpara>
+<literallayout class="monospaced">The start_system:start_event (start_system is optional), is the event that
+starts the timing.</literallayout>
+<literallayout class="monospaced">start_match is the field in the start event that is to match with the
+end_match in the end event.</literallayout>
+<literallayout class="monospaced">start_pid is optional, as matches are attached to the tasks that run
+the events, if another field should be used to find that task, then
+it is specified with start_pid.</literallayout>
+<literallayout class="monospaced">end_system:end_event is the event that ends the timing (end_system is
+optional).</literallayout>
+<literallayout class="monospaced">end_match is the field in end_match that wil match the start event field
+start_match.</literallayout>
+<literallayout class="monospaced">flags are optional and can be the following (case insensitive):</literallayout>
+<literallayout class="monospaced">p : The two events are pinned to the same CPU (start and end happen
+    on the same CPU always).</literallayout>
+<literallayout class="monospaced">s : The event should have a stack traced with it (enable stack tracing
+    for the start event).</literallayout>
+<literallayout class="monospaced">g : The event is global (not associated to a task). start_pid is
+    not applicable with this flag.</literallayout>
+<literallayout class="monospaced">(Note: 'g' is not yet implemented)</literallayout>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 <emphasis role="strong">--stderr</emphasis>
 </term>
 <listitem>

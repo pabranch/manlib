@@ -30,7 +30,7 @@
 .\" Modified 2001-11-13, aeb
 .\" Modified 2004-12-01 mtk and Martin Schulze <joey@infodrom.org>
 .\"
-.TH TZSET 3  2014-08-19 "" "Linux Programmer's Manual"
+.TH TZSET 3  2015-01-30 "" "Linux Programmer's Manual"
 .SH NAME
 tzset, tzname, timezone, daylight \- initialize time conversion information
 .SH SYNOPSIS
@@ -84,18 +84,18 @@ timezone directory (see the \fBFILES\fP section below).
 .PP
 If the
 .B TZ
-variable does appear in the environment but its value is empty
+variable does appear in the environment, but its value is empty,
 or its value cannot be interpreted using any of the formats specified
-below, Coordinated Universal Time (UTC) is used.
+below, then Coordinated Universal Time (UTC) is used.
 .PP
 The value of
 .B TZ
-can be one of three formats.
-The first format is used
-when there is no daylight saving time in the local timezone:
+can be one of two formats.
+The first format is a string of characters that directly represent the
+timezone to be used:
 .sp
 .RS
-.I std offset
+.IR "std offset" [ dst [ offset ][, start [ /time ], end [ /time ]]]
 .RE
 .sp
 There are no spaces in the specification.
@@ -110,19 +110,10 @@ east.
 The hour must be between 0 and 24, and the minutes and seconds
 0 and 59.
 .PP
-The second format is used when there is daylight saving time:
-.sp
-.RS
-.I std offset dst [offset],start[/time],end[/time]
-.RE
-.sp
-There are no spaces in the specification.
-The initial \fIstd\fP and
-\fIoffset\fP specify the standard timezone, as described above.
 The \fIdst\fP string and \fIoffset\fP specify the name and offset for the
 corresponding daylight saving timezone.
 If the offset is omitted,
-it default to one hour ahead of standard time.
+it defaults to one hour ahead of standard time.
 .PP
 The \fIstart\fP field specifies when daylight saving time goes into
 effect and the \fIend\fP field specifies when the change is made back to
@@ -161,7 +152,7 @@ and the changeovers happen at the default time of 02:00:00:
     TZ="NZST-12:00:00NZDT-13:00:00,M10.1.0,M3.3.0"
 .fi
 .PP
-The third format specifies that the timezone information should be read
+The second format specifies that the timezone information should be read
 from a file:
 .sp
 .RS
@@ -175,7 +166,7 @@ If \fIfilespec\fP is given, it specifies another
 file to read the timezone information from.
 If \fIfilespec\fP does not begin with a \(aq/\(aq, the file specification is
 relative to the system timezone directory.  If the colon is omitted each
-of the above three \fBTZ\fP formats will be tried in order.
+of the above \fBTZ\fP formats will be tried.
 .PP
 Here's an example, once more for New Zealand:
 .nf

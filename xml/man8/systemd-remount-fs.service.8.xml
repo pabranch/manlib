@@ -1,67 +1,63 @@
 <!-- Converted by db4-upgrade version 1.1 -->
 <refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="systemd-remount-fs.service">
 
-        <info>
-                
-                <productname>systemd</productname>
+  <info>
+    
+    <productname>systemd</productname>
 
-                <authorgroup>
-                        <author><personname><firstname>Lennart</firstname><surname>Poettering</surname></personname><contrib>Developer</contrib><email>lennart@poettering.net</email></author>
-                </authorgroup>
-        </info>
+    <authorgroup>
+      <author><personname><firstname>Lennart</firstname><surname>Poettering</surname></personname><contrib>Developer</contrib><email>lennart@poettering.net</email></author>
+    </authorgroup>
+  </info>
 
-        <refmeta>
-                <refentrytitle>systemd-remount-fs.service</refentrytitle>
-                <manvolnum>8</manvolnum>
-        </refmeta>
+  <refmeta>
+    <refentrytitle>systemd-remount-fs.service</refentrytitle>
+    <manvolnum>8</manvolnum>
+  </refmeta>
 
-        <refnamediv>
-                <refname>systemd-remount-fs.service</refname>
-                <refname>systemd-remount-fs</refname>
-                <refpurpose>Remount root and kernel file systems</refpurpose>
-        </refnamediv>
+  <refnamediv>
+    <refname>systemd-remount-fs.service</refname>
+    <refname>systemd-remount-fs</refname>
+    <refpurpose>Remount root and kernel file systems</refpurpose>
+  </refnamediv>
 
-        <refsynopsisdiv>
-                <para><filename>systemd-remount-fs.service</filename></para>
-                <para><filename>/usr/lib/systemd/systemd-remount-fs</filename></para>
-        </refsynopsisdiv>
+  <refsynopsisdiv>
+    <para><filename>systemd-remount-fs.service</filename></para>
+    <para><filename>/usr/lib/systemd/systemd-remount-fs</filename></para>
+  </refsynopsisdiv>
 
-        <refsect1>
-                <title>Description</title>
+  <refsect1>
+    <title>Description</title>
 
-                <para><filename>systemd-remount-fs.service</filename>
-                is an early-boot service that applies mount options
-                listed in
-                <citerefentry><refentrytitle>fstab</refentrytitle><manvolnum>5</manvolnum></citerefentry>
-                to the root file system, the <filename>/usr</filename>
-                file system and the kernel API file systems. This is
-                required so that the mount options of these file
-                systems -- which are pre-mounted by the kernel, the
-                initial RAM disk, container environments or system
-                manager code -- are updated to those listed in
-                <filename>/etc/fstab</filename>. This service ignores
-                normal file systems and only changes the root file
-                system (i.e. <filename>/</filename>),
-                <filename>/usr</filename> and the virtual kernel API
-                file systems such as <filename>/proc</filename>,
-                <filename>/sys</filename> or
-                <filename>/dev</filename>. This service executes no
-                operation if <filename>/etc/fstab</filename> does not
-                exist or lists no entries for the mentioned file
-                systems.</para>
+    <para><filename>systemd-remount-fs.service</filename> is an
+    early-boot service that applies mount options listed in
+    <citerefentry><refentrytitle>fstab</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+    to the root file system, the <filename>/usr</filename> file system
+    and the kernel API file systems. This is required so that the
+    mount options of these file systems -- which are pre-mounted by
+    the kernel, the initial RAM disk, container environments or system
+    manager code -- are updated to those listed in
+    <filename>/etc/fstab</filename>. This service ignores normal file
+    systems and only changes the root file system (i.e.
+    <filename>/</filename>), <filename>/usr</filename> and the virtual
+    kernel API file systems such as <filename>/proc</filename>,
+    <filename>/sys</filename> or <filename>/dev</filename>. This
+    service executes no operation if <filename>/etc/fstab</filename>
+    does not exist or lists no entries for the mentioned file
+    systems.</para>
 
-                <para>For a longer discussion of kernel API file
-                systems see <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/APIFileSystems">API
-                File Systems</link>.</para>
-        </refsect1>
+    <para>For a longer discussion of kernel API file systems see
+    <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/APIFileSystems">API
+    File Systems</link>.</para>
+  </refsect1>
 
-        <refsect1>
-                <title>See Also</title>
-                <para>
-                        <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>fstab</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>mount</refentrytitle><manvolnum>8</manvolnum></citerefentry>
-                </para>
-        </refsect1>
+  <refsect1>
+    <title>See Also</title>
+    <para>
+      <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>fstab</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>mount</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+    </para>
+  </refsect1>
 
 </refentry>

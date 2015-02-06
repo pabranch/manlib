@@ -1,72 +1,70 @@
 <!-- Converted by db4-upgrade version 1.1 -->
 <refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="systemd-getty-generator">
 
-        <info>
-                
-                <productname>systemd</productname>
+  <info>
+    
+    <productname>systemd</productname>
 
-                <authorgroup>
-                        <author><personname><firstname>Lennart</firstname><surname>Poettering</surname></personname><contrib>Developer</contrib><email>lennart@poettering.net</email></author>
-                </authorgroup>
-        </info>
+    <authorgroup>
+      <author><personname><firstname>Lennart</firstname><surname>Poettering</surname></personname><contrib>Developer</contrib><email>lennart@poettering.net</email></author>
+    </authorgroup>
+  </info>
 
-        <refmeta>
-                <refentrytitle>systemd-getty-generator</refentrytitle>
-                <manvolnum>8</manvolnum>
-        </refmeta>
+  <refmeta>
+    <refentrytitle>systemd-getty-generator</refentrytitle>
+    <manvolnum>8</manvolnum>
+  </refmeta>
 
-        <refnamediv>
-                <refname>systemd-getty-generator</refname>
-                <refpurpose>Generator for enabling getty instances on
-                the console</refpurpose>
-        </refnamediv>
+  <refnamediv>
+    <refname>systemd-getty-generator</refname>
+    <refpurpose>Generator for enabling getty instances on the
+    console</refpurpose>
+  </refnamediv>
 
-        <refsynopsisdiv>
-                <para><filename>/usr/lib/systemd/system-generators/systemd-getty-generator</filename></para>
-        </refsynopsisdiv>
+  <refsynopsisdiv>
+    <para><filename>/usr/lib/systemd/system-generators/systemd-getty-generator</filename></para>
+  </refsynopsisdiv>
 
-        <refsect1>
-                <title>Description</title>
+  <refsect1>
+    <title>Description</title>
 
-                <para><filename>systemd-getty-generator</filename> is
-                a generator that automatically instantiates
-                <filename>serial-getty@.service</filename> on the
-                kernel console <filename>/dev/console</filename> if
-                that is not directed to the virtual console
-                subsystem. It will also instantiate
-                <filename>serial-getty@.service</filename> instances
-                for virtualizer consoles, if execution in a
-                virtualized environment is detected. Finally, it will
-                instantiate
-                <filename>container-getty@.service</filename>
-                instances for additional container pseudo TTYs as
-                requested by the container manager (see <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/ContainerInterface/"><filename>Container Interface</filename></link>). This
-                should ensure that the user is shown a login prompt at
-                the right place, regardless of which environment the
-                system is started in. For example, it is sufficient to
-                redirect the kernel console with a kernel command line
-                argument such as <varname>console=</varname> to get
-                both kernel messages and a getty prompt on a serial
-                TTY. See <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://www.kernel.org/doc/Documentation/kernel-parameters.txt"><filename>kernel-parameters.txt</filename></link>
-                for more information on the
-                <varname>console=</varname> kernel parameter.</para>
+    <para><filename>systemd-getty-generator</filename> is a generator
+    that automatically instantiates
+    <filename>serial-getty@.service</filename> on the kernel console
+    <filename>/dev/console</filename> if that is not directed to the
+    virtual console subsystem. It will also instantiate
+    <filename>serial-getty@.service</filename> instances for
+    virtualizer consoles, if execution in a virtualized environment is
+    detected. Finally, it will instantiate
+    <filename>container-getty@.service</filename> instances for
+    additional container pseudo TTYs as requested by the container
+    manager (see <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/ContainerInterface/"><filename>Container
+    Interface</filename></link>). This should ensure that the user is
+    shown a login prompt at the right place, regardless of which
+    environment the system is started in. For example, it is
+    sufficient to redirect the kernel console with a kernel command
+    line argument such as <varname>console=</varname> to get both
+    kernel messages and a getty prompt on a serial TTY. See <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://www.kernel.org/doc/Documentation/kernel-parameters.txt"><filename>kernel-parameters.txt</filename></link>
+    for more information on the <varname>console=</varname> kernel
+    parameter.</para>
 
-                <para><filename>systemd-getty-generator</filename>
-                implements the <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/Generators">generator
-                specification</link>.</para>
+    <para><filename>systemd-getty-generator</filename> implements the
+    <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/Generators">generator
+    specification</link>.</para>
 
-                <para>Further information about configuration of
-                gettys you may find in <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://0pointer.de/blog/projects/serial-console.html">systemd
-                for Administrators, Part XVI: Gettys on Serial
-                Consoles (and Elsewhere)</link>.</para>
-        </refsect1>
+    <para>Further information about configuration of gettys you may
+    find in
+    <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://0pointer.de/blog/projects/serial-console.html">systemd
+    for Administrators, Part XVI: Gettys on Serial Consoles (and
+    Elsewhere)</link>.</para>
+  </refsect1>
 
-        <refsect1>
-                <title>See Also</title>
-                <para>
-                        <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
-                        <citerefentry project="man-pages"><refentrytitle>agetty</refentrytitle><manvolnum>8</manvolnum></citerefentry>
-                </para>
-        </refsect1>
+  <refsect1>
+    <title>See Also</title>
+    <para>
+      <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+      <citerefentry project="man-pages"><refentrytitle>agetty</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+    </para>
+  </refsect1>
 
 </refentry>

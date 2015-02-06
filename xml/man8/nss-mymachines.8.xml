@@ -1,89 +1,85 @@
 <!-- Converted by db4-upgrade version 1.1 -->
 <refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="nss-mymachines" conditional="ENABLE_MACHINED">
 
-        <info>
-                
-                <productname>systemd</productname>
+  <info>
+    
+    <productname>systemd</productname>
 
-                <authorgroup>
-                        <author><personname><firstname>Lennart</firstname><surname>Poettering</surname></personname><contrib>Developer</contrib><email>lennart@poettering.net</email></author>
-                </authorgroup>
-        </info>
+    <authorgroup>
+      <author><personname><firstname>Lennart</firstname><surname>Poettering</surname></personname><contrib>Developer</contrib><email>lennart@poettering.net</email></author>
+    </authorgroup>
+  </info>
 
-        <refmeta>
-                <refentrytitle>nss-mymachines</refentrytitle>
-                <manvolnum>8</manvolnum>
-        </refmeta>
+  <refmeta>
+    <refentrytitle>nss-mymachines</refentrytitle>
+    <manvolnum>8</manvolnum>
+  </refmeta>
 
-        <refnamediv>
-                <refname>nss-mymachines</refname>
-                <refname>libnss_mymachines.so.2</refname>
-                <refpurpose>Provide hostname resolution for local
-                container instances.</refpurpose>
-        </refnamediv>
+  <refnamediv>
+    <refname>nss-mymachines</refname>
+    <refname>libnss_mymachines.so.2</refname>
+    <refpurpose>Provide hostname resolution for local
+    container instances.</refpurpose>
+  </refnamediv>
 
-        <refsynopsisdiv>
-                <para><filename>libnss_mymachines.so.2</filename></para>
-        </refsynopsisdiv>
+  <refsynopsisdiv>
+    <para><filename>libnss_mymachines.so.2</filename></para>
+  </refsynopsisdiv>
 
-        <refsect1>
-                <title>Description</title>
+  <refsect1>
+    <title>Description</title>
 
-                <para><command>nss-mymachines</command> is a plugin
-                for the GNU Name Service Switch (NSS) functionality of
-                the GNU C Library (<command>glibc</command>) providing
-                hostname resolution for containers running locally,
-                that are registered with
-                <citerefentry><refentrytitle>systemd-machined.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>. The
-                container names are resolved to IP addresses of the
-                specific container, ordered by their scope.</para>
+    <para><command>nss-mymachines</command> is a plugin for the GNU
+    Name Service Switch (NSS) functionality of the GNU C Library
+    (<command>glibc</command>) providing hostname resolution for
+    containers running locally, that are registered with
+    <citerefentry><refentrytitle>systemd-machined.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>.
+    The container names are resolved to IP addresses of the specific
+    container, ordered by their scope.</para>
 
-                <para>To activate the NSS modules,
-                <literal>mymachines</literal> has to be added to the
-                line starting with <literal>hosts:</literal> in
-                <filename>/etc/nsswitch.conf</filename>.</para>
+    <para>To activate the NSS modules, <literal>mymachines</literal>
+    has to be added to the line starting with
+    <literal>hosts:</literal> in
+    <filename>/etc/nsswitch.conf</filename>.</para>
 
-                <para>It is recommended to place
-                <literal>mymachines</literal> near the end of the
-                <filename>nsswitch.conf</filename> line to make sure
-                that this mapping is only used as fallback, and any
-                DNS or <filename>/etc/hosts</filename> based mapping
-                takes precedence.</para>
-        </refsect1>
+    <para>It is recommended to place <literal>mymachines</literal>
+    near the end of the <filename>nsswitch.conf</filename> line to
+    make sure that this mapping is only used as fallback, and any DNS
+    or <filename>/etc/hosts</filename> based mapping takes
+    precedence.</para>
+  </refsect1>
 
-        <refsect1>
-                <title>Example</title>
+  <refsect1>
+    <title>Example</title>
 
-                <para>Here's an example
-                <filename>/etc/nsswitch.conf</filename> file, that
-                enables <command>mymachines</command>
-                correctly:</para>
+    <para>Here's an example <filename>/etc/nsswitch.conf</filename>
+    file, that enables <command>mymachines</command> correctly:</para>
 
-<programlisting>passwd:         compat
-group:          compat
-shadow:         compat
+<programlisting>passwd:   compat
+group:    compat
+shadow:   compat
 
-hosts:          files dns <command>mymachines</command> myhostname
+hosts:    files dns <command>mymachines</command> myhostname
 networks:       files
 
 protocols:      db files
 services:       db files
-ethers:         db files
-rpc:            db files
+ethers:   db files
+rpc:      db files
 
 netgroup:       nis</programlisting>
 
-        </refsect1>
+  </refsect1>
 
-        <refsect1>
-                <title>See Also</title>
-                <para>
-                        <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>systemd-machined.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>nss-myhostname</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
-                        <citerefentry project="man-pages"><refentrytitle>nsswitch.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
-                        <citerefentry project="man-pages"><refentrytitle>getent</refentrytitle><manvolnum>1</manvolnum></citerefentry>
-                </para>
-        </refsect1>
+  <refsect1>
+    <title>See Also</title>
+    <para>
+      <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>systemd-machined.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>nss-myhostname</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+      <citerefentry project="man-pages"><refentrytitle>nsswitch.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
+      <citerefentry project="man-pages"><refentrytitle>getent</refentrytitle><manvolnum>1</manvolnum></citerefentry>
+    </para>
+  </refsect1>
 
 </refentry>

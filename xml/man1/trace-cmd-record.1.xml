@@ -481,6 +481,22 @@ was before it was called. This option will leave that file set to zero.</literal
 </varlistentry>
 <varlistentry>
 <term>
+<emphasis role="strong">-H</emphasis> <emphasis>event-hooks</emphasis>
+</term>
+<listitem>
+<simpara>
+    Add custom event matching to connect any two events together. When not
+    used with <emphasis role="strong">--profile</emphasis>, it will save the parameter and this will be
+    used by trace-cmd report --profile, too. That is:
+</simpara>
+<literallayout class="monospaced">trace-cmd record -H hrtimer_expire_entry,hrtimer/hrtimer_expire_exit,hrtimer,sp
+trace-cmd report --profile</literallayout>
+<literallayout class="monospaced">Will profile hrtimer_expire_entry and hrtimer_expire_ext times.</literallayout>
+<literallayout class="monospaced">See trace-cmd-profile(1) for format.</literallayout>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 <emphasis role="strong">--stderr</emphasis>
 </term>
 <listitem>

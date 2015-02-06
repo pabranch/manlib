@@ -1,80 +1,77 @@
 <!-- Converted by db4-upgrade version 1.1 -->
 <refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="systemd-timesyncd.service" conditional="ENABLE_TIMESYNCD">
 
-        <info>
-                
-                <productname>systemd</productname>
+  <info>
+    
+    <productname>systemd</productname>
 
-                <authorgroup>
-                        <author><personname><firstname>Kay</firstname><surname>Sievers</surname></personname><contrib>Developer</contrib><email>kay@vrfy.org</email></author>
-                </authorgroup>
-        </info>
+    <authorgroup>
+      <author><personname><firstname>Kay</firstname><surname>Sievers</surname></personname><contrib>Developer</contrib><email>kay@vrfy.org</email></author>
+    </authorgroup>
+  </info>
 
-        <refmeta>
-                <refentrytitle>systemd-timesyncd.service</refentrytitle>
-                <manvolnum>8</manvolnum>
-        </refmeta>
+  <refmeta>
+    <refentrytitle>systemd-timesyncd.service</refentrytitle>
+    <manvolnum>8</manvolnum>
+  </refmeta>
 
-        <refnamediv>
-                <refname>systemd-timesyncd.service</refname>
-                <refname>systemd-timesyncd</refname>
-                <refpurpose>Network Time Synchronization</refpurpose>
-        </refnamediv>
+  <refnamediv>
+    <refname>systemd-timesyncd.service</refname>
+    <refname>systemd-timesyncd</refname>
+    <refpurpose>Network Time Synchronization</refpurpose>
+  </refnamediv>
 
-        <refsynopsisdiv>
-                <para><filename>systemd-timesyncd.service</filename></para>
-                <para><filename>/usr/lib/systemd/systemd-timesyncd</filename></para>
-        </refsynopsisdiv>
+  <refsynopsisdiv>
+    <para><filename>systemd-timesyncd.service</filename></para>
+    <para><filename>/usr/lib/systemd/systemd-timesyncd</filename></para>
+  </refsynopsisdiv>
 
-        <refsect1>
-                <title>Description</title>
+  <refsect1>
+    <title>Description</title>
 
-                <para><filename>systemd-timesyncd</filename> is a
-                system service that may be used to synchronize the
-                local system clock with a remote Network Time Protocol
-                server. It also saves the local time to disk every
-                time the clock has been synchronized and uses this to
-                possibly advance the system realtime clock on
-                subsequent reboots to ensure it
-                monotonically advances even if the system lacks a
-                battery-buffered RTC chip.</para>
+    <para><filename>systemd-timesyncd</filename> is a system service
+    that may be used to synchronize the local system clock with a
+    remote Network Time Protocol server. It also saves the local time
+    to disk every time the clock has been synchronized and uses this
+    to possibly advance the system realtime clock on subsequent
+    reboots to ensure it monotonically advances even if the system
+    lacks a battery-buffered RTC chip.</para>
 
-                <para>The NTP servers contacted are determined from
-                the global settings in
-                <citerefentry><refentrytitle>timesyncd.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
-                the per-link static settings in
-                <filename>.network</filename> files, and the per-link
-                dynamic settings received over DHCP. See
-                <citerefentry><refentrytitle>systemd.network</refentrytitle><manvolnum>5</manvolnum></citerefentry>
-                for more details.</para>
-        </refsect1>
+    <para>The NTP servers contacted are determined from the global
+    settings in
+    <citerefentry><refentrytitle>timesyncd.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
+    the per-link static settings in <filename>.network</filename>
+    files, and the per-link dynamic settings received over DHCP. See
+    <citerefentry><refentrytitle>systemd.network</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+    for more details.</para>
+  </refsect1>
 
-        <refsect1>
-                <title>Files</title>
+  <refsect1>
+    <title>Files</title>
 
-                <variablelist>
-                        <varlistentry>
-                                <term><filename>/var/lib/systemd/clock</filename></term>
+    <variablelist>
+      <varlistentry>
+        <term><filename>/var/lib/systemd/clock</filename></term>
 
-                                <listitem>
-                                        <para>This file contains the timestamp of last
-                                        successful synchronization.</para>
-                                </listitem>
-                        </varlistentry>
-                </variablelist>
-        </refsect1>
+        <listitem>
+          <para>This file contains the timestamp of last successful
+          synchronization.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
 
-        <refsect1>
-                <title>See Also</title>
-                <para>
-                        <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>timesyncd.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>systemd.network</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>systemd-networkd.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>timedatectl</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
-                        <citerefentry><refentrytitle>localtime</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
-                        <citerefentry project="man-pages"><refentrytitle>hwclock</refentrytitle><manvolnum>8</manvolnum></citerefentry>
-                </para>
-        </refsect1>
+  <refsect1>
+    <title>See Also</title>
+    <para>
+      <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>timesyncd.conf</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>systemd.network</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>systemd-networkd.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>timedatectl</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>localtime</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
+      <citerefentry project="man-pages"><refentrytitle>hwclock</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+    </para>
+  </refsect1>
 
 </refentry>

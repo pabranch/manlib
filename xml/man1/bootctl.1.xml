@@ -1,55 +1,55 @@
 <!-- Converted by db4-upgrade version 1.1 -->
 <refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="bootctl" conditional="ENABLE_EFI">
 
-        <info>
-                
-                <productname>systemd</productname>
+  <info>
+    
+    <productname>systemd</productname>
 
-                <authorgroup>
-                        <author><personname><firstname>Kay</firstname><surname>Sievers</surname></personname><contrib>Developer</contrib><email>kay@vrfy.org</email></author>
-                </authorgroup>
-        </info>
+    <authorgroup>
+      <author><personname><firstname>Kay</firstname><surname>Sievers</surname></personname><contrib>Developer</contrib><email>kay@vrfy.org</email></author>
+    </authorgroup>
+  </info>
 
-        <refmeta>
-                <refentrytitle>bootctl</refentrytitle>
-                <manvolnum>1</manvolnum>
-        </refmeta>
+  <refmeta>
+    <refentrytitle>bootctl</refentrytitle>
+    <manvolnum>1</manvolnum>
+  </refmeta>
 
-        <refnamediv>
-                <refname>bootctl</refname>
-                <refpurpose>Control the firmware and boot manager settings</refpurpose>
-        </refnamediv>
+  <refnamediv>
+    <refname>bootctl</refname>
+    <refpurpose>Control the firmware and boot manager settings</refpurpose>
+  </refnamediv>
 
-        <refsynopsisdiv>
-                <cmdsynopsis sepchar=" ">
-                        <command>bootctl</command>
-                        <arg choice="opt" rep="repeat">OPTIONS</arg>
-                        <arg choice="req" rep="norepeat">COMMAND</arg>
-                </cmdsynopsis>
-        </refsynopsisdiv>
+  <refsynopsisdiv>
+    <cmdsynopsis sepchar=" ">
+      <command>bootctl</command>
+      <arg choice="opt" rep="repeat">OPTIONS</arg>
+      <arg choice="req" rep="norepeat">COMMAND</arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
 
-        <refsect1>
-                <title>Description</title>
+  <refsect1>
+    <title>Description</title>
 
-                <para><command>bootctl</command> may be used to
-                query or (in the future) change the firmware and boot
-                manager settings.</para>
+    <para><command>bootctl</command> may be used to query or (in the
+    future) change the firmware and boot manager settings.</para>
 
-                <para>Firmware information is available only on EFI
-                systems.</para>
+    <para>Firmware information is available only on EFI systems.
+    </para>
 
-                <para>Currently, only the <citerefentry project="gummiboot"><refentrytitle>gummiboot</refentrytitle><manvolnum>8</manvolnum></citerefentry> boot
-                manager implements the required boot loader interface
-                to provide complete boot manager information.</para>
-        </refsect1>
+    <para>Currently, only the
+    <citerefentry project="gummiboot"><refentrytitle>gummiboot</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+    boot manager implements the required boot loader interface to
+    provide complete boot manager information.</para>
+  </refsect1>
 
-        <refsect1>
-                <title>Options</title>
+  <refsect1>
+    <title>Options</title>
 
-                <para>The following options are understood:</para>
+    <para>The following options are understood:</para>
 
-                <variablelist>
-                        <varlistentry xml:id="help">
+    <variablelist>
+      <varlistentry xml:id="help">
     <term><option>-h</option></term>
     <term><option>--help</option></term>
 
@@ -57,45 +57,43 @@
       <para>Print a short help text and exit.
     </para></listitem>
   </varlistentry>
-                        <varlistentry xml:id="version">
+      <varlistentry xml:id="version">
     <term><option>--version</option></term>
 
     <listitem xml:id="version-text">
       <para>Print a short version string and exit.</para>
     </listitem>
   </varlistentry>
-                </variablelist>
+    </variablelist>
 
-                <para>The following commands are understood:</para>
+    <para>The following commands are understood:</para>
 
-                <variablelist>
-                        <varlistentry>
-                                <term><command>status</command></term>
+    <variablelist>
+      <varlistentry>
+        <term><command>status</command></term>
 
-                                <listitem><para>Show firmware and boot
-                                manager information about the system,
-                                including secure boot mode status and
-                                selected firmware entry (where
-                                available).</para></listitem>
-                        </varlistentry>
-                </variablelist>
+        <listitem><para>Show firmware and boot manager information
+        about the system, including secure boot mode status and
+        selected firmware entry (where available).</para></listitem>
+      </varlistentry>
+    </variablelist>
 
-        </refsect1>
+  </refsect1>
 
-        <refsect1>
-                <title>Exit status</title>
+  <refsect1>
+    <title>Exit status</title>
 
-                <para>On success, 0 is returned, a non-zero failure
-                code otherwise.</para>
-        </refsect1>
+    <para>On success, 0 is returned, a non-zero failure code
+    otherwise.</para>
+  </refsect1>
 
-        <refsect1>
-                <title>See Also</title>
-                <para>
-                        <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/BootLoaderInterface">Boot loader interface</link>,
-                        <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Specifications/BootLoaderSpec">Boot loader specification</link>,
-                        <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/gummiboot/">gummiboot</link>
-                </para>
-        </refsect1>
+  <refsect1>
+    <title>See Also</title>
+    <para>
+      <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/systemd/BootLoaderInterface">Boot loader interface</link>,
+      <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Specifications/BootLoaderSpec">Boot loader specification</link>,
+      <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.freedesktop.org/wiki/Software/gummiboot/">gummiboot</link>
+    </para>
+  </refsect1>
 
 </refentry>
