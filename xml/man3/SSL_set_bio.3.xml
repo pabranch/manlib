@@ -4,7 +4,7 @@
     <refentrytitle>SSL_set_bio.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>SSL_set_bio</refname>
+    <refname>SSL_set_bio, SSL_set_rbio, SSL_set_wbio</refname>
 <refpurpose>connect the SSL object with a BIO</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
@@ -26,16 +26,27 @@
       If there was already a BIO connected to <emphasis role="bold">ssl</emphasis>, BIO_free() will be called (for both the
       reading and writing side, if different).
     </para>
+    <para>
+      SSL_set_rbio() does the same job as SSL_set_bio() except that it
+      enables you to only connect the read bio, without touching the write
+      bio. Similarly SSL_set_wbio() enables you to connect the write bio
+      without touching the read bio.
+    </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_set_bio.pod:RETURN_VALUES"><title>RETURN VALUES</title>
     <para>
-      SSL_set_bio() cannot fail.
+      SSL_set_bio(), SSL_set_rbio() and SSL_set_wbio() cannot fail.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_set_bio.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
       SSL_get_rbio(3), SSL_connect(3), SSL_accept(3), SSL_shutdown(3),
       ssl(3), bio(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_set_bio.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      SSL_set_rbio() and SSL_set_wbio() were added in OpenSSL 1.1.0.
     </para>
   </refsection>
 </refentry>
