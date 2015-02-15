@@ -5490,6 +5490,18 @@ rebase.autostash
 </varlistentry>
 <varlistentry>
 <term>
+receive.advertiseatomic
+</term>
+<listitem>
+<simpara>
+        By default, git-receive-pack will advertise the atomic push
+        capability to its clients. If you don&#8217;t want to this capability
+        to be advertised, set this variable to false.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 receive.autogc
 </term>
 <listitem>
@@ -5601,11 +5613,16 @@ receive.denyCurrentBranch
         message. Defaults to "refuse".
 </simpara>
 <simpara>Another option is "updateInstead" which will update the working
-directory (must be clean) if pushing into the current branch. This option is
+tree if pushing into the current branch.  This option is
 intended for synchronizing working directories when one side is not easily
 accessible via interactive ssh (e.g. a live web site, hence the requirement
 that the working directory be clean). This mode also comes in handy when
 developing inside a VM to test and fix code on different Operating Systems.</simpara>
+<simpara>By default, "updateInstead" will refuse the push if the working tree or
+the index have any difference from the HEAD, but the <literal>push-to-checkout</literal>
+hook can be used to customize this.  See <citerefentry>
+<refentrytitle>githooks</refentrytitle><manvolnum>5</manvolnum>
+</citerefentry>.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>

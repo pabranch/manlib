@@ -148,11 +148,12 @@ int X509_check_ip_asc(X509 *, const char *address, unsigned int flags);</synopsi
   <refsection xml:id="sources.openssl.doc.crypto.X509_check_host.pod:RETURN_VALUES"><title>RETURN VALUES</title>
     <para>
       The functions return 1 for a successful match, 0 for a failed match
-      and -1 for an internal error: typically a memory allocation failure.
+      and -1 for an internal error: typically a memory allocation failure
+      or an ASN.1 decoding error.
     </para>
     <para>
-      X509_check_ip_asc() can also return -2 if the IP address string is
-      malformed.
+      All functions can also return -2 if the input is malformed. For
+      example, X509_check_host() returns -2 if the provided <emphasis role="bold">name</emphasis> contains embedded NULs.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.X509_check_host.pod:NOTES"><title>NOTES</title>

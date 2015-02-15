@@ -1376,9 +1376,9 @@ kobject-uevent 1 systemd-udevd-kernel.socket systemd-udevd.service
         </varlistentry>
         <varlistentry>
           <term>
-	    <command>import-environment</command>
-	    <optional><replaceable>VARIABLE...</replaceable></optional>
-	  </term>
+            <command>import-environment</command>
+            <optional><replaceable>VARIABLE...</replaceable></optional>
+          </term>
 
           <listitem>
             <para>Import all, one or more environment variables set on
@@ -1401,12 +1401,16 @@ kobject-uevent 1 systemd-udevd-kernel.socket systemd-udevd.service
           <term><command>daemon-reload</command></term>
 
           <listitem>
-            <para>Reload systemd manager configuration. This will reload
-            all unit files and recreate the entire dependency
-            tree. While the daemon is being reloaded, all sockets systemd
-            listens on behalf of user configuration will stay
-            accessible.</para> <para>This command should not be confused
-            with the <command>reload</command> command.</para>
+            <para>Reload systemd manager configuration. This will
+            rerun all generators (see
+            <citerefentry><refentrytitle>systemd.generator</refentrytitle><manvolnum>7</manvolnum></citerefentry>),
+            reload all unit files, and recreate the entire dependency
+            tree. While the daemon is being reloaded, all sockets
+            systemd listens on behalf of user configuration will stay
+            accessible.</para>
+
+            <para>This command should not be confused with the
+            <command>reload</command> command.</para>
           </listitem>
         </varlistentry>
         <varlistentry>
@@ -1690,11 +1694,11 @@ kobject-uevent 1 systemd-udevd-kernel.socket systemd-udevd.service
       may match zero units and this is not considered an error.</para>
 
       <para>Glob patterns use
-      <citerefentry><refentrytitle>fnmatch</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+      <citerefentry project="man-pages"><refentrytitle>fnmatch</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
       so normal shell-style globbing rules are used, and
       <literal>*</literal>, <literal>?</literal>,
       <literal>[]</literal> may be used. See
-      <citerefentry><refentrytitle>glob</refentrytitle><manvolnum>7</manvolnum></citerefentry>
+      <citerefentry project="man-pages"><refentrytitle>glob</refentrytitle><manvolnum>7</manvolnum></citerefentry>
       for more details. The patterns are matched against the names of
       currently loaded units, and patterns which do not match anything
       are silently skipped. For example:
@@ -1771,7 +1775,8 @@ kobject-uevent 1 systemd-udevd-kernel.socket systemd-udevd.service
       <citerefentry><refentrytitle>systemd.special</refentrytitle><manvolnum>7</manvolnum></citerefentry>,
       <citerefentry project="man-pages"><refentrytitle>wall</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
       <citerefentry><refentrytitle>systemd.preset</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
-      <citerefentry><refentrytitle>glob</refentrytitle><manvolnum>7</manvolnum></citerefentry>
+      <citerefentry><refentrytitle>systemd.generator</refentrytitle><manvolnum>7</manvolnum></citerefentry>,
+      <citerefentry project="man-pages"><refentrytitle>glob</refentrytitle><manvolnum>7</manvolnum></citerefentry>
     </para>
   </refsect1>
 

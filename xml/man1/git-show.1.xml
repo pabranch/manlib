@@ -60,10 +60,13 @@ control how the changes the commit introduces are shown.</simpara>
 <simpara>
         Pretty-print the contents of the commit logs in a given format,
         where <emphasis>&lt;format&gt;</emphasis> can be one of <emphasis>oneline</emphasis>, <emphasis>short</emphasis>, <emphasis>medium</emphasis>,
-        <emphasis>full</emphasis>, <emphasis>fuller</emphasis>, <emphasis>email</emphasis>, <emphasis>raw</emphasis> and <emphasis>format:&lt;string&gt;</emphasis>.  See
-        the "PRETTY FORMATS" section for some additional details for each
-        format.  When omitted, the format defaults to <emphasis>medium</emphasis>.
+        <emphasis>full</emphasis>, <emphasis>fuller</emphasis>, <emphasis>email</emphasis>, <emphasis>raw</emphasis>, <emphasis>format:&lt;string&gt;</emphasis>
+        and <emphasis>tformat:&lt;string&gt;</emphasis>.  When <emphasis>&lt;format&gt;</emphasis> is none of the above,
+        and has <emphasis>%placeholder</emphasis> in it, it acts as if
+        <emphasis>--pretty=tformat:&lt;format&gt;</emphasis> were given.
 </simpara>
+<simpara>See the "PRETTY FORMATS" section for some additional details for each
+format.  When <emphasis>=&lt;format&gt;</emphasis> part is omitted, it defaults to <emphasis>medium</emphasis>.</simpara>
 <simpara>Note: you can specify the default pretty format in the repository
 configuration (see <citerefentry>
 <refentrytitle>git-config</refentrytitle><manvolnum>1</manvolnum>
