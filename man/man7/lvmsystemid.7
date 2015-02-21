@@ -5,10 +5,10 @@ lvmsystemid \(em LVM system id
 
 .SH DESCRIPTION
 
-Local VG's may exist on shared storage where they are visible to multiple
-hosts.  These VG's are intended to be used by only a single machine, even
+Local VGs may exist on shared storage where they are visible to multiple
+hosts.  These VGs are intended to be used by only a single machine, even
 though they are visible to many.  A system_id identifying a single host
-can be assigned to a VG to indicate the VG's owner.  The VG owner can use
+can be assigned to a VG to indicate the VGs owner.  The VG owner can use
 the VG as usual, and all other hosts will ignore it.  This protects the VG
 from accidental use by other hosts.
 
@@ -23,23 +23,56 @@ set to a custom value or it can be assigned automatically by lvm using a
 unique identifier already available on the host, e.g. machine-id or uname.
 
 In vgcreate, the local system_id is saved in the new VG metadata.  The
-local host owns the new VG, and other hosts will ignore it.
+local host owns the new VG, and other hosts cannot use it.
 
 A VG without a system_id can be used by any host, and a VG with a
 system_id can only be used by a host with a matching system_id.  A
-"foreign VG" is a VG with a system_id as viewed by a host with a system_id
-that does not match the VG's system_id.  (Or from a host without a
+.B foreign VG
+is a VG with a system_id as viewed by a host with a system_id
+that does not match the VGs system_id.  (Or from a host without a
 system_id.)
-
-To benefit fully from system_id, all hosts must have system_id set, and
-VGs must have system_id set.  Two hosts should not be assigned the same
-system_id.  Doing so defeats the purpose of the system_id.
 
 Valid system_id characters are the same as valid VG name characters.  If a
 system_id contains invalid characters, those characters are omitted and
 remaining characters are used.  If a system_id is longer than the maximum
 name length, the characters up to the maximum length are used.  The
-maximum length of a system_id is 128 characters.
+maximum length of a system_id is 127 characters.
+
+.SS Limitations and warnings
+
+To benefit fully from system_id, all hosts must have system_id set, and
+VGs must have system_id set.  A VG on shared storage can be corrupted or
+destroyed in the following cases which the user must be careful to avoid:
+
+.IP \[bu] 2
+A host using an old version of lvm without the system_id feature will not
+recognize the system_id of other hosts' VGs and will not be stopped from
+using them.
+
+.IP \[bu] 2
+A VG without a system_id can be used without restriction from any host,
+even from hosts that have a system_id.  Many VGs will not have a system_id
+and are unprotected.  Verify that a VG has a system_id by running the
+command 'vgs -o+systemid'
+
+A VG will not have a system_id if it was created before this feature was
+added to lvm, or if it was created by a host that did not have a system_id
+defined.  A system_id can be assigned to these VGs by using vgchange
+--systemid (see below).
+
+.IP \[bu] 2
+Two hosts should not be assigned the same system_id.  Doing so defeats
+the purpose of the system_id which is to distinguish different hosts.
+
+.IP \[bu] 2
+Orphan PVs (or unused devices) on shared storage are completely
+unprotected by the system_id feature.  Commands that use these PVs, such
+as vgcreate or vgextend, are not prevented from performing conflicting
+operations and corrupting the PVs.  See the
+.B orphans
+section for more information.
+
+.P
 
 .SS Types of VG access
 A "local VG" is meant to be used by a single host.
@@ -203,8 +236,9 @@ devices.
 The system_id of a VG is displayed with the "systemid" reporting option.
 
 Report/display commands ignore foreign VGs by default.  To report foreign
-VGs, the --foreign option can be used.  This causes all VGs to be read
-from disk.
+VGs, the --foreign option can be used.  This causes the VGs to be read
+from disk.  Because lvmetad caching is not used, this option can cause
+poor performance.
 
 .B vgs --foreign -o+systemid
 
@@ -232,15 +266,21 @@ imported VG as foreign.
 
 .SS vgchange
 
-If a VG has a system_id, changing it with vgchange requires --force.
-vgchange --systemid is accepted just as with vgcreate.
+A host can change the system_id of its own VGs, but the command requires
+confirmation because the host may lose access to the VG being changed:
 
-If a host's system_id is changed, the system_id of its own VG's can be
-changed to match.  Using allow_system_id is a way to avoid using force
-with vgchange.
+.B vgchange --systemid
+.I SystemID VG
+
+A host cannot directly change the system_id of a foreign VG.
 
 To move a VG from one host to another, vgexport and vgimport should be
 used.
+
+To forcibly gain ownership of a foreign VG, a host can add the foreign
+system_id to its allow_system_id list, change the system_id of the foreign
+VG to its own, and remove the foreign system_id from its allow_system_id
+list.
 
 .SS clustered VGs
 
@@ -267,10 +307,10 @@ The effects of this are especially evident when lvm uses lvmetad caching.
 For example, if multiple hosts see an orphan PV, and one host creates a VG
 using the orphan, the other hosts will continue to report the PV as an
 orphan.  Nothing would automatically prevent the other hosts from using
-the newly allocated PV.  If the other hosts run a command to rescan
-devices, and update lvmetad, they would then recognize the PV has become
-used by another host.  A command that rescans devices could be pvscan
---cache, or vgs --foreign.
+the newly allocated PV and corrupting it.  If the other hosts run a
+command to rescan devices, and update lvmetad, they would then recognize
+the PV has been used by another host.  A command that rescans devices
+could be pvscan --cache, or vgs --foreign.
 
 .SH SEE ALSO
 .BR vgcreate (8),

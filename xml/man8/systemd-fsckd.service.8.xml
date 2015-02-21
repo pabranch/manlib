@@ -1,0 +1,150 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="systemd-fsckd.service">
+
+  <info>
+    
+    <productname>systemd</productname>
+
+    <authorgroup>
+      <author><personname><firstname>Didier</firstname><surname>Roche</surname></personname><contrib>Developer</contrib><email>didrocks@ubuntu.com</email></author>
+    </authorgroup>
+  </info>
+
+  <refmeta>
+    <refentrytitle>systemd-fsckd.service</refentrytitle>
+    <manvolnum>8</manvolnum>
+  </refmeta>
+
+  <refnamediv>
+    <refname>systemd-fsckd.service</refname>
+    <refname>systemd-fsckd.socket</refname>
+    <refname>systemd-fsckd</refname>
+    <refpurpose>File system check progress reporting</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <para><filename>systemd-fsckd.service</filename></para>
+    <para><filename>systemd-fsckd.socket</filename></para>
+    <para><filename>/usr/lib/systemd/systemd-fsckd</filename></para>
+  </refsynopsisdiv>
+
+  <refsect1>
+    <title>Description</title>
+
+    <para><filename>systemd-fsckd.service</filename> is a service responsible
+    for receiving file system check progress, and communicating some
+    consolidated data to console and plymouth (if running). It also handles
+    possible check cancellations.</para>
+
+    <para><command>systemd-fsckd</command> receives messages about file
+    system check progress from <command>systemd-fsck</command> through a
+    UNIX domain socket. It can display the progress of the least advanced
+    fsck as well as the total number of devices being checked in parallel
+    to the console. It will also send progress messages to plymouth.
+    Both the raw data and translated messages are sent, so compiled
+    plymouth themes can use the raw data to display custom messages, and
+    scripted themes, not supporting i18n, can display the translated
+    versions.</para>
+
+    <para><command>systemd-fsckd</command> will instruct plymouth to grab
+    Control+C keypresses. When the key is pressed, running checks will be
+    terminated. It will also cancel any newly connected fsck instances for
+    the lifetime of <filename>systemd-fsckd</filename>.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>Protocol for communication with plymouth</title>
+
+    <para><filename>systemd-fsckd</filename> passes the
+    following messages to the theme:</para>
+
+    <para>Progress update, sent as a plymouth update message:
+      <literal>fsckd:&lt;num_devices&gt;:&lt;progress&gt;:&lt;string&gt;</literal>
+      <variablelist>
+        <varlistentry>
+          <term><literal>&lt;num_devices&gt;</literal></term>
+          <listitem><para>the current number of devices
+          being checked (int)</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><literal>&lt;progress&gt;</literal></term>
+          <listitem><para>the current minimum percentage of
+          all devices being checking (float, from 0 to 100)</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><literal>&lt;string&gt;</literal></term>
+          <listitem><para>a translated message ready to be displayed
+          by the plymouth theme displaying the data above. It can be overriden
+          by themes supporting i18n.</para></listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+
+    <para>Cancel message, sent as a traditional plymouth message:
+      <literal>fsckd-cancel-msg:&lt;string&gt;</literal>
+      <variablelist>
+        <varlistentry>
+          <term><literal>&lt;strings&gt;</literal></term>
+          <listitem><para>a translated string ready to be displayed
+          by the plymouth theme indicating that Control+C can be used to cancel
+          current checks. It can be overriden (matching only
+          <literal>fsckd-cancel-msg</literal> prefix)
+          by themes supporting i18n.</para></listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsect1>
+
+  <refsect1>
+    <title>Options</title>
+
+    <para>The following options are understood:</para>
+
+    <variablelist>
+      <varlistentry xml:id="help">
+    <term><option>-h</option></term>
+    <term><option>--help</option></term>
+
+    <listitem xml:id="help-text">
+      <para>Print a short help text and exit.
+    </para></listitem>
+  </varlistentry>
+      <varlistentry xml:id="version">
+    <term><option>--version</option></term>
+
+    <listitem xml:id="version-text">
+      <para>Print a short version string and exit.</para>
+    </listitem>
+  </varlistentry>
+    </variablelist>
+
+  </refsect1>
+
+  <refsect1>
+    <title>Exit status</title>
+
+    <para>On success, 0 is returned, a non-zero failure
+    code otherwise. Note that the daemon stays idle for
+    a while to accept new <filename>systemd-fsck</filename>
+    connections before exiting.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>See Also</title>
+    <para>
+      <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>systemd-fsck</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+      <citerefentry project="man-pages"><refentrytitle>fsck</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>systemd-quotacheck.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+      <citerefentry project="man-pages"><refentrytitle>fsck.btrfs</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+      <citerefentry project="man-pages"><refentrytitle>fsck.cramfs</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+      <citerefentry project="man-pages"><refentrytitle>fsck.ext4</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+      <citerefentry project="man-pages"><refentrytitle>fsck.fat</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+      <citerefentry project="man-pages"><refentrytitle>fsck.hfsplus</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+      <citerefentry project="man-pages"><refentrytitle>fsck.minix</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+      <citerefentry project="man-pages"><refentrytitle>fsck.ntfs</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+      <citerefentry project="man-pages"><refentrytitle>fsck.xfs</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+    </para>
+  </refsect1>
+
+</refentry>

@@ -219,12 +219,28 @@
   </refsection>
   <refsection xml:id="sources.openssl.doc.apps.genpkey.pod:EC_PARAMETER_GENERATION_OPTIONS"><title>EC PARAMETER GENERATION OPTIONS</title>
     <para>
+      In OpenSSL 1.0.2 and later the EC parameter generation options below
+      can also be supplied as EC key generation options. This can (for
+      example) generate a key from a named curve without the need to use an
+      explicit parameter file.
+    </para>
+    <para>
       <variablelist>
         <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.apps.genpkey.pod:ec_paramgen_curve:curve"/><emphasis role="bold">ec_paramgen_curve:curve</emphasis></term>
           <listitem>
             <para>
-	      the EC curve to use.
+	      the EC curve to use. OpenSSL 1.0.2 and later supports NIST
+	      curve names such as "P-256".
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.genpkey.pod:ec_param_enc:encoding"/><emphasis role="bold">ec_param_enc:encoding</emphasis></term>
+          <listitem>
+            <para>
+	      the encoding to use for parameters. The "encoding" paramater
+	      must be either "named_curve" or "explicit".
             </para>
           </listitem>
         </varlistentry>
@@ -312,8 +328,22 @@ test       1.2.643.2.2.35.0  Test purposes</screen>
     <para>
       Generate DH key from parameters:
     </para>
-    <screen>openssl genpkey -paramfile dhp.pem -out dhkey.pem
-
-</screen>
+    <screen>openssl genpkey -paramfile dhp.pem -out dhkey.pem</screen>
+    <para>
+      Generate EC parameters:
+    </para>
+    <screen>openssl genpkey -genparam -algorithm EC -out ecp.pem \
+       -pkeyopt ec_paramgen_curve:secp384r1 \
+       -pkeyopt ec_param_enc:named_curve</screen>
+    <para>
+      Generate EC key from parameters:
+    </para>
+    <screen>openssl genpkey -paramfile ecp.pem -out eckey.pem</screen>
+    <para>
+      Generate EC key directly (OpenSSL 1.0.2+ only):
+    </para>
+    <screen>openssl genpkey -algorithm EC -out eckey.pem \
+       -pkeyopt ec_paramgen_curve:P-384 \
+       -pkeyopt ec_param_enc:named_curve</screen>
   </refsection>
 </refentry>

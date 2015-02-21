@@ -10,7 +10,8 @@ EVP_PKEY_CTX_set_rsa_pss_saltlen, EVP_PKEY_CTX_set_rsa_rsa_keygen_bits,
 EVP_PKEY_CTX_set_rsa_keygen_pubexp, EVP_PKEY_CTX_set_dsa_paramgen_bits,
 EVP_PKEY_CTX_set_dh_paramgen_prime_len,
 EVP_PKEY_CTX_set_dh_paramgen_generator,
-EVP_PKEY_CTX_set_ec_paramgen_curve_nid</refname>
+EVP_PKEY_CTX_set_ec_paramgen_curve_nid,
+EVP_PKEY_CTX_set_ec_param_enc</refname>
 <refpurpose>algorithm specific control operations</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
@@ -31,7 +32,8 @@ int EVP_PKEY_CTX_set_dsa_paramgen_bits(EVP_PKEY_CTX *ctx, int nbits);</synopsis>
 int EVP_PKEY_CTX_set_dh_paramgen_prime_len(EVP_PKEY_CTX *ctx, int len);
 int EVP_PKEY_CTX_set_dh_paramgen_generator(EVP_PKEY_CTX *ctx, int gen);</synopsis>
 <synopsis format="linespecific">#include &lt;openssl/ec.h&gt;
-int EVP_PKEY_CTX_set_ec_paramgen_curve_nid(EVP_PKEY_CTX *ctx, int nid);</synopsis>
+int EVP_PKEY_CTX_set_ec_paramgen_curve_nid(EVP_PKEY_CTX *ctx, int nid);
+int EVP_PKEY_CTX_set_ec_param_enc(EVP_PKEY_CTX *ctx, int param_enc);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_CTX_ctrl.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
@@ -72,7 +74,7 @@ int EVP_PKEY_CTX_set_ec_paramgen_curve_nid(EVP_PKEY_CTX *ctx, int nid);</synopsi
       padding, RSA_NO_PADDING for no padding, RSA_PKCS1_OAEP_PADDING for
       OAEP padding (encrypt and decrypt only), RSA_X931_PADDING for X9.31
       padding (signature operations only) and RSA_PKCS1_PSS_PADDING (sign
-      and verify only). 
+      and verify only).
     </para>
     <para>
       Two RSA padding modes behave differently if
@@ -106,7 +108,7 @@ int EVP_PKEY_CTX_set_ec_paramgen_curve_nid(EVP_PKEY_CTX *ctx, int nid);</synopsi
       exponent value for RSA key generation to <emphasis role="bold">pubexp</emphasis> currently it should be an odd integer.
       The <emphasis role="bold">pubexp</emphasis> pointer is used
       internally by this function so it should not be modified or free
-      after the call. If this macro is not called then 65537 is used. 
+      after the call. If this macro is not called then 65537 is used.
     </para>
     <para>
       The macro EVP_PKEY_CTX_set_dsa_paramgen_bits() sets the number of
@@ -126,7 +128,19 @@ int EVP_PKEY_CTX_set_ec_paramgen_curve_nid(EVP_PKEY_CTX *ctx, int nid);</synopsi
       The EVP_PKEY_CTX_set_ec_paramgen_curve_nid() sets the EC curve for EC
       parameter generation to <emphasis role="bold">nid</emphasis>. For EC
       parameter generation this macro must be called or an error occurs
-      because there is no default curve.
+      because there is no default curve. In OpenSSL 1.0.2 and later this
+      function can also be called to set the curve explicitly when
+      generating an EC key.
+    </para>
+    <para>
+      The EVP_PKEY_CTX_set_ec_param_enc() sets the EC parameter encoding to
+      <emphasis role="bold">param_enc</emphasis> when generating EC
+      parameters or an EC key. The encoding can be <emphasis role="bold">OPENSSL_EC_EXPLICIT_CURVE</emphasis> for explicit
+      parameters (the default in versions of OpenSSL before 1.1.0) or
+      <emphasis role="bold">OPENSSL_EC_NAMED_CURVE</emphasis> to use named
+      curve form. For maximum compatibility the named curve form should be
+      used. Note: the <emphasis role="bold">OPENSSL_EC_NAMED_CURVE</emphasis> value was only added to
+      OpenSSL 1.1.0: previous versions should use 0 instead.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_CTX_ctrl.pod:RETURN_VALUES"><title>RETURN VALUES</title>
@@ -141,7 +155,7 @@ int EVP_PKEY_CTX_set_ec_paramgen_curve_nid(EVP_PKEY_CTX *ctx, int nid);</synopsi
     <para>
       EVP_PKEY_CTX_new(3), EVP_PKEY_encrypt(3), EVP_PKEY_decrypt(3),
       EVP_PKEY_sign(3), EVP_PKEY_verify(3), EVP_PKEY_verify_recover(3),
-      EVP_PKEY_derive(3) EVP_PKEY_keygen(3) 
+      EVP_PKEY_derive(3) EVP_PKEY_keygen(3)
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_CTX_ctrl.pod:HISTORY"><title>HISTORY</title>

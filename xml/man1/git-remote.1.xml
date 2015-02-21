@@ -166,15 +166,21 @@ branches, adds to that list.</simpara>
 </term>
 <listitem>
 <simpara>
-Changes URL remote points to. Sets first URL remote points to matching
+Changes URLs for the remote. Sets first URL for remote &lt;name&gt; that matches
 regex &lt;oldurl&gt; (first URL if no &lt;oldurl&gt; is given) to &lt;newurl&gt;. If
-&lt;oldurl&gt; doesn&#8217;t match any URL, error occurs and nothing is changed.
+&lt;oldurl&gt; doesn&#8217;t match any URL, an error occurs and nothing is changed.
 </simpara>
 <simpara>With <emphasis>--push</emphasis>, push URLs are manipulated instead of fetch URLs.</simpara>
-<simpara>With <emphasis>--add</emphasis>, instead of changing some URL, new URL is added.</simpara>
-<simpara>With <emphasis>--delete</emphasis>, instead of changing some URL, all URLs matching
-regex &lt;url&gt; are deleted. Trying to delete all non-push URLs is an
-error.</simpara>
+<simpara>With <emphasis>--add</emphasis>, instead of changing existing URLs, new URL is added.</simpara>
+<simpara>With <emphasis>--delete</emphasis>, instead of changing existing URLs, all URLs matching
+regex &lt;url&gt; are deleted for remote &lt;name&gt;.  Trying to delete all
+non-push URLs is an error.</simpara>
+<simpara>Note that the push URL and the fetch URL, even though they can
+be set differently, must still refer to the same place.  What you
+pushed to the push URL should be what you would see if you
+immediately fetched from the fetch URL.  If you are trying to
+fetch from one place (e.g. your upstream) and push to another (e.g.
+your publishing repository), use two separate remotes.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>

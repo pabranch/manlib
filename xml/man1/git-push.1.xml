@@ -334,21 +334,9 @@ origin +master</literal> to force a push to the <literal>master</literal> branch
 </term>
 <listitem>
 <simpara>
-        This option is only relevant if no &lt;repository&gt; argument is
-        passed in the invocation. In this case, <emphasis>git push</emphasis> derives the
-        remote name from the current branch: If it tracks a remote
-        branch, then that remote repository is pushed to. Otherwise,
-        the name "origin" is used. For this latter case, this option
-        can be used to override the name "origin". In other words,
-        the difference between these two commands
+        This option is equivalent to the &lt;repository&gt; argument. If both
+        are specified, the command-line argument takes precedence.
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;git push public         #1
-git push --repo=public  #2&#10;.ft&#10;
-</literallayout>
-<simpara>is that #1 always pushes to "public" whereas #2 pushes to "public"
-only if the current branch does not track a remote branch. This is
-useful if you write an alias or script around <emphasis>git push</emphasis>.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>

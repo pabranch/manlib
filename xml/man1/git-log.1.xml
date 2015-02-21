@@ -572,18 +572,6 @@ explicitly.</simpara>
 </varlistentry>
 <varlistentry>
 <term>
---indexed-objects
-</term>
-<listitem>
-<simpara>
-        Pretend as if all trees and blobs used by the index are listed
-        on the command line.  Note that you probably want to use
-        <literal>--objects</literal>, too.
-</simpara>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
 --ignore-missing
 </term>
 <listitem>
@@ -1193,58 +1181,6 @@ together.</simpara>
 <title>Object Traversal</title>
 <simpara>These options are mostly targeted for packing of Git repositories.</simpara>
 <variablelist>
-<varlistentry>
-<term>
---objects
-</term>
-<listitem>
-<simpara>
-        Print the object IDs of any object referenced by the listed
-        commits.  <literal>--objects foo ^bar</literal> thus means &#8220;send me
-        all object IDs which I need to download if I have the commit
-        object <emphasis>bar</emphasis> but not <emphasis>foo</emphasis>&#8221;.
-</simpara>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
---objects-edge
-</term>
-<listitem>
-<simpara>
-        Similar to <literal>--objects</literal>, but also print the IDs of excluded
-        commits prefixed with a &#8220;-&#8221; character.  This is used by
-        <citerefentry>
-<refentrytitle>git-pack-objects</refentrytitle><manvolnum>1</manvolnum>
-</citerefentry> to build a &#8220;thin&#8221; pack, which records
-        objects in deltified form based on objects contained in these
-        excluded commits to reduce network traffic.
-</simpara>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
---objects-edge-aggressive
-</term>
-<listitem>
-<simpara>
-        Similar to <literal>--objects-edge</literal>, but it tries harder to find excluded
-        commits at the cost of increased time.  This is used instead of
-        <literal>--objects-edge</literal> to build &#8220;thin&#8221; packs for shallow repositories.
-</simpara>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
---unpacked
-</term>
-<listitem>
-<simpara>
-        Only useful with <literal>--objects</literal>; print the object IDs that are not
-        in packs.
-</simpara>
-</listitem>
-</varlistentry>
 <varlistentry>
 <term>
 --no-walk[=(sorted|unsorted)]
