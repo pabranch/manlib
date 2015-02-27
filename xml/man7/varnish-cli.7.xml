@@ -301,21 +301,23 @@ word
           </varlistentry>
           <varlistentry>
             <term>
-              backend.list
+              backend.list [&lt;backend_expression&gt;]
             </term>
             <listitem>
               <para>
-                List all backends
+                List backends.
               </para>
             </listitem>
           </varlistentry>
           <varlistentry>
             <term>
-              backend.set_health matcher state
+              backend.set_health &lt;backend_expression&gt;
+              &lt;state&gt;
             </term>
             <listitem>
               <para>
-                Set health status on a backend
+                Set health status on the backends. State is any of auto,
+                healthy or sick values.
               </para>
             </listitem>
           </varlistentry>
@@ -342,6 +344,17 @@ word
             </listitem>
           </varlistentry>
         </variablelist>
+      </section>
+      <section xml:id="backend-expression">
+        <title>Backend Expression</title>
+        <para>
+          A backend expression can be a backend name or a combination of
+          backend name, IP address and port in "name(IP
+          address:port)" format. All fields are optional. If no
+          exact matching backend is found, partial matching will be
+          attempted based on the provided name, IP address and port
+          fields.
+        </para>
       </section>
       <section xml:id="ban-expressions">
         <title>Ban Expressions</title>

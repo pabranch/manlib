@@ -32,6 +32,7 @@
 [<emphasis role="bold">-suiteB_128_only</emphasis>]
 [<emphasis role="bold">-suiteB_192</emphasis>]
 [<emphasis role="bold">-trusted_first</emphasis>]
+[<emphasis role="bold">-no_alt_chains</emphasis>]
 [<emphasis role="bold">-untrusted file</emphasis>]
 [<emphasis role="bold">-use_deltas</emphasis>]
 [<emphasis role="bold">-verbose</emphasis>]
@@ -258,6 +259,20 @@
 	      certificates in untrusted file when building the trust chain
 	      to verify certificates. This is mainly useful in environments
 	      with Bridge CA or Cross-Certified CAs.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-no_alt_chains"/><emphasis role="bold">-no_alt_chains</emphasis></term>
+          <listitem>
+            <para>
+	      When building a certificate chain, if the first certificate
+	      chain found is not trusted, then OpenSSL will continue to
+	      check to see if an alternative chain can be found that is
+	      trusted. With this option that behaviour is suppressed so
+	      that only the first chain found is ever used. Using this
+	      option will force the behaviour to match that of OpenSSL
+	      versions prior to 1.1.0.
             </para>
           </listitem>
         </varlistentry>
@@ -787,6 +802,11 @@ error 24 at 1 depth lookup:invalid CA certificate</screen>
   <refsection xml:id="sources.openssl.doc.apps.verify.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
       x509(1)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.apps.verify.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      The -no_alt_chains options was first added to OpenSSL 1.1.0.
     </para>
   </refsection>
 </refentry>

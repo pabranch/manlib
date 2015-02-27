@@ -110,15 +110,12 @@ EC_POINT *EC_POINT_hex2point(const EC_GROUP *, const char *,
     <para>
       In addition EC_POINTs can be converted to and from various external
       representations. Supported representations are octet strings, BIGNUMs
-      and hexadecimal. The format of the external representation is
-      described by the point_conversion_form. See EC_GROUP_copy(3) for a
-      description of point_conversion_form. Octet strings are stored in a
-      buffer along with an associated buffer length. A point held in a
-      BIGNUM is calculated by converting the point to an octet string and
-      then converting that octet string into a BIGNUM integer. Points in
-      hexadecimal format are stored in a NULL terminated character string
-      where each character is one of the printable values 0-9 or A-F (or
-      a-f).
+      and hexadecimal. Octet strings are stored in a buffer along with an
+      associated buffer length. A point held in a BIGNUM is calculated by
+      converting the point to an octet string and then converting that
+      octet string into a BIGNUM integer. Points in hexadecimal format are
+      stored in a NULL terminated character string where each character is
+      one of the printable values 0-9 or A-F (or a-f).
     </para>
     <para>
       The functions EC_POINT_point2oct, EC_POINT_oct2point,

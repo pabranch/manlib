@@ -247,6 +247,14 @@ int X509_VERIFY_PARAM_set1_ip_asc(X509_VERIFY_PARAM *param, const char *ipasc);<
       be sent to the verification callback and it <emphasis role="bold">must</emphasis> be prepared to handle such cases without
       assuming they are hard errors.
     </para>
+    <para>
+      The <emphasis role="bold">X509_V_FLAG_NO_ALT_CHAINS</emphasis> flag
+      suppresses checking for alternative chains. By default, when building
+      a certificate chain, if the first certificate chain found is not
+      trusted, then OpenSSL will continue to check to see if an alternative
+      chain can be found that is trusted. With this flag set the behaviour
+      will match that of OpenSSL versions prior to 1.1.0.
+    </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.X509_VERIFY_PARAM_set_flags.pod:NOTES"><title>NOTES</title>
     <para>
@@ -287,7 +295,8 @@ X509_VERIFY_PARAM_free(param);</screen>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.X509_VERIFY_PARAM_set_flags.pod:HISTORY"><title>HISTORY</title>
     <para>
-      TBA
+      The <emphasis role="bold">X509_V_FLAG_NO_ALT_CHAINS</emphasis> flag
+      was added in OpenSSL 1.1.0
     </para>
   </refsection>
 </refentry>

@@ -46,6 +46,11 @@ TYPE type(STRING, TYPE)
       <itemizedlist>
         <listitem>
           <para>
+            func_cache_req_body
+          </para>
+        </listitem>
+        <listitem>
+          <para>
             func_collect
           </para>
         </listitem>
@@ -126,6 +131,11 @@ TYPE type(STRING, TYPE)
         </listitem>
         <listitem>
           <para>
+            func_time
+          </para>
+        </listitem>
+        <listitem>
+          <para>
             func_time2integer
           </para>
         </listitem>
@@ -159,7 +169,7 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                STRING toupper(STRING_LIST)
+                STRING toupper(STRING_LIST s)
               </para>
             </listitem>
           </varlistentry>
@@ -169,8 +179,7 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                Converts the string <emphasis>s</emphasis> to upper
-                case.
+                Converts the string <emphasis>s</emphasis> to uppercase.
               </para>
             </listitem>
           </varlistentry>
@@ -196,7 +205,7 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                STRING tolower(STRING_LIST)
+                STRING tolower(STRING_LIST s)
               </para>
             </listitem>
           </varlistentry>
@@ -206,8 +215,7 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                Converts the string <emphasis>s</emphasis> to lower
-                case.
+                Converts the string <emphasis>s</emphasis> to lowercase.
               </para>
             </listitem>
           </varlistentry>
@@ -232,7 +240,7 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                VOID set_ip_tos(INT)
+                VOID set_ip_tos(INT tos)
               </para>
             </listitem>
           </varlistentry>
@@ -242,10 +250,11 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                Sets the Type-of-Service flag for the current session.
-                Please note that the TOS flag is not removed by the end
-                of the request so probably want to set it on every
-                request should you utilize it.
+                Sets the IP type-of-service (TOS) field for the current
+                session to <emphasis>tos</emphasis>. Please note that
+                the TOS field is not removed by the end of the request
+                so probably want to set it on every request should you
+                utilize it.
               </para>
             </listitem>
           </varlistentry>
@@ -272,7 +281,7 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                REAL random(REAL, REAL)
+                REAL random(REAL lo, REAL hi)
               </para>
             </listitem>
           </varlistentry>
@@ -282,8 +291,8 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                Returns a random REAL number between
-                <emphasis>a</emphasis> and <emphasis>b</emphasis>.
+                Returns a random real number between
+                <emphasis>lo</emphasis> and <emphasis>hi</emphasis>.
               </para>
             </listitem>
           </varlistentry>
@@ -308,7 +317,7 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                VOID log(STRING_LIST)
+                VOID log(STRING_LIST s)
               </para>
             </listitem>
           </varlistentry>
@@ -318,8 +327,9 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                Logs <emphasis>string</emphasis> to the shared memory
-                log, using VSL tag <emphasis>SLT_VCL_Log</emphasis>.
+                Logs the string <emphasis>s</emphasis> to the shared
+                memory log, using VSL tag
+                <emphasis>SLT_VCL_Log</emphasis>.
               </para>
             </listitem>
           </varlistentry>
@@ -345,7 +355,7 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                VOID syslog(INT, STRING_LIST)
+                VOID syslog(INT priority, STRING_LIST s)
               </para>
             </listitem>
           </varlistentry>
@@ -355,8 +365,8 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                Logs <emphasis>string</emphasis> to syslog marked with
-                <emphasis>priority</emphasis>. See your system's
+                Logs the string <emphasis>s</emphasis> to syslog marked
+                with <emphasis>priority</emphasis>. See your system's
                 syslog.h file for the legal values of
                 <emphasis>priority</emphasis>.
               </para>
@@ -422,7 +432,7 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                VOID collect(HEADER)
+                VOID collect(HEADER hdr)
               </para>
             </listitem>
           </varlistentry>
@@ -432,7 +442,8 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                Collapses the header, joining the headers into one.
+                Collapses the header <emphasis>hdr</emphasis>, joining
+                them into one.
               </para>
             </listitem>
           </varlistentry>
@@ -442,8 +453,11 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                std.collect(req.http.cookie); This will collapse several
-                Cookie: headers into one, long cookie header.
+                std.collect(req.http.cookie);
+              </para>
+              <para>
+                This will collapse several Cookie: headers into one,
+                long cookie header.
               </para>
             </listitem>
           </varlistentry>
@@ -458,7 +472,7 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                DURATION duration(STRING, DURATION)
+                DURATION duration(STRING s, DURATION fallback)
               </para>
             </listitem>
           </varlistentry>
@@ -471,9 +485,8 @@ TYPE type(STRING, TYPE)
                 Converts the string <emphasis>s</emphasis> to seconds.
                 <emphasis>s</emphasis> must be quantified with ms
                 (milliseconds), s (seconds), m (minutes), h (hours), d
-                (days), w (weeks) or y (years) units. If
-                <emphasis>s</emphasis> fails to parse,
-                <emphasis>fallback</emphasis> will be returned.
+                (days), w (weeks) or y (years) units. If conversion
+                fails, <emphasis>fallback</emphasis> will be returned.
               </para>
             </listitem>
           </varlistentry>
@@ -498,7 +511,7 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                INT integer(STRING, INT)
+                INT integer(STRING s, INT fallback)
               </para>
             </listitem>
           </varlistentry>
@@ -509,7 +522,7 @@ TYPE type(STRING, TYPE)
             <listitem>
               <para>
                 Converts the string <emphasis>s</emphasis> to an
-                integer. If <emphasis>s</emphasis> fails to parse,
+                integer. If conversion fails,
                 <emphasis>fallback</emphasis> will be returned.
               </para>
             </listitem>
@@ -520,7 +533,9 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                if (std.integer(beresp.http.x-foo, 0) &gt; 5) { ... }
+                if (std.integer(beresp.http.x-foo, 0) &gt; 5) {<literallayout>
+</literallayout>  ...<literallayout>
+</literallayout>}
               </para>
             </listitem>
           </varlistentry>
@@ -535,7 +550,7 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                IP ip(STRING, IP)
+                IP ip(STRING s, IP fallback)
               </para>
             </listitem>
           </varlistentry>
@@ -545,8 +560,8 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                Converts string <emphasis>s</emphasis> to the first IP
-                number returned by the system library function
+                Converts the string <emphasis>s</emphasis> to the first
+                IP number returned by the system library function
                 getaddrinfo(3). If conversion fails,
                 <emphasis>fallback</emphasis> will be returned.
               </para>
@@ -559,7 +574,9 @@ TYPE type(STRING, TYPE)
             <listitem>
               <para>
                 if (std.ip(req.http.X-forwarded-for,
-                "0.0.0.0") ~ my_acl) { ... }
+                "0.0.0.0") ~ my_acl) {<literallayout>
+</literallayout>  ...<literallayout>
+</literallayout>}
               </para>
             </listitem>
           </varlistentry>
@@ -574,7 +591,7 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                REAL real(STRING, REAL)
+                REAL real(STRING s, REAL fallback)
               </para>
             </listitem>
           </varlistentry>
@@ -585,8 +602,8 @@ TYPE type(STRING, TYPE)
             <listitem>
               <para>
                 Converts the string <emphasis>s</emphasis> to a real. If
-                <emphasis>s</emphasis> fails to parse,
-                <emphasis>fallback</emphasis> will be returned.
+                conversion fails, <emphasis>fallback</emphasis> will be
+                returned.
               </para>
             </listitem>
           </varlistentry>
@@ -611,7 +628,7 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                TIME real2time(REAL)
+                TIME real2time(REAL r)
               </para>
             </listitem>
           </varlistentry>
@@ -646,7 +663,7 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                INT time2integer(TIME)
+                INT time2integer(TIME t)
               </para>
             </listitem>
           </varlistentry>
@@ -681,7 +698,7 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                REAL time2real(TIME)
+                REAL time2real(TIME t)
               </para>
             </listitem>
           </varlistentry>
@@ -716,7 +733,7 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                BOOL healthy(BACKEND)
+                BOOL healthy(BACKEND be)
               </para>
             </listitem>
           </varlistentry>
@@ -726,7 +743,8 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                Returns true if the backend is healthy.
+                Returns true if the backend <emphasis>be</emphasis> is
+                healthy.
               </para>
             </listitem>
           </varlistentry>
@@ -741,7 +759,7 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                INT port(IP)
+                INT port(IP ip)
               </para>
             </listitem>
           </varlistentry>
@@ -751,7 +769,8 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                Returns the port number of an IP address.
+                Returns the port number of the IP address
+                <emphasis>ip</emphasis>.
               </para>
             </listitem>
           </varlistentry>
@@ -766,7 +785,7 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                VOID rollback(HTTP)
+                VOID rollback(HTTP h)
               </para>
             </listitem>
           </varlistentry>
@@ -776,8 +795,8 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                Restore <emphasis>h</emphasis> HTTP headers to their
-                original state.
+                Restores the <emphasis>h</emphasis> HTTP headers to
+                their original state.
               </para>
             </listitem>
           </varlistentry>
@@ -802,7 +821,7 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                VOID timestamp(STRING)
+                VOID timestamp(STRING s)
               </para>
             </listitem>
           </varlistentry>
@@ -812,11 +831,11 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                Introduces a timestamp in the log with the current time.
-                Uses the argument as the timespamp label. This is useful
-                to time the execution of lengthy VCL procedures, and
-                makes the timestamps inserted automatically by Varnish
-                more accurate.
+                Introduces a timestamp in the log with the current time,
+                using the string <emphasis>s</emphasis> as the label.
+                This is useful to time the execution of lengthy VCL
+                procedures, and makes the timestamps inserted
+                automatically by Varnish more accurate.
               </para>
             </listitem>
           </varlistentry>
@@ -851,7 +870,7 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                Sorts the querystring for cache normalization purposes.
+                Sorts the query string for cache normalization purposes.
               </para>
             </listitem>
           </varlistentry>
@@ -867,8 +886,8 @@ TYPE type(STRING, TYPE)
           </varlistentry>
         </variablelist>
       </section>
-      <section xml:id="string-strstrstring-string">
-        <title>STRING strstr(STRING, STRING)</title>
+      <section xml:id="void-cache_req_bodybytes">
+        <title>VOID cache_req_body(BYTES)</title>
         <variablelist>
           <varlistentry>
             <term>
@@ -876,7 +895,7 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                STRING strstr(STRING, STRING)
+                VOID cache_req_body(BYTES size)
               </para>
             </listitem>
           </varlistentry>
@@ -886,17 +905,13 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                Returns the substring if the second string is a
-                substring of the first string. Note that the comparison
-                is case sensitive. You can use the tolower function on
-                both strings if you want case insensitivity.
+                Cache the req.body if it is smaller than
+                <emphasis>size</emphasis>.
               </para>
-              <blockquote>
-                <para>
-                  If there is no match a NULL pointer is returned which
-                  would evaluate to false in an if-test.
-                </para>
-              </blockquote>
+              <para>
+                Caching the req.body makes it possible to retry pass
+                operations (POST, PUT).
+              </para>
             </listitem>
           </varlistentry>
           <varlistentry>
@@ -905,7 +920,105 @@ TYPE type(STRING, TYPE)
             </term>
             <listitem>
               <para>
-                if (std.strstr(req.url, req.http.x-restrict))
+                std.cache_req_body(1KB);
+              </para>
+              <para>
+                This will cache the req.body if its size is smaller than
+                1KB.
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="string-strstrstring-string">
+        <title>STRING strstr(STRING, STRING)</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                STRING strstr(STRING s1, STRING s2)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Returns the first occurrence of the string
+                <emphasis>s2</emphasis> in the string
+                <emphasis>s1</emphasis>, or an empty string if not
+                found.
+              </para>
+              <para>
+                Note that the comparison is case sensitive.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Example
+            </term>
+            <listitem>
+              <para>
+                if (std.strstr(req.url, req.http.x-restrict)) {<literallayout>
+</literallayout>  ...<literallayout>
+</literallayout>}
+              </para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+      <section xml:id="time-timestring-time">
+        <title>TIME time(STRING, TIME)</title>
+        <variablelist>
+          <varlistentry>
+            <term>
+              Prototype
+            </term>
+            <listitem>
+              <para>
+                TIME time(STRING s, TIME fallback)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Description
+            </term>
+            <listitem>
+              <para>
+                Converts the string <emphasis>s</emphasis> to a time. If
+                conversion fails, <emphasis>fallback</emphasis> will be
+                returned.
+              </para>
+              <para>
+                Supported formats:
+              </para>
+              <para>
+                "Sun, 06 Nov 1994 08:49:37 GMT"<literallayout>
+</literallayout>"Sunday, 06-Nov-94 08:49:37 GMT"<literallayout>
+</literallayout>"Sun Nov 6 08:49:37 1994"<literallayout>
+</literallayout>"1994-11-06T08:49:37"<literallayout>
+</literallayout>"784111777.00"<literallayout>
+</literallayout>"784111777"
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>
+              Example
+            </term>
+            <listitem>
+              <para>
+                if (std.time(resp.http.last-modified, now) &lt; now -
+                1w) {<literallayout>
+</literallayout>  ...<literallayout>
+</literallayout>}
               </para>
             </listitem>
           </varlistentry>
