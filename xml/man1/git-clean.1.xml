@@ -54,8 +54,12 @@ are affected.</simpara>
 <listitem>
 <simpara>
         If the Git configuration variable clean.requireForce is not set
-        to false, <emphasis>git clean</emphasis> will refuse to run unless given -f, -n or
-        -i.
+        to false, <emphasis>git clean</emphasis> will refuse to delete files or directories
+        unless given -f, -n or -i. Git will refuse to delete directories
+        with .git sub directory or file unless a second -f
+        is given. This affects also git submodules where the storage area
+        of the removed submodule under .git/modules/ is not removed until
+        -f is given twice.
 </simpara>
 </listitem>
 </varlistentry>

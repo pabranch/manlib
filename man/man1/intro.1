@@ -93,11 +93,11 @@ A session might go like
 
 .RS
 .nf
-.BI "knuth login: " aeb
-.BI "Password: " ********
-.BI "% " date
+.RB "knuth login: " aeb
+.RB "Password: " ********
+.RB "$ " date
 Tue Aug  6 23:50:44 CEST 2002
-.BI "% " cal
+.RB "$ " cal
      August 2002
 Su Mo Tu We Th Fr Sa
              1  2  3
@@ -106,37 +106,37 @@ Su Mo Tu We Th Fr Sa
 18 19 20 21 22 23 24
 25 26 27 28 29 30 31
 
-.BI "% " ls
+.RB "$ " ls
 bin  tel
-.BI "% " "ls \-l"
+.RB "$ " "ls \-l"
 total 2
 drwxrwxr\-x   2 aeb       1024 Aug  6 23:51 bin
 \-rw\-rw\-r\-\-   1 aeb         37 Aug  6 23:52 tel
-.BI "% " "cat tel"
+.RB "$ " "cat tel"
 maja    0501\-1136285
 peter   0136\-7399214
-.BI "% " "cp tel tel2"
-.BI "% " "ls \-l"
+.RB "$ " "cp tel tel2"
+.RB "$ " "ls \-l"
 total 3
 drwxr\-xr\-x   2 aeb       1024 Aug  6 23:51 bin
 \-rw\-r\-\-r\-\-   1 aeb         37 Aug  6 23:52 tel
 \-rw\-r\-\-r\-\-   1 aeb         37 Aug  6 23:53 tel2
-.BI "% " "mv tel tel1"
-.BI "% " "ls \-l"
+.RB "$ " "mv tel tel1"
+.RB "$ " "ls \-l"
 total 3
 drwxr\-xr\-x   2 aeb       1024 Aug  6 23:51 bin
 \-rw\-r\-\-r\-\-   1 aeb         37 Aug  6 23:52 tel1
 \-rw\-r\-\-r\-\-   1 aeb         37 Aug  6 23:53 tel2
-.BI "% " "diff tel1 tel2"
-.BI "% " "rm tel1"
-.BI "% " "grep maja tel2"
+.RB "$ " "diff tel1 tel2"
+.RB "$ " "rm tel1"
+.RB "$ " "grep maja tel2"
 maja    0501\-1136285
-.B "% "
+$
 .fi
 .RE
 and here typing Control-D ended the session.
 The
-.B "% "
+.B $
 here was the command prompt\(emit is the shell's way of indicating
 that it is ready for the next command.
 The prompt can be customized
@@ -200,14 +200,21 @@ Here it finds Maja's telephone number.
 Files live in a large tree, the file hierarchy.
 Each has a
 .I "pathname"
-describing the path from the root of the tree (which is called /)
+describing the path from the root of the tree (which is called
+.IR / )
 to the file.
-For example, such a full pathname might be /home/aeb/tel.
+For example, such a full pathname might be
+.IR /home/aeb/tel .
 Always using full pathnames would be inconvenient, and the name
 of a file in the current directory may be abbreviated by giving
 only the last component.
-That is why "/home/aeb/tel" can be abbreviated
-to "tel" when the current directory is "/home/aeb".
+That is why
+.I /home/aeb/tel
+can be abbreviated
+to 
+.I tel
+when the current directory is
+.IR /home/aeb .
 .LP
 The command
 .I pwd
@@ -231,7 +238,10 @@ The command
 (with a rather baroque syntax) will find files with given name
 or other properties.
 For example, "find . \-name tel" would find
-the file "tel" starting in the present directory (which is called ".").
+the file
+.I tel
+starting in the present directory (which is called
+.IR . ).
 And "find / \-name tel" would do the same, but starting at the root
 of the tree.
 Large searches on a multi-GB disk will be time-consuming,
@@ -290,7 +300,8 @@ and explanations is useful.
 .LP
 A lot of GNU/FSF software is provided with info files.
 Type "info info"
-for an introduction on the use of the program "info".
+for an introduction on the use of the program
+.IR info .
 .LP
 Special topics are often treated in HOWTOs.
 Look in
@@ -300,4 +311,15 @@ and use a browser if you find HTML files there.
 .\" Actual examples? Separate section for each of cat, cp, ...?
 .\" gzip, bzip2, tar, rpm
 .SH SEE ALSO
+.BR ash (1),
+.BR bash (1),
+.BR chsh (1),
+.BR csh (1),
+.BR locate (1),
+.BR login (1),
+.BR man (1),
+.BR xterm (1),
+.BR zsh(1),
+.BR wait (2),
+.BR man-pages (7),
 .BR standards (7)

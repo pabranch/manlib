@@ -31,7 +31,7 @@
 .\"
 .\"	@(#)logger.1	8.1 (Berkeley) 6/6/93
 .\"
-.TH LOGGER "1" "December 2014" "util-linux" "User Commands"
+.TH LOGGER "1" "March 2015" "util-linux" "User Commands"
 .SH NAME
 logger \- enter messages into the system log
 .SH SYNOPSIS
@@ -40,10 +40,7 @@ logger \- enter messages into the system log
 .RI [ message ]
 .SH DESCRIPTION
 .B logger
-makes entries in the system log.  It provides a shell-command
-interface to the
-.BR syslog (3)
-system log module.
+makes entries in the system log.
 .sp
 When the optional \fImessage\fR argument is present, it is written
 to the log.  If it is not present, and the \fB\-f\fR option is not
@@ -58,7 +55,10 @@ syslog port defined in /etc/services, which is often 514 .
 Log the contents of the specified \fIfile\fR.
 This option cannot be combined with a command-line message.
 .TP
-.BR \-i , " \-\-id" [ = \fIid ]
+.B \-i
+Log the PID of the logger process with each line.
+.TP
+.BR "\-\-id" [ =\fIid ]
 Log the PID of the logger process with each line.  When the optional
 argument \fIid\fR is specified, then it is used instead of the logger
 command's PID.  The use of \fB\-\-id=$$\fR
@@ -90,7 +90,7 @@ to see rest of the fields.
 .TP
 .BR \-n , " \-\-server " \fIserver
 Write to the specified remote syslog \fIserver\fR
-instead of to the builtin syslog routines.  Unless
+instead of to the system log socket.  Unless
 \fB\-\-udp\fR or \fB\-\-tcp\fR
 is specified, \fBlogger\fR will first try to use UDP,
 but if thist fails a TCP connection is attempted.
@@ -158,7 +158,7 @@ Mark every line to be logged with the specified
 .BR \-u , " \-\-socket " \fIsocket
 Write to the specified
 .I socket
-instead of to the builtin syslog routines.
+instead of to the system log socket.
 .TP
 .BR \-\-socket\-errors [ =\fImode ]
 Print errors about Unix socket connections.  The \fImode\fR can be a value of
@@ -242,7 +242,6 @@ For the priority order and intended purposes of these facilities and levels, see
 .B logger \-n loghost.example.com System rebooted
 .SH SEE ALSO
 .BR syslog (3),
-.BR syslogd (8),
 .BR journalctl (1),
 .BR systemd.journal-fields (7)
 .SH STANDARDS

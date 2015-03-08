@@ -129,7 +129,19 @@ is greater than
 Out of memory.
 .TP
 .B EPERM
-The calling process has insufficient privilege.
+The calling process has insufficient privilege
+(it does not have the
+.BR CAP_SETGID
+capability).
+.TP
+.BR EPERM " (since Linux 3.19)"
+The use of
+.BR setgroups ()
+is denied in this user namespace.
+See the description of
+.IR /proc/[pid]/setgroups
+in
+.BR user_namespaces (7).
 .SH CONFORMING TO
 SVr4, 4.3BSD.
 The

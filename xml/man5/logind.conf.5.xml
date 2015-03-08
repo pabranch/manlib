@@ -30,46 +30,46 @@
   <refsect1>
     <title>Description</title>
 
-    <para>These files configure various parameters of the systemd login manager, <citerefentry><refentrytitle>systemd-logind.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>.</para>
+    <para>These files configure various parameters of the systemd
+    login manager,
+    <citerefentry><refentrytitle>systemd-logind.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>.
+    </para>
   </refsect1>
 
-  <refsection xml:id="confd">
+  <refsection xml:id="main-conf">
     <title>Configuration Directories and Precedence</title>
 
-    <para>Configuration files are read from directories in
-    <filename>/etc/</filename>, <filename>/run/</filename>, and
-    <filename>/usr/lib/</filename>, in order of precedence.
-    Each configuration file in these configuration directories shall be named in
-    the style of <filename><replaceable>filename</replaceable>.conf</filename>.
-    Files in <filename>/etc/</filename> override files with the same name in
-    <filename>/run/</filename> and <filename>/usr/lib/</filename>. Files in
-    <filename>/run/</filename> override files with the same name in
-    <filename>/usr/lib/</filename>.</para>
+    <para>Default configuration is defined during compilation, so a
+    configuration file is only needed when it is necessary to deviate
+    from those defaults. By default the configuration file in
+    <filename>/etc/systemd/</filename> contains commented out entries
+    showing the defaults as a guide to the administrator. This file
+    can be edited to create local overrides.
+    </para>
 
-    <para>Packages should install their configuration files in
-    <filename>/usr/lib/</filename>. Files in <filename>/etc/</filename> are
-    reserved for the local administrator, who may use this logic to override the
-    configuration files installed by vendor packages. All configuration files
-    are sorted by their filename in lexicographic order, regardless of which of
-    the directories they reside in. If multiple files specify the same option,
-    the entry in the file with the lexicographically latest name will take
-    precedence. It is recommended to prefix all filenames with a two-digit number
-    and a dash, to simplify the ordering of the files.</para>
+    <para>When packages need to customize the configuration, they can
+    install configuration snippets in
+    <filename>/usr/lib/systemd/*.conf.d/</filename>. Files in
+    <filename>/etc/</filename> are reserved for the local
+    administrator, who may use this logic to override the
+    configuration files installed by vendor packages. The main
+    configuration file is read before any of the configuration
+    directories, and has the lowest precedence; entries in a file in
+    any configuration directory override entries in the single
+    configuration file. Files in the
+    <filename>logind.conf.d/</filename> configuration subdirectories
+    are sorted by their filename in lexicographic order, regardless of
+    which of the subdirectories they reside in. If multiple files
+    specify the same option, the entry in the file with the
+    lexicographically latest name takes precedence.  It is recommended
+    to prefix all filenames in those subdirectories with a two-digit
+    number and a dash, to simplify the ordering of the files.</para>
 
-    <para>If the administrator wants to disable a configuration file supplied by
-    the vendor, the recommended way is to place a symlink to
+    <para>To disable a configuration file supplied by the vendor, the
+    recommended way is to place a symlink to
     <filename>/dev/null</filename> in the configuration directory in
     <filename>/etc/</filename>, with the same filename as the vendor
     configuration file.</para>
-  </refsection>
-  <refsection xml:id="conf">
-    <title>Configuration File</title>
-
-    <para>Configuration is also read from a single configuration file in
-    <filename>/etc/</filename>. This file is read before any of the
-    configuration directories, and has the lowest precedence; entries in a file
-    in any configuration directory override entries in the single configuration
-    file.</para>
   </refsection>
 
   <refsect1>
@@ -254,6 +254,21 @@
         <literal>yes</literal>. This means that the lid switch does
         not respect suspend blockers by default, but the power and
         sleep keys do. </para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><varname>HoldoffTimeoutSec=</varname></term>
+
+        <listitem><para>Specifies the timeout after system startup or
+        system resume in which systemd will hold off on reacting to
+        LID events. This is required for the system to properly
+        detect any hotplugged devices so systemd can ignore LID events
+        if external monitors, or docks, are connected. If set to 0,
+        systemd will always react immediately, possibly before the
+        kernel fully probed all hotplugged devices. This is safe, as
+        long as you do not care for systemd to account for devices
+        that have been plugged or unplugged while the system was off.
+        Defaults to 30s.</para></listitem>
       </varlistentry>
 
       <varlistentry>

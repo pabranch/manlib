@@ -77,9 +77,10 @@ package corresponding to the running version of the kernel.
 \fBprotected_multilib\fR
 Either `1' or `0'. This tells yum whether or not it should perform a check to
 make sure that multilib packages are the same version. For example, if this
-option is off (rpm behaviour) pkgA-1.x86_64 and pkgA-2.i386 can be installed
-at the same time. However this is very rarely desired.
-Install only packages, like the kernel, are exempt from this check.
+option is off (rpm behavior) then in some cases it might be possible for
+pkgA-1.x86_64 and pkgA-2.i386 to be installed at the same time. However this
+is very rarely desired. Install only packages, like the kernel, are exempt
+from this check.
 The default is `1'.
 
 .IP
@@ -155,8 +156,18 @@ This is commonly used so a package isn't upgraded or installed accidentally, but
 can be used to remove packages in any way that "yum list" will show packages.
 Shell globs using wildcards (eg. * and ?) are allowed.
 
-Can be disabled using --disableexcludes.
+Can be disabled using disable_excludes or --disableexcludes.
 Command-line option: \fB\-x\fP
+
+.IP
+\fBdisable_excludes\fR
+A way to permanently set the --disableexcludes command line option.
+
+.IP
+\fBquery_install_excludes\fR
+This applies the command line exclude option (only, not the configuration
+exclude above) to installed packages being shown in some query commands
+(currently: list/info/search/provides).
 
 .IP
 \fBinstallonlypkgs \fR

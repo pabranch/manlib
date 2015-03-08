@@ -4658,6 +4658,24 @@ log.mailmap
 </varlistentry>
 <varlistentry>
 <term>
+mailinfo.scissors
+</term>
+<listitem>
+<simpara>
+        If true, makes <citerefentry>
+<refentrytitle>git-mailinfo</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> (and therefore
+        <citerefentry>
+<refentrytitle>git-am</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>) act by default as if the --scissors option
+        was provided on the command-line. When active, this features
+        removes everything from the message body before a scissors
+        line (i.e. consisting mainly of "&gt;8", "8&lt;" and "-").
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 mailmap.file
 </term>
 <listitem>
@@ -6262,20 +6280,33 @@ submodule.&lt;name&gt;.path
 <term>
 submodule.&lt;name&gt;.url
 </term>
+<listitem>
+<simpara>
+        The path within this project and URL for a submodule. These
+        variables are initially populated by <emphasis>git submodule init</emphasis>. See
+        <citerefentry>
+<refentrytitle>git-submodule</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> and <citerefentry>
+<refentrytitle>gitmodules</refentrytitle><manvolnum>5</manvolnum>
+</citerefentry> for
+        details.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
 <term>
 submodule.&lt;name&gt;.update
 </term>
 <listitem>
 <simpara>
-        The path within this project, URL, and the updating strategy
-        for a submodule.  These variables are initially populated
-        by <emphasis>git submodule init</emphasis>; edit them to override the
-        URL and other values found in the <literal>.gitmodules</literal> file.  See
+        The default update procedure for a submodule. This variable
+        is populated by <literal>git submodule init</literal> from the
         <citerefentry>
-<refentrytitle>git-submodule</refentrytitle><manvolnum>1</manvolnum>
-</citerefentry> and <citerefentry>
 <refentrytitle>gitmodules</refentrytitle><manvolnum>5</manvolnum>
-</citerefentry> for details.
+</citerefentry> file. See description of <emphasis>update</emphasis>
+        command in <citerefentry>
+<refentrytitle>git-submodule</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>.
 </simpara>
 </listitem>
 </varlistentry>

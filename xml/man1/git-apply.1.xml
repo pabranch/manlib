@@ -22,7 +22,7 @@
           [--ignore-space-change | --ignore-whitespace ]
           [--whitespace=(nowarn|warn|fix|error|error-all)]
           [--exclude=&lt;path&gt;] [--include=&lt;path&gt;] [--directory=&lt;root&gt;]
-          [--verbose] [&lt;patch&gt;&#8230;]</literallayout>
+          [--verbose] [--unsafe-paths] [&lt;patch&gt;&#8230;]</literallayout>
 </blockquote>
 </refsynopsisdiv>
 <refsect1 id="_description">
@@ -444,6 +444,22 @@ behavior:</simpara>
 <simpara>For example, a patch that talks about updating <literal>a/git-gui.sh</literal> to <literal>b/git-gui.sh</literal>
 can be applied to the file in the working tree <literal>modules/git-gui/git-gui.sh</literal> by
 running <literal>git apply --directory=modules/git-gui</literal>.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--unsafe-paths
+</term>
+<listitem>
+<simpara>
+        By default, a patch that affects outside the working area
+        (either a Git controlled working tree, or the current working
+        directory when "git apply" is used as a replacement of GNU
+        patch) is rejected as a mistake (or a mischief).
+</simpara>
+<simpara>When <literal>git apply</literal> is used as a "better GNU patch", the user can pass
+the <literal>--unsafe-paths</literal> option to override this safety check.  This option
+has no effect when <literal>--index</literal> or <literal>--cached</literal> is in use.</simpara>
 </listitem>
 </varlistentry>
 </variablelist>
