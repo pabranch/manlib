@@ -110,8 +110,7 @@ engines = engine_section
 
 ... engine stuff here ...</screen>
     <para>
-      Currently there are two configuration modules. One for ASN1 objects
-      another for ENGINE configuration.
+      The features of each configuration module are described below.
     </para>
     <refsection xml:id="sources.openssl.doc.apps.config.pod:ASN1_OBJECT_CONFIGURATION_MODULE"><title>ASN1 OBJECT CONFIGURATION MODULE</title>
       <para>
@@ -225,6 +224,27 @@ some_ctrl = some_value
 other_ctrl = EMPTY
 # Supply all default algorithms
 default_algorithms = ALL</screen>
+    </refsection>
+    <refsection xml:id="sources.openssl.doc.apps.config.pod:EVP_CONFIGURATION_MODULE"><title>EVP CONFIGURATION MODULE</title>
+      <para>
+	This modules has the name <emphasis role="bold">alg_section</emphasis> which points to a section
+	containing algorithm commands.
+      </para>
+      <para>
+	Currently the only algorithm command supported is <emphasis role="bold">fips_mode</emphasis> whose value should be a boolean
+	string such as <emphasis role="bold">on</emphasis> or <emphasis role="bold">off</emphasis>. If the value is <emphasis role="bold">on</emphasis> this attempt to enter FIPS mode. If the
+	call fails or the library is not FIPS capable then an error occurs.
+      </para>
+      <para>
+	For example:
+      </para>
+      <screen>alg_section = evp_settings
+
+[evp_settings]
+
+fips_mode = on
+
+</screen>
     </refsection>
   </refsection>
   <refsection xml:id="sources.openssl.doc.apps.config.pod:NOTES"><title>NOTES</title>

@@ -519,9 +519,9 @@ The writing process must have the
 capability in the user namespace of the process
 .IR pid .
 .IP 2.
-The writing process must be in either the user namespace of the process
+The writing process must either be in the user namespace of the process
 .I pid
-or inside the parent user namespace of the process
+or be in the parent user namespace of the process
 .IR pid .
 .IP 3.
 The mapped user IDs (group IDs) must in turn have a mapping
@@ -540,7 +540,7 @@ user namespace.
 .RS
 .IP + 3
 No further restrictions apply:
-a privileged process can make mappings to arbitrary user IDs (group IDs)
+the process can make mappings to arbitrary user IDs (group IDs)
 in the parent user namespace.
 .RE
 .IP * 3
@@ -551,7 +551,8 @@ otherwise all of the following restrictions apply:
 The data written to
 .I uid_map
 .RI ( gid_map )
-consists of a single line that maps the writing process's effective user ID
+must consist of a single line that maps
+the writing process's effective user ID
 (group ID) in the parent user namespace to a user ID (group ID)
 in the user namespace.
 .IP +
@@ -644,6 +645,13 @@ system call; it displays
 if
 .BR setgroups (2)
 is not permitted in that user namespace.
+Note that regardless of the value in the
+.I /proc/[pid]/setgroups
+file (and regardless of the process's capabilities), calls to
+.BR setgroups (2)
+are also not permitted if
+.IR /proc/[pid]/gid_map
+has not yet been set.
 
 A privileged process (one with the
 .BR CAP_SYS_ADMIN
@@ -660,13 +668,6 @@ Writing the string
 .RI \(dq deny \(dq
 prevents any process in the user namespace from employing
 .BR setgroups (2).
-Note that regardless of the value in the
-.I /proc/[pid]/setgroups
-file, calls to
-.BR setgroups (2)
-are also not permitted if
-.IR /proc/[pid]/gid_map
-has not yet been set.
 
 The essence of the restrictions described in the preceding
 paragraph is that it is permitted to write to
@@ -696,13 +697,17 @@ has been written to
 (which has the effect of enabling
 .BR setgroups (2)
 in the user namespace),
-it is no longer possible to deny
+it is no longer possible to disallow
 .BR setgroups (2)
-by writing to
-.IR /proc/[pid]/setgroups .
+by writing
+.RI \(dq deny \(dq.
+to
+.IR /proc/[pid]/setgroups
+(the write fails with the error
+.BR EPERM ).
 
 A child user namespace inherits the
-.IR /proc/[pid]/gid_map
+.IR /proc/[pid]/setgroups
 setting from its parent.
 
 If the
@@ -743,7 +748,7 @@ that they did not previously have.
 The
 .I /proc/[pid]/setgroups
 file was added to address this security issue,
-by denying any pathway for an unprivleged process to drop groups with
+by denying any pathway for an unprivileged process to drop groups with
 .BR setgroups (2).
 .\"
 .\" /proc/PID/setgroups

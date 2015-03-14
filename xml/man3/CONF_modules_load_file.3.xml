@@ -10,9 +10,9 @@
   <refsynopsisdiv>
 <synopsis format="linespecific">#include &lt;openssl/conf.h&gt;</synopsis>
 <synopsis format="linespecific">int CONF_modules_load_file(const char *filename, const char *appname,
-                          unsigned long flags);
+                                       unsigned long flags);
 int CONF_modules_load(const CONF *cnf, const char *appname,
-                     unsigned long flags);</synopsis>
+                              unsigned long flags);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="sources.openssl.doc.crypto.CONF_modules_load_file.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
@@ -25,7 +25,7 @@ int CONF_modules_load(const CONF *cnf, const char *appname,
     </para>
     <para>
       CONF_modules_load() is idential to CONF_modules_load_file() except it
-      read configuration information from <emphasis role="bold">cnf</emphasis>.
+      reads configuration information from <emphasis role="bold">cnf</emphasis>.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.CONF_modules_load_file.pod:NOTES"><title>NOTES</title>
@@ -37,7 +37,7 @@ int CONF_modules_load(const CONF *cnf, const char *appname,
       <emphasis role="bold">CONF_MFLAGS_IGNORE_ERRORS</emphasis> if set
       errors returned by individual configuration modules are ignored. If
       not set the first module error is considered fatal and no further
-      modules are loads.
+      modules are loaded.
     </para>
     <para>
       Normally any modules errors will add error information to the error
@@ -53,8 +53,92 @@ int CONF_modules_load(const CONF *cnf, const char *appname,
       set will make CONF_load_modules_file() ignore missing configuration
       files. Normally a missing configuration file return an error.
     </para>
+    <para>
+      <emphasis role="bold">CONF_MFLAGS_DEFAULT_SECTION</emphasis> if set
+      and <emphasis role="bold">appname</emphasis> is not NULL will use the
+      default section pointed to by <emphasis role="bold">openssl_conf</emphasis> if <emphasis role="bold">appname</emphasis> does not exist.
+    </para>
+    <para>
+      Applications should call these functions after loading builtin
+      modules using OPENSSL_load_builtin_modules(), any ENGINEs for example
+      using ENGINE_load_builtin_engines(), any algorithms for example
+      OPENSSL_add_all_algorithms() and (if the application uses libssl)
+      SSL_library_init().
+    </para>
+    <para>
+      By using CONF_modules_load_file() with appropriate flags an
+      application can customise application configuration to best suit its
+      needs. In some cases the use of a configuration file is optional and
+      its absence is not an error: in this case <emphasis role="bold">CONF_MFLAGS_IGNORE_MISSING_FILE</emphasis> would be set.
+    </para>
+    <para>
+      Errors during configuration may also be handled differently by
+      different applications. For example in some cases an error may simply
+      print out a warning message and the application continue. In other
+      cases an application might consider a configuration file error as
+      fatal and exit immediately.
+    </para>
+    <para>
+      Applications can use the CONF_modules_load() function if they wish to
+      load a configuration file themselves and have finer control over how
+      errors are treated.
+    </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.CONF_modules_load_file.pod:RETURN_VALUE"><title>RETURN VALUE</title>
+  <refsection xml:id="sources.openssl.doc.crypto.CONF_modules_load_file.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      Load a configuration file and print out any errors and exit (missing
+      file considered fatal):
+    </para>
+    <screen>if (CONF_modules_load_file(NULL, NULL, 0) &lt;= 0) {
+   fprintf(stderr, "FATAL: error loading configuration file\n");
+   ERR_print_errors_fp(stderr);
+   exit(1);
+}</screen>
+    <para>
+      Load default configuration file using the section indicated by
+      "myapp", tolerate missing files, but exit on other errors:
+    </para>
+    <screen>if (CONF_modules_load_file(NULL, "myapp",
+                           CONF_MFLAGS_IGNORE_MISSING_FILE) &lt;= 0) {
+   fprintf(stderr, "FATAL: error loading configuration file\n");
+   ERR_print_errors_fp(stderr);
+   exit(1);
+}</screen>
+    <para>
+      Load custom configuration file and section, only print warnings on
+      error, missing configuration file ignored:
+    </para>
+    <screen>if (CONF_modules_load_file("/something/app.cnf", "myapp",
+                           CONF_MFLAGS_IGNORE_MISSING_FILE) &lt;= 0) {
+   fprintf(stderr, "WARNING: error loading configuration file\n");
+   ERR_print_errors_fp(stderr);
+}</screen>
+    <para>
+      Load and parse configuration file manually, custom error handling:
+    </para>
+    <screen>FILE *fp;
+CONF *cnf = NULL;
+long eline;
+fp = fopen("/somepath/app.cnf", "r");
+if (fp == NULL) {
+   fprintf(stderr, "Error opening configuration file\n");
+   /* Other missing configuration file behaviour */
+} else {
+   cnf = NCONF_new(NULL);
+   if (NCONF_load_fp(cnf, fp, &amp;eline) == 0) {
+       fprintf(stderr, "Error on line %ld of configuration file\n", eline);
+       ERR_print_errors_fp(stderr);
+       /* Other malformed configuration file behaviour */
+   } else if (CONF_modules_load(cnf, "appname", 0) &lt;= 0) {
+     fprintf(stderr, "Error configuring application\n");
+     ERR_print_errors_fp(stderr);
+     /* Other configuration error behaviour */
+   }
+   fclose(fp);
+   NCONF_free(cnf);
+ }</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.CONF_modules_load_file.pod:RETURN_VALUES"><title>RETURN VALUES</title>
     <para>
       These functions return 1 for success and a zero or negative value for
       failure. If module errors are not ignored the return code will

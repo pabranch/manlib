@@ -66,52 +66,6 @@ This is
 by default, as it may cause a substantial performance loss at sites
 with large hosts files.
 .TP
-.I nospoof
-Valid values are
-.IR on " and " off .
-If set to
-.IR on ,
-the resolv+ library will attempt to prevent hostname spoofing to
-enhance the security of
-.BR rlogin " and " rsh .
-It works as follows: after performing a host address lookup, resolv+
-will perform a hostname lookup for that address.
-If the two hostnames
-do not match, the query will fail.
-The default value is
-.IR off .
-.TP
-.I spoofalert
-Valid values are
-.IR on " and " off .
-If this option is set to
-.I on
-and the
-.I nospoof
-option is also set, resolv+ will log a warning of the error via the
-syslog facility.
-The default value is
-.IR off .
-.TP
-.I spoof
-Valid values are
-.IR off ", " nowarn " and " warn .
-If this option is set to
-.IR off ,
-spoofed addresses are permitted and no warnings will be emitted
-via the syslog facility.
-If this option is set to
-.IR warn ,
-resolv+ will attempt to prevent hostname spoofing to
-enhance the security and log a warning of the error via the syslog
-facility.
-If this option is set to
-.IR nowarn ,
-the resolv+ library will attempt to prevent hostname spoofing to
-enhance the security but not emit warnings via the syslog facility.
-Setting this option to anything else is equal to setting it to
-.IR nowarn .
-.TP
 .I reorder
 Valid values are
 .IR on " and " off .
@@ -132,15 +86,6 @@ override the behavior which is configured in
 .B RESOLV_HOST_CONF
 If set, this variable points to a file that should be read instead of
 .IR /etc/host.conf .
-.TP
-.B RESOLV_SPOOF_CHECK
-Overrides the
-.IR nospoof ", " spoofalert " and " spoof
-commands in the same way as the
-.I spoof
-command is parsed.
-Valid values are
-.IR off ", " nowarn " and " warn .
 .TP
 .B RESOLV_MULTI
 Overrides the
@@ -184,6 +129,10 @@ can take arguments like
 .IR off ", " nowarn " and " warn .
 Line comments can appear anywhere and not only at the beginning of a line.
 .SS Historical
+The
+.BR nsswitch.conf (5)
+file is the modern way of controlling the order of host lookups.
+.PP
 In glibc 2.4 and earlier, the following keyword is recognized:
 .TP
 .I order
@@ -191,17 +140,71 @@ This keyword specifies how host lookups are to be performed.
 It should be followed by one or more lookup methods, separated by commas.
 Valid methods are
 .IR bind ", " hosts ", and " nis .
-The
+.TP
 .B RESOLV_SERV_ORDER
-environment variable could be used to override the
-.I order
-command.
+Overrides the order command.
 .PP
-The
-.BR nsswitch.conf (5)
-file is the modern way of controlling the order of host lookups.
+Since glibc 2.0.7, the following keywords and environment variable have
+been recognized but never implemented:
+.TP
+.I nospoof
+Valid values are
+.IR on " and " off .
+If set to
+.IR on ,
+the resolv+ library will attempt to prevent hostname spoofing to
+enhance the security of
+.BR rlogin " and " rsh .
+It works as follows: after performing a host address lookup, resolv+
+will perform a hostname lookup for that address.
+If the two hostnames
+do not match, the query will fail.
+The default value is
+.IR off .
+.TP
+.I spoofalert
+Valid values are
+.IR on " and " off .
+If this option is set to
+.I on
+and the
+.I nospoof
+option is also set, resolv+ will log a warning of the error via the
+syslog facility.
+The default value is
+.IR off .
+.TP
+.I spoof
+Valid values are
+.IR off ", " nowarn ", and " warn .
+If this option is set to
+.IR off ,
+spoofed addresses are permitted and no warnings will be emitted
+via the syslog facility.
+If this option is set to
+.IR warn ,
+resolv+ will attempt to prevent hostname spoofing to
+enhance the security and log a warning of the error via the syslog
+facility.
+If this option is set to
+.IR nowarn ,
+the resolv+ library will attempt to prevent hostname spoofing to
+enhance the security but not emit warnings via the syslog facility.
+Setting this option to anything else is equal to setting it to
+.IR nowarn .
+.TP
+.B RESOLV_SPOOF_CHECK
+Overrides the
+.IR nospoof ", " spoofalert, " and " spoof
+commands in the same way as the
+.I spoof
+command is parsed.
+Valid values are
+.IR off ", " nowarn, " and " warn .
 .SH SEE ALSO
 .BR gethostbyname (3),
-.BR nsswitch.conf (5)
+.BR hosts (5),
+.BR nsswitch.conf (5),
+.BR resolv.conf (5),
 .BR hostname (7),
 .BR named (8)

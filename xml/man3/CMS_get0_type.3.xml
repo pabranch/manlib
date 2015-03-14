@@ -4,14 +4,15 @@
     <refentrytitle>CMS_get0_type.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>CMS_get0_type, CMS_set1_eContentType, CMS_get0_eContentType</refname>
-    <refpurpose>get and set CMS content types</refpurpose>
+    <refname>CMS_get0_type, CMS_set1_eContentType, CMS_get0_eContentType, CMS_get0_content</refname>
+    <refpurpose>get and set CMS content types and content</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis format="linespecific">#include &lt;openssl/cms.h&gt;</synopsis>
 <synopsis format="linespecific">const ASN1_OBJECT *CMS_get0_type(CMS_ContentInfo *cms);
 int CMS_set1_eContentType(CMS_ContentInfo *cms, const ASN1_OBJECT *oid);
-const ASN1_OBJECT *CMS_get0_eContentType(CMS_ContentInfo *cms);</synopsis>
+const ASN1_OBJECT *CMS_get0_eContentType(CMS_ContentInfo *cms);
+ASN1_OCTET_STRING **CMS_get0_content(CMS_ContentInfo *cms);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="sources.openssl.doc.crypto.CMS_get0_type.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
@@ -30,13 +31,17 @@ const ASN1_OBJECT *CMS_get0_eContentType(CMS_ContentInfo *cms);</synopsis>
       ASN1_OBJECT *CMS_get0_eContentType() returns a pointer to the
       embedded content type.
     </para>
+    <para>
+      CMS_get0_content() returns a pointer to the <emphasis role="bold">ASN1_OCTET_STRING</emphasis> pointer containing the
+      embedded content.
+    </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.CMS_get0_type.pod:NOTES"><title>NOTES</title>
     <para>
-      As the <emphasis role="bold">0</emphasis> implies CMS_get0_type() and
-      CMS_get0_eContentType() return internal pointers which should
-      <emphasis role="bold">not</emphasis> be freed up.
-      CMS_set1_eContentType() copies the supplied OID and it <emphasis role="bold">should</emphasis> be freed up after use.
+      As the <emphasis role="bold">0</emphasis> implies CMS_get0_type(),
+      CMS_get0_eContentType() and CMS_get0_content() return internal
+      pointers which should <emphasis role="bold">not</emphasis> be freed
+      up. CMS_set1_eContentType() copies the supplied OID and it <emphasis role="bold">should</emphasis> be freed up after use.
     </para>
     <para>
       The <emphasis role="bold">ASN1_OBJECT</emphasis> values returned can
@@ -49,9 +54,19 @@ NID_pkcs7_signed
 NID_pkcs7_digest
 NID_id_smime_ct_compressedData:
 NID_pkcs7_encrypted
-NID_pkcs7_enveloped
-
-</screen>
+NID_pkcs7_enveloped</screen>
+    <para>
+      The return value of CMS_get0_content() is a pointer to the <emphasis role="bold">ASN1_OCTET_STRING</emphasis> content pointer. That means
+      that for example:
+    </para>
+    <screen>ASN1_OCTET_STRING **pconf = CMS_get0_content(cms);</screen>
+    <para>
+      <emphasis role="bold">*pconf</emphasis> could be NULL if there is no
+      embedded content. Applications can access, modify or create the
+      embedded content in a <emphasis role="bold">CMS_ContentInfo</emphasis> structure using this function.
+      Applications usually will not need to modify the embedded content as
+      it is normally set by higher level functions.
+    </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.CMS_get0_type.pod:RETURN_VALUES"><title>RETURN VALUES</title>
     <para>
