@@ -487,6 +487,30 @@ provide a valid <emphasis>/etc/fstab</emphasis>.</simpara>
 </simpara>
 </listitem>
 </varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">uefi_stub=</emphasis>"<emphasis>&lt;FILE&gt;</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Specifies the UEFI stub loader, which will load the attached kernel, initramfs and
+    kernel command line and boots the kernel. The default is
+    <emphasis>/lib/systemd/boot/efi/linux&lt;EFI-MACHINE-TYPE-NAME&gt;.efi.stub</emphasis>
+    or <emphasis>/usr/lib/gummiboot/linux&lt;EFI-MACHINE-TYPE-NAME&gt;.efi.stub</emphasis>
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">kernel_image=</emphasis>"<emphasis>&lt;FILE&gt;</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Specifies the kernel image, which to include in the UEFI executable. The default is
+    <emphasis>/lib/modules/&lt;KERNEL-VERSION&gt;/vmlinuz</emphasis> or <emphasis>/boot/vmlinuz-&lt;KERNEL-VERSION&gt;</emphasis>
+</simpara>
+</listitem>
+</varlistentry>
 </variablelist>
 </refsect1>
 <refsect1 id="_files">

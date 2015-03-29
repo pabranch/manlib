@@ -1390,6 +1390,41 @@ will not be able to boot.</simpara>
 </simpara>
 </listitem>
 </varlistentry>
+<varlistentry>
+<term>
+**--uefi
+</term>
+<listitem>
+<simpara>
+    Instead of creating an initramfs image, dracut will create an UEFI executable,
+    which can be executed by an UEFI BIOS.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+**--uefi-stub <emphasis>&lt;FILE&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    Specifies the UEFI stub loader, which will load the attached kernel, initramfs and
+    kernel command line and boots the kernel. The default is
+    <emphasis>/lib/systemd/boot/efi/linux&lt;EFI-MACHINE-TYPE-NAME&gt;.efi.stub</emphasis>
+    or <emphasis>/usr/lib/gummiboot/linux&lt;EFI-MACHINE-TYPE-NAME&gt;.efi.stub</emphasis>
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+**--kernel-image <emphasis>&lt;FILE&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    Specifies the kernel image, which to include in the UEFI executable. The default is
+    <emphasis>/lib/modules/&lt;KERNEL-VERSION&gt;/vmlinuz</emphasis> or <emphasis>/boot/vmlinuz-&lt;KERNEL-VERSION&gt;</emphasis>
+</simpara>
+</listitem>
+</varlistentry>
 </variablelist>
 </refsect1>
 <refsect1 id="_files">

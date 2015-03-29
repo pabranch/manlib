@@ -575,7 +575,10 @@ Git so take care if using Cogito etc.</simpara>
 <simpara>
         This environment variable allows the specification of an index
         version for new repositories.  It won&#8217;t affect existing index
-        files.  By default index file version [23] is used.
+        files.  By default index file version 2 or 3 is used. See
+        <citerefentry>
+<refentrytitle>git-update-index</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> for more information.
 </simpara>
 </listitem>
 </varlistentry>
@@ -899,7 +902,7 @@ for further details.</simpara>
         If this environment variable is set, then Git commands which need to
         acquire passwords or passphrases (e.g. for HTTP or IMAP authentication)
         will call this program with a suitable prompt as command-line argument
-        and read the password from its STDOUT. See also the <emphasis>core.askpass</emphasis>
+        and read the password from its STDOUT. See also the <emphasis>core.askPass</emphasis>
         option in <citerefentry>
 <refentrytitle>git-config</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry>.
@@ -1101,6 +1104,26 @@ GIT_ICASE_PATHSPECS
         helper function in <literal>git-sh-setup</literal> to set its name to this
         variable when it is invoked as the top level command by the
         end user, to be recorded in the body of the reflog.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<literal>GIT_REF_PARANOIA</literal>
+</term>
+<listitem>
+<simpara>
+        If set to <literal>1</literal>, include broken or badly named refs when iterating
+        over lists of refs. In a normal, non-corrupted repository, this
+        does nothing. However, enabling it may help git to detect and
+        abort some operations in the presence of broken refs. Git sets
+        this variable automatically when performing destructive
+        operations like <citerefentry>
+<refentrytitle>git-prune</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>. You should not need to set
+        it yourself unless you want to be paranoid about making sure
+        an operation has touched every ref (e.g., because you are
+        cloning a repository to make a backup).
 </simpara>
 </listitem>
 </varlistentry>

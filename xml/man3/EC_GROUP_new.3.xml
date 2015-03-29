@@ -102,11 +102,12 @@ int EC_GROUP_get_curve_GF2m(const EC_GROUP *group, BIGNUM *p, BIGNUM *a, BIGNUM 
       EC_GROUP_new_by_curve_name and provide the <emphasis role="bold">nid</emphasis> of the curve to be constructed.
     </para>
     <para>
-      EC_GROUP_free frees the memory associated with the EC_GROUP.
+      EC_GROUP_free frees the memory associated with the EC_GROUP. If
+      <emphasis role="bold">group</emphasis> is NULL nothing is done.
     </para>
     <para>
       EC_GROUP_clear_free destroys any sensitive data held within the
-      EC_GROUP and then frees its memory.
+      EC_GROUP and then frees its memory. If <emphasis role="bold">group</emphasis> is NULL nothing is done.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.EC_GROUP_new.pod:RETURN_VALUES"><title>RETURN VALUES</title>

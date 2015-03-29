@@ -1,0 +1,120 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="journal-remote.conf" conditional="HAVE_MICROHTTPD">
+  <info>
+    
+    <productname>systemd</productname>
+
+    <authorgroup>
+      <author><personname><firstname>Chris</firstname><surname>Morgan</surname></personname><contrib>Developer</contrib><email>chmorgan@gmail.com</email></author>
+    </authorgroup>
+  </info>
+
+  <refmeta>
+    <refentrytitle>journal-remote.conf</refentrytitle>
+    <manvolnum>5</manvolnum>
+  </refmeta>
+
+  <refnamediv>
+    <refname>journal-remote.conf</refname>
+    <refname>journal-remote.conf.d</refname>
+    <refpurpose>Journal remote service configuration files</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <para><filename>/etc/systemd/journal-remote.conf</filename></para>
+    <para><filename>/etc/systemd/journald.conf.d/*.conf</filename></para>
+    <para><filename>/run/systemd/journald.conf.d/*.conf</filename></para>
+    <para><filename>/usr/lib/systemd/journald.conf.d/*.conf</filename></para>
+  </refsynopsisdiv>
+
+  <refsect1>
+    <title>Description</title>
+
+    <para>These files configure various parameters of the systemd-remote-journal
+    application,
+    <citerefentry><refentrytitle>systemd-journal-remote</refentrytitle><manvolnum>8</manvolnum></citerefentry>.</para>
+  </refsect1>
+
+  <refsection xml:id="main-conf">
+    <title>Configuration Directories and Precedence</title>
+
+    <para>Default configuration is defined during compilation, so a
+    configuration file is only needed when it is necessary to deviate
+    from those defaults. By default the configuration file in
+    <filename>/etc/systemd/</filename> contains commented out entries
+    showing the defaults as a guide to the administrator. This file
+    can be edited to create local overrides.
+    </para>
+
+    <para>When packages need to customize the configuration, they can
+    install configuration snippets in
+    <filename>/usr/lib/systemd/*.conf.d/</filename>. Files in
+    <filename>/etc/</filename> are reserved for the local
+    administrator, who may use this logic to override the
+    configuration files installed by vendor packages. The main
+    configuration file is read before any of the configuration
+    directories, and has the lowest precedence; entries in a file in
+    any configuration directory override entries in the single
+    configuration file. Files in the
+    <filename>*.conf.d/</filename> configuration subdirectories
+    are sorted by their filename in lexicographic order, regardless of
+    which of the subdirectories they reside in. If multiple files
+    specify the same option, the entry in the file with the
+    lexicographically latest name takes precedence.  It is recommended
+    to prefix all filenames in those subdirectories with a two-digit
+    number and a dash, to simplify the ordering of the files.</para>
+
+    <para>To disable a configuration file supplied by the vendor, the
+    recommended way is to place a symlink to
+    <filename>/dev/null</filename> in the configuration directory in
+    <filename>/etc/</filename>, with the same filename as the vendor
+    configuration file.</para>
+  </refsection>
+
+  <refsect1>
+    <title>Options</title>
+
+    <para>All options are configured in the
+    <literal>[Remote]</literal> section:</para>
+
+    <variablelist>
+
+      <varlistentry>
+        <term><varname>SplitMode=</varname></term>
+
+        <listitem><para>One of <literal>host</literal> or <literal>none</literal>.
+        </para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><varname>ServerKeyFile=</varname></term>
+
+        <listitem><para>SSL key in PEM format</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><varname>ServerCertificateFile=</varname></term>
+
+        <listitem><para>SSL CA certificate in PEM format.</para></listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><varname>TrustedCertificateFile=</varname></term>
+
+        <listitem><para>SSL CA certificate.</para></listitem>
+      </varlistentry>
+
+    </variablelist>
+
+  </refsect1>
+
+  <refsect1>
+      <title>See Also</title>
+      <para>
+        <citerefentry><refentrytitle>systemd-journal-remote</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+        <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+        <citerefentry><refentrytitle>systemd-journald.service</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+      </para>
+  </refsect1>
+
+</refentry>

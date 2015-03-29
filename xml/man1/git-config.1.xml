@@ -618,7 +618,7 @@ true
 % git config --bool --get-urlmatch http.sslverify https://weak.example.com
 false
 % git config --get-urlmatch http https://weak.example.com
-http.cookiefile /tmp/cookie.txt
+http.cookieFile /tmp/cookie.txt
 http.sslverify false&#10;.ft&#10;
 </literallayout>
 </refsect1>
@@ -636,7 +636,8 @@ the fully qualified variable name of the variable itself is the last
 dot-separated segment and the section name is everything before the last
 dot. The variable names are case-insensitive, allow only alphanumeric
 characters and <literal>-</literal>, and must start with an alphabetic character.  Some
-variables may appear multiple times.</simpara>
+variables may appear multiple times; we say then that the variable is
+multivalued.</simpara>
 <refsect2 id="_syntax">
 <title>Syntax</title>
 <simpara>The syntax is fairly flexible and permissive; whitespaces are mostly
@@ -644,7 +645,7 @@ ignored.  The <emphasis>#</emphasis> and <emphasis>;</emphasis> characters begin
 blank lines are ignored.</simpara>
 <simpara>The file consists of sections and variables.  A section begins with
 the name of the section in square brackets and continues until the next
-section begins.  Section names are not case sensitive.  Only alphanumeric
+section begins.  Section names are case-insensitive.  Only alphanumeric
 characters, <literal>-</literal> and <literal>.</literal> are allowed in section names.  Each variable
 must belong to some section, which means that there must be a section
 header before the first setting of a variable.</simpara>
@@ -655,8 +656,8 @@ in the section header, like in the example below:</simpara>
 &#10;.ft C&#10;        [section "subsection"]&#10;.ft&#10;
 </literallayout>
 <simpara>Subsection names are case sensitive and can contain any characters except
-newline (doublequote <literal>"</literal> and backslash have to be escaped as <literal>\"</literal> and <literal>\\</literal>,
-respectively).  Section headers cannot span multiple
+newline (doublequote <literal>"</literal> and backslash can be included by escaping them
+as <literal>\"</literal> and <literal>\\</literal>, respectively).  Section headers cannot span multiple
 lines.  Variables may belong directly to a section or to a given subsection.
 You can have <literal>[section]</literal> if you have <literal>[section "subsection"]</literal>, but you
 don&#8217;t need to.</simpara>
@@ -666,32 +667,23 @@ compared case sensitively. These subsection names follow the same
 restrictions as section names.</simpara>
 <simpara>All the other lines (and the remainder of the line after the section
 header) are recognized as setting variables, in the form
-<emphasis>name = value</emphasis>.  If there is no equal sign on the line, the entire line
-is taken as <emphasis>name</emphasis> and the variable is recognized as boolean "true".
+<emphasis>name = value</emphasis> (or just <emphasis>name</emphasis>, which is a short-hand to say that
+the variable is the boolean "true").
 The variable names are case-insensitive, allow only alphanumeric characters
-and <literal>-</literal>, and must start with an alphabetic character.  There can be more
-than one value for a given variable; we say then that the variable is
-multivalued.</simpara>
-<simpara>Leading and trailing whitespace in a variable value is discarded.
-Internal whitespace within a variable value is retained verbatim.</simpara>
-<simpara>The values following the equals sign in variable assign are all either
-a string, an integer, or a boolean.  Boolean values may be given as yes/no,
-1/0, true/false or on/off.  Case is not significant in boolean values, when
-converting value to the canonical form using <emphasis>--bool</emphasis> type specifier;
-<emphasis>git config</emphasis> will ensure that the output is "true" or "false".</simpara>
-<simpara>String values may be entirely or partially enclosed in double quotes.
-You need to enclose variable values in double quotes if you want to
-preserve leading or trailing whitespace, or if the variable value contains
-comment characters (i.e. it contains <emphasis>#</emphasis> or <emphasis>;</emphasis>).
-Double quote <literal>"</literal> and backslash <literal>\</literal> characters in variable values must
-be escaped: use <literal>\"</literal> for <literal>"</literal> and <literal>\\</literal> for <literal>\</literal>.</simpara>
+and <literal>-</literal>, and must start with an alphabetic character.</simpara>
+<simpara>A line that defines a value can be continued to the next line by
+ending it with a <literal>\</literal>; the backquote and the end-of-line are
+stripped.  Leading whitespaces after <emphasis>name =</emphasis>, the remainder of the
+line after the first comment character <emphasis>#</emphasis> or <emphasis>;</emphasis>, and trailing
+whitespaces of the line are discarded unless they are enclosed in
+double quotes.  Internal whitespaces within the value are retained
+verbatim.</simpara>
+<simpara>Inside double quotes, double quote <literal>"</literal> and backslash <literal>\</literal> characters
+must be escaped: use <literal>\"</literal> for <literal>"</literal> and <literal>\\</literal> for <literal>\</literal>.</simpara>
 <simpara>The following escape sequences (beside <literal>\"</literal> and <literal>\\</literal>) are recognized:
 <literal>\n</literal> for newline character (NL), <literal>\t</literal> for horizontal tabulation (HT, TAB)
 and <literal>\b</literal> for backspace (BS).  Other char escape sequences (including octal
 escape sequences) are invalid.</simpara>
-<simpara>Variable values ending in a <literal>\</literal> are continued on the next line in the
-customary UNIX fashion.</simpara>
-<simpara>Some variables may require a special value format.</simpara>
 </refsect2>
 <refsect2 id="_includes">
 <title>Includes</title>
@@ -726,6 +718,94 @@ user&#8217;s home directory. See below for examples.</simpara>
         path = /path/to/foo.inc ; include by absolute path
         path = foo ; expand "foo" relative to the current file
         path = ~/foo ; expand "foo" in your $HOME directory</literallayout>
+</refsect2>
+<refsect2 id="_values">
+<title>Values</title>
+<simpara>Values of many variables are treated as a simple string, but there
+are variables that take values of specific types and there are rules
+as to how to spell them.</simpara>
+<variablelist>
+<varlistentry>
+<term>
+boolean
+</term>
+<listitem>
+<simpara>
+       When a variable is said to take a boolean value, many
+       synonyms are accepted for <emphasis>true</emphasis> and <emphasis>false</emphasis>; these are all
+       case-insensitive.
+</simpara>
+<variablelist>
+<varlistentry>
+<term>
+true
+</term>
+<listitem>
+<simpara>
+Boolean true can be spelled as <literal>yes</literal>, <literal>on</literal>, <literal>true</literal>,
+                or <literal>1</literal>.  Also, a variable defined without <literal>= &lt;value&gt;</literal>
+                is taken as true.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+false
+</term>
+<listitem>
+<simpara>
+Boolean false can be spelled as <literal>no</literal>, <literal>off</literal>,
+                <literal>false</literal>, or <literal>0</literal>.
+</simpara>
+<simpara>When converting value to the canonical form using <emphasis>--bool</emphasis> type
+specifier; <emphasis>git config</emphasis> will ensure that the output is "true" or
+"false" (spelled in lowercase).</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+integer
+</term>
+<listitem>
+<simpara>
+       The value for many variables that specify various sizes can
+       be suffixed with <literal>k</literal>, <literal>M</literal>,&#8230; to mean "scale the number by
+       1024", "by 1024x1024", etc.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+color
+</term>
+<listitem>
+<simpara>
+       The value for a variables that takes a color is a list of
+       colors (at most two) and attributes (at most one), separated
+       by spaces.  The colors accepted are <literal>normal</literal>, <literal>black</literal>,
+       <literal>red</literal>, <literal>green</literal>, <literal>yellow</literal>, <literal>blue</literal>, <literal>magenta</literal>, <literal>cyan</literal> and
+       <literal>white</literal>; the attributes are <literal>bold</literal>, <literal>dim</literal>, <literal>ul</literal>, <literal>blink</literal> and
+       <literal>reverse</literal>.  The first color given is the foreground; the
+       second is the background.  The position of the attribute, if
+       any, doesn&#8217;t matter. Attributes may be turned off specifically
+       by prefixing them with <literal>no</literal> (e.g., <literal>noreverse</literal>, <literal>noul</literal>, etc).
+</simpara>
+<simpara>Colors (foreground and background) may also be given as numbers between
+0 and 255; these use ANSI 256-color mode (but note that not all
+terminals may support this).  If your terminal supports it, you may also
+specify 24-bit RGB values as hex, like <literal>#ff0ab3</literal>.</simpara>
+<simpara>The attributes are meant to be reset at the beginning of each item
+in the colored output, so setting color.decorate.branch to <literal>black</literal>
+will paint that branch name in a plain <literal>black</literal>, even if the previous
+thing on the same output line (e.g. opening parenthesis before the
+list of branch names in <literal>log --decorate</literal> output) is set to be
+painted with <literal>bold</literal> or some other attribute.</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
 </refsect2>
 <refsect2 id="_variables">
 <title>Variables</title>
@@ -979,7 +1059,7 @@ See <citerefentry>
 </varlistentry>
 <varlistentry>
 <term>
-core.ignorecase
+core.ignoreCase
 </term>
 <listitem>
 <simpara>
@@ -995,18 +1075,18 @@ core.ignorecase
 </citerefentry> or <citerefentry>
 <refentrytitle>git-init</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry>
-will probe and set core.ignorecase true if appropriate when the repository
+will probe and set core.ignoreCase true if appropriate when the repository
 is created.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
 <term>
-core.precomposeunicode
+core.precomposeUnicode
 </term>
 <listitem>
 <simpara>
         This option is only used by Mac OS implementation of Git.
-        When core.precomposeunicode=true, Git reverts the unicode decomposition
+        When core.precomposeUnicode=true, Git reverts the unicode decomposition
         of filenames done by Mac OS. This is useful when sharing a repository
         between Mac OS and Linux or Windows.
         (Git for Windows 1.7.10 or higher is needed, or Git under cygwin 1.7).
@@ -1058,7 +1138,7 @@ core.trustctime
 </varlistentry>
 <varlistentry>
 <term>
-core.checkstat
+core.checkStat
 </term>
 <listitem>
 <simpara>
@@ -1071,7 +1151,7 @@ core.checkstat
 </varlistentry>
 <varlistentry>
 <term>
-core.quotepath
+core.quotePath
 </term>
 <listitem>
 <simpara>
@@ -1384,13 +1464,13 @@ core.compression
         -1 is the zlib default. 0 means no compression,
         and 1..9 are various speed/size tradeoffs, 9 being slowest.
         If set, this provides a default to other compression variables,
-        such as <emphasis>core.loosecompression</emphasis> and <emphasis>pack.compression</emphasis>.
+        such as <emphasis>core.looseCompression</emphasis> and <emphasis>pack.compression</emphasis>.
 </simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
 <term>
-core.loosecompression
+core.looseCompression
 </term>
 <listitem>
 <simpara>
@@ -1478,7 +1558,7 @@ be delta compressed, but larger binary media files won&#8217;t be.</simpara>
 </varlistentry>
 <varlistentry>
 <term>
-core.excludesfile
+core.excludesFile
 </term>
 <listitem>
 <simpara>
@@ -1496,7 +1576,7 @@ core.excludesfile
 </varlistentry>
 <varlistentry>
 <term>
-core.askpass
+core.askPass
 </term>
 <listitem>
 <simpara>
@@ -1512,7 +1592,7 @@ core.askpass
 </varlistentry>
 <varlistentry>
 <term>
-core.attributesfile
+core.attributesFile
 </term>
 <listitem>
 <simpara>
@@ -1521,7 +1601,7 @@ core.attributesfile
         (see <citerefentry>
 <refentrytitle>gitattributes</refentrytitle><manvolnum>5</manvolnum>
 </citerefentry>). Path expansions are made the same
-        way as for <literal>core.excludesfile</literal>. Its default value is
+        way as for <literal>core.excludesFile</literal>. Its default value is
         $XDG_CONFIG_HOME/git/attributes. If $XDG_CONFIG_HOME is either not
         set or empty, $HOME/.config/git/attributes is used instead.
 </simpara>
@@ -1544,7 +1624,7 @@ core.editor
 </varlistentry>
 <varlistentry>
 <term>
-core.commentchar
+core.commentChar
 </term>
 <listitem>
 <simpara>
@@ -1671,7 +1751,7 @@ core.whitespace
 </varlistentry>
 <varlistentry>
 <term>
-core.fsyncobjectfiles
+core.fsyncObjectFiles
 </term>
 <listitem>
 <simpara>
@@ -1685,7 +1765,7 @@ and not file contents (OS X&#8217;s HFS+, or Linux ext3 with "data=writeback").<
 </varlistentry>
 <varlistentry>
 <term>
-core.preloadindex
+core.preloadIndex
 </term>
 <listitem>
 <simpara>
@@ -1824,7 +1904,7 @@ am.keepcr
 </varlistentry>
 <varlistentry>
 <term>
-apply.ignorewhitespace
+apply.ignoreWhitespace
 </term>
 <listitem>
 <simpara>
@@ -1854,7 +1934,7 @@ apply.whitespace
 </varlistentry>
 <varlistentry>
 <term>
-branch.autosetupmerge
+branch.autoSetupMerge
 </term>
 <listitem>
 <simpara>
@@ -1874,7 +1954,7 @@ branch.autosetupmerge
 </varlistentry>
 <varlistentry>
 <term>
-branch.autosetuprebase
+branch.autoSetupRebase
 </term>
 <listitem>
 <simpara>
@@ -1888,7 +1968,7 @@ branch.autosetuprebase
         remote-tracking branches.
         When <literal>always</literal>, rebase will be set to true for all tracking
         branches.
-        See "branch.autosetupmerge" for details on how to set up a
+        See "branch.autoSetupMerge" for details on how to set up a
         branch to track another branch.
         This option defaults to never.
 </simpara>
@@ -1902,11 +1982,11 @@ branch.&lt;name&gt;.remote
 <simpara>
         When on branch &lt;name&gt;, it tells <emphasis>git fetch</emphasis> and <emphasis>git push</emphasis>
         which remote to fetch from/push to.  The remote to push to
-        may be overridden with <literal>remote.pushdefault</literal> (for all branches).
+        may be overridden with <literal>remote.pushDefault</literal> (for all branches).
         The remote to push to, for the current branch, may be further
-        overridden by <literal>branch.&lt;name&gt;.pushremote</literal>.  If no remote is
+        overridden by <literal>branch.&lt;name&gt;.pushRemote</literal>.  If no remote is
         configured, or if you are not on any branch, it defaults to
-        <literal>origin</literal> for fetching and <literal>remote.pushdefault</literal> for pushing.
+        <literal>origin</literal> for fetching and <literal>remote.pushDefault</literal> for pushing.
         Additionally, <literal>.</literal> (a period) is the current local repository
         (a dot-repository), see <literal>branch.&lt;name&gt;.merge</literal>'s final note below.
 </simpara>
@@ -1914,15 +1994,15 @@ branch.&lt;name&gt;.remote
 </varlistentry>
 <varlistentry>
 <term>
-branch.&lt;name&gt;.pushremote
+branch.&lt;name&gt;.pushRemote
 </term>
 <listitem>
 <simpara>
         When on branch &lt;name&gt;, it overrides <literal>branch.&lt;name&gt;.remote</literal> for
-        pushing.  It also overrides <literal>remote.pushdefault</literal> for pushing
+        pushing.  It also overrides <literal>remote.pushDefault</literal> for pushing
         from branch &lt;name&gt;.  When you pull from one place (e.g. your
         upstream) and push to another place (e.g. your own publishing
-        repository), you would want to set <literal>remote.pushdefault</literal> to
+        repository), you would want to set <literal>remote.pushDefault</literal> to
         specify the remote to push to for all branches, and use this
         option to override it for a specific branch.
 </simpara>
@@ -1955,7 +2035,7 @@ branch.&lt;name&gt;.merge
 </varlistentry>
 <varlistentry>
 <term>
-branch.&lt;name&gt;.mergeoptions
+branch.&lt;name&gt;.mergeOptions
 </term>
 <listitem>
 <simpara>
@@ -2070,18 +2150,6 @@ color.branch.&lt;slot&gt;
         <literal>upstream</literal> (upstream tracking branch), <literal>plain</literal> (other
         refs).
 </simpara>
-<simpara>The value for these configuration variables is a list of colors (at most
-two) and attributes (at most one), separated by spaces.  The colors
-accepted are <literal>normal</literal>, <literal>black</literal>, <literal>red</literal>, <literal>green</literal>, <literal>yellow</literal>, <literal>blue</literal>,
-<literal>magenta</literal>, <literal>cyan</literal> and <literal>white</literal>; the attributes are <literal>bold</literal>, <literal>dim</literal>, <literal>ul</literal>,
-<literal>blink</literal> and <literal>reverse</literal>.  The first color given is the foreground; the
-second is the background.  The position of the attribute, if any,
-doesn&#8217;t matter. Attributes may be turned off specifically by prefixing
-them with <literal>no</literal> (e.g., <literal>noreverse</literal>, <literal>noul</literal>, etc).</simpara>
-<simpara>Colors (foreground and background) may also be given as numbers between
-0 and 255; these use ANSI 256-color mode (but note that not all
-terminals may support this).  If your terminal supports it, you may also
-specify 24-bit RGB values as hex, like <literal>#ff0ab3</literal>.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -2121,8 +2189,7 @@ color.diff.&lt;slot&gt;
         of <literal>plain</literal> (context text), <literal>meta</literal> (metainformation), <literal>frag</literal>
         (hunk header), <emphasis>func</emphasis> (function in hunk header), <literal>old</literal> (removed lines),
         <literal>new</literal> (added lines), <literal>commit</literal> (commit headers), or <literal>whitespace</literal>
-        (highlighting whitespace errors). The values of these variables may be
-        specified as in color.branch.&lt;slot&gt;.
+        (highlighting whitespace errors).
 </simpara>
 </listitem>
 </varlistentry>
@@ -2252,7 +2319,6 @@ color.grep.&lt;slot&gt;
 </listitem>
 </varlistentry>
 </variablelist>
-<simpara>The values of these variables may be specified as in color.branch.&lt;slot&gt;.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -2278,8 +2344,7 @@ color.interactive.&lt;slot&gt;
         Use customized color for <emphasis>git add --interactive</emphasis> and <emphasis>git clean
         --interactive</emphasis> output. <literal>&lt;slot&gt;</literal> may be <literal>prompt</literal>, <literal>header</literal>, <literal>help</literal>
         or <literal>error</literal>, for four distinct types of normal output from
-        interactive commands.  The values of these variables may be
-        specified as in color.branch.&lt;slot&gt;.
+        interactive commands.
 </simpara>
 </listitem>
 </varlistentry>
@@ -2296,7 +2361,7 @@ color.pager
 </varlistentry>
 <varlistentry>
 <term>
-color.showbranch
+color.showBranch
 </term>
 <listitem>
 <simpara>
@@ -2335,10 +2400,10 @@ color.status.&lt;slot&gt;
         <literal>added</literal> or <literal>updated</literal> (files which are added but not committed),
         <literal>changed</literal> (files which are changed but not added in the index),
         <literal>untracked</literal> (files which are not tracked by Git),
-        <literal>branch</literal> (the current branch), or
+        <literal>branch</literal> (the current branch),
         <literal>nobranch</literal> (the color the <emphasis>no branch</emphasis> warning is shown in, defaulting
-        to red). The values of these variables may be specified as in
-        color.branch.&lt;slot&gt;.
+        to red), or
+        <literal>unmerged</literal> (files which have unmerged changes).
 </simpara>
 </listitem>
 </varlistentry>
@@ -2530,7 +2595,7 @@ commit.cleanup
 </varlistentry>
 <varlistentry>
 <term>
-commit.gpgsign
+commit.gpgSign
 </term>
 <listitem>
 <simpara>
@@ -2627,7 +2692,7 @@ credential.&lt;url&gt;.*
 </varlistentry>
 <varlistentry>
 <term>
-diff.autorefreshindex
+diff.autoRefreshIndex
 </term>
 <listitem>
 <simpara>
@@ -2786,7 +2851,7 @@ diff.ignoreSubmodules
         commands such as <emphasis>git diff-files</emphasis>. <emphasis>git checkout</emphasis> also honors
         this setting when reporting uncommitted changes. Setting it to
         <emphasis>all</emphasis> disables the submodule summary normally shown by <emphasis>git commit</emphasis>
-        and <emphasis>git status</emphasis> when <emphasis>status.submodulesummary</emphasis> is set unless it is
+        and <emphasis>git status</emphasis> when <emphasis>status.submoduleSummary</emphasis> is set unless it is
         overridden by using the --ignore-submodules command-line option.
         The <emphasis>git submodule</emphasis> commands are not affected by this setting.
 </simpara>
@@ -2794,7 +2859,7 @@ diff.ignoreSubmodules
 </varlistentry>
 <varlistentry>
 <term>
-diff.mnemonicprefix
+diff.mnemonicPrefix
 </term>
 <listitem>
 <simpara>
@@ -2869,7 +2934,7 @@ diff.noprefix
 </varlistentry>
 <varlistentry>
 <term>
-diff.orderfile
+diff.orderFile
 </term>
 <listitem>
 <simpara>
@@ -3001,7 +3066,7 @@ diff.&lt;driver&gt;.textconv
 </varlistentry>
 <varlistentry>
 <term>
-diff.&lt;driver&gt;.wordregex
+diff.&lt;driver&gt;.wordRegex
 </term>
 <listitem>
 <simpara>
@@ -3255,7 +3320,7 @@ format.cc
 </varlistentry>
 <varlistentry>
 <term>
-format.subjectprefix
+format.subjectPrefix
 </term>
 <listitem>
 <simpara>
@@ -3279,7 +3344,7 @@ format.signature
 </varlistentry>
 <varlistentry>
 <term>
-format.signaturefile
+format.signatureFile
 </term>
 <listitem>
 <simpara>
@@ -3337,7 +3402,7 @@ format.thread
 </varlistentry>
 <varlistentry>
 <term>
-format.signoff
+format.signOff
 </term>
 <listitem>
 <simpara>
@@ -3429,7 +3494,7 @@ gc.auto
 </varlistentry>
 <varlistentry>
 <term>
-gc.autopacklimit
+gc.autoPackLimit
 </term>
 <listitem>
 <simpara>
@@ -3442,7 +3507,7 @@ gc.autopacklimit
 </varlistentry>
 <varlistentry>
 <term>
-gc.autodetach
+gc.autoDetach
 </term>
 <listitem>
 <simpara>
@@ -3453,7 +3518,7 @@ gc.autodetach
 </varlistentry>
 <varlistentry>
 <term>
-gc.packrefs
+gc.packRefs
 </term>
 <listitem>
 <simpara>
@@ -3468,7 +3533,7 @@ gc.packrefs
 </varlistentry>
 <varlistentry>
 <term>
-gc.pruneexpire
+gc.pruneExpire
 </term>
 <listitem>
 <simpara>
@@ -3481,10 +3546,10 @@ gc.pruneexpire
 </varlistentry>
 <varlistentry>
 <term>
-gc.reflogexpire
+gc.reflogExpire
 </term>
 <term>
-gc.&lt;pattern&gt;.reflogexpire
+gc.&lt;pattern&gt;.reflogExpire
 </term>
 <listitem>
 <simpara>
@@ -3497,10 +3562,10 @@ gc.&lt;pattern&gt;.reflogexpire
 </varlistentry>
 <varlistentry>
 <term>
-gc.reflogexpireunreachable
+gc.reflogExpireUnreachable
 </term>
 <term>
-gc.&lt;ref&gt;.reflogexpireunreachable
+gc.&lt;ref&gt;.reflogExpireUnreachable
 </term>
 <listitem>
 <simpara>
@@ -3514,7 +3579,7 @@ gc.&lt;ref&gt;.reflogexpireunreachable
 </varlistentry>
 <varlistentry>
 <term>
-gc.rerereresolved
+gc.rerereResolved
 </term>
 <listitem>
 <simpara>
@@ -3528,7 +3593,7 @@ gc.rerereresolved
 </varlistentry>
 <varlistentry>
 <term>
-gc.rerereunresolved
+gc.rerereUnresolved
 </term>
 <listitem>
 <simpara>
@@ -3542,7 +3607,7 @@ gc.rerereunresolved
 </varlistentry>
 <varlistentry>
 <term>
-gitcvs.commitmsgannotation
+gitcvs.commitMsgAnnotation
 </term>
 <listitem>
 <simpara>
@@ -3566,7 +3631,7 @@ gitcvs.enabled
 </varlistentry>
 <varlistentry>
 <term>
-gitcvs.logfile
+gitcvs.logFile
 </term>
 <listitem>
 <simpara>
@@ -3590,7 +3655,7 @@ gitcvs.usecrlfattr
         treat it as text. If they suppress text conversion, the file
         will be set with <emphasis>-kb</emphasis> mode, which suppresses any newline munging
         the client might otherwise do. If the attributes do not allow
-        the file type to be determined, then <emphasis>gitcvs.allbinary</emphasis> is
+        the file type to be determined, then <emphasis>gitcvs.allBinary</emphasis> is
         used. See <citerefentry>
 <refentrytitle>gitattributes</refentrytitle><manvolnum>5</manvolnum>
 </citerefentry>.
@@ -3599,7 +3664,7 @@ gitcvs.usecrlfattr
 </varlistentry>
 <varlistentry>
 <term>
-gitcvs.allbinary
+gitcvs.allBinary
 </term>
 <listitem>
 <simpara>
@@ -3616,7 +3681,7 @@ gitcvs.allbinary
 </varlistentry>
 <varlistentry>
 <term>
-gitcvs.dbname
+gitcvs.dbName
 </term>
 <listitem>
 <simpara>
@@ -3633,7 +3698,7 @@ gitcvs.dbname
 </varlistentry>
 <varlistentry>
 <term>
-gitcvs.dbdriver
+gitcvs.dbDriver
 </term>
 <listitem>
 <simpara>
@@ -3650,13 +3715,13 @@ gitcvs.dbdriver
 </varlistentry>
 <varlistentry>
 <term>
-gitcvs.dbuser, gitcvs.dbpass
+gitcvs.dbUser, gitcvs.dbPass
 </term>
 <listitem>
 <simpara>
-        Database user and password. Only useful if setting <emphasis>gitcvs.dbdriver</emphasis>,
+        Database user and password. Only useful if setting <emphasis>gitcvs.dbDriver</emphasis>,
         since SQLite has no concept of database users and/or passwords.
-        <emphasis>gitcvs.dbuser</emphasis> supports variable substitution (see
+        <emphasis>gitcvs.dbUser</emphasis> supports variable substitution (see
         <citerefentry>
 <refentrytitle>git-cvsserver</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry> for details).
@@ -3681,7 +3746,7 @@ gitcvs.dbTableNamePrefix
 </varlistentry>
 </variablelist>
 <simpara>All gitcvs variables except for <emphasis>gitcvs.usecrlfattr</emphasis> and
-<emphasis>gitcvs.allbinary</emphasis> can also be specified as
+<emphasis>gitcvs.allBinary</emphasis> can also be specified as
 <emphasis>gitcvs.&lt;access_method&gt;.&lt;varname&gt;</emphasis> (where <emphasis>access_method</emphasis>
 is one of "ext" and "pserver") to make them apply only for the given
 access method.</simpara>
@@ -3730,7 +3795,7 @@ gitweb.pickaxe
 gitweb.remote_heads
 </term>
 <term>
-gitweb.showsizes
+gitweb.showSizes
 </term>
 <term>
 gitweb.snapshot
@@ -3798,7 +3863,7 @@ gpg.program
 </varlistentry>
 <varlistentry>
 <term>
-gui.commitmsgwidth
+gui.commitMsgWidth
 </term>
 <listitem>
 <simpara>
@@ -3811,7 +3876,7 @@ gui.commitmsgwidth
 </varlistentry>
 <varlistentry>
 <term>
-gui.diffcontext
+gui.diffContext
 </term>
 <listitem>
 <simpara>
@@ -3824,7 +3889,7 @@ gui.diffcontext
 </varlistentry>
 <varlistentry>
 <term>
-gui.displayuntracked
+gui.displayUntracked
 </term>
 <listitem>
 <simpara>
@@ -3858,7 +3923,7 @@ gui.encoding
 </varlistentry>
 <varlistentry>
 <term>
-gui.matchtrackingbranch
+gui.matchTrackingBranch
 </term>
 <listitem>
 <simpara>
@@ -3872,7 +3937,7 @@ gui.matchtrackingbranch
 </varlistentry>
 <varlistentry>
 <term>
-gui.newbranchtemplate
+gui.newBranchTemplate
 </term>
 <listitem>
 <simpara>
@@ -3885,7 +3950,7 @@ gui.newbranchtemplate
 </varlistentry>
 <varlistentry>
 <term>
-gui.pruneduringfetch
+gui.pruneDuringFetch
 </term>
 <listitem>
 <simpara>
@@ -3911,7 +3976,7 @@ gui.trustmtime
 </varlistentry>
 <varlistentry>
 <term>
-gui.spellingdictionary
+gui.spellingDictionary
 </term>
 <listitem>
 <simpara>
@@ -3925,7 +3990,7 @@ gui.spellingdictionary
 </varlistentry>
 <varlistentry>
 <term>
-gui.fastcopyblame
+gui.fastCopyBlame
 </term>
 <listitem>
 <simpara>
@@ -3937,7 +4002,7 @@ gui.fastcopyblame
 </varlistentry>
 <varlistentry>
 <term>
-gui.copyblamethreshold
+gui.copyBlameThreshold
 </term>
 <listitem>
 <simpara>
@@ -3984,7 +4049,7 @@ guitool.&lt;name&gt;.cmd
 </varlistentry>
 <varlistentry>
 <term>
-guitool.&lt;name&gt;.needsfile
+guitool.&lt;name&gt;.needsFile
 </term>
 <listitem>
 <simpara>
@@ -3995,7 +4060,7 @@ guitool.&lt;name&gt;.needsfile
 </varlistentry>
 <varlistentry>
 <term>
-guitool.&lt;name&gt;.noconsole
+guitool.&lt;name&gt;.noConsole
 </term>
 <listitem>
 <simpara>
@@ -4006,7 +4071,7 @@ guitool.&lt;name&gt;.noconsole
 </varlistentry>
 <varlistentry>
 <term>
-guitool.&lt;name&gt;.norescan
+guitool.&lt;name&gt;.noRescan
 </term>
 <listitem>
 <simpara>
@@ -4027,7 +4092,7 @@ guitool.&lt;name&gt;.confirm
 </varlistentry>
 <varlistentry>
 <term>
-guitool.&lt;name&gt;.argprompt
+guitool.&lt;name&gt;.argPrompt
 </term>
 <listitem>
 <simpara>
@@ -4042,23 +4107,23 @@ guitool.&lt;name&gt;.argprompt
 </varlistentry>
 <varlistentry>
 <term>
-guitool.&lt;name&gt;.revprompt
+guitool.&lt;name&gt;.revPrompt
 </term>
 <listitem>
 <simpara>
         Request a single valid revision from the user, and set the
         <emphasis>REVISION</emphasis> environment variable. In other aspects this option
-        is similar to <emphasis>argprompt</emphasis>, and can be used together with it.
+        is similar to <emphasis>argPrompt</emphasis>, and can be used together with it.
 </simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
 <term>
-guitool.&lt;name&gt;.revunmerged
+guitool.&lt;name&gt;.revUnmerged
 </term>
 <listitem>
 <simpara>
-        Show only unmerged branches in the <emphasis>revprompt</emphasis> subdialog.
+        Show only unmerged branches in the <emphasis>revPrompt</emphasis> subdialog.
         This is useful for tools similar to merge or rebase, but not
         for things like checkout or reset.
 </simpara>
@@ -4082,7 +4147,7 @@ guitool.&lt;name&gt;.prompt
 <listitem>
 <simpara>
         Specifies the general prompt string to display at the top of
-        the dialog, before subsections for <emphasis>argprompt</emphasis> and <emphasis>revprompt</emphasis>.
+        the dialog, before subsections for <emphasis>argPrompt</emphasis> and <emphasis>revPrompt</emphasis>.
         The default value includes the actual command.
 </simpara>
 </listitem>
@@ -4116,7 +4181,7 @@ help.format
 </varlistentry>
 <varlistentry>
 <term>
-help.autocorrect
+help.autoCorrect
 </term>
 <listitem>
 <simpara>
@@ -4132,7 +4197,7 @@ help.autocorrect
 </varlistentry>
 <varlistentry>
 <term>
-help.htmlpath
+help.htmlPath
 </term>
 <listitem>
 <simpara>
@@ -4158,7 +4223,7 @@ http.proxy
 </varlistentry>
 <varlistentry>
 <term>
-http.cookiefile
+http.cookieFile
 </term>
 <listitem>
 <simpara>
@@ -4168,19 +4233,19 @@ http.cookiefile
         the Netscape/Mozilla cookie file format (see <citerefentry>
 <refentrytitle>curl</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry>).
-        NOTE that the file specified with http.cookiefile is only used as
+        NOTE that the file specified with http.cookieFile is only used as
         input unless http.saveCookies is set.
 </simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
 <term>
-http.savecookies
+http.saveCookies
 </term>
 <listitem>
 <simpara>
         If set, store cookies received during requests to the file specified by
-        http.cookiefile. Has no effect if http.cookiefile is unset.
+        http.cookieFile. Has no effect if http.cookieFile is unset.
 </simpara>
 </listitem>
 </varlistentry>
@@ -4339,7 +4404,7 @@ http.noEPSV
 </varlistentry>
 <varlistentry>
 <term>
-http.useragent
+http.userAgent
 </term>
 <listitem>
 <simpara>
@@ -4471,7 +4536,7 @@ index.version
 </varlistentry>
 <varlistentry>
 <term>
-init.templatedir
+init.templateDir
 </term>
 <listitem>
 <simpara>
@@ -4523,7 +4588,7 @@ instaweb.local
 </varlistentry>
 <varlistentry>
 <term>
-instaweb.modulepath
+instaweb.modulePath
 </term>
 <listitem>
 <simpara>
@@ -4550,7 +4615,7 @@ instaweb.port
 </varlistentry>
 <varlistentry>
 <term>
-interactive.singlekey
+interactive.singleKey
 </term>
 <listitem>
 <simpara>
@@ -4624,7 +4689,7 @@ log.decorate
 </varlistentry>
 <varlistentry>
 <term>
-log.showroot
+log.showRoot
 </term>
 <listitem>
 <simpara>
@@ -4750,7 +4815,7 @@ man.&lt;tool&gt;.path
 </varlistentry>
 <varlistentry>
 <term>
-merge.conflictstyle
+merge.conflictStyle
 </term>
 <listitem>
 <simpara>
@@ -5278,7 +5343,7 @@ pack.useBitmaps
 </varlistentry>
 <varlistentry>
 <term>
-pack.writebitmaps (deprecated)
+pack.writeBitmaps (deprecated)
 </term>
 <listitem>
 <simpara>
@@ -5471,6 +5536,18 @@ new default).</simpara>
 </varlistentry>
 <varlistentry>
 <term>
+push.followTags
+</term>
+<listitem>
+<simpara>
+        If set to true enable <emphasis>--follow-tags</emphasis> option by default.  You
+        may override this configuration at time of push by specifying
+        <emphasis>--no-follow-tags</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 rebase.stat
 </term>
 <listitem>
@@ -5482,7 +5559,7 @@ rebase.stat
 </varlistentry>
 <varlistentry>
 <term>
-rebase.autosquash
+rebase.autoSquash
 </term>
 <listitem>
 <simpara>
@@ -5492,7 +5569,7 @@ rebase.autosquash
 </varlistentry>
 <varlistentry>
 <term>
-rebase.autostash
+rebase.autoStash
 </term>
 <listitem>
 <simpara>
@@ -5507,7 +5584,7 @@ rebase.autostash
 </varlistentry>
 <varlistentry>
 <term>
-receive.advertiseatomic
+receive.advertiseAtomic
 </term>
 <listitem>
 <simpara>
@@ -5531,7 +5608,7 @@ receive.autogc
 </varlistentry>
 <varlistentry>
 <term>
-receive.certnonceseed
+receive.certNonceSeed
 </term>
 <listitem>
 <simpara>
@@ -5544,7 +5621,7 @@ receive.certnonceseed
 </varlistentry>
 <varlistentry>
 <term>
-receive.certnonceslop
+receive.certNonceSlop
 </term>
 <listitem>
 <simpara>
@@ -5657,7 +5734,7 @@ receive.denyNonFastForwards
 </varlistentry>
 <varlistentry>
 <term>
-receive.hiderefs
+receive.hideRefs
 </term>
 <listitem>
 <simpara>
@@ -5673,7 +5750,7 @@ receive.hiderefs
 </varlistentry>
 <varlistentry>
 <term>
-receive.updateserverinfo
+receive.updateServerInfo
 </term>
 <listitem>
 <simpara>
@@ -5684,7 +5761,7 @@ receive.updateserverinfo
 </varlistentry>
 <varlistentry>
 <term>
-receive.shallowupdate
+receive.shallowUpdate
 </term>
 <listitem>
 <simpara>
@@ -5695,13 +5772,13 @@ receive.shallowupdate
 </varlistentry>
 <varlistentry>
 <term>
-remote.pushdefault
+remote.pushDefault
 </term>
 <listitem>
 <simpara>
         The remote to push to by default.  Overrides
         <literal>branch.&lt;name&gt;.remote</literal> for all branches, and is overridden by
-        <literal>branch.&lt;name&gt;.pushremote</literal> for specific branches.
+        <literal>branch.&lt;name&gt;.pushRemote</literal> for specific branches.
 </simpara>
 </listitem>
 </varlistentry>
@@ -5845,7 +5922,7 @@ remote.&lt;name&gt;.uploadpack
 </varlistentry>
 <varlistentry>
 <term>
-remote.&lt;name&gt;.tagopt
+remote.&lt;name&gt;.tagOpt
 </term>
 <listitem>
 <simpara>
@@ -5901,7 +5978,7 @@ remotes.&lt;group&gt;
 </varlistentry>
 <varlistentry>
 <term>
-repack.usedeltabaseoffset
+repack.useDeltaBaseOffset
 </term>
 <listitem>
 <simpara>
@@ -5949,7 +6026,7 @@ repack.writeBitmaps
 </varlistentry>
 <varlistentry>
 <term>
-rerere.autoupdate
+rerere.autoUpdate
 </term>
 <listitem>
 <simpara>
@@ -5991,7 +6068,7 @@ sendemail.identity
 </varlistentry>
 <varlistentry>
 <term>
-sendemail.smtpencryption
+sendemail.smtpEncryption
 </term>
 <listitem>
 <simpara>
@@ -6008,7 +6085,7 @@ sendemail.smtpssl (deprecated)
 </term>
 <listitem>
 <simpara>
-        Deprecated alias for <emphasis>sendemail.smtpencryption = ssl</emphasis>.
+        Deprecated alias for <emphasis>sendemail.smtpEncryption = ssl</emphasis>.
 </simpara>
 </listitem>
 </varlistentry>
@@ -6038,10 +6115,10 @@ sendemail.&lt;identity&gt;.*
 </varlistentry>
 <varlistentry>
 <term>
-sendemail.aliasesfile
+sendemail.aliasesFile
 </term>
 <term>
-sendemail.aliasfiletype
+sendemail.aliasFileType
 </term>
 <term>
 sendemail.annotate
@@ -6053,58 +6130,58 @@ sendemail.bcc
 sendemail.cc
 </term>
 <term>
-sendemail.cccmd
+sendemail.ccCmd
 </term>
 <term>
-sendemail.chainreplyto
+sendemail.chainReplyTo
 </term>
 <term>
 sendemail.confirm
 </term>
 <term>
-sendemail.envelopesender
+sendemail.envelopeSender
 </term>
 <term>
 sendemail.from
 </term>
 <term>
-sendemail.multiedit
+sendemail.multiEdit
 </term>
 <term>
 sendemail.signedoffbycc
 </term>
 <term>
-sendemail.smtppass
+sendemail.smtpPass
 </term>
 <term>
 sendemail.suppresscc
 </term>
 <term>
-sendemail.suppressfrom
+sendemail.suppressFrom
 </term>
 <term>
 sendemail.to
 </term>
 <term>
-sendemail.smtpdomain
+sendemail.smtpDomain
 </term>
 <term>
-sendemail.smtpserver
+sendemail.smtpServer
 </term>
 <term>
-sendemail.smtpserverport
+sendemail.smtpServerPort
 </term>
 <term>
-sendemail.smtpserveroption
+sendemail.smtpServerOption
 </term>
 <term>
-sendemail.smtpuser
+sendemail.smtpUser
 </term>
 <term>
 sendemail.thread
 </term>
 <term>
-sendemail.transferencoding
+sendemail.transferEncoding
 </term>
 <term>
 sendemail.validate
@@ -6250,7 +6327,7 @@ of <citerefentry>
 </varlistentry>
 <varlistentry>
 <term>
-status.submodulesummary
+status.submoduleSummary
 </term>
 <listitem>
 <simpara>
@@ -6410,12 +6487,12 @@ transfer.fsckObjects
 </varlistentry>
 <varlistentry>
 <term>
-transfer.hiderefs
+transfer.hideRefs
 </term>
 <listitem>
 <simpara>
-        This variable can be used to set both <literal>receive.hiderefs</literal>
-        and <literal>uploadpack.hiderefs</literal> at the same time to the same
+        This variable can be used to set both <literal>receive.hideRefs</literal>
+        and <literal>uploadpack.hideRefs</literal> at the same time to the same
         values.  See entries for these other variables.
 </simpara>
 </listitem>
@@ -6450,7 +6527,7 @@ uploadarchive.allowUnreachable
 </varlistentry>
 <varlistentry>
 <term>
-uploadpack.hiderefs
+uploadpack.hideRefs
 </term>
 <listitem>
 <simpara>
@@ -6470,16 +6547,16 @@ uploadpack.allowtipsha1inwant
 </term>
 <listitem>
 <simpara>
-        When <literal>uploadpack.hiderefs</literal> is in effect, allow <literal>upload-pack</literal>
+        When <literal>uploadpack.hideRefs</literal> is in effect, allow <literal>upload-pack</literal>
         to accept a fetch request that asks for an object at the tip
         of a hidden ref (by default, such a request is rejected).
-        see also <literal>uploadpack.hiderefs</literal>.
+        see also <literal>uploadpack.hideRefs</literal>.
 </simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
 <term>
-uploadpack.keepalive
+uploadpack.keepAlive
 </term>
 <listitem>
 <simpara>
@@ -6490,7 +6567,7 @@ uploadpack.keepalive
         the pack data begins. Some clients and networks may consider
         the server to be hung and give up. Setting this option instructs
         <literal>upload-pack</literal> to send an empty keepalive packet every
-        <literal>uploadpack.keepalive</literal> seconds. Setting this option to 0
+        <literal>uploadpack.keepAlive</literal> seconds. Setting this option to 0
         disables keepalive packets entirely. The default is 5 seconds.
 </simpara>
 </listitem>
@@ -6563,7 +6640,7 @@ user.name
 </varlistentry>
 <varlistentry>
 <term>
-user.signingkey
+user.signingKey
 </term>
 <listitem>
 <simpara>
@@ -6577,6 +6654,26 @@ user.signingkey
         This option is passed unchanged to gpg&#8217;s --local-user parameter,
         so you may specify a key using any method that gpg supports.
 </simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+versionsort.prereleaseSuffix
+</term>
+<listitem>
+<simpara>
+        When version sort is used in <citerefentry>
+<refentrytitle>git-tag</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>, prerelease
+        tags (e.g. "1.0-rc1") may appear after the main release
+        "1.0". By specifying the suffix "-rc" in this variable,
+        "1.0-rc1" will appear before "1.0".
+</simpara>
+<simpara>This variable can be specified multiple times, once per suffix. The
+order of suffixes in the config file determines the sorting order
+(e.g. if "-pre" appears before "-rc" in the config file then 1.0-preXX
+is sorted before 1.0-rcXX). The sorting order between different
+suffixes is undefined if they are in multiple config files.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>

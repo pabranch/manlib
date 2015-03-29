@@ -54,11 +54,12 @@ EC_POINT *EC_POINT_hex2point(const EC_GROUP *, const char *,
       by calling the function EC_POINT_new and providing the <emphasis role="bold">group</emphasis> object that the point relates to.
     </para>
     <para>
-      EC_POINT_free frees the memory associated with the EC_POINT.
+      EC_POINT_free frees the memory associated with the EC_POINT. if
+      <emphasis role="bold">point</emphasis> is NULL nothing is done.
     </para>
     <para>
       EC_POINT_clear_free destroys any sensitive data held within the
-      EC_POINT and then frees its memory.
+      EC_POINT and then frees its memory. if <emphasis role="bold">point</emphasis> is NULL nothing is done.
     </para>
     <para>
       EC_POINT_copy copies the point <emphasis role="bold">src</emphasis>

@@ -55,7 +55,8 @@ int EC_KEY_set_public_key_affine_coordinates(EC_KEY *key, BIGNUM *x, BIGNUM *y);
     <para>
       Calling EC_KEY_free decrements the reference count for the EC_KEY
       object, and if it has dropped to zero then frees the memory
-      associated with it.
+      associated with it. If <emphasis role="bold">key</emphasis> is NULL
+      nothing is done.
     </para>
     <para>
       EC_KEY_copy copies the contents of the EC_KEY in <emphasis role="bold">src</emphasis> into <emphasis role="bold">dest</emphasis>.

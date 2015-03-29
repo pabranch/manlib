@@ -461,7 +461,8 @@ parents) and <literal>--max-parents=-1</literal> (negative numbers denote no upp
         because merges into a topic branch tend to be only about
         adjusting to updated upstream from time to time, and
         this option allows you to ignore the individual commits
-        brought in to your history by such a merge.
+        brought in to your history by such a merge. Cannot be
+        combined with --bisect.
 </simpara>
 </listitem>
 </varlistentry>
@@ -590,7 +591,7 @@ explicitly.</simpara>
         Pretend as if the bad bisection ref <literal>refs/bisect/bad</literal>
         was listed and as if it was followed by <literal>--not</literal> and the good
         bisection refs <literal>refs/bisect/good-*</literal> on the command
-        line.
+        line. Cannot be combined with --first-parent.
 </simpara>
 </listitem>
 </varlistentry>
@@ -1193,6 +1194,7 @@ together.</simpara>
         given on the command line. Otherwise (if <literal>sorted</literal> or no argument
         was given), the commits are shown in reverse chronological order
         by commit time.
+        Cannot be combined with <literal>--graph</literal>.
 </simpara>
 </listitem>
 </varlistentry>
@@ -1470,6 +1472,7 @@ format, often found in email messages.</simpara>
         on the left hand side of the output.  This may cause extra lines
         to be printed in between commits, in order for the graph history
         to be drawn properly.
+        Cannot be combined with <literal>--no-walk</literal>.
 </simpara>
 <simpara>This enables parent rewriting, see <emphasis>History Simplification</emphasis> below.</simpara>
 <simpara>This implies the <literal>--topo-order</literal> option by default, but the
@@ -2850,10 +2853,10 @@ information.</simpara>
 <simpara>
         Output the patch in the order specified in the
         &lt;orderfile&gt;, which has one shell glob pattern per line.
-        This overrides the <literal>diff.orderfile</literal> configuration variable
+        This overrides the <literal>diff.orderFile</literal> configuration variable
         (see <citerefentry>
 <refentrytitle>git-config</refentrytitle><manvolnum>1</manvolnum>
-</citerefentry>).  To cancel <literal>diff.orderfile</literal>,
+</citerefentry>).  To cancel <literal>diff.orderFile</literal>,
         use <literal>-O/dev/null</literal>.
 </simpara>
 </listitem>
@@ -3513,7 +3516,7 @@ log.date
 </varlistentry>
 <varlistentry>
 <term>
-log.showroot
+log.showRoot
 </term>
 <listitem>
 <simpara>

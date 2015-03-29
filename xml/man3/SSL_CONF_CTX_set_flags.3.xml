@@ -58,6 +58,18 @@ unsigned int SSL_CONF_CTX_clear_flags(SSL_CONF_CTX *cctx, unsigned int flags);</
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_set_flags.pod:SSL_CONF_FLAG_REQUIRE_PRIVATE"/>SSL_CONF_FLAG_REQUIRE_PRIVATE</term>
+          <listitem>
+            <para>
+	      If this option is set then if a private key is not specified
+	      for a certificate it will attempt to load a private key from
+	      the certificate file when SSL_CONF_CTX_finish() is called. If
+	      a key cannot be loaded from the certificate file an error
+	      occurs.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_set_flags.pod:SSL_CONF_FLAG_SHOW_ERRORS"/>SSL_CONF_FLAG_SHOW_ERRORS</term>
           <listitem>
             <para>

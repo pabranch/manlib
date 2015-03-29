@@ -64,6 +64,33 @@ Strict secure computing mode is useful for number-crunching
 applications that may need to execute untrusted byte code, perhaps
 obtained by reading from a pipe or socket.
 
+Note that although the calling thread can no longer call
+.BR sigprocmask (2),
+it can use
+.BR sigreturn (2)
+to block all signals apart from
+.BR SIGKILL
+and
+.BR SIGSTOP .
+This means that
+.BR alarm (2)
+(for example) is not sufficient for restricting the process's execution time.
+Instead, to reliably terminate the process,
+.BR SIGKILL
+must be used.
+This can be done by using
+.BR timer_create (2)
+with
+.BR SIGEV_SIGNAL
+and
+.IR sigev_signo
+set to
+.BR SIGKILL ,
+or by using
+.BR setrlimit (2)
+to set the hard limit for
+.BR RLIMIT_CPU .
+
 This operation is available only if the kernel is configured with
 .BR CONFIG_SECCOMP
 enabled.
@@ -437,6 +464,11 @@ The
 .BR seccomp ()
 system call is a nonstandard Linux extension.
 .SH NOTES
+Rather than hand-coding seccomp filters as shown in the example below,
+you may prefer to employ the
+.I libseccomp
+library, which provides a front-end for generating seccomp filters.
+
 The
 .IR Seccomp
 field of the
@@ -492,7 +524,7 @@ being set to the specified error number.
 The remaining command-line arguments specify
 the pathname and additional arguments of a program
 that the example program should attempt to execute using
-.BR execve (3)
+.BR execv (3)
 (a library function that employs the
 .BR execve (2)
 system call).

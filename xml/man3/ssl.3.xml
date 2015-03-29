@@ -1019,9 +1019,12 @@
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term><anchor xml:id="sources.openssl.doc.ssl.ssl.pod:void_SSL_copy_session_idSSL_t_const_SSL_f"/>void <emphasis role="bold">SSL_copy_session_id</emphasis>(SSL *t, const SSL *f);</term>
+            <term><anchor xml:id="sources.openssl.doc.ssl.ssl.pod:int_SSL_copy_session_idSSL_t_const_SSL_f"/>int <emphasis role="bold">SSL_copy_session_id</emphasis>(SSL *t, const SSL *f);</term>
             <listitem>
-              <para/>
+              <para>
+		Sets the session details for <emphasis role="bold">t</emphasis> to be the same as in <emphasis role="bold">f</emphasis>. Returns 1 on success or 0 on
+		failure.
+              </para>
             </listitem>
           </varlistentry>
           <varlistentry>
@@ -1708,6 +1711,10 @@
     </para>
     <para>
       <emphasis role="bold">SSLv2_client_method</emphasis>, <emphasis role="bold">SSLv2_server_method</emphasis> and <emphasis role="bold">SSLv2_method</emphasis> where removed in OpenSSL 1.1.0.
+    </para>
+    <para>
+      The return type of <emphasis role="bold">SSL_copy_session_id</emphasis> was changed from void to
+      int in OpenSSL 1.1.0.
     </para>
   </refsection>
 </refentry>

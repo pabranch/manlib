@@ -153,7 +153,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
 	      Attempts to use the file <emphasis role="bold">value</emphasis> as the private key for the
 	      appropriate context. This option is only supported if
 	      certificate operations are permitted. Note: if no <emphasis role="bold">-key</emphasis> option is set then a private key
-	      is not loaded: it does not currently use the <emphasis role="bold">-cert</emphasis> file.
+	      is not loaded unless the flag <emphasis role="bold">SSL_CONF_FLAG_REQUIRE_PRIVATE</emphasis> is set.
             </para>
           </listitem>
         </varlistentry>
@@ -310,8 +310,8 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
             <para>
 	      Attempts to use the file <emphasis role="bold">value</emphasis> as the private key for the
 	      appropriate context. This option is only supported if
-	      certificate operations are permitted. Note: if no <emphasis role="bold">-key</emphasis> option is set then a private key
-	      is not loaded: it does not currently use the <emphasis role="bold">Certificate</emphasis> file.
+	      certificate operations are permitted. Note: if no <emphasis role="bold">PrivateKey</emphasis> option is set then a
+	      private key is not loaded unless the <emphasis role="bold">SSL_CONF_FLAG_REQUIRE_PRIVATE</emphasis> is set.
             </para>
           </listitem>
         </varlistentry>

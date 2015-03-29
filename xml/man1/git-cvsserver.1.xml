@@ -193,7 +193,7 @@ For each repo that you want accessible from CVS you need to edit config in
 &#10;.ft C&#10;   [gitcvs]
         enabled=1
         # optional for debugging
-        logfile=/path/to/logfile&#10;.ft&#10;
+        logFile=/path/to/logfile&#10;.ft&#10;
 </literallayout>
 <simpara>Note: you need to ensure each user that is going to invoke <emphasis>git-cvsserver</emphasis> has
 write access to the log file and to the database (see
@@ -292,7 +292,7 @@ about <literal>DBI-&gt;connect()</literal>.</simpara>
 <variablelist>
 <varlistentry>
 <term>
-gitcvs.dbname
+gitcvs.dbName
 </term>
 <listitem>
 <simpara>
@@ -306,7 +306,7 @@ gitcvs.dbname
 </varlistentry>
 <varlistentry>
 <term>
-gitcvs.dbdriver
+gitcvs.dbDriver
 </term>
 <listitem>
 <simpara>
@@ -326,7 +326,7 @@ gitcvs.dbuser
 </term>
 <listitem>
 <simpara>
-        Database user. Only useful if setting <literal>dbdriver</literal>, since
+        Database user. Only useful if setting <literal>dbDriver</literal>, since
         SQLite has no concept of database users. Supports variable
         substitution (see below).
 </simpara>
@@ -334,11 +334,11 @@ gitcvs.dbuser
 </varlistentry>
 <varlistentry>
 <term>
-gitcvs.dbpass
+gitcvs.dbPass
 </term>
 <listitem>
 <simpara>
-        Database password.  Only useful if setting <literal>dbdriver</literal>, since
+        Database password.  Only useful if setting <literal>dbDriver</literal>, since
         SQLite has no concept of database passwords.
 </simpara>
 </listitem>
@@ -359,7 +359,7 @@ gitcvs.dbTableNamePrefix
 <simpara>All variables can also be set per access method, see <link linkend="configaccessmethod">above</link>.</simpara>
 <refsect3 id="_variable_substitution">
 <title>Variable substitution</title>
-<simpara>In <literal>dbdriver</literal> and <literal>dbuser</literal> you can use the following variables:</simpara>
+<simpara>In <literal>dbDriver</literal> and <literal>dbUser</literal> you can use the following variables:</simpara>
 <variablelist>
 <varlistentry>
 <term>
@@ -547,15 +547,15 @@ config variable.  See <citerefentry>
 about end-of-line conversion.</simpara>
 <simpara>Alternatively, if <literal>gitcvs.usecrlfattr</literal> config is not enabled
 or the attributes do not allow automatic detection for a filename, then
-the server uses the <literal>gitcvs.allbinary</literal> config for the default setting.
-If <literal>gitcvs.allbinary</literal> is set, then file not otherwise
+the server uses the <literal>gitcvs.allBinary</literal> config for the default setting.
+If <literal>gitcvs.allBinary</literal> is set, then file not otherwise
 specified will default to <emphasis>-kb</emphasis> mode. Otherwise the <emphasis>-k</emphasis> mode
-is left blank. But if <literal>gitcvs.allbinary</literal> is set to "guess", then
+is left blank. But if <literal>gitcvs.allBinary</literal> is set to "guess", then
 the correct <emphasis>-k</emphasis> mode will be guessed based on the contents of
 the file.</simpara>
 <simpara>For best consistency with <emphasis>cvs</emphasis>, it is probably best to override the
 defaults by setting <literal>gitcvs.usecrlfattr</literal> to true,
-and <literal>gitcvs.allbinary</literal> to "guess".</simpara>
+and <literal>gitcvs.allBinary</literal> to "guess".</simpara>
 </refsect2>
 </refsect1>
 <refsect1 id="_dependencies">

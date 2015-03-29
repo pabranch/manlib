@@ -69,10 +69,10 @@ exceeds the value of the <literal>gc.auto</literal> configuration variable, then
 all loose objects are combined into a single pack using
 <literal>git repack -d -l</literal>.  Setting the value of <literal>gc.auto</literal> to 0
 disables automatic packing of loose objects.</simpara>
-<simpara>If the number of packs exceeds the value of <literal>gc.autopacklimit</literal>,
+<simpara>If the number of packs exceeds the value of <literal>gc.autoPackLimit</literal>,
 then existing packs (except those marked with a <literal>.keep</literal> file)
 are consolidated into a single pack by using the <literal>-A</literal> option of
-<emphasis>git repack</emphasis>. Setting <literal>gc.autopacklimit</literal> to 0 disables
+<emphasis>git repack</emphasis>. Setting <literal>gc.autoPackLimit</literal> to 0 disables
 automatic consolidation of packs.</simpara>
 </listitem>
 </varlistentry>
@@ -143,15 +143,15 @@ branches:</simpara>
 <literallayout class="monospaced">
 &#10;.ft C&#10;[gc "refs/remotes/*"]
         reflogExpire = never
-        reflogexpireUnreachable = 3 days&#10;.ft&#10;
+        reflogExpireUnreachable = 3 days&#10;.ft&#10;
 </literallayout>
-<simpara>The optional configuration variable <emphasis>gc.rerereresolved</emphasis> indicates
+<simpara>The optional configuration variable <emphasis>gc.rerereResolved</emphasis> indicates
 how long records of conflicted merge you resolved earlier are
 kept.  This defaults to 60 days.</simpara>
-<simpara>The optional configuration variable <emphasis>gc.rerereunresolved</emphasis> indicates
+<simpara>The optional configuration variable <emphasis>gc.rerereUnresolved</emphasis> indicates
 how long records of conflicted merge you have not resolved are
 kept.  This defaults to 15 days.</simpara>
-<simpara>The optional configuration variable <emphasis>gc.packrefs</emphasis> determines if
+<simpara>The optional configuration variable <emphasis>gc.packRefs</emphasis> determines if
 <emphasis>git gc</emphasis> runs <emphasis>git pack-refs</emphasis>. This can be set to "notbare" to enable
 it within all non-bare repos or it can be set to a boolean value.
 This defaults to true.</simpara>
