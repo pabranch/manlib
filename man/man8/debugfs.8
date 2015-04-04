@@ -2,7 +2,7 @@
 .\" Copyright 1993, 1994, 1995 by Theodore Ts'o.  All Rights Reserved.
 .\" This file may be copied under the terms of the GNU Public License.
 .\"
-.TH DEBUGFS 8 "December 2014" "E2fsprogs version 1.43-WIP"
+.TH DEBUGFS 8 "March 2015" "E2fsprogs version 1.43-WIP"
 .SH NAME
 debugfs \- ext2/ext3/ext4 file system debugger
 .SH SYNOPSIS
@@ -479,7 +479,7 @@ option causes logdump to display old (checkpointed) journal entries.
 This can be used to try to track down journal problems even after the
 journal has been replayed.
 .TP
-.BI ls " [-l] [-c] [-d] [-p] filespec"
+.BI ls " [-l] [-c] [-d] [-p] [-r] filespec"
 Print a listing of the files in the directory
 .IR filespec .
 The
@@ -496,6 +496,9 @@ The
 flag will list the files in a format which is more easily parsable by
 scripts, as well as making it more clear when there are spaces or other
 non-printing characters at the end of filenames.
+The
+.I \-r
+flag will force the printing of the filename, even if it is encrypted.
 .TP
 .BI list_deleted_inodes " [limit]"
 List deleted inodes, optionally limited to those deleted within

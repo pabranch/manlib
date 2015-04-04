@@ -4,7 +4,7 @@
     <refentrytitle>ASN1_TYPE_get.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>ASN1_TYPE_get, ASN1_TYPE_set, ASN1_TYPE_set1, ASN1_TYPE_cmp</refname>
+    <refname>ASN1_TYPE_get, ASN1_TYPE_set, ASN1_TYPE_set1, ASN1_TYPE_cmp, ASN1_TYPE_unpack_sequence, ASN1_TYPE_pack_sequence</refname>
 <refpurpose>ASN1_TYPE utility
 functions</refpurpose>
   </refnamediv>
@@ -14,6 +14,9 @@ functions</refpurpose>
 void ASN1_TYPE_set(ASN1_TYPE *a, int type, void *value);
 int ASN1_TYPE_set1(ASN1_TYPE *a, int type, const void *value);
 int ASN1_TYPE_cmp(const ASN1_TYPE *a, const ASN1_TYPE *b);</synopsis>
+<synopsis format="linespecific">void *ASN1_TYPE_unpack_sequence(const ASN1_ITEM *it, const ASN1_TYPE *t);
+ASN1_TYPE *ASN1_TYPE_pack_sequence(const ASN1_ITEM *it, void *s,
+                                   ASN1_TYPE **t);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="sources.openssl.doc.crypto.ASN1_TYPE_get.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
@@ -38,6 +41,23 @@ int ASN1_TYPE_cmp(const ASN1_TYPE *a, const ASN1_TYPE *b);</synopsis>
     <para>
       ASN1_TYPE_cmp() compares ASN.1 types <emphasis role="bold">a</emphasis> and <emphasis role="bold">b</emphasis> and
       returns 0 if they are identical and non-zero otherwise.
+    </para>
+    <para>
+      ASN1_TYPE_unpack_sequence() attempts to parse the SEQUENCE present in
+      <emphasis role="bold">t</emphasis> using the ASN.1 structure
+      <emphasis role="bold">it</emphasis>. If successful it returns a
+      pointer to the ASN.1 structure corresponding to <emphasis role="bold">it</emphasis> which must be freed by the caller. If it
+      fails it return NULL.
+    </para>
+    <para>
+      ASN1_TYPE_pack_sequence() attempts to encode the ASN.1 structure
+      <emphasis role="bold">s</emphasis> corresponding to <emphasis role="bold">it</emphasis> into an ASN1_TYPE. If successful the
+      encoded ASN1_TYPE is returned. If <emphasis role="bold">t</emphasis>
+      and <emphasis role="bold">*t</emphasis> are not NULL the encoded type
+      is written to <emphasis role="bold">t</emphasis> overwriting any
+      existing data. If <emphasis role="bold">t</emphasis> is not NULL but
+      <emphasis role="bold">*t</emphasis> is NULL the returned ASN1_TYPE is
+      written to <emphasis role="bold">*t</emphasis>.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.ASN1_TYPE_get.pod:NOTES"><title>NOTES</title>
@@ -84,6 +104,14 @@ int ASN1_TYPE_cmp(const ASN1_TYPE *a, const ASN1_TYPE *b);</synopsis>
     <para>
       ASN1_TYPE_cmp() returns 0 if the types are identical and non-zero
       otherwise.
+    </para>
+    <para>
+      ASN1_TYPE_unpack_sequence() returns a pointer to an ASN.1 structure
+      or NULL on failure.
+    </para>
+    <para>
+      ASN1_TYPE_pack_sequence() return an ASN1_TYPE structure if it
+      succeeds or NULL on failure.
     </para>
   </refsection>
 </refentry>

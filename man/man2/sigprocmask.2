@@ -26,7 +26,7 @@
 .\"
 .\" 2005-09-15, mtk, Created new page by splitting off from sigaction.2
 .\"
-.TH SIGPROCMASK 2 2013-04-19 "Linux" "Linux Programmer's Manual"
+.TH SIGPROCMASK 2 2015-03-29 "Linux" "Linux Programmer's Manual"
 .SH NAME
 sigprocmask, rt_sigprocmask \- examine and change blocked signals
 .SH SYNOPSIS
@@ -143,6 +143,14 @@ See
 for details on manipulating signal sets.
 .\"
 .SS C library/kernel ABI differences
+The glibc wrapper function for
+.BR sigprocmask ()
+silently ignores attempts to block the two real-time signals that
+are used internally by the NPTL threading implementation.
+See
+.BR nptl (7)
+for details.
+
 The original Linux system call was named
 .BR sigprocmask ().
 However, with the addition of real-time signals in Linux 2.2,
