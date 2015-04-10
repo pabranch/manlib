@@ -2010,7 +2010,7 @@ is set at kernel compilation time.
 .\" commit 5ed67f05f66c41e39880a6d61358438a25f9fee5
 .\" commit 48f6a7a511ef8823fdff39afee0320092d43a8a0
 A list of the POSIX timers for this process.
-Each timer is listed with a line that started with the string "ID:".
+Each timer is listed with a line that starts with the string "ID:".
 For example:
 
 .in +4n
@@ -2043,7 +2043,7 @@ structure (see
 .I signal
 This is the signal number that this timer uses to deliver notifications
 followed by a slash, and then the
-.I sigev_value.sival_ptr
+.I sigev_value
 value supplied to the signal handler.
 Valid only for timers that notify via a signal.
 .TP
@@ -2055,7 +2055,8 @@ Immediately following the slash is either the string "tid" for timers
 with
 .B SIGEV_THREAD_ID
 notification, or "pid" for timers that notify by other mechanisms.
-Following the "." is the PID of the process that will be delivered
+Following the "." is the PID of the process
+(or the kernel thread ID of the thread)  that will be delivered
 a signal if the timer delivers notifications via a signal.
 .TP
 .I ClockID
@@ -2071,6 +2072,9 @@ in this field.
 timers display with a value of -2
 in this field.
 .RE
+.IP
+This file is available only when the kernel was configured with
+.BR CONFIG_CHECKPOINT_RESTORE .
 .TP
 .I /proc/bus/pccard/drivers
 .TP
@@ -2787,14 +2791,41 @@ Num RefCount Protocol Flags    Type St Path
 .sp .5
 .fi
 
-Here "Num" is the kernel table slot number, "RefCount" is the number
-of users of the socket, "Protocol" is currently always 0, "Flags"
-represent the internal kernel flags holding the status of the
-socket.
-Currently, type is always "1" (UNIX domain datagram sockets are
-not yet supported in the kernel).
-\&"St" is the internal state of the
-socket and Path is the bound path (if any) of the socket.
+The fields are as follows:
+.RS
+.TP 10
+.IR Num :
+the kernel table slot number.
+.TP
+.IR RefCount :
+the number of users of the socket.
+.TP
+.IR Protocol :
+currently always 0.
+.TP
+.IR Flags :
+the internal kernel flags holding the status of the socket.
+.TP
+.IR Type :
+the socket type.
+For
+.BR SOCK_STREAM
+sockets, this is 0001; for
+.BR SOCK_DGRAM
+sockets, it is 0002; and for
+.BR SOCK_SEQPACKET
+sockets, it is 0005.
+.TP
+.IR St :
+the internal state of the socket.
+.TP
+.IR Path :
+the bound path (if any) of the socket.
+Sockets in the abstract namespace are included in the list,
+and are shown with a
+.I Path
+that commences with the character '@'.
+.RE
 .TP
 .I /proc/net/netfilter/nfnetlink_queue
 This file contains information about netfilter userspace queueing, if used.
