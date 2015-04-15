@@ -199,16 +199,19 @@ argument is zero and
 .I buf
 is not a null pointer.
 .TP
-EINVAL
+.B EINVAL
 .BR getwd ():
 .I buf
 is NULL.
 .TP
-ENAMETOOLONG
+.B ENAMETOOLONG
 .BR getwd ():
 The size of the null-terminated absolute pathname string exceeds
 .B PATH_MAX
 bytes.
+.TP
+.B ENOMEM
+Out of memory.
 .TP
 .B ENOENT
 The current working directory has been unlinked.
