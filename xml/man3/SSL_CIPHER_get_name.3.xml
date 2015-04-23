@@ -12,7 +12,9 @@
 <synopsis format="linespecific">const char *SSL_CIPHER_get_name(const SSL_CIPHER *cipher);
 int SSL_CIPHER_get_bits(const SSL_CIPHER *cipher, int *alg_bits);
 char *SSL_CIPHER_get_version(const SSL_CIPHER *cipher);
-char *SSL_CIPHER_description(const SSL_CIPHER *cipher, char *buf, int size);</synopsis>
+char *SSL_CIPHER_description(const SSL_CIPHER *cipher, char *buf, int size);
+int SSL_CIPHER_get_cipher_nid(const SSL_CIPHER *c);
+int SSL_CIPHER_get_digest_nid(const SSL_CIPHER *c);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
@@ -39,6 +41,16 @@ char *SSL_CIPHER_description(const SSL_CIPHER *cipher, char *buf, int size);</sy
       pointer to the string "Buffer too small" is returned. If <emphasis role="bold">buf</emphasis> is NULL, a buffer of 128 bytes is
       allocated using OPENSSL_malloc(). If the allocation fails, a pointer
       to the string "OPENSSL_malloc Error" is returned.
+    </para>
+    <para>
+      SSL_CIPHER_get_cipher_nid() returns the cipher NID corresponding to
+      <emphasis role="bold">c</emphasis>. If there is no cipher (e.g. for
+      ciphersuites with no encryption) then <emphasis role="bold">NID_undef</emphasis> is returned.
+    </para>
+    <para>
+      SSL_CIPHER_get_digest_nid() returns the digest NID corresponding to
+      the MAC used by <emphasis role="bold">c</emphasis>. If there is no
+      digest (e.g. for AEAD ciphersuites) then <emphasis role="bold">NID_undef</emphasis> is returned.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:NOTES"><title>NOTES</title>

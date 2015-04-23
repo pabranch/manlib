@@ -536,14 +536,20 @@ Thus the example command above could be written as:
 .IR /proc/[pid]/fdinfo/ " (since Linux 2.6.22)"
 This is a subdirectory containing one entry for each file which the
 process has open, named by its file descriptor.
+The files in this directory are readable only by the owner of the process.
 The contents of each file can be read to obtain information
-about the corresponding file descriptor, for example:
+about the corresponding file descriptor.
+The content depends on the type of file referred to by the
+corresponding descriptor.
+
+For regular files and directories, we see something like:
 .in +4n
 .nf
 
 .RB "$" " cat /proc/12015/fdinfo/4"
 pos:    1000
 flags:  01002002
+mnt_id: 21
 .fi
 .in
 
@@ -555,8 +561,83 @@ The
 field is an octal number that displays the
 file access mode and file status flags (see
 .BR open (2)).
+The
+.I mnt_id
+field, present since Linux 3.15,
+.\" commit 49d063cb353265c3af701bab215ac438ca7df36d
+is the ID of the mount point containing this file.
+See the description of
+.IR /proc/[pid]/mountinfo .
 
-The files in this directory are readable only by the owner of the process.
+For eventfd file descriptors (see
+.BR eventfd (2)),
+we see the following fields:
+
+.in +4n
+.nf
+pos:	0
+flags:	02
+mnt_id:	10
+eventfd-count:               40
+.fi
+.in
+
+.I eventfd-count
+is the current value of the eventfd counter, in hexadecimal.
+
+For epoll file descriptors (see
+.BR epoll (7)),
+we see the following fields:
+
+.in +4n
+.nf
+pos:	0
+flags:	02
+mnt_id:	10
+tfd:        9 events:       19 data: 74253d2500000009
+tfd:        7 events:       19 data: 74253d2500000007
+.fi
+.in
+
+Each of the lines beginning
+.I tfd
+describes one of the file descriptors being monitored via
+the epoll file descriptor (see
+.BR epoll_ctl (2)
+for some details).
+The
+.IR tfd
+field is the number of the file descriptor.
+The
+.I events
+field is a hexadecimal mask of the events being monitored for this file
+descriptor.
+The
+.I data
+field is the data value associated with this file descriptor.
+
+For signalfd file descriptors (see
+.BR signalfd (2)),
+we see the following fields:
+
+.in +4n
+.nf
+pos:	0
+flags:	02
+mnt_id:	10
+sigmask:	0000000000000006
+.fi
+.in
+
+.I sigmask
+is the hexadecimal mask of signals that are accepted via this
+signalfd file descriptor.
+(In this example, bits 2 and 3 are set, corresponding to the signals
+.B SIGINT
+and
+.BR SIGQUIT ;
+see
+.BR signal (7).)
 .\" FIXME
 .\" Certain file types include additional info; see
 .\" Documentation/filesystems/proc.txt
@@ -1813,7 +1894,8 @@ Page table entries size (since Linux 2.6.10).
 .IP *
 .IR VmSwap :
 .\" commit b084d4353ff99d824d3bc5a5c2c22c70b1fba722
-Swapped-out virtual memory size (since Linux 2.6.34).
+Swapped-out virtual memory size by anonymous private pages;
+shmem swap usage is not included (since Linux 2.6.34).
 .IP *
 .IR Threads :
 Number of threads in process containing this thread.
@@ -2757,7 +2839,8 @@ use apart from debugging.
 The "sl" value is the kernel hash slot for the
 socket, the "local_address" is the local address and port number pair.
 The "rem_address" is the remote address and port number pair
-(if connected). "St" is the internal status of the socket.
+(if connected).
+"St" is the internal status of the socket.
 The "tx_queue" and "rx_queue" are the outgoing and incoming data queue
 in terms of kernel memory usage.
 The "tr", "tm\->when", and "rexmits" fields
@@ -2829,7 +2912,8 @@ that commences with the character '@'.
 .TP
 .I /proc/net/netfilter/nfnetlink_queue
 This file contains information about netfilter userspace queueing, if used.
-Each line represents a queue.  Queues that have not been subscribed to
+Each line represents a queue.
+Queues that have not been subscribed to
 by userspace are not shown.
 .nf
 
@@ -2841,13 +2925,15 @@ The fields in each line are:
 .RS 7
 .TP 5
 (1)
-The ID of the queue.  This matches what is specified in the
+The ID of the queue.
+This matches what is specified in the
 .B \-\-queue\-num
 or
 .B \-\-queue\-balance
 options to the
 .BR iptables (8)
-NFQUEUE target.  See
+NFQUEUE target.
+See
 .BR iptables-extensions (8)
 for more information.
 .TP
@@ -2859,25 +2945,30 @@ The number of packets currently queued and waiting to be processed by
 the application.
 .TP
 (4)
-The copy mode of the queue. It is either 1 (metadata only) or 2
+The copy mode of the queue.
+It is either 1 (metadata only) or 2
 (also copy payload data to userspace).
 .TP
 (5)
-Copy range, i.e. how many bytes of packet payload should be copied to
+Copy range; that is, how many bytes of packet payload should be copied to
 userspace at most.
 .TP
 (6)
-queue dropped.  Number of packets that had to be dropped by the kernel because
+queue dropped.
+Number of packets that had to be dropped by the kernel because
 too many packets are already waiting for userspace to send back the mandatory
 accept/drop verdicts.
 .TP
 (7)
-queue user dropped.  Number of packets that were dropped within the netlink
-subsystem.  Such drops usually happen when the corresponding socket buffer is
-full, i.e.  userspace is not able to read messages fast enough.
+queue user dropped.
+Number of packets that were dropped within the netlink
+subsystem.
+Such drops usually happen when the corresponding socket buffer is
+full; that is, userspace is not able to read messages fast enough.
 .TP
 (8)
-sequence number. Every queued packet is associated with a (32-bit)
+sequence number.
+Every queued packet is associated with a (32-bit)
 monotonically-increasing sequence number.
 This shows the ID of the most recent packet queued.
 .RE
@@ -3381,10 +3472,10 @@ All of the following conditions are true:
 .IP \(bu 3
 the target is a regular file;
 .IP \(bu
-the target file does not have its set-user-ID permission bit enabled;
+the target file does not have its set-user-ID mode bit enabled;
 .IP \(bu
 the target file does not have both its set-group-ID and
-group-executable permission bits enabled; and
+group-executable mode bits enabled; and
 .IP \(bu
 the caller has permission to read and write the target file
 (either via the file's permissions mask or because it has
@@ -3819,6 +3910,36 @@ for further information.
 .IR /proc/sys/kernel/random/uuid " (since Linux 2.4)"
 Each read from this read-only file returns a randomly generated 128-bit UUID,
 as a string in the standard UUID format.
+.TP
+.IR /proc/sys/kernel/randomize_va_space " (since Linux 2.6.12)"
+.\" Some further details can be found in Documentation/sysctl/kernel.txt
+Select the address space layout randomization (ASLR) policy for the system
+(on architectures that support ASLR).
+Three values are supported for this file:
+.RS
+.IP 0 3
+Turn ASLR off.
+This is the default for architectures that don't support ASLR,
+and when the kernel is booted with the
+.I norandmaps
+parameter.
+.IP 1
+Make the addresses of
+.BR mmap (2)
+allocations, the stack, and the VDSO page randomized.
+Among other things, this means that shared libraries will be
+loaded at randomized addresses.
+The text segment of PIE-linked binaries will also be loaded
+at a randomized address.
+This value is the default if the kernel was configured with
+.BR CONFIG_COMPAT_BRK .
+.IP 2
+(Since Linux 2.6.25)
+.\" commit c1d171a002942ea2d93b4fbd0c9583c56fce0772
+Also support heap randomization.
+This value is the default if the kernel was not configured with
+.BR CONFIG_COMPAT_BRK .
+.RE
 .TP
 .I /proc/sys/kernel/real-root-dev
 This file is documented in the Linux kernel source file

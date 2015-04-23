@@ -3,7 +3,7 @@
 .\" Copyright © 1995-1996 Ian Jackson
 .\" Copyright © 2000 Wichert Akkerman <wakkerma@debian.org>
 .\" Copyright © 2007-2008 Frank Lichtenheld <djpig@debian.org>
-.\" Copyright © 2008-2013 Guillem Jover <guillem@debian.org>
+.\" Copyright © 2008-2015 Guillem Jover <guillem@debian.org>
 .\" Copyright © 2008-2012 Raphaël Hertzog <hertzog@debian.org>
 .\"
 .\" This is free software; you can redistribute it and/or modify
@@ -159,7 +159,7 @@ of the host Debian architecture.
 .TP
 .BR \-\-target\-arch " \fIarchitecture\fP"
 Specify the Debian architecture the binaries built will build for
-(since dpkg1.17.17).
+(since dpkg 1.17.17).
 The default value is the host machine.
 .TP
 .BR \-\-target\-type " \fIgnu-system-type\fP"
@@ -186,7 +186,11 @@ equivalent to the
 option of the same name (since dpkg 1.14.7).
 Will add itself to the \fB\%MAKEFLAGS\fP
 environment variable, which should cause all subsequent make
-invocations to inherit the option. Also adds \fBparallel=\fP\fIjobs\fP or
+invocations to inherit the option, thus forcing the parallel setting on
+the packaging (and possibly the upstream build system if that uses make)
+regardless of their support for parallel builds, which might cause build
+failures.
+Also adds \fBparallel=\fP\fIjobs\fP or
 \fBparallel=\fP to the \fBDEB_BUILD_OPTIONS\fP environment variable which
 allows debian/rules files to use this information for their own purposes.
 The \fB\%parallel=\fP\fIjobs\fP or \fBparallel=\fP option in

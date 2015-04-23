@@ -8,7 +8,7 @@
 .\" 2011-09-19: Added FALLOC_FL_PUNCH_HOLE
 .\" 2011-09-19: Substantial restructuring of the page
 .\"
-.TH FALLOCATE 2 2015-01-22 "Linux" "Linux Programmer's Manual"
+.TH FALLOCATE 2 2015-04-19 "Linux" "Linux Programmer's Manual"
 .SH NAME
 fallocate \- manipulate file space
 .SH SYNOPSIS
@@ -183,7 +183,7 @@ and XFS.
 .SS Zeroing file space
 Specifying the
 .BR FALLOC_FL_ZERO_RANGE
-flag (available since Linux 3.14)
+flag (available since Linux 3.15)
 .\" commit 409332b65d3ed8cfa7a8030f1e9d52f372219642
 in
 .I mode
@@ -220,11 +220,14 @@ Not all filesystems support
 if a filesystem doesn't support the operation, an error is returned.
 The operation is supported on at least the following filesystems:
 .IP * 3
-XFS (since Linux 3.14)
+XFS (since Linux 3.15)
 .\" commit 376ba313147b4172f3e8cf620b9fb591f3e8cdfa
 .IP *
-ext4, for extent-based files (since Linux 3.14)
+ext4, for extent-based files (since Linux 3.15)
 .\" commit b8a8684502a0fc852afa0056c6bb2a9273f6fcc0
+.IP *
+SMB3 (since Linux 3.17)
+.\" commit 30175628bf7f521e9ee31ac98fa6d6fe7441a556
 .SH RETURN VALUE
 On success,
 .BR fallocate ()

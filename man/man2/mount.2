@@ -37,7 +37,7 @@
 .\" 2008-10-06, mtk: move umount*() material into separate umount.2 page.
 .\" 2008-10-06, mtk: Add discussion of namespaces.
 .\"
-.TH MOUNT 2 2014-09-21 "Linux" "Linux Programmer's Manual"
+.TH MOUNT 2 2015-04-19 "Linux" "Linux Programmer's Manual"
 .SH NAME
 mount \- mount filesystem
 .SH SYNOPSIS
@@ -150,6 +150,47 @@ Make directory changes on this filesystem synchronous.
 (This property can be obtained for individual directories
 or subtrees using
 .BR chattr (1).)
+.TP
+.BR MS_LAZYTIME " (since Linux 4.0)"
+.\" commit 0ae45f63d4ef8d8eeec49c7d8b44a1775fff13e8
+.\" commit fe032c422c5ba562ba9c2d316f55e258e03259c6
+.\" commit a26f49926da938f47561f386be56a83dd37a496d
+Reduce on-disk updates of inode timestamps (atime, mtime, ctime)
+by maintaining these changes only in memory.
+The on-disk timestamps are updated only when:
+.RS
+.IP (a) 5
+the inode needs to be updated for some change unrelated to file timestamps;
+.IP (b)
+the application employs
+.BR fsync (2),
+.BR syncfs (2),
+or
+.BR sync (2);
+.IP (c)
+an undeleted inode is evicted from memory; or
+.IP (d)
+more than 24 hours have passed since the inode was written to disk.
+.RE
+.IP
+This mount option significantly reduces writes
+needed to update the inode's timestamps, especially mtime and atime.
+However, in the event of a system crash, the atime and mtime fields
+on disk might be out of date by up to 24 hours.
+
+Examples of workloads where this option could be of significant benefit
+include frequent random writes to preallocated files,
+as well as cases where the
+.B MS_STRICTATIME
+mount option is also enabled.
+(The advantage of combining
+.BR MS_STRICTATIME
+and
+.BR MS_LAZYTIME
+is that
+.BR stat (2)
+will return the correctly updated atime, but the atime updates
+will be flushed to disk only in the cases listed above.)
 .TP
 .B MS_MANDLOCK
 Permit mandatory locking on files in this filesystem.

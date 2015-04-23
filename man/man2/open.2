@@ -258,7 +258,7 @@ described in
 .RS
 .PP
 .I mode
-specifies the permissions to use in case a new file is created.
+specifies the mode to use in case a new file is created.
 This argument must be supplied when
 .B O_CREAT
 or
@@ -272,10 +272,10 @@ nor
 is specified, then
 .I mode
 is ignored.
-The effective permissions are modified by
-the process's
+The effective mode is modified by the process's
 .I umask
-in the usual way: The permissions of the created file are
+in the usual way: in the absence of a default ACL, the mode of the
+created file is
 .IR "(mode\ &\ ~umask)" .
 Note that this mode applies only to future accesses of the
 newly created file; the
@@ -321,6 +321,25 @@ The following symbolic constants are provided for
 .TP
 .B S_IXOTH
 00001 others have execute permission
+.RE
+.IP
+According to POSIX, the effect when other bits are set in
+.I mode
+is unspecified.
+On Linux, the following bits are also honored in
+.IR mode :
+.RS
+.TP 9
+.B S_ISUID
+0004000 set-user-ID bit
+.TP
+.B S_ISGID
+0002000 set-group-ID bit (see
+.BR stat (2))
+.TP
+.B S_ISVTX
+0001000 sticky bit (see
+.BR stat (2))
 .RE
 .TP
 .BR O_DIRECT " (since Linux 2.4.10)"
@@ -1107,7 +1126,11 @@ fields of the
 parent directory.
 Otherwise, if the file is modified because of the
 .B O_TRUNC
-flag, its st_ctime and st_mtime fields are set to the current time.
+flag, its
+.I st_ctime
+and
+.I st_mtime
+fields are set to the current time.
 .\"
 .\"
 .SS Open file descriptions
@@ -1527,6 +1550,7 @@ functionality.
 .BR unlink (2),
 .BR write (2),
 .BR fopen (3),
+.BR acl (5)
 .BR fifo (7),
 .BR path_resolution (7),
 .BR symlink (7)
