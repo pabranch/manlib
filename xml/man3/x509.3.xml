@@ -593,9 +593,7 @@
               </para>
               <para>
 		The serial number can be decimal or hex (if preceded by
-		<emphasis role="bold">0x</emphasis>). Negative serial
-		numbers can also be specified but their use is not
-		recommended.
+		<emphasis role="bold">0x</emphasis>).
               </para>
             </listitem>
           </varlistentry>
@@ -654,8 +652,10 @@
 		with this option the CA serial number file is created if it
 		does not exist: it will contain the serial number "02" and
 		the certificate being signed will have the 1 as its serial
-		number. Normally if the <emphasis role="bold">-CA</emphasis> option is specified and the
-		serial number file does not exist it is an error.
+		number. If the <emphasis role="bold">-CA</emphasis> option
+		is specified and the serial number file does not exist a
+		random number is generated; this is the recommended
+		practice.
               </para>
             </listitem>
           </varlistentry>

@@ -27,7 +27,8 @@
 [<emphasis role="bold">-nonce</emphasis>]
 [<emphasis role="bold">-no_nonce</emphasis>]
 [<emphasis role="bold">-url URL</emphasis>]
-[<emphasis role="bold">-host host:n</emphasis>]
+[<emphasis role="bold">-host host:port</emphasis>]
+[<emphasis role="bold">-header</emphasis>]
 [<emphasis role="bold">-path</emphasis>]
 [<emphasis role="bold">-CApath dir</emphasis>]
 [<emphasis role="bold">-CAfile file</emphasis>]
@@ -225,6 +226,17 @@
 	      if the <emphasis role="bold">host</emphasis> option is
 	      present then the OCSP request is sent to the host <emphasis role="bold">hostname</emphasis> on port <emphasis role="bold">port</emphasis>. <emphasis role="bold">path</emphasis> specifies the HTTP path name to
 	      use or "/" by default.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ocsp.pod:-header_namevalue"/><emphasis role="bold">-header name=value</emphasis></term>
+          <listitem>
+            <para>
+	      Adds the header <emphasis role="bold">name</emphasis> with
+	      the specified <emphasis role="bold">value</emphasis> to the
+	      OCSP request that is sent to the responder. This may be
+	      repeated.
             </para>
           </listitem>
         </varlistentry>

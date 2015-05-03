@@ -1797,6 +1797,7 @@ VmData:     5224 kB
 VmStk:        88 kB
 VmExe:       572 kB
 VmLib:      1708 kB
+VmPMD:         4 kB
 VmPTE:        20 kB
 VmSwap:        0 kB
 Threads:        1
@@ -1892,6 +1893,10 @@ Shared library code size.
 .IR VmPTE :
 Page table entries size (since Linux 2.6.10).
 .IP *
+.IR VmPMD :
+.\" commit dc6c9a35b66b520cf67e05d8ca60ebecad3b0479
+Page middle directory size (since Linux 4.0).
+.IP *
 .IR VmSwap :
 .\" commit b084d4353ff99d824d3bc5a5c2c22c70b1fba722
 Swapped-out virtual memory size by anonymous private pages;
@@ -1981,7 +1986,7 @@ although most system calls use fewer registers.
 If the process is blocked, but not in a system call,
 then the file displays \-1 in place of the system call number,
 followed by just the values of the stack pointer and program counter.
-If process is not blocked, then file contains just the string "running".
+If process is not blocked, then the file contains just the string "running".
 
 This file is present only if the kernel was configured with
 .BR CONFIG_HAVE_ARCH_TRACEHOOK .
