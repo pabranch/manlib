@@ -153,11 +153,11 @@ pgbadger -b "2012-06-25 10:56:11" -e "2012-06-25 10:59:11"
                /var/log/postgresql.log
 cat /var/log/postgres.log | pgbadger -
 # Log prefix with stderr log output
-perl pgbadger --prefix '%t [%p]: [%l-1] user=%u,db=%d,client=%h' 
+perl pgbadger --prefix '%t [%p]: [%l-1] user=%u,db=%d,app=%a,client=%h'
                 /pglog/postgresql-2012-08-21*
 perl pgbadger --prefix '%m %u@%d %p %r %a : ' /pglog/postgresql.log
 # Log line prefix with syslog log output
-perl pgbadger --prefix 'user=%u,db=%d,client=%h,appname=%a' 
+perl pgbadger --prefix 'user=%u,db=%d,client=%h,app=%a' 
                 /pglog/postgresql-2012-08-21*
 # Use my 8 CPUs to parse my 10GB file faster, much faster
 perl pgbadger -j 8 /pglog/postgresql-9.1-main.log</synopsis>
@@ -246,6 +246,7 @@ The most frequent errors.
 Histogram of query times.
 Histogram of sessions times.
 Users involved in top queries.
+Applications involved in top queries.
 Queries generating the most cancellation.
 Queries most cancelled.</screen>
     <para>
@@ -256,7 +257,8 @@ Queries most cancelled.</screen>
 Temporary file statistics.
 Checkpoints statistics.
 Autovacuum and autoanalyze statistics.
-Cancelled queries.</screen>
+Cancelled queries.
+Error events (panic, fatal, error and warning).</screen>
     <para>
       There's also some pie reports of distribution about:
     </para>
@@ -383,30 +385,30 @@ make &amp;&amp; sudo make install</screen>
       Here every statement will be logged, on busy server you may want to
       increase this value to only log queries with a higher duration time.
       Note that if you have log_statement set to 'all' nothing will be
-      logged through log_min_duration_statement. See next chapter for more
-      information.
+      logged through directive log_min_duration_statement. See next chapter
+      for more information.
     </para>
     <para>
       With 'stderr' log format, log_line_prefix must be at least:
     </para>
     <screen>log_line_prefix = '%t [%p]: [%l-1] '</screen>
     <para>
-      Log line prefix could add user, database name and client ip address
-      as follows:
+      Log line prefix could add user, database name, application name and
+      client ip address as follows:
     </para>
-    <screen>log_line_prefix = '%t [%p]: [%l-1] user=%u,db=%d,client=%h '</screen>
+    <screen>log_line_prefix = '%t [%p]: [%l-1] user=%u,db=%d,app=%a,client=%h '</screen>
     <para>
       or for syslog log file format:
     </para>
-    <screen>log_line_prefix = 'user=%u,db=%d,client=%h '</screen>
+    <screen>log_line_prefix = 'user=%u,db=%d,app=%aclient=%h '</screen>
     <para>
       Log line prefix for stderr output could also be:
     </para>
-    <screen>log_line_prefix = '%t [%p]: [%l-1] db=%d,user=%u,client=%h '</screen>
+    <screen>log_line_prefix = '%t [%p]: [%l-1] db=%d,user=%u,app=%a,client=%h '</screen>
     <para>
       or for syslog output:
     </para>
-    <screen>log_line_prefix = 'db=%d,user=%u,client=%h '</screen>
+    <screen>log_line_prefix = 'db=%d,user=%u,app=%a,client=%h '</screen>
     <para>
       You need to enable other parameters in postgresql.conf to get more
       information from your log files:

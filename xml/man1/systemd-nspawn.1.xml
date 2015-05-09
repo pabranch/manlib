@@ -56,13 +56,10 @@
     kernel modules may not be loaded from within the container.</para>
 
     <para>Note that even though these security precautions are taken
-    <command>systemd-nspawn</command> is not suitable for secure
+    <command>systemd-nspawn</command> is not suitable for fully secure
     container setups. Many of the security features may be
     circumvented and are hence primarily useful to avoid accidental
-    changes to the host system from the container. The intended use of
-    this program is debugging and testing as well as building of
-    packages, distributions and software involved with boot and
-    systems management.</para>
+    changes to the host system from the container.</para>
 
     <para>In contrast to
     <citerefentry project="man-pages"><refentrytitle>chroot</refentrytitle><manvolnum>1</manvolnum></citerefentry> <command>systemd-nspawn</command>
@@ -161,7 +158,11 @@
         system, so that the <literal>btrfs</literal> subvolume may be
         created. May not be specified together with
         <option>--image=</option> or
-        <option>--ephemeral</option>.</para></listitem>
+        <option>--ephemeral</option>.</para>
+
+        <para>Note that this switch leaves host name, machine ID and
+        all other settings that could identify the instance
+        unmodified.</para></listitem>
       </varlistentry>
 
       <varlistentry>
@@ -175,7 +176,10 @@
         This option is only supported if the root file system is
         <literal>btrfs</literal>. May not be specified together with
         <option>--image=</option> or
-        <option>--template=</option>.</para></listitem>
+        <option>--template=</option>.</para>
+        <para>Note that this switch leaves host name, machine ID and
+        all other settings that could identify the instance
+        unmodified.</para></listitem>
       </varlistentry>
 
       <varlistentry>

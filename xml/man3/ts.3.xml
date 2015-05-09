@@ -150,7 +150,7 @@
 		hexadecimal format, two characters per byte, the bytes
 		optionally separated by colons (e.g. 1A:F6:01:... or
 		1AF601...). The number of bytes must match the message
-		digest algorithm in use. (Optional) 
+		digest algorithm in use. (Optional)
               </para>
             </listitem>
           </varlistentry>
@@ -259,7 +259,7 @@
             <term><anchor xml:id="sources.openssl.doc.apps.ts.pod:-section_tsa_section"/><emphasis role="bold">-section</emphasis> tsa_section</term>
             <listitem>
               <para>
-		The name of the config file section conatining the settings
+		The name of the config file section containing the settings
 		for the response generation. If not specified the default
 		TSA section is used, see <emphasis role="bold">CONFIGURATION FILE OPTIONS</emphasis> for
 		details. (Optional)
@@ -419,7 +419,7 @@
 		The response or token must be verified against
 		file_to_hash. The file is hashed with the message digest
 		algorithm specified in the token. The <emphasis role="bold">-digest</emphasis> and <emphasis role="bold">-queryfile</emphasis> options must not be
-		specified with this one. (Optional) 
+		specified with this one. (Optional)
               </para>
             </listitem>
           </varlistentry>
@@ -469,7 +469,7 @@
             <term><anchor xml:id="sources.openssl.doc.apps.ts.pod:-CApath_trusted_cert_path"/><emphasis role="bold">-CApath</emphasis> trusted_cert_path</term>
             <listitem>
               <para>
-		The name of the directory containing the trused CA
+		The name of the directory containing the trusted CA
 		certificates of the client. See the similar option of
 		verify(1) for additional details. Either this option or
 		<emphasis role="bold">-CAfile</emphasis> must be specified.
@@ -486,7 +486,7 @@
 		self-signed CA certificates in PEM format. See the similar
 		option of verify(1) for additional details. Either this
 		option or <emphasis role="bold">-CApath</emphasis> must be
-		specified. (Optional) 
+		specified. (Optional)
               </para>
             </listitem>
           </varlistentry>
@@ -575,7 +575,7 @@
 	      Specifies the OpenSSL engine that will be set as the default
 	      for all available algorithms. The default value is builtin,
 	      you can specify any other engines supported by OpenSSL (e.g.
-	      use chil for the NCipher HSM). (Optional) 
+	      use chil for the NCipher HSM). (Optional)
             </para>
           </listitem>
         </varlistentry>
@@ -657,7 +657,7 @@
 	      field. The trailing zeroes must be removed from the time, so
 	      there might actually be fewer digits, or no fraction of
 	      seconds at all. Supported only on UNIX platforms. The maximum
-	      value is 6, default is 0. (Optional) 
+	      value is 6, default is 0. (Optional)
             </para>
           </listitem>
         </varlistentry>
@@ -710,12 +710,12 @@
     <para>
       All the examples below presume that <emphasis role="bold">OPENSSL_CONF</emphasis> is set to a proper configuration
       file, e.g. the example configuration file openssl/apps/openssl.cnf
-      will do. 
+      will do.
     </para>
     <refsection xml:id="sources.openssl.doc.apps.ts.pod:Time_Stamp_Request"><title>Time Stamp Request</title>
       <para>
 	To create a time stamp request for design1.txt with SHA-1 without
-	nonce and policy and no certificate is required in the response: 
+	nonce and policy and no certificate is required in the response:
       </para>
       <screen>openssl ts -query -data design1.txt -no_nonce \
       -out design1.tsq</screen>
@@ -734,7 +734,7 @@
 	To create a time stamp request which includes the MD-5 digest of
 	design2.txt, requests the signer certificate and nonce, specifies a
 	policy id (assuming the tsa_policy1 name is defined in the OID
-	section of the config file): 
+	section of the config file):
       </para>
       <screen>openssl ts -query -data design2.txt -md5 \
       -policy tsa_policy1 -cert -out design2.tsq</screen>
@@ -817,9 +817,9 @@
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.ts.pod:_No_support_for_time_stamps_over_SMTP_though_it_is_quite_easyto_implement_an_automatic_e-mail_based_TSA_with_procmail1_and_perl1._HTTP_server_support_is_provided_in_the_form_of_a_separate_apache_module._HTTP_client_support_is_provided_bytsget1._Pure_TCP.IP_protocol_is_not_supported."/>* No support for time stamps over SMTP, though it is quite easy
-to implement an automatic e-mail based TSA with procmail(1) 
-and perl(1). HTTP server support is provided in the form of 
+          <term><anchor xml:id="sources.openssl.doc.apps.ts.pod:_No_support_for_time_stamps_over_SMTP_though_it_is_quite_easyto_implement_an_automatic_e-mail_based_TSA_with_procmail1and_perl1._HTTP_server_support_is_provided_in_the_form_ofa_separate_apache_module._HTTP_client_support_is_provided_bytsget1._Pure_TCP.IP_protocol_is_not_supported."/>* No support for time stamps over SMTP, though it is quite easy
+to implement an automatic e-mail based TSA with procmail(1)
+and perl(1). HTTP server support is provided in the form of
 a separate apache module. HTTP client support is provided by
 tsget(1). Pure TCP/IP protocol is not supported.</term>
           <listitem>
@@ -866,7 +866,7 @@ test/testtsa).</term>
   </refsection>
   <refsection xml:id="sources.openssl.doc.apps.ts.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      tsget(1), openssl(1), req(1), x509(1), ca(1), genrsa(1), config(5) 
+      tsget(1), openssl(1), req(1), x509(1), ca(1), genrsa(1), config(5)
     </para>
   </refsection>
 </refentry>

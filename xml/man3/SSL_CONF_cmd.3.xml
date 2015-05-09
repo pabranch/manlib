@@ -542,6 +542,15 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
             </para>
           </listitem>
         </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:SSL_CONF_TYPE_NONE"/><emphasis role="bold">SSL_CONF_TYPE_NONE</emphasis></term>
+          <listitem>
+            <para>
+	      The value string is not used e.g. a command line option which
+	      doesn't take an argument.
+            </para>
+          </listitem>
+        </varlistentry>
       </variablelist>
     </para>
   </refsection>
@@ -665,6 +674,11 @@ SSL_CONF_cmd(ctx, "Protocol", "-SSLv2");</screen>
       <emphasis role="bold">SSL_OP_NO_SSL2</emphasis> doesn't have effect
       anymore since 1.1.0 but the define is kept for backward
       compatibility.
+    </para>
+    <para>
+      <emphasis role="bold">SSL_CONF_TYPE_NONE</emphasis> was first added
+      to OpenSSL 1.1.0. In earlier versions of OpenSSL passing a command
+      which didn't take an argument would return <emphasis role="bold">SSL_CONF_TYPE_UNKNOWN</emphasis>.
     </para>
   </refsection>
 </refentry>

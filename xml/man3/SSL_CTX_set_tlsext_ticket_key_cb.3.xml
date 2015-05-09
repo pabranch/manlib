@@ -16,7 +16,7 @@
   </refsynopsisdiv>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tlsext_ticket_key_cb.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
-      SSL_CTX_set_tlsext_ticket_key_cb() sets a callback fuction <emphasis role="italic">cb</emphasis> for handling session tickets for the ssl
+      SSL_CTX_set_tlsext_ticket_key_cb() sets a callback function <emphasis role="italic">cb</emphasis> for handling session tickets for the ssl
       context <emphasis role="italic">sslctx</emphasis>. Session tickets,
       defined in RFC5077 provide an enhanced session resumption capability
       where the server implementation is not required to maintain per
@@ -50,14 +50,14 @@
     </para>
     <para>
       Before the callback function is started <emphasis role="italic">ctx</emphasis> and <emphasis role="italic">hctx</emphasis> have been initialised with
-      EVP_CIPHER_CTX_init and HMAC_CTX_init respectively. 
+      EVP_CIPHER_CTX_init and HMAC_CTX_init respectively.
     </para>
     <para>
       For new sessions tickets, when the client doesn't present a session
-      ticket, or an attempted retreival of the ticket failed, or a renew
+      ticket, or an attempted retrieval of the ticket failed, or a renew
       option was indicated, the callback function will be called with
       <emphasis role="italic">enc</emphasis> equal to 1. The OpenSSL
-      library expects that the function will set an arbitary <emphasis role="italic">name</emphasis>, initialize <emphasis role="italic">iv</emphasis>, and set the cipher context <emphasis role="italic">ctx</emphasis> and the hash context <emphasis role="italic">hctx</emphasis>.
+      library expects that the function will set an arbitrary <emphasis role="italic">name</emphasis>, initialize <emphasis role="italic">iv</emphasis>, and set the cipher context <emphasis role="italic">ctx</emphasis> and the hash context <emphasis role="italic">hctx</emphasis>.
     </para>
     <para>
       The <emphasis role="italic">name</emphasis> is 16 characters long and
@@ -76,15 +76,15 @@
       using <citerefentry>
       <refentrytitle>EVP_EncryptInit_ex</refentrytitle> </citerefentry>.
       The hmac context can be set using <citerefentry>
-      <refentrytitle>HMAC_Init_ex</refentrytitle> </citerefentry>. 
+      <refentrytitle>HMAC_Init_ex</refentrytitle> </citerefentry>.
     </para>
     <para>
       When the client presents a session ticket, the callback function with
       be called with <emphasis role="italic">enc</emphasis> set to 0
       indicating that the <emphasis role="italic">cb</emphasis> function
-      should retreive a set of parameters. In this case <emphasis role="italic">name</emphasis> and <emphasis role="italic">iv</emphasis> have already been parsed out of the
+      should retrieve a set of parameters. In this case <emphasis role="italic">name</emphasis> and <emphasis role="italic">iv</emphasis> have already been parsed out of the
       session ticket. The OpenSSL library expects that the <emphasis role="italic">name</emphasis> will be used to retrieve a
-      cryptographic parameters and that the cryptographic context <emphasis role="italic">ctx</emphasis> will be set with the retreived
+      cryptographic parameters and that the cryptographic context <emphasis role="italic">ctx</emphasis> will be set with the retrieved
       parameters and the initialization vector <emphasis role="italic">iv</emphasis>. using a function like <citerefentry>
       <refentrytitle>EVP_DecryptInit_ex</refentrytitle> </citerefentry>.
       The <emphasis role="italic">hctx</emphasis> needs to be set using
@@ -94,7 +94,7 @@
     <para>
       If the <emphasis role="italic">name</emphasis> is still valid but a
       renewal of the ticket is required the callback function should return
-      2. The library will call the callback again with an arguement of enc
+      2. The library will call the callback again with an argument of enc
       equal to 1 to set the new ticket.
     </para>
     <para>
@@ -131,7 +131,7 @@
             <para>
 	      This indicates that it was not possible to set/retrieve a
 	      session ticket and the SSL/TLS session will continue by by
-	      negiotationing a set of cryptographic parameters or using the
+	      negotiating a set of cryptographic parameters or using the
 	      alternate SSL/TLS resumption mechanism, session ids. 
             </para>
             <para>
@@ -155,11 +155,11 @@
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tlsext_ticket_key_cb.pod:NOTES"><title>NOTES</title>
     <para>
       Session resumption shortcuts the TLS so that the client certificate
-      negiotation don't occur. It makes up for this by storing client
+      negotiation don't occur. It makes up for this by storing client
       certificate an all other negotiated state information encrypted
       within the ticket. In a resumed session the applications will have
-      all this state information available exactly as if a full negiotation
-      had occured.
+      all this state information available exactly as if a full negotiation
+      had occurred.
     </para>
     <para>
       If an attacker can obtain the key used to encrypt a session ticket,
@@ -178,7 +178,7 @@
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tlsext_ticket_key_cb.pod:EXAMPLES"><title>EXAMPLES</title>
     <para>
-      Reference Implemention:
+      Reference Implementation:
       SSL_CTX_set_tlsext_ticket_key_cb(SSL,ssl_tlsext_ticket_key_cb); ....
     </para>
     <screen>static int ssl_tlsext_ticket_key_cb(SSL *s, unsigned char key_name[16], unsigned char *iv, EVP_CIPHER_CTX *ctx, HMAC_CTX *hctx, int enc)

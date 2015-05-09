@@ -46,7 +46,7 @@
 .\" 2015-01-17, Kees Cook <keescook@chromium.org>
 .\"	Added notes on ptrace SIGTRAP and SYS_SECCOMP.
 .\"
-.TH SIGACTION 2 2015-03-29 "Linux" "Linux Programmer's Manual"
+.TH SIGACTION 2 2015-05-07 "Linux" "Linux Programmer's Manual"
 .SH NAME
 sigaction, rt_sigaction \- examine and change a signal action
 .SH SYNOPSIS
@@ -468,7 +468,11 @@ field by
 .BR poll (2).
 The
 .I si_fd
-field indicates the file descriptor for which the I/O event occurred.
+field indicates the file descriptor for which the I/O event occurred;
+for further details, see the description of
+.BR F_SETSIG
+in
+.BR fcntl (2).
 .IP *
 .BR SIGSYS ,
 generated (since Linux 3.5)
@@ -837,7 +841,7 @@ See
 for a list of the async-signal-safe functions that can be
 safely called inside from inside a signal handler.
 .\"
-.SS C library/kernel ABI differences
+.SS C library/kernel differences
 The glibc wrapper function for
 .BR sigaction ()
 gives an error

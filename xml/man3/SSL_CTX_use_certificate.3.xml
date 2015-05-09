@@ -15,7 +15,8 @@ int SSL_CTX_use_certificate_file(SSL_CTX *ctx, const char *file, int type);
 int SSL_use_certificate(SSL *ssl, X509 *x);
 int SSL_use_certificate_ASN1(SSL *ssl, unsigned char *d, int len);
 int SSL_use_certificate_file(SSL *ssl, const char *file, int type);</synopsis>
-<synopsis format="linespecific">int SSL_CTX_use_certificate_chain_file(SSL_CTX *ctx, const char *file);</synopsis>
+<synopsis format="linespecific">int SSL_CTX_use_certificate_chain_file(SSL_CTX *ctx, const char *file);
+int SSL_use_certificate_chain_file(SSL *ssl, const char *file);</synopsis>
 <synopsis format="linespecific">int SSL_CTX_use_PrivateKey(SSL_CTX *ctx, EVP_PKEY *pkey);
 int SSL_CTX_use_PrivateKey_ASN1(int pk, SSL_CTX *ctx, unsigned char *d,
                                 long len);
@@ -75,8 +76,8 @@ int SSL_check_private_key(const SSL *ssl);</synopsis>
       and must be sorted starting with the subject's certificate (actual
       client or server certificate), followed by intermediate CA
       certificates if applicable, and ending at the highest level (root)
-      CA. There is no corresponding function working on a single SSL
-      object. 
+      CA. SSL_use_certificate_chain_file() is similar except it loads the
+      cerificate chain into <emphasis role="bold">ssl</emphasis>. 
     </para>
     <para>
       SSL_CTX_use_PrivateKey() adds <emphasis role="bold">pkey</emphasis>

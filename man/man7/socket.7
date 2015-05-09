@@ -52,7 +52,7 @@
 .\"     SO_BPF_EXTENSIONS (3.14)
 .\"             commit ea02f9411d9faa3553ed09ce0ec9f00ceae9885e
 .\"
-.TH SOCKET 7 2015-02-21 Linux "Linux Programmer's Manual"
+.TH SOCKET 7 2015-05-07 Linux "Linux Programmer's Manual"
 .SH NAME
 socket \- Linux socket interface
 .SH SYNOPSIS
@@ -433,6 +433,13 @@ Otherwise, out-of-band data is passed only when the
 flag is set during receiving.
 .\" don't document it because it can do too much harm.
 .\".B SO_NO_CHECK
+.\"     The kernel has support for the SO_NO_CHECK socket
+.\"     option (boolean: 0 == default, calculate checksum on xmit,
+.\"     1 == do not calculate checksum on xmit).
+.\" Additional note from Andi Kleen on SO_NO_CHECK (2010-08-30)
+.\"     On Linux UDP checksums are essentially free and there's no reason
+.\"     to turn them off and it would disable another safety line.
+.\"     That is why I didn't document the option.
 .TP
 .B SO_PASSCRED
 Enable or disable the receiving of the
@@ -537,9 +544,9 @@ this socket.
 Linux uses this value to order the networking queues:
 packets with a higher priority may be processed first depending
 on the selected device queueing discipline.
-For
-.BR ip (7),
-this also sets the IP type-of-service (TOS) field for outgoing packets.
+.\" For
+.\" .BR ip (7),
+.\" this also sets the IP type-of-service (TOS) field for outgoing packets.
 Setting a priority outside the range 0 to 6 requires the
 .B CAP_NET_ADMIN
 capability.

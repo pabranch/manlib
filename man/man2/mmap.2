@@ -37,7 +37,7 @@
 .\" 2007-07-10, mtk, Added an example program.
 .\" 2008-11-18, mtk, document MAP_STACK
 .\"
-.TH MMAP 2 2015-03-02 "Linux" "Linux Programmer's Manual"
+.TH MMAP 2 2015-05-07 "Linux" "Linux Programmer's Manual"
 .SH NAME
 mmap, munmap \- map or unmap files or devices into memory
 .SH SYNOPSIS
@@ -120,11 +120,9 @@ of the following values in
 Share this mapping.
 Updates to the mapping are visible to other processes that map this file,
 and are carried through to the underlying file.
-The file may not actually be updated until
-.BR msync (2)
-or
-.BR munmap ()
-is called.
+(To precisely control when updates are carried through
+to the underlying file requires the use of
+.BR msync (2).)
 .TP
 .B MAP_PRIVATE
 Create a private copy-on-write mapping.
@@ -233,6 +231,34 @@ Allocate the mapping using "huge pages."
 See the Linux kernel source file
 .I Documentation/vm/hugetlbpage.txt
 for further information.
+.TP
+.BR MAP_HUGE_2MB ", " MAP_HUGE_1GB " (since Linux 3.8)"
+.\" See https://lwn.net/Articles/533499/
+Used in conjunction with
+.B MAP_HUGETLB
+to select alternative hugetlb page sizes (respectively, 2 MB and 1 GB)
+on systems that support multiple hugetlb page sizes.
+
+More generally, the desired huge page size can be configured by encoding
+the base-2 logarithm of the desired page size in the six bits at the offset
+.BR MAP_HUGE_SHIFT .
+(A value of zero in this bit field provides the default huge page size;
+the default huge page size can be discovered vie the
+.I Hugepagesize
+field exposed by
+.IR /proc/meminfo .)
+Thus, the above two constants are defined as:
+
+.nf
+.in +4n
+#define MAP_HUGE_2MB    (21 << MAP_HUGE_SHIFT)
+#define MAP_HUGE_1GB    (30 << MAP_HUGE_SHIFT)
+.in
+.fi
+
+The range of huge page sizes that are supported by the system
+can be discovered by listing the subdirectories in
+.IR /sys/kernel/mm/hugepages .
 .TP
 .BR MAP_LOCKED " (since Linux 2.5.37)"
 Lock the pages of the mapped region into memory in the manner of
@@ -382,12 +408,14 @@ On error, the value
 .IR "(void\ *)\ \-1" )
 is returned, and
 .I errno
-is set appropriately.
+is set to indicate the cause of the error.
+
 On success,
 .BR munmap ()
-returns 0, on failure \-1, and
+returns 0.
+On failure, it returns \-1, and
 .I errno
-is set (probably to
+is set to indicate the cause of the error (probably to
 .BR EINVAL ).
 .SH ERRORS
 .TP
@@ -585,7 +613,7 @@ The relevant flags are:
 and
 .BR MAP_STACK .
 .\"
-.SS C library/kernel ABI differences
+.SS C library/kernel differences
 This page describes the interface provided by the glibc
 .BR mmap ()
 wrapper function.
