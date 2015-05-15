@@ -33,6 +33,9 @@
             <cmdsynopsis sepchar=" ">
                 <command>ostree remote list</command> <arg choice="opt" rep="repeat">OPTIONS</arg> <arg choice="req" rep="norepeat">NAME</arg>
             </cmdsynopsis>
+            <cmdsynopsis sepchar=" ">
+                <command>ostree remote gpg-import</command> <arg choice="opt" rep="repeat">OPTIONS</arg> <arg choice="req" rep="norepeat">NAME</arg> <arg choice="opt" rep="repeat">KEY-ID</arg>
+            </cmdsynopsis>
     </refsynopsisdiv>
 
     <refsect1>
@@ -40,6 +43,12 @@
 
         <para>
             Changes remote respository configurations.  The NAME refers to the name of the remote.
+        </para>
+        <para>
+            The <command>gpg-import</command> subcommand can associate GPG keys to a specific remote respository for use when pulling signed commits from that repository (if GPG verification is enabled).
+        </para>
+        <para>
+            The GPG keys to import may be in binary OpenPGP format or ASCII armored.  The optional <arg choice="opt" rep="norepeat">KEY-ID</arg> list can restrict which keys are imported from a keyring file or input stream.  All keys are imported if this list is omitted.  If neither <option>--keyring</option> nor <option>--stdin</option> options are given, then keys are imported from the user's personal GPG keyring.
         </para>
     </refsect1>
 
@@ -62,6 +71,17 @@
                     Disable GPG verification.
                 </para></listitem>
             </varlistentry>
+
+            <varlistentry>
+                <term><option>--gpg-import</option>=FILE</term>
+
+                <listitem><para>
+                  Import one or more GPG keys from a file.
+                </para><para>
+                  Equivalent to
+                  <command>ostree remote gpg-import --keyring=FILE</command>.
+                </para></listitem>
+            </varlistentry>
         </variablelist>
     </refsect1>
 
@@ -74,6 +94,34 @@
 
                 <listitem><para>
                     Show remote URLs in list
+                </para></listitem>
+            </varlistentry>
+        </variablelist>
+    </refsect1>
+
+    <refsect1>
+        <title>'GPG-Import' Options</title>
+
+        <variablelist>
+            <varlistentry>
+                <term><option>-k, --keyring</option>=FILE</term>
+
+                <listitem><para>
+                    Import one or more keys from a file.
+                </para><para>
+                    This option may be repeated to import from multiple files,
+                    but may not be used in combination with
+                    <option>--stdin</option>.
+                </para></listitem>
+            </varlistentry>
+            <varlistentry>
+                <term><option>--stdin</option></term>
+
+                <listitem><para>
+                    Import one or more keys from standard input.
+                </para><para>
+                    This option may not be used in combination with
+                    <option>--keyring</option>.
                 </para></listitem>
             </varlistentry>
         </variablelist>

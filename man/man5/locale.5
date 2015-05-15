@@ -57,6 +57,13 @@ the only valid keyword in the definition is
 .B copy
 followed by the name of the locale in double quotes which should be
 copied.
+The exceptions for this rule are
+.B LC_COLLATE
+and
+.B LC_CTYPE
+where a
+.B copy
+statement can be followed by locale-specific rules and selected overrides.
 .PP
 When defining a category from scratch, all field descriptors and strings
 should be defined as Unicode code points in angle brackets, unless
@@ -107,7 +114,7 @@ for a more detailed description of each category.
 
 .SS LC_ADDRESS
 The definition starts with the string
-.B LC_ADDRESS
+.I LC_ADDRESS
 in the first column.
 
 The following keywords are allowed:
@@ -213,7 +220,7 @@ followed by the numeric country code as plain numbers (ISO 3166).
 followed by the code for the country car number.
 .TP
 .I country_isbn
-followed by the ISBN code as plain numbers (for books).
+followed by the ISBN code (for books).
 .TP
 .I lang_name
 followed by the language name in the language of the current document.
@@ -238,17 +245,10 @@ definition ends with the string
 .IR "END LC_ADDRESS" .
 .SS LC_CTYPE
 The definition starts with the string
-.B LC_CTYPE
+.I LC_CTYPE
 in the first column.
 
 The following keywords are allowed:
-.\" FIXME The following LC_CTYPE keywords are not documented:
-.\"	translit_start + translit_end
-.\"	charclass
-.\"	charconv
-.\"	outdigit
-.\"	include
-.\"	map (to_inpunct, to_outpunct)
 .TP
 .I upper
 followed by a list of uppercase letters.
@@ -431,6 +431,71 @@ followed by a list of mappings from uppercase to lowercase
 letters.
 If the keyword tolower is not present, the reverse of the
 toupper list is used.
+.TP
+.I map "totitle"
+followed by a list of mapping pairs of
+characters and letters
+to be used in titles (headings).
+.TP
+.I class
+followed by a locale-specific character class definition,
+starting with the class name followed by the characters
+belonging to the class.
+.TP
+.I charclass
+followed by a list of locale-specific character class names
+which are then to be defined in the locale.
+.TP
+.I charconv
+followed by a list of locale-specific character map names
+which are then to be defined in the locale.
+.TP
+.I outdigit
+followed by a list of alternate output digits for the locale.
+.TP
+.I map to_inpunct
+followed by a list of mapping pairs of
+alternate digits and separators
+for input digits for the locale.
+.TP
+.I map to_outpunct
+followed by a list of mapping pairs of
+alternate separators
+for output for the locale.
+.TP
+.I translit_start
+marks the start of the transliteration rules section.
+The section can contain the
+.I include
+keyword in the beginning followed by
+locale-specific rules and overrides.
+Any rule specified in the locale file
+will override any rule
+copied or included from other files.
+In case of duplicate rule definitions in the locale file,
+only the first rule is used.
+
+A transliteration rule consist of a character to be transliterated
+followed by a list of transliteration targets separated by semicolons.
+The first target which can be presented in the target character set
+is used, if none of them can be used the
+.I default_missing
+character will be used instead.
+.TP
+.I include
+in the transliteration rules section includes
+a transliteration rule file
+(and optionally a repertoire map file)
+.
+.TP
+.I default_missing
+in the transliteration rules section 
+defines the default character to be used for 
+transliteration where none of the targets cannot be presented
+in the target character set.
+.TP
+.I translit_end
+marks the end of the transliteration rules.
 .PP
 The
 .B LC_CTYPE
@@ -440,7 +505,7 @@ definition ends with the string
 Due to limitations of glibc not all POSIX-options are implemented.
 
 The definition starts with the string
-.B LC_COLLATE
+.I LC_COLLATE
 in the first column.
 
 The following keywords are allowed:
@@ -479,7 +544,7 @@ definition ends with the string
 .IR "END LC_COLLATE" .
 .SS LC_IDENTIFICATION
 The definition starts with the string
-.B LC_IDENTIFICATION
+.I LC_IDENTIFICATION
 in the first column.
 
 The values in this category are defined as plain strings.
@@ -555,7 +620,7 @@ definition ends with the string
 .IR "END LC_IDENTIFICATION" .
 .SS LC_MESSAGES
 The definition starts with the string
-.B LC_MESSAGES
+.I LC_MESSAGES
 in the first column.
 
 The following keywords are allowed:
@@ -580,7 +645,7 @@ definition ends with the string
 .IR "END LC_MESSAGES" .
 .SS LC_MEASUREMENT
 The definition starts with the string
-.B LC_MEASUREMENT
+.I LC_MEASUREMENT
 in the first column.
 
 The following keywords are allowed:
@@ -603,7 +668,7 @@ definition ends with the string
 .IR "END LC_MEASUREMENT" .
 .SS LC_MONETARY
 The definition starts with the string
-.B LC_MONETARY
+.I LC_MONETARY
 in the first column.
 
 Values for
@@ -805,7 +870,7 @@ definition ends with the string
 .IR "END LC_MONETARY" .
 .SS LC_NAME
 The definition starts with the string
-.B LC_NAME
+.I LC_NAME
 in the first column.
 
 Various keywords are allowed, but only
@@ -893,7 +958,7 @@ definition ends with the string
 .IR "END LC_NAME" .
 .SS LC_NUMERIC
 The definition starts with the string
-.B LC_NUMERIC
+.I LC_NUMERIC
 in the first column.
 
 The following keywords are allowed:
@@ -925,7 +990,7 @@ definition ends with the string
 .IR "END LC_NUMERIC" .
 .SS LC_PAPER
 The definition starts with the string
-.B LC_PAPER
+.I LC_PAPER
 in the first column.
 
 Values in this category are defined as plain numbers.
@@ -944,7 +1009,7 @@ definition ends with the string
 .IR "END LC_PAPER" .
 .SS LC_TELEPHONE
 The definition starts with the string
-.B LC_TELEPHONE
+.I LC_TELEPHONE
 in the first column.
 
 The following keywords are allowed:
@@ -997,7 +1062,7 @@ definition ends with the string
 .IR "END LC_TELEPHONE" .
 .SS LC_TIME
 The definition starts with the string
-.B LC_TIME
+.I LC_TIME
 in the first column.
 
 The following keywords are allowed:
@@ -1103,6 +1168,9 @@ Right-left from top.
 .I date_fmt
 followed by the appropriate date representation for
 .BR date (1).
+.TP
+.I alt_digits
+followed by the alternative digits used for date and time in the locale.
 .PP
 The
 .B LC_TIME
@@ -1168,6 +1236,7 @@ This manual page isn't complete.
 .\" .SH AUTHOR
 .\" Jochen Hein (Hein@Student.TU-Clausthal.de)
 .SH SEE ALSO
+.BR iconv (1),
 .BR locale (1),
 .BR localedef (1),
 .BR localeconv (3),

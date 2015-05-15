@@ -414,6 +414,16 @@ print a message to stderr and exit with nonzero status.</simpara>
 </varlistentry>
 <varlistentry>
 <term>
+--git-common-dir
+</term>
+<listitem>
+<simpara>
+        Show <literal>$GIT_COMMON_DIR</literal> if defined, else <literal>$GIT_DIR</literal>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 --is-inside-git-dir
 </term>
 <listitem>
@@ -454,6 +464,20 @@ print a message to stderr and exit with nonzero status.</simpara>
         points at a valid repository, and print the location of the
         repository.  If &lt;path&gt; is a gitfile then the resolved path
         to the real repository is printed.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--git-path &lt;path&gt;
+</term>
+<listitem>
+<simpara>
+        Resolve "$GIT_DIR/&lt;path&gt;" and takes other path relocation
+        variables such as $GIT_OBJECT_DIRECTORY,
+        $GIT_INDEX_FILE&#8230; into account. For example, if
+        $GIT_OBJECT_DIRECTORY is set to /foo/bar then "git rev-parse
+        --git-path objects/abc" returns /foo/bar/abc.
 </simpara>
 </listitem>
 </varlistentry>

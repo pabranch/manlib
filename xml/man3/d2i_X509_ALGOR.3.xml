@@ -4,22 +4,53 @@
     <refentrytitle>d2i_X509_ALGOR.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>d2i_X509_ALGOR, i2d_X509_ALGOR</refname>
+    <refname>d2i_X509_ALGOR, i2d_X509_ALGOR, X509_ALGOR_dup, X509_ALGOR_set0, X509_ALGOR_get0, X509_ALGOR_set_md, X509_ALGOR_cmp</refname>
 <refpurpose>AlgorithmIdentifier functions.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis format="linespecific">#include &lt;openssl/x509.h&gt;</synopsis>
 <synopsis format="linespecific">X509_ALGOR *d2i_X509_ALGOR(X509_ALGOR **a, unsigned char **pp, long length);
-int i2d_X509_ALGOR(X509_ALGOR *a, unsigned char **pp);</synopsis>
+int i2d_X509_ALGOR(X509_ALGOR *a, unsigned char **pp);
+X509_ALGOR *X509_ALGOR_dup(X509_ALGOR *alg);
+int X509_ALGOR_set0(X509_ALGOR *alg, ASN1_OBJECT *aobj, int ptype, void *pval);
+void X509_ALGOR_get0(ASN1_OBJECT **paobj, int *pptype, void **ppval,
+                     X509_ALGOR *alg);
+void X509_ALGOR_set_md(X509_ALGOR *alg, const EVP_MD *md);
+int X509_ALGOR_cmp(const X509_ALGOR *a, const X509_ALGOR *b);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="sources.openssl.doc.crypto.d2i_X509_ALGOR.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
-      These functions decode and encode an <emphasis role="bold">X509_ALGOR</emphasis> structure which is equivalent to
-      the <emphasis role="bold">AlgorithmIdentifier</emphasis> structure.
+      The functions d2i_X509() and i2d_X509() decode and encode an
+      <emphasis role="bold">X509_ALGOR</emphasis> structure which is
+      equivalent to the <emphasis role="bold">AlgorithmIdentifier</emphasis> structure.
     </para>
     <para>
-      Otherwise these behave in a similar way to d2i_X509() and i2d_X509()
+      Otherwise they behave in a similar way to d2i_X509() and i2d_X509()
       described in the d2i_X509(3) manual page.
+    </para>
+    <para>
+      X509_ALGOR_dup() returns a copy of <emphasis role="bold">alg</emphasis>.
+    </para>
+    <para>
+      X509_ALGOR_set0() sets the algorithm OID of <emphasis role="bold">alg</emphasis> to <emphasis role="bold">aobj</emphasis>
+      and the associated parameter type to <emphasis role="bold">ptype</emphasis> with value <emphasis role="bold">pval</emphasis>. If <emphasis role="bold">ptype</emphasis> is <emphasis role="bold">V_ASN1_UNDEF</emphasis> the parameter is omitted,
+      otherwise <emphasis role="bold">ptype</emphasis> and <emphasis role="bold">pval</emphasis> have the same meaning as the <emphasis role="bold">type</emphasis> and <emphasis role="bold">value</emphasis> parameters to ASN1_TYPE_set(). All the
+      supplied parameters are used internally so must <emphasis role="bold">NOT</emphasis> be freed after this call.
+    </para>
+    <para>
+      X509_ALGOR_get0() is the inverse of X509_ALGOR_set0(): it returns the
+      algorithm OID in <emphasis role="bold">*paobj</emphasis> and the
+      associated parameter in <emphasis role="bold">*pptype</emphasis> and
+      <emphasis role="bold">*ppval</emphasis> from the <emphasis role="bold">AlgorithmIdentifier</emphasis> <emphasis role="bold">alg</emphasis>.
+    </para>
+    <para>
+      X509_ALGOR_set_md() sets the <emphasis role="bold">AlgorithmIdentifier</emphasis> <emphasis role="bold">alg</emphasis> to appropriate values for the message
+      digest <emphasis role="bold">md</emphasis>.
+    </para>
+    <para>
+      X509_ALGOR_cmp() compares <emphasis role="bold">a</emphasis> and
+      <emphasis role="bold">b</emphasis> and returns 0 if they have
+      identical encodings and non-zero otherwise.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.d2i_X509_ALGOR.pod:SEE_ALSO"><title>SEE ALSO</title>

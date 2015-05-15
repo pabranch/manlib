@@ -184,6 +184,13 @@ return the number of bytes read;
 and
 .BR pwritev ()
 return the number of bytes written.
+
+Note that is not an error for a successful call to transfer fewer bytes
+than requested (see
+.BR read (2)
+and
+.BR write (2)).
+
 On error, \-1 is returned, and \fIerrno\fP is set appropriately.
 .SH ERRORS
 The errors are as given for
@@ -291,7 +298,7 @@ that the system is running a Linux kernel older than version 2.6.18
 And since glibc 2.20
 (which requires a minimum Linux kernel version of 2.6.32),
 the glibc wrapper functions always just directly invoke the system calls.
-.SH BUGS
+
 It is not advisable to mix calls to
 .BR readv ()
 or

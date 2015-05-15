@@ -15,7 +15,7 @@
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
 <blockquote>
-<literallayout><emphasis>git hash-object</emphasis> [-t &lt;type&gt;] [-w] [--path=&lt;file&gt;|--no-filters] [--stdin] [--] &lt;file&gt;&#8230;
+<literallayout><emphasis>git hash-object</emphasis> [-t &lt;type&gt;] [-w] [--path=&lt;file&gt;|--no-filters] [--stdin [--literally]] [--] &lt;file&gt;&#8230;
 <emphasis>git hash-object</emphasis> [-t &lt;type&gt;] [-w] --stdin-paths [--no-filters] &lt; &lt;list-of-paths&gt;</literallayout>
 </blockquote>
 </refsynopsisdiv>
@@ -98,7 +98,20 @@ specified, it defaults to "blob".</simpara>
         Hash the contents as is, ignoring any input filter that would
         have been chosen by the attributes mechanism, including the end-of-line
         conversion. If the file is read from standard input then this
-        is always implied, unless the --path option is given.
+        is always implied, unless the <literal>--path</literal> option is given.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--literally
+</term>
+<listitem>
+<simpara>
+        Allow <literal>--stdin</literal> to hash any garbage into a loose object which might not
+        otherwise pass standard object parsing or git-fsck checks. Useful for
+        stress-testing Git itself or reproducing characteristics of corrupt or
+        bogus objects encountered in the wild.
 </simpara>
 </listitem>
 </varlistentry>

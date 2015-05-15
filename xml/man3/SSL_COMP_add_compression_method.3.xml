@@ -4,12 +4,13 @@
     <refentrytitle>SSL_COMP_add_compression_method.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>SSL_COMP_add_compression_method</refname>
+    <refname>SSL_COMP_add_compression_method, SSL_COMP_free_compression_methods</refname>
 <refpurpose>handle SSL/TLS integrated compression methods</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
 <synopsis format="linespecific">int SSL_COMP_add_compression_method(int id, COMP_METHOD *cm);</synopsis>
+<synopsis format="linespecific">+void SSL_COMP_free_compression_methods(void);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_COMP_add_compression_method.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
@@ -18,6 +19,11 @@
       methods. This list is globally maintained for all SSL operations
       within this application. It cannot be set for specific SSL_CTX or SSL
       objects.
+    </para>
+    <para>
+      SSL_COMP_free_compression_methods() frees the internal table of
+      compression methods that were built internally, and possibly
+      augmented by adding SSL_COMP_add_compression_method().
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_COMP_add_compression_method.pod:NOTES"><title>NOTES</title>
@@ -47,8 +53,8 @@
       connection basis.
     </para>
     <para>
-      The OpenSSL library has the compression methods <emphasis role="bold">COMP_rle()</emphasis> and (when especially enabled during
-      compilation) <emphasis role="bold">COMP_zlib()</emphasis> available.
+      If enabled during compilation, the OpenSSL library will have the
+      COMP_zlib() compression method available.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_COMP_add_compression_method.pod:WARNINGS"><title>WARNINGS</title>
