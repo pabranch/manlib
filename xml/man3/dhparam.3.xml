@@ -104,9 +104,11 @@
           <term><anchor xml:id="sources.openssl.doc.apps.dhparam.pod:-2_-5"/><emphasis role="bold">-2</emphasis>, <emphasis role="bold">-5</emphasis></term>
           <listitem>
             <para>
-	      The generator to use, either 2 or 5. 2 is the default. If
-	      present then the input file is ignored and parameters are
-	      generated instead.
+	      The generator to use, either 2 or 5. If present then the
+	      input file is ignored and parameters are generated instead.
+	      If not present but <emphasis role="bold">numbits</emphasis>
+	      is present, parameters are generated with the default
+	      generator 2.
             </para>
           </listitem>
         </varlistentry>
@@ -127,9 +129,11 @@
             <para>
 	      this option specifies that a parameter set should be
 	      generated of size <emphasis role="italic">numbits</emphasis>.
-	      It must be the last option. If not present then a value of
-	      512 is used. If this option is present then the input file is
-	      ignored and parameters are generated instead. 
+	      It must be the last option. If this option is present then
+	      the input file is ignored and parameters are generated
+	      instead. If this option is not present but a generator
+	      (<emphasis role="bold">-2</emphasis> or <emphasis role="bold">-5</emphasis>) is present, parameters are
+	      generated with a default length of 2048 bits.
             </para>
           </listitem>
         </varlistentry>

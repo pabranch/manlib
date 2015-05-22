@@ -15,7 +15,7 @@
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
 <blockquote>
-<literallayout><emphasis>git cat-file</emphasis> (-t | -s | -e | -p | &lt;type&gt; | --textconv ) &lt;object&gt;
+<literallayout><emphasis>git cat-file</emphasis> (-t [--allow-unknown-type]| -s [--allow-unknown-type]| -e | -p | &lt;type&gt; | --textconv ) &lt;object&gt;
 <emphasis>git cat-file</emphasis> (--batch | --batch-check) &lt; &lt;list-of-objects&gt;</literallayout>
 </blockquote>
 </refsynopsisdiv>
@@ -142,6 +142,16 @@ stdin, and the SHA-1, type, and size of each object is printed on stdout.</simpa
         Print object information for each object provided on stdin.  May
         not be combined with any other options or arguments.  See the
         section <literal>BATCH OUTPUT</literal> below for details.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--allow-unknown-type
+</term>
+<listitem>
+<simpara>
+        Allow -s or -t to query broken/corrupt objects of unknown type.
 </simpara>
 </listitem>
 </varlistentry>

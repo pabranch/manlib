@@ -164,7 +164,7 @@ OpenSSL_add_all_algorithms();
  * do it automatically
  */
 
-ctx = SSL_CTX_new(SSLv23_client_method());
+ctx = SSL_CTX_new(TLS_client_method());
 
 /* We'd normally set some stuff like the verify paths and
  * mode here because as things stand this will connect to
@@ -228,7 +228,7 @@ OpenSSL_add_all_algorithms();
 
 /* Might seed PRNG here */
 
-ctx = SSL_CTX_new(SSLv23_server_method());
+ctx = SSL_CTX_new(TLS_server_method());
 
 if (!SSL_CTX_use_certificate_file(ctx,"server.pem",SSL_FILETYPE_PEM)
        || !SSL_CTX_use_PrivateKey_file(ctx,"server.pem",SSL_FILETYPE_PEM)

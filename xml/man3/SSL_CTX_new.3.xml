@@ -4,7 +4,7 @@
     <refentrytitle>SSL_CTX_new.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>SSL_CTX_new, SSLv3_method, SSLv3_server_method, SSLv3_client_method, TLSv1_method, TLSv1_server_method, TLSv1_client_method, TLSv1_1_method, TLSv1_1_server_method, TLSv1_1_client_method, SSLv23_method, SSLv23_server_method, SSLv23_client_method</refname>
+    <refname>SSL_CTX_new, SSLv3_method, SSLv3_server_method, SSLv3_client_method, TLSv1_method, TLSv1_server_method, TLSv1_client_method, TLSv1_1_method, TLSv1_1_server_method, TLSv1_1_client_method, TLS_method, TLS_server_method, TLS_client_method, SSLv23_method, SSLv23_server_method, SSLv23_client_method</refname>
 <refpurpose>create a new SSL_CTX object as framework for TLS/SSL enabled functions</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
@@ -35,9 +35,7 @@
 	      understand the SSLv3 protocol. A client will send out SSLv3
 	      client hello messages and will indicate that it only
 	      understands SSLv3. A server will only understand SSLv3 client
-	      hello messages. This especially means, that it will not
-	      understand SSLv2 client hello messages which are widely used
-	      for compatibility reasons, see SSLv23_*_method().
+	      hello messages.
             </para>
           </listitem>
         </varlistentry>
@@ -49,10 +47,7 @@
 	      understand the TLSv1 protocol. A client will send out TLSv1
 	      client hello messages and will indicate that it only
 	      understands TLSv1. A server will only understand TLSv1 client
-	      hello messages. This especially means, that it will not
-	      understand SSLv2 client hello messages which are widely used
-	      for compatibility reasons, see SSLv23_*_method(). It will
-	      also not understand SSLv3 client hello messages.
+	      hello messages.
             </para>
           </listitem>
         </varlistentry>
@@ -64,15 +59,24 @@
 	      understand the TLSv1.1 protocol. A client will send out
 	      TLSv1.1 client hello messages and will indicate that it only
 	      understands TLSv1.1. A server will only understand TLSv1.1
-	      client hello messages. This especially means, that it will
-	      not understand SSLv2 client hello messages which are widely
-	      used for compatibility reasons, see SSLv23_*_method(). It
-	      will also not understand SSLv3 client hello messages.
+	      client hello messages.
             </para>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:SSLv23_methodvoid_SSLv23_server_methodvoid_SSLv23_client_methodvoid"/>SSLv23_method(void), SSLv23_server_method(void), SSLv23_client_method(void)</term>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:TLSv1_2_methodvoid_TLSv1_2_server_methodvoid_TLSv1_2_client_methodvoid"/>TLSv1_2_method(void), TLSv1_2_server_method(void), TLSv1_2_client_method(void)</term>
+          <listitem>
+            <para>
+	      A TLS/SSL connection established with these methods will only
+	      understand the TLSv1.2 protocol. A client will send out
+	      TLSv1.2 client hello messages and will indicate that it only
+	      understands TLSv1.2. A server will only understand TLSv1.2
+	      client hello messages.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:TLS_methodvoid_TLS_server_methodvoid_TLS_client_methodvoid"/>TLS_method(void), TLS_server_method(void), TLS_client_method(void)</term>
           <listitem>
             <para>
 	      A TLS/SSL connection established with these methods may
@@ -85,6 +89,17 @@
 	      TLSv1.1, TLSv1.2 and permits a fallback to SSLv3. A server
 	      will support SSLv3, TLSv1, TLSv1.1 and TLSv1.2 protocols.
 	      This is the best choice when compatibility is a concern.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:SSLv23_methodvoid_SSLv23_server_methodvoid_SSLv23_client_methodvoid"/>SSLv23_method(void), SSLv23_server_method(void), SSLv23_client_method(void)</term>
+          <listitem>
+            <para>
+	      Use of these functions is deprecated. They have been replaced
+	      with TLS_Method(), TLS_server_method() and
+	      TLS_client_method() respectively. New code should use those
+	      functions instead.
             </para>
           </listitem>
         </varlistentry>
@@ -138,7 +153,10 @@
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:HISTORY"><title>HISTORY</title>
     <para>
       SSLv2_method, SSLv2_server_method and SSLv2_client_method where
-      removed in OpenSSL 1.1.0.
+      removed in OpenSSL 1.1.0. SSLv23_method, SSLv23_server_method and
+      SSLv23_client_method were deprecated and TLS_method,
+      TLS_server_method and TLS_client_method were introduced in OpenSSL
+      1.1.0.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:SEE_ALSO"><title>SEE ALSO</title>

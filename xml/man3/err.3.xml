@@ -78,17 +78,17 @@ int ERR_get_next_error_library(void);</synopsis>
 	report errors. Its first argument is a function code <emphasis role="bold">XXX_F_...</emphasis>, the second argument is a reason
 	code <emphasis role="bold">XXX_R_...</emphasis>. Function codes are
 	derived from the function names; reason codes consist of textual
-	error descriptions. For example, the function ssl23_read() reports
-	a "handshake failure" as follows:
+	error descriptions. For example, the function ssl3_read_bytes()
+	reports a "handshake failure" as follows:
       </para>
-      <screen>SSLerr(SSL_F_SSL23_READ, SSL_R_SSL_HANDSHAKE_FAILURE);</screen>
+      <screen>SSLerr(SSL_F_SSL3_READ_BYTES, SSL_R_SSL_HANDSHAKE_FAILURE);</screen>
       <para>
 	Function and reason codes should consist of upper case characters,
 	numbers and underscores only. The error file generation script
 	translates function codes into function names by looking in the
 	header files for an appropriate function name, if none is found it
-	just uses the capitalized form such as "SSL23_READ" in the above
-	example.
+	just uses the capitalized form such as "SSL3_READ_BYTES" in the
+	above example.
       </para>
       <para>
 	The trailing section of a reason code (after the "_R_") is

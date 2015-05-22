@@ -1,0 +1,137 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>ASN1_INTEGER_get_int64.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>ASN1_INTEGER_get_int64, ASN1_INTEGER_get, ASN1_INTEGER_set_int64, ASN1_INTEGER_set, BN_to_ASN1_INTEGER, ASN1_INTEGER_to_BN, ASN1_ENUMERATED_get_int64, ASN1_ENUMERATED_get, ASN1_ENUMERATED_set_int64, ASN1_ENUMERATED_set, BN_to_ASN1_ENUMERATED, ASN1_ENUMERATED_to_BN,</refname>
+<refpurpose>ASN.1 INTEGER and ENUMERATED utilities</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/asn1.h&gt;</synopsis>
+<synopsis format="linespecific">int ASN1_INTEGER_get_int64(int64_t *pr, const ASN1_INTEGER *a);
+int ASN1_INTEGER_get(ASN1_INTEGER *a, long v);</synopsis>
+<synopsis format="linespecific">int ASN1_INTEGER_set_int64(ASN1_INTEGER *a, int64_t r);
+long ASN1_INTEGER_set(const ASN1_INTEGER *a);</synopsis>
+<synopsis format="linespecific">int ASN1_INTEGER_get_uint64(uint64_t *pr, const ASN1_INTEGER *a);
+int ASN1_INTEGER_set_uint64(ASN1_INTEGER *a, uint64_t r);</synopsis>
+<synopsis format="linespecific">ASN1_INTEGER *BN_to_ASN1_INTEGER(const BIGNUM *bn, ASN1_INTEGER *ai);
+BIGNUM *ASN1_INTEGER_to_BN(const ASN1_INTEGER *ai, BIGNUM *bn);</synopsis>
+<synopsis format="linespecific">int ASN1_ENUMERATED_get_int64(int64_t *pr, const ASN1_INTEGER *a);
+long ASN1_ENUMERATED_get(ASN1_ENUMERATED *a);</synopsis>
+<synopsis format="linespecific">int ASN1_ENUMERATED_set_int64(ASN1_INTEGER *a, int64_t r);
+int ASN1_ENUMERATED_set(ASN1_ENUMERATED *a, long v);</synopsis>
+<synopsis format="linespecific">ASN1_ENUMERATED *BN_to_ASN1_ENUMERATED(BIGNUM *bn, ASN1_ENUMERATED *ai);
+BIGNUM *ASN1_ENUMERATED_to_BN(ASN1_ENUMERATED *ai, BIGNUM *bn);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.ASN1_INTEGER_get_int64.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      These functions convert to and from <emphasis role="bold">ASN1_INTEGER</emphasis> and <emphasis role="bold">ASN1_ENUMERATED</emphasis> structures.
+    </para>
+    <para>
+      ASN1_INTEGER_get_int64() converts an <emphasis role="bold">ASN1_INTEGER</emphasis> into an <emphasis role="bold">int64_t</emphasis> type If successful it returns 1 and
+      sets <emphasis role="bold">*pr</emphasis> to the value of <emphasis role="bold">a</emphasis>. If it fails (due to invalid type or the
+      value being too big to fit into an <emphasis role="bold">int64_t</emphasis> type) it returns 0.
+    </para>
+    <para>
+      ASN1_INTEGER_get_uint64() is similar to ASN1_INTEGER_get_int64_t()
+      except it converts to a <emphasis role="bold">uint64_t</emphasis>
+      type and an error is returned if the passed integer is negative.
+    </para>
+    <para>
+      ASN1_INTEGER_get() also returns the value of <emphasis role="bold">a</emphasis> but it returns 0 if <emphasis role="bold">a</emphasis> is NULL and -1 on error (which is ambiguous
+      because -1 is a legitimate value for an <emphasis role="bold">ASN1_INTEGER</emphasis>). New applications should use
+      ASN1_INTEGER_get_int64() instead.
+    </para>
+    <para>
+      ASN1_INTEGER_set_int64() sets the value of <emphasis role="bold">ASN1_INTEGER</emphasis> <emphasis role="bold">a</emphasis> to the <emphasis role="bold">int64_t</emphasis> value <emphasis role="bold">r</emphasis>.
+    </para>
+    <para>
+      ASN1_INTEGER_set_uint64() sets the value of <emphasis role="bold">ASN1_INTEGER</emphasis> <emphasis role="bold">a</emphasis> to the <emphasis role="bold">uint64_t</emphasis> value <emphasis role="bold">r</emphasis>.
+    </para>
+    <para>
+      ASN1_INTEGER_set() sets the value of <emphasis role="bold">ASN1_INTEGER</emphasis> <emphasis role="bold">a</emphasis> to the <emphasis role="bold">long</emphasis>
+      value <emphasis role="bold">v</emphasis>.
+    </para>
+    <para>
+      BN_to_ASN1_INTEGER() converts <emphasis role="bold">BIGNUM</emphasis>
+      <emphasis role="bold">bn</emphasis> to an <emphasis role="bold">ASN1_INTEGER</emphasis>. If <emphasis role="bold">ai</emphasis> is NULL a new <emphasis role="bold">ASN1_INTEGER</emphasis> structure is returned. If
+      <emphasis role="bold">ai</emphasis> is not NULL then the existing
+      structure will be used instead.
+    </para>
+    <para>
+      ASN1_INTEGER_to_BN() converts ASN1_INTEGER <emphasis role="bold">ai</emphasis> into a <emphasis role="bold">BIGNUM</emphasis>. If <emphasis role="bold">bn</emphasis>
+      is NULL a new <emphasis role="bold">BIGNUM</emphasis> structure is
+      returned. If <emphasis role="bold">bn</emphasis> is not NULL then the
+      existing structure will be used instead.
+    </para>
+    <para>
+      ASN1_ENUMERATED_get_int64(), ASN1_ENUMERATED_set_int64(),
+      ASN1_ENUMERATED_set(), BN_to_ASN1_ENUMERATED() and
+      ASN1_ENUMERATED_to_BN() behave in an identical way to their
+      ASN1_INTEGER counterparts except they operate on an <emphasis role="bold">ASN1_ENUMERATED</emphasis> value.
+    </para>
+    <para>
+      ASN1_ENUMERATED_get() returns the value of <emphasis role="bold">a</emphasis> in a similar way to ASN1_INTEGER_get() but
+      it returns <emphasis role="bold">0xffffffffL</emphasis> if the value
+      of <emphasis role="bold">a</emphasis> will not fit in a long type.
+      New applications should use ASN1_ENUMERATED_get_int64() instead.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ASN1_INTEGER_get_int64.pod:NOTES"><title>NOTES</title>
+    <para>
+      In general an <emphasis role="bold">ASN1_INTEGER</emphasis> or
+      <emphasis role="bold">ASN1_ENUMERATED</emphasis> type can contain an
+      integer of almost arbitrary size and so cannot always be represented
+      by a C <emphasis role="bold">int64_t</emphasis> type. However in many
+      cases (for example version numbers) they represent small integers
+      which can be more easily manipulated if converted to an appropriate C
+      integer type.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ASN1_INTEGER_get_int64.pod:BUGS"><title>BUGS</title>
+    <para>
+      The ambigious return values of ASN1_INTEGER_get() and
+      ASN1_ENUMERATED_get() mean these functions should be avoided if
+      possible. They are retained for compatibility. Normally the ambigious
+      return values are not legitimate values for the fields they
+      represent.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ASN1_INTEGER_get_int64.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      ASN1_INTEGER_set_int64(), ASN1_INTEGER_set(),
+      ASN1_ENUMERATED_set_int64() and ASN1_ENUMERATED_set() return 1 for
+      success and 0 for failure. They will only fail if a memory allocation
+      error occurs.
+    </para>
+    <para>
+      ASN1_INTEGER_get_int64() and ASN1_ENUMERATED_get_int64() return 1 for
+      success and 0 for failure. They will fail if the passed type is
+      incorrect (this will only happen if there is a programming error) or
+      if the value exceeds the range of an <emphasis role="bold">int64_t</emphasis> type.
+    </para>
+    <para>
+      BN_to_ASN1_INTEGER() and BN_to_ASN1_ENUMERATED() return an <emphasis role="bold">ASN1_INTEGER</emphasis> or <emphasis role="bold">ASN1_ENUMERATED</emphasis> structure respectively or NULL
+      if an error occurs. They will only fail due to a memory allocation
+      error.
+    </para>
+    <para>
+      ASN1_INTEGER_to_BN() and ASN1_ENUMERATED_to_BN() return a <emphasis role="bold">BIGNUM</emphasis> structure of NULL if an error occurs.
+      They can fail if the pased type is incorrect (due to programming
+      error) or due to a memory allocation failure.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ASN1_INTEGER_get_int64.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ERR_get_error(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.ASN1_INTEGER_get_int64.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      ASN1_INTEGER_set_int64(), ASN1_INTEGER_get_int64(),
+      ASN1_ENUMERATED_set_int64() and ASN1_ENUMERATED_get_int64() were
+      added to OpenSSL 1.1.0.
+    </para>
+  </refsection>
+</refentry>
