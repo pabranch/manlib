@@ -10,6 +10,7 @@
   <refsynopsisdiv>
 <synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
 <synopsis format="linespecific">STACK_OF(SSL_CIPHER) *SSL_get_ciphers(const SSL *ssl);
+STACK_OF(SSL_CIPHER) *SSL_get_client_ciphers(const SSL *ssl);
 const char *SSL_get_cipher_list(const SSL *ssl, int priority);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_get_ciphers.pod:DESCRIPTION"><title>DESCRIPTION</title>
@@ -18,6 +19,12 @@ const char *SSL_get_cipher_list(const SSL *ssl, int priority);</synopsis>
       <emphasis role="bold">ssl</emphasis>, sorted by preference. If
       <emphasis role="bold">ssl</emphasis> is NULL or no ciphers are
       available, NULL is returned.
+    </para>
+    <para>
+      SSL_get_client_ciphers() returns the stack of available SSL_CIPHERS
+      matching the list sent by the client for <emphasis role="bold">ssl</emphasis>. If <emphasis role="bold">ssl</emphasis>
+      is NULL, no ciphers are available, or <emphasis role="bold">ssl</emphasis> is not operating in server mode, NULL is
+      returned.
     </para>
     <para>
       SSL_get_cipher_list() returns a pointer to the name of the SSL_CIPHER
@@ -34,6 +41,13 @@ const char *SSL_get_cipher_list(const SSL *ssl, int priority);</synopsis>
     <para>
       Call SSL_get_cipher_list() with <emphasis role="bold">priority</emphasis> starting from 0 to obtain the sorted
       list of available ciphers, until NULL is returned.
+    </para>
+    <para>
+      Note: SSL_get_ciphers() and SSL_get_client_ciphers() return a pointer
+      to an internal cipher stack, which will be freed later on when the
+      SSL or SSL_SESSION object is freed.  Therefore, the calling code
+      <emphasis role="bold">MUST NOT</emphasis> free the return value
+      itself.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_get_ciphers.pod:RETURN_VALUES"><title>RETURN VALUES</title>

@@ -25,7 +25,11 @@
 [<emphasis role="bold">-v2 alg</emphasis>]
 [<emphasis role="bold">-v2prf alg</emphasis>]
 [<emphasis role="bold">-v1 alg</emphasis>]
-[<emphasis role="bold">-engine id</emphasis>]</synopsis>
+[<emphasis role="bold">-engine id</emphasis>]
+[<emphasis role="bold">-scrypt</emphasis>]
+[<emphasis role="bold">-scrypt_N N</emphasis>]
+[<emphasis role="bold">-scrypt_r r</emphasis>]
+[<emphasis role="bold">-scrypt_p p</emphasis>]</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="sources.openssl.doc.apps.pkcs8.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
@@ -223,6 +227,23 @@
 	      functional reference to the specified engine, thus
 	      initialising it if needed. The engine will then be set as the
 	      default for all available algorithms.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.pkcs8.pod:-scrypt"/><emphasis role="bold">-scrypt</emphasis></term>
+          <listitem>
+            <para>
+	      uses the <emphasis role="bold">scrypt</emphasis> algorithm
+	      for private key encryption using default parameters:
+	      currently N=1024, r=8 and p=16 and AES in CBC mode with a 256
+	      bit key. These parameters can be modified using the <emphasis role="bold">-scrypt_N</emphasis>, <emphasis role="bold">-scrypt_r</emphasis>, <emphasis role="bold">-scrypt_p</emphasis> and <emphasis role="bold">-v2</emphasis> options.
+            </para>
+            <para>
+	      <emphasis role="bold">-scrypt_N N</emphasis> <emphasis role="bold">-scrypt_r r</emphasis> <emphasis role="bold">-scrypt_p p</emphasis>
+            </para>
+            <para>
+	      sets the scrypt <emphasis role="bold">N</emphasis>, <emphasis role="bold">r</emphasis> or <emphasis role="bold">p</emphasis> parameters.
             </para>
           </listitem>
         </varlistentry>

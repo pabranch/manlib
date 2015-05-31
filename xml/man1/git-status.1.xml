@@ -132,7 +132,10 @@ specify the handling of untracked files.</simpara>
 shown (i.e. the same as specifying <literal>normal</literal>), to help you avoid
 forgetting to add newly created files.  Because it takes extra work
 to find untracked files in the filesystem, this mode may take some
-time in a large working tree.  You can use <literal>no</literal> to have <literal>git status</literal>
+time in a large working tree.
+Consider enabling untracked cache and split index if supported (see
+<literal>git update-index --untracked-cache</literal> and <literal>git update-index
+--split-index</literal>), Otherwise you can use <literal>no</literal> to have <literal>git status</literal>
 return more quickly without showing untracked files.</simpara>
 <simpara>The default can be changed using the status.showUntrackedFiles
 configuration variable documented in <citerefentry>

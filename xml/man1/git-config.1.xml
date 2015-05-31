@@ -1641,6 +1641,19 @@ the beginning character of any line in existing commit messages.</simpara>
 </varlistentry>
 <varlistentry>
 <term>
+core.packedRefsTimeout
+</term>
+<listitem>
+<simpara>
+        The length of time, in milliseconds, to retry when trying to
+        lock the <literal>packed-refs</literal> file. Value 0 means not to retry at
+        all; -1 means to try indefinitely. Default is 1000 (i.e.,
+        retry for 1 second).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 sequence.editor
 </term>
 <listitem>
@@ -4267,6 +4280,25 @@ http.saveCookies
 </varlistentry>
 <varlistentry>
 <term>
+http.sslCipherList
+</term>
+<listitem>
+<simpara>
+  A list of SSL ciphers to use when negotiating an SSL connection.
+  The available ciphers depend on whether libcurl was built against
+  NSS or OpenSSL and the particular configuration of the crypto
+  library in use.  Internally this sets the <emphasis>CURLOPT_SSL_CIPHER_LIST</emphasis>
+  option; see the libcurl documentation for more details on the format
+  of this list.
+</simpara>
+<simpara>Can be overridden by the <emphasis>GIT_SSL_CIPHER_LIST</emphasis> environment variable.
+To force git to use libcurl&#8217;s default cipher list and ignore any
+explicit http.sslCipherList option, set <emphasis>GIT_SSL_CIPHER_LIST</emphasis> to the
+empty string.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 http.sslVerify
 </term>
 <listitem>
@@ -5433,7 +5465,7 @@ pull.ff
         a case (equivalent to giving the <literal>--no-ff</literal> option from the command
         line). When set to <literal>only</literal>, only such fast-forward merges are
         allowed (equivalent to giving the <literal>--ff-only</literal> option from the
-        command line).
+        command line). This setting overrides <literal>merge.ff</literal> when pulling.
 </simpara>
 </listitem>
 </varlistentry>

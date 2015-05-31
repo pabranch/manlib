@@ -10,6 +10,7 @@
   <refsynopsisdiv>
 <synopsis format="linespecific"><emphasis role="bold">openssl</emphasis> <emphasis role="bold">s_client</emphasis>
 [<emphasis role="bold">-connect host:port</emphasis>]
+[<emphasis role="bold">-proxy host:port</emphasis>]
 [<emphasis role="bold">-servername name</emphasis>]
 [<emphasis role="bold">-verify depth</emphasis>]
 [<emphasis role="bold">-verify_return_error</emphasis>]
@@ -104,6 +105,17 @@
 	      This specifies the host and optional port to connect to. If
 	      not specified then an attempt is made to connect to the local
 	      host on port 4433.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_client.pod:-proxy_host:port"/><emphasis role="bold">-proxy host:port</emphasis></term>
+          <listitem>
+            <para>
+	      When used with the <emphasis role="bold">-connect</emphasis>
+	      flag, the program uses the host and port specified with this
+	      flag and issues an HTTP CONNECT command to connect to the
+	      desired server.
             </para>
           </listitem>
         </varlistentry>
