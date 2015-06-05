@@ -1657,7 +1657,10 @@ stored in the commit object.  Notably, the SHA-1s are
 displayed in full, regardless of whether --abbrev or
 --no-abbrev are used, and <emphasis>parents</emphasis> information show the
 true parent commits, without taking grafts or history
-simplification into account.</simpara>
+simplification into account. Note that this format affects the way
+commits are displayed, but not the way the diff is shown e.g. with
+<literal>git log --raw</literal>. To get full object names in a raw diff format,
+use <literal>--no-abbrev</literal>.</simpara>
 </listitem>
 <listitem>
 <simpara>
@@ -2130,7 +2133,13 @@ $ git log -2 --pretty=%h 4da45bef&#10;.ft&#10;
 </term>
 <listitem>
 <simpara>
-        Generate the raw format.
+        For each commit, show a summary of changes using the raw diff
+        format. See the "RAW OUTPUT FORMAT" section of
+        <citerefentry>
+<refentrytitle>git-diff</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>. This is different from showing the log
+        itself in raw format, which you can achieve with
+        <literal>--format=raw</literal>.
 </simpara>
 </listitem>
 </varlistentry>

@@ -43,7 +43,7 @@ TYPE type(STRING, TYPE)
     </section>
     <section xml:id="contents">
       <title>CONTENTS</title>
-      <itemizedlist>
+      <itemizedlist spacing="compact">
         <listitem>
           <para>
             func_cache_req_body
@@ -263,11 +263,9 @@ TYPE type(STRING, TYPE)
               Example
             </term>
             <listitem>
-              <para>
-                if (req.url ~ ^/slow/) {<literallayout>
-</literallayout>   std.set_ip_tos(0x0);<literallayout>
-</literallayout>}
-              </para>
+<literallayout>if (req.url ~ ^/slow/) {
+   std.set_ip_tos(0x0);
+}</literallayout>
             </listitem>
           </varlistentry>
         </variablelist>
@@ -532,11 +530,9 @@ TYPE type(STRING, TYPE)
               Example
             </term>
             <listitem>
-              <para>
-                if (std.integer(beresp.http.x-foo, 0) &gt; 5) {<literallayout>
-</literallayout>  ...<literallayout>
-</literallayout>}
-              </para>
+<literallayout>if (std.integer(beresp.http.x-foo, 0) &gt; 5) {
+  ...
+}</literallayout>
             </listitem>
           </varlistentry>
         </variablelist>
@@ -572,12 +568,9 @@ TYPE type(STRING, TYPE)
               Example
             </term>
             <listitem>
-              <para>
-                if (std.ip(req.http.X-forwarded-for,
-                "0.0.0.0") ~ my_acl) {<literallayout>
-</literallayout>  ...<literallayout>
-</literallayout>}
-              </para>
+<literallayout>if (std.ip(req.http.X-forwarded-for, "0.0.0.0") ~ my_acl) {
+  ...
+}</literallayout>
             </listitem>
           </varlistentry>
         </variablelist>
@@ -964,11 +957,9 @@ TYPE type(STRING, TYPE)
               Example
             </term>
             <listitem>
-              <para>
-                if (std.strstr(req.url, req.http.x-restrict)) {<literallayout>
-</literallayout>  ...<literallayout>
-</literallayout>}
-              </para>
+<literallayout>if (std.strstr(req.url, req.http.x-restrict)) {
+  ...
+}</literallayout>
             </listitem>
           </varlistentry>
         </variablelist>
@@ -999,14 +990,12 @@ TYPE type(STRING, TYPE)
               <para>
                 Supported formats:
               </para>
-              <para>
-                "Sun, 06 Nov 1994 08:49:37 GMT"<literallayout>
-</literallayout>"Sunday, 06-Nov-94 08:49:37 GMT"<literallayout>
-</literallayout>"Sun Nov 6 08:49:37 1994"<literallayout>
-</literallayout>"1994-11-06T08:49:37"<literallayout>
-</literallayout>"784111777.00"<literallayout>
-</literallayout>"784111777"
-              </para>
+<literallayout>"Sun, 06 Nov 1994 08:49:37 GMT"
+"Sunday, 06-Nov-94 08:49:37 GMT"
+"Sun Nov 6 08:49:37 1994"
+"1994-11-06T08:49:37"
+"784111777.00"
+"784111777"</literallayout>
             </listitem>
           </varlistentry>
           <varlistentry>
@@ -1014,12 +1003,9 @@ TYPE type(STRING, TYPE)
               Example
             </term>
             <listitem>
-              <para>
-                if (std.time(resp.http.last-modified, now) &lt; now -
-                1w) {<literallayout>
-</literallayout>  ...<literallayout>
-</literallayout>}
-              </para>
+<literallayout>if (std.time(resp.http.last-modified, now) &lt; now - 1w) {
+  ...
+}</literallayout>
             </listitem>
           </varlistentry>
         </variablelist>
@@ -1027,7 +1013,7 @@ TYPE type(STRING, TYPE)
     </section>
     <section xml:id="see-also">
       <title>SEE ALSO</title>
-      <itemizedlist>
+      <itemizedlist spacing="compact">
         <listitem>
           <para>
             vcl(7)

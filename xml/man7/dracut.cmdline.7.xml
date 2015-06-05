@@ -1710,6 +1710,17 @@ when the image resides on i.e. a DVD which needs to be ejected later on.
 </simpara>
 </listitem>
 </varlistentry>
+</variablelist>
+<simpara><emphasis role="strong">rd.live.overlay=</emphasis><emphasis>&lt;devspec&gt;</emphasis>:_(&lt;pathspec&gt;|auto)<emphasis>
+Allow the usage of a permanent overlay.
+<emphasis>&lt;devspec&gt;</emphasis> specifies the path to a device with a mountable filesystem.
+<emphasis>&lt;pathspec&gt;</emphasis> is the path to a file within that filesystem, which shall be used to
+persist the changes made to the device specified by <emphasis role="strong">root=live:</emphasis>&lt;url&gt;__</emphasis> option.</simpara>
+<simpara>+</simpara>
+<formalpara><title>Example</title><para>
+<screen>rd.live.overlay=/dev/sdb1:persistent-overlay.img</screen>
+</para></formalpara>
+<variablelist>
 <varlistentry>
 <term>
 <emphasis role="strong">rd.live.overlay.thin=</emphasis>1

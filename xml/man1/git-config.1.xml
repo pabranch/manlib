@@ -6585,13 +6585,13 @@ uploadpack.hideRefs
         are under the hierarchies listed on the value of this
         variable is excluded, and is hidden from <literal>git ls-remote</literal>,
         <literal>git fetch</literal>, etc.  An attempt to fetch a hidden ref by <literal>git
-        fetch</literal> will fail.  See also <literal>uploadpack.allowtipsha1inwant</literal>.
+        fetch</literal> will fail.  See also <literal>uploadpack.allowTipSHA1InWant</literal>.
 </simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
 <term>
-uploadpack.allowtipsha1inwant
+uploadpack.allowTipSHA1InWant
 </term>
 <listitem>
 <simpara>
@@ -6599,6 +6599,19 @@ uploadpack.allowtipsha1inwant
         to accept a fetch request that asks for an object at the tip
         of a hidden ref (by default, such a request is rejected).
         see also <literal>uploadpack.hideRefs</literal>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+uploadpack.allowReachableSHA1InWant
+</term>
+<listitem>
+<simpara>
+        Allow <literal>upload-pack</literal> to accept a fetch request that asks for an
+        object that is reachable from any ref tip. However, note that
+        calculating object reachability is computationally expensive.
+        Defaults to <literal>false</literal>.
 </simpara>
 </listitem>
 </varlistentry>
