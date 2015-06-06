@@ -89,6 +89,13 @@ rsync --checksum sources/cronie/man/*.5 man/man5/;
 rsync --checksum sources/cronie/man/*.8 man/man8/"
   },
 
+  "cups": {
+    "type": "git",
+    "url": "http://www.cups.org/cups.git",
+    "cmd": "(cd sources/cups; autoconf; ./configure; make);
+find sources/cups/man -name '*.gz' -exec bash -c '(base=$(basename -s .gz {}); manNum=${base##*.}; zcat {} > man/man$manNum/$base)' \\;"
+  },
+
   "dash": {
     "type": "git",
     "url": "git://git.kernel.org/pub/scm/utils/dash/dash.git",
