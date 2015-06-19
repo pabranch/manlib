@@ -34,6 +34,9 @@ command needs to convert it into the binary locale database.
 
 The definition files consist of sections which each describe a
 locale category in detail.
+See
+.BR locale (7)
+for additional details for these categories.
 .SS Syntax
 The locale definition file starts with a header that may consist
 of the following keywords:
@@ -416,6 +419,10 @@ and
 .B <tab>
 are automatically included.
 .TP
+.I charclass
+followed by a list of locale-specific character class names
+which are then to be defined in the locale.
+.TP
 .I toupper
 followed by a list of mappings from lowercase to uppercase
 letters.
@@ -432,7 +439,7 @@ letters.
 If the keyword tolower is not present, the reverse of the
 toupper list is used.
 .TP
-.I map "totitle"
+.I map totitle
 followed by a list of mapping pairs of
 characters and letters
 to be used in titles (headings).
@@ -442,12 +449,8 @@ followed by a locale-specific character class definition,
 starting with the class name followed by the characters
 belonging to the class.
 .TP
-.I charclass
-followed by a list of locale-specific character class names
-which are then to be defined in the locale.
-.TP
 .I charconv
-followed by a list of locale-specific character map names
+followed by a list of locale-specific character mapping names
 which are then to be defined in the locale.
 .TP
 .I outdigit
@@ -485,8 +488,7 @@ character will be used instead.
 .I include
 in the transliteration rules section includes
 a transliteration rule file
-(and optionally a repertoire map file)
-.
+(and optionally a repertoire map file).
 .TP
 .I default_missing
 in the transliteration rules section 
@@ -510,6 +512,10 @@ in the first column.
 
 The following keywords are allowed:
 .\" FIXME The following LC_COLLATE keywords are not documented:
+.\" 	reorder-after
+.\" 	reorder-end
+.\" 	reorder-sections-after
+.\" 	reorder-sections-end
 .\" 	script
 .\" 	symbol-equivalence
 .TP
@@ -532,11 +538,6 @@ or
 The order definition consists of lines that describe the order
 and is terminated with the keyword
 .IR order_end .
-.\" FIXME The following LC_COLLATE keywords are not documented:
-.\" 	reorder-after
-.\" 	reorder-end
-.\" 	reorder-sections-after
-.\" 	reorder-sections-end
 .PP
 The
 .B LC_COLLATE
@@ -739,27 +740,6 @@ the symbol succeeds the value.
 the symbol precedes the value.
 .RE
 .TP
-.I n_cs_precedes
-followed by an integer that indicates the placement of
-.I currency_symbol
-for a negative formatted monetary quantity.
-The same values are recognized as for
-.IR p_cs_precedes .
-.TP
-.I int_p_cs_precedes
-followed by an integer that indicates the placement of
-.I int_currency_symbol
-for a nonnegative internationally formatted monetary quantity.
-The same values are recognized as for
-.IR p_cs_precedes .
-.TP
-.I int_n_cs_precedes
-followed by an integer that indicates the placement of
-.I int_currency_symbol
-for a negative internationally formatted monetary quantity.
-The same values are recognized as for
-.IR p_cs_precedes .
-.TP
 .I p_sep_by_space
 followed by an integer that indicates the separation of
 .IR currency_symbol ,
@@ -781,26 +761,17 @@ a space separates them from the value;
 otherwise a space separates the sign string and the value.
 .RE
 .TP
+.I n_cs_precedes
+followed by an integer that indicates the placement of
+.I currency_symbol
+for a negative formatted monetary quantity.
+The same values are recognized as for
+.IR p_cs_precedes .
+.TP
 .I n_sep_by_space
 followed by an integer that indicates the separation of
 .IR currency_symbol ,
 the sign string, and the value for a negative formatted monetary quantity.
-The same values are recognized as for
-.IR p_sep_by_space .
-.TP
-.I int_p_sep_by_space
-followed by an integer that indicates the separation of
-.IR int_currency_symbol ,
-the sign string,
-and the value for a nonnegative internationally formatted monetary quantity.
-The same values are recognized as for
-.IR p_sep_by_space .
-.TP
-.I int_n_sep_by_space
-followed by an integer that indicates the separation of
-.IR int_currency_symbol ,
-the sign string,
-and the value for a negative internationally formatted monetary quantity.
 The same values are recognized as for
 .IR p_sep_by_space .
 .TP
@@ -847,6 +818,36 @@ followed by an integer that indicates where the
 should be placed for a negative monetary quantity.
 The same values are recognized as for
 .IR p_sign_posn .
+.TP
+.I int_p_cs_precedes
+followed by an integer that indicates the placement of
+.I int_currency_symbol
+for a nonnegative internationally formatted monetary quantity.
+The same values are recognized as for
+.IR p_cs_precedes .
+.TP
+.I int_n_cs_precedes
+followed by an integer that indicates the placement of
+.I int_currency_symbol
+for a negative internationally formatted monetary quantity.
+The same values are recognized as for
+.IR p_cs_precedes .
+.TP
+.I int_p_sep_by_space
+followed by an integer that indicates the separation of
+.IR int_currency_symbol ,
+the sign string,
+and the value for a nonnegative internationally formatted monetary quantity.
+The same values are recognized as for
+.IR p_sep_by_space .
+.TP
+.I int_n_sep_by_space
+followed by an integer that indicates the separation of
+.IR int_currency_symbol ,
+the sign string,
+and the value for a negative internationally formatted monetary quantity.
+The same values are recognized as for
+.IR p_sep_by_space .
 .TP
 .I int_p_sign_posn
 followed by an integer that indicates where the
@@ -1071,7 +1072,6 @@ The following keywords are allowed:
 .\"	era_d_fmt
 .\"	era_d_t_fmt
 .\"	era_t_fmt
-.\"	timezone
 .TP
 .I abday
 followed by a list of abbreviated names of the days of the week.
@@ -1095,6 +1095,21 @@ followed by a list of abbreviated month names.
 .I mon
 followed by a list of month names.
 .TP
+.I d_t_fmt
+followed by the appropriate date and time format
+(for syntax, see
+.BR strftime (3)).
+.TP
+.I d_fmt
+followed by the appropriate date format
+(for syntax, see
+.BR strftime (3)).
+.TP
+.I t_fmt
+followed by the appropriate time format
+(for syntax, see
+.BR strftime (3)).
+.TP
 .I am_pm
 followed by the appropriate representation of the
 .B am
@@ -1103,18 +1118,15 @@ and
 strings.
 This should be left empty for locales not using AM/PM convention.
 .TP
-.I d_t_fmt
-followed by the appropriate date and time format.
-.TP
-.I d_fmt
-followed by the appropriate date format.
-.TP
-.I t_fmt
-followed by the appropriate time format.
-.TP
 .I t_fmt_ampm
-followed by the appropriate time format when using 12h clock format.
+followed by the appropriate time format
+(for syntax, see
+.BR strftime (3))
+when using 12h clock format.
 This should be left empty for locales not using AM/PM convention.
+.TP
+.I alt_digits
+followed by the alternative digits used for date and time in the locale.
 .TP
 .I week
 followed by a list of three values as plain numbers:
@@ -1167,10 +1179,9 @@ Right-left from top.
 .TP
 .I date_fmt
 followed by the appropriate date representation for
-.BR date (1).
-.TP
-.I alt_digits
-followed by the alternative digits used for date and time in the locale.
+.BR date (1)
+(for syntax, see
+.BR strftime (3)).
 .PP
 The
 .B LC_TIME
@@ -1242,6 +1253,7 @@ This manual page isn't complete.
 .BR localeconv (3),
 .BR newlocale (3),
 .BR setlocale (3),
+.BR strftime (3),
 .BR uselocale (3),
 .BR charmap (5),
 .BR charsets (7),

@@ -1,0 +1,92 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="udev_list_entry">
+
+  <info>
+    
+    <productname>systemd</productname>
+
+    <authorgroup>
+      <author><personname><firstname>David</firstname><surname>Herrmann</surname></personname><contrib>Developer</contrib><email>dh.herrmann@gmail.com</email></author>
+    </authorgroup>
+  </info>
+
+  <refmeta>
+    <refentrytitle>udev_list_entry</refentrytitle>
+    <manvolnum>3</manvolnum>
+  </refmeta>
+
+  <refnamediv>
+    <refname>udev_list_entry</refname>
+    <refname>udev_list_entry_get_next</refname>
+    <refname>udev_list_entry_get_by_name</refname>
+    <refname>udev_list_entry_get_name</refname>
+    <refname>udev_list_entry_get_value</refname>
+
+    <refpurpose>Iterate and access udev lists</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <funcsynopsis>
+      <funcsynopsisinfo>#include &lt;libudev.h&gt;</funcsynopsisinfo>
+
+      <funcprototype>
+        <funcdef>struct udev_list_entry *<function>udev_list_entry_get_next</function></funcdef>
+        <paramdef>struct udev_list_entry *<parameter>list_entry</parameter></paramdef>
+      </funcprototype>
+
+      <funcprototype>
+        <funcdef>struct udev_list_entry *<function>udev_list_entry_get_by_name</function></funcdef>
+        <paramdef>struct udev_list_entry *<parameter>list_entry</parameter></paramdef>
+        <paramdef>const char *<parameter>name</parameter></paramdef>
+      </funcprototype>
+
+      <funcprototype>
+        <funcdef>const char *<function>udev_list_entry_get_name</function></funcdef>
+        <paramdef>struct udev_list_entry *<parameter>list_entry</parameter></paramdef>
+      </funcprototype>
+
+      <funcprototype>
+        <funcdef>const char *<function>udev_list_entry_get_value</function></funcdef>
+        <paramdef>struct udev_list_entry *<parameter>list_entry</parameter></paramdef>
+      </funcprototype>
+
+    </funcsynopsis>
+  </refsynopsisdiv>
+
+  <!--<refsect1>
+    <title>Description</title>
+
+    <para>XXX: Add short description.</para>
+  </refsect1>-->
+
+  <refsect1>
+    <title>Return Value</title>
+
+    <para>On success,
+    <function>udev_list_entry_get_next()</function> and
+    <function>udev_list_entry_get_by_name()</function> return
+    a pointer to the requested list entry. If no such entry can
+    be found, or on failure, <constant>NULL</constant> is
+    returned.</para>
+
+    <para>On success,
+    <function>udev_list_entry_get_name()</function> and
+    <function>udev_list_entry_get_value()</function> return a
+    pointer to a constant string representing the requested value.
+    The string is bound to the lifetime of the list-entry itself.
+    On failure, <constant>NULL</constant> is returned.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>See Also</title>
+
+    <para>
+      <citerefentry><refentrytitle>udev_new</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>udev_device_new_from_syspath</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>udev_enumerate_new</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>udev_monitor_new_from_netlink</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+    </para>
+  </refsect1>
+
+</refentry>

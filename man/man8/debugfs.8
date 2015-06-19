@@ -2,7 +2,7 @@
 .\" Copyright 1993, 1994, 1995 by Theodore Ts'o.  All Rights Reserved.
 .\" This file may be copied under the terms of the GNU Public License.
 .\"
-.TH DEBUGFS 8 "March 2015" "E2fsprogs version 1.43-WIP"
+.TH DEBUGFS 8 "May 2015" "E2fsprogs version 1.43-WIP"
 .SH NAME
 debugfs \- ext2/ext3/ext4 file system debugger
 .SH SYNOPSIS
@@ -305,6 +305,13 @@ from the file \fIfilespec\fR.
 .BI expand_dir " filespec"
 Expand the directory
 .IR filespec .
+.TP
+.BI fallocate " filespec start_block [end_block]
+Allocate and map uninitialized blocks into \fIfilespec\fR between
+logical block \fIstart_block\fR and \fIend_block\fR, inclusive.  If
+\fIend_block\fR is not supplied, this function maps until it runs out
+of free disk blocks or the maximum file size is reached.  Existing
+mappings are left alone.
 .TP
 .BI feature " [fs_feature] [-fs_feature] ..."
 Set or clear various filesystem features in the superblock.  After setting

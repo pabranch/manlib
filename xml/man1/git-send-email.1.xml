@@ -727,8 +727,42 @@ sendemail.aliasFileType
 <listitem>
 <simpara>
         Format of the file(s) specified in sendemail.aliasesFile. Must be
-        one of <emphasis>mutt</emphasis>, <emphasis>mailrc</emphasis>, <emphasis>pine</emphasis>, <emphasis>elm</emphasis>, or <emphasis>gnus</emphasis>.
+        one of <emphasis>mutt</emphasis>, <emphasis>mailrc</emphasis>, <emphasis>pine</emphasis>, <emphasis>elm</emphasis>, or <emphasis>gnus</emphasis>, or <emphasis>sendmail</emphasis>.
 </simpara>
+<simpara>What an alias file in each format looks like can be found in
+the documentation of the email program of the same name. The
+differences and limitations from the standard formats are
+described below:</simpara>
+<variablelist>
+<varlistentry>
+<term>
+sendmail
+</term>
+<listitem>
+<itemizedlist>
+<listitem>
+<simpara>
+Quoted aliases and quoted addresses are not supported: lines that
+        contain a <literal>"</literal> symbol are ignored.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Line continuations are not supported: lines that start with
+        whitespace characters, or end with a <literal>\</literal> symbol are ignored.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Warnings are printed on the standard error output for any
+        explicitly unsupported constructs, and any other lines that are not
+        recognized by the parser.
+</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+</varlistentry>
+</variablelist>
 </listitem>
 </varlistentry>
 <varlistentry>

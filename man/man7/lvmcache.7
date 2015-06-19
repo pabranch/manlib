@@ -1,4 +1,4 @@
-.TH "LVMCACHE" "7" "LVM TOOLS 2.02.121(2)-git (2015-05-15)" "Red Hat, Inc" "\""
+.TH "LVMCACHE" "7" "LVM TOOLS 2.02.122(2)-git (2015-06-12)" "Red Hat, Inc" "\""
 .SH NAME
 lvmcache \(em LVM caching
 
@@ -253,6 +253,11 @@ defines the default cache mode.
 4. Create a cache LV by combining the cache pool LV and origin LV
 # lvconvert \-\-type cache \-\-cachepool vg/cache1 vg/lv1
 .fi
+
+The cache mode can be changed on an existing LV with the command:
+
+.B lvconvert --cachemode writethrough|writeback VG/CacheLV
+
 
 .SS Cache policy & policy settings
 

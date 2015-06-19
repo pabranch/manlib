@@ -14,11 +14,12 @@
     <refpurpose>List, remove, print, analyze, report problems</refpurpose>
 </refnamediv>
 <refsynopsisdiv xml:id="_synopsis">
-<simpara><emphasis>abrt-cli</emphasis> list   [-vdf] [DIR]…</simpara>
-<simpara><emphasis>abrt-cli</emphasis> remove [-v]   DIR…</simpara>
-<simpara><emphasis>abrt-cli</emphasis> report [-v]   DIR…</simpara>
-<simpara><emphasis>abrt-cli</emphasis> info   [-vd] [-s SIZE] DIR…</simpara>
-<simpara><emphasis>abrt-cli</emphasis> process [-v] DIR…</simpara>
+<simpara><emphasis>abrt-cli</emphasis> list    [-vn] [--detailed] [--since NUM] [--until NUM] [DIR]…</simpara>
+<simpara><emphasis>abrt-cli</emphasis> remove  [-v]  DIR…</simpara>
+<simpara><emphasis>abrt-cli</emphasis> report  [-v]  [--delete]  DIR…</simpara>
+<simpara><emphasis>abrt-cli</emphasis> info    [-v]  [--detailed] [-s SIZE] DIR…</simpara>
+<simpara><emphasis>abrt-cli</emphasis> status  [-vb] [--since NUM]</simpara>
+<simpara><emphasis>abrt-cli</emphasis> process [-v]  [--since NUM] DIR…</simpara>
 </refsynopsisdiv>
 <refsect1 xml:id="_options">
 <title>OPTIONS</title>
@@ -35,11 +36,31 @@
 </varlistentry>
 <varlistentry>
 <term>
--d,--detailed
+-b, --bare
+</term>
+<listitem>
+<simpara>
+    Print only the problem count without any message
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--detailed
 </term>
 <listitem>
 <simpara>
    Show detailed report
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--delete
+</term>
+<listitem>
+<simpara>
+    Remove PROBLEM_DIR after reporting
 </simpara>
 </listitem>
 </varlistentry>
@@ -53,9 +74,37 @@
 </simpara>
 </listitem>
 </varlistentry>
+<varlistentry>
+<term>
+--size SIZE
+</term>
+<listitem>
+<simpara>
+   Text larger than SIZE bytes will be shown abridged
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--since NUM
+</term>
+<listitem>
+<simpara>
+    Selects only problems detected after timestamp
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--until NUM
+</term>
+<listitem>
+<simpara>
+    Selects only the problems older than specified timestamp
+</simpara>
+</listitem>
+</varlistentry>
 </variablelist>
-<simpara>-s,--size SIZE:
-   Text larger than SIZE bytes will be shown abridged</simpara>
 </refsect1>
 <refsect1 xml:id="_authors">
 <title>AUTHORS</title>

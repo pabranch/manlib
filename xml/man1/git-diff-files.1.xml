@@ -553,6 +553,22 @@ override configuration settings.</simpara>
 </varlistentry>
 <varlistentry>
 <term>
+--ws-error-highlight=&lt;kind&gt;
+</term>
+<listitem>
+<simpara>
+        Highlight whitespace errors on lines specified by &lt;kind&gt;
+        in the color specified by <literal>color.diff.whitespace</literal>.  &lt;kind&gt;
+        is a comma separated list of <literal>old</literal>, <literal>new</literal>, <literal>context</literal>.  When
+        this option is not given, only whitespace errors in <literal>new</literal>
+        lines are highlighted.  E.g. <literal>--ws-error-highlight=new,old</literal>
+        highlights whitespace errors on both deleted and added lines.
+        <literal>all</literal> can be used as a short-hand for <literal>old,new,context</literal>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 --full-index
 </term>
 <listitem>

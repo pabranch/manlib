@@ -17,8 +17,9 @@
     <refpurpose>configuration file(s) for dracut</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<simpara><emphasis>/etc/dracut.conf</emphasis> <emphasis>/etc/dracut.conf.d/<emphasis role="strong">.conf</emphasis>
-<emphasis>/usr/lib/dracut/dracut.conf.d/</emphasis>.conf</emphasis></simpara>
+<simpara><emphasis>/etc/dracut.conf</emphasis>
+<emphasis>/etc/dracut.conf.d/*.conf</emphasis>
+<emphasis>/usr/lib/dracut/dracut.conf.d/*.conf</emphasis></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>Description</title>
@@ -164,6 +165,20 @@ line are not interpreted.</simpara>
 </varlistentry>
 <varlistentry>
 <term>
+<emphasis role="strong">compress=</emphasis>"<emphasis>{bzip2|lzma|xz|gzip|lzo|lz4|&lt;compressor [args &#8230;]&gt;}</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Compress the generated initramfs using the passed compression program. If
+    you pass it just the name of a compression program, it will call that
+    program with known-working arguments. If you pass arguments, it will be called
+    with exactly those arguments. Depending on what you pass, this may result in
+    an initramfs that the kernel cannot decompress.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 <emphasis role="strong">do_strip=</emphasis>"<emphasis>{yes|no}</emphasis>"
 </term>
 <listitem>
@@ -195,7 +210,7 @@ line are not interpreted.</simpara>
 </varlistentry>
 <varlistentry>
 <term>
-<emphasis role="strong">hostonly_cmdline</emphasis>"<emphasis>{yes|no}</emphasis>"
+<emphasis role="strong">hostonly_cmdline=</emphasis>"<emphasis>{yes|no}</emphasis>"
 </term>
 <listitem>
 <simpara>

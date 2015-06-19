@@ -31,21 +31,15 @@
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
-<simpara>Submodules allow foreign repositories to be embedded within
-a dedicated subdirectory of the source tree, always pointed
-at a particular commit.</simpara>
-<simpara>They are not to be confused with remotes, which are meant mainly
-for branches of the same project; submodules are meant for
-different projects you would like to make part of your source tree,
-while the history of the two projects still stays completely
-independent and you cannot modify the contents of the submodule
-from within the main project.
-If you want to merge the project histories and want to treat the
-aggregated whole as a single project from then on, you may want to
-add a remote for the other project and use the <emphasis>subtree</emphasis> merge strategy,
-instead of treating the other project as a submodule. Directories
-that come from both projects can be cloned and checked out as a whole
-if you choose to go that route.</simpara>
+<simpara>Inspects, updates and manages submodules.</simpara>
+<simpara>A submodule allows you to keep another Git repository in a subdirectory
+of your repository. The other repository has its own history, which does not
+interfere with the history of the current repository. This can be used to
+have external dependencies such as third party libraries for example.</simpara>
+<simpara>When cloning or pulling a repository containing submodules however,
+these will not be checked out by default; the <emphasis>init</emphasis> and <emphasis>update</emphasis>
+subcommands will maintain submodules checked out and at
+appropriate revision in your working tree.</simpara>
 <simpara>Submodules are composed from a so-called <literal>gitlink</literal> tree entry
 in the main repository that refers to a particular commit object
 within the inner repository that is completely separate.
@@ -56,18 +50,18 @@ root of the source tree assigns a logical name to the submodule and
 describes the default URL the submodule shall be cloned from.
 The logical name can be used for overriding this URL within your
 local repository configuration (see <emphasis>submodule init</emphasis>).</simpara>
-<simpara>This command will manage the tree entries and contents of the
-gitmodules file for you, as well as inspect the status of your
-submodules and update them.
-When adding a new submodule to the tree, the <emphasis>add</emphasis> subcommand
-is to be used.  However, when pulling a tree containing submodules,
-these will not be checked out by default;
-the <emphasis>init</emphasis> and <emphasis>update</emphasis> subcommands will maintain submodules
-checked out and at appropriate revision in your working tree.
-You can briefly inspect the up-to-date status of your submodules
-using the <emphasis>status</emphasis> subcommand and get a detailed overview of the
-difference between the index and checkouts using the <emphasis>summary</emphasis>
-subcommand.</simpara>
+<simpara>Submodules are not to be confused with remotes, which are other
+repositories of the same project; submodules are meant for
+different projects you would like to make part of your source tree,
+while the history of the two projects still stays completely
+independent and you cannot modify the contents of the submodule
+from within the main project.
+If you want to merge the project histories and want to treat the
+aggregated whole as a single project from then on, you may want to
+add a remote for the other project and use the <emphasis>subtree</emphasis> merge strategy,
+instead of treating the other project as a submodule. Directories
+that come from both projects can be cloned and checked out as a whole
+if you choose to go that route.</simpara>
 </refsect1>
 <refsect1 id="_commands">
 <title>COMMANDS</title>

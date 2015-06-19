@@ -4,36 +4,41 @@
     <refentrytitle>DH_size.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>DH_size</refname>
+    <refname>DH_size, DH_bits</refname>
 <refpurpose>get Diffie-Hellman prime size</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis format="linespecific">#include &lt;openssl/dh.h&gt;</synopsis>
-<synopsis format="linespecific">int DH_size(DH *dh);</synopsis>
+<synopsis format="linespecific">int DH_size(const DH *dh);</synopsis>
+<synopsis format="linespecific">int DH_bits(const DH *dh);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="sources.openssl.doc.crypto.DH_size.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
-      This function returns the Diffie-Hellman size in bytes. It can be
+      DH_size() returns the Diffie-Hellman prime size in bytes. It can be
       used to determine how much memory must be allocated for the shared
       secret computed by DH_compute_key().
     </para>
     <para>
-      <emphasis role="bold">dh-&gt;p</emphasis> must not be <emphasis role="bold">NULL</emphasis>.
+      DH_bits() returns the number of significant bits.
+    </para>
+    <para>
+      <emphasis role="bold">dh</emphasis> and <emphasis role="bold">dh-&gt;p</emphasis> must not be <emphasis role="bold">NULL</emphasis>.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.DH_size.pod:RETURN_VALUE"><title>RETURN VALUE</title>
     <para>
-      The size in bytes.
+      The size.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.DH_size.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      dh(3), DH_generate_key(3)
+      dh(3), DH_generate_key(3), BN_num_bits(3)
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.DH_size.pod:HISTORY"><title>HISTORY</title>
     <para>
       DH_size() is available in all versions of SSLeay and OpenSSL.
+      DH_bits() was added in OpenSSL 1.1.0.
     </para>
   </refsection>
 </refentry>

@@ -1,0 +1,114 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="udev_device_new_from_syspath">
+
+  <info>
+    
+    <productname>systemd</productname>
+
+    <authorgroup>
+      <author><personname><firstname>David</firstname><surname>Herrmann</surname></personname><contrib>Developer</contrib><email>dh.herrmann@gmail.com</email></author>
+    </authorgroup>
+  </info>
+
+  <refmeta>
+    <refentrytitle>udev_device_new_from_syspath</refentrytitle>
+    <manvolnum>3</manvolnum>
+  </refmeta>
+
+  <refnamediv>
+    <refname>udev_device_new_from_syspath</refname>
+    <refname>udev_device_new_from_devnum</refname>
+    <refname>udev_device_new_from_subsystem_sysname</refname>
+    <refname>udev_device_new_from_device_id</refname>
+    <refname>udev_device_new_from_environment</refname>
+    <refname>udev_device_ref</refname>
+    <refname>udev_device_unref</refname>
+
+    <refpurpose>Create, acquire and release a udev device object</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <funcsynopsis>
+      <funcsynopsisinfo>#include &lt;libudev.h&gt;</funcsynopsisinfo>
+
+      <funcprototype>
+        <funcdef>struct udev_device *<function>udev_device_new_from_syspath</function></funcdef>
+        <paramdef>struct udev *<parameter>udev</parameter></paramdef>
+        <paramdef>const char *<parameter>syspath</parameter></paramdef>
+      </funcprototype>
+
+      <funcprototype>
+        <funcdef>struct udev_device *<function>udev_device_new_from_devnum</function></funcdef>
+        <paramdef>struct udev *<parameter>udev</parameter></paramdef>
+        <paramdef>char <parameter>type</parameter></paramdef>
+        <paramdef>dev_t <parameter>devnum</parameter></paramdef>
+      </funcprototype>
+
+      <funcprototype>
+        <funcdef>struct udev_device *<function>udev_device_new_from_subsystem_sysname</function></funcdef>
+        <paramdef>struct udev *<parameter>udev</parameter></paramdef>
+        <paramdef>const char *<parameter>subsystem</parameter></paramdef>
+        <paramdef>const char *<parameter>sysname</parameter></paramdef>
+      </funcprototype>
+
+      <funcprototype>
+        <funcdef>struct udev_device *<function>udev_device_new_from_device_id</function></funcdef>
+        <paramdef>struct udev *<parameter>udev</parameter></paramdef>
+        <paramdef>const char *<parameter>id</parameter></paramdef>
+      </funcprototype>
+
+      <funcprototype>
+        <funcdef>struct udev_device *<function>udev_device_new_from_environment</function></funcdef>
+        <paramdef>struct udev *<parameter>udev</parameter></paramdef>
+      </funcprototype>
+
+      <funcprototype>
+        <funcdef>struct udev_device *<function>udev_device_ref</function></funcdef>
+        <paramdef>struct udev_device *<parameter>udev_device</parameter></paramdef>
+      </funcprototype>
+
+      <funcprototype>
+        <funcdef>struct udev_device *<function>udev_device_unref</function></funcdef>
+        <paramdef>struct udev_device *<parameter>udev_device</parameter></paramdef>
+      </funcprototype>
+
+    </funcsynopsis>
+  </refsynopsisdiv>
+
+  <!--<refsect1>
+    <title>Description</title>
+
+    <para>XXX: Add some description.</para>
+  </refsect1>-->
+
+  <refsect1>
+    <title>Return Value</title>
+
+    <para>On success, <function>udev_device_new_from_syspath()</function>,
+    <function>udev_device_new_from_devnum()</function>,
+    <function>udev_device_new_from_subsystem_sysname()</function>,
+    <function>udev_device_new_from_device_id()</function> and
+    <function>udev_device_new_from_environment()</function> return a
+    pointer to the allocated udev device. On failure,
+    <constant>NULL</constant> is returned.
+    <function>udev_device_ref()</function> returns the argument
+    that it was passed, unmodified.
+    <function>udev_device_unref()</function> always returns
+    <constant>NULL</constant>.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>See Also</title>
+
+    <para>
+      <citerefentry><refentrytitle>udev_new</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>udev_device_get_syspath</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>udev_device_has_tag</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>udev_enumerate_new</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>udev_monitor_new_from_netlink</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>udev_list_entry</refentrytitle><manvolnum>3</manvolnum></citerefentry>,
+      <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+    </para>
+  </refsect1>
+
+</refentry>
