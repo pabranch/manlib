@@ -14,13 +14,12 @@
   <refpurpose>Salvage your data out of another SCM people love to hate</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git cvsimport</emphasis> [-o &lt;branch-for-HEAD&gt;] [-h] [-v] [-d &lt;CVSROOT&gt;]
               [-A &lt;author-conv-file&gt;] [-p &lt;options-for-cvsps&gt;] [-P &lt;file&gt;]
               [-C &lt;git_repository&gt;] [-z &lt;fuzz&gt;] [-i] [-k] [-u] [-s &lt;subst&gt;]
               [-a] [-m] [-M &lt;regex&gt;] [-S &lt;regex&gt;] [-L &lt;commitlimit&gt;]
               [-r &lt;remote&gt;] [-R] [&lt;CVS_module&gt;]</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -278,10 +277,8 @@ the old cvs2git tool.</simpara>
         maps the name recorded in CVS to author name, e-mail and
         optional time zone:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        exon=Andreas Ericsson &lt;ae@op5.se&gt;
-        spawn=Simon Pawn &lt;spawn@frog-pond.org&gt; America/Chicago&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        exon=Andreas Ericsson &lt;ae@op5.se&gt;
+        spawn=Simon Pawn &lt;spawn@frog-pond.org&gt; America/Chicago</literallayout><simpara></simpara>
 <simpara><emphasis>git cvsimport</emphasis> will make it appear as those authors had
 their GIT_AUTHOR_NAME and GIT_AUTHOR_EMAIL set properly
 all along.  If a time zone is specified, GIT_AUTHOR_DATE will
@@ -305,9 +302,7 @@ export changes back to CVS again later with
         will contain one line for each (filename, revision) pair imported;
         each line will look like
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;src/widget.c 1.1 1d862f173cdc7325b6fa6d2ae1cfd61fd1b512b7&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">src/widget.c 1.1 1d862f173cdc7325b6fa6d2ae1cfd61fd1b512b7</literallayout><simpara></simpara>
 <simpara>The revision data is appended to the file if it already exists, for use when
 doing incremental imports.</simpara>
 <simpara>This option may be useful if you have CVS revision numbers stored in commit

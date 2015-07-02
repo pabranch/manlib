@@ -14,7 +14,6 @@
   <refpurpose>Get and set repository or global options</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git config</emphasis> [&lt;file-option&gt;] [type] [-z|--null] name [value [value_regex]]
 <emphasis>git config</emphasis> [&lt;file-option&gt;] [type] --add name value
 <emphasis>git config</emphasis> [&lt;file-option&gt;] [type] --replace-all name value [value_regex]
@@ -30,7 +29,7 @@
 <emphasis>git config</emphasis> [&lt;file-option&gt;] --get-color name [default]
 <emphasis>git config</emphasis> [&lt;file-option&gt;] --get-colorbool name [stdout-is-tty]
 <emphasis>git config</emphasis> [&lt;file-option&gt;] -e | --edit</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -552,75 +551,49 @@ GIT_CONFIG_NOSYSTEM
         sslVerify = false
         cookieFile = /tmp/cookie.txt</literallayout>
 <simpara>you can set the filemode to true with</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;% git config core.filemode true&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">% git config core.filemode true</literallayout><simpara></simpara>
 <simpara>The hypothetical proxy command entries actually have a postfix to discern
 what URL they apply to. Here is how to change the entry for kernel.org
 to "ssh".</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;% git config core.gitproxy '"ssh" for kernel.org' 'for kernel.org$'&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">% git config core.gitproxy '"ssh" for kernel.org' 'for kernel.org$'</literallayout><simpara></simpara>
 <simpara>This makes sure that only the key/value pair for kernel.org is replaced.</simpara>
 <simpara>To delete the entry for renames, do</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;% git config --unset diff.renames&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">% git config --unset diff.renames</literallayout><simpara></simpara>
 <simpara>If you want to delete an entry for a multivar (like core.gitproxy above),
 you have to provide a regex matching the value of exactly one line.</simpara>
 <simpara>To query the value for a given key, do</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;% git config --get core.filemode&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">% git config --get core.filemode</literallayout><simpara></simpara>
 <simpara>or</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;% git config core.filemode&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">% git config core.filemode</literallayout><simpara></simpara>
 <simpara>or, to query a multivar:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;% git config --get core.gitproxy "for kernel.org$"&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">% git config --get core.gitproxy "for kernel.org$"</literallayout><simpara></simpara>
 <simpara>If you want to know all the values for a multivar, do:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;% git config --get-all core.gitproxy&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">% git config --get-all core.gitproxy</literallayout><simpara></simpara>
 <simpara>If you like to live dangerously, you can replace <emphasis role="strong">all</emphasis> core.gitproxy by a
 new one with</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;% git config --replace-all core.gitproxy ssh&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">% git config --replace-all core.gitproxy ssh</literallayout><simpara></simpara>
 <simpara>However, if you really only want to replace the line for the default proxy,
 i.e. the one without a "for &#8230;" postfix, do something like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;% git config core.gitproxy ssh '! for '&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">% git config core.gitproxy ssh '! for '</literallayout><simpara></simpara>
 <simpara>To actually match only values with an exclamation mark, you have to</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;% git config section.key value '[!]'&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">% git config section.key value '[!]'</literallayout><simpara></simpara>
 <simpara>To add a new proxy, without altering any of the existing ones, use</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;% git config --add core.gitproxy '"proxy-command" for example.com'&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">% git config --add core.gitproxy '"proxy-command" for example.com'</literallayout><simpara></simpara>
 <simpara>An example to use customized color from the configuration in your
 script:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;#!/bin/sh
+<literallayout class="monospaced">#!/bin/sh
 WS=$(git config --get-color color.diff.whitespace "blue reverse")
 RESET=$(git config --get-color "" "reset")
-echo "${WS}your whitespace color or blue reverse${RESET}"&#10;.ft&#10;
-</literallayout>
+echo "${WS}your whitespace color or blue reverse${RESET}"</literallayout><simpara></simpara>
 <simpara>For URLs in <literal>https://weak.example.com</literal>, <literal>http.sslVerify</literal> is set to
 false, while it is set to <literal>true</literal> for all others:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;% git config --bool --get-urlmatch http.sslverify https://good.example.com
+<literallayout class="monospaced">% git config --bool --get-urlmatch http.sslverify https://good.example.com
 true
 % git config --bool --get-urlmatch http.sslverify https://weak.example.com
 false
 % git config --get-urlmatch http https://weak.example.com
 http.cookieFile /tmp/cookie.txt
-http.sslverify false&#10;.ft&#10;
-</literallayout>
+http.sslverify false</literallayout><simpara></simpara>
 </refsect1>
 <refsect1 id="_configuration_file">
 <title>CONFIGURATION FILE</title>
@@ -652,9 +625,7 @@ header before the first setting of a variable.</simpara>
 <simpara>Sections can be further divided into subsections.  To begin a subsection
 put its name in double quotes, separated by space from the section name,
 in the section header, like in the example below:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        [section "subsection"]&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        [section "subsection"]</literallayout><simpara></simpara>
 <simpara>Subsection names are case sensitive and can contain any characters except
 newline (doublequote <literal>"</literal> and backslash can be included by escaping them
 as <literal>\"</literal> and <literal>\\</literal>, respectively).  Section headers cannot span multiple

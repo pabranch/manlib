@@ -14,9 +14,8 @@
   <refpurpose>Server side implementation of Git over HTTP</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git http-backend</emphasis></literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -107,17 +106,14 @@ Apache 2.x
         GIT_PROJECT_ROOT (or DocumentRoot) appropriately, and
         create a ScriptAlias to the CGI:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;SetEnv GIT_PROJECT_ROOT /var/www/git
+<literallayout class="monospaced">SetEnv GIT_PROJECT_ROOT /var/www/git
 SetEnv GIT_HTTP_EXPORT_ALL
-ScriptAlias /git/ /usr/libexec/git-core/git-http-backend/&#10;.ft&#10;
-</literallayout>
+ScriptAlias /git/ /usr/libexec/git-core/git-http-backend/</literallayout><simpara></simpara>
 <simpara>To enable anonymous read access but authenticated write access,
 require authorization for both the initial ref advertisement (which we
 detect as a push via the service parameter in the query string), and the
 receive-pack invocation itself:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;RewriteCond %{QUERY_STRING} service=git-receive-pack [OR]
+<literallayout class="monospaced">RewriteCond %{QUERY_STRING} service=git-receive-pack [OR]
 RewriteCond %{REQUEST_URI} /git-receive-pack$
 RewriteRule ^/git/ - [E=AUTHREQUIRED:yes]
 
@@ -130,19 +126,16 @@ RewriteRule ^/git/ - [E=AUTHREQUIRED:yes]
         Require group committers
         Satisfy Any
         ...
-&lt;/LocationMatch&gt;&#10;.ft&#10;
-</literallayout>
+&lt;/LocationMatch&gt;</literallayout><simpara></simpara>
 <simpara>If you do not have <literal>mod_rewrite</literal> available to match against the query
 string, it is sufficient to just protect <literal>git-receive-pack</literal> itself,
 like:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;&lt;LocationMatch "^/git/.*/git-receive-pack$"&gt;
+<literallayout class="monospaced">&lt;LocationMatch "^/git/.*/git-receive-pack$"&gt;
         AuthType Basic
         AuthName "Git Access"
         Require group committers
         ...
-&lt;/LocationMatch&gt;&#10;.ft&#10;
-</literallayout>
+&lt;/LocationMatch&gt;</literallayout><simpara></simpara>
 <simpara>In this mode, the server will not request authentication until the
 client actually starts the object negotiation phase of the push, rather
 than during the initial contact.  For this reason, you must also enable
@@ -153,19 +146,16 @@ will therefore report <literal>403 Forbidden</literal> to the client, without ev
 an opportunity for authentication.</simpara>
 <simpara>To require authentication for both reads and writes, use a Location
 directive around the repository, or one of its parent directories:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;&lt;Location /git/private&gt;
+<literallayout class="monospaced">&lt;Location /git/private&gt;
         AuthType Basic
         AuthName "Private Git Access"
         Require group committers
         ...
-&lt;/Location&gt;&#10;.ft&#10;
-</literallayout>
+&lt;/Location&gt;</literallayout><simpara></simpara>
 <simpara>To serve gitweb at the same url, use a ScriptAliasMatch to only
 those URLs that <emphasis>git http-backend</emphasis> can handle, and forward the
 rest to gitweb:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;ScriptAliasMatch \
+<literallayout class="monospaced">ScriptAliasMatch \
         "(?x)^/git/(.*/(HEAD | \
                         info/refs | \
                         objects/(info/[^/]+ | \
@@ -174,16 +164,13 @@ rest to gitweb:</simpara>
                         git-(upload|receive)-pack))$" \
         /usr/libexec/git-core/git-http-backend/$1
 
-ScriptAlias /git/ /var/www/cgi-bin/gitweb.cgi/&#10;.ft&#10;
-</literallayout>
+ScriptAlias /git/ /var/www/cgi-bin/gitweb.cgi/</literallayout><simpara></simpara>
 <simpara>To serve multiple repositories from different <citerefentry>
 <refentrytitle>gitnamespaces</refentrytitle><manvolnum>7</manvolnum>
 </citerefentry> in a
 single repository:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;SetEnvIf Request_URI "^/git/([^/]*)" GIT_NAMESPACE=$1
-ScriptAliasMatch ^/git/[^/]*(.*) /usr/libexec/git-core/git-http-backend/storage.git$1&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">SetEnvIf Request_URI "^/git/([^/]*)" GIT_NAMESPACE=$1
+ScriptAliasMatch ^/git/[^/]*(.*) /usr/libexec/git-core/git-http-backend/storage.git$1</literallayout><simpara></simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -197,16 +184,13 @@ Accelerated static Apache 2.x
         be more efficient as Apache can ask the kernel to copy the
         file contents from the file system directly to the network:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;SetEnv GIT_PROJECT_ROOT /var/www/git
+<literallayout class="monospaced">SetEnv GIT_PROJECT_ROOT /var/www/git
 
 AliasMatch ^/git/(.*/objects/[0-9a-f]{2}/[0-9a-f]{38})$          /var/www/git/$1
 AliasMatch ^/git/(.*/objects/pack/pack-[0-9a-f]{40}.(pack|idx))$ /var/www/git/$1
-ScriptAlias /git/ /usr/libexec/git-core/git-http-backend/&#10;.ft&#10;
-</literallayout>
+ScriptAlias /git/ /usr/libexec/git-core/git-http-backend/</literallayout><simpara></simpara>
 <simpara>This can be combined with the gitweb configuration:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;SetEnv GIT_PROJECT_ROOT /var/www/git
+<literallayout class="monospaced">SetEnv GIT_PROJECT_ROOT /var/www/git
 
 AliasMatch ^/git/(.*/objects/[0-9a-f]{2}/[0-9a-f]{38})$          /var/www/git/$1
 AliasMatch ^/git/(.*/objects/pack/pack-[0-9a-f]{40}.(pack|idx))$ /var/www/git/$1
@@ -216,8 +200,7 @@ ScriptAliasMatch \
                         objects/info/[^/]+ | \
                         git-(upload|receive)-pack))$" \
         /usr/libexec/git-core/git-http-backend/$1
-ScriptAlias /git/ /var/www/cgi-bin/gitweb.cgi/&#10;.ft&#10;
-</literallayout>
+ScriptAlias /git/ /var/www/cgi-bin/gitweb.cgi/</literallayout><simpara></simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -230,42 +213,34 @@ Lighttpd
         loaded, then set <literal>GIT_PROJECT_ROOT</literal> appropriately and redirect
         all requests to the CGI:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;alias.url += ( "/git" =&gt; "/usr/lib/git-core/git-http-backend" )
+<literallayout class="monospaced">alias.url += ( "/git" =&gt; "/usr/lib/git-core/git-http-backend" )
 $HTTP["url"] =~ "^/git" {
         cgi.assign = ("" =&gt; "")
         setenv.add-environment = (
                 "GIT_PROJECT_ROOT" =&gt; "/var/www/git",
                 "GIT_HTTP_EXPORT_ALL" =&gt; ""
         )
-}&#10;.ft&#10;
-</literallayout>
+}</literallayout><simpara></simpara>
 <simpara>To enable anonymous read access but authenticated write access:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$HTTP["querystring"] =~ "service=git-receive-pack" {
+<literallayout class="monospaced">$HTTP["querystring"] =~ "service=git-receive-pack" {
         include "git-auth.conf"
 }
 $HTTP["url"] =~ "^/git/.*/git-receive-pack$" {
         include "git-auth.conf"
-}&#10;.ft&#10;
-</literallayout>
+}</literallayout><simpara></simpara>
 <simpara>where <literal>git-auth.conf</literal> looks something like:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;auth.require = (
+<literallayout class="monospaced">auth.require = (
         "/" =&gt; (
                 "method" =&gt; "basic",
                 "realm" =&gt; "Git Access",
                 "require" =&gt; "valid-user"
                )
 )
-# ...and set up auth.backend here&#10;.ft&#10;
-</literallayout>
+# ...and set up auth.backend here</literallayout><simpara></simpara>
 <simpara>To require authentication for both reads and writes:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$HTTP["url"] =~ "^/git/private" {
+<literallayout class="monospaced">$HTTP["url"] =~ "^/git/private" {
         include "git-auth.conf"
-}&#10;.ft&#10;
-</literallayout>
+}</literallayout><simpara></simpara>
 </listitem>
 </varlistentry>
 </variablelist>

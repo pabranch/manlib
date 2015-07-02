@@ -14,11 +14,10 @@
   <refpurpose>Reset current HEAD to the specified state</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git reset</emphasis> [-q] [&lt;tree-ish&gt;] [--] &lt;paths&gt;&#8230;
 <emphasis>git reset</emphasis> (--patch | -p) [&lt;tree-ish&gt;] [--] [&lt;paths&gt;&#8230;]
 <emphasis>git reset</emphasis> [--soft | --mixed [-N] | --hard | --merge | --keep] [-q] [&lt;commit&gt;]</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -185,13 +184,11 @@ but carries forward unmerged index entries.</simpara>
 Undo add
 </term>
 <listitem>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ edit                                     <co id="CO1-1"/>
+<literallayout class="monospaced">$ edit                                     <co id="CO1-1"/>
 $ git add frotz.c filfre.c
 $ mailx                                    <co id="CO1-2"/>
 $ git reset                                <co id="CO1-3"/>
-$ git pull git://info.example.com/ nitfol  <co id="CO1-4"/>&#10;.ft&#10;
-</literallayout>
+$ git pull git://info.example.com/ nitfol  <co id="CO1-4"/></literallayout><simpara></simpara>
 <calloutlist>
 <callout arearefs="CO1-1">
 <para>
@@ -229,12 +226,10 @@ changes still in the working tree.
 Undo a commit and redo
 </term>
 <listitem>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git commit ...
+<literallayout class="monospaced">$ git commit ...
 $ git reset --soft HEAD^      <co id="CO2-1"/>
 $ edit                        <co id="CO2-2"/>
-$ git commit -a -c ORIG_HEAD  <co id="CO2-3"/>&#10;.ft&#10;
-</literallayout>
+$ git commit -a -c ORIG_HEAD  <co id="CO2-3"/></literallayout><simpara></simpara>
 <calloutlist>
 <callout arearefs="CO2-1">
 <para>
@@ -266,11 +261,9 @@ edit the message further, you can give -C option instead.
 Undo a commit, making it a topic branch
 </term>
 <listitem>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git branch topic/wip     <co id="CO3-1"/>
+<literallayout class="monospaced">$ git branch topic/wip     <co id="CO3-1"/>
 $ git reset --hard HEAD~3  <co id="CO3-2"/>
-$ git checkout topic/wip   <co id="CO3-3"/>&#10;.ft&#10;
-</literallayout>
+$ git checkout topic/wip   <co id="CO3-3"/></literallayout><simpara></simpara>
 <calloutlist>
 <callout arearefs="CO3-1">
 <para>
@@ -298,10 +291,8 @@ Switch to "topic/wip" branch and keep working.
 Undo commits permanently
 </term>
 <listitem>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git commit ...
-$ git reset --hard HEAD~3   <co id="CO4-1"/>&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git commit ...
+$ git reset --hard HEAD~3   <co id="CO4-1"/></literallayout><simpara></simpara>
 <calloutlist>
 <callout arearefs="CO4-1">
 <para>
@@ -322,8 +313,7 @@ the implications of doing so.)
 Undo a merge or pull
 </term>
 <listitem>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git pull                         <co id="CO5-1"/>
+<literallayout class="monospaced">$ git pull                         <co id="CO5-1"/>
 Auto-merging nitfol
 CONFLICT (content): Merge conflict in nitfol
 Automatic merge failed; fix conflicts and then commit the result.
@@ -331,8 +321,7 @@ $ git reset --hard                 <co id="CO5-2"/>
 $ git pull . topic/branch          <co id="CO5-3"/>
 Updating from 41223... to 13134...
 Fast-forward
-$ git reset --hard ORIG_HEAD       <co id="CO5-4"/>&#10;.ft&#10;
-</literallayout>
+$ git reset --hard ORIG_HEAD       <co id="CO5-4"/></literallayout><simpara></simpara>
 <calloutlist>
 <callout arearefs="CO5-1">
 <para>
@@ -371,14 +360,12 @@ and resets the tip of the branch to that commit.
 Undo a merge or pull inside a dirty working tree
 </term>
 <listitem>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git pull                         <co id="CO6-1"/>
+<literallayout class="monospaced">$ git pull                         <co id="CO6-1"/>
 Auto-merging nitfol
 Merge made by recursive.
  nitfol                |   20 +++++----
  ...
-$ git reset --merge ORIG_HEAD      <co id="CO6-2"/>&#10;.ft&#10;
-</literallayout>
+$ git reset --merge ORIG_HEAD      <co id="CO6-2"/></literallayout><simpara></simpara>
 <calloutlist>
 <callout arearefs="CO6-1">
 <para>
@@ -409,8 +396,7 @@ Interrupted workflow
 are in the middle of a large change.  The files in your
 working tree are not in any shape to be committed yet, but you
 need to get to the other branch for a quick bugfix.</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git checkout feature ;# you were working in "feature" branch and
+<literallayout class="monospaced">$ git checkout feature ;# you were working in "feature" branch and
 $ work work work       ;# got interrupted
 $ git commit -a -m "snapshot WIP"                 <co id="CO7-1"/>
 $ git checkout master
@@ -418,8 +404,7 @@ $ fix fix fix
 $ git commit ;# commit with real log
 $ git checkout feature
 $ git reset --soft HEAD^ ;# go back to WIP state  <co id="CO7-2"/>
-$ git reset                                       <co id="CO7-3"/>&#10;.ft&#10;
-</literallayout>
+$ git reset                                       <co id="CO7-3"/></literallayout><simpara></simpara>
 <calloutlist>
 <callout arearefs="CO7-1">
 <para>
@@ -453,11 +438,9 @@ Reset a single file in the index
 <simpara>Suppose you have added a file to your index, but later decide you do not
 want to add it to your commit. You can remove the file from the index
 while keeping your changes with git reset.</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git reset -- frotz.c                      <co id="CO8-1"/>
+<literallayout class="monospaced">$ git reset -- frotz.c                      <co id="CO8-1"/>
 $ git commit -m "Commit files in index"     <co id="CO8-2"/>
-$ git add frotz.c                           <co id="CO8-3"/>&#10;.ft&#10;
-</literallayout>
+$ git add frotz.c                           <co id="CO8-3"/></literallayout><simpara></simpara>
 <calloutlist>
 <callout arearefs="CO8-1">
 <para>
@@ -488,15 +471,13 @@ continue working a bit more, but now you think that what you have in
 your working tree should be in another branch that has nothing to do
 with what you committed previously. You can start a new branch and
 reset it while keeping the changes in your working tree.</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git tag start
+<literallayout class="monospaced">$ git tag start
 $ git checkout -b branch1
 $ edit
 $ git commit ...                            <co id="CO9-1"/>
 $ edit
 $ git checkout -b branch2                   <co id="CO9-2"/>
-$ git reset --keep start                    <co id="CO9-3"/>&#10;.ft&#10;
-</literallayout>
+$ git reset --keep start                    <co id="CO9-3"/></literallayout><simpara></simpara>
 <calloutlist>
 <callout arearefs="CO9-1">
 <para>
@@ -525,9 +506,7 @@ But you can use "reset --keep" to remove the unwanted commit after
 <refsect1 id="_discussion">
 <title>DISCUSSION</title>
 <simpara>The tables below show what happens when running:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;git reset --option target&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">git reset --option target</literallayout><simpara></simpara>
 <simpara>to reset the HEAD to another commit (<literal>target</literal>) with the different
 reset options depending on the state of the files.</simpara>
 <simpara>In these tables, A, B, C and D are some different states of a

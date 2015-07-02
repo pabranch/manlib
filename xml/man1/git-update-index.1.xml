@@ -14,7 +14,6 @@
   <refpurpose>Register file contents in the working tree to the index</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git update-index</emphasis>
              [--add] [--remove | --force-remove] [--replace]
              [--refresh] [-q] [--unmerged] [--ignore-missing]
@@ -28,7 +27,7 @@
              [-z] [--stdin] [--index-version &lt;n&gt;]
              [--verbose]
              [--] [&lt;file&gt;&#8230;]</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -415,9 +414,7 @@ up the stat index details with the proper files.</simpara>
 current working directory.  This is useful for minimum-checkout
 merging.</simpara>
 <simpara>To pretend you have a file with mode and sha1 at path, say:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git update-index --cacheinfo &lt;mode&gt;,&lt;sha1&gt;,&lt;path&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git update-index --cacheinfo &lt;mode&gt;,&lt;sha1&gt;,&lt;path&gt;</literallayout><simpara></simpara>
 <simpara><emphasis>--info-only</emphasis> is used to register files without placing them in the object
 database.  This is useful for status-only repositories.</simpara>
 <simpara>Both <emphasis>--cacheinfo</emphasis> and <emphasis>--info-only</emphasis> behave similarly: the index is updated
@@ -460,26 +457,20 @@ index file and matches <emphasis>git ls-files --stage</emphasis> output.</simpar
 first be removed by feeding a mode=0 entry for the path, and
 then feeding necessary input lines in the third format.</simpara>
 <simpara>For example, starting with this index:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git ls-files -s
-100644 8a1218a1024a212bb3db30becd860315f9f3ac52 0       frotz&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git ls-files -s
+100644 8a1218a1024a212bb3db30becd860315f9f3ac52 0       frotz</literallayout><simpara></simpara>
 <simpara>you can feed the following input to <literal>--index-info</literal>:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git update-index --index-info
+<literallayout class="monospaced">$ git update-index --index-info
 0 0000000000000000000000000000000000000000      frotz
 100644 8a1218a1024a212bb3db30becd860315f9f3ac52 1       frotz
-100755 8a1218a1024a212bb3db30becd860315f9f3ac52 2       frotz&#10;.ft&#10;
-</literallayout>
+100755 8a1218a1024a212bb3db30becd860315f9f3ac52 2       frotz</literallayout><simpara></simpara>
 <simpara>The first line of the input feeds 0 as the mode to remove the
 path; the SHA-1 does not matter as long as it is well formatted.
 Then the second and third line feeds stage 1 and stage 2 entries
 for that path.  After the above, we would end up with this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git ls-files -s
+<literallayout class="monospaced">$ git ls-files -s
 100644 8a1218a1024a212bb3db30becd860315f9f3ac52 1       frotz
-100755 8a1218a1024a212bb3db30becd860315f9f3ac52 2       frotz&#10;.ft&#10;
-</literallayout>
+100755 8a1218a1024a212bb3db30becd860315f9f3ac52 2       frotz</literallayout><simpara></simpara>
 </refsect1>
 <refsect1 id="_using_8220_assume_unchanged_8221_bit">
 <title>Using &#8220;assume unchanged&#8221; bit</title>
@@ -515,17 +506,14 @@ to mark them as "assume unchanged").</simpara>
 <refsect1 id="_examples">
 <title>Examples</title>
 <simpara>To update and refresh only the files already checked out:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git checkout-index -n -f -a &amp;&amp; git update-index --ignore-missing --refresh&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git checkout-index -n -f -a &amp;&amp; git update-index --ignore-missing --refresh</literallayout><simpara></simpara>
 <variablelist>
 <varlistentry>
 <term>
 On an inefficient filesystem with <literal>core.ignorestat</literal> set
 </term>
 <listitem>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git update-index --really-refresh              <co id="CO1-1"/>
+<literallayout class="monospaced">$ git update-index --really-refresh              <co id="CO1-1"/>
 $ git update-index --no-assume-unchanged foo.c   <co id="CO1-2"/>
 $ git diff --name-only                           <co id="CO1-3"/>
 $ edit foo.c
@@ -537,8 +525,7 @@ $ edit foo.c
 $ git diff --name-only                           <co id="CO1-7"/>
 $ git update-index --no-assume-unchanged foo.c   <co id="CO1-8"/>
 $ git diff --name-only                           <co id="CO1-9"/>
-M foo.c&#10;.ft&#10;
-</literallayout>
+M foo.c</literallayout><simpara></simpara>
 <calloutlist>
 <callout arearefs="CO1-1">
 <para>

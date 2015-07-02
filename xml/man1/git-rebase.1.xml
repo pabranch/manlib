@@ -14,13 +14,12 @@
   <refpurpose>Forward-port local commits to the updated upstream head</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git rebase</emphasis> [-i | --interactive] [options] [--exec &lt;cmd&gt;] [--onto &lt;newbase&gt;]
         [&lt;upstream&gt; [&lt;branch&gt;]]
 <emphasis>git rebase</emphasis> [-i | --interactive] [options] [--exec &lt;cmd&gt;] [--onto &lt;newbase&gt;]
         --root [&lt;branch&gt;]
 <emphasis>git rebase</emphasis> --continue | --skip | --abort | --edit-todo</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -56,20 +55,16 @@ that caused the merge failure with <literal>git rebase --skip</literal>.  To che
 original &lt;branch&gt; and remove the .git/rebase-apply working files, use the
 command <literal>git rebase --abort</literal> instead.</simpara>
 <simpara>Assume the following history exists and the current branch is "topic":</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;          A---B---C topic
+<literallayout class="monospaced">          A---B---C topic
          /
-    D---E---F---G master&#10;.ft&#10;
-</literallayout>
+    D---E---F---G master</literallayout><simpara></simpara>
 <simpara>From this point, the result of either of the following commands:</simpara>
 <literallayout class="monospaced">git rebase master
 git rebase master topic</literallayout>
 <simpara>would be:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;                  A'--B'--C' topic
+<literallayout class="monospaced">                  A'--B'--C' topic
                  /
-    D---E---F---G master&#10;.ft&#10;
-</literallayout>
+    D---E---F---G master</literallayout><simpara></simpara>
 <simpara><emphasis role="strong">NOTE:</emphasis> The latter form is just a short-hand of <literal>git checkout topic</literal>
 followed by <literal>git rebase master</literal>. When rebase exits <literal>topic</literal> will
 remain the checked-out branch.</simpara>
@@ -78,73 +73,57 @@ because you mailed a patch which was applied upstream), then that commit
 will be skipped. For example, running <literal>git rebase master</literal> on the
 following history (in which <literal>A'</literal> and <literal>A</literal> introduce the same set of changes,
 but have different committer information):</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;          A---B---C topic
+<literallayout class="monospaced">          A---B---C topic
          /
-    D---E---A'---F master&#10;.ft&#10;
-</literallayout>
+    D---E---A'---F master</literallayout><simpara></simpara>
 <simpara>will result in:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;                   B'---C' topic
+<literallayout class="monospaced">                   B'---C' topic
                   /
-    D---E---A'---F master&#10;.ft&#10;
-</literallayout>
+    D---E---A'---F master</literallayout><simpara></simpara>
 <simpara>Here is how you would transplant a topic branch based on one
 branch to another, to pretend that you forked the topic branch
 from the latter branch, using <literal>rebase --onto</literal>.</simpara>
 <simpara>First let&#8217;s assume your <emphasis>topic</emphasis> is based on branch <emphasis>next</emphasis>.
 For example, a feature developed in <emphasis>topic</emphasis> depends on some
 functionality which is found in <emphasis>next</emphasis>.</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;    o---o---o---o---o  master
+<literallayout class="monospaced">    o---o---o---o---o  master
          \
           o---o---o---o---o  next
                            \
-                            o---o---o  topic&#10;.ft&#10;
-</literallayout>
+                            o---o---o  topic</literallayout><simpara></simpara>
 <simpara>We want to make <emphasis>topic</emphasis> forked from branch <emphasis>master</emphasis>; for example,
 because the functionality on which <emphasis>topic</emphasis> depends was merged into the
 more stable <emphasis>master</emphasis> branch. We want our tree to look like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;    o---o---o---o---o  master
+<literallayout class="monospaced">    o---o---o---o---o  master
         |            \
         |             o'--o'--o'  topic
          \
-          o---o---o---o---o  next&#10;.ft&#10;
-</literallayout>
+          o---o---o---o---o  next</literallayout><simpara></simpara>
 <simpara>We can get this using the following command:</simpara>
 <literallayout class="monospaced">git rebase --onto master next topic</literallayout>
 <simpara>Another example of --onto option is to rebase part of a
 branch.  If we have the following situation:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;                            H---I---J topicB
+<literallayout class="monospaced">                            H---I---J topicB
                            /
                   E---F---G  topicA
                  /
-    A---B---C---D  master&#10;.ft&#10;
-</literallayout>
+    A---B---C---D  master</literallayout><simpara></simpara>
 <simpara>then the command</simpara>
 <literallayout class="monospaced">git rebase --onto master topicA topicB</literallayout>
 <simpara>would result in:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;                 H'--I'--J'  topicB
+<literallayout class="monospaced">                 H'--I'--J'  topicB
                 /
                 | E---F---G  topicA
                 |/
-    A---B---C---D  master&#10;.ft&#10;
-</literallayout>
+    A---B---C---D  master</literallayout><simpara></simpara>
 <simpara>This is useful when topicB does not depend on topicA.</simpara>
 <simpara>A range of commits could also be removed with rebase.  If we have
 the following situation:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;    E---F---G---H---I---J  topicA&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">    E---F---G---H---I---J  topicA</literallayout><simpara></simpara>
 <simpara>then the command</simpara>
 <literallayout class="monospaced">git rebase --onto topicA~5 topicA~3 topicA</literallayout>
 <simpara>would result in the removal of commits F and G:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;    E---H'---I'---J'  topicA&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">    E---H'---I'---J'  topicA</literallayout><simpara></simpara>
 <simpara>This is useful if F and G were flawed in some way, or should not be
 part of topicA.  Note that the argument to --onto and the &lt;upstream&gt;
 parameter can be any valid commit-ish.</simpara>
@@ -988,11 +967,9 @@ commits, and squashing multiple commits into one.</simpara>
 (ignoring merge commits), which come after the given commit.  You can
 reorder the commits in this list to your heart&#8217;s content, and you can
 remove them.  The list looks more or less like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;pick deadbee The oneline of this commit
+<literallayout class="monospaced">pick deadbee The oneline of this commit
 pick fa1afe1 The oneline of the next commit
-...&#10;.ft&#10;
-</literallayout>
+...</literallayout><simpara></simpara>
 <simpara>The oneline descriptions are purely for your pleasure; <emphasis>git rebase</emphasis> will
 not look at them but at the commit names ("deadbee" and "fa1afe1" in this
 example), so do not delete or edit the names.</simpara>
@@ -1015,37 +992,29 @@ and/or resolving conflicts you can continue with <literal>git rebase --continue<
 <simpara>For example, if you want to reorder the last 5 commits, such that what
 was HEAD~4 becomes the new HEAD. To achieve that, you would call
 <emphasis>git rebase</emphasis> like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git rebase -i HEAD~5&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git rebase -i HEAD~5</literallayout><simpara></simpara>
 <simpara>And move the first patch to the end of the list.</simpara>
 <simpara>You might want to preserve merges, if you have a history like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;           X
+<literallayout class="monospaced">           X
             \
          A---M---B
         /
----o---O---P---Q&#10;.ft&#10;
-</literallayout>
+---o---O---P---Q</literallayout><simpara></simpara>
 <simpara>Suppose you want to rebase the side branch starting at "A" to "Q". Make
 sure that the current HEAD is "B", and call</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git rebase -i -p --onto Q O&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git rebase -i -p --onto Q O</literallayout><simpara></simpara>
 <simpara>Reordering and editing commits usually creates untested intermediate
 steps.  You may want to check that your history editing did not break
 anything by running a test, or at least recompiling at intermediate
 points in history by using the "exec" command (shortcut "x").  You may
 do so by creating a todo list like this one:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;pick deadbee Implement feature XXX
+<literallayout class="monospaced">pick deadbee Implement feature XXX
 fixup f1a5c00 Fix to feature XXX
 exec make
 pick c0ffeee The oneline of the next commit
 edit deadbab The oneline of the commit after
 exec cd subdir; make test
-...&#10;.ft&#10;
-</literallayout>
+...</literallayout><simpara></simpara>
 <simpara>The interactive rebase will stop when a command fails (i.e. exits with
 non-0 status) to give you an opportunity to fix the problem. You can
 continue with <literal>git rebase --continue</literal>.</simpara>
@@ -1053,21 +1022,17 @@ continue with <literal>git rebase --continue</literal>.</simpara>
 in <literal>$SHELL</literal>, or the default shell if <literal>$SHELL</literal> is not set), so you can
 use shell features (like "cd", "&gt;", ";" &#8230;). The command is run from
 the root of the working tree.</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git rebase -i --exec "make test"&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git rebase -i --exec "make test"</literallayout><simpara></simpara>
 <simpara>This command lets you check that intermediate commits are compilable.
 The todo list becomes like that:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;pick 5928aea one
+<literallayout class="monospaced">pick 5928aea one
 exec make test
 pick 04d0fda two
 exec make test
 pick ba46169 three
 exec make test
 pick f4593f9 four
-exec make test&#10;.ft&#10;
-</literallayout>
+exec make test</literallayout><simpara></simpara>
 </refsect1>
 <refsect1 id="_splitting_commits">
 <title>SPLITTING COMMITS</title>
@@ -1135,30 +1100,24 @@ to avoid rebasing the upstream in the first place.</simpara>
 <emphasis>subsystem</emphasis> branch, and you are working on a <emphasis>topic</emphasis> that is dependent
 on this <emphasis>subsystem</emphasis>.  You might end up with a history like the
 following:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;    o---o---o---o---o---o---o---o---o  master
+<literallayout class="monospaced">    o---o---o---o---o---o---o---o---o  master
          \
           o---o---o---o---o  subsystem
                            \
-                            *---*---*  topic&#10;.ft&#10;
-</literallayout>
+                            *---*---*  topic</literallayout><simpara></simpara>
 <simpara>If <emphasis>subsystem</emphasis> is rebased against <emphasis>master</emphasis>, the following happens:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;    o---o---o---o---o---o---o---o  master
+<literallayout class="monospaced">    o---o---o---o---o---o---o---o  master
          \                       \
           o---o---o---o---o       o'--o'--o'--o'--o'  subsystem
                            \
-                            *---*---*  topic&#10;.ft&#10;
-</literallayout>
+                            *---*---*  topic</literallayout><simpara></simpara>
 <simpara>If you now continue development as usual, and eventually merge <emphasis>topic</emphasis>
 to <emphasis>subsystem</emphasis>, the commits from <emphasis>subsystem</emphasis> will remain duplicated forever:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;    o---o---o---o---o---o---o---o  master
+<literallayout class="monospaced">    o---o---o---o---o---o---o---o  master
          \                       \
           o---o---o---o---o       o'--o'--o'--o'--o'--M  subsystem
                            \                         /
-                            *---*---*-..........-*--*  topic&#10;.ft&#10;
-</literallayout>
+                            *---*---*-..........-*--*  topic</literallayout><simpara></simpara>
 <simpara>Such duplicates are generally frowned upon because they clutter up
 history, making it harder to follow.  To clean things up, you need to
 transplant the commits on <emphasis>topic</emphasis> to the new <emphasis>subsystem</emphasis> tip, i.e.,
@@ -1199,17 +1158,13 @@ Hard case: The changes are not the same.
 <simpara>In that case, the fix is easy because <emphasis>git rebase</emphasis> knows to skip
 changes that are already present in the new upstream.  So if you say
 (assuming you&#8217;re on <emphasis>topic</emphasis>)</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;    $ git rebase subsystem&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">    $ git rebase subsystem</literallayout><simpara></simpara>
 <simpara>you will end up with the fixed history</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;    o---o---o---o---o---o---o---o  master
+<literallayout class="monospaced">    o---o---o---o---o---o---o---o  master
                                  \
                                   o'--o'--o'--o'--o'  subsystem
                                                    \
-                                                    *---*---*  topic&#10;.ft&#10;
-</literallayout>
+                                                    *---*---*  topic</literallayout><simpara></simpara>
 </refsect2>
 <refsect2 id="_the_hard_case">
 <title>The hard case</title>
@@ -1242,9 +1197,7 @@ Relative to the tip of <emphasis>topic</emphasis>: knowing that your <emphasis>t
 </itemizedlist>
 <simpara>You can then transplant the old <literal>subsystem..topic</literal> to the new tip by
 saying (for the reflog case, and assuming you are on <emphasis>topic</emphasis> already):</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;    $ git rebase --onto subsystem subsystem@{1}&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">    $ git rebase --onto subsystem subsystem@{1}</literallayout><simpara></simpara>
 <simpara>The ripple effect of a "hard case" recovery is especially bad:
 <emphasis>everyone</emphasis> downstream from <emphasis>topic</emphasis> will now have to perform a "hard
 case" recovery too!</simpara>
@@ -1257,19 +1210,13 @@ represent the topology of the revision graph.  Editing commits and
 rewording their commit messages should work fine, but attempts to
 reorder commits tend to produce counterintuitive results.</simpara>
 <simpara>For example, an attempt to rearrange</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;1 --- 2 --- 3 --- 4 --- 5&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">1 --- 2 --- 3 --- 4 --- 5</literallayout><simpara></simpara>
 <simpara>to</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;1 --- 2 --- 4 --- 3 --- 5&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">1 --- 2 --- 4 --- 3 --- 5</literallayout><simpara></simpara>
 <simpara>by moving the "pick 4" line will result in the following history:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        3
+<literallayout class="monospaced">        3
        /
-1 --- 2 --- 4 --- 5&#10;.ft&#10;
-</literallayout>
+1 --- 2 --- 4 --- 5</literallayout><simpara></simpara>
 </refsect1>
 <refsect1 id="_git">
 <title>GIT</title>

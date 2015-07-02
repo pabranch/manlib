@@ -86,9 +86,7 @@ repositories have to be all on local filesystem, and have to share common
 repository root, i.e. be all under a single parent repository (but see also
 "Advanced web server setup" section, "Webserver configuration with multiple
 projects' root" subsection).</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;our $projectroot = '/path/to/parent/directory';&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">our $projectroot = '/path/to/parent/directory';</literallayout><simpara></simpara>
 <simpara>The default value for <literal>$projectroot</literal> is <emphasis>/pub/git</emphasis>.  You can change it during
 building gitweb via <literal>GITWEB_PROJECTROOT</literal> build configuration variable.</simpara>
 <simpara>By default all Git repositories under <literal>$projectroot</literal> are visible and available
@@ -170,10 +168,8 @@ Currently recognized fields are:
 (the <emphasis>TXT</emphasis> link on projects list page) directly from gitweb; see also
 "Generating projects list using gitweb" section below.</simpara>
 <simpara>Example contents:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;foo.git       Joe+R+Hacker+&lt;joe@example.com&gt;
-foo/bar.git   O+W+Ner+&lt;owner@example.org&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">foo.git       Joe+R+Hacker+&lt;joe@example.com&gt;
+foo/bar.git   O+W+Ner+&lt;owner@example.org&gt;</literallayout><simpara></simpara>
 <simpara>By default this file controls only which projects are <emphasis role="strong">visible</emphasis> on projects
 list page (note that entries that do not point to correctly recognized Git
 repositories won&#8217;t be displayed by gitweb).  Even if a project is not
@@ -189,15 +185,12 @@ listed in projects list file will be accessible).</simpara>
 <title>Generating projects list using gitweb</title>
 <simpara>We assume that GITWEB_CONFIG has its default Makefile value, namely
 <emphasis>gitweb_config.perl</emphasis>. Put the following in <emphasis>gitweb_make_index.perl</emphasis> file:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;read_config_file("gitweb_config.perl");
-$projects_list = $projectroot;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">read_config_file("gitweb_config.perl");
+$projects_list = $projectroot;</literallayout><simpara></simpara>
 <simpara>Then create the following script to get list of project in the format
 suitable for GITWEB_LIST build configuration variable (or
 <literal>$projects_list</literal> variable in gitweb config):</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;#!/bin/sh
+<literallayout class="monospaced">#!/bin/sh
 
 export GITWEB_CONFIG="gitweb_make_index.perl"
 export GATEWAY_INTERFACE="CGI/1.1"
@@ -205,8 +198,7 @@ export HTTP_ACCEPT="*/*"
 export REQUEST_METHOD="GET"
 export QUERY_STRING="a=project_index"
 
-perl -- /var/www/cgi-bin/gitweb.cgi&#10;.ft&#10;
-</literallayout>
+perl -- /var/www/cgi-bin/gitweb.cgi</literallayout><simpara></simpara>
 <simpara>Run this script and save its output to a file.  This file could then be used
 as projects list file, which means that you can set <literal>$projects_list</literal> to its
 filename.</simpara>
@@ -241,9 +233,7 @@ database (if directory has the magic file named <literal>$export_ok</literal>).
 </citerefentry> by default (unless <literal>--export-all</literal> option
 is used) allows pulling only for those repositories that have
 <emphasis>git-daemon-export-ok</emphasis> file.  Adding</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;our $export_ok = "git-daemon-export-ok";&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">our $export_ok = "git-daemon-export-ok";</literallayout><simpara></simpara>
 <simpara>makes gitweb show and allow access only to those repositories that can be
 fetched from via <literal>git://</literal> protocol.</simpara>
 </listitem>
@@ -258,8 +248,7 @@ parameter (i.e. "$projectroot/$project").
 HTTP protocol authentication configured for your repositories, you
 can use the following hook to allow access only if the user is
 authorized to read the files:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$export_auth_hook = sub {
+<literallayout class="monospaced">$export_auth_hook = sub {
         use Apache2::SubRequest ();
         use Apache2::Const -compile =&gt; qw(HTTP_OK);
         my $path = "$_[0]/HEAD";
@@ -267,8 +256,7 @@ authorized to read the files:</simpara>
         my $sub  = $r-&gt;lookup_file($path);
         return $sub-&gt;filename eq $path
             &amp;&amp; $sub-&gt;status == Apache2::Const::HTTP_OK;
-};&#10;.ft&#10;
-</literallayout>
+};</literallayout><simpara></simpara>
 </listitem>
 </itemizedlist>
 </refsect2>
@@ -312,9 +300,7 @@ description (or <literal>gitweb.description</literal>)
 </citerefentry>) single line description of a project (of a
         repository).  Plain text file; HTML will be escaped.  By default set to
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;Unnamed repository; edit this file to name it for gitweb.&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">Unnamed repository; edit this file to name it for gitweb.</literallayout><simpara></simpara>
 <simpara>from the template during repository creation, usually installed in
 <emphasis>/usr/share/git-core/templates/</emphasis>.  You can use the <literal>gitweb.description</literal> repo
 configuration variable, but the file takes precedence.</simpara>
@@ -395,9 +381,7 @@ various <literal>gitweb.*</literal> config variables (in config)
 <simpara>Gitweb can use path_info (component) based URLs, or it can pass all necessary
 information via query parameters.  The typical gitweb URLs are broken down in to
 five components:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;.../gitweb.cgi/&lt;repo&gt;/&lt;action&gt;/&lt;revision&gt;:/&lt;path&gt;?&lt;arguments&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">.../gitweb.cgi/&lt;repo&gt;/&lt;action&gt;/&lt;revision&gt;:/&lt;path&gt;?&lt;arguments&gt;</literallayout><simpara></simpara>
 <variablelist>
 <varlistentry>
 <term>
@@ -457,16 +441,12 @@ arguments
 <simpara>Some actions require or allow to specify two revisions, and sometimes even two
 pathnames.  In most general form such path_info (component) based gitweb URL
 looks like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;.../gitweb.cgi/&lt;repo&gt;/&lt;action&gt;/&lt;revision_from&gt;:/&lt;path_from&gt;..&lt;revision_to&gt;:/&lt;path_to&gt;?&lt;arguments&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">.../gitweb.cgi/&lt;repo&gt;/&lt;action&gt;/&lt;revision_from&gt;:/&lt;path_from&gt;..&lt;revision_to&gt;:/&lt;path_to&gt;?&lt;arguments&gt;</literallayout><simpara></simpara>
 <simpara>Each action is implemented as a subroutine, and must be present in %actions
 hash.  Some actions are disabled by default, and must be turned on via feature
 mechanism.  For example to enable <emphasis>blame</emphasis> view add the following to gitweb
 configuration file:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$feature{'blame'}{'default'} = [1];&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$feature{'blame'}{'default'} = [1];</literallayout><simpara></simpara>
 <refsect2 id="_actions">
 <title>Actions:</title>
 <simpara>The standard actions are:</simpara>
@@ -664,16 +644,14 @@ in the instructions so they can be included in a future release.</simpara>
 <simpara>Apache must be configured to support CGI scripts in the directory in
 which gitweb is installed.  Let&#8217;s assume that it is <emphasis>/var/www/cgi-bin</emphasis>
 directory.</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;ScriptAlias /cgi-bin/ "/var/www/cgi-bin/"
+<literallayout class="monospaced">ScriptAlias /cgi-bin/ "/var/www/cgi-bin/"
 
 &lt;Directory "/var/www/cgi-bin"&gt;
     Options Indexes FollowSymlinks ExecCGI
     AllowOverride None
     Order allow,deny
     Allow from all
-&lt;/Directory&gt;&#10;.ft&#10;
-</literallayout>
+&lt;/Directory&gt;</literallayout><simpara></simpara>
 <simpara>With that configuration the full path to browse repositories would be:</simpara>
 <literallayout class="monospaced">http://server/cgi-bin/gitweb.cgi</literallayout>
 </refsect2>
@@ -684,8 +662,7 @@ directory.</simpara>
 this support.</simpara>
 <simpara>Assuming that gitweb is installed to <emphasis>/var/www/perl</emphasis>, the following
 Apache configuration (for mod_perl 2.x) is suitable.</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;Alias /perl "/var/www/perl"
+<literallayout class="monospaced">Alias /perl "/var/www/perl"
 
 &lt;Directory "/var/www/perl"&gt;
     SetHandler perl-script
@@ -695,8 +672,7 @@ Apache configuration (for mod_perl 2.x) is suitable.</simpara>
     AllowOverride None
     Order allow,deny
     Allow from all
-&lt;/Directory&gt;&#10;.ft&#10;
-</literallayout>
+&lt;/Directory&gt;</literallayout><simpara></simpara>
 <simpara>With that configuration the full path to browse repositories would be:</simpara>
 <literallayout class="monospaced">http://server/perl/gitweb.cgi</literallayout>
 </refsect2>
@@ -706,15 +682,13 @@ Apache configuration (for mod_perl 2.x) is suitable.</simpara>
 or symlink gitweb.cgi to gitweb.fcgi.  Let&#8217;s assume that gitweb is
 installed in <emphasis>/usr/share/gitweb</emphasis> directory.  The following Apache
 configuration is suitable (UNTESTED!)</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;FastCgiServer /usr/share/gitweb/gitweb.cgi
+<literallayout class="monospaced">FastCgiServer /usr/share/gitweb/gitweb.cgi
 ScriptAlias /gitweb /usr/share/gitweb/gitweb.cgi
 
 Alias /gitweb/static /usr/share/gitweb/static
 &lt;Directory /usr/share/gitweb/static&gt;
     SetHandler default-handler
-&lt;/Directory&gt;&#10;.ft&#10;
-</literallayout>
+&lt;/Directory&gt;</literallayout><simpara></simpara>
 <simpara>With that configuration the full path to browse repositories would be:</simpara>
 <literallayout class="monospaced">http://server/gitweb</literallayout>
 </refsect2>
@@ -727,8 +701,7 @@ Alias /gitweb/static /usr/share/gitweb/static
 <title>Single URL for gitweb and for fetching</title>
 <simpara>If you want to have one URL for both gitweb and your <literal>http://</literal>
 repositories, you can configure Apache like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;&lt;VirtualHost *:80&gt;
+<literallayout class="monospaced">&lt;VirtualHost *:80&gt;
     ServerName    git.example.org
     DocumentRoot  /pub/git
     SetEnv        GITWEB_CONFIG   /etc/gitweb.conf
@@ -742,8 +715,7 @@ repositories, you can configure Apache like this:</simpara>
     # make access for "dumb clients" work
     RewriteRule ^/(.*\.git/(?!/?(HEAD|info|objects|refs)).*)?$ \
                 /cgi-bin/gitweb.cgi%{REQUEST_URI}  [L,PT]
-&lt;/VirtualHost&gt;&#10;.ft&#10;
-</literallayout>
+&lt;/VirtualHost&gt;</literallayout><simpara></simpara>
 <simpara>The above configuration expects your public repositories to live under
 <emphasis>/pub/git</emphasis> and will serve them as <literal>http://git.domain.org/dir-under-pub-git</literal>,
 both as clonable Git URL and as browseable gitweb interface.  If you then
@@ -763,12 +735,10 @@ rules.</simpara>
 <simpara>If you use the rewrite rules from the example you <emphasis role="strong">might</emphasis> also need
 something like the following in your gitweb configuration file
 (<emphasis>/etc/gitweb.conf</emphasis> following example):</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;@stylesheets = ("/some/absolute/path/gitweb.css");
+<literallayout class="monospaced">@stylesheets = ("/some/absolute/path/gitweb.css");
 $my_uri    = "/";
 $home_link = "/";
-$per_request_config = 1;&#10;.ft&#10;
-</literallayout>
+$per_request_config = 1;</literallayout><simpara></simpara>
 <simpara>Nowadays though gitweb should create HTML base tag when needed (to set base
 URI for relative links), so it should work automatically.</simpara>
 </refsect2>
@@ -778,8 +748,7 @@ URI for relative links), so it should work automatically.</simpara>
 Apache virtual host and gitweb configuration files in the following way.</simpara>
 <simpara>The virtual host configuration (in Apache configuration file) should look
 like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;&lt;VirtualHost *:80&gt;
+<literallayout class="monospaced">&lt;VirtualHost *:80&gt;
     ServerName    git.example.org
     DocumentRoot  /pub/git
     SetEnv        GITWEB_CONFIG  /etc/gitweb.conf
@@ -812,14 +781,11 @@ like this:</simpara>
     # make access for "dumb clients" work
     RewriteRule ^/(.*\.git/(?!/?(HEAD|info|objects|refs)).*)?$ \
                 /cgi-bin/gitweb.cgi%{REQUEST_URI}  [L,PT]
-&lt;/VirtualHost&gt;&#10;.ft&#10;
-</literallayout>
+&lt;/VirtualHost&gt;</literallayout><simpara></simpara>
 <simpara>Here actual project root is passed to gitweb via <literal>GITWEB_PROJECT_ROOT</literal>
 environment variable from a web server, so you need to put the following
 line in gitweb configuration file (<emphasis>/etc/gitweb.conf</emphasis> in above example):</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$projectroot = $ENV{'GITWEB_PROJECTROOT'} || "/pub/git";&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$projectroot = $ENV{'GITWEB_PROJECTROOT'} || "/pub/git";</literallayout><simpara></simpara>
 <simpara><emphasis role="strong">Note</emphasis> that this requires to be set for each request, so either
 <literal>$per_request_config</literal> must be false, or the above must be put in code
 referenced by <literal>$per_request_config</literal>;</simpara>
@@ -840,9 +806,7 @@ the third and the fourth.</simpara>
 <refsect2 id="_path_info_usage">
 <title>PATH_INFO usage</title>
 <simpara>If you enable PATH_INFO usage in gitweb by putting</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$feature{'pathinfo'}{'default'} = [1];&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$feature{'pathinfo'}{'default'} = [1];</literallayout><simpara></simpara>
 <simpara>in your gitweb configuration file, it is possible to set up your server so
 that it consumes and produces URLs in the form</simpara>
 <literallayout class="monospaced">http://git.example.com/project.git/shortlog/sometag</literallayout>
@@ -850,8 +814,7 @@ that it consumes and produces URLs in the form</simpara>
 following.  This configuration assumes that <emphasis>/var/www/gitweb</emphasis> is the
 DocumentRoot of your webserver, contains the gitweb.cgi script and
 complementary static files (stylesheet, favicon, JavaScript):</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;&lt;VirtualHost *:80&gt;
+<literallayout class="monospaced">&lt;VirtualHost *:80&gt;
         ServerAlias git.example.com
 
         DocumentRoot /var/www/gitweb
@@ -867,8 +830,7 @@ complementary static files (stylesheet, favicon, JavaScript):</simpara>
                 RewriteCond %{REQUEST_FILENAME} !-d
                 RewriteRule ^.* /gitweb.cgi/$0 [L,PT]
         &lt;/Directory&gt;
-&lt;/VirtualHost&gt;&#10;.ft&#10;
-</literallayout>
+&lt;/VirtualHost&gt;</literallayout><simpara></simpara>
 <simpara>The rewrite rule guarantees that existing static files will be properly
 served, whereas any other URL will be passed to gitweb as PATH_INFO
 parameter.</simpara>
@@ -879,8 +841,7 @@ for fetching" section).  A possible workaround for the latter is the
 following: in your project root dir (e.g. <emphasis>/pub/git</emphasis>) have the projects
 named <emphasis role="strong">without</emphasis> a .git extension (e.g. <emphasis>/pub/git/project</emphasis> instead of
 <emphasis>/pub/git/project.git</emphasis>) and configure Apache as follows:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;&lt;VirtualHost *:80&gt;
+<literallayout class="monospaced">&lt;VirtualHost *:80&gt;
         ServerAlias git.example.com
 
         DocumentRoot /var/www/gitweb
@@ -897,8 +858,7 @@ named <emphasis role="strong">without</emphasis> a .git extension (e.g. <emphasi
                 RewriteCond %{REQUEST_FILENAME} !-d
                 RewriteRule ^.* /gitweb.cgi/$0 [L,PT]
         &lt;/Directory&gt;
-&lt;/VirtualHost&gt;&#10;.ft&#10;
-</literallayout>
+&lt;/VirtualHost&gt;</literallayout><simpara></simpara>
 <simpara>The additional AliasMatch makes it so that</simpara>
 <literallayout class="monospaced">http://git.example.com/project.git</literallayout>
 <simpara>will give raw access to the project&#8217;s Git dir (so that the project can be

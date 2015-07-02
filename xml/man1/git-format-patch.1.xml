@@ -14,7 +14,6 @@
   <refpurpose>Prepare patches for e-mail submission</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git format-patch</emphasis> [-k] [(-o|--output-directory) &lt;dir&gt; | --stdout]
                    [--no-thread | --thread[=&lt;style&gt;]]
                    [(--attach|--inline)[=&lt;boundary&gt;] | --no-attach]
@@ -30,7 +29,7 @@
                    [--[no-]cover-letter] [--quiet] [--notes[=&lt;ref&gt;]]
                    [&lt;common diff options&gt;]
                    [ &lt;since&gt; | &lt;revision range&gt; ]</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -1163,8 +1162,7 @@ you can use <literal>--suffix=-patch</literal> to get <literal>0001-description-
 defaults for the subject prefix and file suffix, number patches when
 outputting more than one patch, add "To" or "Cc:" headers, configure
 attachments, and sign off patches with configuration variables.</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;[format]
+<literallayout class="monospaced">[format]
         headers = "Organization: git-foo\n"
         subjectPrefix = CHANGE
         suffix = .txt
@@ -1173,16 +1171,14 @@ attachments, and sign off patches with configuration variables.</simpara>
         cc = &lt;email&gt;
         attach [ = mime-boundary-string ]
         signOff = true
-        coverletter = auto&#10;.ft&#10;
-</literallayout>
+        coverletter = auto</literallayout><simpara></simpara>
 </refsect1>
 <refsect1 id="_discussion">
 <title>DISCUSSION</title>
 <simpara>The patch produced by <emphasis>git format-patch</emphasis> is in UNIX mailbox format,
 with a fixed "magic" time stamp to indicate that the file is output
 from format-patch rather than a real mailbox, like so:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;From 8f72bad1baf19a53459661343e21d6491c3908d3 Mon Sep 17 00:00:00 2001
+<literallayout class="monospaced">From 8f72bad1baf19a53459661343e21d6491c3908d3 Mon Sep 17 00:00:00 2001
 From: Tony Luck &lt;tony.luck@intel.com&gt;
 Date: Tue, 13 Jul 2010 11:42:54 -0700
 Subject: [PATCH] =?UTF-8?q?[IA64]=20Put=20ia64=20config=20files=20on=20the=20?=
@@ -1195,8 +1191,7 @@ arch/arm config files were slimmed down using a python script
 (See commit c2330e286f68f1c408b4aa6515ba49d57f05beae comment)
 
 Do the same for ia64 so we can have sleek &amp; trim looking
-...&#10;.ft&#10;
-</literallayout>
+...</literallayout><simpara></simpara>
 <simpara>Typically it will be placed in a MUA&#8217;s drafts folder, edited to add
 timely commentary that should not go in the changelog after the three
 dashes, and then sent as a message whose body, in our example, starts
@@ -1210,8 +1205,7 @@ can save interesting patches in a UNIX mailbox and apply them with
 --scissors</emphasis> feature.  After your response to the discussion comes a
 line that consists solely of "<literal>-- &gt;8 --</literal>" (scissors and perforation),
 followed by the patch with unnecessary header fields removed:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;...
+<literallayout class="monospaced">...
 &gt; So we should do such-and-such.
 
 Makes sense to me.  How about this patch?
@@ -1220,8 +1214,7 @@ Makes sense to me.  How about this patch?
 Subject: [IA64] Put ia64 config files on the Uwe Kleine-König diet
 
 arch/arm config files were slimmed down using a python script
-...&#10;.ft&#10;
-</literallayout>
+...</literallayout><simpara></simpara>
 <simpara>When sending a patch this way, most often you are sending your own
 patch, so in addition to the "<literal>From $SHA1 $magic_timestamp</literal>" marker you
 should omit <literal>From:</literal> and <literal>Date:</literal> lines from the patch file.  The patch
@@ -1402,10 +1395,8 @@ In the main Thunderbird window, <emphasis>before</emphasis> you open the compose
    window for the patch, use Tools&#8594;about:config to set the
    following to the indicated values:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        mailnews.send_plaintext_flowed  =&gt; false
-        mailnews.wraplength             =&gt; 0&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        mailnews.send_plaintext_flowed  =&gt; false
+        mailnews.wraplength             =&gt; 0</literallayout><simpara></simpara>
 </listitem>
 <listitem>
 <simpara>
@@ -1421,11 +1412,9 @@ In the external editor window, read in the patch file and exit
 </orderedlist>
 <simpara>Side note: it may be possible to do step 2 with
 about:config and the following settings but no one&#8217;s tried yet.</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        mail.html_compose                       =&gt; false
+<literallayout class="monospaced">        mail.html_compose                       =&gt; false
         mail.identity.default.compose_html      =&gt; false
-        mail.identity.id?.compose_html          =&gt; false&#10;.ft&#10;
-</literallayout>
+        mail.identity.id?.compose_html          =&gt; false</literallayout><simpara></simpara>
 <simpara>There is a script in contrib/thunderbird-patch-inline which can help
 you include patches with Thunderbird in an easy way. To use it, do the
 steps above and then use the script as the external editor.</simpara>
@@ -1473,18 +1462,14 @@ Back in the compose window: add whatever other text you wish to the
 Extract commits between revisions R1 and R2, and apply them on top of
 the current branch using <emphasis>git am</emphasis> to cherry-pick them:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git format-patch -k --stdout R1..R2 | git am -3 -k&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git format-patch -k --stdout R1..R2 | git am -3 -k</literallayout><simpara></simpara>
 </listitem>
 <listitem>
 <simpara>
 Extract all commits which are in the current branch but not in the
 origin branch:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git format-patch origin&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git format-patch origin</literallayout><simpara></simpara>
 <simpara>For each commit a separate file is created in the current directory.</simpara>
 </listitem>
 <listitem>
@@ -1492,17 +1477,13 @@ origin branch:
 Extract all commits that lead to <emphasis>origin</emphasis> since the inception of the
 project:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git format-patch --root origin&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git format-patch --root origin</literallayout><simpara></simpara>
 </listitem>
 <listitem>
 <simpara>
 The same as the previous one:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git format-patch -M -B origin&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git format-patch -M -B origin</literallayout><simpara></simpara>
 <simpara>Additionally, it detects and handles renames and complete rewrites
 intelligently to produce a renaming patch.  A renaming patch reduces
 the amount of text output, and generally makes it easier to review.
@@ -1514,9 +1495,7 @@ use it only when you know the recipient uses Git to apply your patch.</simpara>
 Extract three topmost commits from the current branch and format them
 as e-mailable patches:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git format-patch -3&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git format-patch -3</literallayout><simpara></simpara>
 </listitem>
 </itemizedlist>
 </refsect1>

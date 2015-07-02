@@ -14,13 +14,12 @@
   <refpurpose>Join two or more development histories together</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git merge</emphasis> [-n] [--stat] [--no-commit] [--squash] [--[no-]edit]
         [-s &lt;strategy&gt;] [-X &lt;strategy-option&gt;] [-S[&lt;key-id&gt;]]
         [--[no-]rerere-autoupdate] [-m &lt;msg&gt;] [&lt;commit&gt;&#8230;]
 <emphasis>git merge</emphasis> &lt;msg&gt; HEAD &lt;commit&gt;&#8230;
 <emphasis>git merge</emphasis> --abort</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -31,21 +30,17 @@ from another repository and can be used by hand to merge changes
 from one branch into another.</simpara>
 <simpara>Assume the following history exists and the current branch is
 "<literal>master</literal>":</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;          A---B---C topic
+<literallayout class="monospaced">          A---B---C topic
          /
-    D---E---F---G master&#10;.ft&#10;
-</literallayout>
+    D---E---F---G master</literallayout><simpara></simpara>
 <simpara>Then "<literal>git merge topic</literal>" will replay the changes made on the
 <literal>topic</literal> branch since it diverged from <literal>master</literal> (i.e., <literal>E</literal>) until
 its current commit (<literal>C</literal>) on top of <literal>master</literal>, and record the result
 in a new commit along with the names of the two parent commits and
 a log message from the user describing the changes.</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;          A---B---C topic
+<literallayout class="monospaced">          A---B---C topic
          /         \
-    D---E---F---G---H master&#10;.ft&#10;
-</literallayout>
+    D---E---F---G---H master</literallayout><simpara></simpara>
 <simpara>The second syntax (&lt;msg&gt; <literal>HEAD</literal> &lt;commit&gt;&#8230;) is supported for
 historical reasons.  Do not use it from the command line or in
 new scripts.  It is the same as <literal>git merge -m &lt;msg&gt; &lt;commit&gt;...</literal>.</simpara>
@@ -476,11 +471,9 @@ release point, you may not want to make an unnecessary merge commit.</simpara>
 <simpara>In such a case, you can "unwrap" the tag yourself before feeding it
 to <literal>git merge</literal>, or pass <literal>--ff-only</literal> when you do not have any work on
 your own. e.g.</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;git fetch origin
+<literallayout class="monospaced">git fetch origin
 git merge v1.2.3^0
-git merge --ff-only v1.2.3&#10;.ft&#10;
-</literallayout>
+git merge --ff-only v1.2.3</literallayout><simpara></simpara>
 </refsect1>
 <refsect1 id="_how_conflicts_are_presented">
 <title>HOW CONFLICTS ARE PRESENTED</title>
@@ -493,8 +486,7 @@ however, Git cannot randomly pick one side over the other, and asks you to
 resolve it by leaving what both sides did to that area.</simpara>
 <simpara>By default, Git uses the same style as the one used by the "merge" program
 from the RCS suite to present such a conflicted hunk, like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;Here are lines that are either unchanged from the common
+<literallayout class="monospaced">Here are lines that are either unchanged from the common
 ancestor, or cleanly resolved because only one side changed.
 &lt;&lt;&lt;&lt;&lt;&lt;&lt; yours:sample.txt
 Conflict resolution is hard;
@@ -502,8 +494,7 @@ let's go shopping.
 =======
 Git makes conflict resolution easy.
 &gt;&gt;&gt;&gt;&gt;&gt;&gt; theirs:sample.txt
-And here is another line that is cleanly resolved or unmodified.&#10;.ft&#10;
-</literallayout>
+And here is another line that is cleanly resolved or unmodified.</literallayout><simpara></simpara>
 <simpara>The area where a pair of conflicting changes happened is marked with markers
 <literal>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</literal>, <literal>=======</literal>, and <literal>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</literal>.  The part before the <literal>=======</literal>
 is typically your side, and the part afterwards is typically their side.</simpara>
@@ -515,8 +506,7 @@ other side wants to claim it is easy.</simpara>
 <simpara>An alternative style can be used by setting the "merge.conflictStyle"
 configuration variable to "diff3".  In "diff3" style, the above conflict
 may look like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;Here are lines that are either unchanged from the common
+<literallayout class="monospaced">Here are lines that are either unchanged from the common
 ancestor, or cleanly resolved because only one side changed.
 &lt;&lt;&lt;&lt;&lt;&lt;&lt; yours:sample.txt
 Conflict resolution is hard;
@@ -526,8 +516,7 @@ Conflict resolution is hard.
 =======
 Git makes conflict resolution easy.
 &gt;&gt;&gt;&gt;&gt;&gt;&gt; theirs:sample.txt
-And here is another line that is cleanly resolved or unmodified.&#10;.ft&#10;
-</literallayout>
+And here is another line that is cleanly resolved or unmodified.</literallayout><simpara></simpara>
 <simpara>In addition to the <literal>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</literal>, <literal>=======</literal>, and <literal>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</literal> markers, it uses
 another <literal>|||||||</literal> marker that is followed by the original text.  You can
 tell that the original just stated a fact, and your side simply gave in to
@@ -595,27 +584,21 @@ Look at the originals.  <literal>git show :1:filename</literal> shows the
 Merge branches <literal>fixes</literal> and <literal>enhancements</literal> on top of
   the current branch, making an octopus merge:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git merge fixes enhancements&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git merge fixes enhancements</literallayout><simpara></simpara>
 </listitem>
 <listitem>
 <simpara>
 Merge branch <literal>obsolete</literal> into the current branch, using <literal>ours</literal>
   merge strategy:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git merge -s ours obsolete&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git merge -s ours obsolete</literallayout><simpara></simpara>
 </listitem>
 <listitem>
 <simpara>
 Merge branch <literal>maint</literal> into the current branch, but do not make
   a new commit automatically:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git merge --no-commit maint&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git merge --no-commit maint</literallayout><simpara></simpara>
 <simpara>This can be used when you want to include further changes to the
 merge, or want to write your own merge commit message.</simpara>
 <simpara>You should refrain from abusing this option to sneak substantial

@@ -14,9 +14,8 @@
   <refpurpose>Fetch from and integrate with another repository or a local branch</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git pull</emphasis> [options] [&lt;repository&gt; [&lt;refspec&gt;&#8230;]]</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -42,23 +41,19 @@ as set by <citerefentry>
 </citerefentry> <literal>--track</literal>.</simpara>
 <simpara>Assume the following history exists and the current branch is
 "<literal>master</literal>":</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;          A---B---C master on origin
+<literallayout class="monospaced">          A---B---C master on origin
          /
     D---E---F---G master
         ^
-        origin/master in your repository&#10;.ft&#10;
-</literallayout>
+        origin/master in your repository</literallayout><simpara></simpara>
 <simpara>Then "<literal>git pull</literal>" will fetch and replay the changes from the remote
 <literal>master</literal> branch since it diverged from the local <literal>master</literal> (i.e., <literal>E</literal>)
 until its current commit (<literal>C</literal>) on top of <literal>master</literal> and record the
 result in a new commit along with the names of the two parent commits
 and a log message from the user describing the changes.</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;          A---B---C origin/master
+<literallayout class="monospaced">          A---B---C origin/master
          /         \
-    D---E---F---G---H master&#10;.ft&#10;
-</literallayout>
+    D---E---F---G---H master</literallayout><simpara></simpara>
 <simpara>See <citerefentry>
 <refentrytitle>git-merge</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry> for details, including how conflicts
@@ -710,29 +705,21 @@ invoked. See <citerefentry>
 you want to use a different format for them (such that the URLs you
 use will be rewritten into URLs that work), you can create a
 configuration section of the form:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        [url "&lt;actual url base&gt;"]
-                insteadOf = &lt;other url base&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        [url "&lt;actual url base&gt;"]
+                insteadOf = &lt;other url base&gt;</literallayout><simpara></simpara>
 <simpara>For example, with this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        [url "git://git.host.xz/"]
+<literallayout class="monospaced">        [url "git://git.host.xz/"]
                 insteadOf = host.xz:/path/to/
-                insteadOf = work:&#10;.ft&#10;
-</literallayout>
+                insteadOf = work:</literallayout><simpara></simpara>
 <simpara>a URL like "work:repo.git" or like "host.xz:/path/to/repo.git" will be
 rewritten in any context that takes a URL to be "git://git.host.xz/repo.git".</simpara>
 <simpara>If you want to rewrite URLs for push only, you can create a
 configuration section of the form:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        [url "&lt;actual url base&gt;"]
-                pushInsteadOf = &lt;other url base&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        [url "&lt;actual url base&gt;"]
+                pushInsteadOf = &lt;other url base&gt;</literallayout><simpara></simpara>
 <simpara>For example, with this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        [url "ssh://example.org/"]
-                pushInsteadOf = git://example.org/&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        [url "ssh://example.org/"]
+                pushInsteadOf = git://example.org/</literallayout><simpara></simpara>
 <simpara>a URL like "git://example.org/path/to/repo.git" will be rewritten to
 "ssh://example.org/path/to/repo.git" for pushes, but pulls will still
 use the original URL.</simpara>
@@ -773,13 +760,11 @@ this remote will be used to access the repository.  The refspec
 of this remote will be used by default when you do
 not provide a refspec on the command line.  The entry in the
 config file would appear like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        [remote "&lt;name&gt;"]
+<literallayout class="monospaced">        [remote "&lt;name&gt;"]
                 url = &lt;url&gt;
                 pushurl = &lt;pushurl&gt;
                 push = &lt;refspec&gt;
-                fetch = &lt;refspec&gt;&#10;.ft&#10;
-</literallayout>
+                fetch = &lt;refspec&gt;</literallayout><simpara></simpara>
 <simpara>The <literal>&lt;pushurl&gt;</literal> is used for pushes only. It is optional and defaults
 to <literal>&lt;url&gt;</literal>.</simpara>
 </refsect2>
@@ -791,11 +776,9 @@ in this file will be used to access the repository.  The refspec
 in this file will be used as default when you do not
 provide a refspec on the command line.  This file should have the
 following format:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        URL: one of the above URL format
+<literallayout class="monospaced">        URL: one of the above URL format
         Push: &lt;refspec&gt;
-        Pull: &lt;refspec&gt;&#10;.ft&#10;
-</literallayout>
+        Pull: &lt;refspec&gt;</literallayout><simpara></simpara>
 <simpara><literal>Push:</literal> lines are used by <emphasis>git push</emphasis> and
 <literal>Pull:</literal> lines are used by <emphasis>git pull</emphasis> and <emphasis>git fetch</emphasis>.
 Multiple <literal>Push:</literal> and <literal>Pull:</literal> lines may
@@ -807,22 +790,16 @@ be specified for additional branch mappings.</simpara>
 file in <literal>$GIT_DIR/branches</literal>.
 The URL in this file will be used to access the repository.
 This file should have the following format:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        &lt;url&gt;#&lt;head&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        &lt;url&gt;#&lt;head&gt;</literallayout><simpara></simpara>
 <simpara><literal>&lt;url&gt;</literal> is required; <literal>#&lt;head&gt;</literal> is optional.</simpara>
 <simpara>Depending on the operation, git will use one of the following
 refspecs, if you don&#8217;t provide one on the command line.
 <literal>&lt;branch&gt;</literal> is the name of this file in <literal>$GIT_DIR/branches</literal> and
 <literal>&lt;head&gt;</literal> defaults to <literal>master</literal>.</simpara>
 <simpara>git fetch uses:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        refs/heads/&lt;head&gt;:refs/heads/&lt;branch&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        refs/heads/&lt;head&gt;:refs/heads/&lt;branch&gt;</literallayout><simpara></simpara>
 <simpara>git push uses:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        HEAD:refs/heads/&lt;head&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        HEAD:refs/heads/&lt;head&gt;</literallayout><simpara></simpara>
 </refsect2>
 </refsect1>
 <refsect1 id="_merge_strategies">
@@ -1093,9 +1070,7 @@ consulted, and if there aren&#8217;t any, <literal>$GIT_DIR/remotes/&lt;origin&g
 file is consulted and its `Pull: ` lines are used.
 In addition to the refspec formats described in the OPTIONS
 section, you can have a globbing refspec that looks like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;refs/heads/*:refs/remotes/origin/*&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">refs/heads/*:refs/remotes/origin/*</literallayout><simpara></simpara>
 <simpara>A globbing refspec must have a non-empty RHS (i.e. must store
 what were fetched in remote-tracking branches), and its LHS and RHS
 must end with <literal>/*</literal>.  The above specifies that all remote
@@ -1139,9 +1114,7 @@ Update the remote-tracking branches for the repository
   you cloned from, then merge one of them into your
   current branch:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git pull, git pull origin&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git pull, git pull origin</literallayout><simpara></simpara>
 <simpara>Normally the branch merged in is the HEAD of the remote repository,
 but the choice is determined by the branch.&lt;name&gt;.remote and
 branch.&lt;name&gt;.merge options; see <citerefentry>
@@ -1152,16 +1125,12 @@ branch.&lt;name&gt;.merge options; see <citerefentry>
 <simpara>
 Merge into the current branch the remote branch <literal>next</literal>:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git pull origin next&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git pull origin next</literallayout><simpara></simpara>
 <simpara>This leaves a copy of <literal>next</literal> temporarily in FETCH_HEAD, but
 does not update any remote-tracking branches. Using remote-tracking
 branches, the same can be done by invoking fetch and merge:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git fetch origin
-$ git merge origin/next&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git fetch origin
+$ git merge origin/next</literallayout><simpara></simpara>
 </listitem>
 </itemizedlist>
 <simpara>If you tried a pull which resulted in complex conflicts and

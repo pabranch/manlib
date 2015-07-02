@@ -14,7 +14,6 @@
   <refpurpose>List, create, or delete branches</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git branch</emphasis> [--color[=&lt;when&gt;] | --no-color] [-r | -a]
         [--list] [-v [--abbrev=&lt;length&gt; | --no-abbrev]]
         [--column[=&lt;options&gt;] | --no-column]
@@ -25,7 +24,7 @@
 <emphasis>git branch</emphasis> (-m | -M) [&lt;oldbranch&gt;] &lt;newbranch&gt;
 <emphasis>git branch</emphasis> (-d | -D) [-r] &lt;branchname&gt;&#8230;
 <emphasis>git branch</emphasis> --edit-description [&lt;branchname&gt;]</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -464,12 +463,10 @@ start-point is either a local or remote-tracking branch.</simpara>
 Start development from a known tag
 </term>
 <listitem>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git clone git://git.kernel.org/pub/scm/.../linux-2.6 my2.6
+<literallayout class="monospaced">$ git clone git://git.kernel.org/pub/scm/.../linux-2.6 my2.6
 $ cd my2.6
 $ git branch my2.6.14 v2.6.14   <co id="CO1-1"/>
-$ git checkout my2.6.14&#10;.ft&#10;
-</literallayout>
+$ git checkout my2.6.14</literallayout><simpara></simpara>
 <calloutlist>
 <callout arearefs="CO1-1">
 <para>
@@ -485,12 +482,10 @@ This step and the next one could be combined into a single step with
 Delete an unneeded branch
 </term>
 <listitem>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git clone git://git.kernel.org/.../git.git my.git
+<literallayout class="monospaced">$ git clone git://git.kernel.org/.../git.git my.git
 $ cd my.git
 $ git branch -d -r origin/todo origin/html origin/man   <co id="CO2-1"/>
-$ git branch -D test                                    <co id="CO2-2"/>&#10;.ft&#10;
-</literallayout>
+$ git branch -D test                                    <co id="CO2-2"/></literallayout><simpara></simpara>
 <calloutlist>
 <callout arearefs="CO2-1">
 <para>

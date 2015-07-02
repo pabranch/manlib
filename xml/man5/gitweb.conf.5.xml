@@ -87,9 +87,7 @@ subroutine.  For example, one might want to put gitweb configuration
 related to access control for viewing repositories via Gitolite (one
 of Git repository management tools) in a separate file, e.g. in
 <emphasis>/etc/gitweb-gitolite.conf</emphasis>.  To include it, put</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;read_config_file("/etc/gitweb-gitolite.conf");&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">read_config_file("/etc/gitweb-gitolite.conf");</literallayout><simpara></simpara>
 <simpara>somewhere in gitweb configuration file used, e.g. in per-installation
 gitweb configuration file.  Note that read_config_file() checks itself
 that the file it reads exists, and does nothing if it is not found.
@@ -128,17 +126,11 @@ $projectroot
 </simpara>
 <simpara>For example, if <literal>$projectroot</literal> is set to "/srv/git" by putting the following
 in gitweb config file:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;our $projectroot = "/srv/git";&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">our $projectroot = "/srv/git";</literallayout><simpara></simpara>
 <simpara>then</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;http://git.example.com/gitweb.cgi?p=foo/bar.git&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">http://git.example.com/gitweb.cgi?p=foo/bar.git</literallayout><simpara></simpara>
 <simpara>and its path_info based equivalent</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;http://git.example.com/gitweb.cgi/foo/bar.git&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">http://git.example.com/gitweb.cgi/foo/bar.git</literallayout><simpara></simpara>
 <simpara>will map to the path <emphasis>/srv/git/foo/bar.git</emphasis> on the filesystem.</simpara>
 </listitem>
 </varlistentry>
@@ -153,9 +145,7 @@ $projects_list
 </simpara>
 <simpara>Project list files should list one project per line, with each line
 having the following format</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;&lt;URI-encoded filesystem path to repository&gt; SP &lt;URI-encoded repository owner&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">&lt;URI-encoded filesystem path to repository&gt; SP &lt;URI-encoded repository owner&gt;</literallayout><simpara></simpara>
 <simpara>The default value of this variable is determined by the <literal>GITWEB_LIST</literal>
 makefile variable at installation time.  If this variable is empty, gitweb
 will fall back to scanning the <literal>$projectroot</literal> directory for repositories.</simpara>
@@ -209,13 +199,9 @@ $export_auth_hook
         as it fulfills the other requirements described by $export_ok,
         $projects_list, and $projects_maxdepth.  Example:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;our $export_auth_hook = sub { return -e "$_[0]/git-daemon-export-ok"; };&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">our $export_auth_hook = sub { return -e "$_[0]/git-daemon-export-ok"; };</literallayout><simpara></simpara>
 <simpara>though the above might be done by using <literal>$export_ok</literal> instead</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;our $export_ok = "git-daemon-export-ok";&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">our $export_ok = "git-daemon-export-ok";</literallayout><simpara></simpara>
 <simpara>If not set (default), it means that this feature is disabled.</simpara>
 <simpara>See also more involved example in "Controlling access to Git repositories"
 subsection on <citerefentry>
@@ -303,10 +289,8 @@ respectively, and value for given key is name of syntax to be passed via
 <simpara>For example if repositories you are hosting use "phtml" extension for
 PHP files, and you want to have correct syntax-highlighting for those
 files, you can add the following to gitweb configuration:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;our %highlight_ext;
-$highlight_ext{'phtml'} = 'php';&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">our %highlight_ext;
+$highlight_ext{'phtml'} = 'php';</literallayout><simpara></simpara>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -331,9 +315,7 @@ variable.</simpara>
         to make it easier to upgrade gitweb.  For example, you can add
         a <literal>site</literal> stylesheet by putting
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;push @stylesheets, "gitweb-site.css";&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">push @stylesheets, "gitweb-site.css";</literallayout><simpara></simpara>
 <simpara>in the gitweb config file.  Those values that are relative paths are
 relative to base URI of gitweb.</simpara>
 <simpara>This list should contain the URI of gitweb&#8217;s standard stylesheet.  The default
@@ -442,12 +424,10 @@ $home_link_str
 </listitem>
 </varlistentry>
 </variablelist>
-<literallayout class="monospaced">
-&#10;.ft C&#10;    our @extra_breadcrumbs = (
+<literallayout class="monospaced">    our @extra_breadcrumbs = (
       [ 'home' =&gt; 'https://www.example.org/' ],
       [ 'dev'  =&gt; 'https://dev.example.org/' ],
-    );&#10;.ft&#10;
-</literallayout>
+    );</literallayout><simpara></simpara>
 <variablelist>
 <varlistentry>
 <term>
@@ -759,11 +739,9 @@ $per_request_config
         For example, one might use the following code in a gitweb configuration
         file
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;our $per_request_config = sub {
+<literallayout class="monospaced">our $per_request_config = sub {
         $ENV{GL_USER} = $cgi-&gt;remote_user || "gitweb";
-};&#10;.ft&#10;
-</literallayout>
+};</literallayout><simpara></simpara>
 <simpara>If <literal>$per_request_config</literal> is not a code reference, it is interpreted as boolean
 value.  If it is true gitweb will process config files once per request,
 and if it is false gitweb will process config files only once, each time it
@@ -794,9 +772,7 @@ $version
         gitweb.perl. You might want to modify it if you are running modified
         gitweb, for example
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;our $version .= " with caching";&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">our $version .= " with caching";</literallayout><simpara></simpara>
 <simpara>if you run modified version of gitweb with caching support.  This variable
 is purely informational, used e.g. in the "generator" meta header in HTML
 header.</simpara>
@@ -842,22 +818,18 @@ $base_url
 <literal>%feature</literal> hash.  Names of gitweb features are keys of this hash.</simpara>
 <simpara>Each <literal>%feature</literal> hash element is a hash reference and has the following
 structure:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;"&lt;feature_name&gt;" =&gt; {
+<literallayout class="monospaced">"&lt;feature_name&gt;" =&gt; {
         "sub" =&gt; &lt;feature-sub (subroutine)&gt;,
         "override" =&gt; &lt;allow-override (boolean)&gt;,
         "default" =&gt; [ &lt;options&gt;... ]
-},&#10;.ft&#10;
-</literallayout>
+},</literallayout><simpara></simpara>
 <simpara>Some features cannot be overridden per project.  For those
 features the structure of appropriate <literal>%feature</literal> hash element has a simpler
 form:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;"&lt;feature_name&gt;" =&gt; {
+<literallayout class="monospaced">"&lt;feature_name&gt;" =&gt; {
         "override" =&gt; 0,
         "default" =&gt; [ &lt;options&gt;... ]
-},&#10;.ft&#10;
-</literallayout>
+},</literallayout><simpara></simpara>
 <simpara>As one can see it lacks the 'sub' element.</simpara>
 <simpara>The meaning of each part of feature configuration is described
 below:</simpara>
@@ -1149,10 +1121,8 @@ filesystem (i.e. "$projectroot/$project"), <literal>%h</literal> to the current 
 <simpara>For example, at the time this page was written, the <ulink url="http://repo.or.cz">http://repo.or.cz</ulink>
 Git hosting site set it to the following to enable graphical log
 (using the third party tool <emphasis role="strong">git-browser</emphasis>):</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$feature{'actions'}{'default'} =
-        [ ('graphiclog', '/git-browser/by-commit.html?r=%n', 'summary')];&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$feature{'actions'}{'default'} =
+        [ ('graphiclog', '/git-browser/by-commit.html?r=%n', 'summary')];</literallayout><simpara></simpara>
 <simpara>This adds a link titled "graphiclog" after the "summary" link, leading to
 <literal>git-browser</literal> script, passing <literal>r=&lt;project&gt;</literal> as a query parameter.</simpara>
 <simpara>Project specific override is not supported.</simpara>
@@ -1190,9 +1160,7 @@ dates for manipulation.  If you want to turn this feature off, set "default"
 to empty list: <literal>[]</literal>.</simpara>
 <simpara>Typical gitweb config files will only change starting (default) time zone,
 and leave other elements at their default values:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$feature{'javascript-timezone'}{'default'}[0] = "utc";&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$feature{'javascript-timezone'}{'default'}[0] = "utc";</literallayout><simpara></simpara>
 <simpara>The example configuration presented here is guaranteed to be backwards
 and forward compatible.</simpara>
 <simpara>Time zone values can be "local" (for local time zone that browser uses), "utc"
@@ -1215,26 +1183,20 @@ extra-branch-refs
         much wider, then you might want to set this variable as
         follows:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$feature{'extra-branch-refs'}{'default'} =
-        ['sandbox', 'wip', 'other'];&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$feature{'extra-branch-refs'}{'default'} =
+        ['sandbox', 'wip', 'other'];</literallayout><simpara></simpara>
 <simpara>This feature can be configured on per-repository basis after setting
 $feature{<emphasis>extra-branch-refs</emphasis>}{<emphasis>override</emphasis>} to true, via repository&#8217;s
 <literal>gitweb.extraBranchRefs</literal> configuration variable, which contains a
 space separated list of refs. An example:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;[gitweb]
-        extraBranchRefs = sandbox wip other&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">[gitweb]
+        extraBranchRefs = sandbox wip other</literallayout><simpara></simpara>
 <simpara>The gitweb.extraBranchRefs is actually a multi-valued configuration
 variable, so following example is also correct and the result is the
 same as of the snippet above:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;[gitweb]
+<literallayout class="monospaced">[gitweb]
         extraBranchRefs = sandbox
-        extraBranchRefs = wip other&#10;.ft&#10;
-</literallayout>
+        extraBranchRefs = wip other</literallayout><simpara></simpara>
 <simpara>It is an error to specify a ref that does not pass "git check-ref-format"
 scrutiny. Duplicated values are filtered.</simpara>
 </listitem>

@@ -14,12 +14,11 @@
   <refpurpose>Import from and submit to Perforce repositories</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git p4 clone</emphasis> [&lt;sync options&gt;] [&lt;clone options&gt;] &lt;p4 depot path&gt;&#8230;
 <emphasis>git p4 sync</emphasis> [&lt;sync options&gt;] [&lt;p4 depot path&gt;&#8230;]
 <emphasis>git p4 rebase</emphasis>
 <emphasis>git p4 submit</emphasis> [&lt;submit options&gt;] [&lt;master branch name&gt;]</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -40,36 +39,28 @@ the updated p4 remote branch.</simpara>
 <simpara>
 Clone a repository:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git p4 clone //depot/path/project&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git p4 clone //depot/path/project</literallayout><simpara></simpara>
 </listitem>
 <listitem>
 <simpara>
 Do some work in the newly created Git repository:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ cd project
+<literallayout class="monospaced">$ cd project
 $ vi foo.h
-$ git commit -a -m "edited foo.h"&#10;.ft&#10;
-</literallayout>
+$ git commit -a -m "edited foo.h"</literallayout><simpara></simpara>
 </listitem>
 <listitem>
 <simpara>
 Update the Git repository with recent changes from p4, rebasing your
   work on top:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git p4 rebase&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git p4 rebase</literallayout><simpara></simpara>
 </listitem>
 <listitem>
 <simpara>
 Submit your commits back to p4:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git p4 submit&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git p4 submit</literallayout><simpara></simpara>
 </listitem>
 </itemizedlist>
 </refsect1>
@@ -79,9 +70,7 @@ Submit your commits back to p4:
 <title>Clone</title>
 <simpara>Generally, <emphasis>git p4 clone</emphasis> is used to create a new Git directory
 from an existing p4 repository:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git p4 clone //depot/path/project&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git p4 clone //depot/path/project</literallayout><simpara></simpara>
 <simpara>This:</simpara>
 <orderedlist numeration="arabic">
 <listitem>
@@ -103,26 +92,20 @@ Creates a local branch, <emphasis>master</emphasis> from this remote and checks 
 </orderedlist>
 <simpara>To reproduce the entire p4 history in Git, use the <emphasis>@all</emphasis> modifier on
 the depot path:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git p4 clone //depot/path/project@all&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git p4 clone //depot/path/project@all</literallayout><simpara></simpara>
 </refsect2>
 <refsect2 id="_sync">
 <title>Sync</title>
 <simpara>As development continues in the p4 repository, those changes can
 be included in the Git repository using:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git p4 sync&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git p4 sync</literallayout><simpara></simpara>
 <simpara>This command finds new changes in p4 and imports them as Git commits.</simpara>
 <simpara>P4 repositories can be added to an existing Git repository using
 <emphasis>git p4 sync</emphasis> too:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ mkdir repo-git
+<literallayout class="monospaced">$ mkdir repo-git
 $ cd repo-git
 $ git init
-$ git p4 sync //path/in/your/perforce/depot&#10;.ft&#10;
-</literallayout>
+$ git p4 sync //path/in/your/perforce/depot</literallayout><simpara></simpara>
 <simpara>This imports the specified depot into
 <emphasis>refs/remotes/p4/master</emphasis> in an existing Git repository.  The
 <emphasis>--branch</emphasis> option can be used to specify a different branch to
@@ -143,9 +126,7 @@ and merge them with local uncommitted changes.  Often, the p4 repository
 is the ultimate location for all code, thus a rebase workflow makes
 sense.  This command does <emphasis>git p4 sync</emphasis> followed by <emphasis>git rebase</emphasis> to move
 local commits on top of updated p4 changes.</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git p4 rebase&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git p4 rebase</literallayout><simpara></simpara>
 </refsect2>
 <refsect2 id="_submit">
 <title>Submit</title>
@@ -156,13 +137,9 @@ variable <emphasis>git-p4.client</emphasis>.  The p4 client must exist, but the 
 will be created and populated if it does not already exist.</simpara>
 <simpara>To submit all changes that are in the current Git branch but not in
 the <emphasis>p4/master</emphasis> branch, use:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git p4 submit&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git p4 submit</literallayout><simpara></simpara>
 <simpara>To specify a branch other than the current one, use:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git p4 submit topicbranch&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git p4 submit topicbranch</literallayout><simpara></simpara>
 <simpara>The upstream reference is generally <emphasis>refs/remotes/p4/master</emphasis>, but can
 be overridden using the <emphasis>--origin=</emphasis> command-line option.</simpara>
 <simpara>The p4 changes will be created as the user invoking <emphasis>git p4 submit</emphasis>. The
@@ -225,10 +202,8 @@ behavior can be modified using the --import-local option.</simpara>
 <simpara>The default &lt;ref&gt; is "master".</simpara>
 <simpara>This example imports a new remote "p4/proj2" into an existing
 Git repository:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;    $ git init
-    $ git p4 sync --branch=refs/remotes/p4/proj2 //depot/proj2&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">    $ git init
+    $ git p4 sync --branch=refs/remotes/p4/proj2 //depot/proj2</literallayout><simpara></simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -623,18 +598,12 @@ subdirectories of a single depot path, you can use <emphasis>--detect-branches</
 when cloning or syncing to have <emphasis>git p4</emphasis> automatically find
 subdirectories in p4, and to generate these as branches in Git.</simpara>
 <simpara>For example, if the P4 repository structure is:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;//depot/main/...
-//depot/branch1/...&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">//depot/main/...
+//depot/branch1/...</literallayout><simpara></simpara>
 <simpara>And "p4 branch -o branch1" shows a View line that looks like:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;//depot/main/... //depot/branch1/...&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">//depot/main/... //depot/branch1/...</literallayout><simpara></simpara>
 <simpara>Then this <emphasis>git p4 clone</emphasis> command:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;git p4 clone --detect-branches //depot@all&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">git p4 clone --detect-branches //depot@all</literallayout><simpara></simpara>
 <simpara>produces a separate branch in <emphasis>refs/remotes/p4/</emphasis> for //depot/main,
 called <emphasis>master</emphasis>, and one for //depot/branch1 called <emphasis>depot/branch1</emphasis>.</simpara>
 <simpara>However, it is not necessary to create branches in p4 to be able to use
@@ -646,12 +615,10 @@ simple p4 branch specification, where the "source" and "destination" are
 the path elements in the p4 repository.  The example above relied on the
 presence of the p4 branch.  Without p4 branches, the same result will
 occur with:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;git init depot
+<literallayout class="monospaced">git init depot
 cd depot
 git config git-p4.branchList main:branch1
-git p4 clone --detect-branches //depot@all .&#10;.ft&#10;
-</literallayout>
+git p4 clone --detect-branches //depot@all .</literallayout><simpara></simpara>
 </refsect1>
 <refsect1 id="_performance">
 <title>PERFORMANCE</title>
@@ -770,10 +737,8 @@ git-p4.branchList
         by a colon (:).  This example declares that both branchA and
         branchB were created from main:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;git config       git-p4.branchList main:branchA
-git config --add git-p4.branchList main:branchB&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">git config       git-p4.branchList main:branchA
+git config --add git-p4.branchList main:branchB</literallayout><simpara></simpara>
 </listitem>
 </varlistentry>
 <varlistentry>

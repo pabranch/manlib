@@ -14,9 +14,8 @@
   <refpurpose>Reuse recorded resolution of conflicted merges</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git rerere</emphasis> [<emphasis>clear</emphasis>|<emphasis>forget</emphasis> &lt;pathspec&gt;|<emphasis>diff</emphasis>|<emphasis>remaining</emphasis>|<emphasis>status</emphasis>|<emphasis>gc</emphasis>]</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -118,21 +117,17 @@ variables respectively.
 master branch (or upstream) touched since your topic branch
 forked from it, you may want to test it with the latest master,
 even before your topic branch is ready to be pushed upstream:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;              o---*---o topic
+<literallayout class="monospaced">              o---*---o topic
              /
-    o---o---o---*---o---o master&#10;.ft&#10;
-</literallayout>
+    o---o---o---*---o---o master</literallayout><simpara></simpara>
 <simpara>For such a test, you need to merge master and topic somehow.
 One way to do it is to pull master into the topic branch:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        $ git checkout topic
+<literallayout class="monospaced">        $ git checkout topic
         $ git merge master
 
               o---*---o---+ topic
              /           /
-    o---o---o---*---o---o master&#10;.ft&#10;
-</literallayout>
+    o---o---o---*---o---o master</literallayout><simpara></simpara>
 <simpara>The commits marked with <literal>*</literal> touch the same area in the same
 file; you need to resolve the conflicts when creating the commit
 marked with <literal>+</literal>.  Then you can test the result to make sure your
@@ -144,8 +139,7 @@ ready, pull the topic branch into master, and/or ask the
 upstream to pull from you.  By that time, however, the master or
 the upstream might have been advanced since the test merge <literal>+</literal>,
 in which case the final commit graph would look like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        $ git checkout topic
+<literallayout class="monospaced">        $ git checkout topic
         $ git merge master
         $ ... work on both topic and master branches
         $ git checkout master
@@ -153,8 +147,7 @@ in which case the final commit graph would look like this:</simpara>
 
               o---*---o---+---o---o topic
              /           /         \
-    o---o---o---*---o---o---o---o---+ master&#10;.ft&#10;
-</literallayout>
+    o---o---o---*---o---o---o---o---+ master</literallayout><simpara></simpara>
 <simpara>When your topic branch is long-lived, however, your topic branch
 would end up having many such "Merge from master" commits on it,
 which would unnecessarily clutter the development history.
@@ -164,8 +157,7 @@ maintainer asked to pull from a branch full of "useless merges".</simpara>
 <simpara>As an alternative, to keep the topic branch clean of test
 merges, you could blow away the test merge, and keep building on
 top of the tip before the test merge:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        $ git checkout topic
+<literallayout class="monospaced">        $ git checkout topic
         $ git merge master
         $ git reset --hard HEAD^ ;# rewind the test merge
         $ ... work on both topic and master branches
@@ -174,8 +166,7 @@ top of the tip before the test merge:</simpara>
 
               o---*---o-------o---o topic
              /                     \
-    o---o---o---*---o---o---o---o---+ master&#10;.ft&#10;
-</literallayout>
+    o---o---o---*---o---o---o---o---+ master</literallayout><simpara></simpara>
 <simpara>This would leave only one merge commit when your topic branch is
 finally ready and merged into the master branch.  This merge
 would require you to resolve the conflict, introduced by the
@@ -214,8 +205,7 @@ as the recorded resolution is still applicable.</simpara>
 <simpara>The information <emphasis>git rerere</emphasis> records is also used when running
 <emphasis>git rebase</emphasis>.  After blowing away the test merge and continuing
 development on the topic branch:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;              o---*---o-------o---o topic
+<literallayout class="monospaced">              o---*---o-------o---o topic
              /
     o---o---o---*---o---o---o---o   master
 
@@ -223,8 +213,7 @@ development on the topic branch:</simpara>
 
                                   o---*---o-------o---o topic
                                  /
-    o---o---o---*---o---o---o---o   master&#10;.ft&#10;
-</literallayout>
+    o---o---o---*---o---o---o---o   master</literallayout><simpara></simpara>
 <simpara>you could run <literal>git rebase master topic</literal>, to bring yourself
 up-to-date before your topic is ready to be sent upstream.
 This would result in falling back to a three-way merge, and it

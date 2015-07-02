@@ -14,9 +14,8 @@
   <refpurpose>Pick out and massage parameters</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git rev-parse</emphasis> [ --option ] &lt;args&gt;&#8230;</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -171,11 +170,9 @@ distinguish between them.</simpara>
 <simpara>This can be used to convert arguments to a command run in a subdirectory
 so that they can still be used after moving to the top-level of the
 repository.  For example:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;prefix=$(git rev-parse --show-prefix)
+<literallayout class="monospaced">prefix=$(git rev-parse --show-prefix)
 cd "$(git rev-parse --show-toplevel)"
-eval "set -- $(git rev-parse --sq --prefix "$prefix" "$@")"&#10;.ft&#10;
-</literallayout>
+eval "set -- $(git rev-parse --sq --prefix "$prefix" "$@")"</literallayout><simpara></simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -766,8 +763,7 @@ some output processing may assume ref names in UTF-8.</simpara>
   that corresponds to that branch (i.e., something in <emphasis>refs/remotes/</emphasis>).
 </simpara>
 <simpara>Here&#8217;s an example to make it more clear:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git config push.default current
+<literallayout class="monospaced">$ git config push.default current
 $ git config remote.pushdefault myfork
 $ git checkout -b mybranch origin/master
 
@@ -775,8 +771,7 @@ $ git rev-parse --symbolic-full-name @{upstream}
 refs/remotes/origin/master
 
 $ git rev-parse --symbolic-full-name @{push}
-refs/remotes/myfork/mybranch&#10;.ft&#10;
-</literallayout>
+refs/remotes/myfork/mybranch</literallayout><simpara></simpara>
 <simpara>Note in the example that we set up a triangular workflow, where we pull
 from one location and push to another. In a non-triangular workflow,
 <emphasis>@{push}</emphasis> is the same as <emphasis>@{upstream}</emphasis>, and there is no need for it.</simpara>
@@ -1075,9 +1070,7 @@ separated by a line that contains only <literal>--</literal>. The lines before t
 (should be one or more) are used for the usage.
 The lines after the separator describe the options.</simpara>
 <simpara>Each line of options has this format:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;&lt;opt-spec&gt;&lt;flags&gt;*&lt;arg-hint&gt;? SP+ help LF&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">&lt;opt-spec&gt;&lt;flags&gt;*&lt;arg-hint&gt;? SP+ help LF</literallayout><simpara></simpara>
 <variablelist>
 <varlistentry>
 <term>
@@ -1152,8 +1145,7 @@ lines on purpose).</simpara>
 </refsect2>
 <refsect2 id="_example">
 <title>Example</title>
-<literallayout class="monospaced">
-&#10;.ft C&#10;OPTS_SPEC="\
+<literallayout class="monospaced">OPTS_SPEC="\
 some-command [options] &lt;args&gt;...
 
 some-command does foo and bar!
@@ -1168,15 +1160,13 @@ qux?path  qux may take a path argument but has meaning by itself
   An option group Header
 C?        option C with an optional argument"
 
-eval "$(echo "$OPTS_SPEC" | git rev-parse --parseopt -- "$@" || echo exit $?)"&#10;.ft&#10;
-</literallayout>
+eval "$(echo "$OPTS_SPEC" | git rev-parse --parseopt -- "$@" || echo exit $?)"</literallayout><simpara></simpara>
 </refsect2>
 <refsect2 id="_usage_text">
 <title>Usage text</title>
 <simpara>When <literal>"$@"</literal> is <literal>-h</literal> or <literal>--help</literal> in the above example, the following
 usage text would be shown:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;usage: some-command [options] &lt;args&gt;...
+<literallayout class="monospaced">usage: some-command [options] &lt;args&gt;...
 
     some-command does foo and bar!
 
@@ -1187,8 +1177,7 @@ usage text would be shown:</simpara>
     --qux[=&lt;path&gt;]        qux may take a path argument but has meaning by itself
 
 An option group Header
-    -C[...]               option C with an optional argument&#10;.ft&#10;
-</literallayout>
+    -C[...]               option C with an optional argument</literallayout><simpara></simpara>
 </refsect2>
 </refsect1>
 <refsect1 id="_sq_quote">
@@ -1202,8 +1191,7 @@ quoting the arguments is done.</simpara>
 option.</simpara>
 <refsect2 id="_example_2">
 <title>Example</title>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ cat &gt;your-git-script.sh &lt;&lt;\EOF
+<literallayout class="monospaced">$ cat &gt;your-git-script.sh &lt;&lt;\EOF
 #!/bin/sh
 args=$(git rev-parse --sq-quote "$@")   # quote user-supplied arguments
 command="git frotz -n24 $args"          # and use it inside a handcrafted
@@ -1211,8 +1199,7 @@ command="git frotz -n24 $args"          # and use it inside a handcrafted
 eval "$command"
 EOF
 
-$ sh your-git-script.sh "a b'c"&#10;.ft&#10;
-</literallayout>
+$ sh your-git-script.sh "a b'c"</literallayout><simpara></simpara>
 </refsect2>
 </refsect1>
 <refsect1 id="_examples">
@@ -1222,26 +1209,20 @@ $ sh your-git-script.sh "a b'c"&#10;.ft&#10;
 <simpara>
 Print the object name of the current commit:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git rev-parse --verify HEAD&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git rev-parse --verify HEAD</literallayout><simpara></simpara>
 </listitem>
 <listitem>
 <simpara>
 Print the commit object name from the revision in the $REV shell variable:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git rev-parse --verify $REV^{commit}&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git rev-parse --verify $REV^{commit}</literallayout><simpara></simpara>
 <simpara>This will error out if $REV is empty or not a valid revision.</simpara>
 </listitem>
 <listitem>
 <simpara>
 Similar to above:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git rev-parse --default master --verify $REV&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git rev-parse --default master --verify $REV</literallayout><simpara></simpara>
 <simpara>but if $REV is empty, the commit object name from master will be printed.</simpara>
 </listitem>
 </itemizedlist>

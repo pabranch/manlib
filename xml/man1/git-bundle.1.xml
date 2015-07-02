@@ -14,12 +14,11 @@
   <refpurpose>Move objects and refs by archive</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git bundle</emphasis> create &lt;file&gt; &lt;git-rev-list-args&gt;
 <emphasis>git bundle</emphasis> verify &lt;file&gt;
 <emphasis>git bundle</emphasis> list-heads &lt;file&gt; [&lt;refname&gt;&#8230;]
 <emphasis>git bundle</emphasis> unbundle &lt;file&gt; [&lt;refname&gt;&#8230;]</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -150,41 +149,31 @@ We want to update R2 with development made on the branch master in R1.</simpara>
 any basis. You can use a tag to remember up to what commit you last
 processed, in order to make it easy to later update the other repository
 with an incremental bundle:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;machineA$ cd R1
+<literallayout class="monospaced">machineA$ cd R1
 machineA$ git bundle create file.bundle master
-machineA$ git tag -f lastR2bundle master&#10;.ft&#10;
-</literallayout>
+machineA$ git tag -f lastR2bundle master</literallayout><simpara></simpara>
 <simpara>Then you transfer file.bundle to the target machine B. Because this
 bundle does not require any existing object to be extracted, you can
 create a new repository on machine B by cloning from it:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;machineB$ git clone -b master /home/me/tmp/file.bundle R2&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">machineB$ git clone -b master /home/me/tmp/file.bundle R2</literallayout><simpara></simpara>
 <simpara>This will define a remote called "origin" in the resulting repository that
 lets you fetch and pull from the bundle. The $GIT_DIR/config file in R2 will
 have an entry like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;[remote "origin"]
+<literallayout class="monospaced">[remote "origin"]
     url = /home/me/tmp/file.bundle
-    fetch = refs/heads/*:refs/remotes/origin/*&#10;.ft&#10;
-</literallayout>
+    fetch = refs/heads/*:refs/remotes/origin/*</literallayout><simpara></simpara>
 <simpara>To update the resulting mine.git repository, you can fetch or pull after
 replacing the bundle stored at /home/me/tmp/file.bundle with incremental
 updates.</simpara>
 <simpara>After working some more in the original repository, you can create an
 incremental bundle to update the other repository:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;machineA$ cd R1
+<literallayout class="monospaced">machineA$ cd R1
 machineA$ git bundle create file.bundle lastR2bundle..master
-machineA$ git tag -f lastR2bundle master&#10;.ft&#10;
-</literallayout>
+machineA$ git tag -f lastR2bundle master</literallayout><simpara></simpara>
 <simpara>You then transfer the bundle to the other machine to replace
 /home/me/tmp/file.bundle, and pull from it.</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;machineB$ cd R2
-machineB$ git pull&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">machineB$ cd R2
+machineB$ git pull</literallayout><simpara></simpara>
 <simpara>If you know up to what commit the intended recipient repository should
 have the necessary objects, you can use that knowledge to specify the
 basis, giving a cut-off point to limit the revisions and objects that go
@@ -194,34 +183,22 @@ the <citerefentry>
 <refentrytitle>git-log</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry> command. Here are more examples:</simpara>
 <simpara>You can use a tag that is present in both:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git bundle create mybundle v1.0.0..master&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git bundle create mybundle v1.0.0..master</literallayout><simpara></simpara>
 <simpara>You can use a basis based on time:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git bundle create mybundle --since=10.days master&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git bundle create mybundle --since=10.days master</literallayout><simpara></simpara>
 <simpara>You can use the number of commits:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git bundle create mybundle -10 master&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git bundle create mybundle -10 master</literallayout><simpara></simpara>
 <simpara>You can run <literal>git-bundle verify</literal> to see if you can extract from a bundle
 that was created with a basis:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git bundle verify mybundle&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git bundle verify mybundle</literallayout><simpara></simpara>
 <simpara>This will list what commits you must have in order to extract from the
 bundle and will error out if you do not have them.</simpara>
 <simpara>A bundle from a recipient repository&#8217;s point of view is just like a
 regular repository which it fetches or pulls from. You can, for example, map
 references when fetching:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git fetch mybundle master:localRef&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git fetch mybundle master:localRef</literallayout><simpara></simpara>
 <simpara>You can also see what references it offers:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git ls-remote mybundle&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git ls-remote mybundle</literallayout><simpara></simpara>
 </refsect1>
 <refsect1 id="_git">
 <title>GIT</title>

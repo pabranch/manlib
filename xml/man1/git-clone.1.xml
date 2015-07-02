@@ -14,7 +14,6 @@
   <refpurpose>Clone a repository into a new directory</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git clone</emphasis> [--template=&lt;template_directory&gt;]
           [-l] [-s] [--no-hardlinks] [-q] [-n] [--bare] [--mirror]
           [-o &lt;name&gt;] [-b &lt;name&gt;] [-u &lt;upload-pack&gt;] [--reference &lt;repository&gt;]
@@ -22,7 +21,7 @@
           [--depth &lt;depth&gt;] [--[no-]single-branch]
           [--recursive | --recurse-submodules] [--] &lt;repository&gt;
           [&lt;directory&gt;]</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -516,29 +515,21 @@ invoked. See <citerefentry>
 you want to use a different format for them (such that the URLs you
 use will be rewritten into URLs that work), you can create a
 configuration section of the form:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        [url "&lt;actual url base&gt;"]
-                insteadOf = &lt;other url base&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        [url "&lt;actual url base&gt;"]
+                insteadOf = &lt;other url base&gt;</literallayout><simpara></simpara>
 <simpara>For example, with this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        [url "git://git.host.xz/"]
+<literallayout class="monospaced">        [url "git://git.host.xz/"]
                 insteadOf = host.xz:/path/to/
-                insteadOf = work:&#10;.ft&#10;
-</literallayout>
+                insteadOf = work:</literallayout><simpara></simpara>
 <simpara>a URL like "work:repo.git" or like "host.xz:/path/to/repo.git" will be
 rewritten in any context that takes a URL to be "git://git.host.xz/repo.git".</simpara>
 <simpara>If you want to rewrite URLs for push only, you can create a
 configuration section of the form:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        [url "&lt;actual url base&gt;"]
-                pushInsteadOf = &lt;other url base&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        [url "&lt;actual url base&gt;"]
+                pushInsteadOf = &lt;other url base&gt;</literallayout><simpara></simpara>
 <simpara>For example, with this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        [url "ssh://example.org/"]
-                pushInsteadOf = git://example.org/&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        [url "ssh://example.org/"]
+                pushInsteadOf = git://example.org/</literallayout><simpara></simpara>
 <simpara>a URL like "git://example.org/path/to/repo.git" will be rewritten to
 "ssh://example.org/path/to/repo.git" for pushes, but pulls will still
 use the original URL.</simpara>
@@ -550,40 +541,32 @@ use the original URL.</simpara>
 <simpara>
 Clone from upstream:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git clone git://git.kernel.org/pub/scm/.../linux.git my-linux
+<literallayout class="monospaced">$ git clone git://git.kernel.org/pub/scm/.../linux.git my-linux
 $ cd my-linux
-$ make&#10;.ft&#10;
-</literallayout>
+$ make</literallayout><simpara></simpara>
 </listitem>
 <listitem>
 <simpara>
 Make a local clone that borrows from the current directory, without checking things out:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git clone -l -s -n . ../copy
+<literallayout class="monospaced">$ git clone -l -s -n . ../copy
 $ cd ../copy
-$ git show-branch&#10;.ft&#10;
-</literallayout>
+$ git show-branch</literallayout><simpara></simpara>
 </listitem>
 <listitem>
 <simpara>
 Clone from upstream while borrowing from an existing local directory:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git clone --reference /git/linux.git \
+<literallayout class="monospaced">$ git clone --reference /git/linux.git \
         git://git.kernel.org/pub/scm/.../linux.git \
         my-linux
-$ cd my-linux&#10;.ft&#10;
-</literallayout>
+$ cd my-linux</literallayout><simpara></simpara>
 </listitem>
 <listitem>
 <simpara>
 Create a bare repository to publish your changes to the public:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git clone --bare -l /home/proj/.git /pub/scm/proj.git&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git clone --bare -l /home/proj/.git /pub/scm/proj.git</literallayout><simpara></simpara>
 </listitem>
 </itemizedlist>
 </refsect1>

@@ -14,10 +14,9 @@
   <refpurpose>Provide content or type and size information for repository objects</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git cat-file</emphasis> (-t [--allow-unknown-type]| -s [--allow-unknown-type]| -e | -p | &lt;type&gt; | --textconv ) &lt;object&gt;
 <emphasis>git cat-file</emphasis> (--batch | --batch-check) [--follow-symlinks] &lt; &lt;list-of-objects&gt;</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -296,51 +295,35 @@ newline. The available atoms are:</simpara>
 object contents (consisting of <literal>%(objectsize)</literal> bytes), followed by a
 newline.</simpara>
 <simpara>For example, <literal>--batch</literal> without a custom format would produce:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;&lt;sha1&gt; SP &lt;type&gt; SP &lt;size&gt; LF
-&lt;contents&gt; LF&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">&lt;sha1&gt; SP &lt;type&gt; SP &lt;size&gt; LF
+&lt;contents&gt; LF</literallayout><simpara></simpara>
 <simpara>Whereas <literal>--batch-check='%(objectname) %(objecttype)'</literal> would produce:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;&lt;sha1&gt; SP &lt;type&gt; LF&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">&lt;sha1&gt; SP &lt;type&gt; LF</literallayout><simpara></simpara>
 <simpara>If a name is specified on stdin that cannot be resolved to an object in
 the repository, then <literal>cat-file</literal> will ignore any custom format and print:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;&lt;object&gt; SP missing LF&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">&lt;object&gt; SP missing LF</literallayout><simpara></simpara>
 <simpara>If --follow-symlinks is used, and a symlink in the repository points
 outside the repository, then <literal>cat-file</literal> will ignore any custom format
 and print:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;symlink SP &lt;size&gt; LF
-&lt;symlink&gt; LF&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">symlink SP &lt;size&gt; LF
+&lt;symlink&gt; LF</literallayout><simpara></simpara>
 <simpara>The symlink will either be absolute (beginning with a /), or relative
 to the tree root.  For instance, if dir/link points to ../../foo, then
 &lt;symlink&gt; will be ../foo.  &lt;size&gt; is the size of the symlink in bytes.</simpara>
 <simpara>If --follow-symlinks is used, the following error messages will be
 displayed:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;&lt;object&gt; SP missing LF&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">&lt;object&gt; SP missing LF</literallayout><simpara></simpara>
 <simpara>is printed when the initial symlink requested does not exist.</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;dangling SP &lt;size&gt; LF
-&lt;object&gt; LF&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">dangling SP &lt;size&gt; LF
+&lt;object&gt; LF</literallayout><simpara></simpara>
 <simpara>is printed when the initial symlink exists, but something that
 it (transitive-of) points to does not.</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;loop SP &lt;size&gt; LF
-&lt;object&gt; LF&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">loop SP &lt;size&gt; LF
+&lt;object&gt; LF</literallayout><simpara></simpara>
 <simpara>is printed for symlink loops (or any symlinks that
 require more than 40 link resolutions to resolve).</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;notdir SP &lt;size&gt; LF
-&lt;object&gt; LF&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">notdir SP &lt;size&gt; LF
+&lt;object&gt; LF</literallayout><simpara></simpara>
 <simpara>is printed when, during symlink resolution, a file is used as a
 directory name.</simpara>
 </refsect1>

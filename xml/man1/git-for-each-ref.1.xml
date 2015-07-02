@@ -14,10 +14,9 @@
   <refpurpose>Output information on each ref</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git for-each-ref</emphasis> [--count=&lt;count&gt;] [--shell|--perl|--python|--tcl]
                    [(--sort=&lt;key&gt;)&#8230;] [--format=&lt;format&gt;] [&lt;pattern&gt;&#8230;]</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -242,8 +241,7 @@ the date by adding one of <literal>:default</literal>, <literal>:relative</liter
 <title>EXAMPLES</title>
 <simpara>An example directly producing formatted text.  Show the most recent
 3 tagged commits:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;#!/bin/sh
+<literallayout class="monospaced">#!/bin/sh
 
 git for-each-ref --count=3 --sort='-*authordate' \
 --format='From: %(*authorname) %(*authoremail)
@@ -252,24 +250,20 @@ Date: %(*authordate)
 Ref: %(*refname)
 
 %(*body)
-' 'refs/tags'&#10;.ft&#10;
-</literallayout>
+' 'refs/tags'</literallayout><simpara></simpara>
 <simpara>A simple example showing the use of shell eval on the output,
 demonstrating the use of --shell.  List the prefixes of all heads:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;#!/bin/sh
+<literallayout class="monospaced">#!/bin/sh
 
 git for-each-ref --shell --format="ref=%(refname)" refs/heads | \
 while read entry
 do
         eval "$entry"
         echo `dirname $ref`
-done&#10;.ft&#10;
-</literallayout>
+done</literallayout><simpara></simpara>
 <simpara>A bit more elaborate report on tags, demonstrating that the format
 may be an entire script:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;#!/bin/sh
+<literallayout class="monospaced">#!/bin/sh
 
 fmt='
         r=%(refname)
@@ -315,8 +309,7 @@ eval=`git for-each-ref --shell --format="$fmt" \
         --sort='*objecttype' \
         --sort=-taggerdate \
         refs/tags`
-eval "$eval"&#10;.ft&#10;
-</literallayout>
+eval "$eval"</literallayout><simpara></simpara>
 </refsect1>
 <refsect1 id="_see_also">
 <title>SEE ALSO</title>

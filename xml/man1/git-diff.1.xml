@@ -14,13 +14,12 @@
   <refpurpose>Show changes between commits, commit and working tree, etc</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git diff</emphasis> [options] [&lt;commit&gt;] [--] [&lt;path&gt;&#8230;]
 <emphasis>git diff</emphasis> [options] --cached [&lt;commit&gt;] [--] [&lt;path&gt;&#8230;]
 <emphasis>git diff</emphasis> [options] &lt;commit&gt; &lt;commit&gt; [--] [&lt;path&gt;&#8230;]
 <emphasis>git diff</emphasis> [options] &lt;blob&gt; &lt;blob&gt;
 <emphasis>git diff</emphasis> [options] [--no-index] [--] &lt;path&gt; &lt;path&gt;</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -903,11 +902,9 @@ very first version of the block.</simpara>
 <simpara>To illustrate the difference between <literal>-S&lt;regex&gt; --pickaxe-regex</literal> and
 <literal>-G&lt;regex&gt;</literal>, consider a commit with the following diff in the same
 file:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;+    return !regexec(regexp, two-&gt;ptr, 1, &amp;regmatch, 0);
+<literallayout class="monospaced">+    return !regexec(regexp, two-&gt;ptr, 1, &amp;regmatch, 0);
 ...
--    hit = !regexec(regexp, mf2.ptr, 1, &amp;regmatch, 0);&#10;.ft&#10;
-</literallayout>
+-    hit = !regexec(regexp, mf2.ptr, 1, &amp;regmatch, 0);</literallayout><simpara></simpara>
 <simpara>While <literal>git log -G"regexec\(regexp"</literal> will show this commit, <literal>git log
 -S"regexec\(regexp" --pickaxe-regex</literal> will not (because the number of
 occurrences of that string did not change).</simpara>
@@ -1271,14 +1268,12 @@ git-diff-files [&lt;pattern&gt;&#8230;]
 what is being compared. After that, all the commands print one output
 line per changed file.</simpara>
 <simpara>An output line is formatted this way:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;in-place edit  :100644 100644 bcd1234... 0123456... M file0
+<literallayout class="monospaced">in-place edit  :100644 100644 bcd1234... 0123456... M file0
 copy-edit      :100644 100644 abcd123... 1234567... C68 file1 file2
 rename-edit    :100644 100644 abcd123... 1234567... R86 file1 file3
 create         :000000 100644 0000000... 1234567... A file4
 delete         :100644 000000 1234567... 0000000... D file5
-unmerged       :000000 000000 0000000... 0000000... U file6&#10;.ft&#10;
-</literallayout>
+unmerged       :000000 000000 0000000... 0000000... U file6</literallayout><simpara></simpara>
 <simpara>That is, from the left to the right:</simpara>
 <orderedlist numeration="arabic">
 <listitem>
@@ -1408,9 +1403,7 @@ percentage of dissimilarity) for file rewrites.</simpara>
 <simpara>&lt;sha1&gt; is shown as all 0&#8217;s if a file is new on the filesystem
 and it is out of sync with the index.</simpara>
 <simpara>Example:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;:100644 100644 5be4a4...... 000000...... M file.c&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">:100644 100644 5be4a4...... 000000...... M file.c</literallayout><simpara></simpara>
 <simpara>When <literal>-z</literal> option is not used, TAB, LF, and backslash characters
 in pathnames are represented as <literal>\t</literal>, <literal>\n</literal>, and <literal>\\</literal>,
 respectively.</simpara>
@@ -1449,9 +1442,7 @@ single path, only for "dst"
 </listitem>
 </orderedlist>
 <simpara>Example:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;::100644 100644 100644 fabadb8... cc95eb0... 4866510... MM      describe.c&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">::100644 100644 100644 fabadb8... cc95eb0... 4866510... MM      describe.c</literallayout><simpara></simpara>
 <simpara>Note that <emphasis>combined diff</emphasis> lists only files which were modified from
 all parents.</simpara>
 </refsect1>
@@ -1543,8 +1534,7 @@ format when showing merges with <citerefentry>
 of these commands to force generation of diffs with individual parents
 of a merge.</simpara>
 <simpara>A <emphasis>combined diff</emphasis> format looks like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;diff --combined describe.c
+<literallayout class="monospaced">diff --combined describe.c
 index fabadb8,cc95eb0..4866510
 --- a/describe.c
 +++ b/describe.c
@@ -1570,8 +1560,7 @@ index fabadb8,cc95eb0..4866510
  +
         if (!initialized) {
                 initialized = 1;
-                for_each_ref(get_name);&#10;.ft&#10;
-</literallayout>
+                for_each_ref(get_name);</literallayout><simpara></simpara>
 <orderedlist numeration="arabic">
 <listitem>
 <simpara>
@@ -1654,16 +1643,12 @@ output.  These options can be combined with other options, such as
 formats the pathnames compactly by combining common prefix and suffix of
 the pathnames.  For example, a change that moves <literal>arch/i386/Makefile</literal> to
 <literal>arch/x86/Makefile</literal> while modifying 4 lines will be shown like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;arch/{i386 =&gt; x86}/Makefile    |   4 +--&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">arch/{i386 =&gt; x86}/Makefile    |   4 +--</literallayout><simpara></simpara>
 <simpara>The <literal>--numstat</literal> option gives the diffstat(1) information but is designed
 for easier machine consumption.  An entry in <literal>--numstat</literal> output looks
 like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;1       2       README
-3       1       arch/{i386 =&gt; x86}/Makefile&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">1       2       README
+3       1       arch/{i386 =&gt; x86}/Makefile</literallayout><simpara></simpara>
 <simpara>That is, from left to right:</simpara>
 <orderedlist numeration="arabic">
 <listitem>
@@ -1698,10 +1683,8 @@ a newline.
 </listitem>
 </orderedlist>
 <simpara>When <literal>-z</literal> output option is in effect, the output is formatted this way:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;1       2       README NUL
-3       1       NUL arch/i386/Makefile NUL arch/x86/Makefile NUL&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">1       2       README NUL
+3       1       NUL arch/i386/Makefile NUL arch/x86/Makefile NUL</literallayout><simpara></simpara>
 <simpara>That is:</simpara>
 <orderedlist numeration="arabic">
 <listitem>
@@ -1764,11 +1747,9 @@ the pathname, but if that is <literal>NUL</literal>, the record will show two pa
 Various ways to check your working tree
 </term>
 <listitem>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git diff            <co id="CO1-1"/>
+<literallayout class="monospaced">$ git diff            <co id="CO1-1"/>
 $ git diff --cached   <co id="CO1-2"/>
-$ git diff HEAD       <co id="CO1-3"/>&#10;.ft&#10;
-</literallayout>
+$ git diff HEAD       <co id="CO1-3"/></literallayout><simpara></simpara>
 <calloutlist>
 <callout arearefs="CO1-1">
 <para>
@@ -1795,11 +1776,9 @@ would be committing if you run "git commit -a"
 Comparing with arbitrary commits
 </term>
 <listitem>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git diff test            <co id="CO2-1"/>
+<literallayout class="monospaced">$ git diff test            <co id="CO2-1"/>
 $ git diff HEAD -- ./test  <co id="CO2-2"/>
-$ git diff HEAD^ HEAD      <co id="CO2-3"/>&#10;.ft&#10;
-</literallayout>
+$ git diff HEAD^ HEAD      <co id="CO2-3"/></literallayout><simpara></simpara>
 <calloutlist>
 <callout arearefs="CO2-1">
 <para>
@@ -1827,11 +1806,9 @@ Compare the version before the last commit and the last commit.
 Comparing branches
 </term>
 <listitem>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git diff topic master    <co id="CO3-1"/>
+<literallayout class="monospaced">$ git diff topic master    <co id="CO3-1"/>
 $ git diff topic..master   <co id="CO3-2"/>
-$ git diff topic...master  <co id="CO3-3"/>&#10;.ft&#10;
-</literallayout>
+$ git diff topic...master  <co id="CO3-3"/></literallayout><simpara></simpara>
 <calloutlist>
 <callout arearefs="CO3-1">
 <para>
@@ -1857,11 +1834,9 @@ branch was started off it.
 Limiting the diff output
 </term>
 <listitem>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git diff --diff-filter=MRC            <co id="CO4-1"/>
+<literallayout class="monospaced">$ git diff --diff-filter=MRC            <co id="CO4-1"/>
 $ git diff --name-status                <co id="CO4-2"/>
-$ git diff arch/i386 include/asm-i386   <co id="CO4-3"/>&#10;.ft&#10;
-</literallayout>
+$ git diff arch/i386 include/asm-i386   <co id="CO4-3"/></literallayout><simpara></simpara>
 <calloutlist>
 <callout arearefs="CO4-1">
 <para>
@@ -1888,10 +1863,8 @@ Limit diff output to named subtrees.
 Munging the diff output
 </term>
 <listitem>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git diff --find-copies-harder -B -C  <co id="CO5-1"/>
-$ git diff -R                          <co id="CO5-2"/>&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git diff --find-copies-harder -B -C  <co id="CO5-1"/>
+$ git diff -R                          <co id="CO5-2"/></literallayout><simpara></simpara>
 <calloutlist>
 <callout arearefs="CO5-1">
 <para>

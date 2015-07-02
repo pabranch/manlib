@@ -14,9 +14,8 @@
   <refpurpose>Tweaking diff output</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git diff</emphasis> *</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -58,21 +57,17 @@ and compare corresponding paths in the two resulting sets of files.</simpara>
 <simpara>The pathspecs are used to limit the world diff operates in.  They remove
 the filepairs outside the specified sets of pathnames.  E.g. If the
 input set of filepairs included:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;:100644 100644 bcd1234... 0123456... M junkfile&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">:100644 100644 bcd1234... 0123456... M junkfile</literallayout><simpara></simpara>
 <simpara>but the command invocation was <literal>git diff-files myfile</literal>, then the
 junkfile entry would be removed from the list because only "myfile"
 is under consideration.</simpara>
 <simpara>The result of comparison is passed from these commands to what is
 internally called "diffcore", in a format similar to what is output
 when the -p option is not used.  E.g.</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;in-place edit  :100644 100644 bcd1234... 0123456... M file0
+<literallayout class="monospaced">in-place edit  :100644 100644 bcd1234... 0123456... M file0
 create         :000000 100644 0000000... 1234567... A file4
 delete         :100644 000000 1234567... 0000000... D file5
-unmerged       :000000 000000 0000000... 0000000... U file6&#10;.ft&#10;
-</literallayout>
+unmerged       :000000 000000 0000000... 0000000... U file6</literallayout><simpara></simpara>
 <simpara>The diffcore mechanism is fed a list of such comparison results
 (each of which is called "filepair", although at this point each
 of them talks about a single file), and transforms such a list
@@ -119,15 +114,11 @@ controlled by the -B option to the <emphasis>git diff-&#42;</emphasis> commands.
 used to detect a filepair that represents "complete rewrite" and
 break such filepair into two filepairs that represent delete and
 create.  E.g.  If the input contained this filepair:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;:100644 100644 bcd1234... 0123456... M file0&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">:100644 100644 bcd1234... 0123456... M file0</literallayout><simpara></simpara>
 <simpara>and if it detects that the file "file0" is completely rewritten,
 it changes it to:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;:100644 000000 bcd1234... 0000000... D file0
-:000000 100644 0000000... 0123456... A file0&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">:100644 000000 bcd1234... 0000000... D file0
+:000000 100644 0000000... 0123456... A file0</literallayout><simpara></simpara>
 <simpara>For the purpose of breaking a filepair, diffcore-break examines
 the extent of changes between the contents of the files before
 and after modification (i.e. the contents that have "bcd1234&#8230;"
@@ -147,33 +138,25 @@ after "-B" option (e.g. "-B75" to tell it to use 75%).</simpara>
 controlled by the -M option (to detect renames) and the -C option
 (to detect copies as well) to the <emphasis>git diff-&#42;</emphasis> commands.  If the
 input contained these filepairs:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;:100644 000000 0123456... 0000000... D fileX
-:000000 100644 0000000... 0123456... A file0&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">:100644 000000 0123456... 0000000... D fileX
+:000000 100644 0000000... 0123456... A file0</literallayout><simpara></simpara>
 <simpara>and the contents of the deleted file fileX is similar enough to
 the contents of the created file file0, then rename detection
 merges these filepairs and creates:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;:100644 100644 0123456... 0123456... R100 fileX file0&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">:100644 100644 0123456... 0123456... R100 fileX file0</literallayout><simpara></simpara>
 <simpara>When the "-C" option is used, the original contents of modified files,
 and deleted files (and also unmodified files, if the
 "--find-copies-harder" option is used) are considered as candidates
 of the source files in rename/copy operation.  If the input were like
 these filepairs, that talk about a modified file fileY and a newly
 created file file0:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;:100644 100644 0123456... 1234567... M fileY
-:000000 100644 0000000... bcd3456... A file0&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">:100644 100644 0123456... 1234567... M fileY
+:000000 100644 0000000... bcd3456... A file0</literallayout><simpara></simpara>
 <simpara>the original contents of fileY and the resulting contents of
 file0 are compared, and if they are similar enough, they are
 changed to:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;:100644 100644 0123456... 1234567... M fileY
-:100644 100644 0123456... bcd3456... C100 fileY file0&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">:100644 100644 0123456... 1234567... M fileY
+:100644 100644 0123456... bcd3456... C100 fileY file0</literallayout><simpara></simpara>
 <simpara>In both rename and copy detection, the same "extent of changes"
 algorithm used in diffcore-break is used to determine if two
 files are "similar enough", and can be customized to use
@@ -272,14 +255,12 @@ in the file are output before ones that match a later line, and
 filepairs that do not match any glob pattern are output last.</simpara>
 <simpara>As an example, a typical orderfile for the core Git probably
 would look like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;README
+<literallayout class="monospaced">README
 Makefile
 Documentation
 *.h
 *.c
-t&#10;.ft&#10;
-</literallayout>
+t</literallayout><simpara></simpara>
 </refsect1>
 <refsect1 id="_see_also">
 <title>SEE ALSO</title>

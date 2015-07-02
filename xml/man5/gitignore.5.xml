@@ -208,8 +208,7 @@ not tracked by Git remain untracked.</simpara>
 </refsect1>
 <refsect1 id="_examples">
 <title>EXAMPLES</title>
-<literallayout class="monospaced">
-&#10;.ft C&#10;    $ git status
+<literallayout class="monospaced">    $ git status
     [...]
     # Untracked files:
     [...]
@@ -232,29 +231,24 @@ not tracked by Git remain untracked.</simpara>
     # Untracked files:
     [...]
     #       Documentation/foo.html
-    [...]&#10;.ft&#10;
-</literallayout>
+    [...]</literallayout><simpara></simpara>
 <simpara>Another example:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;    $ cat .gitignore
+<literallayout class="monospaced">    $ cat .gitignore
     vmlinux*
     $ ls arch/foo/kernel/vm*
     arch/foo/kernel/vmlinux.lds.S
-    $ echo '!/vmlinux*' &gt;arch/foo/kernel/.gitignore&#10;.ft&#10;
-</literallayout>
+    $ echo '!/vmlinux*' &gt;arch/foo/kernel/.gitignore</literallayout><simpara></simpara>
 <simpara>The second .gitignore prevents Git from ignoring
 <literal>arch/foo/kernel/vmlinux.lds.S</literal>.</simpara>
 <simpara>Example to exclude everything except a specific directory <literal>foo/bar</literal>
 (note the <literal>/*</literal> - without the slash, the wildcard would also exclude
 everything within <literal>foo/bar</literal>):</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;    $ cat .gitignore
+<literallayout class="monospaced">    $ cat .gitignore
     # exclude everything except directory foo/bar
     /*
     !/foo
     /foo/*
-    !/foo/bar&#10;.ft&#10;
-</literallayout>
+    !/foo/bar</literallayout><simpara></simpara>
 </refsect1>
 <refsect1 id="_see_also">
 <title>SEE ALSO</title>

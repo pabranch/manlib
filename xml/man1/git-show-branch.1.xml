@@ -14,14 +14,13 @@
   <refpurpose>Show branches and their commits</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git show-branch</emphasis> [-a|--all] [-r|--remotes] [--topo-order | --date-order]
                 [--current] [--color[=&lt;when&gt;] | --no-color] [--sparse]
                 [--more=&lt;n&gt; | --list | --independent | --merge-base]
                 [--no-name | --sha1-name] [--topics]
                 [(&lt;rev&gt; | &lt;glob&gt;)&#8230;]
 <emphasis>git show-branch</emphasis> (-g|--reflog)[=&lt;n&gt;[,&lt;base&gt;]] [--list] [&lt;ref&gt;]</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -285,8 +284,7 @@ a <literal>-</literal> sign.  Each commit shows a short name that
 can be used as an extended SHA-1 to name that commit.</simpara>
 <simpara>The following example shows three branches, "master", "fixes"
 and "mhf":</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git show-branch master fixes mhf
+<literallayout class="monospaced">$ git show-branch master fixes mhf
 * [master] Add 'git show-branch'.
  ! [fixes] Introduce "reset type" flag to "git reset"
   ! [mhf] Allow "+remote:local" refspec to cause --force when fetching.
@@ -301,8 +299,7 @@ and "mhf":</simpara>
   + [mhf~6] Retire git-parse-remote.
   + [mhf~7] Multi-head fetch.
   + [mhf~8] Start adding the $GIT_DIR/remotes/ support.
-*++ [master] Add 'git show-branch'.&#10;.ft&#10;
-</literallayout>
+*++ [master] Add 'git show-branch'.</literallayout><simpara></simpara>
 <simpara>These three branches all forked from a common commit, [master],
 whose commit message is "Add &#39;git show-branch&#39;".
 The "fixes" branch adds one commit "Introduce "reset type" flag to
@@ -314,17 +311,13 @@ The current branch is "master".</simpara>
 <simpara>If you keep your primary branches immediately under
 <literal>refs/heads</literal>, and topic branches in subdirectories of
 it, having the following in the configuration file may help:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;[showbranch]
+<literallayout class="monospaced">[showbranch]
         default = --topo-order
-        default = heads/*&#10;.ft&#10;
-</literallayout>
+        default = heads/*</literallayout><simpara></simpara>
 <simpara>With this, <literal>git show-branch</literal> without extra parameters would show
 only the primary branches.  In addition, if you happen to be on
 your topic branch, it is shown as well.</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git show-branch --reflog="10,1 hour ago" --list master&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git show-branch --reflog="10,1 hour ago" --list master</literallayout><simpara></simpara>
 <simpara>shows 10 reflog entries going back from the tip as of 1 hour ago.
 Without <literal>--list</literal>, the output also shows how these tips are
 topologically related with each other.</simpara>

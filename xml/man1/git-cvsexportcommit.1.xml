@@ -14,10 +14,9 @@
   <refpurpose>Export a single commit to a CVS checkout</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git cvsexportcommit</emphasis> [-h] [-u] [-v] [-c] [-P] [-p] [-a] [-d cvsroot]
         [-w cvsworkdir] [-W] [-f] [-m msgprefix] [PARENTCOMMIT] COMMITID</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -193,12 +192,10 @@ cvsexportcommit.cvsdir
 Merge one patch into CVS
 </term>
 <listitem>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ export GIT_DIR=~/project/.git
+<literallayout class="monospaced">$ export GIT_DIR=~/project/.git
 $ cd ~/project_cvs_checkout
 $ git cvsexportcommit -v &lt;commit-sha1&gt;
-$ cvs commit -F .msg &lt;files&gt;&#10;.ft&#10;
-</literallayout>
+$ cvs commit -F .msg &lt;files&gt;</literallayout><simpara></simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -206,9 +203,7 @@ $ cvs commit -F .msg &lt;files&gt;&#10;.ft&#10;
 Merge one patch into CVS (-c and -w options). The working directory is within the Git Repo
 </term>
 <listitem>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        $ git cvsexportcommit -v -c -w ~/project_cvs_checkout &lt;commit-sha1&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        $ git cvsexportcommit -v -c -w ~/project_cvs_checkout &lt;commit-sha1&gt;</literallayout><simpara></simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -216,11 +211,9 @@ Merge one patch into CVS (-c and -w options). The working directory is within th
 Merge pending patches into CVS automatically&#8201;&#8212;&#8201;only if you really know what you are doing
 </term>
 <listitem>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ export GIT_DIR=~/project/.git
+<literallayout class="monospaced">$ export GIT_DIR=~/project/.git
 $ cd ~/project_cvs_checkout
-$ git cherry cvshead myhead | sed -n 's/^+ //p' | xargs -l1 git cvsexportcommit -c -p -v&#10;.ft&#10;
-</literallayout>
+$ git cherry cvshead myhead | sed -n 's/^+ //p' | xargs -l1 git cvsexportcommit -c -p -v</literallayout><simpara></simpara>
 </listitem>
 </varlistentry>
 </variablelist>

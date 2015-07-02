@@ -14,7 +14,6 @@
   <refpurpose>A really simple server for Git repositories</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git daemon</emphasis> [--verbose] [--syslog] [--export-all]
              [--timeout=&lt;n&gt;] [--init-timeout=&lt;n&gt;] [--max-connections=&lt;n&gt;]
              [--strict-paths] [--base-path=&lt;path&gt;] [--base-path-relaxed]
@@ -28,7 +27,7 @@
               [--listen=&lt;host_or_ipaddr&gt;] [--port=&lt;n&gt;]
               [--user=&lt;user&gt; [--group=&lt;group&gt;]]]
              [&lt;directory&gt;&#8230;]</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -434,10 +433,8 @@ receive-pack
 We assume the following in /etc/services
 </term>
 <listitem>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ grep 9418 /etc/services
-git             9418/tcp                # Git Version Control System&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ grep 9418 /etc/services
+git             9418/tcp                # Git Version Control System</literallayout><simpara></simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -451,11 +448,9 @@ git             9418/tcp                # Git Version Control System&#10;.ft&#10
         and /pub/bar, place an entry like the following into
         /etc/inetd all on one line:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        git stream tcp nowait nobody  /usr/bin/git
+<literallayout class="monospaced">        git stream tcp nowait nobody  /usr/bin/git
                 git daemon --inetd --verbose --export-all
-                /pub/foo /pub/bar&#10;.ft&#10;
-</literallayout>
+                /pub/foo /pub/bar</literallayout><simpara></simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -469,14 +464,12 @@ git             9418/tcp                # Git Version Control System&#10;.ft&#10
         and <literal>www.example.org</literal>, place an entry like the following into
         <literal>/etc/inetd</literal> all on one line:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        git stream tcp nowait nobody /usr/bin/git
+<literallayout class="monospaced">        git stream tcp nowait nobody /usr/bin/git
                 git daemon --inetd --verbose --export-all
                 --interpolated-path=/pub/%H%D
                 /pub/www.example.org/software
                 /pub/www.example.com/software
-                /software&#10;.ft&#10;
-</literallayout>
+                /software</literallayout><simpara></simpara>
 <simpara>In this example, the root-level directory <literal>/pub</literal> will contain
 a subdirectory for each virtual host name supported.
 Further, both hosts advertise repositories simply as
@@ -495,12 +488,10 @@ default repository could be made as well.</simpara>
         handles repositories for multiple virtual hosts based on
         their IP addresses, start the daemon like this:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        git daemon --verbose --export-all
+<literallayout class="monospaced">        git daemon --verbose --export-all
                 --interpolated-path=/pub/%IP/%D
                 /pub/192.168.1.200/software
-                /pub/10.10.220.23/software&#10;.ft&#10;
-</literallayout>
+                /pub/10.10.220.23/software</literallayout><simpara></simpara>
 <simpara>In this example, the root-level directory <literal>/pub</literal> will contain
 a subdirectory for each virtual host IP address supported.
 Repositories can still be accessed by hostname though, assuming
@@ -518,11 +509,9 @@ selectively enable/disable services per repository
         repository (that is the file <emphasis>config</emphasis> next to <emphasis>HEAD</emphasis>, <emphasis>refs</emphasis> and
         <emphasis>objects</emphasis>).
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        [daemon]
+<literallayout class="monospaced">        [daemon]
                 uploadpack = false
-                uploadarch = true&#10;.ft&#10;
-</literallayout>
+                uploadarch = true</literallayout><simpara></simpara>
 </listitem>
 </varlistentry>
 </variablelist>

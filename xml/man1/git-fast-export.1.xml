@@ -14,9 +14,8 @@
   <refpurpose>Git data exporter</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git fast-export [options]</emphasis> | <emphasis>git fast-import</emphasis></literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -226,17 +225,13 @@ marks the same across runs.</simpara>
 </refsect1>
 <refsect1 id="_examples">
 <title>EXAMPLES</title>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git fast-export --all | (cd /empty/repository &amp;&amp; git fast-import)&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git fast-export --all | (cd /empty/repository &amp;&amp; git fast-import)</literallayout><simpara></simpara>
 <simpara>This will export the whole repository and import it into the existing
 empty repository.  Except for reencoding commits that are not in
 UTF-8, it would be a one-to-one mirror.</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git fast-export master~5..master |
+<literallayout class="monospaced">$ git fast-export master~5..master |
         sed "s|refs/heads/master|refs/heads/other|" |
-        git fast-import&#10;.ft&#10;
-</literallayout>
+        git fast-import</literallayout><simpara></simpara>
 <simpara>This makes a new branch called <emphasis>other</emphasis> from <emphasis>master~5..master</emphasis>
 (i.e. if <emphasis>master</emphasis> has linear history, it will take the last 5 commits).</simpara>
 <simpara>Note that this assumes that none of the blobs and commit messages
@@ -264,26 +259,20 @@ trees, so will the output), but their names and the contents of the
 files will be replaced.</simpara>
 <simpara>If you think you have found a git bug, you can start by exporting an
 anonymized stream of the whole repository:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git fast-export --anonymize --all &gt;anon-stream&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git fast-export --anonymize --all &gt;anon-stream</literallayout><simpara></simpara>
 <simpara>Then confirm that the bug persists in a repository created from that
 stream (many bugs will not, as they really do depend on the exact
 repository contents):</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git init anon-repo
+<literallayout class="monospaced">$ git init anon-repo
 $ cd anon-repo
 $ git fast-import &lt;../anon-stream
-$ ... test your bug ...&#10;.ft&#10;
-</literallayout>
+$ ... test your bug ...</literallayout><simpara></simpara>
 <simpara>If the anonymized repository shows the bug, it may be worth sharing
 <literal>anon-stream</literal> along with a regular bug report. Note that the anonymized
 stream compresses very well, so gzipping it is encouraged. If you want
 to examine the stream to see that it does not contain any private data,
 you can peruse it directly before sending. You may also want to try:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ perl -pe 's/\d+/X/g' &lt;anon-stream | sort -u | less&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ perl -pe 's/\d+/X/g' &lt;anon-stream | sort -u | less</literallayout><simpara></simpara>
 <simpara>which shows all of the unique lines (with numbers converted to "X", to
 collapse "User 0", "User 1", etc into "User X"). This produces a much
 smaller output, and it is usually easy to quickly confirm that there is

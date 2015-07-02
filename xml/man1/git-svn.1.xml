@@ -14,9 +14,8 @@
   <refpurpose>Bidirectional operation between a Subversion repository and Git</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git svn</emphasis> &lt;command&gt; [options] [arguments]</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -282,9 +281,8 @@ the same local time zone.</simpara>
         (including automatic fetches due to <emphasis>clone</emphasis>, <emphasis>dcommit</emphasis>,
         <emphasis>rebase</emphasis>, etc) on a given repository.
 </simpara>
-<blockquote>
 <literallayout>config key: svn-remote.&lt;name&gt;.ignore-paths</literallayout>
-</blockquote>
+<simpara></simpara>
 <simpara>If the ignore-paths configuration key is set, and the command-line
 option is also given, both regular expressions will be used.</simpara>
 <simpara>Examples:</simpara>
@@ -294,9 +292,7 @@ option is also given, both regular expressions will be used.</simpara>
 Skip "doc*" directory for every fetch
 </term>
 <listitem>
-<literallayout class="monospaced">
-&#10;.ft C&#10;--ignore-paths="^doc"&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">--ignore-paths="^doc"</literallayout><simpara></simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -304,9 +300,7 @@ Skip "doc*" directory for every fetch
 Skip "branches" and "tags" of first level directories
 </term>
 <listitem>
-<literallayout class="monospaced">
-&#10;.ft C&#10;--ignore-paths="^[^/]+/(?:branches|tags)"&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">--ignore-paths="^[^/]+/(?:branches|tags)"</literallayout><simpara></simpara>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -464,10 +458,9 @@ branch, not on the current branch.</simpara>
         reused if a user is later given access to an alternate transport
         method (e.g. <literal>svn+ssh://</literal> or <literal>https://</literal>) for commit.
 </simpara>
-<blockquote>
 <literallayout>config key: svn-remote.&lt;name&gt;.commiturl
 config key: svn.commiturl (overwrites all svn-remote.&lt;name&gt;.commiturl options)</literallayout>
-</blockquote>
+<simpara></simpara>
 <simpara>Note that the SVN URL of the commiturl config key includes the SVN branch.
 If you rather want to set the commit URL for an entire SVN repository use
 svn-remote.&lt;name&gt;.pushurl instead.</simpara>
@@ -488,9 +481,8 @@ discouraged.</simpara>
         branches, use a single space character between the branches
         (<literal>--mergeinfo="/branches/foo:1-10 /branches/bar:3,5-6,8"</literal>)
 </simpara>
-<blockquote>
 <literallayout>config key: svn.pushmergeinfo</literallayout>
-</blockquote>
+<simpara></simpara>
 <simpara>This option will cause git-svn to attempt to automatically populate the
 svn:mergeinfo property in the SVN repository when possible. Currently, this can
 only be done when dcommitting non-fast-forward merges where all parents but the
@@ -977,33 +969,25 @@ Example:
 <simpara>
 Assume you have local changes in "master", but you need to refetch "r2".
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;    r1---r2---r3 remotes/git-svn
+<literallayout class="monospaced">    r1---r2---r3 remotes/git-svn
                 \
-                 A---B master&#10;.ft&#10;
-</literallayout>
+                 A---B master</literallayout><simpara></simpara>
 <simpara>Fix the ignore-paths or SVN permissions problem that caused "r2" to
 be incomplete in the first place.  Then:</simpara>
-<blockquote>
 <literallayout>git svn reset -r2 -p
 git svn fetch</literallayout>
-</blockquote>
-<literallayout class="monospaced">
-&#10;.ft C&#10;    r1---r2'--r3' remotes/git-svn
+<simpara></simpara>
+<literallayout class="monospaced">    r1---r2'--r3' remotes/git-svn
       \
-       r2---r3---A---B master&#10;.ft&#10;
-</literallayout>
+       r2---r3---A---B master</literallayout><simpara></simpara>
 <simpara>Then fixup "master" with <emphasis>git rebase</emphasis>.
 Do NOT use <emphasis>git merge</emphasis> or your history will not be compatible with a
 future <emphasis>dcommit</emphasis>!</simpara>
-<blockquote>
 <literallayout>git rebase --onto remotes/git-svn A^ master</literallayout>
-</blockquote>
-<literallayout class="monospaced">
-&#10;.ft C&#10;    r1---r2'--r3' remotes/git-svn
+<simpara></simpara>
+<literallayout class="monospaced">    r1---r2'--r3' remotes/git-svn
                 \
-                 A'--B' master&#10;.ft&#10;
-</literallayout>
+                 A'--B' master</literallayout><simpara></simpara>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -1076,9 +1060,8 @@ behind.  SVN can version empty directories, and they are not
 removed by default if there are no files left in them.  Git
 cannot version empty directories.  Enabling this flag will make
 the commit to SVN act like Git.</simpara>
-<blockquote>
 <literallayout>config key: svn.rmdir</literallayout>
-</blockquote>
+<simpara></simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -1095,9 +1078,8 @@ the commit to SVN act like Git.</simpara>
 <simpara>Edit the commit message before committing to SVN.  This is off by
 default for objects that are commits, and forced on when committing
 tree objects.</simpara>
-<blockquote>
 <literallayout>config key: svn.edit</literallayout>
-</blockquote>
+<simpara></simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -1115,10 +1097,9 @@ tree objects.</simpara>
 <citerefentry>
 <refentrytitle>git-diff-tree</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry> for more information.</simpara>
-<blockquote>
 <literallayout>config key: svn.l
 config key: svn.findcopiesharder</literallayout>
-</blockquote>
+<simpara></simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -1132,17 +1113,14 @@ config key: svn.findcopiesharder</literallayout>
 <simpara>
         Syntax is compatible with the file used by <emphasis>git cvsimport</emphasis>:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        loginname = Joe User &lt;user@example.com&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        loginname = Joe User &lt;user@example.com&gt;</literallayout><simpara></simpara>
 <simpara>If this option is specified and <emphasis>git svn</emphasis> encounters an SVN
 committer name that does not exist in the authors-file, <emphasis>git svn</emphasis>
 will abort operation. The user will then have to add the
 appropriate entry.  Re-running the previous <emphasis>git svn</emphasis> command
 after the authors-file is modified should continue operation.</simpara>
-<blockquote>
 <literallayout>config key: svn.authorsfile</literallayout>
-</blockquote>
+<simpara></simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -1304,9 +1282,8 @@ creating the branch or tag.</simpara>
         process. This feature is enabled by default, use
         --no-follow-parent to disable it.
 </simpara>
-<blockquote>
 <literallayout>config key: svn.followparent</literallayout>
-</blockquote>
+<simpara></simpara>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -1479,8 +1456,7 @@ for rewriteRoot and rewriteUUID which can be used together.</simpara>
 <title>BASIC EXAMPLES</title>
 <simpara>Tracking and contributing to the trunk of a Subversion-managed project
 (ignoring tags and branches):</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;# Clone a repo (like git clone):
+<literallayout class="monospaced"># Clone a repo (like git clone):
         git svn clone http://svn.example.com/project/trunk
 # Enter the newly cloned directory:
         cd trunk
@@ -1495,12 +1471,10 @@ for rewriteRoot and rewriteUUID which can be used together.</simpara>
 # as well as automatically updating your working HEAD:
         git svn dcommit
 # Append svn:ignore settings to the default Git exclude file:
-        git svn show-ignore &gt;&gt; .git/info/exclude&#10;.ft&#10;
-</literallayout>
+        git svn show-ignore &gt;&gt; .git/info/exclude</literallayout><simpara></simpara>
 <simpara>Tracking and contributing to an entire Subversion-managed project
 (complete with a trunk, tags and branches):</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;# Clone a repo with standard SVN directory layout (like git clone):
+<literallayout class="monospaced"># Clone a repo with standard SVN directory layout (like git clone):
         git svn clone http://svn.example.com/project --stdlayout --prefix svn/
 # Or, if the repo uses a non-standard directory layout:
         git svn clone http://svn.example.com/project -T tr -b branch -t tag --prefix svn/
@@ -1512,16 +1486,14 @@ for rewriteRoot and rewriteUUID which can be used together.</simpara>
 # with the appropriate name):
         git reset --hard svn/trunk
 # You may only dcommit to one branch/tag/trunk at a time.  The usage
-# of dcommit/rebase/show-ignore should be the same as above.&#10;.ft&#10;
-</literallayout>
+# of dcommit/rebase/show-ignore should be the same as above.</literallayout><simpara></simpara>
 <simpara>The initial <emphasis>git svn clone</emphasis> can be quite time-consuming
 (especially for large Subversion repositories). If multiple
 people (or one person with multiple machines) want to use
 <emphasis>git svn</emphasis> to interact with the same Subversion repository, you can
 do the initial <emphasis>git svn clone</emphasis> to a repository on a server and
 have each person clone that repository with <emphasis>git clone</emphasis>:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;# Do the initial import on a server
+<literallayout class="monospaced"># Do the initial import on a server
         ssh server "cd /pub &amp;&amp; git svn clone http://svn.example.com/project [options...]"
 # Clone locally - make sure the refs/remotes/ space matches the server
         mkdir project
@@ -1539,8 +1511,7 @@ have each person clone that repository with <emphasis>git clone</emphasis>:</sim
 # --stdlayout/-T/-b/-t/--prefix options as were used on server)
         git svn init http://svn.example.com/project [options...]
 # Pull the latest changes from Subversion
-        git svn rebase&#10;.ft&#10;
-</literallayout>
+        git svn rebase</literallayout><simpara></simpara>
 </refsect1>
 <refsect1 id="_rebase_vs_pull_merge">
 <title>REBASE VS. PULL/MERGE</title>
@@ -1623,9 +1594,7 @@ that is a mirror of an SVN branch, <emphasis>dcommit</emphasis> may commit to th
 branch.</simpara>
 <simpara>If you do merge, note the following rule: <emphasis>git svn dcommit</emphasis> will
 attempt to commit on top of the SVN commit named in</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;git log --grep=^git-svn-id: --first-parent -1&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">git log --grep=^git-svn-id: --first-parent -1</literallayout><simpara></simpara>
 <simpara>You <emphasis>must</emphasis> therefore ensure that the most recent commit of the branch
 you want to dcommit to is the <emphasis>first</emphasis> parent of the merge.  Chaos will
 ensue otherwise, especially if the first parent is an older commit on
@@ -1694,13 +1663,11 @@ arguments; but they are instead handled by the <emphasis>branches</emphasis>
 and <emphasis>tags</emphasis> keys.  Since some SVN repositories are oddly
 configured with multiple projects glob expansions such those
 listed below are allowed:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;[svn-remote "project-a"]
+<literallayout class="monospaced">[svn-remote "project-a"]
         url = http://server.org/svn
         fetch = trunk/project-a:refs/remotes/project-a/trunk
         branches = branches/*/project-a:refs/remotes/project-a/branches/*
-        tags = tags/*/project-a:refs/remotes/project-a/tags/*&#10;.ft&#10;
-</literallayout>
+        tags = tags/*/project-a:refs/remotes/project-a/tags/*</literallayout><simpara></simpara>
 <simpara>Keep in mind that the <emphasis>*</emphasis> (asterisk) wildcard of the local ref
 (right of the <emphasis>:</emphasis>) <emphasis role="strong">must</emphasis> be the farthest right path component;
 however the remote wildcard may be anywhere as long as it&#8217;s an
@@ -1709,28 +1676,22 @@ type of configuration is not automatically created by <emphasis>init</emphasis> 
 should be manually entered with a text-editor or using <emphasis>git config</emphasis>.</simpara>
 <simpara>It is also possible to fetch a subset of branches or tags by using a
 comma-separated list of names within braces. For example:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;[svn-remote "huge-project"]
+<literallayout class="monospaced">[svn-remote "huge-project"]
         url = http://server.org/svn
         fetch = trunk/src:refs/remotes/trunk
         branches = branches/{red,green}/src:refs/remotes/project-a/branches/*
-        tags = tags/{1.0,2.0}/src:refs/remotes/project-a/tags/*&#10;.ft&#10;
-</literallayout>
+        tags = tags/{1.0,2.0}/src:refs/remotes/project-a/tags/*</literallayout><simpara></simpara>
 <simpara>Multiple fetch, branches, and tags keys are supported:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;[svn-remote "messy-repo"]
+<literallayout class="monospaced">[svn-remote "messy-repo"]
         url = http://server.org/svn
         fetch = trunk/project-a:refs/remotes/project-a/trunk
         fetch = branches/demos/june-project-a-demo:refs/remotes/project-a/demos/june-demo
         branches = branches/server/*:refs/remotes/project-a/branches/*
         branches = branches/demos/2011/*:refs/remotes/project-a/2011-demos/*
-        tags = tags/server/*:refs/remotes/project-a/tags/*&#10;.ft&#10;
-</literallayout>
+        tags = tags/server/*:refs/remotes/project-a/tags/*</literallayout><simpara></simpara>
 <simpara>Creating a branch in such a configuration requires disambiguating which
 location to use using the -d or --destination flag:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git svn branch -d branches/server release-2-3-0&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git svn branch -d branches/server release-2-3-0</literallayout><simpara></simpara>
 <simpara>Note that git-svn keeps track of the highest revision in which a branch
 or tag has appeared. If the subset of branches or tags is changed after
 fetching, then $GIT_DIR/svn/.metadata must be manually edited to remove

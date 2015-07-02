@@ -14,11 +14,10 @@
   <refpurpose>Restricted login shell for Git-only SSH access</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>chsh</emphasis> -s $(command -v git-shell) &lt;user&gt;
 <emphasis>git clone</emphasis> &lt;user&gt;<literal>@localhost:/path/to/repo.git</literal>
 <emphasis>ssh</emphasis> &lt;user&gt;<literal>@localhost</literal></literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -88,8 +87,7 @@ interactive shell is aborted.</simpara>
 <refsect1 id="_example">
 <title>EXAMPLE</title>
 <simpara>To disable interactive logins, displaying a greeting instead:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ chsh -s /usr/bin/git-shell
+<literallayout class="monospaced">$ chsh -s /usr/bin/git-shell
 $ mkdir $HOME/git-shell-commands
 $ cat &gt;$HOME/git-shell-commands/no-interactive-login &lt;&lt;\EOF
 #!/bin/sh
@@ -97,8 +95,7 @@ printf '%s\n' "Hi $USER! You've successfully authenticated, but I do not"
 printf '%s\n' "provide interactive shell access."
 exit 128
 EOF
-$ chmod +x $HOME/git-shell-commands/no-interactive-login&#10;.ft&#10;
-</literallayout>
+$ chmod +x $HOME/git-shell-commands/no-interactive-login</literallayout><simpara></simpara>
 </refsect1>
 <refsect1 id="_see_also">
 <title>SEE ALSO</title>

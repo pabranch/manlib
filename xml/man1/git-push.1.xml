@@ -14,13 +14,12 @@
   <refpurpose>Update remote refs along with associated objects</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git push</emphasis> [--all | --mirror | --tags] [--follow-tags] [--atomic] [-n | --dry-run] [--receive-pack=&lt;git-receive-pack&gt;]
            [--repo=&lt;repository&gt;] [-f | --force] [--prune] [-v | --verbose]
            [-u | --set-upstream] [--signed]
            [--force-with-lease[=&lt;refname&gt;[:&lt;expect&gt;]]]
            [--no-verify] [&lt;repository&gt; [&lt;refspec&gt;&#8230;]]</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -561,29 +560,21 @@ invoked. See <citerefentry>
 you want to use a different format for them (such that the URLs you
 use will be rewritten into URLs that work), you can create a
 configuration section of the form:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        [url "&lt;actual url base&gt;"]
-                insteadOf = &lt;other url base&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        [url "&lt;actual url base&gt;"]
+                insteadOf = &lt;other url base&gt;</literallayout><simpara></simpara>
 <simpara>For example, with this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        [url "git://git.host.xz/"]
+<literallayout class="monospaced">        [url "git://git.host.xz/"]
                 insteadOf = host.xz:/path/to/
-                insteadOf = work:&#10;.ft&#10;
-</literallayout>
+                insteadOf = work:</literallayout><simpara></simpara>
 <simpara>a URL like "work:repo.git" or like "host.xz:/path/to/repo.git" will be
 rewritten in any context that takes a URL to be "git://git.host.xz/repo.git".</simpara>
 <simpara>If you want to rewrite URLs for push only, you can create a
 configuration section of the form:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        [url "&lt;actual url base&gt;"]
-                pushInsteadOf = &lt;other url base&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        [url "&lt;actual url base&gt;"]
+                pushInsteadOf = &lt;other url base&gt;</literallayout><simpara></simpara>
 <simpara>For example, with this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        [url "ssh://example.org/"]
-                pushInsteadOf = git://example.org/&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        [url "ssh://example.org/"]
+                pushInsteadOf = git://example.org/</literallayout><simpara></simpara>
 <simpara>a URL like "git://example.org/path/to/repo.git" will be rewritten to
 "ssh://example.org/path/to/repo.git" for pushes, but pulls will still
 use the original URL.</simpara>
@@ -624,13 +615,11 @@ this remote will be used to access the repository.  The refspec
 of this remote will be used by default when you do
 not provide a refspec on the command line.  The entry in the
 config file would appear like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        [remote "&lt;name&gt;"]
+<literallayout class="monospaced">        [remote "&lt;name&gt;"]
                 url = &lt;url&gt;
                 pushurl = &lt;pushurl&gt;
                 push = &lt;refspec&gt;
-                fetch = &lt;refspec&gt;&#10;.ft&#10;
-</literallayout>
+                fetch = &lt;refspec&gt;</literallayout><simpara></simpara>
 <simpara>The <literal>&lt;pushurl&gt;</literal> is used for pushes only. It is optional and defaults
 to <literal>&lt;url&gt;</literal>.</simpara>
 </refsect2>
@@ -642,11 +631,9 @@ in this file will be used to access the repository.  The refspec
 in this file will be used as default when you do not
 provide a refspec on the command line.  This file should have the
 following format:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        URL: one of the above URL format
+<literallayout class="monospaced">        URL: one of the above URL format
         Push: &lt;refspec&gt;
-        Pull: &lt;refspec&gt;&#10;.ft&#10;
-</literallayout>
+        Pull: &lt;refspec&gt;</literallayout><simpara></simpara>
 <simpara><literal>Push:</literal> lines are used by <emphasis>git push</emphasis> and
 <literal>Pull:</literal> lines are used by <emphasis>git pull</emphasis> and <emphasis>git fetch</emphasis>.
 Multiple <literal>Push:</literal> and <literal>Pull:</literal> lines may
@@ -658,22 +645,16 @@ be specified for additional branch mappings.</simpara>
 file in <literal>$GIT_DIR/branches</literal>.
 The URL in this file will be used to access the repository.
 This file should have the following format:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        &lt;url&gt;#&lt;head&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        &lt;url&gt;#&lt;head&gt;</literallayout><simpara></simpara>
 <simpara><literal>&lt;url&gt;</literal> is required; <literal>#&lt;head&gt;</literal> is optional.</simpara>
 <simpara>Depending on the operation, git will use one of the following
 refspecs, if you don&#8217;t provide one on the command line.
 <literal>&lt;branch&gt;</literal> is the name of this file in <literal>$GIT_DIR/branches</literal> and
 <literal>&lt;head&gt;</literal> defaults to <literal>master</literal>.</simpara>
 <simpara>git fetch uses:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        refs/heads/&lt;head&gt;:refs/heads/&lt;branch&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        refs/heads/&lt;head&gt;:refs/heads/&lt;branch&gt;</literallayout><simpara></simpara>
 <simpara>git push uses:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        HEAD:refs/heads/&lt;head&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        HEAD:refs/heads/&lt;head&gt;</literallayout><simpara></simpara>
 </refsect2>
 </refsect1>
 <refsect1 id="_output">
@@ -683,13 +664,9 @@ section describes the output when pushing over the Git protocol (either
 locally or via ssh).</simpara>
 <simpara>The status of the push is output in tabular form, with each line
 representing the status of a single ref. Each line is of the form:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10; &lt;flag&gt; &lt;summary&gt; &lt;from&gt; -&gt; &lt;to&gt; (&lt;reason&gt;)&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced"> &lt;flag&gt; &lt;summary&gt; &lt;from&gt; -&gt; &lt;to&gt; (&lt;reason&gt;)</literallayout><simpara></simpara>
 <simpara>If --porcelain is used, then each line of the output is of the form:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10; &lt;flag&gt; \t &lt;from&gt;:&lt;to&gt; \t &lt;summary&gt; (&lt;reason&gt;)&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced"> &lt;flag&gt; \t &lt;from&gt;:&lt;to&gt; \t &lt;summary&gt; (&lt;reason&gt;)</literallayout><simpara></simpara>
 <simpara>The status of up-to-date refs is shown only if --porcelain or --verbose
 option is used.</simpara>
 <variablelist>
@@ -871,11 +848,9 @@ builds on top of.  Hence, it does not lose any history.</simpara>
 suppose you and somebody else started at the same commit X, and you built
 a history leading to commit B while the other person built a history
 leading to commit A.  The history looks like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;      B
+<literallayout class="monospaced">      B
      /
- ---X---A&#10;.ft&#10;
-</literallayout>
+ ---X---A</literallayout><simpara></simpara>
 <simpara>Further suppose that the other person already pushed changes leading to A
 back to the original repository from which you two obtained the original
 commit X.</simpara>
@@ -894,22 +869,18 @@ by both parties, and push the result back.</simpara>
 <simpara>You can perform "git pull", resolve potential conflicts, and "git push"
 the result.  A "git pull" will create a merge commit C between commits A
 and B.</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;      B---C
+<literallayout class="monospaced">      B---C
      /   /
- ---X---A&#10;.ft&#10;
-</literallayout>
+ ---X---A</literallayout><simpara></simpara>
 <simpara>Updating A with the resulting merge commit will fast-forward and your
 push will be accepted.</simpara>
 <simpara>Alternatively, you can rebase your change between X and B on top of A,
 with "git pull --rebase", and push the result back.  The rebase will
 create a new commit D that builds the change between X and B on top of
 A.</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;      B   D
+<literallayout class="monospaced">      B   D
      /   /
- ---X---A&#10;.ft&#10;
-</literallayout>
+ ---X---A</literallayout><simpara></simpara>
 <simpara>Again, updating A with this commit will fast-forward and your push will be
 accepted.</simpara>
 <simpara>There is another common situation where you may encounter non-fast-forward
@@ -1066,17 +1037,13 @@ made on <literal>satellite</literal>.</simpara>
         commits dangling in the origin repository.</emphasis>  Consider the
         following situation, where a fast-forward is not possible:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;            o---o---o---A---B  origin/master
+<literallayout class="monospaced">            o---o---o---A---B  origin/master
                      \
-                      X---Y---Z  dev&#10;.ft&#10;
-</literallayout>
+                      X---Y---Z  dev</literallayout><simpara></simpara>
 <simpara>The above command would change the origin repository to</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;                      A---B  (unnamed branch)
+<literallayout class="monospaced">                      A---B  (unnamed branch)
                      /
-            o---o---o---X---Y---Z  master&#10;.ft&#10;
-</literallayout>
+            o---o---o---X---Y---Z  master</literallayout><simpara></simpara>
 <simpara>Commits A and B would no longer belong to a branch with a symbolic name,
 and so would be unreachable.  As such, these commits would be removed by
 a <literal>git gc</literal> command on the origin repository.</simpara>

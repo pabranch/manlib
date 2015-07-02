@@ -14,14 +14,13 @@
   <refpurpose>Checkout a branch or paths to the working tree</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git checkout</emphasis> [-q] [-f] [-m] [&lt;branch&gt;]
 <emphasis>git checkout</emphasis> [-q] [-f] [-m] --detach [&lt;branch&gt;]
 <emphasis>git checkout</emphasis> [-q] [-f] [-m] [--detach] &lt;commit&gt;
 <emphasis>git checkout</emphasis> [-q] [-f] [-m] [[-b|-B|--orphan] &lt;new_branch&gt;] [&lt;start_point&gt;]
 <emphasis>git checkout</emphasis> [-f|--ours|--theirs|-m|--conflict=&lt;style&gt;] [&lt;tree-ish&gt;] [--] &lt;paths&gt;&#8230;
 <emphasis>git checkout</emphasis> [-p|--patch] [&lt;tree-ish&gt;] [--] [&lt;paths&gt;&#8230;]</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -45,9 +44,7 @@ branch.</simpara>
 <simpara>If &lt;branch&gt; is not found but there does exist a tracking branch in
 exactly one remote (call it &lt;remote&gt;) with a matching name, treat as
 equivalent to</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git checkout -b &lt;branch&gt; --track &lt;remote&gt;/&lt;branch&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git checkout -b &lt;branch&gt; --track &lt;remote&gt;/&lt;branch&gt;</literallayout><simpara></simpara>
 <simpara>You could omit &lt;branch&gt;, in which case the command degenerates to
 "check out the current branch", which is a glorified no-op with a
 rather expensive side-effects to show only the tracking information,
@@ -71,10 +68,8 @@ if exists, for the current branch.</simpara>
 </simpara>
 <simpara>If <literal>-B</literal> is given, &lt;new_branch&gt; is created if it doesn&#8217;t exist; otherwise, it
 is reset. This is the transactional equivalent of</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git branch -f &lt;branch&gt; [&lt;start point&gt;]
-$ git checkout &lt;branch&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git branch -f &lt;branch&gt; [&lt;start point&gt;]
+$ git checkout &lt;branch&gt;</literallayout><simpara></simpara>
 <simpara>that is to say, the branch is not reset/created unless "git checkout" is
 successful.</simpara>
 </listitem>
@@ -456,22 +451,19 @@ leave out at most one of <literal>A</literal> and <literal>B</literal>, in which
 <simpara>HEAD normally refers to a named branch (e.g. <emphasis>master</emphasis>). Meanwhile, each
 branch refers to a specific commit. Let&#8217;s look at a repo with three
 commits, one of them tagged, and with branch <emphasis>master</emphasis> checked out:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;           HEAD (refers to branch 'master')
+<literallayout class="monospaced">           HEAD (refers to branch 'master')
             |
             v
 a---b---c  branch 'master' (refers to commit 'c')
     ^
     |
-  tag 'v2.0' (refers to commit 'b')&#10;.ft&#10;
-</literallayout>
+  tag 'v2.0' (refers to commit 'b')</literallayout><simpara></simpara>
 <simpara>When a commit is created in this state, the branch is updated to refer to
 the new commit. Specifically, <emphasis>git commit</emphasis> creates a new commit <emphasis>d</emphasis>, whose
 parent is commit <emphasis>c</emphasis>, and then updates branch <emphasis>master</emphasis> to refer to new
 commit <emphasis>d</emphasis>. HEAD still refers to branch <emphasis>master</emphasis> and so indirectly now refers
 to commit <emphasis>d</emphasis>:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ edit; git add; git commit
+<literallayout class="monospaced">$ edit; git add; git commit
 
                HEAD (refers to branch 'master')
                 |
@@ -479,14 +471,12 @@ to commit <emphasis>d</emphasis>:</simpara>
 a---b---c---d  branch 'master' (refers to commit 'd')
     ^
     |
-  tag 'v2.0' (refers to commit 'b')&#10;.ft&#10;
-</literallayout>
+  tag 'v2.0' (refers to commit 'b')</literallayout><simpara></simpara>
 <simpara>It is sometimes useful to be able to checkout a commit that is not at
 the tip of any named branch, or even to create a new commit that is not
 referenced by a named branch. Let&#8217;s look at what happens when we
 checkout commit <emphasis>b</emphasis> (here we show two ways this may be done):</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git checkout v2.0  # or
+<literallayout class="monospaced">$ git checkout v2.0  # or
 $ git checkout master^^
 
    HEAD (refers to commit 'b')
@@ -495,14 +485,12 @@ $ git checkout master^^
 a---b---c---d  branch 'master' (refers to commit 'd')
     ^
     |
-  tag 'v2.0' (refers to commit 'b')&#10;.ft&#10;
-</literallayout>
+  tag 'v2.0' (refers to commit 'b')</literallayout><simpara></simpara>
 <simpara>Notice that regardless of which checkout command we use, HEAD now refers
 directly to commit <emphasis>b</emphasis>. This is known as being in detached HEAD state.
 It means simply that HEAD refers to a specific commit, as opposed to
 referring to a named branch. Let&#8217;s see what happens when we create a commit:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ edit; git add; git commit
+<literallayout class="monospaced">$ edit; git add; git commit
 
      HEAD (refers to commit 'e')
       |
@@ -512,12 +500,10 @@ referring to a named branch. Let&#8217;s see what happens when we create a commi
 a---b---c---d  branch 'master' (refers to commit 'd')
     ^
     |
-  tag 'v2.0' (refers to commit 'b')&#10;.ft&#10;
-</literallayout>
+  tag 'v2.0' (refers to commit 'b')</literallayout><simpara></simpara>
 <simpara>There is now a new commit <emphasis>e</emphasis>, but it is referenced only by HEAD. We can
 of course add yet another commit in this state:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ edit; git add; git commit
+<literallayout class="monospaced">$ edit; git add; git commit
 
          HEAD (refers to commit 'f')
           |
@@ -527,12 +513,10 @@ of course add yet another commit in this state:</simpara>
 a---b---c---d  branch 'master' (refers to commit 'd')
     ^
     |
-  tag 'v2.0' (refers to commit 'b')&#10;.ft&#10;
-</literallayout>
+  tag 'v2.0' (refers to commit 'b')</literallayout><simpara></simpara>
 <simpara>In fact, we can perform all the normal Git operations. But, let&#8217;s look
 at what happens when we then checkout master:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git checkout master
+<literallayout class="monospaced">$ git checkout master
 
                HEAD (refers to branch 'master')
       e---f     |
@@ -540,18 +524,15 @@ at what happens when we then checkout master:</simpara>
 a---b---c---d  branch 'master' (refers to commit 'd')
     ^
     |
-  tag 'v2.0' (refers to commit 'b')&#10;.ft&#10;
-</literallayout>
+  tag 'v2.0' (refers to commit 'b')</literallayout><simpara></simpara>
 <simpara>It is important to realize that at this point nothing refers to commit
 <emphasis>f</emphasis>. Eventually commit <emphasis>f</emphasis> (and by extension commit <emphasis>e</emphasis>) will be deleted
 by the routine Git garbage collection process, unless we create a reference
 before that happens. If we have not yet moved away from commit <emphasis>f</emphasis>,
 any of these will create a reference to it:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git checkout -b foo   <co id="CO1-1"/>
+<literallayout class="monospaced">$ git checkout -b foo   <co id="CO1-1"/>
 $ git branch foo        <co id="CO1-2"/>
-$ git tag foo           <co id="CO1-3"/>&#10;.ft&#10;
-</literallayout>
+$ git tag foo           <co id="CO1-3"/></literallayout><simpara></simpara>
 <calloutlist>
 <callout arearefs="CO1-1">
 <para>
@@ -577,10 +558,8 @@ leaving HEAD detached.
 name (typically by using git reflog), and then we can create a reference to
 it. For example, to see the last two commits to which HEAD referred, we
 can use either of these commands:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git reflog -2 HEAD # or
-$ git log -g -2 HEAD&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git reflog -2 HEAD # or
+$ git log -g -2 HEAD</literallayout><simpara></simpara>
 </refsect1>
 <refsect1 id="_multiple_working_trees">
 <title>MULTIPLE WORKING TREES</title>
@@ -653,12 +632,10 @@ The following sequence checks out the <literal>master</literal> branch, reverts
 the <literal>Makefile</literal> to two revisions back, deletes hello.c by
 mistake, and gets it back from the index.
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git checkout master             <co id="CO2-1"/>
+<literallayout class="monospaced">$ git checkout master             <co id="CO2-1"/>
 $ git checkout master~2 Makefile  <co id="CO2-2"/>
 $ rm -f hello.c
-$ git checkout hello.c            <co id="CO2-3"/>&#10;.ft&#10;
-</literallayout>
+$ git checkout hello.c            <co id="CO2-3"/></literallayout><simpara></simpara>
 <calloutlist>
 <callout arearefs="CO2-1">
 <para>
@@ -676,9 +653,7 @@ restore hello.c from the index
 </para>
 <simpara>If you want to check out <emphasis>all</emphasis> C source files out of the index,
 you can say</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git checkout -- '*.c'&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git checkout -- '*.c'</literallayout><simpara></simpara>
 <simpara>Note the quotes around <literal>*.c</literal>.  The file <literal>hello.c</literal> will also be
 checked out, even though it is no longer in the working tree,
 because the file globbing is used to match entries in the index
@@ -686,9 +661,7 @@ because the file globbing is used to match entries in the index
 <simpara>If you have an unfortunate branch that is named <literal>hello.c</literal>, this
 step would be confused as an instruction to switch to that branch.
 You should instead write:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git checkout -- hello.c&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git checkout -- hello.c</literallayout><simpara></simpara>
 </callout>
 </calloutlist>
 </listitem>
@@ -697,22 +670,16 @@ You should instead write:</simpara>
 After working in the wrong branch, switching to the correct
 branch would be done using:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git checkout mytopic&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git checkout mytopic</literallayout><simpara></simpara>
 <simpara>However, your "wrong" branch and correct "mytopic" branch may
 differ in files that you have modified locally, in which case
 the above checkout would fail like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git checkout mytopic
-error: You have local changes to 'frotz'; not switching branches.&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git checkout mytopic
+error: You have local changes to 'frotz'; not switching branches.</literallayout><simpara></simpara>
 <simpara>You can give the <literal>-m</literal> flag to the command, which would try a
 three-way merge:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git checkout -m mytopic
-Auto-merging frotz&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git checkout -m mytopic
+Auto-merging frotz</literallayout><simpara></simpara>
 <simpara>After this three-way merge, the local modifications are <emphasis>not</emphasis>
 registered in your index file, so <literal>git diff</literal> would show you what
 changes you made since the tip of the new branch.</simpara>
@@ -722,20 +689,16 @@ changes you made since the tip of the new branch.</simpara>
 When a merge conflict happens during switching branches with
 the <literal>-m</literal> option, you would see something like this:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git checkout -m mytopic
+<literallayout class="monospaced">$ git checkout -m mytopic
 Auto-merging frotz
 ERROR: Merge conflict in frotz
-fatal: merge program failed&#10;.ft&#10;
-</literallayout>
+fatal: merge program failed</literallayout><simpara></simpara>
 <simpara>At this point, <literal>git diff</literal> shows the changes cleanly merged as in
 the previous example, as well as the changes in the conflicted
 files.  Edit and resolve the conflict and mark it resolved with
 <literal>git add</literal> as usual:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ edit frotz
-$ git add frotz&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ edit frotz
+$ git add frotz</literallayout><simpara></simpara>
 </listitem>
 </orderedlist>
 </refsect1>

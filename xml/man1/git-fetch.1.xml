@@ -14,12 +14,11 @@
   <refpurpose>Download objects and refs from another repository</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git fetch</emphasis> [&lt;options&gt;] [&lt;repository&gt; [&lt;refspec&gt;&#8230;]]
 <emphasis>git fetch</emphasis> [&lt;options&gt;] &lt;group&gt;
 <emphasis>git fetch</emphasis> --multiple [&lt;options&gt;] [(&lt;repository&gt; | &lt;group&gt;)&#8230;]
 <emphasis>git fetch</emphasis> --all [&lt;options&gt;]</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -547,29 +546,21 @@ invoked. See <citerefentry>
 you want to use a different format for them (such that the URLs you
 use will be rewritten into URLs that work), you can create a
 configuration section of the form:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        [url "&lt;actual url base&gt;"]
-                insteadOf = &lt;other url base&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        [url "&lt;actual url base&gt;"]
+                insteadOf = &lt;other url base&gt;</literallayout><simpara></simpara>
 <simpara>For example, with this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        [url "git://git.host.xz/"]
+<literallayout class="monospaced">        [url "git://git.host.xz/"]
                 insteadOf = host.xz:/path/to/
-                insteadOf = work:&#10;.ft&#10;
-</literallayout>
+                insteadOf = work:</literallayout><simpara></simpara>
 <simpara>a URL like "work:repo.git" or like "host.xz:/path/to/repo.git" will be
 rewritten in any context that takes a URL to be "git://git.host.xz/repo.git".</simpara>
 <simpara>If you want to rewrite URLs for push only, you can create a
 configuration section of the form:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        [url "&lt;actual url base&gt;"]
-                pushInsteadOf = &lt;other url base&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        [url "&lt;actual url base&gt;"]
+                pushInsteadOf = &lt;other url base&gt;</literallayout><simpara></simpara>
 <simpara>For example, with this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        [url "ssh://example.org/"]
-                pushInsteadOf = git://example.org/&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        [url "ssh://example.org/"]
+                pushInsteadOf = git://example.org/</literallayout><simpara></simpara>
 <simpara>a URL like "git://example.org/path/to/repo.git" will be rewritten to
 "ssh://example.org/path/to/repo.git" for pushes, but pulls will still
 use the original URL.</simpara>
@@ -610,13 +601,11 @@ this remote will be used to access the repository.  The refspec
 of this remote will be used by default when you do
 not provide a refspec on the command line.  The entry in the
 config file would appear like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        [remote "&lt;name&gt;"]
+<literallayout class="monospaced">        [remote "&lt;name&gt;"]
                 url = &lt;url&gt;
                 pushurl = &lt;pushurl&gt;
                 push = &lt;refspec&gt;
-                fetch = &lt;refspec&gt;&#10;.ft&#10;
-</literallayout>
+                fetch = &lt;refspec&gt;</literallayout><simpara></simpara>
 <simpara>The <literal>&lt;pushurl&gt;</literal> is used for pushes only. It is optional and defaults
 to <literal>&lt;url&gt;</literal>.</simpara>
 </refsect2>
@@ -628,11 +617,9 @@ in this file will be used to access the repository.  The refspec
 in this file will be used as default when you do not
 provide a refspec on the command line.  This file should have the
 following format:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        URL: one of the above URL format
+<literallayout class="monospaced">        URL: one of the above URL format
         Push: &lt;refspec&gt;
-        Pull: &lt;refspec&gt;&#10;.ft&#10;
-</literallayout>
+        Pull: &lt;refspec&gt;</literallayout><simpara></simpara>
 <simpara><literal>Push:</literal> lines are used by <emphasis>git push</emphasis> and
 <literal>Pull:</literal> lines are used by <emphasis>git pull</emphasis> and <emphasis>git fetch</emphasis>.
 Multiple <literal>Push:</literal> and <literal>Pull:</literal> lines may
@@ -644,22 +631,16 @@ be specified for additional branch mappings.</simpara>
 file in <literal>$GIT_DIR/branches</literal>.
 The URL in this file will be used to access the repository.
 This file should have the following format:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        &lt;url&gt;#&lt;head&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        &lt;url&gt;#&lt;head&gt;</literallayout><simpara></simpara>
 <simpara><literal>&lt;url&gt;</literal> is required; <literal>#&lt;head&gt;</literal> is optional.</simpara>
 <simpara>Depending on the operation, git will use one of the following
 refspecs, if you don&#8217;t provide one on the command line.
 <literal>&lt;branch&gt;</literal> is the name of this file in <literal>$GIT_DIR/branches</literal> and
 <literal>&lt;head&gt;</literal> defaults to <literal>master</literal>.</simpara>
 <simpara>git fetch uses:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        refs/heads/&lt;head&gt;:refs/heads/&lt;branch&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        refs/heads/&lt;head&gt;:refs/heads/&lt;branch&gt;</literallayout><simpara></simpara>
 <simpara>git push uses:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        HEAD:refs/heads/&lt;head&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        HEAD:refs/heads/&lt;head&gt;</literallayout><simpara></simpara>
 </refsect2>
 </refsect1>
 <refsect1 id="_configured_remote_tracking_branches_anchor_id_crtb_xreflabel_crtb">
@@ -669,10 +650,8 @@ regularly and repeatedly fetching from it.  In order to keep track
 of the progress of such a remote repository, <literal>git fetch</literal> allows you
 to configure <literal>remote.&lt;repository&gt;.fetch</literal> configuration variables.</simpara>
 <simpara>Typically such a variable may look like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;[remote "origin"]
-        fetch = +refs/heads/*:refs/remotes/origin/*&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">[remote "origin"]
+        fetch = +refs/heads/*:refs/remotes/origin/*</literallayout><simpara></simpara>
 <simpara>This configuration is used in two ways:</simpara>
 <itemizedlist>
 <listitem>
@@ -720,9 +699,7 @@ command line.</simpara>
 <simpara>
 Update the remote-tracking branches:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git fetch origin&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git fetch origin</literallayout><simpara></simpara>
 <simpara>The above command copies all branches from the remote refs/heads/
 namespace and stores them to the local refs/remotes/origin/ namespace,
 unless the branch.&lt;name&gt;.fetch option is used to specify a non-default
@@ -732,9 +709,7 @@ refspec.</simpara>
 <simpara>
 Using refspecs explicitly:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git fetch origin +pu:pu maint:tmp&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git fetch origin +pu:pu maint:tmp</literallayout><simpara></simpara>
 <simpara>This updates (or creates, as necessary) branches <literal>pu</literal> and <literal>tmp</literal> in
 the local repository by fetching from the branches (respectively)
 <literal>pu</literal> and <literal>maint</literal> from the remote repository.</simpara>
@@ -746,10 +721,8 @@ because it is prefixed with a plus sign; <literal>tmp</literal> will not be.</si
 Peek at a remote&#8217;s branch, without configuring the remote in your local
 repository:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git fetch git://git.kernel.org/pub/scm/git/git.git maint
-$ git log FETCH_HEAD&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git fetch git://git.kernel.org/pub/scm/git/git.git maint
+$ git log FETCH_HEAD</literallayout><simpara></simpara>
 <simpara>The first command fetches the <literal>maint</literal> branch from the repository at
 <literal>git://git.kernel.org/pub/scm/git/git.git</literal> and the second command uses
 <literal>FETCH_HEAD</literal> to examine the branch with <citerefentry>

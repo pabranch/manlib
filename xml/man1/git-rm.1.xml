@@ -14,9 +14,8 @@
   <refpurpose>Remove files from the working tree and from the index</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git rm</emphasis> [-f | --force] [-n] [-r] [--cached] [--ignore-unmatch] [--quiet] [--] &lt;file&gt;&#8230;</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -173,16 +172,12 @@ want to record both the removal of paths and additions of new paths
 as well as modifications of existing paths.</simpara>
 <simpara>Typically you would first remove all tracked files from the working
 tree using this command:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;git ls-files -z | xargs -0 rm -f&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">git ls-files -z | xargs -0 rm -f</literallayout><simpara></simpara>
 <simpara>and then untar the new code in the working tree. Alternately
 you could <emphasis>rsync</emphasis> the changes into the working tree.</simpara>
 <simpara>After that, the easiest way to record all removals, additions, and
 modifications in the working tree is:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;git add -A&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">git add -A</literallayout><simpara></simpara>
 <simpara>See <citerefentry>
 <refentrytitle>git-add</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry>.</simpara>
@@ -193,9 +188,7 @@ modifications in the working tree is:</simpara>
 that are no longer present in the working tree (perhaps because
 your working tree is dirty so that you cannot use <literal>git commit -a</literal>),
 use the following command:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;git diff --name-only --diff-filter=D -z | xargs -0 git rm --cached&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">git diff --name-only --diff-filter=D -z | xargs -0 git rm --cached</literallayout><simpara></simpara>
 </refsect2>
 </refsect1>
 <refsect1 id="_submodules">

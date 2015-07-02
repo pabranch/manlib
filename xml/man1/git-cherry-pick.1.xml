@@ -14,13 +14,12 @@
   <refpurpose>Apply the changes introduced by some existing commits</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git cherry-pick</emphasis> [--edit] [-n] [-m parent-number] [-s] [-x] [--ff]
                   [-S[&lt;key-id&gt;]] &lt;commit&gt;&#8230;
 <emphasis>git cherry-pick</emphasis> --continue
 <emphasis>git cherry-pick</emphasis> --quit
 <emphasis>git cherry-pick</emphasis> --abort</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -435,12 +434,10 @@ effect to your index in a row.</simpara>
 <simpara>The following sequence attempts to backport a patch, bails out because
 the code the patch applies to has changed too much, and then tries
 again, this time exercising more care about matching up context lines.</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git cherry-pick topic^             <co id="CO1-1"/>
+<literallayout class="monospaced">$ git cherry-pick topic^             <co id="CO1-1"/>
 $ git diff                           <co id="CO1-2"/>
 $ git reset --merge ORIG_HEAD        <co id="CO1-3"/>
-$ git cherry-pick -Xpatience topic^  <co id="CO1-4"/>&#10;.ft&#10;
-</literallayout>
+$ git cherry-pick -Xpatience topic^  <co id="CO1-4"/></literallayout><simpara></simpara>
 <calloutlist>
 <callout arearefs="CO1-1">
 <para>

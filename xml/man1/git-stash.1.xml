@@ -14,7 +14,6 @@
   <refpurpose>Stash the changes in a dirty working directory away</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git stash</emphasis> list [&lt;options&gt;]
 <emphasis>git stash</emphasis> show [&lt;stash&gt;]
 <emphasis>git stash</emphasis> drop [-q|--quiet] [&lt;stash&gt;]
@@ -25,7 +24,7 @@
 <emphasis>git stash</emphasis> clear
 <emphasis>git stash</emphasis> create [&lt;message&gt;]
 <emphasis>git stash</emphasis> store [-m|--message &lt;message&gt;] [-q|--quiet] &lt;commit&gt;</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -93,10 +92,8 @@ list [&lt;options&gt;]
         stash was made, and a short description of the commit the stash was
         based on.
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;stash@{0}: WIP on submit: 6ebd0e2... Update git-stash documentation
-stash@{1}: On master: 9cc0589... Add git-stash&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">stash@{0}: WIP on submit: 6ebd0e2... Update git-stash documentation
+stash@{1}: On master: 9cc0589... Add git-stash</literallayout><simpara></simpara>
 <simpara>The command takes options applicable to the <emphasis>git log</emphasis>
 command to control what is shown and how. See <citerefentry>
 <refentrytitle>git-log</refentrytitle><manvolnum>1</manvolnum>
@@ -256,14 +253,12 @@ the upstream, a simple <literal>git pull</literal> will let you move forward.
 the upstream changes, and <literal>git pull</literal> refuses to overwrite your
 changes.  In such a case, you can stash your changes away,
 perform a pull, and then unstash, like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git pull
+<literallayout class="monospaced">$ git pull
  ...
 file foobar not up to date, cannot merge.
 $ git stash
 $ git pull
-$ git stash pop&#10;.ft&#10;
-</literallayout>
+$ git stash pop</literallayout><simpara></simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -277,8 +272,7 @@ demands that you fix something immediately.  Traditionally, you would
 make a commit to a temporary branch to store your changes away, and
 return to your original branch to make the emergency fix, like this:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;# ... hack hack hack ...
+<literallayout class="monospaced"># ... hack hack hack ...
 $ git checkout -b my_wip
 $ git commit -a -m "WIP"
 $ git checkout master
@@ -286,17 +280,14 @@ $ edit emergency fix
 $ git commit -a -m "Fix in a hurry"
 $ git checkout my_wip
 $ git reset --soft HEAD^
-# ... continue hacking ...&#10;.ft&#10;
-</literallayout>
+# ... continue hacking ...</literallayout><simpara></simpara>
 <simpara>You can use <emphasis>git stash</emphasis> to simplify the above, like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;# ... hack hack hack ...
+<literallayout class="monospaced"># ... hack hack hack ...
 $ git stash
 $ edit emergency fix
 $ git commit -a -m "Fix in a hurry"
 $ git stash pop
-# ... continue hacking ...&#10;.ft&#10;
-</literallayout>
+# ... continue hacking ...</literallayout><simpara></simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -309,8 +300,7 @@ You can use <literal>git stash save --keep-index</literal> when you want to make
 more commits out of the changes in the work tree, and you want to test
 each change before committing:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;# ... hack hack hack ...
+<literallayout class="monospaced"># ... hack hack hack ...
 $ git add --patch foo            # add just first part to the index
 $ git stash save --keep-index    # save all other changes to the stash
 $ edit/build/test first part
@@ -318,8 +308,7 @@ $ git commit -m 'First part'     # commit fully tested change
 $ git stash pop                  # prepare to work on all other changes
 # ... repeat above five steps until one commit remains ...
 $ edit/build/test remaining parts
-$ git commit foo -m 'Remaining parts'&#10;.ft&#10;
-</literallayout>
+$ git commit foo -m 'Remaining parts'</literallayout><simpara></simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -333,11 +322,9 @@ through the normal safety mechanisms.  However, you can try the
 following incantation to get a list of stashes that are still in your
 repository, but not reachable any more:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;git fsck --unreachable |
+<literallayout class="monospaced">git fsck --unreachable |
 grep commit | cut -d\  -f3 |
-xargs git log --merges --no-walk --grep=WIP&#10;.ft&#10;
-</literallayout>
+xargs git log --merges --no-walk --grep=WIP</literallayout><simpara></simpara>
 </listitem>
 </varlistentry>
 </variablelist>

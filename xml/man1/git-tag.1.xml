@@ -14,7 +14,6 @@
   <refpurpose>Create, list, delete or verify a tag object signed with GPG</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git tag</emphasis> [-a | -s | -u &lt;key-id&gt;] [-f] [-m &lt;msg&gt; | -F &lt;file&gt;]
         &lt;tagname&gt; [&lt;commit&gt; | &lt;object&gt;]
 <emphasis>git tag</emphasis> -d &lt;tagname&gt;&#8230;
@@ -22,7 +21,7 @@
         [--column[=&lt;options&gt;] | --no-column] [&lt;pattern&gt;&#8230;]
         [&lt;pattern&gt;&#8230;]
 <emphasis>git tag</emphasis> -v &lt;tagname&gt;&#8230;</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -305,10 +304,8 @@ lightweight tags by default.</simpara>
 committer identity (of the form <literal>Your Name &lt;your@email.address&gt;</literal>) to
 find a key.  If you want to use a different default key, you can specify
 it in the repository configuration as follows:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;[user]
-    signingKey = &lt;gpg-key-id&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">[user]
+    signingKey = &lt;gpg-key-id&gt;</literallayout><simpara></simpara>
 </refsect1>
 <refsect1 id="_discussion">
 <title>DISCUSSION</title>
@@ -351,8 +348,7 @@ security issue, in that people MUST be able to trust their
 tag-names.  If you really want to do the insane thing, you need
 to just fess up to it, and tell people that you messed up. You
 can do that by making a very public announcement saying:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;Ok, I messed up, and I pushed out an earlier version tagged as X. I
+<literallayout class="monospaced">Ok, I messed up, and I pushed out an earlier version tagged as X. I
 then fixed something, and retagged the *fixed* tree as X again.
 
 If you got the wrong tag, and want the new one, please delete
@@ -369,8 +365,7 @@ You can test which tag you have by doing
 
 which should return 0123456789abcdef.. if you have the new version.
 
-Sorry for the inconvenience.&#10;.ft&#10;
-</literallayout>
+Sorry for the inconvenience.</literallayout><simpara></simpara>
 <simpara>Does this seem a bit complicated?  It <emphasis role="strong">should</emphasis> be. There is no
 way that it would be correct to just "fix" it automatically.
 People need to know that their tags might have been changed.</simpara>
@@ -391,17 +386,13 @@ private anchor point tags from the other person.</simpara>
 two pieces of information: a repo URL and a branch name; this
 is designed to be easily cut&amp;pasted at the end of a <emphasis>git fetch</emphasis>
 command line:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;Linus, please pull from
+<literallayout class="monospaced">Linus, please pull from
 
         git://git..../proj.git master
 
-to get the following updates...&#10;.ft&#10;
-</literallayout>
+to get the following updates...</literallayout><simpara></simpara>
 <simpara>becomes:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git pull git://git..../proj.git master&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git pull git://git..../proj.git master</literallayout><simpara></simpara>
 <simpara>In such a case, you do not want to automatically follow the other
 person&#8217;s tags.</simpara>
 <simpara>One important aspect of Git is its distributed nature, which
@@ -439,9 +430,7 @@ gitweb interface.</simpara>
 variable GIT_COMMITTER_DATE (see the later discussion of possible
 values; the most common form is "YYYY-MM-DD HH:MM").</simpara>
 <simpara>For example:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ GIT_COMMITTER_DATE="2006-10-02 10:31" git tag -s v1.0.1&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ GIT_COMMITTER_DATE="2006-10-02 10:31" git tag -s v1.0.1</literallayout><simpara></simpara>
 </refsect2>
 </refsect1>
 <refsect1 id="_date_formats">

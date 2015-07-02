@@ -14,9 +14,8 @@
   <refpurpose>help add structured information into commit messages</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git interpret-trailers</emphasis> [--trim-empty] [(--trailer &lt;token&gt;[(=|:)&lt;value&gt;])&#8230;] [&lt;file&gt;&#8230;]</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -38,9 +37,7 @@ the last trailer has a different (&lt;token&gt;, &lt;value&gt;) pair (or if ther
 is no existing trailer). The &lt;token&gt; and &lt;value&gt; parts will be trimmed
 to remove starting and trailing whitespace, and the resulting trimmed
 &lt;token&gt; and &lt;value&gt; will appear in the message like this:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;token: value&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">token: value</literallayout><simpara></simpara>
 <simpara>This means that the trimmed &lt;token&gt; and &lt;value&gt; will be separated by
 <literal>': '</literal> (one colon followed by one space).</simpara>
 <simpara>By default the new trailer will appear at the end of all the existing
@@ -264,8 +261,7 @@ the command.</simpara>
 Configure a <emphasis>sign</emphasis> trailer with a <emphasis>Signed-off-by</emphasis> key, and then
   add two of these trailers to a message:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git config trailer.sign.key "Signed-off-by"
+<literallayout class="monospaced">$ git config trailer.sign.key "Signed-off-by"
 $ cat msg.txt
 subject
 
@@ -276,19 +272,16 @@ subject
 message
 
 Signed-off-by: Alice &lt;alice@example.com&gt;
-Signed-off-by: Bob &lt;bob@example.com&gt;&#10;.ft&#10;
-</literallayout>
+Signed-off-by: Bob &lt;bob@example.com&gt;</literallayout><simpara></simpara>
 </listitem>
 <listitem>
 <simpara>
 Extract the last commit as a patch, and add a <emphasis>Cc</emphasis> and a
   <emphasis>Reviewed-by</emphasis> trailer to it:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git format-patch -1
+<literallayout class="monospaced">$ git format-patch -1
 0001-foo.patch
-$ git interpret-trailers --trailer 'Cc: Alice &lt;alice@example.com&gt;' --trailer 'Reviewed-by: Bob &lt;bob@example.com&gt;' 0001-foo.patch &gt;0001-bar.patch&#10;.ft&#10;
-</literallayout>
+$ git interpret-trailers --trailer 'Cc: Alice &lt;alice@example.com&gt;' --trailer 'Reviewed-by: Bob &lt;bob@example.com&gt;' 0001-foo.patch &gt;0001-bar.patch</literallayout><simpara></simpara>
 </listitem>
 <listitem>
 <simpara>
@@ -296,8 +289,7 @@ Configure a <emphasis>sign</emphasis> trailer with a command to automatically ad
   'Signed-off-by: ' with the author information only if there is no
   'Signed-off-by: ' already, and show how it works:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git config trailer.sign.key "Signed-off-by: "
+<literallayout class="monospaced">$ git config trailer.sign.key "Signed-off-by: "
 $ git config trailer.sign.ifmissing add
 $ git config trailer.sign.ifexists doNothing
 $ git config trailer.sign.command 'echo "$(git config user.name) &lt;$(git config user.email)&gt;"'
@@ -309,30 +301,26 @@ $ git interpret-trailers &lt;&lt;EOF
 &gt; Signed-off-by: Alice &lt;alice@example.com&gt;
 &gt; EOF
 
-Signed-off-by: Alice &lt;alice@example.com&gt;&#10;.ft&#10;
-</literallayout>
+Signed-off-by: Alice &lt;alice@example.com&gt;</literallayout><simpara></simpara>
 </listitem>
 <listitem>
 <simpara>
 Configure a <emphasis>fix</emphasis> trailer with a key that contains a <emphasis>#</emphasis> and no
   space after this character, and show how it works:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git config trailer.separators ":#"
+<literallayout class="monospaced">$ git config trailer.separators ":#"
 $ git config trailer.fix.key "Fix #"
 $ echo "subject" | git interpret-trailers --trailer fix=42
 subject
 
-Fix #42&#10;.ft&#10;
-</literallayout>
+Fix #42</literallayout><simpara></simpara>
 </listitem>
 <listitem>
 <simpara>
 Configure a <emphasis>see</emphasis> trailer with a command to show the subject of a
   commit that is related, and show how it works:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git config trailer.see.key "See-also: "
+<literallayout class="monospaced">$ git config trailer.see.key "See-also: "
 $ git config trailer.see.ifExists "replace"
 $ git config trailer.see.ifMissing "doNothing"
 $ git config trailer.see.command "git log -1 --oneline --format=\"%h (%s)\" --abbrev-commit --abbrev=14 \$ARG"
@@ -347,8 +335,7 @@ subject
 
 message
 
-See-also: fe3187489d69c4 (subject of related commit)&#10;.ft&#10;
-</literallayout>
+See-also: fe3187489d69c4 (subject of related commit)</literallayout><simpara></simpara>
 </listitem>
 <listitem>
 <simpara>
@@ -358,8 +345,7 @@ Configure a commit template with some trailers with empty values
   <emphasis>git interpret-trailers</emphasis> to remove trailers with empty values and
   to add a <emphasis>git-version</emphasis> trailer:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ sed -e 's/ Z$/ /' &gt;commit_template.txt &lt;&lt;EOF
+<literallayout class="monospaced">$ sed -e 's/ Z$/ /' &gt;commit_template.txt &lt;&lt;EOF
 &gt; ***subject***
 &gt;
 &gt; ***message***
@@ -375,8 +361,7 @@ $ cat &gt;.git/hooks/commit-msg &lt;&lt;EOF
 &gt; git interpret-trailers --trim-empty --trailer "git-version: \$(git describe)" "\$1" &gt; "\$1.new"
 &gt; mv "\$1.new" "\$1"
 &gt; EOF
-$ chmod +x .git/hooks/commit-msg&#10;.ft&#10;
-</literallayout>
+$ chmod +x .git/hooks/commit-msg</literallayout><simpara></simpara>
 </listitem>
 </itemizedlist>
 </refsect1>

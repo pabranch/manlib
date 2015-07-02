@@ -14,9 +14,8 @@
   <refpurpose>Backend for fast Git data importers</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout>frontend | <emphasis>git fast-import</emphasis> [options]</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -686,9 +685,7 @@ The special null SHA-1 (40 zeros) specifies that the branch is to be
 </itemizedlist>
 <simpara>The special case of restarting an incremental import from the
 current branch value should be written as:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;        from refs/heads/branch^0&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">        from refs/heads/branch^0</literallayout><simpara></simpara>
 <simpara>The <literal>^0</literal> suffix is necessary as fast-import does not permit a branch to
 start from itself, and the branch is created in memory before the
 <literal>from</literal> command is even read from the input.  Adding <literal>^0</literal> will force

@@ -14,12 +14,11 @@
   <refpurpose>Ensures that a reference name is well formed</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git check-ref-format</emphasis> [--normalize]
        [--[no-]allow-onelevel] [--refspec-pattern]
        &lt;refname&gt;
 <emphasis>git check-ref-format</emphasis> --branch &lt;branchname-shorthand&gt;</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -188,18 +187,14 @@ typed the branch name.</simpara>
 <simpara>
 Print the name of the previous branch:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git check-ref-format --branch @{-1}&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git check-ref-format --branch @{-1}</literallayout><simpara></simpara>
 </listitem>
 <listitem>
 <simpara>
 Determine the reference name to use for a new branch:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ ref=$(git check-ref-format --normalize "refs/heads/$newbranch") ||
-die "we do not like '$newbranch' as a branch name."&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ ref=$(git check-ref-format --normalize "refs/heads/$newbranch") ||
+die "we do not like '$newbranch' as a branch name."</literallayout><simpara></simpara>
 </listitem>
 </itemizedlist>
 </refsect1>

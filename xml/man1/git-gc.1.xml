@@ -14,9 +14,8 @@
   <refpurpose>Cleanup unnecessary files and optimize the local repository</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git gc</emphasis> [--aggressive] [--auto] [--quiet] [--prune=&lt;date&gt; | --no-prune] [--force]</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -30,9 +29,7 @@ operating performance.</simpara>
 <simpara>Some git commands may automatically run <emphasis>git gc</emphasis>; see the <literal>--auto</literal> flag
 below for details. If you know what you&#8217;re doing and all you want is to
 disable this behavior permanently without further considerations, just do:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git config --global gc.auto 0&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git config --global gc.auto 0</literallayout><simpara></simpara>
 </refsect1>
 <refsect1 id="_options">
 <title>OPTIONS</title>
@@ -140,11 +137,9 @@ them sooner.  This option defaults to <emphasis>30 days</emphasis>.</simpara>
 <simpara>The above two configuration variables can be given to a pattern.  For
 example, this sets non-default expiry values only to remote-tracking
 branches:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;[gc "refs/remotes/*"]
+<literallayout class="monospaced">[gc "refs/remotes/*"]
         reflogExpire = never
-        reflogExpireUnreachable = 3 days&#10;.ft&#10;
-</literallayout>
+        reflogExpireUnreachable = 3 days</literallayout><simpara></simpara>
 <simpara>The optional configuration variable <emphasis>gc.rerereResolved</emphasis> indicates
 how long records of conflicted merge you resolved earlier are
 kept.  This defaults to 60 days.</simpara>

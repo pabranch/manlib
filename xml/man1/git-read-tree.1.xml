@@ -14,12 +14,11 @@
   <refpurpose>Reads tree information into the index</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git read-tree</emphasis> [[-m [--trivial] [--aggressive] | --reset | --prefix=&lt;prefix&gt;]
                 [-u [--exclude-per-directory=&lt;gitignore&gt;] | -i]]
                 [--index-output=&lt;file&gt;] [--no-sparse-checkout]
                 (--empty | &lt;tree-ish1&gt; [&lt;tree-ish2&gt; [&lt;tree-ish3&gt;]])</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -354,9 +353,7 @@ normal one, and is the only one you&#8217;d see in any kind of normal use.</simp
 <simpara>However, when you do <emphasis>git read-tree</emphasis> with three trees, the "stage"
 starts out at 1.</simpara>
 <simpara>This means that you can do</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git read-tree -m &lt;tree1&gt; &lt;tree2&gt; &lt;tree3&gt;&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git read-tree -m &lt;tree1&gt; &lt;tree2&gt; &lt;tree3&gt;</literallayout><simpara></simpara>
 <simpara>and you will end up with an index with all of the &lt;tree1&gt; entries in
 "stage1", all of the &lt;tree2&gt; entries in "stage2" and all of the
 &lt;tree3&gt; entries in "stage3".  When performing a merge of another
@@ -463,27 +460,21 @@ file that does not match stage 2.</simpara>
 changes, and mixing your random changes in an unrelated merge
 commit.  To illustrate, suppose you start from what has been
 committed last to your repository:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ JC=`git rev-parse --verify "HEAD^0"`
-$ git checkout-index -f -u -a $JC&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ JC=`git rev-parse --verify "HEAD^0"`
+$ git checkout-index -f -u -a $JC</literallayout><simpara></simpara>
 <simpara>You do random edits, without running <emphasis>git update-index</emphasis>.  And then
 you notice that the tip of your "upstream" tree has advanced
 since you pulled from him:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git fetch git://.... linus
-$ LT=`git rev-parse FETCH_HEAD`&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git fetch git://.... linus
+$ LT=`git rev-parse FETCH_HEAD`</literallayout><simpara></simpara>
 <simpara>Your work tree is still based on your HEAD ($JC), but you have
 some edits since.  Three-way merge makes sure that you have not
 added or modified index entries since $JC, and if you haven&#8217;t,
 then does the right thing.  So with the following sequence:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git read-tree -m -u `git merge-base $JC $LT` $JC $LT
+<literallayout class="monospaced">$ git read-tree -m -u `git merge-base $JC $LT` $JC $LT
 $ git merge-index git-merge-one-file -a
 $ echo "Merge with Linus" | \
-  git commit-tree `git write-tree` -p $JC -p $LT&#10;.ft&#10;
-</literallayout>
+  git commit-tree `git write-tree` -p $JC -p $LT</literallayout><simpara></simpara>
 <simpara>what you would commit is a pure merge between $JC and $LT without
 your work-in-progress changes, and your work tree would be
 updated to the result of the merge.</simpara>
@@ -522,19 +513,15 @@ file back. If it turns from unset to set, that file will be removed.</simpara>
 <simpara>While <literal>$GIT_DIR/info/sparse-checkout</literal> is usually used to specify what
 files are in, you can also specify what files are <emphasis>not</emphasis> in, using
 negate patterns. For example, to remove the file <literal>unwanted</literal>:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;/*
-!unwanted&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">/*
+!unwanted</literallayout><simpara></simpara>
 <simpara>Another tricky thing is fully repopulating the working directory when you
 no longer want sparse checkout. You cannot just disable "sparse
 checkout" because skip-worktree bits are still in the index and your working
 directory is still sparsely populated. You should re-populate the working
 directory with the <literal>$GIT_DIR/info/sparse-checkout</literal> file content as
 follows:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;/*&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">/*</literallayout><simpara></simpara>
 <simpara>Then you can disable sparse checkout. Sparse checkout support in <emphasis>git
 read-tree</emphasis> and similar commands is disabled by default. You need to
 turn <literal>core.sparseCheckout</literal> on in order to have sparse checkout

@@ -14,13 +14,12 @@
   <refpurpose>Create, list, delete refs to replace objects</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<blockquote>
 <literallayout><emphasis>git replace</emphasis> [-f] &lt;object&gt; &lt;replacement&gt;
 <emphasis>git replace</emphasis> [-f] --edit &lt;object&gt;
 <emphasis>git replace</emphasis> [-f] --graft &lt;commit&gt; [&lt;parent&gt;&#8230;]
 <emphasis>git replace</emphasis> -d &lt;object&gt;&#8230;
 <emphasis>git replace</emphasis> [--format=&lt;format&gt;] [-l [&lt;pattern&gt;]]</literallayout>
-</blockquote>
+<simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -39,13 +38,9 @@ fsck).</simpara>
 <simpara>It is possible to disable use of replacement references for any
 command using the <literal>--no-replace-objects</literal> option just after <emphasis>git</emphasis>.</simpara>
 <simpara>For example if commit <emphasis>foo</emphasis> has been replaced by commit <emphasis>bar</emphasis>:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git --no-replace-objects cat-file commit foo&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git --no-replace-objects cat-file commit foo</literallayout><simpara></simpara>
 <simpara>shows information about commit <emphasis>foo</emphasis>, while:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git cat-file commit foo&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git cat-file commit foo</literallayout><simpara></simpara>
 <simpara>shows information about commit <emphasis>bar</emphasis>.</simpara>
 <simpara>The <emphasis>GIT_NO_REPLACE_OBJECTS</emphasis> environment variable can be set to
 achieve the same effect as the <literal>--no-replace-objects</literal> option.</simpara>

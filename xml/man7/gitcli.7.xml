@@ -60,10 +60,8 @@ Many commands allow wildcards in paths, but you need to protect
    them from getting globbed by the shell.  These two mean different
    things:
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git checkout -- *.c
-$ git checkout -- \*.c&#10;.ft&#10;
-</literallayout>
+<literallayout class="monospaced">$ git checkout -- *.c
+$ git checkout -- \*.c</literallayout><simpara></simpara>
 <simpara>The former lets your shell expand the fileglob, and you are asking
 the dot-C files in your working tree to be overwritten with the version
 in the index.  The latter passes the <literal>*.c</literal> to Git, and you are asking
@@ -143,8 +141,7 @@ couple of magic command-line options:</simpara>
 <simpara>
         gives a pretty printed usage of the command.
 </simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git describe -h
+<literallayout class="monospaced">$ git describe -h
 usage: git describe [options] &lt;commit-ish&gt;*
    or: git describe [options] --dirty
 
@@ -153,8 +150,7 @@ usage: git describe [options] &lt;commit-ish&gt;*
     --all                 use any ref
     --tags                use any tag, even unannotated
     --long                always use long format
-    --abbrev[=&lt;n&gt;]        use &lt;n&gt; digits to display SHA-1s&#10;.ft&#10;
-</literallayout>
+    --abbrev[=&lt;n&gt;]        use &lt;n&gt; digits to display SHA-1s</literallayout><simpara></simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -197,19 +193,15 @@ e.g. <literal>git commit --amenity</literal> option.</simpara>
 <title>Separating argument from the option</title>
 <simpara>You can write the mandatory option parameter to an option as a separate
 word on the command line.  That means that all the following uses work:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git foo --long-opt=Arg
+<literallayout class="monospaced">$ git foo --long-opt=Arg
 $ git foo --long-opt Arg
 $ git foo -oArg
-$ git foo -o Arg&#10;.ft&#10;
-</literallayout>
+$ git foo -o Arg</literallayout><simpara></simpara>
 <simpara>However, this is <emphasis role="strong">NOT</emphasis> allowed for switches with an optional value, where the
 <emphasis>stuck</emphasis> form must be used:</simpara>
-<literallayout class="monospaced">
-&#10;.ft C&#10;$ git describe --abbrev HEAD     # correct
+<literallayout class="monospaced">$ git describe --abbrev HEAD     # correct
 $ git describe --abbrev=10 HEAD  # correct
-$ git describe --abbrev 10 HEAD  # NOT WHAT YOU MEANT&#10;.ft&#10;
-</literallayout>
+$ git describe --abbrev 10 HEAD  # NOT WHAT YOU MEANT</literallayout><simpara></simpara>
 </refsect2>
 </refsect1>
 <refsect1 id="_notes_on_frequently_confused_options">
