@@ -1,0 +1,63 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_get0_param.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_get0_param, SSL_get0_param, SSL_CTX_set1_param, SSL_set1_param</refname>
+<refpurpose>get and set verification parameters</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">X509_VERIFY_PARAM *SSL_CTX_get0_param(SSL_CTX *ctx)
+X509_VERIFY_PARAM *SSL_get0_param(SSL *ssl)
+int SSL_CTX_set1_param(SSL_CTX *ctx, X509_VERIFY_PARAM *vpm)
+int SSL_set1_param(SSL *ssl, X509_VERIFY_PARAM *vpm)</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_get0_param.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_CTX_get0_param() and SSL_get0_param() retrieve an internal
+      pointer to the verification parameters for <emphasis role="bold">ctx</emphasis> or <emphasis role="bold">ssl</emphasis>
+      respectively. The returned pointer must not be freed by the calling
+      application.
+    </para>
+    <para>
+      SSL_CTX_set1_param() and SSL_set1_param() set the verification
+      parameters to <emphasis role="bold">vpm</emphasis> for <emphasis role="bold">ctx</emphasis> or <emphasis role="bold">ssl</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_get0_param.pod:NOTES"><title>NOTES</title>
+    <para>
+      Typically parameters are retrieved from an <emphasis role="bold">SSL_CTX</emphasis> or <emphasis role="bold">SSL</emphasis> structure using SSL_CTX_get0_param() or
+      SSL_get0_param() and an application modifies them to suit its needs:
+      for example to add a hostname check.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_get0_param.pod:EXAMPLE"><title>EXAMPLE</title>
+    <para>
+      Check hostname matches "www.foo.com" in peer certificate:
+    </para>
+    <screen>X509_VERIFY_PARAM *vpm = SSL_get0_param(ssl);
+X509_VERIFY_PARAM_set1_host(vpm, "www.foo.com");</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_get0_param.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      SSL_CTX_get0_param() and SSL_get0_param() return a pointer to an
+      <emphasis role="bold">X509_VERIFY_PARAM</emphasis> structure.
+    </para>
+    <para>
+      SSL_CTX_set1_param() and SSL_set1_param() return 1 for success and 0
+      for failure.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_get0_param.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      X509_VERIFY_PARAM_set_flags(3)
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_get0_param.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      These functions were first added to OpenSSL 1.0.2.
+    </para>
+  </refsection>
+</refentry>

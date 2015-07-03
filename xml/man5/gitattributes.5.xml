@@ -844,7 +844,7 @@ manual page is a wrong place to talk about it.  However&#8230;</simpara>
 <literal>$GIT_DIR/config</literal> file (or <literal>$HOME/.gitconfig</literal> file) like this:</simpara>
 <literallayout class="monospaced">[merge "filfre"]
         name = feel-free merge driver
-        driver = filfre %O %A %B
+        driver = filfre %O %A %B %L %P
         recursive = binary</literallayout><simpara></simpara>
 <simpara>The <literal>merge.*.name</literal> variable gives the driver a human-readable
 name.</simpara>
@@ -864,6 +864,8 @@ driver to use when the merge driver is called for an internal
 merge between common ancestors, when there are more than one.
 When left unspecified, the driver itself is used for both
 internal merge and the final merge.</simpara>
+<simpara>The merge driver can learn the pathname in which the merged result
+will be stored via placeholder <literal>%P</literal>.</simpara>
 </refsect3>
 <refsect3 id="_literal_conflict_marker_size_literal">
 <title><literal>conflict-marker-size</literal></title>

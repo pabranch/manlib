@@ -10,7 +10,8 @@ BIO_get_mem_ptr, BIO_new_mem_buf</refname>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis format="linespecific">#include &lt;openssl/bio.h&gt;</synopsis>
-<synopsis format="linespecific">BIO_METHOD *   BIO_s_mem(void);</synopsis>
+<synopsis format="linespecific">BIO_METHOD *   BIO_s_mem(void);
+BIO_METHOD *   BIO_s_secmem(void);</synopsis>
 <synopsis format="linespecific">BIO_set_mem_eof_return(BIO *b,int v)
 long BIO_get_mem_data(BIO *b, char **pp)
 BIO_set_mem_buf(BIO *b,BUF_MEM *bm,int c)
@@ -25,6 +26,10 @@ BIO_get_mem_ptr(BIO *b,BUF_MEM **pp)</synopsis>
       A memory BIO is a source/sink BIO which uses memory for its I/O. Data
       written to a memory BIO is stored in a BUF_MEM structure which is
       extended as appropriate to accommodate the stored data.
+    </para>
+    <para>
+      BIO_s_secmem() is like BIO_s_mem() except that the secure heap is
+      used for buffer storage.
     </para>
     <para>
       Any data written to a memory BIO can be recalled by reading from it.
@@ -94,6 +99,10 @@ BIO_get_mem_ptr(BIO *b,BUF_MEM **pp)</synopsis>
       use of a read only memory BIO avoids this problem. If the BIO must be
       read write then adding a buffering BIO to the chain will speed up the
       process.
+    </para>
+    <para>
+      Calling BIO_set_mem_buf() on a BIO created with BIO_new_secmem() will
+      give undefined results, including perhaps a program crash.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.BIO_s_mem.pod:BUGS"><title>BUGS</title>

@@ -1,5 +1,5 @@
 .\" vi:set wm=5
-.TH SCREEN 1 "Aug 2003"
+.TH SCREEN 1 "May 2015"
 .if n .ds Q \&"
 .if n .ds U \&"
 .if t .ds Q ``
@@ -342,6 +342,11 @@ which runs in multiuser mode. This indicates that screen should look for
 sessions in another user's directory. This requires setuid-root.
 .TP 5
 .B \-R
+resumes screen only when it's unambiguous which one to attach, usually
+when only one
+.I screen
+is detached. Otherwise lists available sessions.
+.B \-RR
 attempts to resume the first detached
 .I screen
 session it finds.  If successful, all other command-line options are ignored.
@@ -404,6 +409,12 @@ several screen sessions running. You can use the \fB-d\fP or
 detached screen sessions. Note that this command doesn't work if
 the session is password protected.
 
+.TP 5
+.B \-4
+Resolve hostnames only to IPv4 addresses.
+.TP 5
+.B \-6
+Resolve hostnames only to IPv6 addresses.
 .SH "DEFAULT KEY BINDINGS"
 .ta 12n 26n
 As mentioned, each
@@ -1156,6 +1167,16 @@ window (using the paste buffer, where a copy remains):
 .fi
 .sp
 .ne 3
+.BR bumpleft
+.PP
+Swaps window with previous one on window list.
+.sp
+.ne 3
+.BR bumpright
+.PP
+Swaps window with next one on window list.
+.sp
+.ne 3
 .BR "c1 " [ on | off ]
 .PP
 Change c1 code processing. \*QC1 on\*U tells screen to treat
@@ -1167,7 +1188,7 @@ Users with fonts that have usable characters in the
 c1 positions may want to turn this off.
 .sp
 .ne 3
-.BR "caption always" | splitonly
+.BR "caption [ top | bottom ] always" | splitonly
 .RI [ string ]
 .br
 .B "caption string"
@@ -1186,6 +1207,10 @@ all escapes from the \*QSTRING ESCAPES\*U chapter. Screen uses
 a default of `%3n %t'.
 .P
 You can mix both forms by providing a string as an additional argument.
+.P
+You can have the caption displayed either at the top or bottom of the window.
+The default is 
+.BR bottom .
 .sp
 .ne 3
 .BI "charset " set
@@ -1233,6 +1258,11 @@ Treat ambiguous width characters as full/half width.
 .B clear
 .PP
 Clears the current window and saves its image to the scrollback buffer.
+.sp
+.ne 3
+.B collapse
+.PP
+Reorders window on window list, removing number gaps between them.
 .sp
 .ne 3
 .B colon
@@ -1864,8 +1894,9 @@ needed as screen uses the locale setting to detect the encoding.
 There is also a way to select a terminal encoding depending on
 the terminal type by using the \*QKJ\*U termcap entry.
 
-Supported encodings are eucJP, SJIS, eucKR, eucCN, Big5, GBK, KOI8-R,
-CP1251, UTF-8, ISO8859-2, ISO8859-3, ISO8859-4, ISO8859-5, ISO8859-6,
+Supported encodings are eucJP, SJIS, eucKR, eucCN, Big5, GBK,
+KOI8-R, KOI8-U, CP1251, UTF-8,
+ISO8859-2, ISO8859-3, ISO8859-4, ISO8859-5, ISO8859-6,
 ISO8859-7, ISO8859-8, ISO8859-9, ISO8859-10, ISO8859-15, jis.
 
 See also \*Qdefencoding\*U, which changes the default setting of a new
@@ -2079,7 +2110,7 @@ current working directory.
 .ne 3
 .BR "hardstatus " [ on | off ]
 .br
-.BR "hardstatus \fR[\fBalways\fR]\fBlastline" | message | ignore
+.BR "hardstatus \fR[\fBalways\fR]\fBfirstline" | lastline | message | ignore
 .RI [ string ]
 .br
 .B "hardstatus string"
@@ -2098,11 +2129,10 @@ The second form tells
 .I screen 
 what to do if the terminal doesn't
 have a hardstatus line (i.e. the termcap/terminfo capabilities
-"hs", "ts", "fs" and "ds" are not set). If the type
-\*Qlastline\*U is used, 
+"hs", "ts", "fs" and "ds" are not set).
+When \*Qfirstline/lastline\*U is used, 
 .I screen 
-will reserve the last line of the
-display for
+will reserve the first/last line of the display for
 the hardstatus. \*Qmessage\*U uses 
 .I screen's
 message mechanism and
@@ -3022,6 +3052,11 @@ underlying system exposes flow control problems while pasting large amounts of
 text. 
 .sp
 .ne 3
+.B sort
+.PP
+Sort the windows in alphabetical order of the window tiles.
+.sp
+.ne 3
 .BI "source " file
 .PP
 Read and execute commands from file \fIfile\fP. Source commands may
@@ -3055,6 +3090,14 @@ to delete regions. Use \*Qfocus\*U to toggle between regions.
 .PP
 Select whether you want to see the copyright notice during startup.
 Default is `on', as you probably noticed.
+.sp
+.ne 3
+.BR "status " [ top | up | down | bottom ]
+.RB [ left | right ]
+.PP
+The status window by default is in bottom-left corner. This command can move
+status messages to any corner of the screen. \fBtop\fR is the same as \fBup\fR,
+\fBdown\fR is the same as \fBbottom\fR.
 .sp
 .ne 3
 .B stuff 
@@ -3233,6 +3276,16 @@ specified,
 .I screen
 prompts for one. This command was known as `aka' in previous
 releases.
+.sp
+.ne 3
+.B truecolor
+.RB [ on | off ]
+.PP
+Enables truecolor support. Currently autodetection of truecolor support cannot
+be done reliably, as such it's left to user to enable. Default is off.
+Known terminals that may support it are: iTerm2, Konsole, st.
+Xterm includes support for truecolor escapes but converts them back to indexed
+256 color space.
 .sp
 .ne 3
 .BI "unbindall "
@@ -3435,7 +3488,7 @@ settings).
 and 6 characters high in order to display.
 .sp
 .ne 3
-.B windows
+.B windows [ string ]
 .PP
 Uses the message line to display a list of all the windows.
 Each window is listed by number with the name of process that has been
@@ -3451,6 +3504,9 @@ windows occupied by other users are marked with `&';
 windows in the zombie state are marked with `Z'.
 If this list is too long to fit on the terminal's status line only the
 portion around the current window is displayed.
+The optional string parameter follows the \*QSTRING ESCAPES\*U format.
+If string parameter is passed, the output size is unlimited.
+The default command without any parameter is limited to a size of 1024 bytes.
 .sp
 .ne 3
 .BR "wrap " [ on | off ]
@@ -3701,18 +3757,6 @@ is used instead.
 Here is the full list of supported escapes:
 .IP %
 the escape character itself
-.IP a
-either 'am' or 'pm'
-.IP A
-either 'AM' or 'PM'
-.IP c
-current time HH:MM in 24h format
-.IP C
-current time HH:MM in 12h format
-.IP d
-day number
-.IP D
-weekday name
 .IP E
 sets %? to true if the escape character has been pressed.
 .IP f
@@ -3723,12 +3767,6 @@ sets %? to true if the window has the focus
 hardstatus of the window
 .IP H
 hostname of the system
-.IP l
-current load of the system
-.IP m
-month number
-.IP M
-month name
 .IP n
 window number
 .IP P
@@ -3736,7 +3774,7 @@ sets %? to true if the current region is in copy/paste mode
 .IP S
 session name
 .IP s
-seconds
+window size
 .IP t
 window title
 .IP u
@@ -3751,10 +3789,6 @@ all window numbers and names except the current one
 the executed command including arguments running in this windows
 .IP X
 the executed command without arguments running in this windows
-.IP y
-last two digits of the year number
-.IP Y
-full year number
 .IP ?
 the part to the next '%?' is displayed only if a '%' escape
 inside the part expands to a non-empty string
@@ -4907,13 +4941,15 @@ termcap(5), utmp(5), vi(1), captoinfo(1), tic(1)
 
 
 .SH AUTHORS
-Originally created by Oliver Laumann, this latest version was
-produced by Juergen Weigert, Michael Schroeder, Micah Cowan and
-Sadrul Habib Chowdhury.
+Originally created by Oliver Laumann. For a long time maintained
+and developed by Juergen Weigert, Michael Schroeder, Micah Cowan
+and Sadrul Habib Chowdhury. This latest version was produced by
+Amadeusz Sławiński <amade@asmblr.net>
+and Alexander Naumov <alexander_naumov@opensuse.org>.
 
 .SH COPYLEFT
 .nf
-Copyright (c) 2010
+Copyright (c) 2010-2015
 	Juergen Weigert (jnweiger@immd4.informatik.uni\-erlangen.de)
 	Sadrul Habib Chowdhury (sadrul@users.sourceforge.net)
 Copyright (c) 2008, 2009
@@ -4975,7 +5011,7 @@ Pablo Averbuj (pablo@averbuj.com).
 
 
 .SH VERSION
-This is version 4.1.0. Its roots are a merge of a custom version
+This is version 4.3.0. Its roots are a merge of a custom version
 2.3PR7 by Wayne Davison
 and several enhancements to Oliver Laumann's version 2.0. Note that all versions
 numbered 2.x are copyright by Oliver Laumann. 
@@ -4983,14 +5019,12 @@ numbered 2.x are copyright by Oliver Laumann.
 .SH AVAILABILITY
 The latest official release of 
 .I screen
-available via anonymous ftp from gnudist.gnu.org, nic.funet.fi or any other 
+available via anonymous ftp from ftp.gnu.org/gnu/screen/ or any other 
 .I GNU 
 distribution site. The home site of
 .I screen
-is ftp.uni\-erlangen.de, in the directory
-pub/utilities/screen. The subdirectory `private' contains the latest beta
-testing release. If you want to help, send a note to
-screen@uni\-erlangen.de.
+is savannah.gnu.org/projects/screen/. If you want to help, send a note to
+screen-devel@gnu.org.
 
 .SH BUGS
 .PD
@@ -5052,5 +5086,5 @@ file from which the session is booted, or have to be changed manually.
 A weird imagination is most useful to gain full advantage of all the features.
 .IP \(bu
 Send bug-reports, fixes, enhancements, t-shirts, money, beer & pizza to
-.BR screen@uni\-erlangen.de .
+.BR screen-devel@gnu.org .
 

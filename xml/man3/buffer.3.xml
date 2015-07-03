@@ -11,6 +11,8 @@ character arrays structure</refpurpose>
   <refsynopsisdiv>
 <synopsis format="linespecific">#include &lt;openssl/buffer.h&gt;</synopsis>
 <synopsis format="linespecific">BUF_MEM *BUF_MEM_new(void);</synopsis>
+<synopsis format="linespecific">#define BUF_MEM_FLAG_SECURE</synopsis>
+<synopsis format="linespecific">BUF_MEM * BUF_MEM_new_ex(unsigned long flags);</synopsis>
 <synopsis format="linespecific">void   BUF_MEM_free(BUF_MEM *a);</synopsis>
 <synopsis format="linespecific">int    BUF_MEM_grow(BUF_MEM *str, int len);</synopsis>
 <synopsis format="linespecific">char * BUF_strdup(const char *str);</synopsis>
@@ -37,6 +39,14 @@ character arrays structure</refpurpose>
     </para>
     <para>
       BUF_MEM_new() allocates a new buffer of zero size.
+    </para>
+    <para>
+      BUF_MEM_new_ex() allocates a buffer with the specified flags. The
+      flag <emphasis role="bold">BUF_MEM_FLAG_SECURE</emphasis> specifies
+      that the <emphasis role="bold">data</emphasis> pointer should be
+      allocated on the secure heap; see <citerefentry>
+      <refentrytitle>CRYPTO_secure_malloc</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>.
     </para>
     <para>
       BUF_MEM_free() frees up an already existing buffer. The data is
@@ -73,13 +83,19 @@ character arrays structure</refpurpose>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.buffer.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      bio(3)
+      bio(3), <citerefentry>
+      <refentrytitle>CRYPTO_secure_malloc</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.buffer.pod:HISTORY"><title>HISTORY</title>
     <para>
       BUF_MEM_new(), BUF_MEM_free() and BUF_MEM_grow() are available in all
       versions of SSLeay and OpenSSL. BUF_strdup() was added in SSLeay 0.8.
+    </para>
+    <para>
+      BUF_MEM_new_ex() was contributed to OpenSSL by Akamai Technologies in
+      May, 2014.
     </para>
   </refsection>
 </refentry>
