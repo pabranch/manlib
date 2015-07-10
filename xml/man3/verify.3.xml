@@ -14,6 +14,7 @@
 [<emphasis role="bold">-attime timestamp</emphasis>]
 [<emphasis role="bold">-check_ss_sig</emphasis>]
 [<emphasis role="bold">-CRLfile file</emphasis>]
+[<emphasis role="bold">-crl_download</emphasis>]
 [<emphasis role="bold">-crl_check</emphasis>]
 [<emphasis role="bold">-crl_check_all</emphasis>]
 [<emphasis role="bold">-explicit_policy</emphasis>]
@@ -34,6 +35,7 @@
 [<emphasis role="bold">-trusted_first</emphasis>]
 [<emphasis role="bold">-no_alt_chains</emphasis>]
 [<emphasis role="bold">-untrusted file</emphasis>]
+[<emphasis role="bold">-trusted file</emphasis>]
 [<emphasis role="bold">-use_deltas</emphasis>]
 [<emphasis role="bold">-verbose</emphasis>]
 [<emphasis role="bold">-verify_depth num</emphasis>]
@@ -42,6 +44,7 @@
 [<emphasis role="bold">-verify_ip ip</emphasis>]
 [<emphasis role="bold">-verify_name name</emphasis>]
 [<emphasis role="bold">-x509_strict</emphasis>]
+[<emphasis role="bold">-show_chain</emphasis>]
 [<emphasis role="bold">-</emphasis>]
 [certificates]</synopsis>
 <synopsis format="linespecific"/>
@@ -103,6 +106,14 @@
           <listitem>
             <para>
 	      File containing one or more CRL's (in PEM format) to load.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-crl_download"/><emphasis role="bold">-crl_download</emphasis></term>
+          <listitem>
+            <para>
+	      Attempt to download CRL information for this certificate.
             </para>
           </listitem>
         </varlistentry>
@@ -286,6 +297,16 @@
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-trusted_file"/><emphasis role="bold">-trusted file</emphasis></term>
+          <listitem>
+            <para>
+	      A file of additional trusted certificates. The file should
+	      contain multiple certificates in PEM format concatenated
+	      together.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-use_deltas"/><emphasis role="bold">-use_deltas</emphasis></term>
           <listitem>
             <para>
@@ -355,6 +376,16 @@
             <para>
 	      For strict X.509 compliance, disable non-compliant
 	      workarounds for broken certificates.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-show_chain"/><emphasis role="bold">-show_chain</emphasis></term>
+          <listitem>
+            <para>
+	      Display information about the certificate chain that has been
+	      built (if successful). Certificates in the chain that came
+	      from the untrusted list will be flagged as "untrusted".
             </para>
           </listitem>
         </varlistentry>
@@ -806,7 +837,7 @@ error 24 at 1 depth lookup:invalid CA certificate</screen>
   </refsection>
   <refsection xml:id="sources.openssl.doc.apps.verify.pod:HISTORY"><title>HISTORY</title>
     <para>
-      The -no_alt_chains options was first added to OpenSSL 1.1.0.
+      The -show_chain option was first added to OpenSSL 1.1.0.
     </para>
   </refsection>
 </refentry>

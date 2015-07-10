@@ -1,4 +1,4 @@
-.TH LVM.CONF 5 "LVM TOOLS 2.02.124(2)-git (2015-06-30)" "Sistina Software UK" \" -*- nroff -*-
+.TH LVM.CONF 5 "LVM TOOLS 2.02.126(2)-git (2015-07-07)" "Sistina Software UK" \" -*- nroff -*-
 .SH NAME
 lvm.conf \(em Configuration file for LVM2
 .SH SYNOPSIS
@@ -87,7 +87,7 @@ When several configuration methods are used at the same time
 and when LVM looks for the value of a particular setting, it traverses
 this \fBconfig cascade\fP from left to right:
 
-\fBdirect config override on command line\fP -> \fBcommand profile config\fP -> \fBmetadata profile config\fP -> \fBtag config\fP -> \fBlvm.conf\fP
+\fBdirect config override on command line\fP -> \fBcommand profile config\fP -> \fBmetadata profile config\fP -> \fBtag config\fP -> \fBlvmlocal.conf\fB -> \fBlvm.conf\fP
 
 No part of this cascade is compulsory. If there's no setting value found at
 the end of the cascade, a default value is used for that setting.

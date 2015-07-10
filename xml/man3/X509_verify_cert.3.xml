@@ -39,10 +39,11 @@
     <para>
       The negative return value from X509_verify_cert() can only occur if
       no certificate is set in <emphasis role="bold">ctx</emphasis> (due to
-      a programming error) or if a retry operation is requested during
-      internal lookups (which never happens with standard lookup methods).
-      It is however recommended that application check for &lt;= 0 return
-      value on error.
+      a programming error); if X509_verify_cert() twice without
+      reinitialising <emphasis role="bold">ctx</emphasis> in between; or if
+      a retry operation is requested during internal lookups (which never
+      happens with standard lookup methods). It is however recommended that
+      application check for &lt;= 0 return value on error.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.X509_verify_cert.pod:BUGS"><title>BUGS</title>

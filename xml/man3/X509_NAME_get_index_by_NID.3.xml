@@ -29,7 +29,8 @@ int X509_NAME_get_text_by_OBJ(X509_NAME *name, ASN1_OBJECT *obj, char *buf,int l
       X509_NAME_get_index_by_NID() and X509_NAME_get_index_by_OBJ()
       retrieve the next index matching <emphasis role="bold">nid</emphasis>
       or <emphasis role="bold">obj</emphasis> after <emphasis role="bold">lastpos</emphasis>. <emphasis role="bold">lastpos</emphasis> should initially be set to -1. If
-      there are no more entries -1 is returned.
+      there are no more entries -1 is returned. If <emphasis role="bold">nid</emphasis> is invalid (doesn't correspond to a valid
+      OID) then -2 is returned.
     </para>
     <para>
       X509_NAME_entry_count() returns the total number of entries in
@@ -74,6 +75,12 @@ int X509_NAME_get_text_by_OBJ(X509_NAME *name, ASN1_OBJECT *obj, char *buf,int l
       source code header files &lt;openssl/obj_mac.h&gt; and/or
       &lt;openssl/objects.h&gt;.
     </para>
+    <para>
+      Applications which could pass invalid NIDs to
+      X509_NAME_get_index_by_NID() should check for the return value of -2.
+      Alternatively the NID validity can be determined first by checking
+      OBJ_nid2obj(nid) is not NULL.
+    </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_get_index_by_NID.pod:EXAMPLES"><title>EXAMPLES</title>
     <para>
@@ -107,6 +114,8 @@ for (;;)
     <para>
       X509_NAME_get_index_by_NID() and X509_NAME_get_index_by_OBJ() return
       the index of the next matching entry or -1 if not found.
+      X509_NAME_get_index_by_NID() can also return -2 if the supplied NID
+      is invalid.
     </para>
     <para>
       X509_NAME_entry_count() returns the total number of entries.
