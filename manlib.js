@@ -324,7 +324,7 @@ function setupTarball (sourceName, sourceDets) {
     });
 
   } else {
-    var download = require('download');
-    download(sourceDets.url, destDir, { extract: true });
+    var Download = require('download');
+    new Download({extract: true, strip: true}).get(sourceDets.url).dest(destDir).run();
   }
 }
