@@ -1,0 +1,1506 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+    <date>August 2014</date>
+    <author><personname><firstname>Dag</firstname><surname>Wieers</surname></personname><email>dag@wieers.com</email></author>
+    <authorinitials>DW</authorinitials>
+<revhistory><revision><revnumber>0.7.3</revnumber><date>August 2014</date><authorinitials>DW</authorinitials></revision></revhistory>
+</info>
+<refmeta>
+<refentrytitle>dstat</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+<refmiscinfo class="version">0.7.3</refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>dstat</refname>
+    <refpurpose>versatile tool for generating system resource statistics</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara>dstat [-afv] [options..] [delay [count]]</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>Dstat is a versatile replacement for vmstat, iostat and ifstat. Dstat
+overcomes some of the limitations and adds some extra features.</simpara>
+<simpara>Dstat allows you to view all of your system resources instantly, you
+can eg. compare disk usage in combination with interrupts from your
+IDE controller, or compare the network bandwidth numbers directly with
+the disk throughput (in the same interval).</simpara>
+<simpara>Dstat also cleverly gives you the most detailed information in columns
+and clearly indicates in what magnitude and unit the output is displayed.
+Less confusion, less mistakes, more efficient.</simpara>
+<simpara>Dstat is unique in letting you aggregate block device throughput for a
+certain diskset or network bandwidth for a group of interfaces, ie.
+you can see the throughput for all the block devices that make up a
+single filesystem or storage system.</simpara>
+<simpara>Dstat allows its data to be directly written to a CSV file to be
+imported and used by OpenOffice, Gnumeric or Excel to create graphs.</simpara>
+<note><simpara>Users of Sleuthkit might find Sleuthkit’s dstat being renamed to
+datastat to avoid a name conflict. See Debian bug #283709 for more
+information.</simpara></note>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-c, --cpu
+</term>
+<listitem>
+<simpara>
+    enable cpu stats (system, user, idle, wait), for more CPU related
+    stats also see <emphasis role="strong">--cpu-adv</emphasis> and <emphasis role="strong">--cpu-use</emphasis>
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-C 0,3,total
+</term>
+<listitem>
+<simpara>
+    include cpu0, cpu3 and total (when using -c/--cpu); use <emphasis>all</emphasis> to show all
+    CPUs
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-d, --disk
+</term>
+<listitem>
+<simpara>
+    enable disk stats (read, write), for more disk related stats look
+    into the other <emphasis role="strong">--disk</emphasis> plugins
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-D total,hda
+</term>
+<listitem>
+<simpara>
+    include total and hda (when using -d/--disk)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-g, --page
+</term>
+<listitem>
+<simpara>
+    enable page stats (page in, page out)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-i, --int
+</term>
+<listitem>
+<simpara>
+    enable interrupt stats
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-I 5,10
+</term>
+<listitem>
+<simpara>
+    include interrupt 5 and 10 (when using -i/--int)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-l, --load
+</term>
+<listitem>
+<simpara>
+    enable load average stats (1 min, 5 mins, 15mins)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-m, --mem
+</term>
+<listitem>
+<simpara>
+    enable memory stats (used, buffers, cache, free); for more memory
+    related stats also try <emphasis role="strong">--mem-adv</emphasis> and <emphasis role="strong">--swap</emphasis>
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-n, --net
+</term>
+<listitem>
+<simpara>
+    enable network stats (receive, send)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-N eth1,total
+</term>
+<listitem>
+<simpara>
+    include eth1 and total (when using -n/--net)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-p, --proc
+</term>
+<listitem>
+<simpara>
+    enable process stats (runnable, uninterruptible, new)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-r, --io
+</term>
+<listitem>
+<simpara>
+    enable I/O request stats (read, write requests)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-s, --swap
+</term>
+<listitem>
+<simpara>
+    enable swap stats (used, free)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-S swap1,total
+</term>
+<listitem>
+<simpara>
+    include swap1 and total (when using -s/--swap)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-t, --time
+</term>
+<listitem>
+<simpara>
+    enable time/date output
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-T, --epoch
+</term>
+<listitem>
+<simpara>
+    enable time counter (seconds since epoch)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-y, --sys
+</term>
+<listitem>
+<simpara>
+    enable system stats (interrupts, context switches)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--aio
+</term>
+<listitem>
+<simpara>
+    enable aio stats (asynchronous I/O)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--cpu-adv
+</term>
+<listitem>
+<simpara>
+    enable advanced cpu stats
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--cpu-use
+</term>
+<listitem>
+<simpara>
+    enable only cpu usage stats
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--fs, --filesystem
+</term>
+<listitem>
+<simpara>
+    enable filesystem stats (open files, inodes)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--ipc
+</term>
+<listitem>
+<simpara>
+    enable ipc stats (message queue, semaphores, shared memory)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--lock
+</term>
+<listitem>
+<simpara>
+    enable file lock stats (posix, flock, read, write)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--mem-adv
+</term>
+<listitem>
+<simpara>
+    enable advanced memory stats
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--raw
+</term>
+<listitem>
+<simpara>
+    enable raw stats (raw sockets)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--socket
+</term>
+<listitem>
+<simpara>
+    enable socket stats (total, tcp, udp, raw, ip-fragments)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--tcp
+</term>
+<listitem>
+<simpara>
+    enable tcp stats (listen, established, syn, time_wait, close)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--udp
+</term>
+<listitem>
+<simpara>
+    enable udp stats (listen, active)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--unix
+</term>
+<listitem>
+<simpara>
+    enable unix stats (datagram, stream, listen, active)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--vm
+</term>
+<listitem>
+<simpara>
+    enable vm stats (hard pagefaults, soft pagefaults, allocated, free)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--vm-adv
+</term>
+<listitem>
+<simpara>
+    enable advance vm stats (steal, scanK, scanD, pgoru, astll)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--zones
+</term>
+<listitem>
+<simpara>
+    enable zoneinfo stats (d32F, d32H, normF, normH)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--plugin-name
+</term>
+<listitem>
+<simpara>
+    enable (external) plugins by plugin name, see <emphasis role="strong">PLUGINS</emphasis> for options
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+Possible internal stats are
+</term>
+<listitem>
+<simpara>
+    aio, cpu, cpu24, cpu-adv, cpu-use, disk, disk24, disk24-old, epoch, fs,
+    int, int24, io, ipc, load, lock, mem, mem-adv, net, page, page24, proc,
+    raw, socket, swap, swap-old, sys, tcp, time, udp, unix, vm, vm-adv, zones
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--list
+</term>
+<listitem>
+<simpara>
+    list the internal and external plugin names
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-a, --all
+</term>
+<listitem>
+<simpara>
+    equals -cdngy (default)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-f, --full
+</term>
+<listitem>
+<simpara>
+    expand -C, -D, -I, -N and -S discovery lists
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-v, --vmstat
+</term>
+<listitem>
+<simpara>
+    equals -pmgdsc -D total
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--bits
+</term>
+<listitem>
+<simpara>
+    force bits for values expressed in bytes
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--float
+</term>
+<listitem>
+<simpara>
+    force float values on screen (mutual exclusive with <emphasis role="strong">--integer</emphasis>)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--integer
+</term>
+<listitem>
+<simpara>
+    force integer values on screen (mutual exclusive with <emphasis role="strong">--float</emphasis>)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--bw, --blackonwhite
+</term>
+<listitem>
+<simpara>
+    change colors for white background terminal
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--nocolor
+</term>
+<listitem>
+<simpara>
+    disable colors
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--noheaders
+</term>
+<listitem>
+<simpara>
+    disable repetitive headers
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--noupdate
+</term>
+<listitem>
+<simpara>
+    disable intermediate updates when delay &gt; 1
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--output file
+</term>
+<listitem>
+<simpara>
+    write CSV output to file
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--profile
+</term>
+<listitem>
+<simpara>
+    show profiling statistics when exiting dstat
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_plugins">
+<title>PLUGINS</title>
+<simpara>While anyone can create their own dstat plugins (and contribute them) dstat
+ships with a number of plugins already that extend its capabilities greatly.
+Here is an overview of the plugins dstat ships with:</simpara>
+<variablelist>
+<varlistentry>
+<term>
+--battery
+</term>
+<listitem>
+<simpara>
+    battery in percentage (needs ACPI)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--battery-remain
+</term>
+<listitem>
+<simpara>
+    battery remaining in hours, minutes (needs ACPI)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--cpufreq
+</term>
+<listitem>
+<simpara>
+    CPU frequency in percentage (needs ACPI)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--dbus
+</term>
+<listitem>
+<simpara>
+    number of dbus connections (needs python-dbus)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--disk-avgqu
+</term>
+<listitem>
+<simpara>
+    average queue length of the requests that were issued to the device
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--disk-avgrq
+</term>
+<listitem>
+<simpara>
+    average size (in sectors) of the requests that were issued to the device
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--disk-svctm
+</term>
+<listitem>
+<simpara>
+    average service time (in milliseconds) for I/O requests that were issued to the device
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--disk-tps
+</term>
+<listitem>
+<simpara>
+    number of transfers per second that were issued to the device
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--disk-util
+</term>
+<listitem>
+<simpara>
+    percentage of CPU time during which I/O requests were issued to the device (bandwidth utilization for the device)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--disk-wait
+</term>
+<listitem>
+<simpara>
+    average time (in milliseconds) for I/O requests issued to the device to be served
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--dstat
+</term>
+<listitem>
+<simpara>
+    show dstat cputime consumption and latency
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--dstat-cpu
+</term>
+<listitem>
+<simpara>
+    show dstat advanced cpu usage
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--dstat-ctxt
+</term>
+<listitem>
+<simpara>
+    show dstat context switches
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--dstat-mem
+</term>
+<listitem>
+<simpara>
+    show dstat advanced memory usage
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--fan
+</term>
+<listitem>
+<simpara>
+    fan speed (needs ACPI)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--freespace
+</term>
+<listitem>
+<simpara>
+    per filesystem disk usage
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--gpfs
+</term>
+<listitem>
+<simpara>
+    GPFS read/write I/O (needs mmpmon)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--gpfs-ops
+</term>
+<listitem>
+<simpara>
+    GPFS filesystem operations (needs mmpmon)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--helloworld
+</term>
+<listitem>
+<simpara>
+    Hello world example dstat plugin
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--innodb-buffer
+</term>
+<listitem>
+<simpara>
+    show innodb buffer stats
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--innodb-io
+</term>
+<listitem>
+<simpara>
+    show innodb I/O stats
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--innodb-ops
+</term>
+<listitem>
+<simpara>
+    show innodb operations counters
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--lustre
+</term>
+<listitem>
+<simpara>
+    show lustre I/O throughput
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--md-status
+</term>
+<listitem>
+<simpara>
+    show software raid (md) progress and speed
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--memcache-hits
+</term>
+<listitem>
+<simpara>
+    show the number of hits and misses from memcache
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--mysql5-cmds
+</term>
+<listitem>
+<simpara>
+    show the MySQL5 command stats
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--mysql5-conn
+</term>
+<listitem>
+<simpara>
+    show the MySQL5 connection stats
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--mysql5-innodb
+</term>
+<listitem>
+<simpara>
+    show the MySQL5 innodb stats
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--mysql5-io
+</term>
+<listitem>
+<simpara>
+    show the MySQL5 I/O stats
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--mysql5-keys
+</term>
+<listitem>
+<simpara>
+    show the MySQL5 keys stats
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--mysql-io
+</term>
+<listitem>
+<simpara>
+    show the MySQL I/O stats
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--mysql-keys
+</term>
+<listitem>
+<simpara>
+    show the MySQL keys stats
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--net-packets
+</term>
+<listitem>
+<simpara>
+    show the number of packets received and transmitted
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--nfs3
+</term>
+<listitem>
+<simpara>
+    show NFS v3 client operations
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--nfs3-ops
+</term>
+<listitem>
+<simpara>
+    show extended NFS v3 client operations
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--nfsd3
+</term>
+<listitem>
+<simpara>
+    show NFS v3 server operations
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--nfsd3-ops
+</term>
+<listitem>
+<simpara>
+    show extended NFS v3 server operations
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--nfsd4-ops
+</term>
+<listitem>
+<simpara>
+    show extended NFS v4 server operations
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--nfsstat4
+</term>
+<listitem>
+<simpara>
+    show NFS v4 stats
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--ntp
+</term>
+<listitem>
+<simpara>
+    show NTP time from an NTP server
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--postfix
+</term>
+<listitem>
+<simpara>
+    show postfix queue sizes (needs postfix)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--power
+</term>
+<listitem>
+<simpara>
+    show power usage
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--proc-count
+</term>
+<listitem>
+<simpara>
+    show total number of processes
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--qmail
+</term>
+<listitem>
+<simpara>
+    show qmail queue sizes (needs qmail)
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+<simpara>--redis:
+    show redis stats</simpara>
+<variablelist>
+<varlistentry>
+<term>
+--rpc
+</term>
+<listitem>
+<simpara>
+    show RPC client calls stats
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--rpcd
+</term>
+<listitem>
+<simpara>
+    show RPC server calls stats
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--sendmail
+</term>
+<listitem>
+<simpara>
+    show sendmail queue size (needs sendmail)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--snmp-cpu
+</term>
+<listitem>
+<simpara>
+    show CPU stats using SNMP from DSTAT_SNMPSERVER
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--snmp-load
+</term>
+<listitem>
+<simpara>
+    show load stats using SNMP from DSTAT_SNMPSERVER
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--snmp-mem
+</term>
+<listitem>
+<simpara>
+    show memory stats using SNMP from DSTAT_SNMPSERVER
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--snmp-net
+</term>
+<listitem>
+<simpara>
+    show network stats using SNMP from DSTAT_SNMPSERVER
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+<simpara>--snmp-net-err:
+    show network errors using SNMP from DSTAT_SNMPSERVER</simpara>
+<variablelist>
+<varlistentry>
+<term>
+--snmp-sys
+</term>
+<listitem>
+<simpara>
+    show system stats (interrupts and context switches) using SNMP from DSTAT_SNMPSERVER
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--snooze
+</term>
+<listitem>
+<simpara>
+    show number of ticks per second
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--squid
+</term>
+<listitem>
+<simpara>
+    show squid usage statistics
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--test
+</term>
+<listitem>
+<simpara>
+    show test plugin output
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--thermal
+</term>
+<listitem>
+<simpara>
+    system temperature sensors
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--top-bio
+</term>
+<listitem>
+<simpara>
+    show most expensive block I/O process
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--top-bio-adv
+</term>
+<listitem>
+<simpara>
+    show most expensive block I/O process (incl. pid and other stats)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--top-childwait
+</term>
+<listitem>
+<simpara>
+    show process waiting for child the most
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--top-cpu
+</term>
+<listitem>
+<simpara>
+    show most expensive CPU process
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--top-cpu-adv
+</term>
+<listitem>
+<simpara>
+    show most expensive CPU process (incl. pid and other stats)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--top-cputime
+</term>
+<listitem>
+<simpara>
+    show process using the most CPU time (in ms)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--top-cputime-avg
+</term>
+<listitem>
+<simpara>
+    show process with the highest average timeslice (in ms)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--top-int
+</term>
+<listitem>
+<simpara>
+    show most frequent interrupt
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--top-io
+</term>
+<listitem>
+<simpara>
+    show most expensive I/O process
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--top-io-adv
+</term>
+<listitem>
+<simpara>
+    show most expensive I/O process (incl. pid and other stats)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--top-latency
+</term>
+<listitem>
+<simpara>
+    show process with highest total latency (in ms)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--top-latency-avg
+</term>
+<listitem>
+<simpara>
+    show process with the highest average latency (in ms)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--top-mem
+</term>
+<listitem>
+<simpara>
+    show process using the most memory
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--top-oom
+</term>
+<listitem>
+<simpara>
+    show process that will be killed by OOM the first
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--utmp
+</term>
+<listitem>
+<simpara>
+    show number of utmp connections (needs python-utmp)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--vm-cpu
+</term>
+<listitem>
+<simpara>
+    show VMware CPU stats from hypervisor
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--vm-mem
+</term>
+<listitem>
+<simpara>
+    show VMware memory stats from hypervisor
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--vm-mem-adv
+</term>
+<listitem>
+<simpara>
+    show advanced VMware memory stats from hypervisor
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--vmk-hba
+</term>
+<listitem>
+<simpara>
+    show VMware ESX kernel vmhba stats
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--vmk-int
+</term>
+<listitem>
+<simpara>
+    show VMware ESX kernel interrupt stats
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--vmk-nic
+</term>
+<listitem>
+<simpara>
+    show VMware ESX kernel port stats
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--vz-cpu
+</term>
+<listitem>
+<simpara>
+    show CPU usage per OpenVZ guest
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--vz-io
+</term>
+<listitem>
+<simpara>
+    show I/O usage per OpenVZ guest
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--vz-ubc
+</term>
+<listitem>
+<simpara>
+    show OpenVZ user beancounters
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--wifi
+</term>
+<listitem>
+<simpara>
+    wireless link quality and signal to noise ratio
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--zfs-arc
+</term>
+<listitem>
+<simpara>
+    show ZFS arc stats
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--zfs-l2arc
+</term>
+<listitem>
+<simpara>
+    show ZFS l2arc stats
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--zfs-zil
+</term>
+<listitem>
+<simpara>
+    show ZFS zil stats
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_arguments">
+<title>ARGUMENTS</title>
+<simpara><emphasis role="strong">delay</emphasis> is the delay in seconds between each update</simpara>
+<simpara><emphasis role="strong">count</emphasis> is the number of updates to display before exiting</simpara>
+<simpara>The default delay is 1 and count is unspecified (unlimited)</simpara>
+</refsect1>
+<refsect1 xml:id="_intermediate_updates">
+<title>INTERMEDIATE UPDATES</title>
+<simpara>When invoking dstat with a <emphasis role="strong">delay</emphasis> greater than 1 and without the
+<emphasis role="strong">--noupdate</emphasis> option, it will show intermediate updates, ie. the first
+time a 1 sec average, the second update a 2 second average, etc. until
+the delay has been reached.</simpara>
+<simpara>So in case you specified a delay of 10, <emphasis role="strong">the 9 intermediate updates
+are NOT snapshots</emphasis>, they are averages over the time that passed since
+the last final update. The end result is that you get a 10 second
+average on a new line, just like with vmstat.</simpara>
+</refsect1>
+<refsect1 xml:id="_examples">
+<title>EXAMPLES</title>
+<simpara>Using dstat to relate disk-throughput with network-usage (eth0), total CPU-usage and system counters:</simpara>
+<screen>dstat -dnyc -N eth0 -C total -f 5</screen>
+<simpara>Checking dstat’s behaviour and the system impact of dstat:</simpara>
+<screen>dstat -taf --debug</screen>
+<simpara>Using the time plugin together with cpu, net, disk, system, load, proc and
+top_cpu plugins:</simpara>
+<screen>dstat -tcndylp --top-cpu</screen>
+<simpara>this is identical to</simpara>
+<screen>dstat --time --cpu --net --disk --sys --load --proc --top-cpu</screen>
+<simpara>Using dstat to relate advanced cpu stats with interrupts per device:</simpara>
+<screen>dstat -t --cpu-adv -yif</screen>
+</refsect1>
+<refsect1 xml:id="_bugs">
+<title>BUGS</title>
+<simpara>Since it is practically impossible to test dstat on every possible
+permutation of kernel, python or distribution version, I need your
+help and your feedback to fix the remaining problems. If you have
+improvements or bugreports, please send them to:
+<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="mailto:dag@wieers.com">dag@wieers.com</link></simpara>
+<note><simpara>Please see the TODO file for known bugs and future plans.</simpara></note>
+</refsect1>
+<refsect1 xml:id="_files">
+<title>FILES</title>
+<simpara>Paths that may contain external dstat_*.py plugins:</simpara>
+<literallayout class="monospaced">~/.dstat/
+(path of binary)/plugins/
+/usr/share/dstat/
+/usr/local/share/dstat/</literallayout>
+</refsect1>
+<refsect1 xml:id="_environment_variables">
+<title>ENVIRONMENT VARIABLES</title>
+<simpara>Dstat will read additional command line arguments from the environment
+variable <emphasis role="strong">DSTAT_OPTS</emphasis>. You can use this to configure Dstat’s default
+behavior, e.g. if you have a black-on-white terminal:</simpara>
+<literallayout class="monospaced">export DSTAT_OPTS="--bw --noupdate"</literallayout>
+<simpara>Other internal or external plugins have their own environment variables
+to influence their behavior, e.g.</simpara>
+<literallayout class="monospaced">DSTAT_NTPSERVER</literallayout>
+<literallayout class="monospaced">DSTAT_MYSQL
+DSTAT_MYSQL_HOST
+DSTAT_MYSQL_PORT
+DSTAT_MYSQL_SOCKET
+DSTAT_MYSQL_USER
+DSTAT_MYSQL_PWD</literallayout>
+<literallayout class="monospaced">DSTAT_SNMPSERVER
+DSTAT_SNMPCOMMUNITY</literallayout>
+<literallayout class="monospaced">DSTAT_SQUID_OPTS</literallayout>
+<literallayout class="monospaced">DSTAT_TIMEFMT</literallayout>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<refsect2 xml:id="_performance_tools">
+<title>Performance tools</title>
+<literallayout class="monospaced">htop(1), ifstat(1), iftop(8), iostat(1), mpstat(1), netstat(8), nfsstat(8), perf(1), powertop(1), rtacct(8), top(1), vmstat(8), xosview(1)</literallayout>
+</refsect2>
+<refsect2 xml:id="_process_tracing">
+<title>Process tracing</title>
+<literallayout class="monospaced">lslk(8), lsof(8), ltrace(1), pidstat(1), pmap(1), ps(1), pstack(1), strace(1)</literallayout>
+</refsect2>
+<refsect2 xml:id="_binary_debugging">
+<title>Binary debugging</title>
+<literallayout class="monospaced">ldd(1), file(1), nm(1), objdump(1), readelf(1)</literallayout>
+</refsect2>
+<refsect2 xml:id="_memory_usage_tools">
+<title>Memory usage tools</title>
+<literallayout class="monospaced">free(1), memusage, memusagestat, ps_mem(1), slabtop(1), smem(8)</literallayout>
+</refsect2>
+<refsect2 xml:id="_accounting_tools">
+<title>Accounting tools</title>
+<literallayout class="monospaced">acct(2), dump-acct(8), dump-utmp(8), lastcomm(1), sa(8)</literallayout>
+</refsect2>
+<refsect2 xml:id="_hardware_debugging_tools">
+<title>Hardware debugging tools</title>
+<literallayout class="monospaced">dmidecode(8), ifinfo(1), lsdev(1), lshal(1), lshw(1), lsmod(8), lspci(8), lsusb(8), numactl(8), smartctl(8), turbostat(8), x86info(1)</literallayout>
+</refsect2>
+<refsect2 xml:id="_application_debugging">
+<title>Application debugging</title>
+<literallayout class="monospaced">mailstats(8), qshape(1)</literallayout>
+</refsect2>
+<refsect2 xml:id="_xorg_related_tools">
+<title>Xorg related tools</title>
+<literallayout class="monospaced">xdpyinfo(1), xrestop(1)</literallayout>
+</refsect2>
+<refsect2 xml:id="_other_useful_info">
+<title>Other useful info</title>
+<literallayout class="monospaced">collectl(1), proc(5), procinfo(8)</literallayout>
+</refsect2>
+</refsect1>
+<refsect1 xml:id="_author">
+<title>AUTHOR</title>
+<simpara>Written by Dag Wieers <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="mailto:dag@wieers.com">dag@wieers.com</link></simpara>
+<simpara>Homepage at <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://dag.wieers.com/home-made/dstat/">http://dag.wieers.com/home-made/dstat/</link></simpara>
+<simpara>This manpage was initially written by Andrew Pollock
+<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="mailto:apollock@debian.org">apollock@debian.org</link> for the Debian GNU/Linux system.</simpara>
+</refsect1>
+</refentry>
