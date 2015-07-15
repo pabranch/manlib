@@ -40,7 +40,19 @@ recorded is lost.</simpara>
 <simpara>
     If the kernel supports multiple buffers, this will stop the trace for
     only the given buffer. It does not affect any other buffer. This may be
-    used multiple times to specify different buffers.
+    used multiple times to specify different buffers. When this option is
+    used, the top level instance will not be stopped unless <emphasis role="strong">-t</emphasis> is given.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-a</emphasis>
+</term>
+<listitem>
+<simpara>
+    Stop the trace for all existing buffer instances. When this option
+    is used, the top level instance will not be stopped unless <emphasis role="strong">-t</emphasis> is given.
 </simpara>
 </listitem>
 </varlistentry>
@@ -50,9 +62,9 @@ recorded is lost.</simpara>
 </term>
 <listitem>
 <simpara>
-    Stops the top level instance buffer. Without the <emphasis role="strong">-B</emphasis> option this is the
-    same as the default. But if <emphasis role="strong">-B</emphasis> is used, this is required if the top
-    level instance buffer should also be stopped.
+    Stops the top level instance buffer. Without the <emphasis role="strong">-B</emphasis> or <emphasis role="strong">-a</emphasis> option this
+    is the same as the default. But if <emphasis role="strong">-B</emphasis> or <emphasis role="strong">-a</emphasis> is used, this is
+    required if the top level instance buffer should also be stopped.
 </simpara>
 </listitem>
 </varlistentry>

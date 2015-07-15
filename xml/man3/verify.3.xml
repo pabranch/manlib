@@ -291,8 +291,8 @@
           <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-untrusted_file"/><emphasis role="bold">-untrusted file</emphasis></term>
           <listitem>
             <para>
-	      A file of untrusted certificates. The file should contain
-	      multiple certificates in PEM format concatenated together.
+	      A file of untrusted certificates. The file should contain one
+	      or more certificates in PEM format.
             </para>
           </listitem>
         </varlistentry>
@@ -300,9 +300,11 @@
           <term><anchor xml:id="sources.openssl.doc.apps.verify.pod:-trusted_file"/><emphasis role="bold">-trusted file</emphasis></term>
           <listitem>
             <para>
-	      A file of additional trusted certificates. The file should
-	      contain multiple certificates in PEM format concatenated
-	      together.
+	      A file of trusted certificates. The file contain one or more
+	      certificates in PEM format. With this option, no additional
+	      (e.g., default) certificate lists are consulted. That is, the
+	      only trusted issuers are those listed in <emphasis role="bold">file</emphasis>. This option cannot be used with
+	      the <emphasis role="bold">-CAfile</emphasis> or <emphasis role="bold">-CApath</emphasis> options.
             </para>
           </listitem>
         </varlistentry>
