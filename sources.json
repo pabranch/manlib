@@ -103,6 +103,15 @@ find sources/cups/man -name '*.gz' -exec bash -c '(base=$(basename -s .gz {}); m
     "cmd": "rsync --checksum sources/dash/src/*.1 man/man1/"
   },
 
+/* pandoc: ignoring unknown role :ref: in "source" - this makes output not great, look at this again at a later stage
+  "dnf": {
+    "type": "git",
+    "url": "https://github.com/rpm-software-management/dnf.git",
+    "sparse": "doc/",
+    "cmd": "pandoc -f rst -t docbook sources/dnf/doc/command_ref.rst | xsltproc utils/db4-upgrade.xsl - > xml/man8/dnf.8.xml"
+  },
+*/
+
   "dpkg": {
     "type": "git",
     "url": "git://git.debian.org/git/dpkg/dpkg.git",
