@@ -316,6 +316,17 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:ChainCAFile_ChainCAPath_VerifyCAFile_VerifyCAPath"/><emphasis role="bold">ChainCAFile</emphasis>, <emphasis role="bold">ChainCAPath</emphasis>, <emphasis role="bold">VerifyCAFile</emphasis>, <emphasis role="bold">VerifyCAPath</emphasis></term>
+          <listitem>
+            <para>
+	      These options indicate a file or directory used for building
+	      certificate chains or verifying certificate chains. These
+	      options are only supported if certificate operations are
+	      permitted.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:ServerInfoFile"/><emphasis role="bold">ServerInfoFile</emphasis></term>
           <listitem>
             <para>
@@ -495,6 +506,44 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
 	      permits the use of unsafe legacy renegotiation for OpenSSL
 	      clients only. Equivalent to <emphasis role="bold">SSL_OP_LEGACY_SERVER_CONNECT</emphasis>. Set by
 	      default.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:VerifyMode"/><emphasis role="bold">VerifyMode</emphasis></term>
+          <listitem>
+            <para>
+	      The <emphasis role="bold">value</emphasis> argument is a
+	      comma separated list of flags to set.
+            </para>
+            <para>
+	      <emphasis role="bold">Peer</emphasis> enables peer
+	      verification: for clients only.
+            </para>
+            <para>
+	      <emphasis role="bold">Request</emphasis> requests but does
+	      not require a certificate from the client. Servers only.
+            </para>
+            <para>
+	      <emphasis role="bold">Require</emphasis> requests and
+	      requires a certificate from the client: an error occurs if
+	      the client does not present a certificate. Servers only.
+            </para>
+            <para>
+	      <emphasis role="bold">Once</emphasis> requests a certificate
+	      from a client only on the initial connection: not when
+	      renegotiating. Servers only.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:ClientCAFile_ClientCAPath"/><emphasis role="bold">ClientCAFile</emphasis>, <emphasis role="bold">ClientCAPath</emphasis></term>
+          <listitem>
+            <para>
+	      A file or directory of certificates in PEM format whose names
+	      are used as the set of acceptable names for client CAs.
+	      Servers only. This option is only supported if certificate
+	      operations are permitted.
             </para>
           </listitem>
         </varlistentry>

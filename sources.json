@@ -112,6 +112,15 @@ find sources/cups/man -name '*.gz' -exec bash -c '(base=$(basename -s .gz {}); m
   },
 */
 
+/* This doesn't help us figure out docker's options, and causes other complications:
+  "docker": {
+    "type": "git",
+    "url": "https://github.com/docker/docker.git",
+    "sparse": "man/",
+    "cmd": "sed 's/</\\\\</g' sources/docker/man/docker.1.md | pandoc -s -f markdown -t docbook | xsltproc utils/db4-upgrade.xsl - > xml/man1/docker.1.xml"
+  },
+*/
+
   "dpkg": {
     "type": "git",
     "url": "git://git.debian.org/git/dpkg/dpkg.git",
@@ -481,14 +490,13 @@ rsync --checksum sources/quota/*.8 man/man8/"
     "cmd": "rsync --checksum sources/screen/src/doc/screen.1 man/man1/"
   },
 
-  /* This has changed, might have to handle .texi file to get this working again.
+  /* Handle .texi file? */
   "sed": {
     "type": "git",
     "url": "git://git.savannah.gnu.org/sed.git",
     "sparse": "doc/",
-    "cmd": "rsync --checksum sources/sed/doc/*.1 man/man1/"
+    "cmd": "rsync --checksum sources/sed/doc/sed.x man/man1/sed.1"
   },
-  */
 
   "selinux": {
     "type": "git",
