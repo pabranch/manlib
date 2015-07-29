@@ -1,0 +1,121 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_set1_sigalgs.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_set1_sigalgs, SSL_set1_sigalgs, SSL_CTX_set1_sigalgs_list,
+SSL_set1_sigalgs_list, SSL_CTX_set1_client_sigalgs,
+SSL_set1_client_sigalgs, SSL_CTX_set1_client_sigalgs_list,
+SSL_set1_client_sigalgs_list</refname>
+<refpurpose>set supported signature algorithms</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">long SSL_CTX_set1_sigalgs(SSL_CTX *ctx, const int *slist, long slistlen);
+long SSL_set1_sigalgs(SSL *ssl, const int *slist, long slistlen);
+long SSL_CTX_set1_sigalgs_list(SSL_CTX *ctx, const char *str);
+long SSL_set1_sigalgs_list(SSL *ssl, const char *str);</synopsis>
+<synopsis format="linespecific">long SSL_CTX_set1_client_sigalgs(SSL_CTX *ctx, const int *slist, long slistlen);
+long SSL_set1_client_sigalgs(SSL *ssl, const int *slist, long slistlen);
+long SSL_CTX_set1_client_sigalgs_list(SSL_CTX *ctx, const char *str);
+long SSL_set1_client_sigalgs_list(SSL *ssl, const char *str);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set1_sigalgs.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_CTX_set1_sigalgs() and SSL_set1_sigalgs() set the supported
+      signature algorithms for <emphasis role="bold">ctx</emphasis> or
+      <emphasis role="bold">ssl</emphasis>. The array <emphasis role="bold">slist</emphasis> of length <emphasis role="bold">slistlen</emphasis> must consist of pairs of NIDs
+      corresponding to digest and public key algorithms.
+    </para>
+    <para>
+      SSL_CTX_set1_sigalgs_list() and SSL_set1_sigalgs_list() set the
+      supported signature algorithms for <emphasis role="bold">ctx</emphasis> or <emphasis role="bold">ssl</emphasis>.
+      The <emphasis role="bold">str</emphasis> parameter must be a null
+      terminated string consisting or a colon separated list of public key
+      algorithms and digests separated by <emphasis role="bold">+</emphasis>.
+    </para>
+    <para>
+      SSL_CTX_set1_client_sigalgs(), SSL_set1_client_sigalgs(),
+      SSL_CTX_set1_client_sigalgs_list() and SSL_set1_client_sigalgs_list()
+      set signature algorithms related to client authentication, otherwise
+      they are identical to SSL_CTX_set1_sigalgs(), SSL_set1_sigalgs(),
+      SSL_CTX_set1_sigalgs_list() and SSL_set1_sigalgs_list().
+    </para>
+    <para>
+      All these functions are implemented as macros. The signature
+      algorithm parameter (integer array or string) is not freed: the
+      application should free it, if necessary.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set1_sigalgs.pod:NOTES"><title>NOTES</title>
+    <para>
+      If an application wishes to allow the setting of signature algorithms
+      as one of many user configurable options it should consider using the
+      more flexible SSL_CONF API instead.
+    </para>
+    <para>
+      The signature algorithms set by a client are used directly in the
+      supported signature algorithm in the client hello message.
+    </para>
+    <para>
+      The supported signature algorithms set by a server are not sent to
+      the client but are used to determine the set of shared signature
+      algorithms and (if server preferences are set with
+      SSL_OP_CIPHER_SERVER_PREFERENCE) their order.
+    </para>
+    <para>
+      The client authentication signature algorithms set by a server are
+      sent in a certificate request message if client authentication is
+      enabled, otherwise they are unused.
+    </para>
+    <para>
+      Similarly client authentication signature algorithms set by a client
+      are used to determined the set of client authentication shared
+      signature algorithms.
+    </para>
+    <para>
+      Signature algorithms will neither be advertised nor used if the
+      security level prohibits them (for example SHA1 if the security level
+      is 4 or more).
+    </para>
+    <para>
+      Currently the NID_md5, NID_sha1, NID_sha224, NID_sha256, NID_sha384
+      and NID_sha512 digest NIDs are supported and the public key algorithm
+      NIDs EVP_PKEY_RSA, EVP_PKEY_DSA and EVP_PKEY_EC.
+    </para>
+    <para>
+      The short or long name values for digests can be used in a string
+      (for example "MD5", "SHA1", "SHA224", "SHA256", "SHA384", "SHA512")
+      and the public key algorithm strings "RSA", "DSA" or "ECDSA".
+    </para>
+    <para>
+      The use of MD5 as a digest is strongly discouraged due to security
+      weaknesses.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set1_sigalgs.pod:EXAMPLES"><title>EXAMPLES</title>
+    <para>
+      Set supported signature algoritms to SHA256 with ECDSA and SHA256
+      with RSA using an array:
+    </para>
+    <screen>const int slist[] = {NID_sha256, EVP_PKEY_EC, NID_sha256, EVP_PKEY_RSA};
+
+SSL_CTX_set1_sigalgs(ctx, slist, 4);</screen>
+    <para>
+      Set supported signature algoritms to SHA256 with ECDSA and SHA256
+      with RSA using a string:
+    </para>
+    <screen>SSL_CTX_set1_sigalgs_list(ctx, "ECDSA+SHA256:RSA+SHA256");</screen>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set1_sigalgs.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      All these functions return 1 for success and 0 for failure.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set1_sigalgs.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      ssl(3), SSL_get_shared_sigalgs(3), SSL_CONF_CTX_new(3)
+    </para>
+  </refsection>
+</refentry>

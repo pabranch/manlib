@@ -217,8 +217,9 @@ and
 .\" Actually EAGAIN on Linux
 The socket is marked nonblocking and no connections are
 present to be accepted.
-POSIX.1-2001 allows either error to be returned for this case,
-and does not require these constants to have the same value,
+POSIX.1-2001 and POSIX.1-2008
+allow either error to be returned for this case,
+and do not require these constants to have the same value,
 so a portable application should check for both possibilities.
 .TP
 .B EBADF
@@ -293,8 +294,8 @@ system call is available starting with Linux 2.6.28;
 support in glibc is available starting with version 2.10.
 .SH CONFORMING TO
 .BR accept ():
-POSIX.1-2001,
-SVr4, 4.4BSD,
+POSIX.1-2001, POSIX.1-2008,
+SVr4, 4.4BSD
 .RB ( accept ()
 first appeared in 4.2BSD).
 .\" The BSD man page documents five possible error returns

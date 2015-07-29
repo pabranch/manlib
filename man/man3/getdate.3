@@ -98,6 +98,9 @@ One more conversion specification is specified in POSIX.1-2001:
 .TP
 .B %Z
 Timezone name.
+.\" FIXME Is it (still) true that %Z is not supported in glibc?
+.\" Looking at the glibc 2.21 source code, where the implementation uses
+.\" strptime(), suggests that it might be supported.
 This is not implemented in glibc.
 .LP
 When
@@ -209,9 +212,9 @@ T{
 T}	Thread safety	MT-Safe env locale
 .TE
 .SH CONFORMING TO
-POSIX.1-2001.
+POSIX.1-2001, POSIX.1-2008.
 .SH NOTES
-The POSIX.1-2001 specification for
+The POSIX.1 specification for
 .BR strptime (3)
 contains conversion specifications using the
 .B %E

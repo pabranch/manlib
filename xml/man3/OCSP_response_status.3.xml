@@ -1,0 +1,63 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>OCSP_response_status.pod</refentrytitle>
+  </refmeta>
+  <para>
+    OCSP_response_status, OCSP_response_get1_basic, OCSP_response_create,
+    OCSP_RESPONSE_free - OCSP response functions.
+  </para>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ocsp.h&gt;</synopsis>
+<synopsis format="linespecific">int OCSP_response_status(OCSP_RESPONSE *resp);
+OCSP_BASICRESP *OCSP_response_get1_basic(OCSP_RESPONSE *resp);
+OCSP_RESPONSE *OCSP_response_create(int status, OCSP_BASICRESP *bs);
+void OCSP_RESPONSE_free(OCSP_RESPONSE *resp);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.OCSP_response_status.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      OCSP_response_status() returns the OCSP response status of <emphasis role="bold">resp</emphasis>. It returns one of the values: <emphasis role="bold">OCSP_RESPONSE_STATUS_SUCCESSFUL</emphasis>, <emphasis role="bold">OCSP_RESPONSE_STATUS_MALFORMEDREQUEST</emphasis>,
+      <emphasis role="bold">OCSP_RESPONSE_STATUS_INTERNALERROR</emphasis>,
+      <emphasis role="bold">OCSP_RESPONSE_STATUS_TRYLATER</emphasis>
+      <emphasis role="bold">OCSP_RESPONSE_STATUS_SIGREQUIRED</emphasis>, or
+      <emphasis role="bold">OCSP_RESPONSE_STATUS_UNAUTHORIZED</emphasis>.
+    </para>
+    <para>
+      OCSP_response_get1_basic() decodes and returns the <emphasis role="bold">OCSP_BASICRESP</emphasis> structure contained in
+      <emphasis role="bold">resp</emphasis>.
+    </para>
+    <para>
+      OCSP_response_create() creates and returns an <emphasis role="bold">OCSP_RESPONSE</emphasis> structure for <emphasis role="bold">status</emphasis> and optionally including basic response
+      <emphasis role="bold">bs</emphasis>.
+    </para>
+    <para>
+      OCSP_RESPONSE_free() frees up OCSP reponse <emphasis role="bold">resp</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.OCSP_response_status.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      OCSP_RESPONSE_status() returns a status value.
+    </para>
+    <para>
+      OCSP_response_get1_basic() returns an <emphasis role="bold">OCSP_BASICRESP</emphasis> structure pointer or <emphasis role="bold">NULL</emphasis> if an error occurred.
+    </para>
+    <para>
+      OCSP_response_create() returns an <emphasis role="bold">OCSP_RESPONSE</emphasis> structure pointer or <emphasis role="bold">NULL</emphasis> if an error occurred.
+    </para>
+    <para>
+      OCSP_RESPONSE_free() does not return a value.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.OCSP_response_status.pod:NOTES"><title>NOTES</title>
+    <para>
+      OCSP_response_get1_basic() is only called if the status of a response
+      is <emphasis role="bold">OCSP_RESPONSE_STATUS_SUCCESSFUL</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.OCSP_response_status.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      crypto(3) OCSP_cert_to_id(3) OCSP_request_add1_nonce(3)
+      OCSP_REQUEST_new(3) OCSP_response_find_status(3) OCSP_sendreq_new(3)
+    </para>
+  </refsection>
+</refentry>

@@ -1,0 +1,93 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_get_shared_sigalgs.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_get_shared_sigalgs, SSL_get_sigalgs</refname>
+<refpurpose>get supported signature algorithms</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">int SSL_get_shared_sigalgs(SSL *s, int idx,
+                           int *psign, int *phash, int *psignhash,
+                           unsigned char *rsig, unsigned char *rhash);</synopsis>
+<synopsis format="linespecific">int SSL_get_sigalgs(SSL *s, int idx,
+                    int *psign, int *phash, int *psignhash,
+                    unsigned char *rsig, unsigned char *rhash);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_shared_sigalgs.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_get_shared_sigalgs() returns information about the shared
+      signature algorithms supported by peer <emphasis role="bold">s</emphasis>. The parameter <emphasis role="bold">idx</emphasis> indicates the index of the shared
+      signature algorithm to return starting from zero. The signature
+      algorithm NID is written to <emphasis role="bold">*psign</emphasis>,
+      the hash NID to <emphasis role="bold">*phash</emphasis> and the sign
+      and hash NID to <emphasis role="bold">*psignhash</emphasis>. The raw
+      signature and hash values are written to <emphasis role="bold">*rsig</emphasis> and <emphasis role="bold">*rhash</emphasis>.
+    </para>
+    <para>
+      SSL_get_sigalgs() is similar to SSL_get_shared_sigalgs() except it
+      returns information about all signature algorithms supported by
+      <emphasis role="bold">s</emphasis> in the order they were sent by the
+      peer.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_shared_sigalgs.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      SSL_get_shared_sigalgs() and SSL_get_sigalgs() return the number of
+      signature algorithms or <emphasis role="bold">0</emphasis> if the
+      <emphasis role="bold">idx</emphasis> parameter is out of range.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_shared_sigalgs.pod:NOTES"><title>NOTES</title>
+    <para>
+      These functions are typically called for debugging purposes (to
+      report the peer's preferences) or where an application wants finer
+      control over certificate selection. Most applications will rely on
+      internal handling and will not need to call them.
+    </para>
+    <para>
+      If an application is only interested in the highest preference shared
+      signature algorithm it can just set <emphasis role="bold">idx</emphasis> to zero.
+    </para>
+    <para>
+      Any or all of the parameters <emphasis role="bold">psign</emphasis>,
+      <emphasis role="bold">phash</emphasis>, <emphasis role="bold">psignhash</emphasis>, <emphasis role="bold">rsig</emphasis> or <emphasis role="bold">rhash</emphasis>
+      can be set to <emphasis role="bold">NULL</emphasis> if the value is
+      not required. By setting them all to <emphasis role="bold">NULL</emphasis> and setting <emphasis role="bold">idx</emphasis> to zero the total number of signature
+      algorithms can be determined: which can be zero.
+    </para>
+    <para>
+      These functions must be called after the peer has sent a list of
+      supported signature algorithms: after a client hello (for servers) or
+      a certificate request (for clients). They can (for example) be called
+      in the certificate callback.
+    </para>
+    <para>
+      Only TLS 1.2 and DTLS 1.2 currently support signature algorithms. If
+      these functions are called on an earlier version of TLS or DTLS zero
+      is returned.
+    </para>
+    <para>
+      The shared signature algorithms returned by SSL_get_shared_sigalgs()
+      are ordered according to configuration and peer preferences.
+    </para>
+    <para>
+      The raw values correspond to the on the wire form as defined by
+      RFC5246 et al. The NIDs are OpenSSL equivalents. For example if the
+      peer sent sha256(4) and rsa(1) then <emphasis role="bold">*rhash</emphasis> would be 4, <emphasis role="bold">*rsign</emphasis> 1, <emphasis role="bold">*phash</emphasis> NID_sha256, <emphasis role="bold">*psig</emphasis> NID_rsaEncryption and <emphasis role="bold">*psighash</emphasis> NID_sha256WithRSAEncryption.
+    </para>
+    <para>
+      If a signature algorithm is not recognised the corresponsing NIDs
+      will be set to <emphasis role="bold">NID_undef</emphasis>. This may
+      be because the value is not supported or is not an appropriate
+      combination (for example MD5 and DSA).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_shared_sigalgs.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      SSL_CTX_set_cert_cb(3), ssl(3)
+    </para>
+  </refsection>
+</refentry>

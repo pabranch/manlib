@@ -1,0 +1,90 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>OCSP_request_add1_nonce.pod</refentrytitle>
+  </refmeta>
+  <para>
+    OCSP_request_add1_nonce, OCSP_basic_add1_nonce, OCSP_check_nonce,
+    OCSP_copy_nonce - OCSP nonce functions.
+  </para>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ocsp.h&gt;</synopsis>
+<synopsis format="linespecific">int OCSP_request_add1_nonce(OCSP_REQUEST *req, unsigned char *val, int len);
+int OCSP_basic_add1_nonce(OCSP_BASICRESP *resp, unsigned char *val, int len);
+int OCSP_copy_nonce(OCSP_BASICRESP *resp, OCSP_REQUEST *req);
+int OCSP_check_nonce(OCSP_REQUEST *req, OCSP_BASICRESP *resp);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.OCSP_request_add1_nonce.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      OCSP_request_add1_nonce() adds a nonce of value <emphasis role="bold">val</emphasis> and length <emphasis role="bold">len</emphasis> to OCSP request <emphasis role="bold">req</emphasis>. If <emphasis role="bold">val</emphasis>
+      is <emphasis role="bold">NULL</emphasis> a random nonce is used. If
+      <emphasis role="bold">len</emphasis> is zero or negative a default
+      length will be used (currently 16 bytes).
+    </para>
+    <para>
+      OCSP_basic_add1_nonce() is identical to OCSP_request_add1_nonce()
+      except it adds a nonce to OCSP basic response <emphasis role="bold">resp</emphasis>.
+    </para>
+    <para>
+      OCSP_check_nonce() compares the nonce value in <emphasis role="bold">req</emphasis> and <emphasis role="bold">resp</emphasis>.
+    </para>
+    <para>
+      OCSP_copy_nonce() copys any nonce value present in <emphasis role="bold">req</emphasis> to <emphasis role="bold">resp</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.OCSP_request_add1_nonce.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      OCSP_request_add1_nonce() and OCSP_basic_add1_nonce() return 1 for
+      success and 0 for failure.
+    </para>
+    <para>
+      OCSP_copy_nonce() returns 1 if a nonce was successfully copied, 2 if
+      no nonce was present in <emphasis role="bold">req</emphasis> and 0 if
+      an error occurred.
+    </para>
+    <para>
+      OCSP_check_nonce() returns the result of the nonce comparison between
+      <emphasis role="bold">req</emphasis> and <emphasis role="bold">resp</emphasis>. The return value indicates the result of
+      the comparison.  If nonces are present and equal 1 is returned. If
+      the nonces are absent 2 is returned. If a nonce is present in the
+      response only 3 is returned. If nonces are present and unequal 0 is
+      returned. If the nonce is present in the request only then -1 is
+      returned.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.OCSP_request_add1_nonce.pod:NOTES"><title>NOTES</title>
+    <para>
+      For most purposes the nonce value in a request is set to a random
+      value so the <emphasis role="bold">val</emphasis> parameter in
+      OCSP_request_add1_nonce() is usually NULL.
+    </para>
+    <para>
+      An OCSP nonce is typically added to an OCSP request to thwart replay
+      attacks by checking the same nonce value appears in the response.
+    </para>
+    <para>
+      Some responders may include a nonce in all responses even if one is
+      not supplied.
+    </para>
+    <para>
+      Some responders cache OCSP responses and do not sign each response
+      for performance reasons. As a result they do not support nonces.
+    </para>
+    <para>
+      The return values of OCSP_check_nonce() can be checked to cover each
+      case.  A positive return value effectively indicates success: nonces
+      are both present and match, both absent or present in the response
+      only. A non-zero return additionally covers the case where the nonce
+      is present in the request only: this will happen if the responder
+      doesn't support nonces. A zero return value indicates present and
+      mismatched nonces: this should be treated as an error condition.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.OCSP_request_add1_nonce.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      crypto(3), OCSP_cert_to_id(3), OCSP_REQUEST_new(3),
+      OCSP_response_find_status(3), OCSP_response_status(3),
+      OCSP_sendreq_new(3)
+    </para>
+  </refsection>
+</refentry>

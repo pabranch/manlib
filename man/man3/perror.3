@@ -28,7 +28,7 @@
 .\"   (msmith@falcon.mercer.peachnet.edu) and various other changes.
 .\" Modified 1996-05-16 by Martin Schulze (joey@infodrom.north.de)
 .\"
-.TH PERROR 3 2015-04-19 "" "Linux Programmer's Manual"
+.TH PERROR 3 2015-07-23 "" "Linux Programmer's Manual"
 .SH NAME
 perror \- print a system error message
 .SH SYNOPSIS
@@ -120,18 +120,15 @@ T}	Thread safety	MT-Safe race:stderr
 .TE
 
 .SH CONFORMING TO
-The function
-.BR perror ()
-and the external
-.I errno
-(see
-.BR errno (3))
-conform to C89, C99, 4.3BSD, POSIX.1-2001.
+.BR perror (),
+.IR errno :
+POSIX.1-2001, POSIX.1-2008, C89, C99, 4.3BSD.
+
 The externals
 .I sys_nerr
 and
 .I sys_errlist
-conform to BSD.
+derive from BSD, but are not specified in POSIX.1.
 .SH NOTES
 The externals
 .I sys_nerr

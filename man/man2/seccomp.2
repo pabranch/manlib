@@ -24,7 +24,7 @@
 .\" the source, must acknowledge the copyright and authors of this work.
 .\" %%%LICENSE_END
 .\"
-.TH SECCOMP 2 2015-03-29 "Linux" "Linux Programmer's Manual"
+.TH SECCOMP 2 2015-07-23 "Linux" "Linux Programmer's Manual"
 .SH NAME
 seccomp \- operate on Secure Computing state of the process
 .SH SYNOPSIS
@@ -284,7 +284,7 @@ and they run on the same processors.
 Instead, the mask
 .BR __X32_SYSCALL_BIT
 is used on the system call number to tell the two ABIs apart.
-.\" As noted by Dave Drysdale in a note at the end of 
+.\" As noted by Dave Drysdale in a note at the end of
 .\" https://lwn.net/Articles/604515/
 .\"     One additional detail to point out for the x32 ABI case:
 .\"     the syscall number gets a high bit set (__X32_SYSCALL_BIT),
@@ -293,7 +293,7 @@ is used on the system call number to tell the two ABIs apart.
 .\"     If x32 support is included in the kernel, then __SYSCALL_MASK
 .\"     will have a value that is not all-ones, and this will trigger
 .\"     an extra instruction in system_call to mask off the extra bit,
-.\"     so that the syscall table indexing still works. 
+.\"     so that the syscall table indexing still works.
 
 This means that in order to create a seccomp-based
 blacklist for system calls performed through the x86-64 ABI,
@@ -773,6 +773,7 @@ main(int argc, char **argv)
 }
 .fi
 .SH SEE ALSO
+.BR bpf (2),
 .BR prctl (2),
 .BR ptrace (2),
 .BR sigaction (2),
