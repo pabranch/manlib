@@ -14,7 +14,7 @@
   <refpurpose>Update the object name stored in a ref safely</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<literallayout><emphasis>git update-ref</emphasis> [-m &lt;reason&gt;] (-d &lt;ref&gt; [&lt;oldvalue&gt;] | [--no-deref] &lt;ref&gt; &lt;newvalue&gt; [&lt;oldvalue&gt;] | --stdin [-z])</literallayout>
+<literallayout><emphasis>git update-ref</emphasis> [-m &lt;reason&gt;] (-d &lt;ref&gt; [&lt;oldvalue&gt;] | [--no-deref] [--create-reflog] &lt;ref&gt; &lt;newvalue&gt; [&lt;oldvalue&gt;] | --stdin [-z])</literallayout>
 <simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
@@ -61,6 +61,8 @@ create SP &lt;ref&gt; SP &lt;newvalue&gt; LF
 delete SP &lt;ref&gt; [SP &lt;oldvalue&gt;] LF
 verify SP &lt;ref&gt; [SP &lt;oldvalue&gt;] LF
 option SP &lt;opt&gt; LF</literallayout>
+<simpara>With <literal>--create-reflog</literal>, update-ref will create a reflog for each ref
+even if one would not ordinarily be created.</simpara>
 <simpara>Quote fields containing whitespace as if they were strings in C source
 code; i.e., surrounded by double-quotes and with backslash escapes.
 Use 40 "0" characters or the empty string to specify a zero value.  To

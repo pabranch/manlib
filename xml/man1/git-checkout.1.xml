@@ -170,6 +170,19 @@ entries; instead, unmerged entries are ignored.</simpara>
         When checking out paths from the index, check out stage #2
         (<emphasis>ours</emphasis>) or #3 (<emphasis>theirs</emphasis>) for unmerged paths.
 </simpara>
+<simpara>Note that during <literal>git rebase</literal> and <literal>git pull --rebase</literal>, <emphasis>ours</emphasis> and
+<emphasis>theirs</emphasis> may appear swapped; <literal>--ours</literal> gives the version from the
+branch the changes are rebased onto, while <literal>--theirs</literal> gives the
+version from the branch that holds your work that is being rebased.</simpara>
+<simpara>This is because <literal>rebase</literal> is used in a workflow that treats the
+history at the remote as the shared canonical one, and treats the
+work done on the branch you are rebasing as the third-party work to
+be integrated, and you are temporarily assuming the role of the
+keeper of the canonical history during the rebase.  As the keeper of
+the canonical history, you need to view the history from the remote
+as <literal>ours</literal> (i.e. "our shared canonical history"), while what you did
+on your side branch as <literal>theirs</literal> (i.e. "one contributor&#8217;s work on top
+of it").</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>

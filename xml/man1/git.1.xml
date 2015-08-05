@@ -550,7 +550,7 @@ HEAD
 <title>The Git Repository</title>
 <simpara>These environment variables apply to <emphasis>all</emphasis> core Git commands. Nb: it
 is worth noting that they may be used/overridden by SCMS sitting above
-Git so take care if using Cogito etc.</simpara>
+Git so take care if using a foreign front-end.</simpara>
 <variablelist>
 <varlistentry>
 <term>
@@ -1017,9 +1017,26 @@ into it.</simpara>
         Enables trace messages for all packets coming in or out of a
         given program. This can help with debugging object negotiation
         or other protocol issues. Tracing is turned off at a packet
-        starting with "PACK".
+        starting with "PACK" (but see <emphasis>GIT_TRACE_PACKFILE</emphasis> below).
         See <emphasis>GIT_TRACE</emphasis> for available trace output options.
 </simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis>GIT_TRACE_PACKFILE</emphasis>
+</term>
+<listitem>
+<simpara>
+        Enables tracing of packfiles sent or received by a
+        given program. Unlike other trace output, this trace is
+        verbatim: no headers, and no quoting of binary data. You almost
+        certainly want to direct into a file (e.g.,
+        <literal>GIT_TRACE_PACKFILE=/tmp/my.pack</literal>) rather than displaying it on
+        the terminal or mixing it with other trace output.
+</simpara>
+<simpara>Note that this is currently only implemented for the client side
+of clones and fetches.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>

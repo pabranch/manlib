@@ -26,7 +26,8 @@ depending on the subcommand:</simpara>
         [--rewrite] [--updateref] [--stale-fix]
         [--dry-run] [--verbose] [--all | &lt;refs&gt;&#8230;]
 <emphasis>git reflog delete</emphasis> [--rewrite] [--updateref]
-        [--dry-run] [--verbose] ref@{specifier}&#8230;</literallayout>
+        [--dry-run] [--verbose] ref@{specifier}&#8230;
+<emphasis>git reflog exists</emphasis> &lt;ref&gt;</literallayout>
 <simpara></simpara>
 <simpara>Reference logs, or "reflogs", record when the tips of branches and
 other references were updated in the local repository. Reflogs are
@@ -57,6 +58,9 @@ This is typically not used directly by end users&#8201;&#8212;&#8201;instead, se
 argument must be an <emphasis>exact</emphasis> entry (e.g. "<literal>git reflog delete
 master@{2}</literal>"). This subcommand is also typically not used directly by
 end users.</simpara>
+<simpara>The "exists" subcommand checks whether a ref has a reflog.  It exits
+with zero status if the reflog exists, and non-zero status if it does
+not.</simpara>
 </refsect1>
 <refsect1 id="_options">
 <title>OPTIONS</title>

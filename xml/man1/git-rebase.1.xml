@@ -173,6 +173,29 @@ rebase.autoStash
 </simpara>
 </listitem>
 </varlistentry>
+<varlistentry>
+<term>
+rebase.missingCommitsCheck
+</term>
+<listitem>
+<simpara>
+        If set to "warn", print warnings about removed commits in
+        interactive mode. If set to "error", print the warnings and
+        stop the rebase. If set to "ignore", no checking is
+        done. "ignore" by default.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+rebase.instructionFormat
+</term>
+<listitem>
+<simpara>
+        Custom commit list format to use during an <emphasis>--interactive</emphasis> rebase.
+</simpara>
+</listitem>
+</varlistentry>
 </variablelist>
 </refsect1>
 <refsect1 id="_options">
@@ -517,6 +540,9 @@ default is <literal>--no-fork-point</literal>, otherwise the default is <literal
         user edit that list before rebasing.  This mode can also be used to
         split commits (see SPLITTING COMMITS below).
 </simpara>
+<simpara>The commit list format can be changed by setting the configuration option
+rebase.instructionFormat.  A customized instruction format will automatically
+have the long commit hash prepended to the format.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -979,6 +1005,8 @@ the files and/or the commit message, amend the commit, and continue
 rebasing.</simpara>
 <simpara>If you just want to edit the commit message for a commit, replace the
 command "pick" with the command "reword".</simpara>
+<simpara>To drop a commit, replace the command "pick" with "drop", or just
+delete the matching line.</simpara>
 <simpara>If you want to fold two or more commits into one, replace the command
 "pick" for the second and subsequent commits with "squash" or "fixup".
 If the commits had different authors, the folded commit will be

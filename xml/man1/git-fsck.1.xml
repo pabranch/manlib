@@ -16,7 +16,7 @@
 <refsynopsisdiv id="_synopsis">
 <literallayout><emphasis>git fsck</emphasis> [--tags] [--root] [--unreachable] [--cache] [--no-reflogs]
          [--[no-]full] [--strict] [--verbose] [--lost-found]
-         [--[no-]dangling] [--[no-]progress] [&lt;object&gt;*]</literallayout>
+         [--[no-]dangling] [--[no-]progress] [--connectivity-only] [&lt;object&gt;*]</literallayout>
 <simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
@@ -119,6 +119,18 @@ index file, all SHA-1 references in <literal>refs</literal> namespace, and all r
         and corresponding pack subdirectories in alternate
         object pools.  This is now default; you can turn it off
         with --no-full.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--connectivity-only
+</term>
+<listitem>
+<simpara>
+        Check only the connectivity of tags, commits and tree objects. By
+        avoiding to unpack blobs, this speeds up the operation, at the
+        expense of missing corrupt objects or other problematic issues.
 </simpara>
 </listitem>
 </varlistentry>

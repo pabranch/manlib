@@ -19,7 +19,7 @@
 .\" You should have received a copy of the GNU General Public License
 .\" along with this program.  If not, see <https://www.gnu.org/licenses/>.
 .
-.TH dpkg\-buildpackage 1 "2013-12-12" "Debian Project" "dpkg utilities"
+.TH dpkg\-buildpackage 1 "2015-07-05" "Debian Project" "dpkg utilities"
 .SH NAME
 dpkg\-buildpackage \- build binary or source packages from sources
 .
@@ -200,12 +200,23 @@ currently active processors, and as such will not get propagated to any
 child process. If the number of online processors cannot be inferred then
 the code will fallback to using an unlimited number.
 .TP
+.BR \-J [\fIjobs\fP|\fBauto\fP]
+This option (since dpkg 1.18.2) is equivalent to the \fB\-j\fP option
+except that it does not set the \fB\%MAKEFLAGS\fP environment variable,
+and as such it is safer to use with any package including those that are
+not parallel-build safe.
+.TP
 .B \-D
 Check build dependencies and conflicts; abort if unsatisfied. This is the
 default behavior.
 .TP
 .B \-d
 Do not check build dependencies and conflicts.
+.TP
+.B \-\-ignore\-builtin\-builddeps
+Do not check built-in build dependencies and conflicts (since dpkg 1.18.2).
+These are the distribution specific implicit build dependencies usually
+required in a build environment, the so called Build-Essential package set.
 .TP
 .B \-nc
 Do not clean the source tree (implies \fB\-b\fP if nothing else has been

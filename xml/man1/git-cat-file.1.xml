@@ -146,6 +146,34 @@ stdin, and the SHA-1, type, and size of each object is printed on stdout.</simpa
 </varlistentry>
 <varlistentry>
 <term>
+--batch-all-objects
+</term>
+<listitem>
+<simpara>
+        Instead of reading a list of objects on stdin, perform the
+        requested batch operation on all objects in the repository and
+        any alternate object stores (not just reachable objects).
+        Requires <literal>--batch</literal> or <literal>--batch-check</literal> be specified. Note that
+        the objects are visited in order sorted by their hashes.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--buffer
+</term>
+<listitem>
+<simpara>
+        Normally batch output is flushed after each object is output, so
+        that a process can interactively read and write from
+        <literal>cat-file</literal>. With this option, the output uses normal stdio
+        buffering; this is much more efficient when invoking
+        <literal>--batch-check</literal> on a large number of objects.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 --allow-unknown-type
 </term>
 <listitem>

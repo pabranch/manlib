@@ -178,7 +178,7 @@ key-loading - loading public and/or private EVP_PKEY keys</screen>
       </para>
       <para>
 	However, a structural reference provides no guarantee that the
-	ENGINE is initiliased and able to use any of its cryptographic
+	ENGINE is initialised and able to use any of its cryptographic
 	implementations. Indeed it's quite possible that most ENGINEs will
 	not initialise at all in typical environments, as ENGINEs are
 	typically used to support specialised hardware. To use an ENGINE's
@@ -188,8 +188,8 @@ key-loading - loading public and/or private EVP_PKEY keys</screen>
 	reference as well - however to avoid difficult-to-find programming
 	bugs, it is recommended to treat the two kinds of reference
 	independently. If you have a functional reference to an ENGINE, you
-	have a guarantee that the ENGINE has been initialised ready to
-	perform cryptographic operations and will remain uninitialised
+	have a guarantee that the ENGINE has been initialised and is ready
+	to perform cryptographic operations, and will remain initialised
 	until after you have released your reference.
       </para>
       <para>
@@ -391,7 +391,7 @@ void ENGINE_load_builtin_engines(void);</screen>
 	admin to want to use the "ACME" ENGINE if it is available in the
 	version of OpenSSL the application was compiled with. If it is
 	available, it should be used by default for all RSA, DSA, and
-	symmetric cipher operation, otherwise OpenSSL should use its
+	symmetric cipher operations, otherwise OpenSSL should use its
 	builtin software as per usual. The following code illustrates how
 	to approach this;
       </para>
@@ -425,7 +425,7 @@ ENGINE_free(e);</screen>
 	Here we'll assume we want to load and register all ENGINE
 	implementations bundled with OpenSSL, such that for any
 	cryptographic algorithm required by OpenSSL - if there is an ENGINE
-	that implements it and can be initialise, it should be used. The
+	that implements it and can be initialised, it should be used. The
 	following code illustrates how this can work;
       </para>
       <screen>/* Load all bundled ENGINEs into memory and make them visible */

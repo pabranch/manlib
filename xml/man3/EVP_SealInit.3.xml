@@ -27,8 +27,8 @@ int EVP_SealFinal(EVP_CIPHER_CTX *ctx, unsigned char *out,
     <para>
       EVP_SealInit() initializes a cipher context <emphasis role="bold">ctx</emphasis> for encryption with cipher <emphasis role="bold">type</emphasis> using a random secret key and IV.
       <emphasis role="bold">type</emphasis> is normally supplied by a
-      function such as EVP_des_cbc(). The secret key is encrypted using one
-      or more public keys, this allows the same encrypted data to be
+      function such as EVP_aes_256_cbc(). The secret key is encrypted using
+      one or more public keys, this allows the same encrypted data to be
       decrypted using any of the corresponding private keys. <emphasis role="bold">ek</emphasis> is an array of buffers where the public key
       encrypted secret key will be written, each buffer must contain enough
       room for the corresponding encrypted key: that is <emphasis role="bold">ek[i]</emphasis> must have room for <emphasis role="bold">EVP_PKEY_size(pubk[i])</emphasis> bytes. The actual size

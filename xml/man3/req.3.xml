@@ -31,7 +31,6 @@
 [<emphasis role="bold">-keygen_engine id</emphasis>]
 [<emphasis role="bold">-[digest]</emphasis>]
 [<emphasis role="bold">-config filename</emphasis>]
-[<emphasis role="bold">-subj arg</emphasis>]
 [<emphasis role="bold">-multivalue-rdn</emphasis>]
 [<emphasis role="bold">-x509</emphasis>]
 [<emphasis role="bold">-days n</emphasis>]
@@ -794,16 +793,16 @@ fieldName_max= 4</screen>
     <para>
       Create a private key and then generate a certificate request from it:
     </para>
-    <screen>openssl genrsa -out key.pem 1024
+    <screen>openssl genrsa -out key.pem 2048
 openssl req -new -key key.pem -out req.pem</screen>
     <para>
       The same but just using req:
     </para>
-    <screen>openssl req -newkey rsa:1024 -keyout key.pem -out req.pem</screen>
+    <screen>openssl req -newkey rsa:2048 -keyout key.pem -out req.pem</screen>
     <para>
       Generate a self signed root certificate:
     </para>
-    <screen>openssl req -x509 -newkey rsa:1024 -keyout key.pem -out req.pem</screen>
+    <screen>openssl req -x509 -newkey rsa:2048 -keyout key.pem -out req.pem</screen>
     <para>
       Example of a file pointed to by the <emphasis role="bold">oid_file</emphasis> option:
     </para>
@@ -818,7 +817,7 @@ testoid2=${testoid1}.6</screen>
       Sample configuration file prompting for field values:
     </para>
     <screen>[ req ]
-default_bits           = 1024
+default_bits           = 2048
 default_keyfile        = privkey.pem
 distinguished_name     = req_distinguished_name
 attributes             = req_attributes
@@ -860,7 +859,7 @@ basicConstraints = CA:true</screen>
 RANDFILE               = $ENV::HOME/.rnd
 
 [ req ]
-default_bits           = 1024
+default_bits           = 2048
 default_keyfile        = keyfile.pem
 distinguished_name     = req_distinguished_name
 attributes             = req_attributes

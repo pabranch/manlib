@@ -3443,6 +3443,37 @@ filter.&lt;driver&gt;.smudge
 </varlistentry>
 <varlistentry>
 <term>
+fsck.&lt;msg-id&gt;
+</term>
+<listitem>
+<simpara>
+        Allows overriding the message type (error, warn or ignore) of a
+        specific message ID such as <literal>missingEmail</literal>.
+</simpara>
+<simpara>For convenience, fsck prefixes the error/warning with the message ID,
+e.g.  "missingEmail: invalid author/committer line - missing email" means
+that setting <literal>fsck.missingEmail = ignore</literal> will hide that issue.</simpara>
+<simpara>This feature is intended to support working with legacy repositories
+which cannot be repaired without disruptive changes.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+fsck.skipList
+</term>
+<listitem>
+<simpara>
+        The path to a sorted list of object names (i.e. one SHA-1 per
+        line) that are known to be broken in a non-fatal way and should
+        be ignored. This feature is useful when an established project
+        should be accepted despite early commits containing errors that
+        can be safely ignored such as invalid committer email addresses.
+        Note: corrupt objects cannot be skipped with this setting.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 gc.aggressiveDepth
 </term>
 <listitem>
@@ -5616,6 +5647,32 @@ rebase.autoStash
 </varlistentry>
 <varlistentry>
 <term>
+rebase.missingCommitsCheck
+</term>
+<listitem>
+<simpara>
+        If set to "warn", git rebase -i will print a warning if some
+        commits are removed (e.g. a line was deleted), however the
+        rebase will still proceed. If set to "error", it will print
+        the previous warning and stop the rebase, <emphasis>git rebase
+        --edit-todo</emphasis> can then be used to correct the error. If set to
+        "ignore", no checking is done.
+        To drop a commit without warning or error, use the <literal>drop</literal>
+        command in the todo-list.
+        Defaults to "ignore".
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+<simpara>rebase.instructionFormat
+        A format string, as specified in <citerefentry>
+<refentrytitle>git-log</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>, to be used for
+        the instruction list during an interactive rebase.  The format will automatically
+        have the long commit hash prepended to the format.</simpara>
+<variablelist>
+<varlistentry>
+<term>
 receive.advertiseAtomic
 </term>
 <listitem>
@@ -5682,6 +5739,41 @@ receive.fsckObjects
         broken link. The result of an abort are only dangling objects.
         Defaults to false. If not set, the value of <literal>transfer.fsckObjects</literal>
         is used instead.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+receive.fsck.&lt;msg-id&gt;
+</term>
+<listitem>
+<simpara>
+        When <literal>receive.fsckObjects</literal> is set to true, errors can be switched
+        to warnings and vice versa by configuring the <literal>receive.fsck.&lt;msg-id&gt;</literal>
+        setting where the <literal>&lt;msg-id&gt;</literal> is the fsck message ID and the value
+        is one of <literal>error</literal>, <literal>warn</literal> or <literal>ignore</literal>. For convenience, fsck prefixes
+        the error/warning with the message ID, e.g. "missingEmail: invalid
+        author/committer line - missing email" means that setting
+        <literal>receive.fsck.missingEmail = ignore</literal> will hide that issue.
+</simpara>
+<simpara>This feature is intended to support working with legacy repositories
+which would not pass pushing when <literal>receive.fsckObjects = true</literal>, allowing
+the host to accept repositories with certain known issues but still catch
+other issues.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+receive.fsck.skipList
+</term>
+<listitem>
+<simpara>
+        The path to a sorted list of object names (i.e. one SHA-1 per
+        line) that are known to be broken in a non-fatal way and should
+        be ignored. This feature is useful when an established project
+        should be accepted despite early commits containing errors that
+        can be safely ignored such as invalid committer email addresses.
+        Note: corrupt objects cannot be skipped with this setting.
 </simpara>
 </listitem>
 </varlistentry>

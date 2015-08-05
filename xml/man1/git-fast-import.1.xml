@@ -84,7 +84,7 @@ the frontend program in use.</simpara>
 </term>
 <listitem>
 <simpara>
-        Write responses to <literal>cat-blob</literal> and <literal>ls</literal> queries to the
+        Write responses to <literal>get-mark</literal>, <literal>cat-blob</literal>, and <literal>ls</literal> queries to the
         file descriptor &lt;fd&gt; instead of <literal>stdout</literal>.  Allows <literal>progress</literal>
         output intended for the end-user to be separated from other
         output.
@@ -512,6 +512,18 @@ and control the current import process.  More detailed discussion
         Marks the end of the stream. This command is optional
         unless the <literal>done</literal> feature was requested using the
         <literal>--done</literal> command-line option or <literal>feature done</literal> command.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<literal>get-mark</literal>
+</term>
+<listitem>
+<simpara>
+        Causes fast-import to print the SHA-1 corresponding to a mark
+        to the file descriptor set with <literal>--cat-blob-fd</literal>, or <literal>stdout</literal> if
+        unspecified.
 </simpara>
 </listitem>
 </varlistentry>
@@ -1116,6 +1128,20 @@ remove the leading part of the line, for example:</simpara>
 inform the reader when the <literal>checkpoint</literal> has been completed and it
 can safely access the refs that fast-import updated.</simpara>
 </refsect2>
+<refsect2 id="_literal_get_mark_literal">
+<title><literal>get-mark</literal></title>
+<simpara>Causes fast-import to print the SHA-1 corresponding to a mark to
+stdout or to the file descriptor previously arranged with the
+<literal>--cat-blob-fd</literal> argument. The command otherwise has no impact on the
+current import; its purpose is to retrieve SHA-1s that later commits
+might want to refer to in their commit messages.</simpara>
+<literallayout class="monospaced">        'get-mark' SP ':' &lt;idnum&gt; LF</literallayout>
+<simpara>This command can be used anywhere in the stream that comments are
+accepted.  In particular, the <literal>get-mark</literal> command can be used in the
+middle of a commit but not in the middle of a <literal>data</literal> command.</simpara>
+<simpara>See &#8220;Responses To Commands&#8221; below for details about how to read
+this output safely.</simpara>
+</refsect2>
 <refsect2 id="_literal_cat_blob_literal">
 <title><literal>cat-blob</literal></title>
 <simpara>Causes fast-import to print a blob to a file descriptor previously
@@ -1183,7 +1209,8 @@ Reading from a named tree
 <literallayout class="monospaced">&lt;mode&gt; SP ('blob' | 'tree' | 'commit') SP &lt;dataref&gt; HT &lt;path&gt; LF</literallayout>
 </informalexample>
 <simpara>The &lt;dataref&gt; represents the blob, tree, or commit object at &lt;path&gt;
-and can be used in later <emphasis>cat-blob</emphasis>, <emphasis>filemodify</emphasis>, or <emphasis>ls</emphasis> commands.</simpara>
+and can be used in later <emphasis>get-mark</emphasis>, <emphasis>cat-blob</emphasis>, <emphasis>filemodify</emphasis>, or
+<emphasis>ls</emphasis> commands.</simpara>
 <simpara>If there is no file or subtree at that path, <emphasis>git fast-import</emphasis> will
 instead report</simpara>
 <informalexample>
@@ -1244,6 +1271,9 @@ import-marks-if-exists
 </varlistentry>
 <varlistentry>
 <term>
+get-mark
+</term>
+<term>
 cat-blob
 </term>
 <term>
@@ -1251,7 +1281,8 @@ ls
 </term>
 <listitem>
 <simpara>
-        Require that the backend support the <emphasis>cat-blob</emphasis> or <emphasis>ls</emphasis> command.
+        Require that the backend support the <emphasis>get-mark</emphasis>, <emphasis>cat-blob</emphasis>,
+        or <emphasis>ls</emphasis> command respectively.
         Versions of fast-import not supporting the specified command
         will exit with a message indicating so.
         This lets the import error out early with a clear message,
@@ -1361,10 +1392,10 @@ bidirectional pipes:</simpara>
 frontend &lt;fast-import-output |
 git fast-import &gt;fast-import-output</literallayout>
 </informalexample>
-<simpara>A frontend set up this way can use <literal>progress</literal>, <literal>ls</literal>, and <literal>cat-blob</literal>
-commands to read information from the import in progress.</simpara>
+<simpara>A frontend set up this way can use <literal>progress</literal>, <literal>get-mark</literal>, <literal>ls</literal>, and
+<literal>cat-blob</literal> commands to read information from the import in progress.</simpara>
 <simpara>To avoid deadlock, such frontends must completely consume any
-pending output from <literal>progress</literal>, <literal>ls</literal>, and <literal>cat-blob</literal> before
+pending output from <literal>progress</literal>, <literal>ls</literal>, <literal>get-mark</literal>, and <literal>cat-blob</literal> before
 performing writes to fast-import that might block.</simpara>
 </refsect1>
 <refsect1 id="_crash_reports">

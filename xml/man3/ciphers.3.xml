@@ -589,7 +589,25 @@
           <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:PSK"/><emphasis role="bold">PSK</emphasis></term>
           <listitem>
             <para>
-	      cipher suites using pre-shared keys (PSK).
+	      all cipher suites using pre-shared keys (PSK).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:kPSK_kECDHEPSK_kDHEPSK_kRSAPSK"/><emphasis role="bold">kPSK</emphasis>, <emphasis role="bold">kECDHEPSK</emphasis>, <emphasis role="bold">kDHEPSK</emphasis>, <emphasis role="bold">kRSAPSK</emphasis></term>
+          <listitem>
+            <para>
+	      cipher suites using PSK key exchange, ECDHE_PSK, DHE_PSK or
+	      RSA_PSK.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:aPSK"/><emphasis role="bold">aPSK</emphasis></term>
+          <listitem>
+            <para>
+	      cipher suites using PSK authentication (currently all PSK
+	      modes apart from RSA_PSK).
             </para>
           </listitem>
         </varlistentry>
@@ -847,10 +865,68 @@ TLS_ECDH_RSA_WITH_CAMELLIA_128_CBC_SHA256    ECDH-RSA-CAMELLIA128-SHA256
 TLS_ECDH_RSA_WITH_CAMELLIA_256_CBC_SHA384    ECDH-RSA-CAMELLIA256-SHA384</screen>
     </refsection>
     <refsection xml:id="sources.openssl.doc.apps.ciphers.pod:Pre_shared_keying_PSK_ciphersuites"><title>Pre shared keying (PSK) ciphersuites</title>
-      <screen>TLS_PSK_WITH_RC4_128_SHA                  PSK-RC4-SHA
-TLS_PSK_WITH_3DES_EDE_CBC_SHA             PSK-3DES-EDE-CBC-SHA
-TLS_PSK_WITH_AES_128_CBC_SHA              PSK-AES128-CBC-SHA
-TLS_PSK_WITH_AES_256_CBC_SHA              PSK-AES256-CBC-SHA</screen>
+      <screen>PSK_WITH_NULL_SHA                         PSK-NULL-SHA
+DHE_PSK_WITH_NULL_SHA                     DHE-PSK-NULL-SHA
+RSA_PSK_WITH_NULL_SHA                     RSA-PSK-NULL-SHA
+
+PSK_WITH_RC4_128_SHA                      PSK-RC4-SHA
+PSK_WITH_3DES_EDE_CBC_SHA                 PSK-3DES-EDE-CBC-SHA
+PSK_WITH_AES_128_CBC_SHA                  PSK-AES128-CBC-SHA
+PSK_WITH_AES_256_CBC_SHA                  PSK-AES256-CBC-SHA
+
+DHE_PSK_WITH_RC4_128_SHA                  DHE-PSK-RC4-SHA
+DHE_PSK_WITH_3DES_EDE_CBC_SHA             DHE-PSK-3DES-EDE-CBC-SHA
+DHE_PSK_WITH_AES_128_CBC_SHA              DHE-PSK-AES128-CBC-SHA
+DHE_PSK_WITH_AES_256_CBC_SHA              DHE-PSK-AES256-CBC-SHA
+
+RSA_PSK_WITH_RC4_128_SHA                  RSA-PSK-RC4-SHA
+RSA_PSK_WITH_3DES_EDE_CBC_SHA             RSA-PSK-3DES-EDE-CBC-SHA
+RSA_PSK_WITH_AES_128_CBC_SHA              RSA-PSK-AES128-CBC-SHA
+RSA_PSK_WITH_AES_256_CBC_SHA              RSA-PSK-AES256-CBC-SHA
+
+PSK_WITH_AES_128_GCM_SHA256               PSK-AES128-GCM-SHA256
+PSK_WITH_AES_256_GCM_SHA384               PSK-AES256-GCM-SHA384
+DHE_PSK_WITH_AES_128_GCM_SHA256           DHE-PSK-AES128-GCM-SHA256
+DHE_PSK_WITH_AES_256_GCM_SHA384           DHE-PSK-AES256-GCM-SHA384
+RSA_PSK_WITH_AES_128_GCM_SHA256           RSA-PSK-AES128-GCM-SHA256
+RSA_PSK_WITH_AES_256_GCM_SHA384           RSA-PSK-AES256-GCM-SHA384
+
+PSK_WITH_AES_128_CBC_SHA256               PSK-AES128-CBC-SHA256
+PSK_WITH_AES_256_CBC_SHA384               PSK-AES256-CBC-SHA384
+PSK_WITH_NULL_SHA256                      PSK-NULL-SHA256
+PSK_WITH_NULL_SHA384                      PSK-NULL-SHA384
+DHE_PSK_WITH_AES_128_CBC_SHA256           DHE-PSK-AES128-CBC-SHA256
+DHE_PSK_WITH_AES_256_CBC_SHA384           DHE-PSK-AES256-CBC-SHA384
+DHE_PSK_WITH_NULL_SHA256                  DHE-PSK-NULL-SHA256
+DHE_PSK_WITH_NULL_SHA384                  DHE-PSK-NULL-SHA384
+RSA_PSK_WITH_AES_128_CBC_SHA256           RSA-PSK-AES128-CBC-SHA256
+RSA_PSK_WITH_AES_256_CBC_SHA384           RSA-PSK-AES256-CBC-SHA384
+RSA_PSK_WITH_NULL_SHA256                  RSA-PSK-NULL-SHA256
+RSA_PSK_WITH_NULL_SHA384                  RSA-PSK-NULL-SHA384
+PSK_WITH_AES_128_GCM_SHA256               PSK-AES128-GCM-SHA256
+PSK_WITH_AES_256_GCM_SHA384               PSK-AES256-GCM-SHA384
+
+ECDHE_PSK_WITH_RC4_128_SHA                ECDHE-PSK-RC4-SHA
+ECDHE_PSK_WITH_3DES_EDE_CBC_SHA           ECDHE-PSK-3DES-EDE-CBC-SHA
+ECDHE_PSK_WITH_AES_128_CBC_SHA            ECDHE-PSK-AES128-CBC-SHA
+ECDHE_PSK_WITH_AES_256_CBC_SHA            ECDHE-PSK-AES256-CBC-SHA
+ECDHE_PSK_WITH_AES_128_CBC_SHA256         ECDHE-PSK-AES128-CBC-SHA256
+ECDHE_PSK_WITH_AES_256_CBC_SHA384         ECDHE-PSK-AES256-CBC-SHA384
+ECDHE_PSK_WITH_NULL_SHA                   ECDHE-PSK-NULL-SHA
+ECDHE_PSK_WITH_NULL_SHA256                ECDHE-PSK-NULL-SHA256
+ECDHE_PSK_WITH_NULL_SHA384                ECDHE-PSK-NULL-SHA384
+
+PSK_WITH_CAMELLIA_128_CBC_SHA256          PSK-CAMELLIA128-SHA256
+PSK_WITH_CAMELLIA_256_CBC_SHA384          PSK-CAMELLIA256-SHA384
+
+DHE_PSK_WITH_CAMELLIA_128_CBC_SHA256      DHE-PSK-CAMELLIA128-SHA256
+DHE_PSK_WITH_CAMELLIA_256_CBC_SHA384      DHE-PSK-CAMELLIA256-SHA384
+
+RSA_PSK_WITH_CAMELLIA_128_CBC_SHA256      RSA-PSK-CAMELLIA128-SHA256
+RSA_PSK_WITH_CAMELLIA_256_CBC_SHA384      RSA-PSK-CAMELLIA256-SHA384
+
+ECDHE_PSK_WITH_CAMELLIA_128_CBC_SHA256    ECDHE-PSK-CAMELLIA128-SHA256
+ECDHE_PSK_WITH_CAMELLIA_256_CBC_SHA384    ECDHE-PSK-CAMELLIA256-SHA384</screen>
     </refsection>
   </refsection>
   <refsection xml:id="sources.openssl.doc.apps.ciphers.pod:NOTES"><title>NOTES</title>
