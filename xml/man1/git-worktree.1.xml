@@ -11,7 +11,7 @@
 </refmeta>
 <refnamediv>
   <refname>git-worktree</refname>
-  <refpurpose>Manage multiple worktrees</refpurpose>
+  <refpurpose>Manage multiple working trees</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
 <literallayout><emphasis>git worktree add</emphasis> [-f] [--detach] [-b &lt;new-branch&gt;] &lt;path&gt; [&lt;branch&gt;]
@@ -20,7 +20,7 @@
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
-<simpara>Manage multiple worktrees attached to the same repository.</simpara>
+<simpara>Manage multiple working trees attached to the same repository.</simpara>
 <simpara>A git repository can support multiple working trees, allowing you to check
 out more than one branch at a time.  With <literal>git worktree add</literal> a new working
 tree is associated with the repository.  This new working tree is called a
@@ -30,19 +30,19 @@ bare repository) and zero or more linked working trees.</simpara>
 <simpara>When you are done with a linked working tree you can simply delete it.
 The working tree&#8217;s administrative files in the repository (see
 "DETAILS" below) will eventually be removed automatically (see
-<literal>gc.pruneworktreesexpire</literal> in <citerefentry>
-<refentrytitle>:git-config</refentrytitle><manvolnum>1</manvolnum>
+<literal>gc.worktreePruneExpire</literal> in <citerefentry>
+<refentrytitle>git-config</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry>), or you can run
 <literal>git worktree prune</literal> in the main or any linked working tree to
 clean up any stale administrative files.</simpara>
-<simpara>If you move a linked working directory to another file system, or
+<simpara>If you move a linked working tree to another file system, or
 within a file system that does not support hard links, you need to run
-at least one git command inside the linked working directory
+at least one git command inside the linked working tree
 (e.g. <literal>git status</literal>) in order to update its administrative files in the
 repository so that they do not get automatically pruned.</simpara>
 <simpara>If a linked working tree is stored on a portable device or network share
 which is not always mounted, you can prevent its administrative files from
-being pruned by creating a file named <emphasis>lock</emphasis> alongside the other
+being pruned by creating a file named <emphasis>locked</emphasis> alongside the other
 administrative files, optionally containing a plain text reason that
 pruning should be suppressed. See section "DETAILS" for more information.</simpara>
 </refsect1>
@@ -59,9 +59,9 @@ Create <literal>&lt;path&gt;</literal> and checkout <literal>&lt;branch&gt;</lit
 is linked to the current repository, sharing everything except working
 directory specific files such as HEAD, index, etc.
 </simpara>
-<simpara>If <literal>&lt;branch&gt;</literal> is omitted and neither <literal>-b</literal> nor <literal>-B</literal> is used, then, as a
-convenience, a new branch based at HEAD is created automatically, as if
-<literal>-b $(basename &lt;path&gt;)</literal> was specified.</simpara>
+<simpara>If <literal>&lt;branch&gt;</literal> is omitted and neither <literal>-b</literal> nor <literal>-B</literal> nor <literal>--detached</literal> used,
+then, as a convenience, a new branch based at HEAD is created automatically,
+as if <literal>-b $(basename &lt;path&gt;)</literal> was specified.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -88,8 +88,8 @@ Prune working tree information in $GIT_DIR/worktrees.
 </term>
 <listitem>
 <simpara>
-        By default, <literal>add</literal> refuses to create a new worktree when <literal>&lt;branch&gt;</literal>
-        is already checked out by another worktree. This option overrides
+        By default, <literal>add</literal> refuses to create a new working tree when <literal>&lt;branch&gt;</literal>
+        is already checked out by another working tree. This option overrides
         that safeguard.
 </simpara>
 </listitem>
@@ -104,7 +104,7 @@ Prune working tree information in $GIT_DIR/worktrees.
 <listitem>
 <simpara>
         With <literal>add</literal>, create a new branch named <literal>&lt;new-branch&gt;</literal> starting at
-        <literal>&lt;branch&gt;</literal>, and check out <literal>&lt;new-branch&gt;</literal> into the new worktree.
+        <literal>&lt;branch&gt;</literal>, and check out <literal>&lt;new-branch&gt;</literal> into the new working tree.
         If <literal>&lt;branch&gt;</literal> is omitted, it defaults to HEAD.
         By default, <literal>-b</literal> refuses to create a new branch if it already
         exists. <literal>-B</literal> overrides this safeguard, resetting <literal>&lt;new-branch&gt;</literal> to
@@ -118,8 +118,8 @@ Prune working tree information in $GIT_DIR/worktrees.
 </term>
 <listitem>
 <simpara>
-        With <literal>add</literal>, detach HEAD in the new worktree. See "DETACHED HEAD" in
-        <citerefentry>
+        With <literal>add</literal>, detach HEAD in the new working tree. See "DETACHED HEAD"
+        in <citerefentry>
 <refentrytitle>git-checkout</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry>.
 </simpara>
@@ -158,7 +158,7 @@ Prune working tree information in $GIT_DIR/worktrees.
 </term>
 <listitem>
 <simpara>
-        With <literal>prune</literal>, only expire unused worktrees older than &lt;time&gt;.
+        With <literal>prune</literal>, only expire unused working trees older than &lt;time&gt;.
 </simpara>
 </listitem>
 </varlistentry>
@@ -193,7 +193,7 @@ since refs are shared across all working trees.</simpara>
 thumb is do not make any assumption about whether a path belongs to
 $GIT_DIR or $GIT_COMMON_DIR when you need to directly access something
 inside $GIT_DIR. Use <literal>git rev-parse --git-path</literal> to get the final path.</simpara>
-<simpara>To prevent a $GIT_DIR/worktrees entry from from being pruned (which
+<simpara>To prevent a $GIT_DIR/worktrees entry from being pruned (which
 can be useful in some situations, such as when the
 entry&#8217;s working tree is stored on a portable device), add a file named
 <emphasis>locked</emphasis> to the entry&#8217;s directory. The file contains the reason in
@@ -212,9 +212,9 @@ demands that you fix something immediately. You might typically use
 <citerefentry>
 <refentrytitle>git-stash</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry> to store your changes away temporarily, however, your
-worktree is in such a state of disarray (with new, moved, and removed files,
-and other bits and pieces strewn around) that you don&#8217;t want to risk
-disturbing any of it. Instead, you create a temporary linked worktree to
+working tree is in such a state of disarray (with new, moved, and removed
+files, and other bits and pieces strewn around) that you don&#8217;t want to risk
+disturbing any of it. Instead, you create a temporary linked working tree to
 make the emergency fix, remove it when done, and then resume your earlier
 refactoring session.</simpara>
 <literallayout class="monospaced">$ git worktree add -b emergency-fix ../temp master
@@ -235,24 +235,24 @@ performed manually, such as:</simpara>
 <itemizedlist>
 <listitem>
 <simpara>
-<literal>remove</literal> to remove a linked worktree and its administrative files (and
-  warn if the worktree is dirty)
+<literal>remove</literal> to remove a linked working tree and its administrative files (and
+  warn if the working tree is dirty)
 </simpara>
 </listitem>
 <listitem>
 <simpara>
-<literal>mv</literal> to move or rename a worktree and update its administrative files
+<literal>mv</literal> to move or rename a working tree and update its administrative files
 </simpara>
 </listitem>
 <listitem>
 <simpara>
-<literal>list</literal> to list linked worktrees
+<literal>list</literal> to list linked working trees
 </simpara>
 </listitem>
 <listitem>
 <simpara>
 <literal>lock</literal> to prevent automatic pruning of administrative files (for instance,
-  for a worktree on a portable device)
+  for a working tree on a portable device)
 </simpara>
 </listitem>
 </itemizedlist>

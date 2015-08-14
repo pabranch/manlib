@@ -34,7 +34,7 @@
 .\" 2007-09-14 Ollie Wild <aaw@google.com>, mtk
 .\"     Add text describing limits on command-line arguments + environment
 .\"
-.TH EXECVE 2 2015-05-07 "Linux" "Linux Programmer's Manual"
+.TH EXECVE 2 2015-08-08 "Linux" "Linux Programmer's Manual"
 .SH NAME
 execve \- execute program
 .SH SYNOPSIS
@@ -106,12 +106,12 @@ binary executable containing
 shared-library stubs, the Linux dynamic linker
 .BR ld.so (8)
 is called at the start of execution to bring
-needed shared libraries into memory
+needed shared objects into memory
 and link the executable with them.
 
 If the executable is a dynamically linked ELF executable, the
 interpreter named in the PT_INTERP segment is used to load the needed
-shared libraries.
+shared objects.
 This interpreter is typically
 .I /lib/ld-linux.so.2
 for binaries linked with glibc.

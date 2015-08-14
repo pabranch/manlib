@@ -4,7 +4,7 @@
 .\" This file is distributed according to the GNU General Public License.
 .\" %%%LICENSE_END
 .\"
-.TH IO_GETEVENTS 2 2013-04-08 "Linux" "Linux Programmer's Manual"
+.TH IO_GETEVENTS 2 2015-08-08 "Linux" "Linux Programmer's Manual"
 .SH NAME
 io_getevents \- read asynchronous I/O events from the completion queue
 .SH SYNOPSIS
@@ -27,15 +27,40 @@ system call
 attempts to read at least \fImin_nr\fP events and
 up to \fInr\fP events from the completion queue of the AIO context
 specified by \fIctx_id\fP.
+
 The \fItimeout\fP argument specifies the amount of time to wait for events,
-where a NULL timeout waits until at least \fImin_nr\fP events
-have been seen.
-Note that \fItimeout\fP is relative.
+and is specified as a relative timeout in a structure of the following form:
+
+.in +4n
+.nf
+struct timespec {
+    time_t tv_sec;      /* seconds */
+    long   tv_nsec;     /* nanoseconds [0 .. 999999999] */
+};
+.fi
+.in
+
+The specified time will be rounded up to the system clock granularity
+and is guaranteed not to expire	early.
+
+Specifying
+.I timeout
+as NULL means block indefinitely until at least
+.I min_nr
+events have been obtained.
 .SH RETURN VALUE
 On success,
 .BR io_getevents ()
-returns the number of events read: 0 if no events are
-available, or less than \fImin_nr\fP if the \fItimeout\fP has elapsed.
+returns the number of events read.
+This may be 0, or a value less than
+.IR min_nr ,
+if the
+.I timeout
+expired.
+It may also be a nonzero value less than
+.IR min_nr ,
+if the call was interrupted by a signal handler.
+
 For the failure return, see NOTES.
 .SH ERRORS
 .TP

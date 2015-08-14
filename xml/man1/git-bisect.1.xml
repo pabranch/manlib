@@ -11,7 +11,7 @@
 </refmeta>
 <refnamediv>
   <refname>git-bisect</refname>
-  <refpurpose>Find by binary search the change that introduced a bug</refpurpose>
+  <refpurpose>Use binary search to find the commit that introduced a bug</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
 <literallayout><emphasis>git bisect</emphasis> &lt;subcommand&gt; &lt;options&gt;</literallayout>
@@ -21,8 +21,7 @@
 <title>DESCRIPTION</title>
 <simpara>The command takes various subcommands, and different options depending
 on the subcommand:</simpara>
-<literallayout class="monospaced">git bisect help
-git bisect start [--no-checkout] [&lt;bad&gt; [&lt;good&gt;...]] [--] [&lt;paths&gt;...]
+<literallayout class="monospaced">git bisect start [--no-checkout] [&lt;bad&gt; [&lt;good&gt;...]] [--] [&lt;paths&gt;...]
 git bisect bad [&lt;rev&gt;]
 git bisect good [&lt;rev&gt;...]
 git bisect skip [(&lt;rev&gt;|&lt;range&gt;)...]
@@ -30,43 +29,46 @@ git bisect reset [&lt;commit&gt;]
 git bisect visualize
 git bisect replay &lt;logfile&gt;
 git bisect log
-git bisect run &lt;cmd&gt;...</literallayout>
-<simpara>This command uses <emphasis>git rev-list --bisect</emphasis> to help drive the
-binary search process to find which change introduced a bug, given an
-old "good" commit object name and a later "bad" commit object name.</simpara>
-<refsect2 id="_getting_help">
-<title>Getting help</title>
-<simpara>Use "git bisect" to get a short usage description, and "git bisect
-help" or "git bisect -h" to get a long usage description.</simpara>
-</refsect2>
+git bisect run &lt;cmd&gt;...
+git bisect help</literallayout>
+<simpara>This command uses a binary search algorithm to find which commit in
+your project&#8217;s history introduced a bug. You use it by first telling
+it a "bad" commit that is known to contain the bug, and a "good"
+commit that is known to be before the bug was introduced. Then <literal>git
+bisect</literal> picks a commit between those two endpoints and asks you
+whether the selected commit is "good" or "bad". It continues narrowing
+down the range until it finds the exact commit that introduced the
+change.</simpara>
 <refsect2 id="_basic_bisect_commands_start_bad_good">
 <title>Basic bisect commands: start, bad, good</title>
-<simpara>Using the Linux kernel tree as an example, basic use of the bisect
-command is as follows:</simpara>
+<simpara>As an example, suppose you are trying to find the commit that broke a
+feature that was known to work in version <literal>v2.6.13-rc2</literal> of your
+project. You start a bisect session as follows:</simpara>
 <literallayout class="monospaced">$ git bisect start
 $ git bisect bad                 # Current version is bad
-$ git bisect good v2.6.13-rc2    # v2.6.13-rc2 was the last version
-                                 # tested that was good</literallayout><simpara></simpara>
-<simpara>When you have specified at least one bad and one good version, the
-command bisects the revision tree and outputs something similar to
-the following:</simpara>
-<literallayout class="monospaced">Bisecting: 675 revisions left to test after this</literallayout><simpara></simpara>
-<simpara>The state in the middle of the set of revisions is then checked out.
-You would now compile that kernel and boot it. If the booted kernel
-works correctly, you would then issue the following command:</simpara>
-<literallayout class="monospaced">$ git bisect good                       # this one is good</literallayout><simpara></simpara>
-<simpara>The output of this command would be something similar to the following:</simpara>
-<literallayout class="monospaced">Bisecting: 337 revisions left to test after this</literallayout><simpara></simpara>
-<simpara>You keep repeating this process, compiling the tree, testing it, and
-depending on whether it is good or bad issuing the command "git bisect good"
-or "git bisect bad" to ask for the next bisection.</simpara>
-<simpara>Eventually there will be no more revisions left to bisect, and you
-will have been left with the first bad kernel revision in "refs/bisect/bad".</simpara>
+$ git bisect good v2.6.13-rc2    # v2.6.13-rc2 is known to be good</literallayout><simpara></simpara>
+<simpara>Once you have specified at least one bad and one good commit, <literal>git
+bisect</literal> selects a commit in the middle of that range of history,
+checks it out, and outputs something similar to the following:</simpara>
+<literallayout class="monospaced">Bisecting: 675 revisions left to test after this (roughly 10 steps)</literallayout><simpara></simpara>
+<simpara>You should now compile the checked-out version and test it. If that
+version works correctly, type</simpara>
+<literallayout class="monospaced">$ git bisect good</literallayout><simpara></simpara>
+<simpara>If that version is broken, type</simpara>
+<literallayout class="monospaced">$ git bisect bad</literallayout><simpara></simpara>
+<simpara>Then <literal>git bisect</literal> will respond with something like</simpara>
+<literallayout class="monospaced">Bisecting: 337 revisions left to test after this (roughly 9 steps)</literallayout><simpara></simpara>
+<simpara>Keep repeating the process: compile the tree, test it, and depending
+on whether it is good or bad run <literal>git bisect good</literal> or <literal>git bisect bad</literal>
+to ask for the next commit that needs testing.</simpara>
+<simpara>Eventually there will be no more revisions left to inspect, and the
+command will print out a description of the first bad commit. The
+reference <literal>refs/bisect/bad</literal> will be left pointing at that commit.</simpara>
 </refsect2>
 <refsect2 id="_bisect_reset">
 <title>Bisect reset</title>
 <simpara>After a bisect session, to clean up the bisection state and return to
-the original HEAD (i.e., to quit bisecting), issue the following command:</simpara>
+the original HEAD, issue the following command:</simpara>
 <literallayout class="monospaced">$ git bisect reset</literallayout><simpara></simpara>
 <simpara>By default, this will return your tree to the commit that was checked
 out before <literal>git bisect start</literal>.  (A new <literal>git bisect start</literal> will also do
@@ -74,9 +76,9 @@ that, as it cleans up the old bisection state.)</simpara>
 <simpara>With an optional argument, you can return to a different commit
 instead:</simpara>
 <literallayout class="monospaced">$ git bisect reset &lt;commit&gt;</literallayout><simpara></simpara>
-<simpara>For example, <literal>git bisect reset HEAD</literal> will leave you on the current
-bisection commit and avoid switching commits at all, while <literal>git bisect
-reset bisect/bad</literal> will check out the first bad revision.</simpara>
+<simpara>For example, <literal>git bisect reset bisect/bad</literal> will check out the first
+bad revision, while <literal>git bisect reset HEAD</literal> will leave you on the
+current bisection commit and avoid switching commits at all.</simpara>
 </refsect2>
 <refsect2 id="_bisect_visualize">
 <title>Bisect visualize</title>
@@ -103,14 +105,14 @@ $ git bisect replay that-file</literallayout><simpara></simpara>
 </refsect2>
 <refsect2 id="_avoiding_testing_a_commit">
 <title>Avoiding testing a commit</title>
-<simpara>If, in the middle of a bisect session, you know that the next suggested
-revision is not a good one to test (e.g. the change the commit
-introduces is known not to work in your environment and you know it
-does not have anything to do with the bug you are chasing), you may
-want to find a nearby commit and try that instead.</simpara>
+<simpara>If, in the middle of a bisect session, you know that the suggested
+revision is not a good one to test (e.g. it fails to build and you
+know that the failure does not have anything to do with the bug you
+are chasing), you can manually select a nearby commit and test that
+one instead.</simpara>
 <simpara>For example:</simpara>
 <literallayout class="monospaced">$ git bisect good/bad                   # previous round was good or bad.
-Bisecting: 337 revisions left to test after this
+Bisecting: 337 revisions left to test after this (roughly 9 steps)
 $ git bisect visualize                  # oops, that is uninteresting.
 $ git reset --hard HEAD~3               # try 3 revisions before what
                                         # was suggested</literallayout><simpara></simpara>
@@ -119,21 +121,22 @@ the revision as good or bad in the usual manner.</simpara>
 </refsect2>
 <refsect2 id="_bisect_skip">
 <title>Bisect skip</title>
-<simpara>Instead of choosing by yourself a nearby commit, you can ask Git
-to do it for you by issuing the command:</simpara>
+<simpara>Instead of choosing a nearby commit by yourself, you can ask Git to do
+it for you by issuing the command:</simpara>
 <literallayout class="monospaced">$ git bisect skip                 # Current version cannot be tested</literallayout><simpara></simpara>
-<simpara>But Git may eventually be unable to tell the first bad commit among
-a bad commit and one or more skipped commits.</simpara>
-<simpara>You can even skip a range of commits, instead of just one commit,
-using the "<emphasis>&lt;commit1&gt;</emphasis>..<emphasis>&lt;commit2&gt;</emphasis>" notation. For example:</simpara>
+<simpara>However, if you skip a commit adjacent to the one you are looking for,
+Git will be unable to tell exactly which of those commits was the
+first bad one.</simpara>
+<simpara>You can also skip a range of commits, instead of just one commit,
+using range notation. For example:</simpara>
 <literallayout class="monospaced">$ git bisect skip v2.5..v2.6</literallayout><simpara></simpara>
 <simpara>This tells the bisect process that no commit after <literal>v2.5</literal>, up to and
 including <literal>v2.6</literal>, should be tested.</simpara>
 <simpara>Note that if you also want to skip the first commit of the range you
 would issue the command:</simpara>
 <literallayout class="monospaced">$ git bisect skip v2.5 v2.5..v2.6</literallayout><simpara></simpara>
-<simpara>This tells the bisect process that the commits between <literal>v2.5</literal> included
-and <literal>v2.6</literal> included should be skipped.</simpara>
+<simpara>This tells the bisect process that the commits between <literal>v2.5</literal> and
+<literal>v2.6</literal> (inclusive) should be skipped.</simpara>
 </refsect2>
 <refsect2 id="_cutting_down_bisection_by_giving_more_parameters_to_bisect_start">
 <title>Cutting down bisection by giving more parameters to bisect start</title>
@@ -153,13 +156,13 @@ the bad commit when issuing the <literal>bisect start</literal> command:</simpar
 <simpara>If you have a script that can tell if the current source code is good
 or bad, you can bisect by issuing the command:</simpara>
 <literallayout class="monospaced">$ git bisect run my_script arguments</literallayout><simpara></simpara>
-<simpara>Note that the script (<literal>my_script</literal> in the above example) should
-exit with code 0 if the current source code is good, and exit with a
-code between 1 and 127 (inclusive), except 125, if the current
-source code is bad.</simpara>
+<simpara>Note that the script (<literal>my_script</literal> in the above example) should exit
+with code 0 if the current source code is good/old, and exit with a
+code between 1 and 127 (inclusive), except 125, if the current source
+code is bad/new.</simpara>
 <simpara>Any other exit code will abort the bisect process. It should be noted
-that a program that terminates via "exit(-1)" leaves $? = 255, (see the
-exit(3) manual page), as the value is chopped with "&amp; 0377".</simpara>
+that a program that terminates via <literal>exit(-1)</literal> leaves $? = 255, (see the
+exit(3) manual page), as the value is chopped with <literal>&amp; 0377</literal>.</simpara>
 <simpara>The special exit code 125 should be used when the current source code
 cannot be tested. If the script exits with this code, the current
 revision will be skipped (see <literal>git bisect skip</literal> above). 125 was chosen
@@ -167,7 +170,7 @@ as the highest sensible value to use for this purpose, because 126 and 127
 are used by POSIX shells to signal specific error status (127 is for
 command not found, 126 is for command found but not executable---these
 details do not matter, as they are normal errors in the script, as far as
-"bisect run" is concerned).</simpara>
+<literal>bisect run</literal> is concerned).</simpara>
 <simpara>You may often find that during a bisect session you want to have
 temporary modifications (e.g. s/#define DEBUG 0/#define DEBUG 1/ in a
 header file, or "revision that does not have this commit needs this
@@ -178,7 +181,7 @@ next revision to test, the script can apply the patch
 before compiling, run the real test, and afterwards decide if the
 revision (possibly with the needed patch) passed the test and then
 rewind the tree to the pristine state.  Finally the script should exit
-with the status of the real test to let the "git bisect run" command loop
+with the status of the real test to let the <literal>git bisect run</literal> command loop
 determine the eventual outcome of the bisect session.</simpara>
 </refsect2>
 </refsect1>
@@ -230,11 +233,11 @@ make || exit 125                     # this skips broken builds
 $ git bisect start HEAD HEAD~10 --   # culprit is among the last 10
 $ git bisect run ~/test.sh
 $ git bisect reset                   # quit the bisect session</literallayout><simpara></simpara>
-<simpara>Here we use a "test.sh" custom script. In this script, if "make"
+<simpara>Here we use a <literal>test.sh</literal> custom script. In this script, if <literal>make</literal>
 fails, we skip the current commit.
-"check_test_case.sh" should "exit 0" if the test case passes,
-and "exit 1" otherwise.</simpara>
-<simpara>It is safer if both "test.sh" and "check_test_case.sh" are
+<literal>check_test_case.sh</literal> should <literal>exit 0</literal> if the test case passes,
+and <literal>exit 1</literal> otherwise.</simpara>
+<simpara>It is safer if both <literal>test.sh</literal> and <literal>check_test_case.sh</literal> are
 outside the repository to prevent interactions between the bisect,
 make and test processes and the scripts.</simpara>
 </listitem>
@@ -299,6 +302,11 @@ has at least one parent whose reachable graph is fully traversable in the sense
 required by <emphasis>git pack objects</emphasis>.</simpara>
 </listitem>
 </itemizedlist>
+<refsect2 id="_getting_help">
+<title>Getting help</title>
+<simpara>Use <literal>git bisect</literal> to get a short usage description, and <literal>git bisect
+help</literal> or <literal>git bisect -h</literal> to get a long usage description.</simpara>
+</refsect2>
 </refsect1>
 <refsect1 id="_see_also">
 <title>SEE ALSO</title>

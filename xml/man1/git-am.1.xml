@@ -15,7 +15,7 @@
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
 <literallayout><emphasis>git am</emphasis> [--signoff] [--keep] [--[no-]keep-cr] [--[no-]utf8]
-         [--3way] [--interactive] [--committer-date-is-author-date]
+         [--[no-]3way] [--interactive] [--committer-date-is-author-date]
          [--ignore-date] [--ignore-space-change | --ignore-whitespace]
          [--whitespace=&lt;option&gt;] [-C&lt;n&gt;] [-p&lt;n&gt;] [--directory=&lt;dir&gt;]
          [--exclude=&lt;path&gt;] [--include=&lt;path&gt;] [--reject] [-q | --quiet]
@@ -213,12 +213,19 @@ default.   You can use <literal>--no-utf8</literal> to override this.</simpara>
 <term>
 --3way
 </term>
+<term>
+--no-3way
+</term>
 <listitem>
 <simpara>
         When the patch does not apply cleanly, fall back on
         3-way merge if the patch records the identity of blobs
         it is supposed to apply to and we have those blobs
-        available locally.
+        available locally. <literal>--no-3way</literal> can be used to override
+        am.threeWay configuration variable. For more information,
+        see am.threeWay in <citerefentry>
+<refentrytitle>git-config</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>.
 </simpara>
 </listitem>
 </varlistentry>

@@ -1890,6 +1890,23 @@ am.keepcr
 </varlistentry>
 <varlistentry>
 <term>
+am.threeWay
+</term>
+<listitem>
+<simpara>
+        By default, <literal>git am</literal> will fail if the patch does not apply cleanly. When
+        set to true, this setting tells <literal>git am</literal> to fall back on 3-way merge if
+        the patch records the identity of blobs it is supposed to apply to and
+        we have those blobs available locally (equivalent to giving the <literal>--3way</literal>
+        option from the command line). Defaults to <literal>false</literal>.
+        See <citerefentry>
+<refentrytitle>git-am</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 apply.ignoreWhitespace
 </term>
 <listitem>
@@ -3557,22 +3574,24 @@ gc.pruneExpire
 <simpara>
         When <emphasis>git gc</emphasis> is run, it will call <emphasis>prune --expire 2.weeks.ago</emphasis>.
         Override the grace period with this config variable.  The value
-        "now" may be used to disable this  grace period and always prune
-        unreachable objects immediately.
+        "now" may be used to disable this grace period and always prune
+        unreachable objects immediately, or "never" may be used to
+        suppress pruning.
 </simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
 <term>
-gc.pruneWorktreesExpire
+gc.worktreePruneExpire
 </term>
 <listitem>
 <simpara>
-        When <emphasis>git gc</emphasis> is run, it will call
-        <emphasis>prune --worktrees --expire 3.months.ago</emphasis>.
-        Override the grace period with this config variable. The value
-        "now" may be used to disable the grace period and prune
-        $GIT_DIR/worktrees immediately.
+        When <emphasis>git gc</emphasis> is run, it calls
+        <emphasis>git worktree prune --expire 3.months.ago</emphasis>.
+        This config variable can be used to set a different grace
+        period. The value "now" may be used to disable the grace
+        period and prune $GIT_DIR/worktrees immediately, or "never"
+        may be used to suppress pruning.
 </simpara>
 </listitem>
 </varlistentry>
@@ -3586,7 +3605,9 @@ gc.&lt;pattern&gt;.reflogExpire
 <listitem>
 <simpara>
         <emphasis>git reflog expire</emphasis> removes reflog entries older than
-        this time; defaults to 90 days.  With "&lt;pattern&gt;" (e.g.
+        this time; defaults to 90 days. The value "now" expires all
+        entries immediately, and "never" suppresses expiration
+        altogether. With "&lt;pattern&gt;" (e.g.
         "refs/stash") in the middle the setting applies only to
         the refs that match the &lt;pattern&gt;.
 </simpara>
@@ -3603,7 +3624,9 @@ gc.&lt;ref&gt;.reflogExpireUnreachable
 <simpara>
         <emphasis>git reflog expire</emphasis> removes reflog entries older than
         this time and are not reachable from the current tip;
-        defaults to 30 days.  With "&lt;pattern&gt;" (e.g. "refs/stash")
+        defaults to 30 days. The value "now" expires all entries
+        immediately, and "never" suppresses expiration altogether.
+        With "&lt;pattern&gt;" (e.g. "refs/stash")
         in the middle, the setting applies only to the refs that
         match the &lt;pattern&gt;.
 </simpara>

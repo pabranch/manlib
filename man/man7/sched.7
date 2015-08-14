@@ -49,10 +49,10 @@ Set the scheduling parameters of a specified thread.
 Fetch the scheduling parameters of a specified thread.
 .TP
 .BR sched_get_priority_max (2)
-Return the minimum priority available in a specified scheduling policy.
+Return the maximum priority available in a specified scheduling policy.
 .TP
 .BR sched_get_priority_min (2)
-Return the maximum priority available in a specified scheduling policy.
+Return the minimum priority available in a specified scheduling policy.
 .TP
 .BR sched_rr_get_interval (2)
 Fetch the quantum used for threads that are scheduled under
@@ -520,7 +520,7 @@ In Linux kernels since 2.6.39,
 an unprivileged thread can switch to either the
 .BR SCHED_BATCH
 or the
-.BR SCHED_NORMAL
+.BR SCHED_OTHER
 policy so long as its nice value falls within the range permitted by its
 .BR RLIMIT_NICE
 resource limit (see
