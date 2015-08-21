@@ -5885,13 +5885,10 @@ receive.hideRefs
 </term>
 <listitem>
 <simpara>
-        String(s) <literal>receive-pack</literal> uses to decide which refs to omit
-        from its initial advertisement.  Use more than one
-        definitions to specify multiple prefix strings. A ref that
-        are under the hierarchies listed on the value of this
-        variable is excluded, and is hidden when responding to <literal>git
-        push</literal>, and an attempt to update or delete a hidden ref by
-        <literal>git push</literal> is rejected.
+        This variable is the same as <literal>transfer.hideRefs</literal>, but applies
+        only to <literal>receive-pack</literal> (and so affects pushes, but not fetches).
+        An attempt to update or delete a hidden ref by <literal>git push</literal> is
+        rejected.
 </simpara>
 </listitem>
 </varlistentry>
@@ -6638,10 +6635,18 @@ transfer.hideRefs
 </term>
 <listitem>
 <simpara>
-        This variable can be used to set both <literal>receive.hideRefs</literal>
-        and <literal>uploadpack.hideRefs</literal> at the same time to the same
-        values.  See entries for these other variables.
+        String(s) <literal>receive-pack</literal> and <literal>upload-pack</literal> use to decide which
+        refs to omit from their initial advertisements.  Use more than
+        one definition to specify multiple prefix strings. A ref that is
+        under the hierarchies listed in the value of this variable is
+        excluded, and is hidden when responding to <literal>git push</literal> or <literal>git
+        fetch</literal>.  See <literal>receive.hideRefs</literal> and <literal>uploadpack.hideRefs</literal> for
+        program-specific versions of this config.
 </simpara>
+<simpara>You may also include a <literal>!</literal> in front of the ref name to negate the entry,
+explicitly exposing it, even if an earlier entry marked it as hidden.
+If you have multiple hideRefs values, later entries override earlier ones
+(and entries in more-specific config files override less-specific ones).</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -6678,13 +6683,10 @@ uploadpack.hideRefs
 </term>
 <listitem>
 <simpara>
-        String(s) <literal>upload-pack</literal> uses to decide which refs to omit
-        from its initial advertisement.  Use more than one
-        definitions to specify multiple prefix strings. A ref that
-        are under the hierarchies listed on the value of this
-        variable is excluded, and is hidden from <literal>git ls-remote</literal>,
-        <literal>git fetch</literal>, etc.  An attempt to fetch a hidden ref by <literal>git
-        fetch</literal> will fail.  See also <literal>uploadpack.allowTipSHA1InWant</literal>.
+        This variable is the same as <literal>transfer.hideRefs</literal>, but applies
+        only to <literal>upload-pack</literal> (and so affects only fetches, not pushes).
+        An attempt to fetch a hidden ref by <literal>git fetch</literal> will fail.  See
+        also <literal>uploadpack.allowTipSHA1InWant</literal>.
 </simpara>
 </listitem>
 </varlistentry>

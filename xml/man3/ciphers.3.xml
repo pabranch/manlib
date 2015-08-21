@@ -453,6 +453,19 @@
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:AESCCM_AESCCM8"/><emphasis role="bold">AESCCM</emphasis>, <emphasis role="bold">AESCCM8</emphasis></term>
+          <listitem>
+            <para>
+	      AES in Cipher Block Chaining - Message Authentication Mode
+	      (CCM): these ciphersuites are only supported in TLS v1.2.
+	      <emphasis role="bold">AESCCM</emphasis> references CCM cipher
+	      suites using both 16 and 8 octet Integrity Check Value (ICV)
+	      while <emphasis role="bold">AESCCM8</emphasis> only
+	      references 8 octet ICV.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.apps.ciphers.pod:CAMELLIA128_CAMELLIA256_CAMELLIA"/><emphasis role="bold">CAMELLIA128</emphasis>, <emphasis role="bold">CAMELLIA256</emphasis>, <emphasis role="bold">CAMELLIA</emphasis></term>
           <listitem>
             <para>
@@ -842,7 +855,20 @@ TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384   ECDHE-ECDSA-AES256-GCM-SHA384
 TLS_DH_anon_WITH_AES_128_CBC_SHA256       ADH-AES128-SHA256
 TLS_DH_anon_WITH_AES_256_CBC_SHA256       ADH-AES256-SHA256
 TLS_DH_anon_WITH_AES_128_GCM_SHA256       ADH-AES128-GCM-SHA256
-TLS_DH_anon_WITH_AES_256_GCM_SHA384       ADH-AES256-GCM-SHA384</screen>
+TLS_DH_anon_WITH_AES_256_GCM_SHA384       ADH-AES256-GCM-SHA384
+
+RSA_WITH_AES_128_CCM                      AES128-CCM
+RSA_WITH_AES_256_CCM                      AES256-CCM
+DHE_RSA_WITH_AES_128_CCM                  DHE-RSA-AES128-CCM
+DHE_RSA_WITH_AES_256_CCM                  DHE-RSA-AES256-CCM
+RSA_WITH_AES_128_CCM_8                    AES128-CCM8
+RSA_WITH_AES_256_CCM_8                    AES256-CCM8
+DHE_RSA_WITH_AES_128_CCM_8                DHE-RSA-AES128-CCM8
+DHE_RSA_WITH_AES_256_CCM_8                DHE-RSA-AES256-CCM8
+ECDHE_ECDSA_WITH_AES_128_CCM              ECDHE-ECDSA-AES128-CCM
+ECDHE_ECDSA_WITH_AES_256_CCM              ECDHE-ECDSA-AES256-CCM
+ECDHE_ECDSA_WITH_AES_128_CCM_8            ECDHE-ECDSA-AES128-CCM8
+ECDHE_ECDSA_WITH_AES_256_CCM_8            ECDHE-ECDSA-AES256-CCM8</screen>
     </refsection>
     <refsection xml:id="sources.openssl.doc.apps.ciphers.pod:Camellia_HMAC-Based_ciphersuites_from_RFC6367_extending_TLS_v1.2"><title>Camellia HMAC-Based ciphersuites from RFC6367, extending TLS v1.2</title>
       <screen>TLS_ECDHE_ECDSA_WITH_CAMELLIA_128_CBC_SHA256 ECDHE-ECDSA-CAMELLIA128-SHA256
@@ -916,7 +942,16 @@ RSA_PSK_WITH_CAMELLIA_128_CBC_SHA256      RSA-PSK-CAMELLIA128-SHA256
 RSA_PSK_WITH_CAMELLIA_256_CBC_SHA384      RSA-PSK-CAMELLIA256-SHA384
 
 ECDHE_PSK_WITH_CAMELLIA_128_CBC_SHA256    ECDHE-PSK-CAMELLIA128-SHA256
-ECDHE_PSK_WITH_CAMELLIA_256_CBC_SHA384    ECDHE-PSK-CAMELLIA256-SHA384</screen>
+ECDHE_PSK_WITH_CAMELLIA_256_CBC_SHA384    ECDHE-PSK-CAMELLIA256-SHA384
+
+PSK_WITH_AES_128_CCM                      PSK-AES128-CCM
+PSK_WITH_AES_256_CCM                      PSK-AES256-CCM
+DHE_PSK_WITH_AES_128_CCM                  DHE-PSK-AES128-CCM
+DHE_PSK_WITH_AES_256_CCM                  DHE-PSK-AES256-CCM
+PSK_WITH_AES_128_CCM_8                    PSK-AES128-CCM8
+PSK_WITH_AES_256_CCM_8                    PSK-AES256-CCM8
+DHE_PSK_WITH_AES_128_CCM_8                DHE-PSK-AES128-CCM8
+DHE_PSK_WITH_AES_256_CCM_8                DHE-PSK-AES256-CCM8</screen>
     </refsection>
   </refsection>
   <refsection xml:id="sources.openssl.doc.apps.ciphers.pod:NOTES"><title>NOTES</title>

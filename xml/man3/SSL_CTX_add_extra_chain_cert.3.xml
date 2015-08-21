@@ -4,26 +4,37 @@
     <refentrytitle>SSL_CTX_add_extra_chain_cert.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>SSL_CTX_add_extra_chain_cert</refname>
-<refpurpose>add certificate to chain</refpurpose>
+    <refname>SSL_CTX_add_extra_chain_cert, SSL_CTX_clear_extra_chain_certs</refname>
+<refpurpose>add or clear
+extra chain certificates</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">long SSL_CTX_add_extra_chain_cert(SSL_CTX ctx, X509 *x509)</synopsis>
+<synopsis format="linespecific">long SSL_CTX_add_extra_chain_cert(SSL_CTX *ctx, X509 *x509);
+long SSL_CTX_clear_extra_chain_certs(SSL_CTX *ctx);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add_extra_chain_cert.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
-      SSL_CTX_add_extra_chain_cert() adds the certificate <emphasis role="bold">x509</emphasis> to the certificate chain presented
-      together with the certificate. Several certificates can be added one
-      after the other.
+      SSL_CTX_add_extra_chain_cert() adds the certificate <emphasis role="bold">x509</emphasis> to the extra chain certificates
+      associated with <emphasis role="bold">ctx</emphasis>. Several
+      certificates can be added one after another.
+    </para>
+    <para>
+      SSL_CTX_clear_extra_chain_certs() clears all extra chain certificates
+      associated with <emphasis role="bold">ctx</emphasis>.
+    </para>
+    <para>
+      These functions are implemented as macros.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add_extra_chain_cert.pod:NOTES"><title>NOTES</title>
     <para>
-      When constructing the certificate chain, the chain will be formed
-      from these certificates explicitly specified. If no chain is
-      specified, the library will try to complete the chain from the
-      available CA certificates in the trusted CA storage, see
+      When sending a certificate chain, extra chain certificates are sent
+      in order following the end entity certificate.
+    </para>
+    <para>
+      If no chain is specified, the library will try to complete the chain
+      from the available CA certificates in the trusted CA storage, see
       SSL_CTX_load_verify_locations(3).
     </para>
     <para>
@@ -45,8 +56,9 @@
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add_extra_chain_cert.pod:RETURN_VALUES"><title>RETURN VALUES</title>
     <para>
-      SSL_CTX_add_extra_chain_cert() returns 1 on success. Check out the
-      error stack to find out the reason for failure otherwise.
+      SSL_CTX_add_extra_chain_cert() and SSL_CTX_clear_extra_chain_certs()
+      return 1 on success and 0 for failure. Check out the error stack to
+      find out the reason for failure.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add_extra_chain_cert.pod:SEE_ALSO"><title>SEE ALSO</title>

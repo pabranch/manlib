@@ -1,0 +1,107 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_check_chain.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_check_chain</refname>
+<refpurpose>check certificate chain suitability</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis format="linespecific">int SSL_check_chain(SSL *s, X509 *x, EVP_PKEY *pk, STACK_OF(X509) *chain);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_check_chain.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      SSL_check_chain() checks whether certificate <emphasis role="bold">x</emphasis>, private key <emphasis role="bold">pk</emphasis> and certificate chain <emphasis role="bold">chain</emphasis> is suitable for use with the current
+      session <emphasis role="bold">s</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_check_chain.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      SSL_check_chain() returns a bitmap of flags indicating the validity
+      of the chain.
+    </para>
+    <para>
+      <emphasis role="bold">CERT_PKEY_VALID</emphasis>: the chain can be
+      used with the current session. If this flag is <emphasis role="bold">not</emphasis> set then the certificate will never be
+      used even if the application tries to set it because it is
+      inconsistent with the peer preferences.
+    </para>
+    <para>
+      <emphasis role="bold">CERT_PKEY_SIGN</emphasis>: the EE key can be
+      used for signing.
+    </para>
+    <para>
+      <emphasis role="bold">CERT_PKEY_EE_SIGNATURE</emphasis>: the
+      signature algorithm of the EE certificate is acceptable.
+    </para>
+    <para>
+      <emphasis role="bold">CERT_PKEY_CA_SIGNATURE</emphasis>: the
+      signature algorithms of all CA certificates are acceptable.
+    </para>
+    <para>
+      <emphasis role="bold">CERT_PKEY_EE_PARAM</emphasis>: the parameters
+      of the end entity certificate are acceptable (e.g. it is a supported
+      curve).
+    </para>
+    <para>
+      <emphasis role="bold">CERT_PKEY_CA_PARAM</emphasis>: the parameters
+      of all CA certificates are acceptable.
+    </para>
+    <para>
+      <emphasis role="bold">CERT_PKEY_EXPLICIT_SIGN</emphasis>: the end
+      entity certificate algorithm can be used explicitly for signing (i.e.
+      it is mentioned in the signature algorithms extension).
+    </para>
+    <para>
+      <emphasis role="bold">CERT_PKEY_ISSUER_NAME</emphasis>: the issuer
+      name is acceptable. This is only meaningful for client
+      authentication.
+    </para>
+    <para>
+      <emphasis role="bold">CERT_PKEY_CERT_TYPE</emphasis>: the certificate
+      type is acceptable. Only meaningful for client authentication.
+    </para>
+    <para>
+      <emphasis role="bold">CERT_PKEY_SUITEB</emphasis>: chain is suitable
+      for Suite B use.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_check_chain.pod:NOTES"><title>NOTES</title>
+    <para>
+      SSL_check_chain() must be called in servers after a client hello
+      message or in clients after a certificate request message. It will
+      typically be called in the certificate callback.
+    </para>
+    <para>
+      An application wishing to support multiple certificate chains may
+      call this function on each chain in turn: starting with the one it
+      considers the most secure. It could then use the chain of the first
+      set which returns suitable flags.
+    </para>
+    <para>
+      As a minimum the flag <emphasis role="bold">CERT_PKEY_VALID</emphasis> must be set for a chain to be
+      usable. An application supporting multiple chains with different CA
+      signature algorithms may also wish to check <emphasis role="bold">CERT_PKEY_CA_SIGNATURE</emphasis> too. If no chain is
+      suitable a server should fall back to the most secure chain which
+      sets <emphasis role="bold">CERT_PKEY_VALID</emphasis>.
+    </para>
+    <para>
+      The validity of a chain is determined by checking if it matches a
+      supported signature algorithm, supported curves and in the case of
+      client authentication certificate types and issuer names.
+    </para>
+    <para>
+      Since the supported signature algorithms extension is only used in
+      TLS 1.2 and DTLS 1.2 the results for earlier versions of TLS and DTLS
+      may not be very useful. Applications may wish to specify a different
+      "legacy" chain for earlier versions of TLS or DTLS.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.ssl.SSL_check_chain.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      SSL_CTX_set_cert_cb(3), ssl(3)
+    </para>
+  </refsection>
+</refentry>
