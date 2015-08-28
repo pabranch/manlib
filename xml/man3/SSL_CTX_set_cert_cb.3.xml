@@ -31,12 +31,13 @@ void SSL_set_cert_cb(SSL *s, int (*cert_cb)(SSL *ssl, void *arg), void *arg);</s
       no certificates have been set. A zero is returned on error which will
       abort the handshake with a fatal internal error alert. A negative
       return value will suspend the handshake and the handshake function
-      will return immediately. SSL_get_error(3) will return
-      SSL_ERROR_WANT_X509_LOOKUP to indicate, that the handshake was
-      suspended. The next call to the handshake function will again lead to
-      the call of cert_cb(). It is the job of the cert_cb() to store
-      information about the state of the last call, if required to
-      continue.
+      will return immediately. <citerefentry>
+      <refentrytitle>SSL_get_error</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry> will return SSL_ERROR_WANT_X509_LOOKUP to indicate,
+      that the handshake was suspended. The next call to the handshake
+      function will again lead to the call of cert_cb(). It is the job of
+      the cert_cb() to store information about the state of the last call,
+      if required to continue.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cert_cb.pod:NOTES"><title>NOTES</title>
@@ -72,8 +73,18 @@ void SSL_set_cert_cb(SSL *s, int (*cert_cb)(SSL *ssl, void *arg), void *arg);</s
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cert_cb.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      ssl(3), SSL_use_certificate(3), SSL_add1_chain_cert(3),
-      SSL_get_client_CA_list(3), SSL_clear(3), SSL_free(3)
+      <citerefentry> <refentrytitle>ssl</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_use_certificate</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_add1_chain_cert</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_get_client_CA_list</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_clear</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_free</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>
     </para>
   </refsection>
 </refentry>

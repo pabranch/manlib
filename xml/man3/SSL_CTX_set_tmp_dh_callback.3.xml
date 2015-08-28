@@ -85,20 +85,22 @@ long SSL_set_tmp_dh(SSL *ssl, DH *dh)</synopsis>
       newly generated during the negotiation. The risk in reusing DH
       parameters is that an attacker may specialize on a very often used DH
       group. Applications should therefore generate their own DH parameters
-      during the installation process using the openssl dhparam(1)
-      application. This application guarantees that "strong" primes are
-      used.
+      during the installation process using the openssl <citerefentry>
+      <refentrytitle>dhparam</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry> application. This application guarantees that
+      "strong" primes are used.
     </para>
     <para>
       Files dh2048.pem, and dh4096.pem in the 'apps' directory of the
       current version of the OpenSSL distribution contain the 'SKIP' DH
       parameters, which use safe primes and were generated verifiably
       pseudo-randomly. These files can be converted into C code using the
-      <emphasis role="bold">-C</emphasis> option of the dhparam(1)
-      application. Generation of custom DH parameters during installation
-      should still be preferred to stop an attacker from specializing on a
-      commonly used group. File dh1024.pem contains old parameters that
-      must not be used by applications.
+      <emphasis role="bold">-C</emphasis> option of the <citerefentry>
+      <refentrytitle>dhparam</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry> application. Generation of custom DH parameters
+      during installation should still be preferred to stop an attacker
+      from specializing on a commonly used group. File dh1024.pem contains
+      old parameters that must not be used by applications.
     </para>
     <para>
       An application may either directly specify the DH parameters or can
@@ -159,8 +161,18 @@ SSL_CTX_set_options(ctx, SSL_OP_SINGLE_DH_USE);
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tmp_dh_callback.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      ssl(3), SSL_CTX_set_cipher_list(3), SSL_CTX_set_tmp_rsa_callback(3),
-      SSL_CTX_set_options(3), ciphers(1), dhparam(1)
+      <citerefentry> <refentrytitle>ssl</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_cipher_list</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_tmp_rsa_callback</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_options</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ciphers</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>dhparam</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>
     </para>
   </refsection>
 </refentry>

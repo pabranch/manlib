@@ -105,8 +105,10 @@ int DES_enc_write(int fd, const void *buf, int len,
     </para>
     <para>
       DES_random_key() generates a random key.	The PRNG must be seeded
-      prior to using this function (see rand(3)).  If the PRNG could not
-      generate a secure key, 0 is returned.
+      prior to using this function (see <citerefentry>
+      <refentrytitle>rand</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>).  If the PRNG could not generate a secure key, 0 is
+      returned.
     </para>
     <para>
       Before a DES key can be used, it must be converted into the
@@ -246,7 +248,9 @@ int DES_enc_write(int fd, const void *buf, int len,
       DES_cbc_cksum() produces an 8 byte checksum based on the input stream
       (via CBC encryption).  The last 4 bytes of the checksum are returned
       and the complete 8 bytes are placed in <emphasis role="italic">output</emphasis>. This function is used by Kerberos
-      v4.  Other applications should use EVP_DigestInit(3) etc. instead.
+      v4.  Other applications should use <citerefentry>
+      <refentrytitle>EVP_DigestInit</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> etc. instead.
     </para>
     <para>
       DES_quad_cksum() is a Kerberos v4 function.  It returns a 4 byte
@@ -343,12 +347,16 @@ int DES_enc_write(int fd, const void *buf, int len,
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.des.pod:NOTES"><title>NOTES</title>
     <para>
-      Applications should use the higher level functions EVP_EncryptInit(3)
-      etc. instead of calling these functions directly.
+      Applications should use the higher level functions <citerefentry>
+      <refentrytitle>EVP_EncryptInit</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> etc. instead of calling
+      these functions directly.
     </para>
     <para>
       Single-key DES is insecure due to its short key size.  ECB mode is
-      not suitable for most applications; see des_modes(7).
+      not suitable for most applications; see <citerefentry>
+      <refentrytitle>des_modes</refentrytitle> <manvolnum>7</manvolnum>
+      </citerefentry>.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.des.pod:AUTHOR"><title>AUTHOR</title>
@@ -359,7 +367,10 @@ int DES_enc_write(int fd, const void *buf, int len,
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.des.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      des_modes(7), EVP_EncryptInit(3)
+      <citerefentry> <refentrytitle>des_modes</refentrytitle>
+      <manvolnum>7</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>EVP_EncryptInit</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
 </refentry>

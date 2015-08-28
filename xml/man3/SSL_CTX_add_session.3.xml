@@ -18,11 +18,13 @@ int SSL_remove_session(SSL_CTX *ctx, SSL_SESSION *c);</synopsis>
     <para>
       SSL_CTX_add_session() adds the session <emphasis role="bold">c</emphasis> to the context <emphasis role="bold">ctx</emphasis>. The reference count for session <emphasis role="bold">c</emphasis> is incremented by 1. If a session with the
       same session id already exists, the old session is removed by calling
-      SSL_SESSION_free(3).
+      <citerefentry> <refentrytitle>SSL_SESSION_free</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>.
     </para>
     <para>
-      SSL_CTX_remove_session() removes the session <emphasis role="bold">c</emphasis> from the context <emphasis role="bold">ctx</emphasis>. SSL_SESSION_free(3) is called once for
-      <emphasis role="bold">c</emphasis>.
+      SSL_CTX_remove_session() removes the session <emphasis role="bold">c</emphasis> from the context <emphasis role="bold">ctx</emphasis>. <citerefentry>
+      <refentrytitle>SSL_SESSION_free</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> is called once for <emphasis role="bold">c</emphasis>.
     </para>
     <para>
       SSL_add_session() and SSL_remove_session() are synonyms for their
@@ -76,7 +78,12 @@ session was not found in the cache.</screen>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add_session.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      ssl(3), SSL_CTX_set_session_cache_mode(3), SSL_SESSION_free(3)
+      <citerefentry> <refentrytitle>ssl</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_session_cache_mode</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_SESSION_free</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
 </refentry>

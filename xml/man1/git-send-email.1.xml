@@ -285,6 +285,22 @@ is not set, this will be prompted for.</simpara>
 </varlistentry>
 <varlistentry>
 <term>
+--smtp-auth=&lt;mechanisms&gt;
+</term>
+<listitem>
+<simpara>
+        Whitespace-separated list of allowed SMTP-AUTH mechanisms. This setting
+        forces using only the listed mechanisms. Example:
+</simpara>
+<literallayout class="monospaced">$ git send-email --smtp-auth="PLAIN LOGIN GSSAPI" ...</literallayout><simpara></simpara>
+<simpara>If at least one of the specified mechanisms matches the ones advertised by the
+SMTP server and if it is supported by the utilized SASL library, the mechanism
+is used for authentication. If neither <emphasis>sendemail.smtpAuth</emphasis> nor <emphasis>--smtp-auth</emphasis>
+is specified, all mechanisms supported by the SASL library can be used.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 --smtp-pass[=&lt;password&gt;]
 </term>
 <listitem>

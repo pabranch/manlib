@@ -36,13 +36,17 @@ int EVP_PKEY_sign(EVP_PKEY_CTX *ctx,
     <para>
       EVP_PKEY_sign() does not hash the data to be signed, and therefore is
       normally used to sign digests. For signing arbitrary messages, see
-      the EVP_DigestSignInit(3) and EVP_SignInit(3) signing interfaces
-      instead.
+      the <citerefentry> <refentrytitle>EVP_DigestSignInit</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> and <citerefentry>
+      <refentrytitle>EVP_SignInit</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry> signing interfaces instead.
     </para>
     <para>
       After the call to EVP_PKEY_sign_init() algorithm specific control
       operations can be performed to set any appropriate parameters for the
-      operation (see EVP_PKEY_CTX_ctrl(3)).
+      operation (see <citerefentry>
+      <refentrytitle>EVP_PKEY_CTX_ctrl</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>).
     </para>
     <para>
       The function EVP_PKEY_sign() can be called more than once on the same
@@ -103,9 +107,20 @@ if (EVP_PKEY_sign(ctx, sig, &amp;siglen, md, mdlen) &lt;= 0)
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_sign.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      EVP_PKEY_CTX_new(3), EVP_PKEY_CTX_ctrl(3), EVP_PKEY_encrypt(3),
-      EVP_PKEY_decrypt(3), EVP_PKEY_verify(3), EVP_PKEY_verify_recover(3),
-      EVP_PKEY_derive(3)
+      <citerefentry> <refentrytitle>EVP_PKEY_CTX_new</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>EVP_PKEY_CTX_ctrl</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>EVP_PKEY_encrypt</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>EVP_PKEY_decrypt</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>EVP_PKEY_verify</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>EVP_PKEY_verify_recover</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>EVP_PKEY_derive</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_sign.pod:HISTORY"><title>HISTORY</title>

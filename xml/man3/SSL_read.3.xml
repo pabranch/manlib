@@ -21,16 +21,22 @@
   <refsection xml:id="sources.openssl.doc.ssl.SSL_read.pod:NOTES"><title>NOTES</title>
     <para>
       If necessary, SSL_read() will negotiate a TLS/SSL session, if not
-      already explicitly performed by SSL_connect(3) or SSL_accept(3). If
-      the peer requests a re-negotiation, it will be performed
-      transparently during the SSL_read() operation. The behaviour of
-      SSL_read() depends on the underlying BIO.
+      already explicitly performed by <citerefentry>
+      <refentrytitle>SSL_connect</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry> or <citerefentry>
+      <refentrytitle>SSL_accept</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>. If the peer requests a re-negotiation, it will be
+      performed transparently during the SSL_read() operation. The
+      behaviour of SSL_read() depends on the underlying BIO.
     </para>
     <para>
       For the transparent negotiation to succeed, the <emphasis role="bold">ssl</emphasis> must have been initialized to client or
-      server mode. This is being done by calling SSL_set_connect_state(3)
-      or SSL_set_accept_state() before the first call to an SSL_read() or
-      SSL_write(3) function.
+      server mode. This is being done by calling <citerefentry>
+      <refentrytitle>SSL_set_connect_state</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> or SSL_set_accept_state()
+      before the first call to an SSL_read() or <citerefentry>
+      <refentrytitle>SSL_write</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry> function.
     </para>
     <para>
       SSL_read() works based on the SSL/TLS records. The data are received
@@ -56,13 +62,16 @@
       finished or an error occurred, except when a renegotiation take
       place, in which case a SSL_ERROR_WANT_READ may occur. This behaviour
       can be controlled with the SSL_MODE_AUTO_RETRY flag of the
-      SSL_CTX_set_mode(3) call. 
+      <citerefentry> <refentrytitle>SSL_CTX_set_mode</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> call. 
     </para>
     <para>
       If the underlying BIO is <emphasis role="bold">non-blocking</emphasis>, SSL_read() will also return when
       the underlying BIO could not satisfy the needs of SSL_read() to
-      continue the operation. In this case a call to SSL_get_error(3) with
-      the return value of SSL_read() will yield <emphasis role="bold">SSL_ERROR_WANT_READ</emphasis> or <emphasis role="bold">SSL_ERROR_WANT_WRITE</emphasis>. As at any time a
+      continue the operation. In this case a call to <citerefentry>
+      <refentrytitle>SSL_get_error</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry> with the return value of SSL_read() will yield
+      <emphasis role="bold">SSL_ERROR_WANT_READ</emphasis> or <emphasis role="bold">SSL_ERROR_WANT_WRITE</emphasis>. As at any time a
       re-negotiation is possible, a call to SSL_read() can also cause write
       operations! The calling process then must repeat the call after
       taking appropriate action to satisfy the needs of SSL_read(). The
@@ -73,10 +82,11 @@
       able to continue.
     </para>
     <para>
-      SSL_pending(3) can be used to find out whether there are buffered
-      bytes available for immediate retrieval. In this case SSL_read() can
-      be called without blocking or actually receiving new data from the
-      underlying socket.
+      <citerefentry> <refentrytitle>SSL_pending</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> can be used to find out
+      whether there are buffered bytes available for immediate retrieval.
+      In this case SSL_read() can be called without blocking or actually
+      receiving new data from the underlying socket.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_read.pod:WARNING"><title>WARNING</title>
@@ -107,12 +117,15 @@
 	      The read operation was not successful. The reason may either
 	      be a clean shutdown due to a "close notify" alert sent by the
 	      peer (in which case the SSL_RECEIVED_SHUTDOWN flag in the ssl
-	      shutdown state is set (see SSL_shutdown(3),
-	      SSL_set_shutdown(3)). It is also possible, that the peer
-	      simply shut down the underlying transport and the shutdown is
-	      incomplete. Call SSL_get_error() with the return value
-	      <emphasis role="bold">ret</emphasis> to find out, whether an
-	      error occurred or the connection was shut down cleanly
+	      shutdown state is set (see <citerefentry>
+	      <refentrytitle>SSL_shutdown</refentrytitle>
+	      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+	      <refentrytitle>SSL_set_shutdown</refentrytitle>
+	      <manvolnum>3</manvolnum> </citerefentry>). It is also
+	      possible, that the peer simply shut down the underlying
+	      transport and the shutdown is incomplete. Call
+	      SSL_get_error() with the return value <emphasis role="bold">ret</emphasis> to find out, whether an error
+	      occurred or the connection was shut down cleanly
 	      (SSL_ERROR_ZERO_RETURN).
             </para>
             <para>
@@ -138,9 +151,29 @@
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_read.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      SSL_get_error(3), SSL_write(3), SSL_CTX_set_mode(3), SSL_CTX_new(3),
-      SSL_connect(3), SSL_accept(3) SSL_set_connect_state(3),
-      SSL_pending(3), SSL_shutdown(3), SSL_set_shutdown(3), ssl(3), bio(3)
+      <citerefentry> <refentrytitle>SSL_get_error</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_write</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_mode</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_connect</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_accept</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry> <citerefentry>
+      <refentrytitle>SSL_set_connect_state</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_pending</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_shutdown</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_set_shutdown</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ssl</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>bio</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
 </refentry>

@@ -38,7 +38,9 @@ SSL_SESSION *(*get_session_cb)(struct ssl_st *ssl, unsigned char *data,
       SSL_CTX_sess_set_get_cb() sets the callback function which is called,
       whenever a SSL/TLS client proposed to resume a session but the
       session could not be found in the internal session cache (see
-      SSL_CTX_set_session_cache_mode(3)). (SSL/TLS server only.)
+      <citerefentry>
+      <refentrytitle>SSL_CTX_set_session_cache_mode</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>). (SSL/TLS server only.)
     </para>
     <para>
       SSL_CTX_sess_get_new_cb(), SSL_CTX_sess_get_remove_cb(), and
@@ -52,14 +54,17 @@ SSL_SESSION *(*get_session_cb)(struct ssl_st *ssl, unsigned char *data,
       In order to allow external session caching, synchronization with the
       internal session cache is realized via callback functions. Inside
       these callback functions, session can be saved to disk or put into a
-      database using the d2i_SSL_SESSION(3) interface.
+      database using the <citerefentry>
+      <refentrytitle>d2i_SSL_SESSION</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> interface.
     </para>
     <para>
       The new_session_cb() is called, whenever a new session has been
-      negotiated and session caching is enabled (see
-      SSL_CTX_set_session_cache_mode(3)). The new_session_cb() is passed
-      the <emphasis role="bold">ssl</emphasis> connection and the ssl
-      session <emphasis role="bold">sess</emphasis>. If the callback
+      negotiated and session caching is enabled (see <citerefentry>
+      <refentrytitle>SSL_CTX_set_session_cache_mode</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>). The new_session_cb() is
+      passed the <emphasis role="bold">ssl</emphasis> connection and the
+      ssl session <emphasis role="bold">sess</emphasis>. If the callback
       returns <emphasis role="bold">0</emphasis>, the session will be
       immediately removed again.
     </para>
@@ -68,10 +73,9 @@ SSL_SESSION *(*get_session_cb)(struct ssl_st *ssl, unsigned char *data,
       session from the internal cache. This happens when the session is
       removed because it is expired or when a connection was not shutdown
       cleanly. It also happens for all sessions in the internal session
-      cache when SSL_CTX_free(3) is called. The remove_session_cb() is
-      passed the <emphasis role="bold">ctx</emphasis> and the ssl session
-      <emphasis role="bold">sess</emphasis>. It does not provide any
-      feedback.
+      cache when <citerefentry> <refentrytitle>SSL_CTX_free</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> is called. The
+      remove_session_cb() is passed the <emphasis role="bold">ctx</emphasis> and the ssl session <emphasis role="bold">sess</emphasis>. It does not provide any feedback.
     </para>
     <para>
       The get_session_cb() is only called on SSL/TLS servers with the
@@ -84,13 +88,24 @@ SSL_SESSION *(*get_session_cb)(struct ssl_st *ssl, unsigned char *data,
       require the SSL engine to increment the reference count of the
       SSL_SESSION object, Normally the reference count is not incremented
       and therefore the session must not be explicitly freed with
-      SSL_SESSION_free(3).
+      <citerefentry> <refentrytitle>SSL_SESSION_free</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_sess_set_get_cb.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      ssl(3), d2i_SSL_SESSION(3), SSL_CTX_set_session_cache_mode(3),
-      SSL_CTX_flush_sessions(3), SSL_SESSION_free(3), SSL_CTX_free(3)
+      <citerefentry> <refentrytitle>ssl</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>d2i_SSL_SESSION</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_session_cache_mode</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_flush_sessions</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_SESSION_free</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_free</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>
     </para>
   </refsection>
 </refentry>

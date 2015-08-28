@@ -24,13 +24,16 @@ void EC_KEY_set_enc_flags(EC_KEY *eckey, unsigned int flags);</synopsis>
     <para>
       These functions are similar to the d2i_X509() functions, and you
       should refer to that page for a detailed description (see
-      d2i_X509(3)).
+      <citerefentry> <refentrytitle>d2i_X509</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>).
     </para>
     <para>
       The format of the external representation of the public key written
       by i2d_ECPrivateKey (such as whether it is stored in a compressed
       form or not) is described by the point_conversion_form. See
-      EC_GROUP_copy(3) for a description of point_conversion_form.
+      <citerefentry> <refentrytitle>EC_GROUP_copy</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> for a description of
+      point_conversion_form.
     </para>
     <para>
       When reading a private key encoded without an associated public key
@@ -54,12 +57,16 @@ void EC_KEY_set_enc_flags(EC_KEY *eckey, unsigned int flags);</synopsis>
   <refsection xml:id="sources.openssl.doc.crypto.d2i_ECPrivateKey.pod:RETURN_VALUES"><title>RETURN VALUES</title>
     <para>
       d2i_ECPrivateKey() returns a valid <emphasis role="bold">EC_KEY</emphasis> structure or <emphasis role="bold">NULL</emphasis> if an error occurs. The error code that
-      can be obtained by ERR_get_error(3).
+      can be obtained by <citerefentry>
+      <refentrytitle>ERR_get_error</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>.
     </para>
     <para>
       i2d_ECPrivateKey() returns the number of bytes successfully encoded
       or a negative value if an error occurs. The error code can be
-      obtained by ERR_get_error(3).
+      obtained by <citerefentry>
+      <refentrytitle>ERR_get_error</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>.
     </para>
     <para>
       EC_KEY_get_enc_flags returns the value of the current encoding flags
@@ -68,9 +75,24 @@ void EC_KEY_set_enc_flags(EC_KEY *eckey, unsigned int flags);</synopsis>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.d2i_ECPrivateKey.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      crypto(3), ec(3), EC_GROUP_new(3), EC_GROUP_copy(3), EC_POINT_new(3),
-      EC_POINT_add(3), EC_GFp_simple_method(3), d2i_ECPKParameters(3),
-      d2i_ECPrivateKey(3)
+      <citerefentry> <refentrytitle>crypto</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ec</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>EC_GROUP_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>EC_GROUP_copy</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>EC_POINT_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>EC_POINT_add</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>EC_GFp_simple_method</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>d2i_ECPKParameters</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>d2i_ECPrivateKey</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
 </refentry>

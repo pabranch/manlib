@@ -30,10 +30,13 @@
       The ssl session has reference counts from two users: the SSL object,
       for which the reference count is removed by SSL_free() and the
       internal session cache. If the session is considered bad, because
-      SSL_shutdown(3) was not called for the connection and
-      SSL_set_shutdown(3) was not used to set the SSL_SENT_SHUTDOWN state,
-      the session will also be removed from the session cache as required
-      by RFC2246.
+      <citerefentry> <refentrytitle>SSL_shutdown</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> was not called for the
+      connection and <citerefentry>
+      <refentrytitle>SSL_set_shutdown</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> was not used to set the
+      SSL_SENT_SHUTDOWN state, the session will also be removed from the
+      session cache as required by RFC2246.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_free.pod:RETURN_VALUES"><title>RETURN VALUES</title>
@@ -41,8 +44,16 @@
       SSL_free() does not provide diagnostic information.
     </para>
     <para>
-      SSL_new(3), SSL_clear(3), SSL_shutdown(3), SSL_set_shutdown(3),
-      ssl(3)
+      <citerefentry> <refentrytitle>SSL_new</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_clear</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_shutdown</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_set_shutdown</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ssl</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>
     </para>
   </refsection>
 </refentry>

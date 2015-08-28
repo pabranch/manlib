@@ -36,16 +36,23 @@ long SSL_CTX_get_timeout(SSL_CTX *ctx);</synopsis>
     </para>
     <para>
       The expiration time of a single session can be modified using the
-      SSL_SESSION_get_time(3) family of functions.
+      <citerefentry> <refentrytitle>SSL_SESSION_get_time</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> family of functions.
     </para>
     <para>
       Expired sessions are removed from the internal session cache,
-      whenever SSL_CTX_flush_sessions(3) is called, either directly by the
-      application or automatically (see SSL_CTX_set_session_cache_mode(3))
+      whenever <citerefentry>
+      <refentrytitle>SSL_CTX_flush_sessions</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> is called, either directly
+      by the application or automatically (see <citerefentry>
+      <refentrytitle>SSL_CTX_set_session_cache_mode</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>)
     </para>
     <para>
       The default value for session timeout is decided on a per protocol
-      basis, see SSL_get_default_timeout(3). All currently supported
+      basis, see <citerefentry>
+      <refentrytitle>SSL_get_default_timeout</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>. All currently supported
       protocols have the same default timeout value of 300 seconds.
     </para>
   </refsection>
@@ -59,8 +66,16 @@ long SSL_CTX_get_timeout(SSL_CTX *ctx);</synopsis>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_timeout.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      ssl(3), SSL_CTX_set_session_cache_mode(3), SSL_SESSION_get_time(3),
-      SSL_CTX_flush_sessions(3), SSL_get_default_timeout(3)
+      <citerefentry> <refentrytitle>ssl</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_session_cache_mode</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_SESSION_get_time</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_flush_sessions</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_get_default_timeout</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
 </refentry>

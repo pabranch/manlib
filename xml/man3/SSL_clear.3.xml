@@ -23,9 +23,12 @@
       While all settings are kept, a side effect is the handling of the
       current SSL session. If a session is still <emphasis role="bold">open</emphasis>, it is considered bad and will be removed
       from the session cache, as required by RFC2246. A session is
-      considered open, if SSL_shutdown(3) was not called for the connection
-      or at least SSL_set_shutdown(3) was used to set the SSL_SENT_SHUTDOWN
-      state.
+      considered open, if <citerefentry>
+      <refentrytitle>SSL_shutdown</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry> was not called for the connection or at least
+      <citerefentry> <refentrytitle>SSL_set_shutdown</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> was used to set the
+      SSL_SENT_SHUTDOWN state.
     </para>
     <para>
       If a session was closed cleanly, the session object will be kept and
@@ -35,7 +38,9 @@
       will use a TLSv1 client method for the next handshake and a SSL
       server object will use a TLSv1 server method, even if TLS_*_methods
       were chosen on startup. This will might lead to connection failures
-      (see SSL_new(3)) for a description of the method's properties.
+      (see <citerefentry> <refentrytitle>SSL_new</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>) for a description of the
+      method's properties.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_clear.pod:WARNINGS"><title>WARNINGS</title>
@@ -46,9 +51,18 @@
       last handshake). It only makes sense for a new connection with the
       exact same peer that shares these settings, and may fail if that peer
       changes its settings between connections. Use the sequence
-      SSL_get_session(3); SSL_new(3); SSL_set_session(3); SSL_free(3)
-      instead to avoid such failures (or simply SSL_free(3); SSL_new(3) if
-      session reuse is not desired).
+      <citerefentry> <refentrytitle>SSL_get_session</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>; <citerefentry>
+      <refentrytitle>SSL_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>; <citerefentry>
+      <refentrytitle>SSL_set_session</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>; <citerefentry>
+      <refentrytitle>SSL_free</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry> instead to avoid such failures (or simply
+      <citerefentry> <refentrytitle>SSL_free</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>; <citerefentry>
+      <refentrytitle>SSL_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry> if session reuse is not desired).
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_clear.pod:RETURN_VALUES"><title>RETURN VALUES</title>
@@ -77,8 +91,20 @@
       </variablelist>
     </para>
     <para>
-      SSL_new(3), SSL_free(3), SSL_shutdown(3), SSL_set_shutdown(3),
-      SSL_CTX_set_options(3), ssl(3), SSL_CTX_set_client_cert_cb(3)
+      <citerefentry> <refentrytitle>SSL_new</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_free</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_shutdown</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_set_shutdown</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_options</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ssl</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_client_cert_cb</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
 </refentry>

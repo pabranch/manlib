@@ -1,0 +1,46 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>X509_check_ca.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>X509_check_ca</refname>
+<refpurpose>check if given certificate is CA certificate</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/x509v3.h&gt;</synopsis>
+<synopsis format="linespecific">int X509_check_ca(X509 *cert);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_check_ca.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      This function checks if given certificate is CA certificate (can be
+      used to sign other certificates).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_check_ca.pod:RETURN_VALUE"><title>RETURN VALUE</title>
+    <para>
+      Function return 0, if it is not CA certificate, 1 if it is proper
+      X509v3 CA certificate with <emphasis role="bold">basicConstraints</emphasis> extension CA:TRUE, 3, if it
+      is selfsigned X509 v1 certificate, 4, if it is certificate with
+      <emphasis role="bold">keyUsage</emphasis> extension with bit
+      <emphasis role="bold">keyCertSign</emphasis> set, but without
+      <emphasis role="bold">basicConstraints</emphasis>, and 5 if it has
+      outdated Netscape Certificate Type extension telling that it is CA
+      certificate.
+    </para>
+    <para>
+      Actually, any non-zero value means that this certificate could have
+      been used to sign other certificates.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_check_ca.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>X509_verify_cert</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_check_issued</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_check_purpose</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
+    </para>
+  </refsection>
+</refentry>

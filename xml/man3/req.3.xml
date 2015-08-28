@@ -98,7 +98,9 @@
 	      the input file password source. For more information about
 	      the format of <emphasis role="bold">arg</emphasis> see the
 	      <emphasis role="bold">PASS PHRASE ARGUMENTS</emphasis>
-	      section in openssl(1).
+	      section in <citerefentry>
+	      <refentrytitle>openssl</refentrytitle>
+	      <manvolnum>1</manvolnum> </citerefentry>.
             </para>
           </listitem>
         </varlistentry>
@@ -118,7 +120,9 @@
 	      the output file password source. For more information about
 	      the format of <emphasis role="bold">arg</emphasis> see the
 	      <emphasis role="bold">PASS PHRASE ARGUMENTS</emphasis>
-	      section in openssl(1).
+	      section in <citerefentry>
+	      <refentrytitle>openssl</refentrytitle>
+	      <manvolnum>1</manvolnum> </citerefentry>.
             </para>
           </listitem>
         </varlistentry>
@@ -191,25 +195,17 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-subj_arg"/><emphasis role="bold">-subj arg</emphasis></term>
-          <listitem>
-            <para>
-	      Replaces subject field of input request with specified data
-	      and outputs modified request. The arg must be formatted as
-	      <emphasis role="italic">/type0=value0/type1=value1/type2=...</emphasis>,
-	      characters may be escaped by \ (backslash), no spaces are
-	      skipped.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-rand_files"/><emphasis role="bold">-rand file(s)</emphasis></term>
           <listitem>
             <para>
 	      a file or files containing random data used to seed the
-	      random number generator, or an EGD socket (see RAND_egd(3)).
-	      Multiple files can be specified separated by a OS-dependent
-	      character. The separator is <emphasis role="bold">;</emphasis> for MS-Windows, <emphasis role="bold">,</emphasis> for OpenVMS, and <emphasis role="bold">:</emphasis> for all others.
+	      random number generator, or an EGD socket (see <citerefentry>
+	      <refentrytitle>RAND_egd</refentrytitle>
+	      <manvolnum>3</manvolnum> </citerefentry>). Multiple files can
+	      be specified separated by a OS-dependent character. The
+	      separator is <emphasis role="bold">;</emphasis> for
+	      MS-Windows, <emphasis role="bold">,</emphasis> for OpenVMS,
+	      and <emphasis role="bold">:</emphasis> for all others.
             </para>
           </listitem>
         </varlistentry>
@@ -303,9 +299,10 @@
           <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-digest"/><emphasis role="bold">-[digest]</emphasis></term>
           <listitem>
             <para>
-	      this specifies the message digest to sign the request with
-	      (such as <emphasis role="bold">-md5</emphasis>, <emphasis role="bold">-sha1</emphasis>). This overrides the digest
-	      algorithm specified in the configuration file.
+	      this specifies the message digest to sign the request. Any
+	      digest supported by the OpenSSL <emphasis role="bold">dgst</emphasis> command can be used. This
+	      overrides the digest algorithm specified in the configuration
+	      file.
             </para>
             <para>
 	      Some public key algorithms may override this choice. For
@@ -325,7 +322,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-subj_arg_i1"/><emphasis role="bold">-subj arg</emphasis></term>
+          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-subj_arg"/><emphasis role="bold">-subj arg</emphasis></term>
           <listitem>
             <para>
 	      sets subject name for new request or supersedes the subject
@@ -425,8 +422,9 @@
 	      displayed. The <emphasis role="bold">option</emphasis>
 	      argument can be a single option or multiple options separated
 	      by commas.  Alternatively the <emphasis role="bold">-nameopt</emphasis> switch may be used more than
-	      once to set multiple options. See the x509(1) manual page for
-	      details.
+	      once to set multiple options. See the <citerefentry>
+	      <refentrytitle>x509</refentrytitle> <manvolnum>1</manvolnum>
+	      </citerefentry> manual page for details.
             </para>
           </listitem>
         </varlistentry>
@@ -438,7 +436,9 @@
 	      or multiple options separated by commas.
             </para>
             <para>
-	      See discussion of the  <emphasis role="bold">-certopt</emphasis> parameter in the <emphasis role="bold">x509</emphasis> command.
+	      See discussion of the  <emphasis role="bold">-certopt</emphasis> parameter in the
+	      <citerefentry> <refentrytitle>x509</refentrytitle>
+	      <manvolnum>1</manvolnum> </citerefentry> command.
             </para>
             <screen></screen>
           </listitem>
@@ -601,7 +601,9 @@
             <para>
 	      This specifies a filename in which random number seed
 	      information is placed and read from, or an EGD socket (see
-	      RAND_egd(3)). It is used for private key generation.
+	      <citerefentry> <refentrytitle>RAND_egd</refentrytitle>
+	      <manvolnum>3</manvolnum> </citerefentry>). It is used for
+	      private key generation.
             </para>
           </listitem>
         </varlistentry>
@@ -621,10 +623,10 @@
           <term><anchor xml:id="sources.openssl.doc.apps.req.pod:default_md"/><emphasis role="bold">default_md</emphasis></term>
           <listitem>
             <para>
-	      This option specifies the digest algorithm to use. Possible
-	      values include <emphasis role="bold">md5 sha1
-	      mdc2</emphasis>. If not present then MD5 is used. This option
-	      can be overridden on the command line.
+	      This option specifies the digest algorithm to use. Any digest
+	      supported by the OpenSSL <emphasis role="bold">dgst</emphasis> command can be used. If not
+	      present then MD5 is used. This option can be overridden on
+	      the command line.
             </para>
           </listitem>
         </varlistentry>
@@ -657,8 +659,9 @@
 	      this specifies the configuration file section containing a
 	      list of extensions to add to the certificate request. It can
 	      be overridden by the <emphasis role="bold">-reqexts</emphasis> command line switch. See the
-	      x509v3_config(5) manual page for details of the extension
-	      section format. 
+	      <citerefentry> <refentrytitle>x509v3_config</refentrytitle>
+	      <manvolnum>5</manvolnum> </citerefentry> manual page for
+	      details of the extension section format. 
             </para>
           </listitem>
         </varlistentry>
@@ -774,7 +777,7 @@ fieldName_max= 4</screen>
       The actual permitted field names are any object identifier short or
       long names. These are compiled into OpenSSL and include the usual
       values such as commonName, countryName, localityName,
-      organizationName, organizationUnitName, stateOrProvinceName.
+      organizationName, organizationalUnitName, stateOrProvinceName.
       Additionally emailAddress is include as well as name, surname,
       givenName initials and dnQualifier.
     </para>
@@ -975,7 +978,16 @@ problems making Certificate Request</screen>
   </refsection>
   <refsection xml:id="sources.openssl.doc.apps.req.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      x509(1), ca(1), genrsa(1), gendsa(1), config(5), x509v3_config(5)
+      <citerefentry> <refentrytitle>x509</refentrytitle>
+      <manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ca</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>genrsa</refentrytitle>
+      <manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>gendsa</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>config</refentrytitle>
+      <manvolnum>5</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>x509v3_config</refentrytitle> <manvolnum>5</manvolnum>
+      </citerefentry>
     </para>
   </refsection>
 </refentry>

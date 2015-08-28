@@ -14,7 +14,7 @@
 [<emphasis role="bold">-config</emphasis> configfile]
 [<emphasis role="bold">-data</emphasis> file_to_hash]
 [<emphasis role="bold">-digest</emphasis> digest_bytes]
-[<emphasis role="bold">-md2</emphasis>|<emphasis role="bold">-md4</emphasis>|<emphasis role="bold">-md5</emphasis>|<emphasis role="bold">-sha</emphasis>|<emphasis role="bold">-sha1</emphasis>|<emphasis role="bold">-mdc2</emphasis>|<emphasis role="bold">-ripemd160</emphasis>|<emphasis role="bold">...</emphasis>]
+[<emphasis role="bold">-[digest]</emphasis>]
 [<emphasis role="bold">-policy</emphasis> object_id]
 [<emphasis role="bold">-no_nonce</emphasis>]
 [<emphasis role="bold">-cert</emphasis>]
@@ -155,12 +155,11 @@
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term><anchor xml:id="sources.openssl.doc.apps.ts.pod:-md2-md4-md5-sha-sha1-mdc2-ripemd160..."/><emphasis role="bold">-md2</emphasis>|<emphasis role="bold">-md4</emphasis>|<emphasis role="bold">-md5</emphasis>|<emphasis role="bold">-sha</emphasis>|<emphasis role="bold">-sha1</emphasis>|<emphasis role="bold">-mdc2</emphasis>|<emphasis role="bold">-ripemd160</emphasis>|<emphasis role="bold">...</emphasis></term>
+            <term><anchor xml:id="sources.openssl.doc.apps.ts.pod:-digest"/><emphasis role="bold">-[digest]</emphasis></term>
             <listitem>
               <para>
-		The message digest to apply to the data file, it supports
-		all the message digest algorithms that are supported by the
-		openssl <emphasis role="bold">dgst</emphasis> command. The
+		The message digest to apply to the data file. Any digest
+		supported by the OpenSSL <emphasis role="bold">dgst</emphasis> command can be used. The
 		default is SHA-1. (Optional)
               </para>
             </listitem>
@@ -281,7 +280,9 @@
               <para>
 		Specifies the password source for the private key of the
 		TSA. See <emphasis role="bold">PASS PHRASE
-		ARGUMENTS</emphasis> in openssl(1). (Optional)
+		ARGUMENTS</emphasis> in <citerefentry>
+		<refentrytitle>openssl</refentrytitle>
+		<manvolnum>1</manvolnum> </citerefentry>. (Optional)
               </para>
             </listitem>
           </varlistentry>
@@ -471,8 +472,9 @@
               <para>
 		The name of the directory containing the trusted CA
 		certificates of the client. See the similar option of
-		verify(1) for additional details. Either this option or
-		<emphasis role="bold">-CAfile</emphasis> must be specified.
+		<citerefentry> <refentrytitle>verify</refentrytitle>
+		<manvolnum>1</manvolnum> </citerefentry> for additional
+		details. Either this option or <emphasis role="bold">-CAfile</emphasis> must be specified.
 		(Optional)
               </para>
               <screen></screen>
@@ -484,9 +486,11 @@
               <para>
 		The name of the file containing a set of trusted
 		self-signed CA certificates in PEM format. See the similar
-		option of verify(1) for additional details. Either this
-		option or <emphasis role="bold">-CApath</emphasis> must be
-		specified. (Optional)
+		option of <citerefentry>
+		<refentrytitle>verify</refentrytitle>
+		<manvolnum>1</manvolnum> </citerefentry> for additional
+		details. Either this option or <emphasis role="bold">-CApath</emphasis> must be specified.
+		(Optional)
               </para>
             </listitem>
           </varlistentry>
@@ -510,10 +514,13 @@
     <para>
       The <emphasis role="bold">-query</emphasis> and <emphasis role="bold">-reply</emphasis> commands make use of a configuration
       file defined by the <emphasis role="bold">OPENSSL_CONF</emphasis>
-      environment variable. See config(5) for a general description of the
-      syntax of the config file. The <emphasis role="bold">-query</emphasis> command uses only the symbolic OID
-      names section and it can work without it. However, the <emphasis role="bold">-reply</emphasis> command needs the config file for its
-      operation.
+      environment variable. See <citerefentry>
+      <refentrytitle>config</refentrytitle> <manvolnum>5</manvolnum>
+      </citerefentry> for a general description of the syntax of the config
+      file. The <emphasis role="bold">-query</emphasis> command uses only
+      the symbolic OID names section and it can work without it. However,
+      the <emphasis role="bold">-reply</emphasis> command needs the config
+      file for its operation.
     </para>
     <para>
       When there is a command line switch equivalent of a variable the
@@ -536,7 +543,9 @@
           <term><anchor xml:id="sources.openssl.doc.apps.ts.pod:oid_file"/><emphasis role="bold">oid_file</emphasis></term>
           <listitem>
             <para>
-	      See ca(1) for description. (Optional)
+	      See <citerefentry> <refentrytitle>ca</refentrytitle>
+	      <manvolnum>1</manvolnum> </citerefentry> for description.
+	      (Optional)
             </para>
           </listitem>
         </varlistentry>
@@ -544,7 +553,9 @@
           <term><anchor xml:id="sources.openssl.doc.apps.ts.pod:oid_section"/><emphasis role="bold">oid_section</emphasis></term>
           <listitem>
             <para>
-	      See ca(1) for description. (Optional)
+	      See <citerefentry> <refentrytitle>ca</refentrytitle>
+	      <manvolnum>1</manvolnum> </citerefentry> for description.
+	      (Optional)
             </para>
           </listitem>
         </varlistentry>
@@ -552,7 +563,9 @@
           <term><anchor xml:id="sources.openssl.doc.apps.ts.pod:RANDFILE"/><emphasis role="bold">RANDFILE</emphasis></term>
           <listitem>
             <para>
-	      See ca(1) for description. (Optional)
+	      See <citerefentry> <refentrytitle>ca</refentrytitle>
+	      <manvolnum>1</manvolnum> </citerefentry> for description.
+	      (Optional)
             </para>
           </listitem>
         </varlistentry>
@@ -746,7 +759,11 @@
 	extension without any other key usage extensions. You can add the
 	'extendedKeyUsage = critical,timeStamping' line to the user
 	certificate section of the config file to generate a proper
-	certificate. See req(1), ca(1), x509(1) for instructions. The
+	certificate. See <citerefentry> <refentrytitle>req</refentrytitle>
+	<manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
+	<refentrytitle>ca</refentrytitle> <manvolnum>1</manvolnum>
+	</citerefentry>, <citerefentry> <refentrytitle>x509</refentrytitle>
+	<manvolnum>1</manvolnum> </citerefentry> for instructions. The
 	examples below assume that cacert.pem contains the certificate of
 	the CA, tsacert.pem is the signing certificate issued by cacert.pem
 	and tsakey.pem is the private key of the TSA.
@@ -817,19 +834,31 @@
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.ts.pod:_No_support_for_time_stamps_over_SMTP_though_it_is_quite_easyto_implement_an_automatic_e-mail_based_TSA_with_procmail1and_perl1._HTTP_server_support_is_provided_in_the_form_ofa_separate_apache_module._HTTP_client_support_is_provided_bytsget1._Pure_TCP.IP_protocol_is_not_supported."/>* No support for time stamps over SMTP, though it is quite easy
-to implement an automatic e-mail based TSA with procmail(1)
-and perl(1). HTTP server support is provided in the form of
+          <term><anchor xml:id="sources.openssl.doc.apps.ts.pod:_No_support_for_time_stamps_over_SMTP_though_it_is_quite_easyto_implement_an_automatic_e-mail_based_TSA_with___procmail__1and___perl__1._HTTP_server_support_is_provided_in_the_form_ofa_separate_apache_module._HTTP_client_support_is_provided_by__tsget__1._Pure_TCP.IP_protocol_is_not_supported."/>* No support for time stamps over SMTP, though it is quite easy
+to implement an automatic e-mail based TSA with <citerefentry>
+  <refentrytitle>procmail</refentrytitle>
+  <manvolnum>1</manvolnum>
+</citerefentry>
+and <citerefentry>
+  <refentrytitle>perl</refentrytitle>
+  <manvolnum>1</manvolnum>
+</citerefentry>. HTTP server support is provided in the form of
 a separate apache module. HTTP client support is provided by
-tsget(1). Pure TCP/IP protocol is not supported.</term>
+<citerefentry>
+  <refentrytitle>tsget</refentrytitle>
+  <manvolnum>1</manvolnum>
+</citerefentry>. Pure TCP/IP protocol is not supported.</term>
           <listitem>
             <para/>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.ts.pod:_The_file_containing_the_last_serial_number_of_the_TSA_is_notlocked_when_being_read_or_written._This_is_a_problem_if_more_than_oneinstance_of_openssl1_is_trying_to_create_a_time_stampresponse_at_the_same_time._This_is_not_an_issue_when_using_the_apacheserver_module_it_does_proper_locking."/>* The file containing the last serial number of the TSA is not
+          <term><anchor xml:id="sources.openssl.doc.apps.ts.pod:_The_file_containing_the_last_serial_number_of_the_TSA_is_notlocked_when_being_read_or_written._This_is_a_problem_if_more_than_oneinstance_of___openssl__1_is_trying_to_create_a_time_stampresponse_at_the_same_time._This_is_not_an_issue_when_using_the_apacheserver_module_it_does_proper_locking."/>* The file containing the last serial number of the TSA is not
 locked when being read or written. This is a problem if more than one
-instance of openssl(1) is trying to create a time stamp
+instance of <citerefentry>
+  <refentrytitle>openssl</refentrytitle>
+  <manvolnum>1</manvolnum>
+</citerefentry> is trying to create a time stamp
 response at the same time. This is not an issue when using the apache
 server module, it does proper locking.</term>
           <listitem>
@@ -866,7 +895,17 @@ test/testtsa).</term>
   </refsection>
   <refsection xml:id="sources.openssl.doc.apps.ts.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      tsget(1), openssl(1), req(1), x509(1), ca(1), genrsa(1), config(5)
+      <citerefentry> <refentrytitle>tsget</refentrytitle>
+      <manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>openssl</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>req</refentrytitle>
+      <manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>x509</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>ca</refentrytitle>
+      <manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>genrsa</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>config</refentrytitle>
+      <manvolnum>5</manvolnum> </citerefentry>
     </para>
   </refsection>
 </refentry>

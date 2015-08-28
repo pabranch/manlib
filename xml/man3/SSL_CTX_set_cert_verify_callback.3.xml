@@ -16,7 +16,9 @@
       SSL_CTX_set_cert_verify_callback() sets the verification callback
       function for <emphasis role="italic">ctx</emphasis>. SSL objects that
       are created from <emphasis role="italic">ctx</emphasis> inherit the
-      setting valid at the time when SSL_new(3) is called.
+      setting valid at the time when <citerefentry>
+      <refentrytitle>SSL_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry> is called.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cert_verify_callback.pod:NOTES"><title>NOTES</title>
@@ -48,7 +50,8 @@
     </para>
     <para>
       Within <emphasis role="italic">x509_store_ctx</emphasis>, <emphasis role="italic">callback</emphasis> has access to the <emphasis role="italic">verify_callback</emphasis> function set using
-      SSL_CTX_set_verify(3).
+      <citerefentry> <refentrytitle>SSL_CTX_set_verify</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cert_verify_callback.pod:WARNINGS"><title>WARNINGS</title>
@@ -56,7 +59,8 @@
       Do not mix the verification callback described in this function with
       the <emphasis role="bold">verify_callback</emphasis> function called
       during the verification process. The latter is set using the
-      SSL_CTX_set_verify(3) family of functions.
+      <citerefentry> <refentrytitle>SSL_CTX_set_verify</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> family of functions.
     </para>
     <para>
       Providing a complete verification procedure including certificate
@@ -76,8 +80,14 @@
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cert_verify_callback.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      ssl(3), SSL_CTX_set_verify(3), SSL_get_verify_result(3),
-      SSL_CTX_load_verify_locations(3)
+      <citerefentry> <refentrytitle>ssl</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_verify</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_get_verify_result</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_load_verify_locations</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cert_verify_callback.pod:HISTORY"><title>HISTORY</title>

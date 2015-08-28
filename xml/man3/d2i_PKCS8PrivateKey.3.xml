@@ -35,15 +35,19 @@ EVP_PKEY *d2i_PKCS8PrivateKey_fp(FILE *fp, EVP_PKEY **x, pem_password_cb *cb, vo
     <para>
       Other than the use of DER as opposed to PEM these functions are
       identical to the corresponding <emphasis role="bold">PEM</emphasis>
-      function as described in the pem(3) manual page.
+      function as described in the <citerefentry>
+      <refentrytitle>pem</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry> manual page.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.d2i_PKCS8PrivateKey.pod:NOTES"><title>NOTES</title>
     <para>
-      Before using these functions OpenSSL_add_all_algorithms(3) should be
-      called to initialize the internal algorithm lookup tables otherwise
-      errors about unknown algorithms will occur if an attempt is made to
-      decrypt a private key.
+      Before using these functions <citerefentry>
+      <refentrytitle>OpenSSL_add_all_algorithms</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> should be called to
+      initialize the internal algorithm lookup tables otherwise errors
+      about unknown algorithms will occur if an attempt is made to decrypt
+      a private key.
     </para>
     <para>
       These functions are currently the only way to store encrypted private
@@ -52,13 +56,15 @@ EVP_PKEY *d2i_PKCS8PrivateKey_fp(FILE *fp, EVP_PKEY **x, pem_password_cb *cb, vo
     <para>
       Currently all the functions use BIOs or FILE pointers, there are no
       functions which work directly on memory: this can be readily worked
-      around by converting the buffers to memory BIOs, see BIO_s_mem(3) for
-      details.
+      around by converting the buffers to memory BIOs, see <citerefentry>
+      <refentrytitle>BIO_s_mem</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry> for details.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.d2i_PKCS8PrivateKey.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      pem(3)
+      <citerefentry> <refentrytitle>pem</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
 </refentry>

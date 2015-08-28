@@ -45,7 +45,8 @@ BN_mod_sub, BN_mod_mul, BN_mod_sqr, BN_exp, BN_mod_exp, BN_gcd</refname>
       <emphasis role="italic">b</emphasis> and places the result in
       <emphasis role="italic">r</emphasis> (<literal role="code">r=a*b</literal>). <emphasis role="italic">r</emphasis> may be the same <emphasis role="bold">BIGNUM</emphasis> as <emphasis role="italic">a</emphasis>
       or <emphasis role="italic">b</emphasis>. For multiplication by powers
-      of 2, use BN_lshift(3).
+      of 2, use <citerefentry> <refentrytitle>BN_lshift</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>.
     </para>
     <para>
       BN_sqr() takes the square of <emphasis role="italic">a</emphasis> and
@@ -83,7 +84,10 @@ BN_mod_sub, BN_mod_mul, BN_mod_sqr, BN_exp, BN_mod_exp, BN_gcd</refname>
       (<literal role="code">r=(a*b) mod m</literal>). <emphasis role="italic">r</emphasis> may be the same <emphasis role="bold">BIGNUM</emphasis> as <emphasis role="italic">a</emphasis>
       or <emphasis role="italic">b</emphasis>. For more efficient
       algorithms for repeated computations using the same modulus, see
-      BN_mod_mul_montgomery(3) and BN_mod_mul_reciprocal(3).
+      <citerefentry> <refentrytitle>BN_mod_mul_montgomery</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> and <citerefentry>
+      <refentrytitle>BN_mod_mul_reciprocal</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>.
     </para>
     <para>
       BN_mod_sqr() takes the square of <emphasis role="italic">a</emphasis>
@@ -110,7 +114,9 @@ BN_mod_sub, BN_mod_mul, BN_mod_sqr, BN_exp, BN_mod_exp, BN_gcd</refname>
     <para>
       For all functions, <emphasis role="italic">ctx</emphasis> is a
       previously allocated <emphasis role="bold">BN_CTX</emphasis> used for
-      temporary variables; see BN_CTX_new(3).
+      temporary variables; see <citerefentry>
+      <refentrytitle>BN_CTX_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>.
     </para>
     <para>
       Unless noted otherwise, the result <emphasis role="bold">BIGNUM</emphasis> must be different from the arguments.
@@ -120,12 +126,23 @@ BN_mod_sub, BN_mod_mul, BN_mod_sqr, BN_exp, BN_mod_exp, BN_gcd</refname>
     <para>
       For all functions, 1 is returned for success, 0 on error. The return
       value should always be checked (e.g., <literal role="code">if (!BN_add(r,a,b)) goto err;</literal>). The
-      error codes can be obtained by ERR_get_error(3).
+      error codes can be obtained by <citerefentry>
+      <refentrytitle>ERR_get_error</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.BN_add.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      bn(3), ERR_get_error(3), BN_CTX_new(3), BN_add_word(3), BN_set_bit(3)
+      <citerefentry> <refentrytitle>bn</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ERR_get_error</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>BN_CTX_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>BN_add_word</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>BN_set_bit</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.BN_add.pod:HISTORY"><title>HISTORY</title>

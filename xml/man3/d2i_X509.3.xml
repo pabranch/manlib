@@ -262,23 +262,29 @@ if (!d2i_X509(&amp;x, &amp;p, len))
   <refsection xml:id="sources.openssl.doc.crypto.d2i_X509.pod:RETURN_VALUES"><title>RETURN VALUES</title>
     <para>
       d2i_X509(), d2i_X509_bio() and d2i_X509_fp() return a valid <emphasis role="bold">X509</emphasis> structure or <emphasis role="bold">NULL</emphasis> if an error occurs. The error code that
-      can be obtained by ERR_get_error(3). If the "reuse" capability has
-      been used with a valid X509 structure being passed in via <emphasis role="bold">px</emphasis> then the object is not freed in the event
+      can be obtained by <citerefentry>
+      <refentrytitle>ERR_get_error</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>. If the "reuse" capability has been used with a valid
+      X509 structure being passed in via <emphasis role="bold">px</emphasis> then the object is not freed in the event
       of error but may be in a potentially invalid or inconsistent state.
     </para>
     <para>
       i2d_X509() returns the number of bytes successfully encoded or a
       negative value if an error occurs. The error code can be obtained by
-      ERR_get_error(3).
+      <citerefentry> <refentrytitle>ERR_get_error</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>.
     </para>
     <para>
       i2d_X509_bio() and i2d_X509_fp() return 1 for success and 0 if an
-      error occurs The error code can be obtained by ERR_get_error(3). 
+      error occurs The error code can be obtained by <citerefentry>
+      <refentrytitle>ERR_get_error</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>. 
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.d2i_X509.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      ERR_get_error(3)
+      <citerefentry> <refentrytitle>ERR_get_error</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.d2i_X509.pod:HISTORY"><title>HISTORY</title>

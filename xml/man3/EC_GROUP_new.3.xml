@@ -47,9 +47,11 @@ int EC_GROUP_get_curve_GF2m(const EC_GROUP *group, BIGNUM *p, BIGNUM *a, BIGNUM 
     <para>
       A new curve can be constructed by calling EC_GROUP_new, using the
       implementation provided by <emphasis role="bold">meth</emphasis> (see
-      EC_GFp_simple_method(3)). It is then necessary to call either
-      EC_GROUP_set_curve_GFp or EC_GROUP_set_curve_GF2m as appropriate to
-      create a curve defined over Fp or over F2^m respectively.
+      <citerefentry> <refentrytitle>EC_GFp_simple_method</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>). It is then necessary to
+      call either EC_GROUP_set_curve_GFp or EC_GROUP_set_curve_GF2m as
+      appropriate to create a curve defined over Fp or over F2^m
+      respectively.
     </para>
     <para>
       EC_GROUP_set_curve_GFp sets the curve parameters <emphasis role="bold">p</emphasis>, <emphasis role="bold">a</emphasis> and
@@ -126,8 +128,22 @@ int EC_GROUP_get_curve_GF2m(const EC_GROUP *group, BIGNUM *p, BIGNUM *a, BIGNUM 
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.EC_GROUP_new.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      crypto(3), ec(3), EC_GROUP_copy(3), EC_POINT_new(3), EC_POINT_add(3),
-      EC_KEY_new(3), EC_GFp_simple_method(3), d2i_ECPKParameters(3)
+      <citerefentry> <refentrytitle>crypto</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ec</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>EC_GROUP_copy</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>EC_POINT_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>EC_POINT_add</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>EC_KEY_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>EC_GFp_simple_method</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>d2i_ECPKParameters</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
 </refentry>

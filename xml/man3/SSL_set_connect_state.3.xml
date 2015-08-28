@@ -24,11 +24,14 @@
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_set_connect_state.pod:NOTES"><title>NOTES</title>
     <para>
-      When the SSL_CTX object was created with SSL_CTX_new(3), it was
-      either assigned a dedicated client method, a dedicated server method,
-      or a generic method, that can be used for both client and server
-      connections. (The method might have been changed with
-      SSL_CTX_set_ssl_version(3) or SSL_set_ssl_method().)
+      When the SSL_CTX object was created with <citerefentry>
+      <refentrytitle>SSL_CTX_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, it was either assigned a dedicated client method, a
+      dedicated server method, or a generic method, that can be used for
+      both client and server connections. (The method might have been
+      changed with <citerefentry>
+      <refentrytitle>SSL_CTX_set_ssl_version</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> or SSL_set_ssl_method().)
     </para>
     <para>
       When beginning a new handshake, the SSL engine must know whether it
@@ -38,11 +41,18 @@
       set.
     </para>
     <para>
-      When using the SSL_connect(3) or SSL_accept(3) routines, the correct
-      handshake routines are automatically set. When performing a
-      transparent negotiation using SSL_write(3) or SSL_read(3), the
-      handshake routines must be explicitly set in advance using either
-      SSL_set_connect_state() or SSL_set_accept_state().
+      When using the <citerefentry>
+      <refentrytitle>SSL_connect</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry> or <citerefentry>
+      <refentrytitle>SSL_accept</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry> routines, the correct handshake routines are
+      automatically set. When performing a transparent negotiation using
+      <citerefentry> <refentrytitle>SSL_write</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> or <citerefentry>
+      <refentrytitle>SSL_read</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, the handshake routines must be explicitly set in
+      advance using either SSL_set_connect_state() or
+      SSL_set_accept_state().
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_set_connect_state.pod:RETURN_VALUES"><title>RETURN VALUES</title>
@@ -53,9 +63,24 @@
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_set_connect_state.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      ssl(3), SSL_new(3), SSL_CTX_new(3), SSL_connect(3), SSL_accept(3),
-      SSL_write(3), SSL_read(3), SSL_do_handshake(3),
-      SSL_CTX_set_ssl_version(3)
+      <citerefentry> <refentrytitle>ssl</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, L<citerefentry>
+      <refentrytitle>SSL_connect</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_accept</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_write</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_read</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_do_handshake</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_ssl_version</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
 </refentry>

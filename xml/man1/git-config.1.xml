@@ -3618,7 +3618,7 @@ gc.&lt;pattern&gt;.reflogExpire
 gc.reflogExpireUnreachable
 </term>
 <term>
-gc.&lt;ref&gt;.reflogExpireUnreachable
+gc.&lt;pattern&gt;.reflogExpireUnreachable
 </term>
 <listitem>
 <simpara>
@@ -4302,6 +4302,59 @@ http.saveCookies
         If set, store cookies received during requests to the file specified by
         http.cookieFile. Has no effect if http.cookieFile is unset.
 </simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+http.sslVersion
+</term>
+<listitem>
+<simpara>
+        The SSL version to use when negotiating an SSL connection, if you
+        want to force the default.  The available and default version
+        depend on whether libcurl was built against NSS or OpenSSL and the
+        particular configuration of the crypto library in use. Internally
+        this sets the <emphasis>CURLOPT_SSL_VERSION</emphasis> option; see the libcurl
+        documentation for more details on the format of this option and
+        for the ssl version supported. Actually the possible values of
+        this option are:
+</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+sslv2
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+sslv3
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+tlsv1
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+tlsv1.0
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+tlsv1.1
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+tlsv1.2
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara>Can be overridden by the <emphasis>GIT_SSL_VERSION</emphasis> environment variable.
+To force git to use libcurl&#8217;s default ssl version and ignore any
+explicit http.sslversion option, set <emphasis>GIT_SSL_VERSION</emphasis> to the
+empty string.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>

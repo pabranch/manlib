@@ -165,9 +165,9 @@ size_t BIO_ctrl_get_read_request(BIO *b);</synopsis>
     </para>
     <screen>BIO *internal_bio, *network_bio;
 ...
-BIO_new_bio_pair(internal_bio, 0, network_bio, 0);
+BIO_new_bio_pair(&amp;internal_bio, 0, &amp;network_bio, 0);
 SSL_set_bio(ssl, internal_bio, internal_bio);
-SSL_operations();
+SSL_operations(); //e.g SSL_read and SSL_write
 ...
 
 application |   TLS-engine
@@ -176,9 +176,13 @@ application |   TLS-engine
             |     /\    ||
             |     ||    \/
             |   BIO-pair (internal_bio)
-   +----------&lt; BIO-pair (network_bio)
+            |   BIO-pair (network_bio)
+            |     ||     /\
+            |     \/     ||
+   +-----------&lt; BIO_operations()
    |        |
- socket     |
+   |        |
+  socket
 
 ...
 SSL_free(ssl);                /* implicitly frees internal_bio */
@@ -211,7 +215,15 @@ BIO_free(network_bio);
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.BIO_s_bio.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      SSL_set_bio(3), ssl(3), bio(3), BIO_should_retry(3), BIO_read(3)
+      <citerefentry> <refentrytitle>SSL_set_bio</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ssl</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>bio</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>BIO_should_retry</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>BIO_read</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>
     </para>
   </refsection>
 </refentry>

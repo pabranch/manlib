@@ -67,13 +67,18 @@ certificates</refpurpose>
       In server mode, when requesting a client certificate, the server must
       send the list of CAs of which it will accept client certificates.
       This list is not influenced by the contents of <emphasis role="bold">CAfile</emphasis> or <emphasis role="bold">CApath</emphasis> and must explicitly be set using the
-      SSL_CTX_set_client_CA_list(3) family of functions.
+      <citerefentry>
+      <refentrytitle>SSL_CTX_set_client_CA_list</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> family of functions.
     </para>
     <para>
       When building its own certificate chain, an OpenSSL client/server
       will try to fill in missing certificates from <emphasis role="bold">CAfile</emphasis>/<emphasis role="bold">CApath</emphasis>, if the certificate chain was not
-      explicitly specified (see SSL_CTX_add_extra_chain_cert(3),
-      SSL_CTX_use_certificate(3).
+      explicitly specified (see <citerefentry>
+      <refentrytitle>SSL_CTX_add_extra_chain_cert</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_use_certificate</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_load_verify_locations.pod:WARNINGS"><title>WARNINGS</title>
@@ -133,9 +138,18 @@ c_rehash .</screen>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_load_verify_locations.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      ssl(3), SSL_CTX_set_client_CA_list(3), SSL_get_client_CA_list(3),
-      SSL_CTX_use_certificate(3), SSL_CTX_add_extra_chain_cert(3),
-      SSL_CTX_set_cert_store(3)
+      <citerefentry> <refentrytitle>ssl</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_client_CA_list</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_get_client_CA_list</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_use_certificate</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_add_extra_chain_cert</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_cert_store</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
 </refentry>

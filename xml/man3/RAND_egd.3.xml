@@ -17,23 +17,27 @@ int RAND_egd_bytes(const char *path, int bytes);</synopsis>
     <para>
       RAND_egd() queries the entropy gathering daemon EGD on socket
       <emphasis role="bold">path</emphasis>. It queries 255 bytes and uses
-      RAND_add(3) to seed the OpenSSL built-in PRNG. RAND_egd(path) is a
-      wrapper for RAND_egd_bytes(path, 255);
+      <citerefentry> <refentrytitle>RAND_add</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> to seed the OpenSSL built-in
+      PRNG. RAND_egd(path) is a wrapper for RAND_egd_bytes(path, 255);
     </para>
     <para>
       RAND_egd_bytes() queries the entropy gathering daemon EGD on socket
-      <emphasis role="bold">path</emphasis>. It queries <emphasis role="bold">bytes</emphasis> bytes and uses RAND_add(3) to seed the
-      OpenSSL built-in PRNG. This function is more flexible than
-      RAND_egd(). When only one secret key must be generated, it is not
-      necessary to request the full amount 255 bytes from the EGD socket.
-      This can be advantageous, since the amount of entropy that can be
-      retrieved from EGD over time is limited.
+      <emphasis role="bold">path</emphasis>. It queries <emphasis role="bold">bytes</emphasis> bytes and uses <citerefentry>
+      <refentrytitle>RAND_add</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry> to seed the OpenSSL built-in PRNG. This function is
+      more flexible than RAND_egd(). When only one secret key must be
+      generated, it is not necessary to request the full amount 255 bytes
+      from the EGD socket. This can be advantageous, since the amount of
+      entropy that can be retrieved from EGD over time is limited.
     </para>
     <para>
       RAND_query_egd_bytes() performs the actual query of the EGD daemon on
       socket <emphasis role="bold">path</emphasis>. If <emphasis role="bold">buf</emphasis> is given, <emphasis role="bold">bytes</emphasis> bytes are queried and written into
       <emphasis role="bold">buf</emphasis>. If <emphasis role="bold">buf</emphasis> is NULL, <emphasis role="bold">bytes</emphasis> bytes are queried and used to seed the
-      OpenSSL built-in PRNG using RAND_add(3).
+      OpenSSL built-in PRNG using <citerefentry>
+      <refentrytitle>RAND_add</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.RAND_egd.pod:NOTES"><title>NOTES</title>
@@ -83,7 +87,12 @@ int RAND_egd_bytes(const char *path, int bytes);</synopsis>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.RAND_egd.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      rand(3), RAND_add(3), RAND_cleanup(3)
+      <citerefentry> <refentrytitle>rand</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>RAND_add</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>RAND_cleanup</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.RAND_egd.pod:HISTORY"><title>HISTORY</title>

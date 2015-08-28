@@ -29,8 +29,10 @@ void SSL_flush_sessions(SSL_CTX *ctx, long tm);</synopsis>
       SSL_CTX_sess_set_cache_size()). As sessions will not be reused ones
       they are expired, they should be removed from the cache to save
       resources. This can either be done automatically whenever 255 new
-      sessions were established (see SSL_CTX_set_session_cache_mode(3)) or
-      manually by calling SSL_CTX_flush_sessions().
+      sessions were established (see <citerefentry>
+      <refentrytitle>SSL_CTX_set_session_cache_mode</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>) or manually by calling
+      SSL_CTX_flush_sessions().
     </para>
     <para>
       The parameter <emphasis role="bold">tm</emphasis> specifies the time
@@ -41,7 +43,9 @@ void SSL_flush_sessions(SSL_CTX *ctx, long tm);</synopsis>
       SSL_CTX_flush_sessions() will only check sessions stored in the
       internal cache. When a session is found and removed, the
       remove_session_cb is however called to synchronize with the external
-      cache (see SSL_CTX_sess_set_get_cb(3)).
+      cache (see <citerefentry>
+      <refentrytitle>SSL_CTX_sess_set_get_cb</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>).
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_flush_sessions.pod:RETURN_VALUES"><title>RETURN VALUES</title>
@@ -49,8 +53,14 @@ void SSL_flush_sessions(SSL_CTX *ctx, long tm);</synopsis>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_flush_sessions.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      ssl(3), SSL_CTX_set_session_cache_mode(3), SSL_CTX_set_timeout(3),
-      SSL_CTX_sess_set_get_cb(3)
+      <citerefentry> <refentrytitle>ssl</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_session_cache_mode</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_timeout</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_sess_set_get_cb</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
 </refentry>

@@ -56,8 +56,10 @@ long SSL_get_options(SSL *ssl);</synopsis>
     <para>
       SSL_CTX_set_options() and SSL_set_options() affect the (external)
       protocol behaviour of the SSL library. The (internal) behaviour of
-      the API can be changed by using the similar SSL_CTX_set_mode(3) and
-      SSL_set_mode() functions.
+      the API can be changed by using the similar <citerefentry>
+      <refentrytitle>SSL_CTX_set_mode</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> and SSL_set_mode()
+      functions.
     </para>
     <para>
       During a handshake, the option settings of the SSL object are used.
@@ -203,12 +205,16 @@ long SSL_get_options(SSL *ssl);</synopsis>
           <listitem>
             <para>
 	      Always create a new key when using temporary/ephemeral DH
-	      parameters (see SSL_CTX_set_tmp_dh_callback(3)). This option
-	      must be used to prevent small subgroup attacks, when the DH
+	      parameters (see <citerefentry>
+	      <refentrytitle>SSL_CTX_set_tmp_dh_callback</refentrytitle>
+	      <manvolnum>3</manvolnum> </citerefentry>). This option must
+	      be used to prevent small subgroup attacks, when the DH
 	      parameters were not generated using "strong" primes (e.g.
-	      when using DSA-parameters, see dhparam(1)). If "strong"
-	      primes were used, it is not strictly necessary to generate a
-	      new DH key during each handshake but it is also recommended.
+	      when using DSA-parameters, see <citerefentry>
+	      <refentrytitle>dhparam</refentrytitle>
+	      <manvolnum>1</manvolnum> </citerefentry>). If "strong" primes
+	      were used, it is not strictly necessary to generate a new DH
+	      key during each handshake but it is also recommended.
 	      <emphasis role="bold">SSL_OP_SINGLE_DH_USE</emphasis> should
 	      therefore be enabled whenever temporary/ephemeral DH
 	      parameters are used.
@@ -443,8 +449,18 @@ long SSL_get_options(SSL *ssl);</synopsis>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      ssl(3), SSL_new(3), SSL_clear(3), SSL_CTX_set_tmp_dh_callback(3),
-      SSL_CTX_set_tmp_rsa_callback(3), dhparam(1)
+      <citerefentry> <refentrytitle>ssl</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_clear</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_tmp_dh_callback</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_tmp_rsa_callback</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>dhparam</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:HISTORY"><title>HISTORY</title>

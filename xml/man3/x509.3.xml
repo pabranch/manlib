@@ -56,7 +56,7 @@
 [<emphasis role="bold">-text</emphasis>]
 [<emphasis role="bold">-certopt option</emphasis>]
 [<emphasis role="bold">-C</emphasis>]
-[<emphasis role="bold">-md2|-md5|-sha1|-mdc2</emphasis>]
+[<emphasis role="bold">-[digest]</emphasis>]
 [<emphasis role="bold">-clrext</emphasis>]
 [<emphasis role="bold">-extfile filename</emphasis>]
 [<emphasis role="bold">-extensions section</emphasis>]
@@ -121,14 +121,15 @@
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term><anchor xml:id="sources.openssl.doc.apps.x509.pod:-md2-md5-sha1-mdc2"/><emphasis role="bold">-md2|-md5|-sha1|-mdc2</emphasis></term>
+            <term><anchor xml:id="sources.openssl.doc.apps.x509.pod:-digest"/><emphasis role="bold">-[digest]</emphasis></term>
             <listitem>
               <para>
 		the digest to use. This affects any signing or display
-		option that uses a message digest, such as the <emphasis role="bold">-fingerprint</emphasis>, <emphasis role="bold">-signkey</emphasis> and <emphasis role="bold">-CA</emphasis> options. If not specified then
-		SHA1 is used. If the key being used to sign with is a DSA
-		key then this option has no effect: SHA1 is always used
-		with DSA keys.
+		option that uses a message digest, such as the <emphasis role="bold">-fingerprint</emphasis>, <emphasis role="bold">-signkey</emphasis> and <emphasis role="bold">-CA</emphasis> options. Any digest supported by
+		the OpenSSL <emphasis role="bold">dgst</emphasis> command
+		can be used. If not specified then SHA1 is used. Note that
+		if a DSA key is used for signing, then this flag is ignored
+		and SHA1 is used.
               </para>
             </listitem>
           </varlistentry>
@@ -526,7 +527,9 @@
 		the key password source. For more information about the
 		format of <emphasis role="bold">arg</emphasis> see the
 		<emphasis role="bold">PASS PHRASE ARGUMENTS</emphasis>
-		section in openssl(1).
+		section in <citerefentry>
+		<refentrytitle>openssl</refentrytitle>
+		<manvolnum>1</manvolnum> </citerefentry>.
               </para>
             </listitem>
           </varlistentry>
@@ -677,8 +680,9 @@
 		be contained in the unnamed (default) section or the
 		default section should contain a variable called
 		"extensions" which contains the section to use. See the
-		x509v3_config(5) manual page for details of the extension
-		section format.
+		<citerefentry> <refentrytitle>x509v3_config</refentrytitle>
+		<manvolnum>5</manvolnum> </citerefentry> manual page for
+		details of the extension section format.
               </para>
             </listitem>
           </varlistentry>
@@ -1385,7 +1389,16 @@
   </refsection>
   <refsection xml:id="sources.openssl.doc.apps.x509.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      req(1), ca(1), genrsa(1), gendsa(1), verify(1), x509v3_config(5)
+      <citerefentry> <refentrytitle>req</refentrytitle>
+      <manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ca</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>genrsa</refentrytitle>
+      <manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>gendsa</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>verify</refentrytitle>
+      <manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>x509v3_config</refentrytitle> <manvolnum>5</manvolnum>
+      </citerefentry>
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.apps.x509.pod:HISTORY"><title>HISTORY</title>

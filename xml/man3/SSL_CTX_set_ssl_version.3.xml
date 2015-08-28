@@ -17,8 +17,10 @@ const SSL_METHOD *SSL_get_ssl_method(SSL *ssl);</synopsis>
     <para>
       SSL_CTX_set_ssl_version() sets a new default TLS/SSL <emphasis role="bold">method</emphasis> for SSL objects newly created from this
       <emphasis role="bold">ctx</emphasis>. SSL objects already created
-      with SSL_new(3) are not affected, except when SSL_clear(3) is being
-      called.
+      with <citerefentry> <refentrytitle>SSL_new</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> are not affected, except
+      when <citerefentry> <refentrytitle>SSL_clear</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> is being called.
     </para>
     <para>
       SSL_set_ssl_method() sets a new TLS/SSL <emphasis role="bold">method</emphasis> for a particular <emphasis role="bold">ssl</emphasis> object. It may be reset, when SSL_clear()
@@ -32,12 +34,15 @@ const SSL_METHOD *SSL_get_ssl_method(SSL *ssl);</synopsis>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_ssl_version.pod:NOTES"><title>NOTES</title>
     <para>
       The available <emphasis role="bold">method</emphasis> choices are
-      described in SSL_CTX_new(3).
+      described in <citerefentry>
+      <refentrytitle>SSL_CTX_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>.
     </para>
     <para>
-      When SSL_clear(3) is called and no session is connected to an SSL
-      object, the method of the SSL object is reset to the method currently
-      set in the corresponding SSL_CTX object.
+      When <citerefentry> <refentrytitle>SSL_clear</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> is called and no session is
+      connected to an SSL object, the method of the SSL object is reset to
+      the method currently set in the corresponding SSL_CTX object.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_ssl_version.pod:RETURN_VALUES"><title>RETURN VALUES</title>
@@ -69,8 +74,15 @@ const SSL_METHOD *SSL_get_ssl_method(SSL *ssl);</synopsis>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_ssl_version.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      SSL_CTX_new(3), SSL_new(3), SSL_clear(3), ssl(3),
-      SSL_set_connect_state(3)
+      <citerefentry> <refentrytitle>SSL_CTX_new</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_clear</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>ssl</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_set_connect_state</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
 </refentry>

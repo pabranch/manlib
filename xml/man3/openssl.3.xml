@@ -12,7 +12,7 @@
 <emphasis role="italic">command</emphasis>
 [ <emphasis role="italic">command_opts</emphasis> ]
 [ <emphasis role="italic">command_args</emphasis> ]</synopsis>
-<synopsis format="linespecific"><emphasis role="bold">openssl</emphasis> [ <emphasis role="bold">list-standard-commands</emphasis> | <emphasis role="bold">list-message-digest-commands</emphasis> | <emphasis role="bold">list-cipher-commands</emphasis> | <emphasis role="bold">list-cipher-algorithms</emphasis> | <emphasis role="bold">list-message-digest-algorithms</emphasis> | <emphasis role="bold">list-public-key-algorithms</emphasis>]</synopsis>
+<synopsis format="linespecific"><emphasis role="bold">openssl</emphasis> <emphasis role="bold">list</emphasis> [ <emphasis role="bold">standard-commands</emphasis> | <emphasis role="bold">digest-commands</emphasis> | <emphasis role="bold">cipher-commands</emphasis> | <emphasis role="bold">cipher-algorithms</emphasis> | <emphasis role="bold">digest-algorithms</emphasis> | <emphasis role="bold">public-key-algorithms</emphasis>]</synopsis>
 <synopsis format="linespecific"><emphasis role="bold">openssl</emphasis> <emphasis role="bold">no-</emphasis><emphasis role="italic">XXX</emphasis> [ <emphasis role="italic">arbitrary options</emphasis> ]</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="sources.openssl.doc.apps.openssl.pod:DESCRIPTION"><title>DESCRIPTION</title>
@@ -45,22 +45,22 @@ o  Time Stamp requests, generation and verification</screen>
       <emphasis role="italic">command_args</emphasis> in the SYNOPSIS).
     </para>
     <para>
-      The pseudo-commands <emphasis role="bold">list-standard-commands</emphasis>, <emphasis role="bold">list-message-digest-commands</emphasis>, and <emphasis role="bold">list-cipher-commands</emphasis> output a list (one entry
-      per line) of the names of all standard commands, message digest
-      commands, or cipher commands, respectively, that are available in the
-      present <emphasis role="bold">openssl</emphasis> utility.
+      The list parameters <emphasis role="bold">standard-commands</emphasis>, <emphasis role="bold">digest-commands</emphasis>, and <emphasis role="bold">cipher-commands</emphasis> output a list (one entry per
+      line) of the names of all standard commands, message digest commands,
+      or cipher commands, respectively, that are available in the present
+      <emphasis role="bold">openssl</emphasis> utility.
     </para>
     <para>
-      The pseudo-commands <emphasis role="bold">list-cipher-algorithms</emphasis> and <emphasis role="bold">list-message-digest-algorithms</emphasis> list all cipher
-      and message digest names, one entry per line. Aliases are listed as:
+      The list parameters <emphasis role="bold">cipher-algorithms</emphasis> and <emphasis role="bold">digest-algorithms</emphasis> list all cipher and message
+      digest names, one entry per line. Aliases are listed as:
     </para>
     <screen>from =&gt; to</screen>
     <para>
-      The pseudo-command <emphasis role="bold">list-public-key-algorithms</emphasis> lists all supported
+      The list parameter <emphasis role="bold">public-key-algorithms</emphasis> lists all supported
       public key algorithms.
     </para>
     <para>
-      The pseudo-command <emphasis role="bold">no-</emphasis><emphasis role="italic">XXX</emphasis> tests whether a command of the specified
+      The command <emphasis role="bold">no-</emphasis><emphasis role="italic">XXX</emphasis> tests whether a command of the specified
       name is available.  If no command named <emphasis role="italic">XXX</emphasis> exists, it returns 0 (success) and
       prints <emphasis role="bold">no-</emphasis><emphasis role="italic">XXX</emphasis>; otherwise it returns 1 and prints
       <emphasis role="italic">XXX</emphasis>.  In both cases, the output
@@ -70,8 +70,8 @@ o  Time Stamp requests, generation and verification</screen>
       there is a command of the same name, this provides an easy way for
       shell scripts to test for the availability of ciphers in the
       <emphasis role="bold">openssl</emphasis> program.  (<emphasis role="bold">no-</emphasis><emphasis role="italic">XXX</emphasis> is
-      not able to detect pseudo-commands such as <emphasis role="bold">quit</emphasis>, <emphasis role="bold">list-</emphasis><emphasis role="italic">...</emphasis><emphasis role="bold">-commands</emphasis>, or <emphasis role="bold">no-</emphasis><emphasis role="italic">XXX</emphasis>
-      itself.)
+      not able to detect pseudo-commands such as <emphasis role="bold">quit</emphasis>, <emphasis role="bold">list</emphasis>,
+      or <emphasis role="bold">no-</emphasis><emphasis role="italic">XXX</emphasis> itself.)
     </para>
     <refsection xml:id="sources.openssl.doc.apps.openssl.pod:STANDARD_COMMANDS"><title>STANDARD COMMANDS</title>
       <para>
@@ -683,12 +683,61 @@ o  Time Stamp requests, generation and verification</screen>
   </refsection>
   <refsection xml:id="sources.openssl.doc.apps.openssl.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      asn1parse(1), ca(1), config(5), crl(1), crl2pkcs7(1), dgst(1),
-      dhparam(1), dsa(1), dsaparam(1), enc(1), gendsa(1), genpkey(1),
-      genrsa(1), nseq(1), openssl(1), passwd(1), pkcs12(1), pkcs7(1),
-      pkcs8(1), rand(1), req(1), rsa(1), rsautl(1), s_client(1),
-      s_server(1), s_time(1), smime(1), spkac(1), verify(1), version(1),
-      x509(1), crypto(3), ssl(3), x509v3_config(5)
+      <citerefentry> <refentrytitle>asn1parse</refentrytitle>
+      <manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ca</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>config</refentrytitle>
+      <manvolnum>5</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>crl</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>crl2pkcs7</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>dgst</refentrytitle>
+      <manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>dhparam</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>dsa</refentrytitle>
+      <manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>dsaparam</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>enc</refentrytitle>
+      <manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>gendsa</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>genpkey</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>genrsa</refentrytitle>
+      <manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>nseq</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>openssl</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>passwd</refentrytitle>
+      <manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>pkcs12</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>pkcs7</refentrytitle>
+      <manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>pkcs8</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>rand</refentrytitle>
+      <manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>req</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>rsa</refentrytitle>
+      <manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>rsautl</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>s_client</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>s_server</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>s_time</refentrytitle>
+      <manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>smime</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>spkac</refentrytitle>
+      <manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>verify</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>version</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>x509</refentrytitle>
+      <manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>crypto</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>ssl</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>x509v3_config</refentrytitle> <manvolnum>5</manvolnum>
+      </citerefentry>
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.apps.openssl.pod:HISTORY"><title>HISTORY</title>

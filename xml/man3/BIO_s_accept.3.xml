@@ -55,7 +55,9 @@ long BIO_get_bind_mode(BIO *b, long dummy);</synopsis>
     </para>
     <para>
       BIO_get_fd() and BIO_set_fd() can be called to retrieve or set the
-      accept socket. See BIO_s_fd(3)
+      accept socket. See <citerefentry>
+      <refentrytitle>BIO_s_fd</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>
     </para>
     <para>
       BIO_set_accept_port() uses the string <emphasis role="bold">name</emphasis> to set the accept port. The port is
@@ -154,7 +156,18 @@ long BIO_get_bind_mode(BIO *b, long dummy);</synopsis>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.BIO_s_accept.pod:RETURN_VALUES"><title>RETURN VALUES</title>
     <para>
-      TBA
+      BIO_do_accept(), BIO_set_accept_port(), BIO_set_nbio_accept(),
+      BIO_set_accept_bios(), and BIO_set_bind_mode(), return 1 for success
+      and 0 or -1 for failure.
+    </para>
+    <para>
+      BIO_get_accept_port() returns the port name or NULL on error.
+    </para>
+    <para>
+      BIO_get_bind_mode() returns the set of <emphasis role="bold">BIO_BIND</emphasis> flags, or -1 on failure.
+    </para>
+    <para>
+      BIO_new_accept() returns a BIO or NULL on error.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.BIO_s_accept.pod:EXAMPLE"><title>EXAMPLE</title>

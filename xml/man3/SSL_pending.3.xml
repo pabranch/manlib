@@ -21,7 +21,9 @@
     <para>
       Data are received in blocks from the peer. Therefore data can be
       buffered inside <emphasis role="bold">ssl</emphasis> and are ready
-      for immediate retrieval with SSL_read(3).
+      for immediate retrieval with <citerefentry>
+      <refentrytitle>SSL_read</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_pending.pod:RETURN_VALUES"><title>RETURN VALUES</title>
@@ -32,10 +34,11 @@
   <refsection xml:id="sources.openssl.doc.ssl.SSL_pending.pod:BUGS"><title>BUGS</title>
     <para>
       SSL_pending() takes into account only bytes from the TLS/SSL record
-      that is currently being processed (if any).  If the <emphasis role="bold">SSL</emphasis> object's <emphasis role="italic">read_ahead</emphasis> flag is set (see
-      SSL_CTX_set_read_ahead(3)), additional protocol bytes may have been
-      read containing more TLS/SSL records; these are ignored by
-      SSL_pending().
+      that is currently being processed (if any).  If the <emphasis role="bold">SSL</emphasis> object's <emphasis role="italic">read_ahead</emphasis> flag is set (see <citerefentry>
+      <refentrytitle>SSL_CTX_set_read_ahead</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>), additional protocol bytes
+      may have been read containing more TLS/SSL records; these are ignored
+      by SSL_pending().
     </para>
     <para>
       Up to OpenSSL 0.9.6, SSL_pending() does not check if the record type
@@ -44,7 +47,12 @@
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_pending.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      SSL_read(3), SSL_CTX_set_read_ahead(3), ssl(3)
+      <citerefentry> <refentrytitle>SSL_read</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_read_ahead</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ssl</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>
     </para>
   </refsection>
 </refentry>

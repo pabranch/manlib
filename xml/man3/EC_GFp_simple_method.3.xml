@@ -22,12 +22,12 @@ const EC_METHOD *EC_GFp_nistp521_method(void);</synopsis>
     <para>
       The Elliptic Curve library provides a number of different
       implementations through a single common interface. When constructing
-      a curve using EC_GROUP_new (see EC_GROUP_new(3)) an implementation
-      method must be provided. The functions described here all return a
-      const pointer to an <emphasis role="bold">EC_METHOD</emphasis>
-      structure that can be passed to EC_GROUP_NEW. It is important that
-      the correct implementation type for the form of curve selected is
-      used.
+      a curve using EC_GROUP_new (see <citerefentry>
+      <refentrytitle>EC_GROUP_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>) an implementation method must be provided. The
+      functions described here all return a const pointer to an <emphasis role="bold">EC_METHOD</emphasis> structure that can be passed to
+      EC_GROUP_NEW. It is important that the correct implementation type
+      for the form of curve selected is used.
     </para>
     <para>
       For F2^m curves there is only one implementation choice, i.e.
@@ -37,11 +37,14 @@ const EC_METHOD *EC_GFp_nistp521_method(void);</synopsis>
       For Fp curves the lowest common denominator implementation is the
       EC_GFp_simple_method implementation. All other implementations are
       based on this one. EC_GFp_mont_method builds on EC_GFp_simple_method
-      but adds the use of montgomery multiplication (see
-      BN_mod_mul_montgomery(3)). EC_GFp_nist_method offers an
-      implementation optimised for use with NIST recommended curves (NIST
-      curves are available through EC_GROUP_new_by_curve_name as described
-      in EC_GROUP_new(3)).
+      but adds the use of montgomery multiplication (see <citerefentry>
+      <refentrytitle>BN_mod_mul_montgomery</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>). EC_GFp_nist_method offers
+      an implementation optimised for use with NIST recommended curves
+      (NIST curves are available through EC_GROUP_new_by_curve_name as
+      described in <citerefentry>
+      <refentrytitle>EC_GROUP_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>).
     </para>
     <para>
       The functions EC_GFp_nistp224_method, EC_GFp_nistp256_method and
@@ -69,9 +72,24 @@ const EC_METHOD *EC_GFp_nistp521_method(void);</synopsis>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.EC_GFp_simple_method.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      crypto(3), ec(3), EC_GROUP_new(3), EC_GROUP_copy(3), EC_POINT_new(3),
-      EC_POINT_add(3), EC_KEY_new(3), d2i_ECPKParameters(3),
-      BN_mod_mul_montgomery(3)
+      <citerefentry> <refentrytitle>crypto</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ec</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>EC_GROUP_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>EC_GROUP_copy</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>EC_POINT_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>EC_POINT_add</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>EC_KEY_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>d2i_ECPKParameters</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>BN_mod_mul_montgomery</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
 </refentry>

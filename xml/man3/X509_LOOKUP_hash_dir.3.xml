@@ -1,0 +1,148 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>X509_LOOKUP_hash_dir.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>X509_LOOKUP_hash_dir, X509_LOOKUP_file,
+X509_load_cert_file,
+X509_load_crl_file,
+X509_load_cert_crl_file</refname>
+<refpurpose>Default OpenSSL certificate
+lookup methods</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/x509_vfy.h&gt;</synopsis>
+<synopsis format="linespecific">X509_LOOKUP_METHOD *X509_LOOKUP_hash_dir(void);
+X509_LOOKUP_METHOD *X509_LOOKUP_file(void);</synopsis>
+<synopsis format="linespecific">int X509_load_cert_file(X509_LOOKUP *ctx, const char *file, int type);
+int X509_load_crl_file(X509_LOOKUP *ctx, const char *file, int type);
+int X509_load_cert_crl_file(X509_LOOKUP *ctx, const char *file, int type);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_LOOKUP_hash_dir.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      <emphasis role="bold">X509_LOOKUP_hash_dir</emphasis> and <emphasis role="bold">X509_LOOKUP_file</emphasis> are two certificate lookup
+      methods to use with <emphasis role="bold">X509_STORE</emphasis>,
+      provided by OpenSSL library.
+    </para>
+    <para>
+      Users of the library typically do not need to create instanses of
+      these methods manually, they would be created automatically by
+      <citerefentry>
+      <refentrytitle>X509_STORE_load_locations</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> or <citerefentry>
+      <refentrytitle>SSL_CTX_load_verify_locations</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> functions.
+    </para>
+    <para>
+      Internally loading of certificates and CRLs is implemented via
+      functions <emphasis role="bold">X509_load_cert_crl_file</emphasis>,
+      <emphasis role="bold">X509_load_cert_file</emphasis> and <emphasis role="bold">X509_load_crl_file</emphasis>. These functions support
+      parameter <emphasis role="italic">type</emphasis>, which can be one
+      of constants <emphasis role="bold">FILETYPE_PEM</emphasis>, <emphasis role="bold">FILETYPE_ASN1</emphasis> and <emphasis role="bold">FILETYPE_DEFAULT</emphasis>. They load certificates
+      and/or CRLs from specified file into memory cache of <emphasis role="bold">X509_STORE</emphasis> objects which given <emphasis role="bold">ctx</emphasis> parameter is associated with.
+    </para>
+    <para>
+      Functions <emphasis role="bold">X509_load_cert_file</emphasis> and
+      <emphasis role="bold">X509_load_crl_file</emphasis> can load both PEM
+      and DER formats depending of type value. Because DER format cannot
+      contain more than one certificate or CRL object (while PEM can
+      contain several concatenated PEM objects) <emphasis role="bold">X509_load_cert_crl_file</emphasis> with <emphasis role="bold">FILETYPE_ASN1</emphasis> is equivalent to <emphasis role="bold">X509_load_cert_file</emphasis>.
+    </para>
+    <para>
+      Constant <emphasis role="bold">FILETYPE_DEFAULT</emphasis> with NULL
+      filename causes these functions to load default certificate store
+      file (see <citerefentry>
+      <refentrytitle>X509_STORE_set_default_paths</refentrytitle>
+      </citerefentry>.
+    </para>
+    <screen></screen>
+    <para>
+      Functions return number of objects loaded from file or 0 in case of
+      error.
+    </para>
+    <para>
+      Both methods support adding several certificate locations into one
+      <emphasis role="bold">X509_STORE</emphasis>.
+    </para>
+    <para>
+      This page documents certificate store formats used by these methods
+      and caching policy.
+    </para>
+    <refsection xml:id="sources.openssl.doc.crypto.X509_LOOKUP_hash_dir.pod:FILE_METHOD"><title>FILE METHOD</title>
+      <para>
+	<emphasis role="bold">X509_LOOKUP_file</emphasis> method loads
+	entire set of certificates and CRLs into memory immediately when
+	file name is passed to it.
+      </para>
+      <para>
+	File format is ASCII text which contains concatenated PEM
+	certificates and CRLs.
+      </para>
+      <para>
+	This method should be used by applications which work with limited
+	set of CAs.
+      </para>
+      <screen></screen>
+    </refsection>
+    <refsection xml:id="sources.openssl.doc.crypto.X509_LOOKUP_hash_dir.pod:HASHED_DIR_METHOD"><title>HASHED DIR METHOD</title>
+      <para>
+	<emphasis role="bold">X509_LOOKUP_hash_dir</emphasis> is more
+	sophisticated method, which loads certificates and CRLs on demand,
+	but caches them in the memory once they are loaded. However, since
+	OpenSSL 1.0.0beta1 it checks for newer CRLs upon each lookup, so if
+	newer CRL would appear in the directory, it would be loaded.
+      </para>
+      <para>
+	Directory should contain each certificate and CRL in the separate
+	file in the PEM format, with file name derived from certificate
+	subject (or CRL issuer) hash, as returned by <citerefentry>
+	<refentrytitle>X509_NAME_hash</refentrytitle>
+	<manvolnum>3</manvolnum> </citerefentry> function of with option
+	<emphasis role="bold">-hash</emphasis> of <citerefentry>
+	<refentrytitle>x509</refentrytitle> <manvolnum>1</manvolnum>
+	</citerefentry> or <citerefentry>
+	<refentrytitle>crl</refentrytitle> <manvolnum>1</manvolnum>
+	</citerefentry> command.
+      </para>
+      <para>
+	This hash value is appended by suffix .<emphasis role="italic">N</emphasis> for certificates and <emphasis role="bold">.r</emphasis><emphasis role="italic">N</emphasis> for
+	CRLs where <emphasis role="italic">N</emphasis> is sequentual
+	number among certificates with same hash value, so it is possible
+	to have in the store several certificates with same subject or
+	several CRLs with same issuer (and, for example, different validity
+	period).
+      </para>
+      <para>
+	When checking for new CRLs once one CRL for given hash value is
+	loaded, hash_dir lookup method checks only for certificates with
+	sequentual number greater than one of already cached CRL. 
+      </para>
+      <para>
+	Note that hash algorithm used for subject hashing is changed in
+	OpenSSL 1.0, so all certificate stores have to be rehashed upon
+	transitopn from 0.9.8 to 1.0.0.
+      </para>
+      <para>
+	OpenSSL includes utility <citerefentry>
+	<refentrytitle>c_rehash</refentrytitle> <manvolnum>1</manvolnum>
+	</citerefentry> which creates symlinks with correct hashed names
+	for all files with .pem suffix in the given directory.
+      </para>
+    </refsection>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_LOOKUP_hash_dir.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>pem</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>d2i_X509_bio</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>X509_STORE_load_locations</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X609_store_add_lookup</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_load_verify_locations</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>,
+    </para>
+  </refsection>
+</refentry>

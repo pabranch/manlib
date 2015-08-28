@@ -15,7 +15,6 @@
 [<emphasis role="bold">-hex</emphasis>]
 [<emphasis role="bold">-binary</emphasis>]
 [<emphasis role="bold">-r</emphasis>]
-[<emphasis role="bold">-hmac arg</emphasis>]
 [<emphasis role="bold">-non-fips-allow</emphasis>]
 [<emphasis role="bold">-out filename</emphasis>]
 [<emphasis role="bold">-sign filename</emphasis>]
@@ -90,14 +89,6 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-hmac_arg"/><emphasis role="bold">-hmac arg</emphasis></term>
-          <listitem>
-            <para>
-	      set the HMAC key to "arg".
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.apps.dgst.pod:-non-fips-allow"/><emphasis role="bold">-non-fips-allow</emphasis></term>
           <listitem>
             <para>
@@ -161,7 +152,9 @@
 	      the private key password source. For more information about
 	      the format of <emphasis role="bold">arg</emphasis> see the
 	      <emphasis role="bold">PASS PHRASE ARGUMENTS</emphasis>
-	      section in openssl(1).
+	      section in <citerefentry>
+	      <refentrytitle>openssl</refentrytitle>
+	      <manvolnum>1</manvolnum> </citerefentry>.
             </para>
           </listitem>
         </varlistentry>
@@ -254,9 +247,13 @@
           <listitem>
             <para>
 	      a file or files containing random data used to seed the
-	      random number generator, or an EGD socket (see RAND_egd(3)).
-	      Multiple files can be specified separated by a OS-dependent
-	      character. The separator is <emphasis role="bold">;</emphasis> for MS-Windows, <emphasis role="bold">,</emphasis> for OpenVMS, and <emphasis role="bold">:</emphasis> for all others.
+	      random number generator, or an EGD socket (see <citerefentry>
+	      <refentrytitle>RAND_egd</refentrytitle>
+	      <manvolnum>3</manvolnum> </citerefentry>). Multiple files can
+	      be specified separated by a OS-dependent character. The
+	      separator is <emphasis role="bold">;</emphasis> for
+	      MS-Windows, <emphasis role="bold">,</emphasis> for OpenVMS,
+	      and <emphasis role="bold">:</emphasis> for all others.
             </para>
           </listitem>
         </varlistentry>
@@ -307,6 +304,11 @@
     <screen></screen>
   </refsection>
   <refsection xml:id="sources.openssl.doc.apps.dgst.pod:NOTES"><title>NOTES</title>
+    <para>
+      The digest mechanisms that are available will depend on the options
+      used when building OpenSSL. The <emphasis role="bold">list
+      digest-commands</emphasis> command can be used to list them.
+    </para>
     <para>
       New or agile applications should use probably use SHA-256. Other
       digests, particularly SHA-1 and MD5, are still widely used for

@@ -58,13 +58,19 @@ with 1.</term>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_shutdown.pod:If_the_peer_already_sent_the_close_notify_alert_and_it_wasalready_processed_implicitly_inside_another_functionSSL_read3_the_SSL_RECEIVED_SHUTDOWN_flag_is_set.SSL_shutdown_will_send_the_close_notify_alert_set_the_SSL_SENT_SHUTDOWNflag_and_will_immediately_return_with_1.Whether_SSL_RECEIVED_SHUTDOWN_is_already_set_can_be_checked_using_theSSL_get_shutdown_see_also_SSL_set_shutdown3_call."/>If the peer already sent the "close notify" alert <emphasis role="bold">and</emphasis> it was
+          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_shutdown.pod:If_the_peer_already_sent_the_close_notify_alert_and_it_wasalready_processed_implicitly_inside_another_function__SSL_read__3_the_SSL_RECEIVED_SHUTDOWN_flag_is_set.SSL_shutdown_will_send_the_close_notify_alert_set_the_SSL_SENT_SHUTDOWNflag_and_will_immediately_return_with_1.Whether_SSL_RECEIVED_SHUTDOWN_is_already_set_can_be_checked_using_theSSL_get_shutdown_see_also___SSL_set_shutdown__3_call."/>If the peer already sent the "close notify" alert <emphasis role="bold">and</emphasis> it was
 already processed implicitly inside another function
-(SSL_read(3)), the SSL_RECEIVED_SHUTDOWN flag is set.
+(<citerefentry>
+  <refentrytitle>SSL_read</refentrytitle>
+  <manvolnum>3</manvolnum>
+</citerefentry>), the SSL_RECEIVED_SHUTDOWN flag is set.
 SSL_shutdown() will send the "close notify" alert, set the SSL_SENT_SHUTDOWN
 flag and will immediately return with 1.
 Whether SSL_RECEIVED_SHUTDOWN is already set can be checked using the
-SSL_get_shutdown() (see also SSL_set_shutdown(3) call.</term>
+SSL_get_shutdown() (see also <citerefentry>
+  <refentrytitle>SSL_set_shutdown</refentrytitle>
+  <manvolnum>3</manvolnum>
+</citerefentry> call.</term>
           <listitem>
             <para/>
           </listitem>
@@ -100,7 +106,9 @@ SSL_get_shutdown() (see also SSL_set_shutdown(3) call.</term>
     <para>
       SSL_shutdown() can be modified to only set the connection to
       "shutdown" state but not actually send the "close notify" alert
-      messages, see SSL_CTX_set_quiet_shutdown(3). When "quiet shutdown" is
+      messages, see <citerefentry>
+      <refentrytitle>SSL_CTX_set_quiet_shutdown</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>. When "quiet shutdown" is
       enabled, SSL_shutdown() will always succeed and return 1.
     </para>
   </refsection>
@@ -116,9 +124,11 @@ SSL_get_shutdown() (see also SSL_set_shutdown(3) call.</term>
             <para>
 	      The shutdown is not yet finished. Call SSL_shutdown() for a
 	      second time, if a bidirectional shutdown shall be performed.
-	      The output of SSL_get_error(3) may be misleading, as an
-	      erroneous SSL_ERROR_SYSCALL may be flagged even though no
-	      error occurred.
+	      The output of <citerefentry>
+	      <refentrytitle>SSL_get_error</refentrytitle>
+	      <manvolnum>3</manvolnum> </citerefentry> may be misleading,
+	      as an erroneous SSL_ERROR_SYSCALL may be flagged even though
+	      no error occurred.
             </para>
           </listitem>
         </varlistentry>
@@ -139,9 +149,11 @@ SSL_get_shutdown() (see also SSL_set_shutdown(3) call.</term>
 	      The shutdown was not successful because a fatal error
 	      occurred either at the protocol level or a connection failure
 	      occurred. It can also occur if action is need to continue the
-	      operation for non-blocking BIOs. Call SSL_get_error(3) with
-	      the return value <emphasis role="bold">ret</emphasis> to find
-	      out the reason.
+	      operation for non-blocking BIOs. Call <citerefentry>
+	      <refentrytitle>SSL_get_error</refentrytitle>
+	      <manvolnum>3</manvolnum> </citerefentry> with the return
+	      value <emphasis role="bold">ret</emphasis> to find out the
+	      reason.
             </para>
           </listitem>
         </varlistentry>
@@ -150,9 +162,23 @@ SSL_get_shutdown() (see also SSL_set_shutdown(3) call.</term>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_shutdown.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      SSL_get_error(3), SSL_connect(3), SSL_accept(3), SSL_set_shutdown(3),
-      SSL_CTX_set_quiet_shutdown(3), SSL_clear(3), SSL_free(3), ssl(3),
-      bio(3)
+      <citerefentry> <refentrytitle>SSL_get_error</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_connect</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_accept</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_set_shutdown</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_quiet_shutdown</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_clear</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_free</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>ssl</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>bio</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>
     </para>
   </refsection>
 </refentry>

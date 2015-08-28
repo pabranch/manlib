@@ -17,8 +17,10 @@ int SSL_set_cipher_list(SSL *ssl, const char *str);</synopsis>
       SSL_CTX_set_cipher_list() sets the list of available ciphers for
       <emphasis role="bold">ctx</emphasis> using the control string
       <emphasis role="bold">str</emphasis>. The format of the string is
-      described in ciphers(1). The list of ciphers is inherited by all
-      <emphasis role="bold">ssl</emphasis> objects created from <emphasis role="bold">ctx</emphasis>.
+      described in <citerefentry> <refentrytitle>ciphers</refentrytitle>
+      <manvolnum>1</manvolnum> </citerefentry>. The list of ciphers is
+      inherited by all <emphasis role="bold">ssl</emphasis> objects created
+      from <emphasis role="bold">ctx</emphasis>.
     </para>
     <para>
       SSL_set_cipher_list() sets the list of ciphers only for <emphasis role="bold">ssl</emphasis>.
@@ -47,14 +49,20 @@ int SSL_set_cipher_list(SSL *ssl, const char *str);</synopsis>
       A RSA cipher can only be chosen, when a RSA certificate is available.
       RSA export ciphers with a keylength of 512 bits for the RSA key
       require a temporary 512 bit RSA key, as typically the supplied key
-      has a length of 1024 bit (see SSL_CTX_set_tmp_rsa_callback(3)). RSA
-      ciphers using DHE need a certificate and key and additional
-      DH-parameters (see SSL_CTX_set_tmp_dh_callback(3)).
+      has a length of 1024 bit (see <citerefentry>
+      <refentrytitle>SSL_CTX_set_tmp_rsa_callback</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>). RSA ciphers using DHE need
+      a certificate and key and additional DH-parameters (see
+      <citerefentry>
+      <refentrytitle>SSL_CTX_set_tmp_dh_callback</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>).
     </para>
     <para>
       A DSA cipher can only be chosen, when a DSA certificate is available.
       DSA ciphers always use DH key exchange and therefore need
-      DH-parameters (see SSL_CTX_set_tmp_dh_callback(3)).
+      DH-parameters (see <citerefentry>
+      <refentrytitle>SSL_CTX_set_tmp_dh_callback</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>).
     </para>
     <para>
       When these conditions are not met for any cipher in the list (e.g. a
@@ -72,9 +80,18 @@ int SSL_set_cipher_list(SSL *ssl, const char *str);</synopsis>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cipher_list.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      ssl(3), SSL_get_ciphers(3), SSL_CTX_use_certificate(3),
-      SSL_CTX_set_tmp_rsa_callback(3), SSL_CTX_set_tmp_dh_callback(3),
-      ciphers(1)
+      <citerefentry> <refentrytitle>ssl</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_get_ciphers</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_use_certificate</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_tmp_rsa_callback</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_tmp_dh_callback</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ciphers</refentrytitle> <manvolnum>1</manvolnum>
+      </citerefentry>
     </para>
   </refsection>
 </refentry>

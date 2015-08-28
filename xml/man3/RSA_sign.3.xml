@@ -20,14 +20,15 @@
       the signature in <emphasis role="bold">sigret</emphasis> and the
       signature size in <emphasis role="bold">siglen</emphasis>. <emphasis role="bold">sigret</emphasis> must point to RSA_size(<emphasis role="bold">rsa</emphasis>) bytes of memory. Note that PKCS #1 adds
       meta-data, placing limits on the size of the key that can be used.
-      See RSA_private_encrypt(3) for lower-level operations.
+      See <citerefentry> <refentrytitle>RSA_private_encrypt</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> for lower-level operations.
     </para>
     <para>
       <emphasis role="bold">type</emphasis> denotes the message digest
-      algorithm that was used to generate <emphasis role="bold">m</emphasis>. It usually is one of <emphasis role="bold">NID_sha1</emphasis>, <emphasis role="bold">NID_ripemd160</emphasis> and <emphasis role="bold">NID_md5</emphasis>; see objects(3) for details. If
-      <emphasis role="bold">type</emphasis> is <emphasis role="bold">NID_md5_sha1</emphasis>, an SSL signature (MD5 and SHA1
-      message digests with PKCS #1 padding and no algorithm identifier) is
-      created.
+      algorithm that was used to generate <emphasis role="bold">m</emphasis>. If <emphasis role="bold">type</emphasis> is
+      <emphasis role="bold">NID_md5_sha1</emphasis>, an SSL signature (MD5
+      and SHA1 message digests with PKCS #1 padding and no algorithm
+      identifier) is created.
     </para>
     <para>
       RSA_verify() verifies that the signature <emphasis role="bold">sigbuf</emphasis> of size <emphasis role="bold">siglen</emphasis> matches a given message digest
@@ -39,11 +40,13 @@
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.RSA_sign.pod:RETURN_VALUES"><title>RETURN VALUES</title>
     <para>
-      RSA_sign() returns 1 on success, 0 otherwise.  RSA_verify() returns 1
-      on successful verification, 0 otherwise.
+      RSA_sign() returns 1 on success. RSA_verify() returns 1 on successful
+      verification.
     </para>
     <para>
-      The error codes can be obtained by ERR_get_error(3).
+      The error codes can be obtained by <citerefentry>
+      <refentrytitle>ERR_get_error</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.RSA_sign.pod:BUGS"><title>BUGS</title>
@@ -59,8 +62,14 @@
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.RSA_sign.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      ERR_get_error(3), objects(3), rsa(3), RSA_private_encrypt(3),
-      RSA_public_decrypt(3)
+      <citerefentry> <refentrytitle>ERR_get_error</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>rsa</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>RSA_private_encrypt</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>RSA_public_decrypt</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.RSA_sign.pod:HISTORY"><title>HISTORY</title>

@@ -21,7 +21,9 @@
     <para>
       SSL_SESSION objects are allocated, when a TLS/SSL handshake operation
       is successfully completed. Depending on the settings, see
-      SSL_CTX_set_session_cache_mode(3), the SSL_SESSION objects are
+      <citerefentry>
+      <refentrytitle>SSL_CTX_set_session_cache_mode</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, the SSL_SESSION objects are
       internally referenced by the SSL_CTX and linked into its session
       cache. SSL objects may be using the SSL_SESSION object; as a session
       may be reused, several SSL objects may be using one SSL_SESSION
@@ -32,16 +34,20 @@
       delayed, e.g. when an SSL_SESSION object was completely freed as the
       reference count incorrectly became 0, but it is still referenced in
       the internal session cache and the cache list is processed during a
-      SSL_CTX_flush_sessions(3) operation.
+      <citerefentry> <refentrytitle>SSL_CTX_flush_sessions</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> operation.
     </para>
     <para>
       SSL_SESSION_free() must only be called for SSL_SESSION objects, for
       which the reference count was explicitly incremented (e.g. by calling
-      SSL_get1_session(), see SSL_get_session(3)) or when the SSL_SESSION
+      SSL_get1_session(), see <citerefentry>
+      <refentrytitle>SSL_get_session</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>) or when the SSL_SESSION
       object was generated outside a TLS handshake operation, e.g. by using
-      d2i_SSL_SESSION(3). It must not be called on other SSL_SESSION
-      objects, as this would cause incorrect reference counts and therefore
-      program failures.
+      <citerefentry> <refentrytitle>d2i_SSL_SESSION</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>. It must not be called on
+      other SSL_SESSION objects, as this would cause incorrect reference
+      counts and therefore program failures.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_SESSION_free.pod:RETURN_VALUES"><title>RETURN VALUES</title>
@@ -51,8 +57,16 @@
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_SESSION_free.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      ssl(3), SSL_get_session(3), SSL_CTX_set_session_cache_mode(3),
-      SSL_CTX_flush_sessions(3), d2i_SSL_SESSION(3)
+      <citerefentry> <refentrytitle>ssl</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_get_session</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_session_cache_mode</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_flush_sessions</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>d2i_SSL_SESSION</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
 </refentry>

@@ -48,9 +48,10 @@ int EC_KEY_set_public_key_affine_coordinates(EC_KEY *key, BIGNUM *x, BIGNUM *y);
     <para>
       Alternatively a new EC_KEY can be constructed by calling
       EC_KEY_new_by_curve_name and supplying the nid of the associated
-      curve. Refer to EC_GROUP_new(3) for a description of curve names.
-      This function simply wraps calls to EC_KEY_new and
-      EC_GROUP_new_by_curve_name. 
+      curve. Refer to <citerefentry>
+      <refentrytitle>EC_GROUP_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry> for a description of curve names. This function
+      simply wraps calls to EC_KEY_new and EC_GROUP_new_by_curve_name. 
     </para>
     <para>
       Calling EC_KEY_free decrements the reference count for the EC_KEY
@@ -99,7 +100,9 @@ int EC_KEY_set_public_key_affine_coordinates(EC_KEY *key, BIGNUM *x, BIGNUM *y);
     <para>
       The functions EC_KEY_get_conv_form and EC_KEY_set_conv_form get and
       set the point_conversion_form for the <emphasis role="bold">key</emphasis>. For a description of
-      point_conversion_forms please refer to EC_POINT_new(3).
+      point_conversion_forms please refer to <citerefentry>
+      <refentrytitle>EC_POINT_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>.
     </para>
     <para>
       EC_KEY_insert_key_method_data and EC_KEY_get_key_method_data enable
@@ -125,12 +128,15 @@ int EC_KEY_set_public_key_affine_coordinates(EC_KEY *key, BIGNUM *x, BIGNUM *y);
     </para>
     <para>
       EC_KEY_set_asn1_flag sets the asn1_flag on the underlying EC_GROUP
-      object (if set). Refer to EC_GROUP_copy(3) for further information on
-      the asn1_flag.
+      object (if set). Refer to <citerefentry>
+      <refentrytitle>EC_GROUP_copy</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry> for further information on the asn1_flag.
     </para>
     <para>
       EC_KEY_precompute_mult stores multiples of the underlying EC_GROUP
-      generator for faster point multiplication. See also EC_POINT_add(3).
+      generator for faster point multiplication. See also <citerefentry>
+      <refentrytitle>EC_POINT_add</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>.
     </para>
     <screen></screen>
   </refsection>
@@ -167,8 +173,22 @@ int EC_KEY_set_public_key_affine_coordinates(EC_KEY *key, BIGNUM *x, BIGNUM *y);
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.EC_KEY_new.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      crypto(3), ec(3), EC_GROUP_new(3), EC_GROUP_copy(3), EC_POINT_new(3),
-      EC_POINT_add(3), EC_GFp_simple_method(3), d2i_ECPKParameters(3)
+      <citerefentry> <refentrytitle>crypto</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ec</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>EC_GROUP_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>EC_GROUP_copy</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>EC_POINT_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>EC_POINT_add</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>EC_GFp_simple_method</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>d2i_ECPKParameters</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
 </refentry>

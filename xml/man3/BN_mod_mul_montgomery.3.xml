@@ -25,9 +25,10 @@ BN_MONT_CTX *BN_MONT_CTX_copy(BN_MONT_CTX *to, BN_MONT_CTX *from);</synopsis>
   <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_montgomery.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
       These functions implement Montgomery multiplication. They are used
-      automatically when BN_mod_exp(3) is called with suitable input, but
-      they may be useful when several operations are to be performed using
-      the same modulus.
+      automatically when <citerefentry>
+      <refentrytitle>BN_mod_exp</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry> is called with suitable input, but they may be useful
+      when several operations are to be performed using the same modulus.
     </para>
     <para>
       BN_MONT_CTX_new() allocates and initializes a <emphasis role="bold">BN_MONT_CTX</emphasis> structure.
@@ -70,7 +71,9 @@ BN_MONT_CTX *BN_MONT_CTX_copy(BN_MONT_CTX *to, BN_MONT_CTX *from);</synopsis>
     </para>
     <para>
       For the other functions, 1 is returned for success, 0 on error. The
-      error codes can be obtained by ERR_get_error(3).
+      error codes can be obtained by <citerefentry>
+      <refentrytitle>ERR_get_error</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_montgomery.pod:WARNING"><title>WARNING</title>
@@ -100,7 +103,13 @@ BN_MONT_CTX_free(ctx);</screen>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_montgomery.pod:SEE_ALSO"><title>SEE ALSO</title>
     <para>
-      bn(3), ERR_get_error(3), BN_add(3), BN_CTX_new(3)
+      <citerefentry> <refentrytitle>bn</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ERR_get_error</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry> <refentrytitle>BN_add</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>BN_CTX_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_montgomery.pod:HISTORY"><title>HISTORY</title>
