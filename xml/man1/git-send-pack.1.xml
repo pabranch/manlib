@@ -14,7 +14,10 @@
   <refpurpose>Push objects over Git protocol to another repository</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<literallayout><emphasis>git send-pack</emphasis> [--all] [--dry-run] [--force] [--receive-pack=&lt;git-receive-pack&gt;] [--verbose] [--thin] [--atomic] [&lt;host&gt;:]&lt;directory&gt; [&lt;ref&gt;&#8230;]</literallayout>
+<literallayout><emphasis>git send-pack</emphasis> [--all] [--dry-run] [--force] [--receive-pack=&lt;git-receive-pack&gt;]
+                [--verbose] [--thin] [--atomic]
+                [--[no-]signed|--sign=(true|false|if-asked)]
+                [&lt;host&gt;:]&lt;directory&gt; [&lt;ref&gt;&#8230;]</literallayout>
 <simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
@@ -133,6 +136,28 @@ be in a separate packet, and the list must end with a flush packet.</simpara>
         Use an atomic transaction for updating the refs. If any of the refs
         fails to update then the entire push will fail without changing any
         refs.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--[no-]signed
+</term>
+<term>
+--sign=(true|false|if-asked)
+</term>
+<listitem>
+<simpara>
+        GPG-sign the push request to update refs on the receiving
+        side, to allow it to be checked by the hooks and/or be
+        logged.  If <literal>false</literal> or <literal>--no-signed</literal>, no signing will be
+        attempted.  If <literal>true</literal> or <literal>--signed</literal>, the push will fail if the
+        server does not support signed pushes.  If set to <literal>if-asked</literal>,
+        sign if and only if the server supports signed pushes.  The push
+        will also fail if the actual call to <literal>gpg --sign</literal> fails.  See
+        <citerefentry>
+<refentrytitle>git-receive-pack</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> for the details on the receiving end.
 </simpara>
 </listitem>
 </varlistentry>

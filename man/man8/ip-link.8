@@ -21,7 +21,8 @@ ip-link \- network device configuration
 \fB\-r\fR[\fIesolve\fR] |
 \fB\-f\fR[\fIamily\fR] {
 .BR inet " | " inet6 " | " ipx " | " dnet " | " link " } | "
-\fB\-o\fR[\fIneline\fR] }
+\fB\-o\fR[\fIneline\fR] |
+\fB\-br\fR[\fIief\fR] }
 
 .ti -8
 .BI "ip link add"
@@ -100,6 +101,8 @@ ip-link \- network device configuration
 .BR dynamic " { " on " | " off " } |"
 .br
 .BR multicast " { " on " | " off " } |"
+.br
+.BR protodown " { " on " | " off " } |"
 .br
 .B  txqueuelen
 .IR PACKETS " |"
@@ -814,6 +817,12 @@ flag on the device.
 change the
 .B MULTICAST
 flag on the device.
+
+.TP
+.BR "protodown on " or " protodown off"
+change the
+.B PROTODOWN
+state on the device. Indicates that a protocol error has been detected on the port. Switch drivers can react to this error by doing a phys down on the switch port.
 
 .TP
 .BR "dynamic on " or " dynamic off"

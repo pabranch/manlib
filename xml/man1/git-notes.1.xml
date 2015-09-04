@@ -145,7 +145,7 @@ merge
         any) into the current notes ref (called "local").
 </simpara>
 <simpara>If conflicts arise and a strategy for automatically resolving
-conflicting notes (see the -s/--strategy option) is not given,
+conflicting notes (see the "NOTES MERGE STRATEGIES" section) is not given,
 the "manual" resolver is used. This resolver checks out the
 conflicting notes in a special worktree (<literal>.git/NOTES_MERGE_WORKTREE</literal>),
 and instructs the user to manually resolve the conflicts there.
@@ -341,6 +341,7 @@ get-ref
         When merging notes, resolve notes conflicts using the given
         strategy. The following strategies are recognized: "manual"
         (default), "ours", "theirs", "union" and "cat_sort_uniq".
+        This option overrides the "notes.mergeStrategy" configuration setting.
         See the "NOTES MERGE STRATEGIES" section below for more
         information on each notes merge strategy.
 </simpara>
@@ -436,6 +437,8 @@ conflicts in that work tree.
 When done, the user can either finalize the merge with
 <emphasis>git notes merge --commit</emphasis>, or abort the merge with
 <emphasis>git notes merge --abort</emphasis>.</simpara>
+<simpara>Users may select an automated merge strategy from among the following using
+either -s/--strategy option or configuring notes.mergeStrategy accordingly:</simpara>
 <simpara>"ours" automatically resolves conflicting notes in favor of the local
 version (i.e. the current notes ref).</simpara>
 <simpara>"theirs" automatically resolves notes conflicts in favor of the remote
@@ -494,6 +497,33 @@ core.notesRef
 </varlistentry>
 <varlistentry>
 <term>
+notes.mergeStrategy
+</term>
+<listitem>
+<simpara>
+        Which merge strategy to choose by default when resolving notes
+        conflicts.  Must be one of <literal>manual</literal>, <literal>ours</literal>, <literal>theirs</literal>, <literal>union</literal>, or
+        <literal>cat_sort_uniq</literal>.  Defaults to <literal>manual</literal>.  See "NOTES MERGE STRATEGIES"
+        section above for more information on each strategy.
+</simpara>
+<simpara>This setting can be overridden by passing the <literal>--strategy</literal> option.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+notes.&lt;name&gt;.mergeStrategy
+</term>
+<listitem>
+<simpara>
+        Which merge strategy to choose when doing a notes merge into
+        refs/notes/&lt;name&gt;.  This overrides the more general
+        "notes.mergeStrategy".  See the "NOTES MERGE STRATEGIES" section above
+        for more information on each available strategy.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 notes.displayRef
 </term>
 <listitem>
@@ -533,7 +563,8 @@ notes.rewriteMode
 <simpara>
         When copying notes during a rewrite, what to do if the target
         commit already has a note.  Must be one of <literal>overwrite</literal>,
-        <literal>concatenate</literal>, and <literal>ignore</literal>.  Defaults to <literal>concatenate</literal>.
+        <literal>concatenate</literal>, <literal>cat_sort_uniq</literal>, or <literal>ignore</literal>.  Defaults to
+        <literal>concatenate</literal>.
 </simpara>
 <simpara>This setting can be overridden with the <literal>GIT_NOTES_REWRITE_MODE</literal>
 environment variable.</simpara>
@@ -595,7 +626,7 @@ does not match any refs is silently ignored.</simpara>
 <simpara>
         When copying notes during a rewrite, what to do if the target
         commit already has a note.
-        Must be one of <literal>overwrite</literal>, <literal>concatenate</literal>, and <literal>ignore</literal>.
+        Must be one of <literal>overwrite</literal>, <literal>concatenate</literal>, <literal>cat_sort_uniq</literal>, or <literal>ignore</literal>.
         This overrides the <literal>core.rewriteMode</literal> setting.
 </simpara>
 </listitem>

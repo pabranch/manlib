@@ -35,8 +35,6 @@
 [<emphasis role="bold">-x509</emphasis>]
 [<emphasis role="bold">-days n</emphasis>]
 [<emphasis role="bold">-set_serial n</emphasis>]
-[<emphasis role="bold">-asn1-kludge</emphasis>]
-[<emphasis role="bold">-no-asn1-kludge</emphasis>]
 [<emphasis role="bold">-newhdr</emphasis>]
 [<emphasis role="bold">-extensions section</emphasis>]
 [<emphasis role="bold">-reqexts section</emphasis>]
@@ -439,41 +437,6 @@
 	      See discussion of the  <emphasis role="bold">-certopt</emphasis> parameter in the
 	      <citerefentry> <refentrytitle>x509</refentrytitle>
 	      <manvolnum>1</manvolnum> </citerefentry> command.
-            </para>
-            <screen></screen>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-asn1-kludge"/><emphasis role="bold">-asn1-kludge</emphasis></term>
-          <listitem>
-            <para>
-	      by default the <emphasis role="bold">req</emphasis> command
-	      outputs certificate requests containing no attributes in the
-	      correct PKCS#10 format. However certain CAs will only accept
-	      requests containing no attributes in an invalid form: this
-	      option produces this invalid format.
-            </para>
-            <para>
-	      More precisely the <emphasis role="bold">Attributes</emphasis> in a PKCS#10 certificate
-	      request are defined as a <emphasis role="bold">SET OF
-	      Attribute</emphasis>. They are <emphasis role="bold">not
-	      OPTIONAL</emphasis> so if no attributes are present then they
-	      should be encoded as an empty <emphasis role="bold">SET
-	      OF</emphasis>. The invalid form does not include the empty
-	      <emphasis role="bold">SET OF</emphasis> whereas the correct
-	      form does.
-            </para>
-            <para>
-	      It should be noted that very few CAs still require the use of
-	      this option.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.req.pod:-no-asn1-kludge"/><emphasis role="bold">-no-asn1-kludge</emphasis></term>
-          <listitem>
-            <para>
-	      Reverses effect of <emphasis role="bold">-asn1-kludge</emphasis>
             </para>
           </listitem>
         </varlistentry>

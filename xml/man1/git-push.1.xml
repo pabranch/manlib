@@ -16,7 +16,8 @@
 <refsynopsisdiv id="_synopsis">
 <literallayout><emphasis>git push</emphasis> [--all | --mirror | --tags] [--follow-tags] [--atomic] [-n | --dry-run] [--receive-pack=&lt;git-receive-pack&gt;]
            [--repo=&lt;repository&gt;] [-f | --force] [--prune] [-v | --verbose]
-           [-u | --set-upstream] [--signed]
+           [-u | --set-upstream]
+           [--[no-]signed|--sign=(true|false|if-asked)]
            [--force-with-lease[=&lt;refname&gt;[:&lt;expect&gt;]]]
            [--no-verify] [&lt;repository&gt; [&lt;refspec&gt;&#8230;]]</literallayout>
 <simpara></simpara>
@@ -210,16 +211,23 @@ already exists on the remote side.</simpara>
 </varlistentry>
 <varlistentry>
 <term>
---signed
+--[no-]signed
+</term>
+<term>
+--sign=(true|false|if-asked)
 </term>
 <listitem>
 <simpara>
         GPG-sign the push request to update refs on the receiving
         side, to allow it to be checked by the hooks and/or be
-        logged.  See <citerefentry>
+        logged.  If <literal>false</literal> or <literal>--no-signed</literal>, no signing will be
+        attempted.  If <literal>true</literal> or <literal>--signed</literal>, the push will fail if the
+        server does not support signed pushes.  If set to <literal>if-asked</literal>,
+        sign if and only if the server supports signed pushes.  The push
+        will also fail if the actual call to <literal>gpg --sign</literal> fails.  See
+        <citerefentry>
 <refentrytitle>git-receive-pack</refentrytitle><manvolnum>1</manvolnum>
-</citerefentry> for the details
-        on the receiving end.
+</citerefentry> for the details on the receiving end.
 </simpara>
 </listitem>
 </varlistentry>

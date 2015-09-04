@@ -1,0 +1,167 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>X509_get_extension_flags.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>X509_get_extension_flags, X509_get_key_usage, X509_get_extended_key_usage</refname>
+<refpurpose>retrieve certificate extension flags.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/x509v3.h&gt;</synopsis>
+<synopsis format="linespecific">uint32_t X509_get_extension_flags(X509 *x);
+uint32_t X509_get_key_usage(X509 *x);
+uint32_t X509_get_extended_key_usage(X509 *x);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      These functions retrieve flags related to commonly used certificate
+      extensions.
+    </para>
+    <para>
+      X509_get_extension_flags() retrieves general information about a
+      certificate, it will return one or more of the following flags ored
+      together.
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:EXFLAG_V1"/><emphasis role="bold">EXFLAG_V1</emphasis></term>
+          <listitem>
+            <para>
+	      The certificate is an obsolete version 1 certificate.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:EXFLAG_BCONS"/><emphasis role="bold">EXFLAG_BCONS</emphasis></term>
+          <listitem>
+            <para>
+	      The certificate contains a basic constraints extension.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:EXFLAG_CA"/><emphasis role="bold">EXFLAG_CA</emphasis></term>
+          <listitem>
+            <para>
+	      The certificate contains basic constraints and asserts the CA
+	      flag.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:EXFLAG_PROXY"/><emphasis role="bold">EXFLAG_PROXY</emphasis></term>
+          <listitem>
+            <para>
+	      The certificate is a valid proxy certificate.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:EXFLAG_SI"/><emphasis role="bold">EXFLAG_SI</emphasis></term>
+          <listitem>
+            <para>
+	      The certificate is self issued (that is subject and issuer
+	      names match).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:EXFLAG_SS"/><emphasis role="bold">EXFLAG_SS</emphasis></term>
+          <listitem>
+            <para>
+	      The subject and issuer names match and extension values imply
+	      it is self signed.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:EXFLAG_FRESHEST"/><emphasis role="bold">EXFLAG_FRESHEST</emphasis></term>
+          <listitem>
+            <para>
+	      The freshest CRL extension is present in the certificate.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:EXFLAG_CRITICAL"/><emphasis role="bold">EXFLAG_CRITICAL</emphasis></term>
+          <listitem>
+            <para>
+	      The certificate contains an unhandled critical extension.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:EXFLAG_INVALID"/><emphasis role="bold">EXFLAG_INVALID</emphasis></term>
+          <listitem>
+            <para>
+	      Some certificate extension values are invalid or
+	      inconsistent. The certificate should be rejected.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:EXFLAG_KUSAGE"/><emphasis role="bold">EXFLAG_KUSAGE</emphasis></term>
+          <listitem>
+            <para>
+	      The certificate contains a key usage extension. The value can
+	      be retrieved using X509_get_key_usage().
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:EXFLAG_XKUSAGE"/><emphasis role="bold">EXFLAG_XKUSAGE</emphasis></term>
+          <listitem>
+            <para>
+	      The certificate contains an extended key usage extension. The
+	      value can be retrieved using X509_get_extended_key_usage().
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+    <para>
+      X509_get_key_usage() returns the value of the key usage extension. 
+      If key usage is present will return zero or more of the flags:
+      <emphasis role="bold">KU_DIGITAL_SIGNATURE</emphasis>, <emphasis role="bold">KU_NON_REPUDIATION</emphasis>, <emphasis role="bold">KU_KEY_ENCIPHERMENT</emphasis>, <emphasis role="bold">KU_DATA_ENCIPHERMENT</emphasis>, <emphasis role="bold">KU_KEY_AGREEMENT</emphasis>, <emphasis role="bold">KU_KEY_CERT_SIGN</emphasis>, <emphasis role="bold">KU_CRL_SIGN</emphasis>, <emphasis role="bold">KU_ENCIPHER_ONLY</emphasis> or <emphasis role="bold">KU_DECIPHER_ONLY</emphasis> corresponding to individual
+      key usage bits. If key usage is absent then <emphasis role="bold">UINT32_MAX</emphasis> is returned.
+    </para>
+    <para>
+      X509_get_extended_key_usage() returns the value of the extended key
+      usage extension. If extended key usage is present it will return zero
+      or more of the flags: <emphasis role="bold">XKU_SSL_SERVER</emphasis>, <emphasis role="bold">XKU_SSL_CLIENT</emphasis>, <emphasis role="bold">XKU_SMIME</emphasis>, <emphasis role="bold">XKU_CODE_SIGN</emphasis> <emphasis role="bold">XKU_OCSP_SIGN</emphasis>, <emphasis role="bold">XKU_TIMESTAMP</emphasis>, <emphasis role="bold">XKU_DVCS</emphasis> or <emphasis role="bold">XKU_ANYEKU</emphasis>. These correspond to the OIDs
+      <emphasis role="bold">id-kp-serverAuth</emphasis>, <emphasis role="bold">id-kp-clientAuth</emphasis>, <emphasis role="bold">id-kp-emailProtection</emphasis>, <emphasis role="bold">id-kp-codeSigning</emphasis>, <emphasis role="bold">id-kp-OCSPSigning</emphasis>, <emphasis role="bold">id-kp-timeStamping</emphasis>, <emphasis role="bold">id-kp-dvcs</emphasis> and <emphasis role="bold">anyExtendedKeyUsage</emphasis> respectively. Additionally
+      <emphasis role="bold">XKU_SGC</emphasis> is set if either Netscape or
+      Microsoft SGC OIDs are present.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:NOTES"><title>NOTES</title>
+    <para>
+      The value of the flags correspond to extension values which are
+      cached in the <emphasis role="bold">X509</emphasis> structure. If the
+      flags returned do not provide sufficient information an application
+      should examine extension values directly.
+    </para>
+    <para>
+      If the key usage or extended key usage extension is absent then
+      typically usage is unrestricted. For this reason X509_get_key_usage()
+      and X509_get_extended_key_usage() return <emphasis role="bold">UINT32_MAX</emphasis> when the corresponding extension is
+      absent. Applications can additionally check the return value of
+      X509_get_extension_flags() and take appropriate action is an
+      extension is absent.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:RETURN_VALUE"><title>RETURN VALUE</title>
+    <para>
+      These functions all return sets of flags corresponding to the
+      certificate extension values.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>X509_check_purpose</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
+    </para>
+  </refsection>
+</refentry>

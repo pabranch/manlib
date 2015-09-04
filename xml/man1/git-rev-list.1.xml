@@ -220,8 +220,6 @@ ordering and formatting options, such as <literal>--reverse</literal>.</simpara>
         matches any of the given patterns are chosen (but see
         <literal>--all-match</literal>).
 </simpara>
-<simpara>When <literal>--show-notes</literal> is in effect, the message from the notes is
-matched as if it were part of the log message.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -1350,62 +1348,6 @@ people using 80-column terminals.</simpara>
 </varlistentry>
 <varlistentry>
 <term>
---notes[=&lt;ref&gt;]
-</term>
-<listitem>
-<simpara>
-        Show the notes (see <citerefentry>
-<refentrytitle>git-notes</refentrytitle><manvolnum>1</manvolnum>
-</citerefentry>) that annotate the
-        commit, when showing the commit log message.  This is the default
-        for <literal>git log</literal>, <literal>git show</literal> and <literal>git whatchanged</literal> commands when
-        there is no <literal>--pretty</literal>, <literal>--format</literal>, or <literal>--oneline</literal> option given
-        on the command line.
-</simpara>
-<simpara>By default, the notes shown are from the notes refs listed in the
-<emphasis>core.notesRef</emphasis> and <emphasis>notes.displayRef</emphasis> variables (or corresponding
-environment overrides). See <citerefentry>
-<refentrytitle>git-config</refentrytitle><manvolnum>1</manvolnum>
-</citerefentry> for more details.</simpara>
-<simpara>With an optional <emphasis>&lt;ref&gt;</emphasis> argument, show this notes ref instead of the
-default notes ref(s). The ref is taken to be in <literal>refs/notes/</literal> if it
-is not qualified.</simpara>
-<simpara>Multiple --notes options can be combined to control which notes are
-being displayed. Examples: "--notes=foo" will show only notes from
-"refs/notes/foo"; "--notes=foo --notes" will show both notes from
-"refs/notes/foo" and from the default notes ref(s).</simpara>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
---no-notes
-</term>
-<listitem>
-<simpara>
-        Do not show notes. This negates the above <literal>--notes</literal> option, by
-        resetting the list of notes refs from which notes are shown.
-        Options are parsed in the order given on the command line, so e.g.
-        "--notes --notes=foo --no-notes --notes=bar" will only show notes
-        from "refs/notes/bar".
-</simpara>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
---show-notes[=&lt;ref&gt;]
-</term>
-<term>
---[no-]standard-notes
-</term>
-<listitem>
-<simpara>
-        These options are deprecated. Use the above --notes/--no-notes
-        options instead.
-</simpara>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
 --show-signature
 </term>
 <listitem>
@@ -1882,11 +1824,6 @@ The title was &gt;&gt;t4119: test autocomputing -p&lt;n&gt; for traditional diff
 <listitem>
 <simpara>
 <emphasis>%B</emphasis>: raw body (unwrapped subject and body)
-</simpara>
-</listitem>
-<listitem>
-<simpara>
-<emphasis>%N</emphasis>: commit notes
 </simpara>
 </listitem>
 <listitem>

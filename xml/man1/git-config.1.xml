@@ -19,13 +19,13 @@
 <emphasis>git config</emphasis> [&lt;file-option&gt;] [type] --replace-all name value [value_regex]
 <emphasis>git config</emphasis> [&lt;file-option&gt;] [type] [-z|--null] --get name [value_regex]
 <emphasis>git config</emphasis> [&lt;file-option&gt;] [type] [-z|--null] --get-all name [value_regex]
-<emphasis>git config</emphasis> [&lt;file-option&gt;] [type] [-z|--null] --get-regexp name_regex [value_regex]
+<emphasis>git config</emphasis> [&lt;file-option&gt;] [type] [-z|--null] [--name-only] --get-regexp name_regex [value_regex]
 <emphasis>git config</emphasis> [&lt;file-option&gt;] [type] [-z|--null] --get-urlmatch name URL
 <emphasis>git config</emphasis> [&lt;file-option&gt;] --unset name [value_regex]
 <emphasis>git config</emphasis> [&lt;file-option&gt;] --unset-all name [value_regex]
 <emphasis>git config</emphasis> [&lt;file-option&gt;] --rename-section old_name new_name
 <emphasis>git config</emphasis> [&lt;file-option&gt;] --remove-section name
-<emphasis>git config</emphasis> [&lt;file-option&gt;] [-z|--null] -l | --list
+<emphasis>git config</emphasis> [&lt;file-option&gt;] [-z|--null] [--name-only] -l | --list
 <emphasis>git config</emphasis> [&lt;file-option&gt;] --get-color name [default]
 <emphasis>git config</emphasis> [&lt;file-option&gt;] --get-colorbool name [stdout-is-tty]
 <emphasis>git config</emphasis> [&lt;file-option&gt;] -e | --edit</literallayout>
@@ -298,7 +298,7 @@ from all available files.</simpara>
 </term>
 <listitem>
 <simpara>
-        List all variables set in config file.
+        List all variables set in config file, along with their values.
 </simpara>
 </listitem>
 </varlistentry>
@@ -365,6 +365,17 @@ from all available files.</simpara>
         key and value. This allows for secure parsing of the
         output without getting confused e.g. by values that
         contain line breaks.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--name-only
+</term>
+<listitem>
+<simpara>
+        Output only the names of config variables for <literal>--list</literal> or
+        <literal>--get-regexp</literal>.
 </simpara>
 </listitem>
 </varlistentry>
@@ -5238,6 +5249,36 @@ mergetool.prompt
 </varlistentry>
 <varlistentry>
 <term>
+notes.mergeStrategy
+</term>
+<listitem>
+<simpara>
+        Which merge strategy to choose by default when resolving notes
+        conflicts.  Must be one of <literal>manual</literal>, <literal>ours</literal>, <literal>theirs</literal>, <literal>union</literal>, or
+        <literal>cat_sort_uniq</literal>.  Defaults to <literal>manual</literal>.  See "NOTES MERGE STRATEGIES"
+        section of <citerefentry>
+<refentrytitle>git-notes</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> for more information on each strategy.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+notes.&lt;name&gt;.mergeStrategy
+</term>
+<listitem>
+<simpara>
+        Which merge strategy to choose when doing a notes merge into
+        refs/notes/&lt;name&gt;.  This overrides the more general
+        "notes.mergeStrategy".  See the "NOTES MERGE STRATEGIES" section in
+        <citerefentry>
+<refentrytitle>git-notes</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> for more information on the available strategies.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 notes.displayRef
 </term>
 <listitem>
@@ -5281,8 +5322,8 @@ notes.rewriteMode
         When copying notes during a rewrite (see the
         "notes.rewrite.&lt;command&gt;" option), determines what to do if
         the target commit already has a note.  Must be one of
-        <literal>overwrite</literal>, <literal>concatenate</literal>, or <literal>ignore</literal>.  Defaults to
-        <literal>concatenate</literal>.
+        <literal>overwrite</literal>, <literal>concatenate</literal>, <literal>cat_sort_uniq</literal>, or <literal>ignore</literal>.
+        Defaults to <literal>concatenate</literal>.
 </simpara>
 <simpara>This setting can be overridden with the <literal>GIT_NOTES_REWRITE_MODE</literal>
 environment variable.</simpara>
@@ -5682,6 +5723,24 @@ push.followTags
         If set to true enable <emphasis>--follow-tags</emphasis> option by default.  You
         may override this configuration at time of push by specifying
         <emphasis>--no-follow-tags</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+push.gpgSign
+</term>
+<listitem>
+<simpara>
+        May be set to a boolean value, or the string <emphasis>if-asked</emphasis>. A true
+        value causes all pushes to be GPG signed, as if <emphasis>--signed</emphasis> is
+        passed to <citerefentry>
+<refentrytitle>git-push</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>. The string <emphasis>if-asked</emphasis> causes
+        pushes to be signed if the server supports it, as if
+        <emphasis>--signed=if-asked</emphasis> is passed to <emphasis>git push</emphasis>. A false value may
+        override a value from a lower-priority config file. An explicit
+        command-line flag always overrides this config option.
 </simpara>
 </listitem>
 </varlistentry>

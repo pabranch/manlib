@@ -23,14 +23,15 @@
       g for use in the DSA and stores the result in <emphasis role="bold">dsa</emphasis>.
     </para>
     <para>
-      <emphasis role="bold">bits</emphasis> is the length of the prime to
-      be generated; the DSS allows a maximum of 1024 bits.
+      <emphasis role="bold">bits</emphasis> is the length of the prime p to
+      be generated. For lengths under 2048 bits, the length of q is 160
+      bits; for lengths greater than or equal to 2048 bits, the length of q
+      is set to 256 bits.
     </para>
     <para>
-      If <emphasis role="bold">seed</emphasis> is <emphasis role="bold">NULL</emphasis> or <emphasis role="bold">seed_len</emphasis> &lt; 20, the primes will be generated
-      at random. Otherwise, the seed is used to generate them. If the given
-      seed does not yield a prime q, a new random seed is chosen and placed
-      at <emphasis role="bold">seed</emphasis>.
+      If <emphasis role="bold">seed</emphasis> is NULL, the primes will be
+      generated at random. If <emphasis role="bold">seed_len</emphasis> is
+      less than the length of q, an error is returned.
     </para>
     <para>
       DSA_generate_parameters_ex() places the iteration count in *<emphasis role="bold">counter_ret</emphasis> and a counter used for finding a
