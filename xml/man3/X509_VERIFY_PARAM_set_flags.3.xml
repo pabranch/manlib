@@ -255,6 +255,12 @@ int X509_VERIFY_PARAM_set1_ip_asc(X509_VERIFY_PARAM *param, const char *ipasc);<
       chain can be found that is trusted. With this flag set the behaviour
       will match that of OpenSSL versions prior to 1.1.0.
     </para>
+    <para>
+      The <emphasis role="bold">X509_V_FLAG_NO_CHECK_TIME</emphasis> flag
+      suppresses checking the validity period of certificates and CRLs
+      against the current time. If X509_VERIFY_PARAM_set_time() is used to
+      specify a verification time, the check is not suppressed.
+    </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.X509_VERIFY_PARAM_set_flags.pod:NOTES"><title>NOTES</title>
     <para>
