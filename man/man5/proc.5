@@ -3303,6 +3303,16 @@ These variables can be read and sometimes modified using
 the \fI/proc\fP filesystem, and the (deprecated)
 .BR sysctl (2)
 system call.
+
+String values may be terminated by either \(aq\\0\(aq or \(aq\\n\(aq.
+
+Integer and long values may be written either in decimal or in
+hexadecimal notation (e.g. 0x3FFF).
+When writing multiple integer or long values, these may be separated
+by any of the following whitespace characters:
+\(aq\ \(aq, \(aq\\t\(aq, or \(aq\\n\(aq.
+Using other separators leads to the error
+.BR EINVAL .
 .TP
 .IR /proc/sys/abi " (since Linux 2.4.10)"
 This directory may contain files with application binary information.
@@ -4265,8 +4275,31 @@ this is the fifth kernel built from this source base and the
 date following it indicates the time the kernel was built.
 .TP
 .IR /proc/sys/kernel/threads-max " (since Linux 2.3.11)"
+.\" The following is based on Documentation/sysctl/kernel.txt
 This file specifies the system-wide limit on the number of
 threads (tasks) that can be created on the system.
+
+Since Linux 4.1,
+.\" commit 230633d109e35b0a24277498e773edeb79b4a331
+the value that can be written to
+.I threads-max
+is bounded.
+The minimum value that can be written is 20.
+The maximum value that can be written is given by the
+constant
+.B FUTEX_TID_MASK
+(0x3fffffff).
+If a value outside of this range is written to
+.IR threads-max ,
+the error
+.B EINVAL
+occurs.
+
+The value written is checked against the available RAM pages.
+If the thread structures would occupy too much (more than 1/8th)
+of the available RAM pages,
+.I threads-max
+is reduced accordingly.
 .TP
 .IR /proc/sys/kernel/zero-paged " (PowerPC only) "
 This file
