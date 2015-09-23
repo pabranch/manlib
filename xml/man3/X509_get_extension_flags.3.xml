@@ -11,7 +11,8 @@
 <synopsis format="linespecific">#include &lt;openssl/x509v3.h&gt;</synopsis>
 <synopsis format="linespecific">uint32_t X509_get_extension_flags(X509 *x);
 uint32_t X509_get_key_usage(X509 *x);
-uint32_t X509_get_extended_key_usage(X509 *x);</synopsis>
+uint32_t X509_get_extended_key_usage(X509 *x);
+const ASN1_OCTET_STRING *X509_get0_subject_key_id(X509 *x);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
@@ -135,13 +136,20 @@ uint32_t X509_get_extended_key_usage(X509 *x);</synopsis>
       <emphasis role="bold">XKU_SGC</emphasis> is set if either Netscape or
       Microsoft SGC OIDs are present.
     </para>
+    <para>
+      X509_get_extended_key_usage() return an internal pointer to the
+      subject key identifier of <emphasis role="bold">x</emphasis> as an
+      <emphasis role="bold">ASN1_OCTET_STRING</emphasis> or <emphasis role="bold">NULL</emphasis> if the extension is not present or cannot
+      be parsed.
+    </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:NOTES"><title>NOTES</title>
     <para>
       The value of the flags correspond to extension values which are
       cached in the <emphasis role="bold">X509</emphasis> structure. If the
       flags returned do not provide sufficient information an application
-      should examine extension values directly.
+      should examine extension values directly for example using
+      X509_get_ext_d2i().
     </para>
     <para>
       If the key usage or extended key usage extension is absent then
@@ -151,11 +159,23 @@ uint32_t X509_get_extended_key_usage(X509 *x);</synopsis>
       X509_get_extension_flags() and take appropriate action is an
       extension is absent.
     </para>
+    <para>
+      If X509_get0_subject_key_id() returns <emphasis role="bold">NULL</emphasis> then the extension may be absent or
+      malformed. Applications can determine the precise reason using
+      X509_get_ext_d2i().
+    </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:RETURN_VALUE"><title>RETURN VALUE</title>
     <para>
-      These functions all return sets of flags corresponding to the
-      certificate extension values.
+      X509_get_extension_flags(), X509_get_key_usage() and
+      X509_get_extended_key_usage() return sets of flags corresponding to
+      the certificate extension values.
+    </para>
+    <para>
+      X509_get0_subject_key_id() returns the subject key identifier as a
+      pointer to an <emphasis role="bold">ASN1_OCTET_STRING</emphasis>
+      structure or <emphasis role="bold">NULL</emphasis> if the extension
+      is absent or an error occured during parsing.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:SEE_ALSO"><title>SEE ALSO</title>

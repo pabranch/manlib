@@ -1,0 +1,129 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>X509_CRL_get0_by_serial.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>X509_CRL_get0_by_serial, X509_CRL_get0_by_cert, X509_CRL_get_REVOKED,
+X509_REVOKED_get0_serialNumber, X509_REVOKED_get0_revocationDate,
+X509_REVOKED_set_serialNumber, X509_REVOKED_set_revocationDate,
+X509_CRL_add0_revoked, X509_CRL_sort</refname>
+<refpurpose>CRL revoked entry utility
+functions.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/x509.h&gt;</synopsis>
+<synopsis format="linespecific">int X509_CRL_get0_by_serial(X509_CRL *crl,
+                            X509_REVOKED **ret, ASN1_INTEGER *serial);
+int X509_CRL_get0_by_cert(X509_CRL *crl, X509_REVOKED **ret, X509 *x);</synopsis>
+<synopsis format="linespecific">STACK_OF(X509_REVOKED) *X509_CRL_get_REVOKED(X509_CRL *crl);</synopsis>
+<synopsis format="linespecific">ASN1_INTEGER *X509_REVOKED_get0_serialNumber(X509_REVOKED *r);
+ASN1_TIME *X509_REVOKED_get0_revocationDate(X509_REVOKED *r);</synopsis>
+<synopsis format="linespecific">int X509_REVOKED_set_serialNumber(X509_REVOKED *r, ASN1_INTEGER *serial);
+int X509_REVOKED_set_revocationDate(X509_REVOKED *r, ASN1_TIME *tm);</synopsis>
+<synopsis format="linespecific">int X509_CRL_add0_revoked(X509_CRL *crl, X509_REVOKED *rev);</synopsis>
+<synopsis format="linespecific">int X509_CRL_sort(X509_CRL *crl);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_CRL_get0_by_serial.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      X509_CRL_get0_by_serial() attempts to find a revoked entry in
+      <emphasis role="bold">crl</emphasis> for serial number <emphasis role="bold">serial</emphasis>. If it is successful it sets <emphasis role="bold">*ret</emphasis> to the internal pointer of the matching
+      entry, as a result <emphasis role="bold">*ret</emphasis> must not be
+      freed up after the call.
+    </para>
+    <para>
+      X509_CRL_get0_by_cert() is similar to X509_get0_by_serial() except it
+      looks for a revoked entry using the serial number of certificate
+      <emphasis role="bold">x</emphasis>.
+    </para>
+    <para>
+      X509_CRL_get_REVOKED() returns an internal pointer to a stack of all
+      revoked entries for <emphasis role="bold">crl</emphasis>.
+    </para>
+    <para>
+      X509_REVOKED_get0_serialNumber() returns an internal pointer to the
+      serial number of <emphasis role="bold">r</emphasis>.
+    </para>
+    <para>
+      X509_REVOKED_get0_revocationDate() returns an internal pointer to the
+      revocation date of <emphasis role="bold">r</emphasis>.
+    </para>
+    <para>
+      X509_REVOKED_set_serialNumber() sets the serial number of <emphasis role="bold">r</emphasis> to <emphasis role="bold">serial</emphasis>.
+      The supplied <emphasis role="bold">serial</emphasis> pointer is not
+      used internally so it should be freed up after use.
+    </para>
+    <para>
+      X509_REVOKED_set_revocationDate() sets the revocation date of
+      <emphasis role="bold">r</emphasis> to <emphasis role="bold">tm</emphasis>. The supplied <emphasis role="bold">tm</emphasis> pointer is not used internally so it should
+      be freed up after use.
+    </para>
+    <para>
+      X509_CRL_add0_revoked() appends revoked entry <emphasis role="bold">rev</emphasis> to CRL <emphasis role="bold">crl</emphasis>. The pointer <emphasis role="bold">rev</emphasis> is used internally so it must not be freed
+      up after the call: it is freed when the parent CRL is freed.
+    </para>
+    <para>
+      X509_CRL_sort() sorts the revoked entries of <emphasis role="bold">crl</emphasis> into ascending serial number order.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_CRL_get0_by_serial.pod:NOTES"><title>NOTES</title>
+    <para>
+      Applications can determine the number of revoked entries returned by
+      X509_CRL_get_revoked() using sk_X509_REVOKED_num() and examine each
+      one in turn using sk_X509_REVOKED_value().
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_CRL_get0_by_serial.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      X509_CRL_get0_by_serial(), X509_CRL_get0_by_cert(),
+      X509_REVOKED_set_serialNumber(), X509_REVOKED_set_revocationDate(),
+      X509_CRL_add0_revoked() and X509_CRL_sort() return 1 for success and
+      0 for failure.
+    </para>
+    <para>
+      X509_REVOKED_get0_serialNumber() returns an <emphasis role="bold">ASN1_INTEGER</emphasis> pointer.
+    </para>
+    <para>
+      X509_REVOKED_get0_revocationDate() returns an <emphasis role="bold">ASN1_TIME</emphasis> value.
+    </para>
+    <para>
+      X509_CRL_get_REVOKED() returns a STACK of revoked entries.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_CRL_get0_by_serial.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>d2i_X509</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ERR_get_error</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get0_signature</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_ext_d2i</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_extension_flags</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_pubkey</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_subject_name</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_version</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_NAME_add_entry_by_txt</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_NAME_ENTRY_get_object</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_NAME_get_index_by_NID</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_NAME_print_ex</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>X509_sign</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>X509V3_get_d2i</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_verify_cert</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
+    </para>
+  </refsection>
+</refentry>

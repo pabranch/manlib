@@ -1,0 +1,105 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>X509_get_version.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>X509_get_version, X509_set_version, X509_REQ_get_version, X509_REQ_set_version,
+X509_CRL_get_version, X509_CRL_set_version</refname>
+<refpurpose>get or set certificate,
+certificate request or CRL version.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/x509.h&gt;</synopsis>
+<synopsis format="linespecific">long X509_get_version(X509 *x);
+int X509_set_version(X509 *x, long version);</synopsis>
+<synopsis format="linespecific">long X509_REQ_get_version(X509_REQ *req);
+int X509_REQ_set_version(X509_REQ *x, long version);</synopsis>
+<synopsis format="linespecific">long X509_CRL_get_version(X509_CRL *crl);
+int X509_CRL_set_version(X509_CRL *x, long version);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_get_version.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      X509_get_version() returns the numerical value of the version field
+      of certificate <emphasis role="bold">x</emphasis>. Note: this is
+      defined by standards (X.509 et al) to be one less than the
+      certificate version. So a verson 3 certificate will return 2 and a
+      version 1 certificate will return 0.
+    </para>
+    <para>
+      X509_set_version() sets the numerical value of the version field of
+      certificate <emphasis role="bold">x</emphasis> to <emphasis role="bold">version</emphasis>.
+    </para>
+    <para>
+      Similarly X509_REQ_get_version(), X509_REQ_set_version(),
+      X509_CRL_get_version() and X509_CRL_set_version() get and set the
+      version number of certificate requests and CRLs.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_get_version.pod:NOTES"><title>NOTES</title>
+    <para>
+      The version field of certificates, certificate requests and CRLs has
+      a DEFAULT value of <emphasis role="bold">v1(0)</emphasis> meaning the
+      field should be omitted for version 1. This is handled transparently
+      by these functions.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_get_version.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      X509_get_version(), X509_REQ_get_version() and X509_CRL_get_version()
+      return the numerical value of the version field.
+    </para>
+    <para>
+      X509_set_version(), X509_REQ_set_version() and X509_CRL_set_version()
+      return 1 for success and 0 for failure.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_get_version.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>d2i_X509</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ERR_get_error</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>X509_CRL_get0_by_serial</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get0_signature</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_ext_d2i</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_extension_flags</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_pubkey</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_subject_name</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_NAME_add_entry_by_txt</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_NAME_ENTRY_get_object</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_NAME_get_index_by_NID</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_NAME_print_ex</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>X509_sign</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>X509V3_get_d2i</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_verify_cert</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_get_version.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      X509_get_version(), X509_set_version() X509_REQ_get_version(),
+      X509_REQ_set_version(), X509_REQ_get_version() and
+      X509_REQ_set_version() are available in all versions of OpenSSL.
+    </para>
+    <para>
+      X509_get_version(), X509_REQ_get_version() and X509_CRL_get_version()
+      are functions in OpenSSL 1.1.0, in previous versions they were
+      macros.
+    </para>
+  </refsection>
+</refentry>

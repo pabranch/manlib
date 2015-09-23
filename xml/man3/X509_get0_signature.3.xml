@@ -1,0 +1,106 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>X509_get0_signature.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>X509_get0_signature, X509_get_signature_nid, X509_REQ_get0_signature,
+X509_REQ_get_signature_nid, X509_CRL_get0_signature,
+X509_CRL_get_signature_nid</refname>
+<refpurpose>signature information.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/x509.h&gt;</synopsis>
+<synopsis format="linespecific">void X509_get0_signature(ASN1_BIT_STRING **psig, X509_ALGOR **palg,
+                         const X509 *x);
+int X509_get_signature_nid(const X509 *x);</synopsis>
+<synopsis format="linespecific">void X509_REQ_get0_signature(ASN1_BIT_STRING **psig, X509_ALGOR **palg,
+                             const X509_REQ *crl);
+int X509_REQ_get_signature_nid(const X509_REQ *crl);</synopsis>
+<synopsis format="linespecific">void X509_CRL_get0_signature(ASN1_BIT_STRING **psig, X509_ALGOR **palg,
+                             const X509_CRL *crl);
+int X509_CRL_get_signature_nid(const X509_CRL *crl);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_get0_signature.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      X509_get0_signature() sets <emphasis role="bold">*psig</emphasis> to
+      the signature of <emphasis role="bold">x</emphasis> and <emphasis role="bold">*palg</emphasis> to the signature algorithm of <emphasis role="bold">x</emphasis>. The values returned are internal pointers
+      which <emphasis role="bold">MUST NOT</emphasis> be freed up after the
+      call.
+    </para>
+    <para>
+      X509_get_signature_nid() returns the NID corresponding to the
+      signature algorithm of <emphasis role="bold">x</emphasis>.
+    </para>
+    <para>
+      X509_REQ_get0_signature(), X509_REQ_get_signature_nid()
+      X509_CRL_get0_signature() and X509_CRL_get_signature_nid() perform
+      the same function for certificate requests and CRLs.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_get0_signature.pod:NOTES"><title>NOTES</title>
+    <para>
+      These functions provide lower level access to signatures in
+      certificates where an application wishes to analyse or generate a
+      signature in a form where X509_sign() et al is not appropriate (for
+      example a non standard or unsupported format).
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_get0_signature.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      X509_get_signature_nid(), X509_REQ_get_signature_nid() and
+      X509_CRL_get_signature_nid() return a NID.
+    </para>
+    <para>
+      X509_get0_signature(), X509_REQ_get0_signature() and
+      X509_CRL_get0_signature() do not return values.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_get0_signature.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>d2i_X509</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ERR_get_error</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>X509_CRL_get0_by_serial</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_ext_d2i</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_extension_flags</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_pubkey</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_subject_name</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_version</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_NAME_add_entry_by_txt</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_NAME_ENTRY_get_object</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_NAME_get_index_by_NID</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_NAME_print_ex</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>X509_sign</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>X509V3_get_d2i</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_verify_cert</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_get0_signature.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      X509_get0_signature() and X509_get_signature_nid() were first added
+      to OpenSSL 1.0.2.
+    </para>
+    <para>
+      X509_REQ_get0_signature(), X509_REQ_get_signature_nid(),
+      X509_CRL_get0_signature() and X509_CRL_get_signature_nid() were first
+      added to OpenSSL 1.1.0.
+    </para>
+  </refsection>
+</refentry>

@@ -1,0 +1,117 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>X509_sign.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>X509_sign, X509_sign_ctx, X509_verify, X509_REQ_sign, X509_REQ_sign_ctx,
+X509_REQ_verify, X509_CRL_sign, X509_CRL_sign_ctx, X509_CRL_verify</refname>
+<refpurpose>sign or verify certificate, certificate request or CRL signature.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis format="linespecific">#include &lt;openssl/x509.h&gt;</synopsis>
+<synopsis format="linespecific">int X509_sign(X509 *x, EVP_PKEY *pkey, const EVP_MD *md);
+int X509_sign_ctx(X509 *x, EVP_MD_CTX *ctx);
+int X509_verify(X509 *a, EVP_PKEY *r);</synopsis>
+<synopsis format="linespecific">int X509_REQ_sign(X509_REQ *x, EVP_PKEY *pkey, const EVP_MD *md);
+int X509_REQ_sign_ctx(X509_REQ *x, EVP_MD_CTX *ctx);
+int X509_REQ_verify(X509_REQ *a, EVP_PKEY *r);</synopsis>
+<synopsis format="linespecific">int X509_CRL_sign(X509_CRL *x, EVP_PKEY *pkey, const EVP_MD *md);
+int X509_CRL_sign_ctx(X509_CRL *x, EVP_MD_CTX *ctx);
+int X509_CRL_verify(X509_CRL *a, EVP_PKEY *r);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_sign.pod:DESCRIPTION"><title>DESCRIPTION</title>
+    <para>
+      X509_sign() signs certificate <emphasis role="bold">x</emphasis>
+      using private key <emphasis role="bold">pkey</emphasis> and message
+      digest <emphasis role="bold">md</emphasis> and sets the signature in
+      <emphasis role="bold">x</emphasis>. X509_sign_ctx() also signs
+      certificate <emphasis role="bold">x</emphasis> but uses the
+      parameters contained in digest context <emphasis role="bold">ctx</emphasis>.
+    </para>
+    <para>
+      X509_verify() verifies the signature of certificate <emphasis role="bold">x</emphasis> using public key <emphasis role="bold">pkey</emphasis>. Only the signature is checked: no other
+      checks (such as certificate chain validity) are perfored.
+    </para>
+    <para>
+      X509_REQ_sign(), X509_REQ_sign_ctx(), X509_REQ_verify(),
+      X509_CRL_sign(), X509_CRL_sign_ctx() and X509_CRL_verify() sign and
+      verify certificate requests and CRLs respectively.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_sign.pod:NOTES"><title>NOTES</title>
+    <para>
+      X509_sign_ctx() is used where the default parameters for the
+      corresponding public key and digest are not suitable. It can be used
+      to sign keys using RSA-PSS for example.
+    </para>
+    <para>
+      For efficiency reasons and to work around ASN.1 encoding issues the
+      encoding of the signed portion of a certificate, certificate request
+      and CRL is cached internally. If the signed portion of the structure
+      is modified the encoding is not always updated meaning a stale
+      version is sometimes used. This is not normally a problem because
+      modifying the signed portion will invalidate the signature and
+      signing will always update the encoding.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_sign.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+    <para>
+      X509_sign(), X509_sign_ctx(), X509_REQ_sign(), X509_REQ_sign_ctx(),
+      X509_CRL_sign() and X509_CRL_sign_ctx() return 1 for success and 0
+      for failure.
+    </para>
+    <para>
+      X509_verify(), X509_REQ_verify() and X509_CRL_verify() return 1 if
+      the signature is valid and 0 if the signature check fails. If the
+      signature could not be checked at all because it was invalid or some
+      other error occurred then -1 is returned.
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_sign.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>d2i_X509</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ERR_get_error</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>X509_CRL_get0_by_serial</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get0_signature</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_ext_d2i</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_extension_flags</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_pubkey</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_subject_name</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_version</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_NAME_add_entry_by_txt</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_NAME_ENTRY_get_object</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_NAME_get_index_by_NID</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_NAME_print_ex</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>X509V3_get_d2i</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_verify_cert</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
+    </para>
+  </refsection>
+  <refsection xml:id="sources.openssl.doc.crypto.X509_sign.pod:HISTORY"><title>HISTORY</title>
+    <para>
+      X509_sign(), X509_REQ_sign() and X509_CRL_sign() are available in all
+      versions of OpenSSL.
+    </para>
+    <para>
+      X509_sign_ctx(), X509_REQ_sign_ctx() and X509_CRL_sign_ctx() were
+      first added to OpenSSL 1.0.1.
+    </para>
+  </refsection>
+</refentry>
