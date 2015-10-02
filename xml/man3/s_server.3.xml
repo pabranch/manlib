@@ -35,6 +35,8 @@
 [<emphasis role="bold">-state</emphasis>]
 [<emphasis role="bold">-CApath directory</emphasis>]
 [<emphasis role="bold">-CAfile filename</emphasis>]
+[<emphasis role="bold">-no-CAfile</emphasis>]
+[<emphasis role="bold">-no-CApath</emphasis>]
 [<emphasis role="bold">-attime timestamp</emphasis>]
 [<emphasis role="bold">-check_ss_sig</emphasis>]
 [<emphasis role="bold">-explicit_policy</emphasis>]
@@ -68,6 +70,10 @@
 [<emphasis role="bold">-no_tmp_rsa</emphasis>]
 [<emphasis role="bold">-ssl3</emphasis>]
 [<emphasis role="bold">-tls1</emphasis>]
+[<emphasis role="bold">-dtls</emphasis>]
+[<emphasis role="bold">-dtls1</emphasis>]
+[<emphasis role="bold">-dtls1_2</emphasis>]
+[<emphasis role="bold">-listen</emphasis>]
 [<emphasis role="bold">-no_ssl3</emphasis>]
 [<emphasis role="bold">-no_tls1</emphasis>]
 [<emphasis role="bold">-no_dhe</emphasis>]
@@ -289,6 +295,24 @@
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_server.pod:-no-CAfile"/><emphasis role="bold">-no-CAfile</emphasis></term>
+          <listitem>
+            <para>
+	      Do not load the trusted CA certificates from the default file
+	      location
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_server.pod:-no-CApath"/><emphasis role="bold">-no-CApath</emphasis></term>
+          <listitem>
+            <para>
+	      Do not load the trusted CA certificates from the default
+	      directory location
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term><anchor xml:id="sources.openssl.doc.apps.s_server.pod:-verify_depth_-Verify_depth"/><emphasis role="bold">-verify depth</emphasis>, <emphasis role="bold">-Verify depth</emphasis></term>
           <listitem>
             <para>
@@ -437,6 +461,33 @@
 	      protocols. By default the initial handshake uses a method
 	      which should be compatible with all servers and permit them
 	      to use SSL v3 or TLS as appropriate.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_server.pod:-dtls_-dtls1_-dtls1_2"/><emphasis role="bold">-dtls</emphasis>, <emphasis role="bold">-dtls1</emphasis>, <emphasis role="bold">-dtls1_2</emphasis></term>
+          <listitem>
+            <para>
+	      these options make s_server use DTLS protocols instead of
+	      TLS. With <emphasis role="bold">-dtls</emphasis> s_server
+	      will negotiate any supported DTLS protcol version, whilst
+	      <emphasis role="bold">-dtls1</emphasis> and <emphasis role="bold">-dtls1_2</emphasis> will only support DTLS1.0 and
+	      DTLS1.2 respectively.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><anchor xml:id="sources.openssl.doc.apps.s_server.pod:-listen"/><emphasis role="bold">-listen</emphasis></term>
+          <listitem>
+            <para>
+	      this option can only be used in conjunction with one of the
+	      DTLS options above. With this option s_server will listen on
+	      a UDP port for incoming connections. Any ClientHellos that
+	      arrive will be checked to see if they have a cookie in them
+	      or not. Any without a cookie will be responded to with a
+	      HelloVerifyRequest. If a ClientHello with a cookie is
+	      received then s_server will connect to that peer and complete
+	      the handshake.
             </para>
           </listitem>
         </varlistentry>

@@ -12,11 +12,29 @@ certificates</refpurpose>
 <synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
 <synopsis format="linespecific">int SSL_CTX_load_verify_locations(SSL_CTX *ctx, const char *CAfile,
                                   const char *CApath);</synopsis>
+<synopsis format="linespecific">int SSL_CTX_set_default_verify_paths(SSL_CTX *ctx);</synopsis>
+<synopsis format="linespecific">int SSL_CTX_set_default_verify_dir(SSL_CTX *ctx);</synopsis>
+<synopsis format="linespecific">int SSL_CTX_set_default_verify_file(SSL_CTX *ctx);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_load_verify_locations.pod:DESCRIPTION"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_load_verify_locations() specifies the locations for <emphasis role="bold">ctx</emphasis>, at which CA certificates for verification
       purposes are located. The certificates available via <emphasis role="bold">CAfile</emphasis> and <emphasis role="bold">CApath</emphasis> are trusted.
+    </para>
+    <para>
+      SSL_CTX_set_default_verify_paths() specifies that the default
+      locations for which CA certificates are loaded should be used. There
+      is one default directory and one default file.
+    </para>
+    <para>
+      SSL_CTX_set_default_verify_dir() is similar to
+      SSL_CTX_set_default_verify_paths() except that just the default
+      directory is used.
+    </para>
+    <para>
+      SSL_CTX_set_default_verify_file() is similar to
+      SSL_CTX_set_default_verify_paths() except that just the default file
+      is used.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_load_verify_locations.pod:NOTES"><title>NOTES</title>
@@ -111,7 +129,8 @@ c_rehash .</screen>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_load_verify_locations.pod:RETURN_VALUES"><title>RETURN VALUES</title>
     <para>
-      The following return values can occur:
+      For SSL_CTX_load_verify_locations the following return values can
+      occur:
     </para>
     <para>
       <variablelist>
@@ -134,6 +153,11 @@ c_rehash .</screen>
           </listitem>
         </varlistentry>
       </variablelist>
+    </para>
+    <para>
+      SSL_CTX_set_default_verify_paths(), SSL_CTX_set_default_verify_dir()
+      and SSL_CTX_set_default_verify_file() all return 1 on success or 0 on
+      failure. A missing default location is still treated as a success.
     </para>
   </refsection>
   <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_load_verify_locations.pod:SEE_ALSO"><title>SEE ALSO</title>

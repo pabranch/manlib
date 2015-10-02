@@ -178,8 +178,8 @@
           <listitem>
             <para>
 	      the default cipher list. This is determined at compile time
-	      and, as of OpenSSL 1.0.0, is normally <emphasis role="bold">ALL:!aNULL:!eNULL</emphasis>. This must be the
-	      first cipher string specified.
+	      and is <emphasis role="bold">ALL:!COMPLEMENTOFDEFAULT:!eNULL</emphasis>. This
+	      must be the first cipher string specified.
             </para>
           </listitem>
         </varlistentry>
@@ -188,7 +188,8 @@
           <listitem>
             <para>
 	      the ciphers included in <emphasis role="bold">ALL</emphasis>,
-	      but not enabled by default. Currently this is <emphasis role="bold">ADH</emphasis> and <emphasis role="bold">AECDH</emphasis>. Note that this rule does not
+	      but not enabled by default. Currently this includes all RC4,
+	      DES, RC2 and anonymous ciphers. Note that this rule does not
 	      cover <emphasis role="bold">eNULL</emphasis>, which is not
 	      included by <emphasis role="bold">ALL</emphasis> (use
 	      <emphasis role="bold">COMPLEMENTOFALL</emphasis> if
