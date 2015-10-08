@@ -1,5 +1,5 @@
 .\"
-.\" Copyright (c) 2009-2013 Todd C. Miller <Todd.Miller@courtesan.com>
+.\" Copyright (c) 2009-2015 Todd C. Miller <Todd.Miller@courtesan.com>
 .\"
 .\" Permission to use, copy, modify, and distribute this software for any
 .\" purpose with or without fee is hereby granted, provided that the above
@@ -14,9 +14,9 @@
 .\" OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 .\" ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .\"
-.Dd December 20, 2013
+.Dd September 9, 2015
 .Dt SUDO_PLUGIN 5
-.Os Sudo 1.8.9p4
+.Os Sudo 1.8.15
 .Sh NAME
 .Nm sudo_plugin
 .Nd Sudo Plugin API
@@ -139,7 +139,7 @@ function that can be used by the plugin to interact with the user (see below).
 Returns 0 on success and \-1 on failure.
 .It plugin_printf
 A pointer to a
-.Fn printf Ns No -style
+.Fn printf Ns -style
 function that may be used to display informational or error messages
 (see below).
 Returns the number of characters printed on success and \-1 on failure.
@@ -187,27 +187,39 @@ The plugin may optionally pass this, or another value, back in the
 .Em command_info
 list.
 .It debug_flags=string
-A comma-separated list of debug flags that correspond to
-.Nm sudo Ns No 's
+A debug file path name followed by a space and a comma-separated
+list of debug flags that correspond to the plugin's
 .Li Debug
 entry in
 .Xr sudo.conf 5 ,
 if there is one.
-The flags are passed to the plugin as they appear in
+The flags are passed to the plugin exactly as they appear in
 .Xr sudo.conf 5 .
 The syntax used by
 .Nm sudo
 and the
 .Nm sudoers
 plugin is
-.Em subsystem Ns No @ Ns Em priority
-but the plugin is free to use a different
+.Em subsystem Ns @ Ns Em priority
+but a plugin is free to use a different
 format so long as it does not include a comma
 .Pq Ql ,\& .
-There is not currently a way to specify a set of debug flags specific
-to the plugin--the flags are shared by
+Prior to
 .Nm sudo
-and the plugin.
+1.8.12, there was no way to specify plugin-specific
+.Em debug_flags
+so the value was always the same as that used by the
+.Nm sudo
+front end and did not include a path name, only the flags themselves.
+As of version 1.7 of the plugin interface,
+.Nm sudo
+will only pass
+.Em debug_flags
+if
+.Xr sudo.conf 5
+contains a plugin-specific
+.Li Debug
+entry.
 .It debug_level=number
 This setting has been deprecated in favor of
 .Em debug_flags .
@@ -275,6 +287,13 @@ front end.
 This is the default directory set at compile time and may not
 correspond to the directory the running plugin was loaded from.
 It may be used by a plugin to locate support files.
+.It plugin_path=string
+The path name of plugin loaded by the
+.Nm sudo
+front end.
+The path name will be a fully-qualified unless the plugin was
+statically compiled into
+.Nm sudo .
 .It preserve_environment=bool
 Set to true if the user specified the
 .Fl E
@@ -417,7 +436,7 @@ Any (non-comment) strings immediately after the plugin path are
 passed as arguments to the plugin.
 These arguments are split on a white space boundary and are passed to
 the plugin in the form of a
-.Dv NULL Ns No -terminated
+.Dv NULL Ns -terminated
 array of strings.
 If no arguments were
 specified,
@@ -471,7 +490,7 @@ The name of the user invoking
 .El
 .It user_env
 The user's environment in the form of a
-.Dv NULL Ns No -terminated vector of
+.Dv NULL Ns -terminated vector of
 .Dq name=value
 strings.
 .Pp
@@ -658,7 +677,7 @@ pointer.
 .It env_add
 Additional environment variables specified by the user on the command
 line in the form of a
-.Dv NULL Ns No -terminated
+.Dv NULL Ns -terminated
 vector of
 .Dq name=value
 strings.
@@ -862,6 +881,19 @@ This allows the plugin to perform command substitution and transparently
 enable
 .Em sudoedit
 when the user attempts to run an editor.
+.It sudoedit_follow=bool
+Set to true to allow
+.Nm sudoedit
+to edit files that are symbolic links.
+By default,
+.Nm sudoedit
+1.8.15 and higher will refuse to open a symbolic link.
+The
+.Em sudoedit_follow
+option can be used to restore the older behavior and allow
+.Nm sudoedit
+to open symbolic links.
+Only available starting with API version 1.8.
 .It timeout=int
 Command timeout.
 If non-zero then when the timeout expires the command will be killed.
@@ -889,14 +921,14 @@ the invoking user's existing entry.
 Unsupported values will be ignored.
 .It argv_out
 The
-.Dv NULL Ns No -terminated
+.Dv NULL Ns -terminated
 argument vector to pass to the
 .Xr execve 2
 system call when executing the command.
 The plugin is responsible for allocating and populating the vector.
 .It user_env_out
 The
-.Dv NULL Ns No -terminated
+.Dv NULL Ns -terminated
 environment vector to use when executing the command.
 The plugin is responsible for allocating and populating the vector.
 .El
@@ -1046,7 +1078,7 @@ The
 .Em user_env
 argument points to the environment the command will
 run in, in the form of a
-.Dv NULL Ns No -terminated
+.Dv NULL Ns -terminated
 vector of
 .Dq name=value
 strings.
@@ -1196,7 +1228,7 @@ will not be called.
 #define SUDO_API_VERSION_SET_MAJOR(vp, n) do { \e
     *(vp) = (*(vp) & 0x0000ffff) | ((n) << 16); \e
 } while(0)
-#define SUDO_VERSION_SET_MINOR(vp, n) do { \e
+#define SUDO_API_VERSION_SET_MINOR(vp, n) do { \e
     *(vp) = (*(vp) & 0xffff0000) | (n); \e
 } while(0)
 .Ed
@@ -1255,6 +1287,20 @@ Any of the logging functions may be set to the
 pointer if no logging is to be performed.
 If the open function returns 0, no I/O will be sent to the plugin.
 .Pp
+If a logging function returns an error
+.Pq \-1 ,
+the running command will be terminated and all of the plugin's logging
+functions will be disabled.
+Other I/O logging plugins will still receive any remaining
+input or output that has not yet been processed.
+.Pp
+If an input logging function rejects the data by returning 0, the
+command will be terminated and the data will not be passed to the
+command, though it will still be sent to any other I/O logging plugins.
+If an output logging function rejects the data by returning 0, the
+command will be terminated and the data will not be written to the
+terminal, though it will still be sent to any other I/O logging plugins.
+.Pp
 The io_plugin struct has the following fields:
 .Bl -tag -width 4n
 .It type
@@ -1283,15 +1329,18 @@ int (*open)(unsigned int version, sudo_conv_t conversation,
 The
 .Fn open
 function is run before the
-.Fn log_input ,
-.Fn log_output
+.Fn log_ttyin ,
+.Fn log_ttyout ,
+.Fn log_stdin ,
+.Fn log_stdout ,
+.Fn log_stderr ,
 or
 .Fn show_version
 functions are called.
-It is only called if the version is being requested or the
+It is only called if the version is being requested or if the
+policy plugin's
 .Fn check_policy
-function has
-returned successfully.
+function has returned successfully.
 It returns 1 on success, 0 on failure, \-1 if a general error occurred,
 or \-2 if there was a usage error.
 In the latter case,
@@ -1330,7 +1379,7 @@ The
 function returns 0 on success and \-1 on failure.
 .It plugin_printf
 A pointer to a
-.Fn printf Ns No -style
+.Fn printf Ns -style
 function that may be used by the
 .Fn show_version
 function to display version information (see
@@ -1410,7 +1459,7 @@ wishes to run in the same form as what would be passed to the
 system call.
 .It user_env
 The user's environment in the form of a
-.Dv NULL Ns No -terminated
+.Dv NULL Ns -terminated
 vector of
 .Dq name=value
 strings.
@@ -1432,7 +1481,7 @@ Any (non-comment) strings immediately after the plugin path are
 treated as arguments to the plugin.
 These arguments are split on a white space boundary and are passed to
 the plugin in the form of a
-.Dv NULL Ns No -terminated
+.Dv NULL Ns -terminated
 array of strings.
 If no arguments were specified,
 .Em plugin_options
@@ -1517,7 +1566,8 @@ the user but before it is passed to the running command.
 This allows the plugin to reject data if it chooses to (for instance
 if the input contains banned content).
 Returns 1 if the data should be passed to the command, 0 if the data
-is rejected (which will terminate the command) or \-1 if an error occurred.
+is rejected (which will terminate the running command) or \-1 if an
+error occurred.
 .Pp
 The function arguments are as follows:
 .Bl -tag -width 4n
@@ -1540,7 +1590,7 @@ the command but before it is written to the user's terminal.
 This allows the plugin to reject data if it chooses to (for instance
 if the output contains banned content).
 Returns 1 if the data should be passed to the user, 0 if the data is rejected
-(which will terminate the command) or \-1 if an error occurred.
+(which will terminate the running command) or \-1 if an error occurred.
 .Pp
 The function arguments are as follows:
 .Bl -tag -width 4n
@@ -1565,7 +1615,7 @@ before it is passed to the running command.
 This allows the plugin to reject data if it chooses to
 (for instance if the input contains banned content).
 Returns 1 if the data should be passed to the command, 0 if the data is
-rejected (which will terminate the command) or \-1 if an error occurred.
+rejected (which will terminate the running command) or \-1 if an error occurred.
 .Pp
 The function arguments are as follows:
 .Bl -tag -width 4n
@@ -1590,7 +1640,7 @@ it is written to the standard output.
 This allows the plugin to reject data if it chooses to
 (for instance if the output contains banned content).
 Returns 1 if the data should be passed to the user, 0 if the data is
-rejected (which will terminate the command) or \-1 if an error occurred.
+rejected (which will terminate the running command) or \-1 if an error occurred.
 .Pp
 The function arguments are as follows:
 .Bl -tag -width 4n
@@ -1615,7 +1665,7 @@ is written to the standard error.
 This allows the plugin to reject data if it chooses to
 (for instance if the output contains banned content).
 Returns 1 if the data should be passed to the user, 0 if the data is
-rejected (which will terminate the command) or \-1 if an error occurred.
+rejected (which will terminate the running command) or \-1 if an error occurred.
 .Pp
 The function arguments are as follows:
 .Bl -tag -width 4n
@@ -1706,8 +1756,8 @@ are described by the following structure:
 typedef int (*sudo_hook_fn_t)();
 
 struct sudo_hook {
-    int hook_version;
-    int hook_type;
+    unsigned int hook_version;
+    unsigned int hook_type;
     sudo_hook_fn_t hook_fn;
     void *closure;
 };
@@ -1860,20 +1910,12 @@ return SUDO_HOOK_RET_STOP;
 /* Hook API version major/minor */
 #define SUDO_HOOK_VERSION_MAJOR 1
 #define SUDO_HOOK_VERSION_MINOR 0
-#define SUDO_HOOK_MKVERSION(x, y) ((x << 16) | y)
-#define SUDO_HOOK_VERSION SUDO_HOOK_MKVERSION(SUDO_HOOK_VERSION_MAJOR,\e
+#define SUDO_HOOK_VERSION SUDO_API_MKVERSION(SUDO_HOOK_VERSION_MAJOR,\e
                                               SUDO_HOOK_VERSION_MINOR)
-
-/* Getters and setters for hook API version */
-#define SUDO_HOOK_VERSION_GET_MAJOR(v) ((v) >> 16)
-#define SUDO_HOOK_VERSION_GET_MINOR(v) ((v) & 0xffff)
-#define SUDO_HOOK_VERSION_SET_MAJOR(vp, n) do { \e
-    *(vp) = (*(vp) & 0x0000ffff) | ((n) << 16); \e
-} while(0)
-#define SUDO_HOOK_VERSION_SET_MINOR(vp, n) do { \e
-    *(vp) = (*(vp) & 0xffff0000) | (n); \e
-} while(0)
 .Ed
+.Pp
+For getters and setters see the
+.Sx Policy plugin API .
 .Ss Remote command execution
 The
 .Nm sudo
@@ -1926,10 +1968,15 @@ The caller must include a trailing newline in
 if one is to be printed.
 .Pp
 A
-.Fn printf Ns No -style
+.Fn printf Ns -style
 function is also available that can be used to display informational
 or error messages to the user, which is usually more convenient for
 simple messages where no use input is required.
+.Pp
+.Em Conversation function structures
+.Pp
+The conversation function takes as arguments pointers to the following
+structures:
 .Bd -literal
 struct sudo_conv_message {
 #define SUDO_CONV_PROMPT_ECHO_OFF  0x0001 /* do not echo user input */
@@ -1937,7 +1984,6 @@ struct sudo_conv_message {
 #define SUDO_CONV_ERROR_MSG        0x0003 /* error message */
 #define SUDO_CONV_INFO_MSG         0x0004 /* informational message */
 #define SUDO_CONV_PROMPT_MASK      0x0005 /* mask user input */
-#define SUDO_CONV_DEBUG_MSG        0x0006 /* debugging message */
 #define SUDO_CONV_PROMPT_ECHO_OK   0x1000 /* flag: allow echo if no tty */
     int msg_type;
     int timeout;
@@ -1950,21 +1996,34 @@ struct sudo_conv_reply {
     char *reply;
 };
 
-typedef int (*sudo_conv_t)(int num_msgs,
-             const struct sudo_conv_message msgs[],
-             struct sudo_conv_reply replies[]);
-
-typedef int (*sudo_printf_t)(int msg_type, const char *fmt, ...);
+typedef int (*sudo_conv_callback_fn_t)(int signo, void *closure);
+struct sudo_conv_callback {
+    unsigned int version;
+    void *closure;
+    sudo_conv_callback_fn_t on_suspend;
+    sudo_conv_callback_fn_t on_resume;
+};
 .Ed
 .Pp
 Pointers to the
 .Fn conversation
 and
-.Fn printf Ns No -style
+.Fn printf Ns -style
 functions are passed
 in to the plugin's
 .Fn open
 function when the plugin is initialized.
+The following type definitions can be used in the declaration of the
+.Fn open
+function:
+.Bd -literal
+typedef int (*sudo_conv_t)(int num_msgs,
+             const struct sudo_conv_message msgs[],
+             struct sudo_conv_reply replies[],
+	     struct sudo_conv_callback *callback);
+
+typedef int (*sudo_printf_t)(int msg_type, const char *fmt, ...);
+.Ed
 .Pp
 To use the
 .Fn conversation
@@ -1979,6 +2038,31 @@ and
 .Li struct sudo_conv_reply
 for
 each message in the conversation.
+The
+.Li struct sudo_conv_callback
+pointer, if not
+.Dv NULL ,
+should contain function pointers to be called when the
+.Nm sudo
+process is suspended and/or resumed during conversation input.
+The
+.Fa on_suspend
+and
+.Fa on_resume
+functions are called with the signal that caused
+.Nm sudo
+to be suspended and the
+.Fa closure
+pointer from the
+.Li struct sudo_conv_callback .
+These functions should return 0 on success and \-1 on error.
+On error, the conversation will end and the conversation function
+will return a value of \-1.
+The intended use is to allow the plugin to release resources, such as locks,
+that should not be held indefinitely while suspended and then reacquire them
+when the process is resumed.
+Note that the functions are not actually invoked from within a signal handler.
+.Pp
 The plugin is responsible for freeing the reply buffer located in each
 .Li struct sudo_conv_reply ,
 if it is not
@@ -1994,14 +2078,13 @@ It is also useful as a maximum value for the
 function when clearing passwords filled in by the conversation function.
 .Pp
 The
-.Fn printf Ns No -style
+.Fn printf Ns -style
 function uses the same underlying mechanism as the
 .Fn conversation
 function but only supports
-.Dv SUDO_CONV_INFO_MSG ,
-.Dv SUDO_CONV_ERROR_MSG
+.Dv SUDO_CONV_INFO_MSG
 and
-.Dv SUDO_CONV_DEBUG_MSG
+.Dv SUDO_CONV_ERROR_MSG
 for the
 .Em msg_type
 parameter.
@@ -2010,26 +2093,6 @@ It can be more convenient than using the
 function if no user reply is needed and supports standard
 .Fn printf
 escape sequences.
-.Pp
-Unlike,
-.Dv SUDO_CONV_INFO_MSG
-and
-Dv SUDO_CONV_ERROR_MSG ,
-messages
-sent with the
-.Dv SUDO_CONV_DEBUG_MSG
-.Em msg_type
-are not directly
-user-visible.
-Instead, they are logged to the file specified in the
-.Li Debug
-statement (if any) in the
-.Xr sudo.conf 5 .
-file.
-This allows a plugin to log debugging information and is intended
-to be used in conjunction with the
-.Em debug_flags
-setting.
 .Pp
 See the sample plugin for an example of the
 .Fn conversation
@@ -2110,12 +2173,12 @@ major and minor version number of the group plugin API supported by
 .Nm sudoers .
 .It plugin_printf
 A pointer to a
-.Fn printf Ns No -style
+.Fn printf Ns -style
 function that may be used to display informational or error message to the user.
 Returns the number of characters printed on success and \-1 on failure.
 .It argv
 A
-.Dv NULL Ns No -terminated
+.Dv NULL Ns -terminated
 array of arguments generated from the
 .Em group_plugin
 option in
@@ -2177,17 +2240,9 @@ will be
 #define GROUP_API_VERSION_MINOR 0
 #define GROUP_API_VERSION ((GROUP_API_VERSION_MAJOR << 16) | \e
                            GROUP_API_VERSION_MINOR)
-
-/* Getters and setters for group version */
-#define GROUP_API_VERSION_GET_MAJOR(v) ((v) >> 16)
-#define GROUP_API_VERSION_GET_MINOR(v) ((v) & 0xffff)
-#define GROUP_API_VERSION_SET_MAJOR(vp, n) do { \e
-    *(vp) = (*(vp) & 0x0000ffff) | ((n) << 16); \e
-} while(0)
-#define GROUP_API_VERSION_SET_MINOR(vp, n) do { \e
-    *(vp) = (*(vp) & 0xffff0000) | (n); \e
-} while(0)
 .Ed
+For getters and setters see the
+.Sx Policy plugin API .
 .Sh PLUGIN API CHANGELOG
 The following revisions have been made to the Sudo Plugin API.
 .Bl -tag -width 4n
@@ -2261,19 +2316,79 @@ entry was added to the
 list.
 .It Version 1.5 (sudo 1.8.9)
 The
-.em preserve_fds
+.Em preserve_fds
 entry was added to the
 .Li command_info
 list.
+.It Version 1.6 (sudo 1.8.11)
+The behavior when an I/O logging plugin returns an error
+.Pq \-1
+has changed.
+Previously, the
+.Nm sudo
+front end took no action when the
+.Fn log_ttyin ,
+.Fn log_ttyout ,
+.Fn log_stdin ,
+.Fn log_stdout ,
+or
+.Fn log_stderr
+function returned an error.
+.Pp
+The behavior when an I/O logging plugin returns 0 has changed.
+Previously, output from the command would be displayed to the
+terminal even if an output logging function returned 0.
+.It Version 1.7 (sudo 1.8.12)
+The
+.Em plugin_path
+entry was added to the
+.Li settings
+list.
+.Pp
+The
+.Em debug_flags
+entry now starts with a debug file path name and may occur multiple
+times if there are multiple plugin-specific Debug lines in the
+.Xr sudo.conf 5 file.
+.It Version 1.8 (sudo 1.8.15)
+The
+.Em sudoedit_follow
+entry was added to the
+.Li command_info
+list.
+.Pp
+The sudo
+.Em conversation
+function now takes a pointer to a
+.Li struct sudo_conv_callback
+as its fourth argument.
+The
+.Li sudo_conv_t
+definition has been updated to match.
+The plugin must specify that it supports plugin API version 1.8 or higher
+to receive a conversation function pointer that supports this argument.
 .El
 .Sh SEE ALSO
 .Xr sudo.conf 5 ,
 .Xr sudoers 5 ,
 .Xr sudo 8
+.Sh AUTHORS
+Many people have worked on
+.Nm sudo
+over the years; this version consists of code written primarily by:
+.Bd -ragged -offset indent
+.An Todd C. Miller
+.Ed
+.Pp
+See the CONTRIBUTORS file in the
+.Nm sudo
+distribution (http://www.sudo.ws/contributors.html) for an
+exhaustive list of people who have contributed to
+.Nm sudo .
 .Sh BUGS
 If you feel you have found a bug in
 .Nm sudo ,
-please submit a bug report at http://www.sudo.ws/sudo/bugs/
+please submit a bug report at http://bugzilla.sudo.ws/
 .Sh SUPPORT
 Limited free support is available via the sudo-users mailing list,
 see http://www.sudo.ws/mailman/listinfo/sudo-users to subscribe or
@@ -2287,4 +2402,4 @@ to, the implied warranties of merchantability and fitness for a
 particular purpose are disclaimed.
 See the LICENSE file distributed with
 .Nm sudo
-or http://www.sudo.ws/sudo/license.html for complete details.
+or http://www.sudo.ws/license.html for complete details.

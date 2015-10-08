@@ -172,7 +172,7 @@ function update (sourceName, sourceDets, specified) {
       doUp('cvs update', {cwd: destDir});
       break;
     case 'hg':
-      doUp('hg pull', {cwd: destDir});
+      doUp('hg pull -u', {cwd: destDir});
       break;
     case 'bzr':
       doUp('bzr pull', {cwd: destDir});

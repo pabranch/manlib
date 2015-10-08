@@ -103,6 +103,10 @@ Neither glob nor regexp patterns are rooted. A glob\-syntax pattern of
 the form \fB*.c\fP will match a file ending in \fB.c\fP in any directory,
 and a regexp pattern of the form \fB\e.c$\fP will do the same. To root a
 regexp pattern, start it with \fB^\fP.
+.sp
+Subdirectories can have their own .hgignore settings by adding
+\fBsubinclude:path/to/subdir/.hgignore\fP to the root \fB.hgignore\fP. See
+\%\fBhg help patterns\fP\: for details on \fBsubinclude:\fP and \fBinclude:\fP.
 .IP Note
 .
 Patterns specified in other than \fB.hgignore\fP are always rooted.
@@ -137,7 +141,7 @@ Mercurial was written by Matt Mackall <\%mpm@selenic.com\:>.
 .SH COPYING
 .sp
 This manual page is copyright 2006 Vadim Gelfer.
-Mercurial is copyright 2005\-2014 Matt Mackall.
+Mercurial is copyright 2005\-2015 Matt Mackall.
 Free use of this software is granted under the terms of the GNU General
 Public License version 2 or any later version.
 .\" Common link and substitution definitions.
