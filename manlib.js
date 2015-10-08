@@ -26,6 +26,24 @@ program
   });
 
 program
+  .command('info [source]')
+  .description('show info on all sources, or just the specified source')
+  .action(function(source) {
+    loadSources();
+    if (source) {
+      if (!sources[source]) {
+        console.log('Source not found: ' + source);
+      } else {
+        info(source, sources[source], true);
+      }
+    } else {
+      for (var sourceName in sources) {
+        info(sourceName, sources[sourceName]);
+      }
+    }
+  });
+
+program
   .command('setup [source]')
   .description('setup all sources, or just the specified source')
   .action(function(source) {
@@ -115,6 +133,13 @@ function loadSources () {
   // JSON.minify: because there can be comments in sources.json.
   sources = JSON.parse(JSON.minify(fs.readFileSync(sourcesFile, 'utf8')));
 
+}
+
+function info (sourceName, sourceDets, specified) {
+  console.log(sourceName);
+  console.log('Type: ' + sourceDets.type);
+  console.log('URL: ' + sourceDets.url);
+  console.log('Command: ' + sourceDets.cmd);
 }
 
 function extract (sourceName, sourceDets, specified) {
