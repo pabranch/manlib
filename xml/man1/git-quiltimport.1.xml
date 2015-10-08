@@ -14,7 +14,8 @@
   <refpurpose>Applies a quilt patchset onto the current branch</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<literallayout><emphasis>git quiltimport</emphasis> [--dry-run | -n] [--author &lt;author&gt;] [--patches &lt;dir&gt;]</literallayout>
+<literallayout><emphasis>git quiltimport</emphasis> [--dry-run | -n] [--author &lt;author&gt;] [--patches &lt;dir&gt;]
+                [--series &lt;file&gt;]</literallayout>
 <simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
@@ -66,11 +67,23 @@ preserved as the 1 line subject in the Git description.</simpara>
 </term>
 <listitem>
 <simpara>
-        The directory to find the quilt patches and the
-        quilt series file.
+        The directory to find the quilt patches.
 </simpara>
 <simpara>The default for the patch directory is patches
 or the value of the $QUILT_PATCHES environment
+variable.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--series &lt;file&gt;
+</term>
+<listitem>
+<simpara>
+        The quilt series file.
+</simpara>
+<simpara>The default for the series file is &lt;patches&gt;/series
+or the value of the $QUILT_SERIES environment
 variable.</simpara>
 </listitem>
 </varlistentry>

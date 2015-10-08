@@ -1161,6 +1161,60 @@ GIT_ICASE_PATHSPECS
 </simpara>
 </listitem>
 </varlistentry>
+<varlistentry>
+<term>
+<literal>GIT_ALLOW_PROTOCOL</literal>
+</term>
+<listitem>
+<simpara>
+        If set, provide a colon-separated list of protocols which are
+        allowed to be used with fetch/push/clone. This is useful to
+        restrict recursive submodule initialization from an untrusted
+        repository. Any protocol not mentioned will be disallowed (i.e.,
+        this is a whitelist, not a blacklist). If the variable is not
+        set at all, all protocols are enabled.  The protocol names
+        currently used by git are:
+</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+<literal>file</literal>: any local file-based path (including <literal>file://</literal> URLs,
+            or local paths)
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>git</literal>: the anonymous git protocol over a direct TCP
+            connection (or proxy, if configured)
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>ssh</literal>: git over ssh (including <literal>host:path</literal> syntax,
+            <literal>git+ssh://</literal>, etc).
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>rsync</literal>: git over rsync
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>http</literal>: git over http, both "smart http" and "dumb http".
+            Note that this does <emphasis>not</emphasis> include <literal>https</literal>; if you want both,
+            you should specify both as <literal>http:https</literal>.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+any external helpers are named by their protocol (e.g., use
+            <literal>hg</literal> to allow the <literal>git-remote-hg</literal> helper)
+</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+</varlistentry>
 </variablelist>
 </refsect2>
 </refsect1>

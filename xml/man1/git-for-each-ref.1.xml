@@ -15,7 +15,9 @@
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
 <literallayout><emphasis>git for-each-ref</emphasis> [--count=&lt;count&gt;] [--shell|--perl|--python|--tcl]
-                   [(--sort=&lt;key&gt;)&#8230;] [--format=&lt;format&gt;] [&lt;pattern&gt;&#8230;]</literallayout>
+                   [(--sort=&lt;key&gt;)&#8230;] [--format=&lt;format&gt;] [&lt;pattern&gt;&#8230;]
+                   [--points-at &lt;object&gt;] [(--merged | --no-merged) [&lt;object&gt;]]
+                   [--contains [&lt;object&gt;]]</literallayout>
 <simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
@@ -107,6 +109,49 @@ host language allowing their direct evaluation in that language.</simpara>
         placeholders are quoted as string literals suitable for
         the specified host language.  This is meant to produce
         a scriptlet that can directly be `eval`ed.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--points-at &lt;object&gt;
+</term>
+<listitem>
+<simpara>
+        Only list refs which points at the given object.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--merged [&lt;object&gt;]
+</term>
+<listitem>
+<simpara>
+        Only list refs whose tips are reachable from the
+        specified commit (HEAD if not specified).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--no-merged [&lt;object&gt;]
+</term>
+<listitem>
+<simpara>
+        Only list refs whose tips are not reachable from the
+        specified commit (HEAD if not specified).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--contains [&lt;object&gt;]
+</term>
+<listitem>
+<simpara>
+        Only list tags which contain the specified commit (HEAD if not
+        specified).
 </simpara>
 </listitem>
 </varlistentry>
@@ -214,6 +259,24 @@ color
 </simpara>
 </listitem>
 </varlistentry>
+<varlistentry>
+<term>
+align
+</term>
+<listitem>
+<simpara>
+        Left-, middle-, or right-align the content between
+        %(align:&#8230;) and %(end). The "align:" is followed by <literal>&lt;width&gt;</literal>
+        and <literal>&lt;position&gt;</literal> in any order separated by a comma, where the
+        <literal>&lt;position&gt;</literal> is either left, right or middle, default being
+        left and <literal>&lt;width&gt;</literal> is the total length of the content with
+        alignment. If the contents length is more than the width then
+        no alignment is performed. If used with <emphasis>--quote</emphasis> everything
+        in between %(align:&#8230;) and %(end) is quoted, but if nested
+        then only the topmost level performs quoting.
+</simpara>
+</listitem>
+</varlistentry>
 </variablelist>
 <simpara>In addition to the above, for commit and tag objects, the header
 field names (<literal>tree</literal>, <literal>parent</literal>, <literal>object</literal>, <literal>type</literal>, and <literal>tag</literal>) can
@@ -225,17 +288,21 @@ and <literal>date</literal> to extract the named component.</simpara>
 Its first line is <literal>contents:subject</literal>, where subject is the concatenation
 of all lines of the commit message up to the first blank line.  The next
 line is <emphasis>contents:body</emphasis>, where body is all of the lines after the first
-blank line.  Finally, the optional GPG signature is <literal>contents:signature</literal>.</simpara>
+blank line.  The optional GPG signature is <literal>contents:signature</literal>.  The
+first <literal>N</literal> lines of the message is obtained using <literal>contents:lines=N</literal>.</simpara>
 <simpara>For sorting purposes, fields with numeric values sort in numeric
 order (<literal>objectsize</literal>, <literal>authordate</literal>, <literal>committerdate</literal>, <literal>taggerdate</literal>).
 All other fields are used to sort in their byte-value order.</simpara>
+<simpara>There is also an option to sort by versions, this can be done by using
+the fieldname <literal>version:refname</literal> or its alias <literal>v:refname</literal>.</simpara>
 <simpara>In any case, a field name that refers to a field inapplicable to
 the object referred by the ref does not cause an error.  It
 returns an empty string instead.</simpara>
 <simpara>As a special case for the date-type fields, you may specify a format for
-the date by adding one of <literal>:default</literal>, <literal>:relative</literal>, <literal>:short</literal>, <literal>:local</literal>,
-<literal>:iso8601</literal>, <literal>:rfc2822</literal> or <literal>:raw</literal> to the end of the fieldname; e.g.
-<literal>%(taggerdate:relative)</literal>.</simpara>
+the date by adding <literal>:</literal> followed by date format name (see the
+values the <literal>--date</literal> option to <citerefentry>
+<refentrytitle>:git-rev-list</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> takes).</simpara>
 </refsect1>
 <refsect1 id="_examples">
 <title>EXAMPLES</title>

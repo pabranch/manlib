@@ -15,7 +15,7 @@
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
 <literallayout><emphasis>git cherry-pick</emphasis> [--edit] [-n] [-m parent-number] [-s] [-x] [--ff]
-                  [-S[&lt;key-id&gt;]] &lt;commit&gt;&#8230;
+                  [-S[&lt;keyid&gt;]] &lt;commit&gt;&#8230;
 <emphasis>git cherry-pick</emphasis> --continue
 <emphasis>git cherry-pick</emphasis> --quit
 <emphasis>git cherry-pick</emphasis> --abort</literallayout>
@@ -193,14 +193,16 @@ effect to your index in a row.</simpara>
 </varlistentry>
 <varlistentry>
 <term>
--S[&lt;key-id&gt;]
+-S[&lt;keyid&gt;]
 </term>
 <term>
---gpg-sign[=&lt;key-id&gt;]
+--gpg-sign[=&lt;keyid&gt;]
 </term>
 <listitem>
 <simpara>
-        GPG-sign commits.
+        GPG-sign commits. The <literal>keyid</literal> argument is optional and
+        defaults to the committer identity; if specified, it must be
+        stuck to the option without a space.
 </simpara>
 </listitem>
 </varlistentry>

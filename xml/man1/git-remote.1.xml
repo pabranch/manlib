@@ -20,6 +20,7 @@
 <emphasis>git remote remove</emphasis> &lt;name&gt;
 <emphasis>git remote set-head</emphasis> &lt;name&gt; (-a | --auto | -d | --delete | &lt;branch&gt;)
 <emphasis>git remote set-branches</emphasis> [--add] &lt;name&gt; &lt;branch&gt;&#8230;
+<emphasis>git remote get-url</emphasis> [--push] [--all] &lt;name&gt;
 <emphasis>git remote set-url</emphasis> [--push] &lt;name&gt; &lt;newurl&gt; [&lt;oldurl&gt;]
 <emphasis>git remote set-url --add</emphasis> [--push] &lt;name&gt; &lt;newurl&gt;
 <emphasis>git remote set-url --delete</emphasis> [--push] &lt;name&gt; &lt;url&gt;
@@ -161,6 +162,19 @@ after the initial setup for a remote.
 <literal>-t</literal> option on the <emphasis>git remote add</emphasis> command line.</simpara>
 <simpara>With <literal>--add</literal>, instead of replacing the list of currently tracked
 branches, adds to that list.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis>get-url</emphasis>
+</term>
+<listitem>
+<simpara>
+Retrieves the URLs for a remote. Configurations for <literal>insteadOf</literal> and
+<literal>pushInsteadOf</literal> are expanded here. By default, only the first URL is listed.
+</simpara>
+<simpara>With <emphasis>--push</emphasis>, push URLs are queried rather than fetch URLs.</simpara>
+<simpara>With <emphasis>--all</emphasis>, all URLs for the remote will be listed.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>

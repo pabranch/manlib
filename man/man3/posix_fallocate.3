@@ -83,7 +83,8 @@ exceeds the maximum file size.
 .I offset
 was less than 0, or
 .I len
-was less than or equal to 0.
+was less than or equal to 0, or the underlying filesystem does not
+support the operation.
 .TP
 .B ENODEV
 .I fd
@@ -110,7 +111,7 @@ l l l.
 Interface	Attribute	Value
 T{
 .BR posix_fallocate ()
-T}	Thread safety	MT-Safe
+T}	Thread safety	MT-Safe (but see NOTES)
 .TE
 .SH CONFORMING TO
 POSIX.1-2001.
@@ -140,8 +141,40 @@ equals zero.
 .SH NOTES
 In the glibc implementation,
 .BR posix_fallocate ()
-is implemented using
-.BR fallocate (2).
+is implemented using the
+.BR fallocate (2)
+system call, which is MT-safe.
+If the underlying filesystem does not support
+.BR fallocate (2),
+then the operation is emulated with the following caveats:
+.IP * 2
+The emulation is inefficient.
+.IP *
+There is a race condition where concurrent writes from another thread or
+process could be overwritten with null bytes.
+.IP *
+There is a race condition where concurrent file size increases by
+another thread or process could result in a file whose size is smaller
+than expected.
+.IP *
+If
+.I fd
+has been opened with the
+.B O_APPEND
+or
+.B O_WRONLY
+flags, the function will fail with the error
+.B EBADF.
+.PP
+In general, the emulation is not MT-safe.
+On Linux, applications may use
+.BR fallocate (2)
+if they cannot tolerate the emulation caveats.
+In general, this is
+only recommended if the application plans to terminate the operation if
+.B EOPNOTSUPP
+is returned, otherwise the application itself will need to implement a
+fallback with all the same problems as the emulation provided by glibc.
 .SH SEE ALSO
 .BR fallocate (1),
 .BR fallocate (2),

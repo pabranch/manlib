@@ -50,7 +50,7 @@
              [ --regexp-ignore-case | -i ]
              [ --extended-regexp | -E ]
              [ --fixed-strings | -F ]
-             [ --date=(local|relative|default|iso|iso-strict|rfc|short) ]
+             [ --date=&lt;format&gt;]
              [ [ --objects | --objects-edge | --objects-edge-aggressive ]
                [ --unpacked ] ]
              [ --pretty | --header ]
@@ -1369,17 +1369,21 @@ people using 80-column terminals.</simpara>
 </varlistentry>
 <varlistentry>
 <term>
---date=(relative|local|default|iso|iso-strict|rfc|short|raw)
+--date=&lt;format&gt;
 </term>
 <listitem>
 <simpara>
         Only takes effect for dates shown in human-readable format, such
         as when using <literal>--pretty</literal>. <literal>log.date</literal> config variable sets a default
-        value for the log command&#8217;s <literal>--date</literal> option.
+        value for the log command&#8217;s <literal>--date</literal> option. By default, dates
+        are shown in the original time zone (either committer&#8217;s or
+        author&#8217;s). If <literal>-local</literal> is appended to the format (e.g.,
+        <literal>iso-local</literal>), the user&#8217;s local time zone is used instead.
 </simpara>
 <simpara><literal>--date=relative</literal> shows dates relative to the current time,
-e.g. &#8220;2 hours ago&#8221;.</simpara>
-<simpara><literal>--date=local</literal> shows timestamps in user&#8217;s local time zone.</simpara>
+e.g. &#8220;2 hours ago&#8221;. The <literal>-local</literal> option cannot be used with
+<literal>--raw</literal> or <literal>--relative</literal>.</simpara>
+<simpara><literal>--date=local</literal> is an alias for <literal>--date=default-local</literal>.</simpara>
 <simpara><literal>--date=iso</literal> (or <literal>--date=iso8601</literal>) shows timestamps in a ISO 8601-like format.
 The differences to the strict ISO 8601 format are:</simpara>
 <itemizedlist>
@@ -1408,9 +1412,22 @@ format, often found in email messages.</simpara>
 <simpara><literal>--date=format:...</literal> feeds the format <literal>...</literal> to your system <literal>strftime</literal>.
 Use <literal>--date=format:%c</literal> to show the date in your system locale&#8217;s
 preferred format.  See the <literal>strftime</literal> manual for a complete list of
-format placeholders.</simpara>
-<simpara><literal>--date=default</literal> shows timestamps in the original time zone
-(either committer&#8217;s or author&#8217;s).</simpara>
+format placeholders. When using <literal>-local</literal>, the correct syntax is
+<literal>--date=format-local:...</literal>.</simpara>
+<simpara><literal>--date=default</literal> is the default format, and is similar to
+<literal>--date=rfc2822</literal>, with a few exceptions:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+there is no comma after the day-of-week
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+the time zone is omitted when the local time zone is used
+</simpara>
+</listitem>
+</itemizedlist>
 </listitem>
 </varlistentry>
 <varlistentry>

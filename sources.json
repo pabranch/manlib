@@ -103,12 +103,12 @@ find sources/cups/man -name '*.gz' -exec bash -c '(base=$(basename -s .gz {}); m
     "cmd": "rsync --checksum sources/dash/src/*.1 man/man1/"
   },
 
-/* pandoc: ignoring unknown role :ref: in "source" - this makes output not great, look at this again at a later stage
+/*
   "dnf": {
     "type": "git",
     "url": "https://github.com/rpm-software-management/dnf.git",
     "sparse": "doc/",
-    "cmd": "pandoc -f rst -t docbook sources/dnf/doc/command_ref.rst | xsltproc utils/db4-upgrade.xsl - > xml/man8/dnf.8.xml"
+    "cmd": "pandoc --normalize -f rst -t docbook sources/dnf/doc/command_ref.rst | xsltproc utils/db4-upgrade.xsl - > xml/man8/dnf.8.xml"
   },
 */
 
@@ -117,7 +117,7 @@ find sources/cups/man -name '*.gz' -exec bash -c '(base=$(basename -s .gz {}); m
     "type": "git",
     "url": "https://github.com/docker/docker.git",
     "sparse": "man/",
-    "cmd": "sed 's/</\\\\</g' sources/docker/man/docker.1.md | pandoc -s -f markdown -t docbook | xsltproc utils/db4-upgrade.xsl - > xml/man1/docker.1.xml"
+    "cmd": "sed 's/</\\\\</g' sources/docker/man/docker.1.md | pandoc --normalize -s -f markdown -t docbook | xsltproc utils/db4-upgrade.xsl - > xml/man1/docker.1.xml"
   },
 */
 
@@ -627,7 +627,7 @@ find sources/util-linux/ -name '*.8' -exec rsync --checksum {} man/man8/ \\;"
     "tag": "varnish-4.0.3",
     /* note pandoc doesn't process include statements in rst, may have to do that manually. */
     "cmd": "(cd sources/varnish; ./autogen.sh; ./configure; make);
-find sources/varnish/doc/sphinx/reference/ -name '*.rst' ! -name shmem.rst ! -name vsl.rst ! -name index.rst ! -name params.rst ! -name vmod.rst -exec bash -c 'pandoc -f rst -t docbook {} | xsltproc utils/db4-upgrade.xsl - > xml/man1/$(basename -s .generated $(basename -s .rst {})).1.xml' \\;;
+find sources/varnish/doc/sphinx/reference/ -name '*.rst' ! -name shmem.rst ! -name vsl.rst ! -name index.rst ! -name params.rst ! -name vmod.rst -exec bash -c 'pandoc --normalize -f rst -t docbook {} | xsltproc utils/db4-upgrade.xsl - > xml/man1/$(basename -s .generated $(basename -s .rst {})).1.xml' \\;;
 mv xml/man1/varnish-cli.1.xml xml/man7/varnish-cli.7.xml;
 mv xml/man1/vmod_std.1.xml xml/man3/vmod_std.3.xml;
 mv xml/man1/vmod_directors.1.xml xml/man3/vmod_directors.3.xml;

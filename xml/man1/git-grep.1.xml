@@ -367,17 +367,22 @@ grep.fullName
 </varlistentry>
 <varlistentry>
 <term>
--O [&lt;pager&gt;]
+-O[&lt;pager&gt;]
 </term>
 <term>
---open-files-in-pager [&lt;pager&gt;]
+--open-files-in-pager[=&lt;pager&gt;]
 </term>
 <listitem>
 <simpara>
         Open the matching files in the pager (not the output of <emphasis>grep</emphasis>).
         If the pager happens to be "less" or "vi", and the user
         specified only one pattern, the first file is positioned at
-        the first match automatically.
+        the first match automatically. The <literal>pager</literal> argument is
+        optional; if specified, it must be stuck to the option
+        without a space. If <literal>pager</literal> is unspecified, the default pager
+        will be used (see <literal>core.pager</literal> in <citerefentry>
+<refentrytitle>git-config</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>).
 </simpara>
 </listitem>
 </varlistentry>

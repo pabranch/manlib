@@ -14,11 +14,12 @@
   <refpurpose>Create, list, delete or verify a tag object signed with GPG</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<literallayout><emphasis>git tag</emphasis> [-a | -s | -u &lt;key-id&gt;] [-f] [-m &lt;msg&gt; | -F &lt;file&gt;]
+<literallayout><emphasis>git tag</emphasis> [-a | -s | -u &lt;keyid&gt;] [-f] [-m &lt;msg&gt; | -F &lt;file&gt;]
         &lt;tagname&gt; [&lt;commit&gt; | &lt;object&gt;]
 <emphasis>git tag</emphasis> -d &lt;tagname&gt;&#8230;
 <emphasis>git tag</emphasis> [-n[&lt;num&gt;]] -l [--contains &lt;commit&gt;] [--points-at &lt;object&gt;]
-        [--column[=&lt;options&gt;] | --no-column] [--create-reflog] [&lt;pattern&gt;&#8230;]
+        [--column[=&lt;options&gt;] | --no-column] [--create-reflog] [--sort=&lt;key&gt;]
+        [--format=&lt;format&gt;] [--[no-]merged [&lt;commit&gt;]] [&lt;pattern&gt;&#8230;]
 <emphasis>git tag</emphasis> -v &lt;tagname&gt;&#8230;</literallayout>
 <simpara></simpara>
 </refsynopsisdiv>
@@ -27,16 +28,16 @@
 <simpara>Add a tag reference in <literal>refs/tags/</literal>, unless <literal>-d/-l/-v</literal> is given
 to delete, list or verify tags.</simpara>
 <simpara>Unless <literal>-f</literal> is given, the named tag must not yet exist.</simpara>
-<simpara>If one of <literal>-a</literal>, <literal>-s</literal>, or <literal>-u &lt;key-id&gt;</literal> is passed, the command
+<simpara>If one of <literal>-a</literal>, <literal>-s</literal>, or <literal>-u &lt;keyid&gt;</literal> is passed, the command
 creates a <emphasis>tag</emphasis> object, and requires a tag message.  Unless
 <literal>-m &lt;msg&gt;</literal> or <literal>-F &lt;file&gt;</literal> is given, an editor is started for the user to type
 in the tag message.</simpara>
-<simpara>If <literal>-m &lt;msg&gt;</literal> or <literal>-F &lt;file&gt;</literal> is given and <literal>-a</literal>, <literal>-s</literal>, and <literal>-u &lt;key-id&gt;</literal>
+<simpara>If <literal>-m &lt;msg&gt;</literal> or <literal>-F &lt;file&gt;</literal> is given and <literal>-a</literal>, <literal>-s</literal>, and <literal>-u &lt;keyid&gt;</literal>
 are absent, <literal>-a</literal> is implied.</simpara>
 <simpara>Otherwise just a tag reference for the SHA-1 object name of the commit object is
 created (i.e. a lightweight tag).</simpara>
 <simpara>A GnuPG signed tag object will be created when <literal>-s</literal> or <literal>-u
-&lt;key-id&gt;</literal> is used.  When <literal>-u &lt;key-id&gt;</literal> is not used, the
+&lt;keyid&gt;</literal> is used.  When <literal>-u &lt;keyid&gt;</literal> is not used, the
 committer identity for the current user is used to find the
 GnuPG key for signing.  The configuration variable <literal>gpg.program</literal>
 is used to specify custom GnuPG binary.</simpara>
@@ -81,10 +82,10 @@ lightweight tags by default.</simpara>
 </varlistentry>
 <varlistentry>
 <term>
--u &lt;key-id&gt;
+-u &lt;keyid&gt;
 </term>
 <term>
---local-user=&lt;key-id&gt;
+--local-user=&lt;keyid&gt;
 </term>
 <listitem>
 <simpara>
@@ -164,17 +165,19 @@ lightweight tags by default.</simpara>
 </varlistentry>
 <varlistentry>
 <term>
---sort=&lt;type&gt;
+--sort=&lt;key&gt;
 </term>
 <listitem>
 <simpara>
-        Sort in a specific order. Supported type is "refname"
-        (lexicographic order), "version:refname" or "v:refname" (tag
+        Sort based on the key given.  Prefix <literal>-</literal> to sort in
+        descending order of the value. You may use the --sort=&lt;key&gt; option
+        multiple times, in which case the last key becomes the primary
+        key. Also supports "version:refname" or "v:refname" (tag
         names are treated as versions). The "version:refname" sort
         order can also be affected by the
-        "versionsort.prereleaseSuffix" configuration variable. Prepend
-        "-" to reverse sort order. When this option is not given, the
-        sort order defaults to the value configured for the <emphasis>tag.sort</emphasis>
+        "versionsort.prereleaseSuffix" configuration variable.
+        The keys supported are the same as those in <literal>git for-each-ref</literal>.
+        Sort order defaults to the value configured for the <emphasis>tag.sort</emphasis>
         variable if it exists, or lexicographic order otherwise. See
         <citerefentry>
 <refentrytitle>git-config</refentrytitle><manvolnum>1</manvolnum>
@@ -231,7 +234,7 @@ lightweight tags by default.</simpara>
         Use the given tag message (instead of prompting).
         If multiple <literal>-m</literal> options are given, their values are
         concatenated as separate paragraphs.
-        Implies <literal>-a</literal> if none of <literal>-a</literal>, <literal>-s</literal>, or <literal>-u &lt;key-id&gt;</literal>
+        Implies <literal>-a</literal> if none of <literal>-a</literal>, <literal>-s</literal>, or <literal>-u &lt;keyid&gt;</literal>
         is given.
 </simpara>
 </listitem>
@@ -247,7 +250,7 @@ lightweight tags by default.</simpara>
 <simpara>
         Take the tag message from the given file.  Use <emphasis>-</emphasis> to
         read the message from the standard input.
-        Implies <literal>-a</literal> if none of <literal>-a</literal>, <literal>-s</literal>, or <literal>-u &lt;key-id&gt;</literal>
+        Implies <literal>-a</literal> if none of <literal>-a</literal>, <literal>-s</literal>, or <literal>-u &lt;keyid&gt;</literal>
         is given.
 </simpara>
 </listitem>
@@ -305,6 +308,33 @@ lightweight tags by default.</simpara>
 </simpara>
 </listitem>
 </varlistentry>
+<varlistentry>
+<term>
+&lt;format&gt;
+</term>
+<listitem>
+<simpara>
+        A string that interpolates <literal>%(fieldname)</literal> from the object
+        pointed at by a ref being shown.  The format is the same as
+        that of <citerefentry>
+<refentrytitle>git-for-each-ref</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>.  When unspecified,
+        defaults to <literal>%(refname:short)</literal>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--[no-]merged [&lt;commit&gt;]
+</term>
+<listitem>
+<simpara>
+        Only list tags whose tips are reachable, or not reachable
+        if <emphasis>--no-merged</emphasis> is used, from the specified commit (<emphasis>HEAD</emphasis>
+        if not specified).
+</simpara>
+</listitem>
+</varlistentry>
 </variablelist>
 </refsect1>
 <refsect1 id="_configuration">
@@ -314,7 +344,7 @@ committer identity (of the form <literal>Your Name &lt;your@email.address&gt;</l
 find a key.  If you want to use a different default key, you can specify
 it in the repository configuration as follows:</simpara>
 <literallayout class="monospaced">[user]
-    signingKey = &lt;gpg-key-id&gt;</literallayout><simpara></simpara>
+    signingKey = &lt;gpg-keyid&gt;</literallayout><simpara></simpara>
 </refsect1>
 <refsect1 id="_discussion">
 <title>DISCUSSION</title>
