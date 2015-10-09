@@ -254,7 +254,7 @@ echo '.so man5/modules.dep.5' > man/man5/modules.dep.bin.5"
   "lapack": {
     "type": "tarball",
     "url": "http://www.netlib.org/lapack/manpages.tgz",
-    "cmd": "rsync --checksum sources/lapack/man/man3/* man/man3/"
+    "cmd": "rsync --checksum sources/lapack/man3/* man/man3/"
   },
 
   "libcap": {
@@ -528,12 +528,7 @@ find sources/sendmail/ -name '*[a-z].8' -exec rsync --checksum {} man/man8/ \\;"
     "type": "svn",
     "url": "svn://svn.debian.org/pkg-shadow/upstream/trunk",
     "cmd": "(cd sources/shadow-utils; ./autogen.sh; ./configure --enable-man);
-(cd sources/shadow-utils/man && find -name '*.[1-8].xml' \\
-  ! -name groups.1.xml ! -name id.1.xml  \\
-  ! -name passwd.5.xml  \\
-  ! -name chsh.1.xml ! -name login.1.xml ! -name newgrp.1.xml ! -name chfn.1.xml ! -name su.1.xml ! -name sulogin.8.xml \\
-  ! -name nologin.8.xml ! -name vipw.8.xml \\
-  -print0 | while read -d $'\\0' -r file ; do sed -e '/^<!-- SHADOW-CONFIG-HERE -->/r config.xml' -e '//d' $file > $(basename $file).__; done;);
+(cd sources/shadow-utils/man && find . -name '*.[1-8].xml' ! -name groups.1.xml ! -name id.1.xml ! -name passwd.5.xml ! -name chsh.1.xml ! -name login.1.xml ! -name newgrp.1.xml ! -name chfn.1.xml ! -name su.1.xml ! -name sulogin.8.xml ! -name nologin.8.xml ! -name vipw.8.xml -print0 | while read -d $'\\0' -r file ; do sed -e '/^<!-- SHADOW-CONFIG-HERE -->/r config.xml' -e '//d' $file > $(basename $file).__; done;);
 (cd sources/shadow-utils/man && for f in *.__; do base=$(basename -s .__ $f); manNum=$(echo $base | rev | cut -c 5); xsltproc ../../../utils/db4-upgrade.xsl $f > ../../../xml/man$manNum/$base; done;)"
   },
 
