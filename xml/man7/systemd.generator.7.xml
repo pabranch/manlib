@@ -31,21 +31,21 @@
       <literallayout><filename>/run/systemd/system-generators/*</filename>
 <filename>/etc/systemd/system-generators/*</filename>
 <filename>/usr/local/lib/systemd/system-generators/*</filename>
-<filename>/usr/lib/systemd/system-generators/*</filename></literallayout>
+<filename>/*</filename></literallayout>
     </para>
 
     <para>
       <literallayout><filename>/run/systemd/user-generators/*</filename>
 <filename>/etc/systemd/user-generators/*</filename>
 <filename>/usr/local/lib/systemd/user-generators/*</filename>
-<filename>/usr/lib/systemd/user-generators/*</filename></literallayout>
+<filename>/*</filename></literallayout>
     </para>
   </refsynopsisdiv>
 
   <refsect1>
     <title>Description</title>
     <para>Generators are small binaries that live in
-    <filename>/usr/lib/systemd/user-generators/</filename> and other directories
+    <filename>/</filename> and other directories
     listed above.
     <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>
     will execute those binaries very early at bootup and at
@@ -287,7 +287,7 @@
       <title>Debuging a generator</title>
 
       <programlisting>dir=$(mktemp -d)
-SYSTEMD_LOG_LEVEL=debug /usr/lib/systemd/system-generators/systemd-fstab-generator \
+SYSTEMD_LOG_LEVEL=debug /systemd-fstab-generator \
         "$dir" "$dir" "$dir"
 find $dir</programlisting>
     </example>

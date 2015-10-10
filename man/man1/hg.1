@@ -915,9 +915,11 @@ destination will have all the nodes you specify with \-\-base
 parameters. To create a bundle containing all changesets, use
 \-a/\-\-all (or \-\-base null).
 .sp
-You can change compression method with the \-t/\-\-type option.
-The available compression methods are: none, bzip2, and
-gzip (by default, bundles are compressed using bzip2).
+You can change bundle format with the \-t/\-\-type option. You can
+specify a compression, a bundle version or both using a dash
+(comp\-version). The available compression methods are: none, bzip2,
+and gzip (by default, bundles are compressed using bzip2). The
+available format are: v1, v2 (default to most suitable).
 .sp
 The bundle file can then be transferred using conventional means
 and applied to another repository with the unbundle or pull
@@ -12534,7 +12536,8 @@ of the specified revisions if any are provided)
 .sp
 With \-b/\-\-bundle, changesets are selected as for \-\-outgoing, but a
 single email containing a binary Mercurial bundle as an attachment
-will be sent.
+will be sent. Use the \fBpatchbomb.bundletype\fP config option to
+control the bundle type as with \%\fBhg bundle \-\-type\fP\:.
 .sp
 With \-m/\-\-mbox, instead of previewing each patchbomb message in a
 pager or sending the messages directly, it will create a UNIX
