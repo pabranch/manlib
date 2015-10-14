@@ -117,13 +117,13 @@ On Windows, the following files are consulted:
 \fB%HOME%\eMercurial.ini\fP (per\-user)
 .IP \(bu 2
 .
-\fB<install\-dir>\eMercurial.ini\fP (per\-installation)
+\fBHKEY_LOCAL_MACHINE\eSOFTWARE\eMercurial\fP (per\-installation)
 .IP \(bu 2
 .
 \fB<install\-dir>\ehgrc.d\e*.rc\fP (per\-installation)
 .IP \(bu 2
 .
-\fBHKEY_LOCAL_MACHINE\eSOFTWARE\eMercurial\fP (per\-installation)
+\fB<install\-dir>\eMercurial.ini\fP (per\-installation)
 .IP \(bu 2
 .
 \fB<internal>/default.d/*.rc\fP (defaults)
@@ -1783,6 +1783,22 @@ Whether to prompt for a username when committing. If True, and
 neither \fB$HGUSER\fP nor \fB$EMAIL\fP has been specified, then the user will
 be prompted to enter a username. If no username is entered, the
 default \fBUSER@HOST\fP is used instead.
+(default: False)
+.TP
+.B \fBclonebundlefallback\fP
+.sp
+Whether failure to apply an advertised "clone bundle" from a server
+should result in fallback to a regular clone.
+.sp
+This is disabled by default because servers advertising "clone
+bundles" often do so to reduce server load. If advertised bundles
+start mass failing and clients automatically fall back to a regular
+clone, this would add significant and unexpected load to the server
+since the server is expecting clone operations to be offloaded to
+pre\-generated bundles. Failing fast (the default behavior) ensures
+clients don\(aqt overwhelm the server when "clone bundle" application
+fails.
+.sp
 (default: False)
 .TP
 .B \fBcommitsubrepos\fP

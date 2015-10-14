@@ -4896,6 +4896,10 @@ erase file content at a given revision
 .
 command to display statistics about repository history
 .TP
+.B clonebundles
+.
+server side extension to advertise pre\-generated bundles to seed clones.
+.TP
 .B color
 .
 colorize output from some commands
@@ -9022,6 +9026,45 @@ exclude names matching the given patterns
 .UNINDENT
 .sp
 [+] marked option can be specified multiple times
+.SS clonebundles
+.sp
+server side extension to advertise pre\-generated bundles to seed clones.
+.sp
+The extension essentially serves the content of a .hg/clonebundles.manifest
+file to clients that request it.
+.sp
+The clonebundles.manifest file contains a list of URLs and attributes. URLs
+hold pre\-generated bundles that a client fetches and applies. After applying
+the pre\-generated bundle, the client will connect back to the original server
+and pull data not in the pre\-generated bundle.
+.sp
+Manifest File Format:
+.sp
+The manifest file contains a newline (
+) delimited list of entries.
+.sp
+Each line in this file defines an available bundle. Lines have the format:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+<URL> [<key>=<value]
+.UNINDENT
+.UNINDENT
+.sp
+That is, a URL followed by extra metadata describing it. Metadata keys and
+values should be URL encoded.
+.sp
+This metadata is optional. It is up to server operators to populate this
+metadata.
+.sp
+Keys in UPPERCASE are reserved for use by Mercurial. All non\-uppercase keys
+can be used by site installations.
+.sp
+The server operator is responsible for generating the bundle manifest file.
+.sp
+Metadata Attributes:
+.sp
+TBD
 .SS color
 .sp
 colorize output from some commands
