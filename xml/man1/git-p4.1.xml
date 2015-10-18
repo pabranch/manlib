@@ -800,6 +800,69 @@ git-p4.pathEncoding
 </simpara>
 </listitem>
 </varlistentry>
+<varlistentry>
+<term>
+git-p4.largeFileSystem
+</term>
+<listitem>
+<simpara>
+        Specify the system that is used for large (binary) files. Please note
+        that large file systems do not support the <emphasis>git p4 submit</emphasis> command.
+        Only Git LFS [1] is implemented right now. Download
+        and install the Git LFS command line extension to use this option
+        and configure it like this:
+</simpara>
+<literallayout class="monospaced">git config       git-p4.largeFileSystem GitLFS</literallayout><simpara></simpara>
+<literallayout class="monospaced">[1] https://git-lfs.github.com/</literallayout>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+git-p4.largeFileExtensions
+</term>
+<listitem>
+<simpara>
+        All files matching a file extension in the list will be processed
+        by the large file system. Do not prefix the extensions with <emphasis>.</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+git-p4.largeFileThreshold
+</term>
+<listitem>
+<simpara>
+        All files with an uncompressed size exceeding the threshold will be
+        processed by the large file system. By default the threshold is
+        defined in bytes. Add the suffix k, m, or g to change the unit.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+git-p4.largeFileCompressedThreshold
+</term>
+<listitem>
+<simpara>
+        All files with a compressed size exceeding the threshold will be
+        processed by the large file system. This option might slow down
+        your clone/sync process. By default the threshold is defined in
+        bytes. Add the suffix k, m, or g to change the unit.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+git-p4.largeFilePush
+</term>
+<listitem>
+<simpara>
+        Boolean variable which defines if large files are automatically
+        pushed to a server.
+</simpara>
+</listitem>
+</varlistentry>
 </variablelist>
 </refsect2>
 <refsect2 id="_submit_variables">

@@ -1296,8 +1296,9 @@ environment overrides). See <citerefentry>
 <refentrytitle>git-config</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry> for more details.</simpara>
 <simpara>With an optional <emphasis>&lt;ref&gt;</emphasis> argument, show this notes ref instead of the
-default notes ref(s). The ref is taken to be in <literal>refs/notes/</literal> if it
-is not qualified.</simpara>
+default notes ref(s). The ref specifies the full refname when it begins
+with <literal>refs/notes/</literal>; when it begins with <literal>notes/</literal>, <literal>refs/</literal> and otherwise
+<literal>refs/notes/</literal> is prefixed to form a full name of the ref.</simpara>
 <simpara>Multiple --notes options can be combined to control which notes are
 being displayed. Examples: "--notes=foo" will show only notes from
 "refs/notes/foo"; "--notes=foo --notes" will show both notes from
@@ -3553,10 +3554,10 @@ log.follow
 </term>
 <listitem>
 <simpara>
-        If a single &lt;path&gt; is given to git log, it will act as
-        if the <literal>--follow</literal> option was also used.  This has the same
-        limitations as <literal>--follow</literal>, i.e. it cannot be used to follow
-        multiple files and does not work well on non-linear history.
+        If <literal>true</literal>, <literal>git log</literal> will act as if the <literal>--follow</literal> option was used when
+        a single &lt;path&gt; is given.  This has the same limitations as <literal>--follow</literal>,
+        i.e. it cannot be used to follow multiple files and does not work well
+        on non-linear history.
 </simpara>
 </listitem>
 </varlistentry>

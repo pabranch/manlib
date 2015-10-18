@@ -4898,7 +4898,7 @@ command to display statistics about repository history
 .TP
 .B clonebundles
 .
-server side extension to advertise pre\-generated bundles to seed clones.
+advertise pre\-generated bundles to seed clones (experimental)
 .TP
 .B color
 .
@@ -6832,9 +6832,9 @@ string. The match is case\-insensitive.
 .sp
 Last n members of set, defaulting to 1.
 .TP
-.B \fBlimit(set, [n])\fP
+.B \fBlimit(set[, n[, offset]])\fP
 .sp
-First n members of set, defaulting to 1.
+First n members of set, defaulting to 1, starting from offset.
 .TP
 .B \fBmatching(revision [, field])\fP
 .sp
@@ -9028,17 +9028,106 @@ exclude names matching the given patterns
 [+] marked option can be specified multiple times
 .SS clonebundles
 .sp
-server side extension to advertise pre\-generated bundles to seed clones.
+advertise pre\-generated bundles to seed clones (experimental)
 .sp
-The extension essentially serves the content of a .hg/clonebundles.manifest
-file to clients that request it.
+"clonebundles" is a server\-side extension used to advertise the existence
+of pre\-generated, externally hosted bundle files to clients that are
+cloning so that cloning can be faster, more reliable, and require less
+resources on the server.
 .sp
-The clonebundles.manifest file contains a list of URLs and attributes. URLs
-hold pre\-generated bundles that a client fetches and applies. After applying
-the pre\-generated bundle, the client will connect back to the original server
-and pull data not in the pre\-generated bundle.
+Cloning can be a CPU and I/O intensive operation on servers. Traditionally,
+the server, in response to a client\(aqs request to clone, dynamically generates
+a bundle containing the entire repository content and sends it to the client.
+There is no caching on the server and the server will have to redundantly
+generate the same outgoing bundle in response to each clone request. For
+servers with large repositories or with high clone volume, the load from
+clones can make scaling the server challenging and costly.
 .sp
-Manifest File Format:
+This extension provides server operators the ability to offload potentially
+expensive clone load to an external service. Here\(aqs how it works.
+.INDENT 0.0
+.IP 1. 3
+.
+A server operator establishes a mechanism for making bundle files available
+on a hosting service where Mercurial clients can fetch them.
+.IP 2. 3
+.
+A manifest file listing available bundle URLs and some optional metadata
+is added to the Mercurial repository on the server.
+.IP 3. 3
+.
+A client initiates a clone against a clone bundles aware server.
+.IP 4. 3
+.
+The client sees the server is advertising clone bundles and fetches the
+manifest listing available bundles.
+.IP 5. 3
+.
+The client filters and sorts the available bundles based on what it
+supports and prefers.
+.IP 6. 3
+.
+The client downloads and applies an available bundle from the
+server\-specified URL.
+.IP 7. 3
+.
+The client reconnects to the original server and performs the equivalent
+of \%\fBhg pull\fP\: to retrieve all repository data not in the bundle. (The
+repository could have been updated between when the bundle was created
+and when the client started the clone.)
+.UNINDENT
+.sp
+Instead of the server generating full repository bundles for every clone
+request, it generates full bundles once and they are subsequently reused to
+bootstrap new clones. The server may still transfer data at clone time.
+However, this is only data that has been added/changed since the bundle was
+created. For large, established repositories, this can reduce server load for
+clones to less than 1% of original.
+.sp
+To work, this extension requires the following of server operators:
+.INDENT 0.0
+.IP \(bu 2
+.
+Generating bundle files of repository content (typically periodically,
+such as once per day).
+.IP \(bu 2
+.
+A file server that clients have network access to and that Python knows
+how to talk to through its normal URL handling facility (typically a
+HTTP server).
+.IP \(bu 2
+.
+A process for keeping the bundles manifest in sync with available bundle
+files.
+.UNINDENT
+.sp
+Strictly speaking, using a static file hosting server isn\(aqt required: a server
+operator could use a dynamic service for retrieving bundle data. However,
+static file hosting services are simple and scalable and should be sufficient
+for most needs.
+.sp
+Bundle files can be generated with the \%\fBhg bundle\fP\: comand. Typically
+\%\fBhg bundle \-\-all\fP\: is used to produce a bundle of the entire repository.
+.sp
+\%\fBhg debugcreatestreamclonebundle\fP\: can be used to produce a special
+\fIstreaming clone bundle\fP. These are bundle files that are extremely efficient
+to produce and consume (read: fast). However, they are larger than
+traditional bundle formats and require that clients support the exact set
+of repository data store formats in use by the repository that created them.
+Typically, a newer server can serve data that is compatible with older clients.
+However, \fIstreaming clone bundles\fP don\(aqt have this guarantee. \fBServer
+operators need to be aware that newer versions of Mercurial may produce
+streaming clone bundles incompatible with older Mercurial versions.\fP
+.sp
+The list of requirements printed by \%\fBhg debugcreatestreamclonebundle\fP\: should
+be specified in the \fBrequirements\fP parameter of the \fIbundle specification
+string\fP for the \fBBUNDLESPEC\fP manifest property described below. e.g.
+\fBBUNDLESPEC=none\-packed1;requirements%3Drevlogv1\fP.
+.sp
+A server operator is responsible for creating a \fB.hg/clonebundles.manifest\fP
+file containing the list of available bundle files suitable for seeding
+clones. If this file does not exist, the repository will not advertise the
+existence of clone bundles when clients connect.
 .sp
 The manifest file contains a newline (
 ) delimited list of entries.
@@ -9047,24 +9136,122 @@ Each line in this file defines an available bundle. Lines have the format:
 .INDENT 0.0
 .INDENT 3.5
 .sp
-<URL> [<key>=<value]
+<URL> [<key>=<value>[ <key>=<value>]]
 .UNINDENT
 .UNINDENT
 .sp
-That is, a URL followed by extra metadata describing it. Metadata keys and
-values should be URL encoded.
+That is, a URL followed by an optional, space\-delimited list of key=value
+pairs describing additional properties of this bundle. Both keys and values
+are URI encoded.
 .sp
-This metadata is optional. It is up to server operators to populate this
-metadata.
+Keys in UPPERCASE are reserved for use by Mercurial and are defined below.
+All non\-uppercase keys can be used by site installations. An example use
+for custom properties is to use the \fIdatacenter\fP attribute to define which
+data center a file is hosted in. Clients could then prefer a server in the
+data center closest to them.
 .sp
-Keys in UPPERCASE are reserved for use by Mercurial. All non\-uppercase keys
-can be used by site installations.
+The following reserved keys are currently defined:
+.INDENT 0.0
+.TP
+.B BUNDLESPEC
+.
+A "bundle specification" string that describes the type of the bundle.
 .sp
-The server operator is responsible for generating the bundle manifest file.
+These are string values that are accepted by the "\-\-type" argument of
+\%\fBhg bundle\fP\:.
 .sp
-Metadata Attributes:
+The values are parsed in strict mode, which means they must be of the
+"<compression>\-<type>" form. See
+mercurial.exchange.parsebundlespec() for more details.
 .sp
-TBD
+Clients will automatically filter out specifications that are unknown or
+unsupported so they won\(aqt attempt to download something that likely won\(aqt
+apply.
+.sp
+The actual value doesn\(aqt impact client behavior beyond filtering:
+clients will still sniff the bundle type from the header of downloaded
+files.
+.sp
+\fBUse of this key is highly recommended\fP, as it allows clients to
+easily skip unsupported bundles.
+.TP
+.B REQUIRESNI
+.
+Whether Server Name Indication (SNI) is required to connect to the URL.
+SNI allows servers to use multiple certificates on the same IP. It is
+somewhat common in CDNs and other hosting providers. Older Python
+versions do not support SNI. Defining this attribute enables clients
+with older Python versions to filter this entry without experiencing
+an opaque SSL failure at connection time.
+.sp
+If this is defined, it is important to advertise a non\-SNI fallback
+URL or clients running old Python releases may not be able to clone
+with the clonebundles facility.
+.sp
+Value should be "true".
+.UNINDENT
+.sp
+Manifests can contain multiple entries. Assuming metadata is defined, clients
+will filter entries from the manifest that they don\(aqt support. The remaining
+entries are optionally sorted by client preferences
+(\fBexperimental.clonebundleprefers\fP config option). The client then attempts
+to fetch the bundle at the first URL in the remaining list.
+.sp
+\fBErrors when downloading a bundle will fail the entire clone operation:
+clients do not automatically fall back to a traditional clone.\fP The reason
+for this is that if a server is using clone bundles, it is probably doing so
+because the feature is necessary to help it scale. In other words, there
+is an assumption that clone load will be offloaded to another service and
+that the Mercurial server isn\(aqt responsible for serving this clone load.
+If that other service experiences issues and clients start mass falling back to
+the original Mercurial server, the added clone load could overwhelm the server
+due to unexpected load and effectively take it offline. Not having clients
+automatically fall back to cloning from the original server mitigates this
+scenario.
+.sp
+Because there is no automatic Mercurial server fallback on failure of the
+bundle hosting service, it is important for server operators to view the bundle
+hosting service as an extension of the Mercurial server in terms of
+availability and service level agreements: if the bundle hosting service goes
+down, so does the ability for clients to clone. Note: clients will see a
+message informing them how to bypass the clone bundles facility when a failure
+occurs. So server operators should prepare for some people to follow these
+instructions when a failure occurs, thus driving more load to the original
+Mercurial server when the bundle hosting service fails.
+.sp
+The following config options influence the behavior of the clone bundles
+feature:
+.INDENT 0.0
+.TP
+.B ui.clonebundleadvertise
+.
+Whether the server advertises the existence of the clone bundles feature
+to compatible clients that aren\(aqt using it.
+.sp
+When this is enabled (the default), a server will send a message to
+compatible clients performing a traditional clone informing them of the
+available clone bundles feature. Compatible clients are those that support
+bundle2 and are advertising support for the clone bundles feature.
+.TP
+.B ui.clonebundlefallback
+.
+Whether to automatically fall back to a traditional clone in case of
+clone bundles failure. Defaults to false for reasons described above.
+.TP
+.B experimental.clonebundles
+.
+Whether the clone bundles feature is enabled on clients. Defaults to true.
+.TP
+.B experimental.clonebundleprefers
+.
+List of "key=value" properties the client prefers in bundles. Downloaded
+bundle manifests will be sorted by the preferences in this list. e.g.
+the value "BUNDLESPEC=gzip\-v1, BUNDLESPEC=bzip2=v1" will prefer a gzipped
+version 1 bundle type then bzip2 version 1 bundle type.
+.sp
+If not defined, the order in the manifest will be used and the first
+available bundle will be downloaded.
+.UNINDENT
 .SS color
 .sp
 colorize output from some commands
@@ -10391,15 +10578,21 @@ syntax highlighting for hgweb (requires Pygments)
 It depends on the Pygments syntax highlighting library:
 \%http://pygments.org/\:
 .sp
-There are two configuration options:
+There are the following configuration options:
 .sp
 .nf
 .ft C
 [web]
 pygments_style = <style> (default: colorful)
 highlightfiles = <fileset> (default: size(\(aq<5M\(aq))
+highlightonlymatchfilename = <bool> (default False)
 .ft P
 .fi
+.sp
+\fBhighlightonlymatchfilename\fP will only highlight files if their type could
+be identified by their filename. When this is not enabled (the default),
+Pygments will try very hard to identify the file type from content and any
+match (even matches with a low confidence score) will be used.
 .SS histedit
 .sp
 interactive history editing

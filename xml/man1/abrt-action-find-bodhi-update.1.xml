@@ -1,0 +1,89 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>abrt-action-find-bodhi-update</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>abrt-action-find-bodhi-update</refname>
+    <refpurpose>find bodhi update based on ABRT's problem dir</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis>abrt-action-notify</emphasis> [-v] [-d PROBLEM_DIR] [-b]</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>The tool reads <emphasis>duphash</emphasis> file in problem directory and searches for a new
+updates according to the crash.</simpara>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-v, --verbose
+</term>
+<listitem>
+<simpara>
+   Be verbose
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-b, --without-bodhi
+</term>
+<listitem>
+<simpara>
+   Run without abrt-bodhi. Prints only Bugzilla bug id of duplicate bug, if exists.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-d, --problem-dir PROBLEM_DIR
+</term>
+<listitem>
+<simpara>
+   Problem directory [Default: current directory]
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_environment_variables">
+<title>ENVIRONMENT VARIABLES</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis>Bugzilla_Product</emphasis>
+</term>
+<listitem>
+<simpara>
+   Product bug field value. Useful if you needed different product than
+   specified in PROBLEM_DIR/os_info
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<simpara>abrt-bodhi(1), reporter-bugzilla(1)</simpara>
+</refsect1>
+<refsect1 xml:id="_authors">
+<title>AUTHORS</title>
+<itemizedlist>
+<listitem>
+<simpara>
+ABRT team
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect1>
+</refentry>
