@@ -9,14 +9,14 @@
 operations</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/bn.h&gt;</synopsis>
-<synopsis format="linespecific">int BN_zero(BIGNUM *a);
+<synopsis>#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis>int BN_zero(BIGNUM *a);
 int BN_one(BIGNUM *a);</synopsis>
-<synopsis format="linespecific">const BIGNUM *BN_value_one(void);</synopsis>
-<synopsis format="linespecific">int BN_set_word(BIGNUM *a, unsigned long w);
+<synopsis>const BIGNUM *BN_value_one(void);</synopsis>
+<synopsis>int BN_set_word(BIGNUM *a, unsigned long w);
 unsigned long BN_get_word(BIGNUM *a);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_zero.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-88f660dc4049e8409758ca280676193e"><title>DESCRIPTION</title>
     <para>
       BN_zero(), BN_one() and BN_set_word() set <emphasis role="bold">a</emphasis> to the values 0, 1 and <emphasis role="bold">w</emphasis> respectively.  BN_zero() and BN_one() are
       macros.
@@ -31,7 +31,7 @@ unsigned long BN_get_word(BIGNUM *a);</synopsis>
       be represented as an unsigned long.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_zero.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-fdbd98cb92950b27d7a9562537d8269a"><title>RETURN VALUES</title>
     <para>
       BN_get_word() returns the value <emphasis role="bold">a</emphasis>,
       and 0xffffffffL if <emphasis role="bold">a</emphasis> cannot be
@@ -42,7 +42,7 @@ unsigned long BN_get_word(BIGNUM *a);</synopsis>
       otherwise. BN_value_one() returns the constant.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_zero.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-cc802b77ce725a0e8ab14a9c597a3f20"><title>BUGS</title>
     <para>
       Someone might change the constant.
     </para>
@@ -52,23 +52,12 @@ unsigned long BN_get_word(BIGNUM *a);</synopsis>
       returned on error.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_zero.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-90a2491d91f63f68bdd13844c1ccfa10"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>bn</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>BN_bn2bin</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_zero.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      BN_zero(), BN_one() and BN_set_word() are available in all versions
-      of SSLeay and OpenSSL. BN_value_one() and BN_get_word() were added in
-      SSLeay 0.8.
-    </para>
-    <para>
-      BN_value_one() was changed to return a true const BIGNUM * in OpenSSL
-      0.9.7.
     </para>
   </refsection>
 </refentry>

@@ -10,13 +10,13 @@ SSL_add_client_CA</refname>
 client certificate</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">void SSL_CTX_set_client_CA_list(SSL_CTX *ctx, STACK_OF(X509_NAME) *list);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>void SSL_CTX_set_client_CA_list(SSL_CTX *ctx, STACK_OF(X509_NAME) *list);
 void SSL_set_client_CA_list(SSL *s, STACK_OF(X509_NAME) *list);
 int SSL_CTX_add_client_CA(SSL_CTX *ctx, X509 *cacert);
 int SSL_add_client_CA(SSL *ssl, X509 *cacert);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_client_CA_list.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-89e0bac93a9b0b7946de8fbd18a1b024"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_set_client_CA_list() sets the <emphasis role="bold">list</emphasis> of CAs sent to the client when requesting
       a client certificate for <emphasis role="bold">ctx</emphasis>.
@@ -36,7 +36,7 @@ int SSL_add_client_CA(SSL *ssl, X509 *cacert);</synopsis>
       <emphasis role="bold">ssl</emphasis>'s SSL_CTX object.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_client_CA_list.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-d0f83364767598e35627f4cbf7f63ea4"><title>NOTES</title>
     <para>
       When a TLS/SSL server requests a client certificate (see <emphasis role="bold">SSL_CTX_set_verify(3)</emphasis>), it sends a list of
       CAs, for which it will accept certificates, to the client.
@@ -50,7 +50,7 @@ int SSL_add_client_CA(SSL *ssl, X509 *cacert);</synopsis>
       the names, not the complete certificates); use <citerefentry>
       <refentrytitle>SSL_CTX_load_verify_locations</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry> to additionally load them
-      for verification. 
+      for verification.
     </para>
     <para>
       If the list of acceptable CAs is compiled in a file, the
@@ -69,7 +69,7 @@ int SSL_add_client_CA(SSL *ssl, X509 *cacert);</synopsis>
       These functions are only useful for TLS/SSL servers.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_client_CA_list.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-3380ff7837eb98735d44e417be5a6b59"><title>RETURN VALUES</title>
     <para>
       SSL_CTX_set_client_CA_list() and SSL_set_client_CA_list() do not
       return diagnostic information.
@@ -81,7 +81,7 @@ int SSL_add_client_CA(SSL *ssl, X509 *cacert);</synopsis>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_client_CA_list.pod:0"/>0</term>
+          <term>0</term>
           <listitem>
             <para>
 	      A failure while manipulating the STACK_OF(X509_NAME) object
@@ -92,7 +92,7 @@ int SSL_add_client_CA(SSL *ssl, X509 *cacert);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_client_CA_list.pod:1"/>1</term>
+          <term>1</term>
           <listitem>
             <para>
 	      The operation succeeded.
@@ -102,14 +102,14 @@ int SSL_add_client_CA(SSL *ssl, X509 *cacert);</synopsis>
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_client_CA_list.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-f5fff32c5cbd40ecc3b3a6da1b2ad131"><title>EXAMPLES</title>
     <para>
       Scan all certificates in <emphasis role="bold">CAfile</emphasis> and
       list them as acceptable CAs:
     </para>
     <screen>SSL_CTX_set_client_CA_list(ctx,SSL_load_client_CA_file(CAfile));</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_client_CA_list.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-7daf700bd2148576083d24d9f8ccb327"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

@@ -8,13 +8,13 @@
 <refpurpose>RSA public key cryptography</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/rsa.h&gt;</synopsis>
-<synopsis format="linespecific">int RSA_public_encrypt(int flen, unsigned char *from,
+<synopsis>#include &lt;openssl/rsa.h&gt;</synopsis>
+<synopsis>int RSA_public_encrypt(int flen, unsigned char *from,
    unsigned char *to, RSA *rsa, int padding);</synopsis>
-<synopsis format="linespecific">int RSA_private_decrypt(int flen, unsigned char *from,
+<synopsis>int RSA_private_decrypt(int flen, unsigned char *from,
     unsigned char *to, RSA *rsa, int padding);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_public_encrypt.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-065a096b7c8996cefe6a9f1e0c2e0e9f"><title>DESCRIPTION</title>
     <para>
       RSA_public_encrypt() encrypts the <emphasis role="bold">flen</emphasis> bytes at <emphasis role="bold">from</emphasis> (usually a session key) using the public
       key <emphasis role="bold">rsa</emphasis> and stores the ciphertext in
@@ -27,7 +27,7 @@
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.RSA_public_encrypt.pod:RSA_PKCS1_PADDING"/>RSA_PKCS1_PADDING</term>
+          <term>RSA_PKCS1_PADDING</term>
           <listitem>
             <para>
 	      PKCS #1 v1.5 padding. This currently is the most widely used
@@ -36,7 +36,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.RSA_public_encrypt.pod:RSA_PKCS1_OAEP_PADDING"/>RSA_PKCS1_OAEP_PADDING</term>
+          <term>RSA_PKCS1_OAEP_PADDING</term>
           <listitem>
             <para>
 	      EME-OAEP as defined in PKCS #1 v2.0 with SHA-1, MGF1 and an
@@ -46,7 +46,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.RSA_public_encrypt.pod:RSA_SSLV23_PADDING"/>RSA_SSLV23_PADDING</term>
+          <term>RSA_SSLV23_PADDING</term>
           <listitem>
             <para>
 	      PKCS #1 v1.5 padding with an SSL-specific modification that
@@ -55,7 +55,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.RSA_public_encrypt.pod:RSA_NO_PADDING"/>RSA_NO_PADDING</term>
+          <term>RSA_NO_PADDING</term>
           <listitem>
             <para>
 	      Raw RSA encryption. This mode should <emphasis role="italic">only</emphasis> be used to implement
@@ -81,7 +81,7 @@
       encrypt the data.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_public_encrypt.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-1a02e60f80b8628bdb9fc8643720ac1c"><title>RETURN VALUES</title>
     <para>
       RSA_public_encrypt() returns the size of the encrypted data (i.e.,
       RSA_size(<emphasis role="bold">rsa</emphasis>)).
@@ -93,12 +93,12 @@
       <manvolnum>3</manvolnum> </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_public_encrypt.pod:CONFORMING_TO"><title>CONFORMING TO</title>
+  <refsection xml:id="ID-fb74dcf49cdbf321353ec233e06a3cad"><title>CONFORMING TO</title>
     <para>
       SSL, PKCS #1 v2.0
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_public_encrypt.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-0240b3b58ee64eda8a247c769ab42b3c"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ERR_get_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -107,13 +107,6 @@
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>RSA_size</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_public_encrypt.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      The <emphasis role="bold">padding</emphasis> argument was added in
-      SSLeay 0.8. RSA_NO_PADDING is available since SSLeay 0.9.0, OAEP was
-      added in OpenSSL 0.9.2b.
     </para>
   </refsection>
 </refentry>

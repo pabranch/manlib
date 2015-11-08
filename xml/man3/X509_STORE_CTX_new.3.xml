@@ -8,22 +8,22 @@
 <refpurpose>X509_STORE_CTX initialisation</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/x509_vfy.h&gt;</synopsis>
-<synopsis format="linespecific">X509_STORE_CTX *X509_STORE_CTX_new(void);
+<synopsis>#include &lt;openssl/x509_vfy.h&gt;</synopsis>
+<synopsis>X509_STORE_CTX *X509_STORE_CTX_new(void);
 void X509_STORE_CTX_cleanup(X509_STORE_CTX *ctx);
 void X509_STORE_CTX_free(X509_STORE_CTX *ctx);</synopsis>
-<synopsis format="linespecific">int X509_STORE_CTX_init(X509_STORE_CTX *ctx, X509_STORE *store,
+<synopsis>int X509_STORE_CTX_init(X509_STORE_CTX *ctx, X509_STORE *store,
                         X509 *x509, STACK_OF(X509) *chain);</synopsis>
-<synopsis format="linespecific">void X509_STORE_CTX_trusted_stack(X509_STORE_CTX *ctx, STACK_OF(X509) *sk);</synopsis>
-<synopsis format="linespecific">void   X509_STORE_CTX_set_cert(X509_STORE_CTX *ctx,X509 *x);
+<synopsis>void X509_STORE_CTX_trusted_stack(X509_STORE_CTX *ctx, STACK_OF(X509) *sk);</synopsis>
+<synopsis>void   X509_STORE_CTX_set_cert(X509_STORE_CTX *ctx,X509 *x);
 void   X509_STORE_CTX_set_chain(X509_STORE_CTX *ctx,STACK_OF(X509) *sk);
 void   X509_STORE_CTX_set0_crls(X509_STORE_CTX *ctx, STACK_OF(X509_CRL) *sk);</synopsis>
-<synopsis format="linespecific">X509_VERIFY_PARAM *X509_STORE_CTX_get0_param(X509_STORE_CTX *ctx);
+<synopsis>X509_VERIFY_PARAM *X509_STORE_CTX_get0_param(X509_STORE_CTX *ctx);
 void X509_STORE_CTX_set0_param(X509_STORE_CTX *ctx, X509_VERIFY_PARAM *param);
 int X509_STORE_CTX_set_default(X509_STORE_CTX *ctx, const char *name);</synopsis>
-<synopsis format="linespecific">int X509_STORE_CTX_get_num_untrusted(X509_STORE_CTX *ctx);</synopsis>
+<synopsis>int X509_STORE_CTX_get_num_untrusted(X509_STORE_CTX *ctx);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_new.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-b42a72170bb54a9deb4c47b582954998"><title>DESCRIPTION</title>
     <para>
       These functions initialise an <emphasis role="bold">X509_STORE_CTX</emphasis> structure for subsequent use by
       X509_verify_cert().
@@ -56,7 +56,7 @@ int X509_STORE_CTX_set_default(X509_STORE_CTX *ctx, const char *name);</synopsis
     <para>
       X509_STORE_CTX_trusted_stack() sets the set of trusted certificates
       of <emphasis role="bold">ctx</emphasis> to <emphasis role="bold">sk</emphasis>. This is an alternative way of specifying
-      trusted certificates instead of using an <emphasis role="bold">X509_STORE</emphasis>. 
+      trusted certificates instead of using an <emphasis role="bold">X509_STORE</emphasis>.
     </para>
     <para>
       X509_STORE_CTX_set_cert() sets the certificate to be verified in
@@ -95,7 +95,7 @@ int X509_STORE_CTX_set_default(X509_STORE_CTX *ctx, const char *name);</synopsis
       X509_verify_cert().
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_new.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-f540e0c23a67e5955efeec5c7abce20e"><title>NOTES</title>
     <para>
       The certificates and CRLs in a store are used internally and should
       <emphasis role="bold">not</emphasis> be freed up until after the
@@ -114,7 +114,7 @@ if (ctx == NULL)
       /* Bad error */
 X509_STORE_CTX_init(ctx, store, cert, chain);</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_new.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-46960b7b2ca4fedcdf21c210e604e526"><title>BUGS</title>
     <para>
       The certificates and CRLs in a context are used internally and should
       <emphasis role="bold">not</emphasis> be freed up until after the
@@ -122,7 +122,7 @@ X509_STORE_CTX_init(ctx, store, cert, chain);</screen>
       Copies should be made or reference counts increased instead.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_new.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-2921df1f570513814f96270de4503cba"><title>RETURN VALUES</title>
     <para>
       X509_STORE_CTX_new() returns an newly allocates context or <emphasis role="bold">NULL</emphasis> is an error occurred.
     </para>
@@ -148,7 +148,7 @@ X509_STORE_CTX_init(ctx, store, cert, chain);</screen>
       certificates used.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_new.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-4f1ab990d2417fa0e1c7e6d03f08020f"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>X509_verify_cert</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry> <citerefentry>
@@ -156,7 +156,7 @@ X509_STORE_CTX_init(ctx, store, cert, chain);</screen>
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_new.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-0d783995aa4ac1a67f3933c74308e466"><title>HISTORY</title>
     <para>
       X509_STORE_CTX_set0_crls() was first added to OpenSSL 1.0.0
       X509_STORE_CTX_get_num_untrusted() was first added to OpenSSL 1.1.0

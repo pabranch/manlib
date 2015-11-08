@@ -8,11 +8,11 @@
 <refpurpose>object allocation functions</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/asn1.h&gt;</synopsis>
-<synopsis format="linespecific">ASN1_OBJECT *ASN1_OBJECT_new(void);
+<synopsis>#include &lt;openssl/asn1.h&gt;</synopsis>
+<synopsis>ASN1_OBJECT *ASN1_OBJECT_new(void);
 void ASN1_OBJECT_free(ASN1_OBJECT *a);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.ASN1_OBJECT_new.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-a72e46b0dc082e76f695c1eb55f50c3f"><title>DESCRIPTION</title>
     <para>
       The ASN1_OBJECT allocation routines, allocate and free an ASN1_OBJECT
       structure, which represents an ASN1 OBJECT IDENTIFIER.
@@ -25,14 +25,14 @@ void ASN1_OBJECT_free(ASN1_OBJECT *a);</synopsis>
       NULL, nothing is done.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ASN1_OBJECT_new.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-f08e1e278eeeef79418221df1d856411"><title>NOTES</title>
     <para>
       Although ASN1_OBJECT_new() allocates a new ASN1_OBJECT structure it
       is almost never used in applications. The ASN1 object utility
       functions such as OBJ_nid2obj() are used instead.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ASN1_OBJECT_new.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-de4750fc7197af3758830e93583bef43"><title>RETURN VALUES</title>
     <para>
       If the allocation fails, ASN1_OBJECT_new() returns <emphasis role="bold">NULL</emphasis> and sets an error code that can be
       obtained by <citerefentry>
@@ -44,18 +44,12 @@ void ASN1_OBJECT_free(ASN1_OBJECT *a);</synopsis>
       ASN1_OBJECT_free() returns no value.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ASN1_OBJECT_new.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-5b8d5602f13306b125e91b47ce32bd4c"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ERR_get_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>d2i_ASN1_OBJECT</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ASN1_OBJECT_new.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      ASN1_OBJECT_new() and ASN1_OBJECT_free() are available in all
-      versions of SSLeay and OpenSSL.
     </para>
   </refsection>
 </refentry>

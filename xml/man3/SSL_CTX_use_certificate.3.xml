@@ -8,16 +8,16 @@
 <refpurpose>load certificate and key data</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">int SSL_CTX_use_certificate(SSL_CTX *ctx, X509 *x);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_CTX_use_certificate(SSL_CTX *ctx, X509 *x);
 int SSL_CTX_use_certificate_ASN1(SSL_CTX *ctx, int len, unsigned char *d);
 int SSL_CTX_use_certificate_file(SSL_CTX *ctx, const char *file, int type);
 int SSL_use_certificate(SSL *ssl, X509 *x);
 int SSL_use_certificate_ASN1(SSL *ssl, unsigned char *d, int len);
 int SSL_use_certificate_file(SSL *ssl, const char *file, int type);</synopsis>
-<synopsis format="linespecific">int SSL_CTX_use_certificate_chain_file(SSL_CTX *ctx, const char *file);
+<synopsis>int SSL_CTX_use_certificate_chain_file(SSL_CTX *ctx, const char *file);
 int SSL_use_certificate_chain_file(SSL *ssl, const char *file);</synopsis>
-<synopsis format="linespecific">int SSL_CTX_use_PrivateKey(SSL_CTX *ctx, EVP_PKEY *pkey);
+<synopsis>int SSL_CTX_use_PrivateKey(SSL_CTX *ctx, EVP_PKEY *pkey);
 int SSL_CTX_use_PrivateKey_ASN1(int pk, SSL_CTX *ctx, unsigned char *d,
                                 long len);
 int SSL_CTX_use_PrivateKey_file(SSL_CTX *ctx, const char *file, int type);
@@ -30,10 +30,10 @@ int SSL_use_PrivateKey_file(SSL *ssl, const char *file, int type);
 int SSL_use_RSAPrivateKey(SSL *ssl, RSA *rsa);
 int SSL_use_RSAPrivateKey_ASN1(SSL *ssl, unsigned char *d, long len);
 int SSL_use_RSAPrivateKey_file(SSL *ssl, const char *file, int type);</synopsis>
-<synopsis format="linespecific">int SSL_CTX_check_private_key(const SSL_CTX *ctx);
+<synopsis>int SSL_CTX_check_private_key(const SSL_CTX *ctx);
 int SSL_check_private_key(const SSL *ssl);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_use_certificate.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-1416bf5c5df9131acd0aa9b2bbf8417d"><title>DESCRIPTION</title>
     <para>
       These functions load the certificates and private keys into the
       SSL_CTX or SSL object, respectively.
@@ -82,7 +82,7 @@ int SSL_check_private_key(const SSL *ssl);</synopsis>
       client or server certificate), followed by intermediate CA
       certificates if applicable, and ending at the highest level (root)
       CA. SSL_use_certificate_chain_file() is similar except it loads the
-      cerificate chain into <emphasis role="bold">ssl</emphasis>. 
+      cerificate chain into <emphasis role="bold">ssl</emphasis>.
     </para>
     <para>
       SSL_CTX_use_PrivateKey() adds <emphasis role="bold">pkey</emphasis>
@@ -122,7 +122,7 @@ int SSL_check_private_key(const SSL *ssl);</synopsis>
       no key/certificate was explicitly added for this <emphasis role="bold">ssl</emphasis>, the last item added into <emphasis role="bold">ctx</emphasis> will be checked.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_use_certificate.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-cfcbfa6da9c0b9c2710826ba51812384"><title>NOTES</title>
     <para>
       The internal certificate store of OpenSSL can hold several private
       key/certificate pairs at a time. The certificate used depends on the
@@ -136,7 +136,7 @@ int SSL_check_private_key(const SSL *ssl);</synopsis>
       certificate or private key, consequently
       SSL_CTX_use_certificate_chain_file() is only applicable to PEM
       formatting. Files of type SSL_FILETYPE_PEM can contain more than one
-      item. 
+      item.
     </para>
     <para>
       SSL_CTX_use_certificate_chain_file() adds the first certificate found
@@ -150,7 +150,7 @@ int SSL_check_private_key(const SSL *ssl);</synopsis>
       used instead of the SSL_CTX_use_certificate_file() function in order
       to allow the use of complete certificate chains even when no trusted
       CA storage is used or when the CA issuing the certificate shall not
-      be added to the trusted CA storage. 
+      be added to the trusted CA storage.
     </para>
     <para>
       If additional certificates are needed to complete the chain during
@@ -170,13 +170,13 @@ int SSL_check_private_key(const SSL *ssl);</synopsis>
       anyway.)
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_use_certificate.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-0d5c0cea94b285591b45da442a74c390"><title>RETURN VALUES</title>
     <para>
       On success, the functions return 1. Otherwise check out the error
       stack to find out the reason.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_use_certificate.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-7bb660f7b39e6002941af5026a5cb1f7"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -194,13 +194,6 @@ int SSL_check_private_key(const SSL *ssl);</synopsis>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>SSL_CTX_add_extra_chain_cert</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_use_certificate.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      Support for DER encoded private keys (SSL_FILETYPE_ASN1) in
-      SSL_CTX_use_PrivateKey_file() and SSL_use_PrivateKey_file() was added
-      in 0.9.8 .
     </para>
   </refsection>
 </refentry>

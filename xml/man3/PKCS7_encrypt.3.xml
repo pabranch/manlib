@@ -8,10 +8,10 @@
 <refpurpose>create a PKCS#7 envelopedData structure</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/pkcs7.h&gt;</synopsis>
-<synopsis format="linespecific">PKCS7 *PKCS7_encrypt(STACK_OF(X509) *certs, BIO *in, const EVP_CIPHER *cipher, int flags);</synopsis>
+<synopsis>#include &lt;openssl/pkcs7.h&gt;</synopsis>
+<synopsis>PKCS7 *PKCS7_encrypt(STACK_OF(X509) *certs, BIO *in, const EVP_CIPHER *cipher, int flags);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_encrypt.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-a2a7b01df42c2de8f59a5c19a6552cb1"><title>DESCRIPTION</title>
     <para>
       PKCS7_encrypt() creates and returns a PKCS#7 envelopedData structure.
       <emphasis role="bold">certs</emphasis> is a list of recipient
@@ -21,7 +21,7 @@
       optional set of flags.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_encrypt.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-362daeef0e78ccb030703e8d31255124"><title>NOTES</title>
     <para>
       Only RSA keys are supported in PKCS#7 and envelopedData so the
       recipient certificates supplied to this function must all contain RSA
@@ -67,13 +67,13 @@
       suitable for streaming I/O: no data is read from the BIO <emphasis role="bold">in</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_encrypt.pod:NOTES_i1"><title>NOTES</title>
+  <refsection xml:id="ID-362daeef0e78ccb030703e8d31255124"><title>NOTES</title>
     <para>
       If the flag <emphasis role="bold">PKCS7_STREAM</emphasis> is set the
       returned <emphasis role="bold">PKCS7</emphasis> structure is
       <emphasis role="bold">not</emphasis> complete and outputting its
       contents via a function that does not properly finalize the <emphasis role="bold">PKCS7</emphasis> structure will give unpredictable
-      results. 
+      results.
     </para>
     <para>
       Several functions including SMIME_write_PKCS7(),
@@ -83,13 +83,13 @@
       using BIO_new_PKCS7().
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_encrypt.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-f38fc4c555720a6876b34b697f0d0887"><title>RETURN VALUES</title>
     <para>
       PKCS7_encrypt() returns either a PKCS7 structure or NULL if an error
       occurred. The error can be obtained from ERR_get_error(3).
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_encrypt.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-c0438089b2b5e2cea0719dbcc814df5b"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ERR_get_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -97,9 +97,9 @@
       </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_encrypt.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-eb7b1f1a44a713b5027287b3d0e0c956"><title>HISTORY</title>
     <para>
-      PKCS7_decrypt() was added to OpenSSL 0.9.5 The <emphasis role="bold">PKCS7_STREAM</emphasis> flag was first supported in
+      The <emphasis role="bold">PKCS7_STREAM</emphasis> flag was added in
       OpenSSL 1.0.0.
     </para>
   </refsection>

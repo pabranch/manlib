@@ -9,16 +9,16 @@ BIO_get_mem_ptr, BIO_new_mem_buf</refname>
 <refpurpose>memory BIO</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/bio.h&gt;</synopsis>
-<synopsis format="linespecific">BIO_METHOD *   BIO_s_mem(void);
+<synopsis>#include &lt;openssl/bio.h&gt;</synopsis>
+<synopsis>BIO_METHOD *   BIO_s_mem(void);
 BIO_METHOD *   BIO_s_secmem(void);</synopsis>
-<synopsis format="linespecific">BIO_set_mem_eof_return(BIO *b,int v)
+<synopsis>BIO_set_mem_eof_return(BIO *b,int v)
 long BIO_get_mem_data(BIO *b, char **pp)
 BIO_set_mem_buf(BIO *b,BUF_MEM *bm,int c)
 BIO_get_mem_ptr(BIO *b,BUF_MEM **pp)</synopsis>
-<synopsis format="linespecific">BIO *BIO_new_mem_buf(void *buf, int len);</synopsis>
+<synopsis>BIO *BIO_new_mem_buf(void *buf, int len);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_mem.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-8981ea0d32c47b0b0b0363d3d7b7ea97"><title>DESCRIPTION</title>
     <para>
       BIO_s_mem() return the memory BIO method function.
     </para>
@@ -87,7 +87,7 @@ BIO_get_mem_ptr(BIO *b,BUF_MEM **pp)</synopsis>
       the supplied area of memory must be unchanged until the BIO is freed.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_mem.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-7ae99b99e0280968907f6e7434da927e"><title>NOTES</title>
     <para>
       Writes to memory BIOs will always succeed if memory is available:
       that is their size can grow indefinitely.
@@ -105,7 +105,7 @@ BIO_get_mem_ptr(BIO *b,BUF_MEM **pp)</synopsis>
       give undefined results, including perhaps a program crash.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_mem.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-e939a0526f7d03dbe8d336d275aa2ca2"><title>BUGS</title>
     <para>
       There should be an option to set the maximum size of a memory BIO.
     </para>
@@ -118,7 +118,7 @@ BIO_get_mem_ptr(BIO *b,BUF_MEM **pp)</synopsis>
       large BIO to improve efficiency.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_mem.pod:EXAMPLE"><title>EXAMPLE</title>
+  <refsection xml:id="ID-5f9fd039d842c8ce9b21a51ce98ccd9e"><title>EXAMPLE</title>
     <para>
       Create a memory BIO and write some data to it:
     </para>
@@ -141,7 +141,7 @@ BIO_free(mem);
 
 </screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_mem.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-09f8121bde2cfbd2b1f88639df3ffe4a"><title>SEE ALSO</title>
     <para>
       TBA
     </para>

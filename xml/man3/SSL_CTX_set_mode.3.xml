@@ -8,13 +8,13 @@
 <refpurpose>manipulate SSL engine mode</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">long SSL_CTX_set_mode(SSL_CTX *ctx, long mode);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>long SSL_CTX_set_mode(SSL_CTX *ctx, long mode);
 long SSL_set_mode(SSL *ssl, long mode);</synopsis>
-<synopsis format="linespecific">long SSL_CTX_get_mode(SSL_CTX *ctx);
+<synopsis>long SSL_CTX_get_mode(SSL_CTX *ctx);
 long SSL_get_mode(SSL *ssl);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_mode.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-70c19a300ffda184b4eb5b4d669e5231"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_set_mode() adds the mode set via bitmask in <emphasis role="bold">mode</emphasis> to <emphasis role="bold">ctx</emphasis>.
       Options already set before are not cleared.
@@ -30,14 +30,14 @@ long SSL_get_mode(SSL *ssl);</synopsis>
       SSL_get_mode() returns the mode set for <emphasis role="bold">ssl</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_mode.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-bde014617db0e02be74975c64e332ed4"><title>NOTES</title>
     <para>
       The following mode changes are available:
     </para>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_mode.pod:SSL_MODE_ENABLE_PARTIAL_WRITE"/>SSL_MODE_ENABLE_PARTIAL_WRITE</term>
+          <term>SSL_MODE_ENABLE_PARTIAL_WRITE</term>
           <listitem>
             <para>
 	      Allow SSL_write(..., n) to return r with 0 &lt; r &lt; n
@@ -51,7 +51,7 @@ long SSL_get_mode(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_mode.pod:SSL_MODE_ACCEPT_MOVING_WRITE_BUFFER"/>SSL_MODE_ACCEPT_MOVING_WRITE_BUFFER</term>
+          <term>SSL_MODE_ACCEPT_MOVING_WRITE_BUFFER</term>
           <listitem>
             <para>
 	      Make it possible to retry SSL_write() with changed buffer
@@ -62,7 +62,7 @@ long SSL_get_mode(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_mode.pod:SSL_MODE_AUTO_RETRY"/>SSL_MODE_AUTO_RETRY</term>
+          <term>SSL_MODE_AUTO_RETRY</term>
           <listitem>
             <para>
 	      Never bother the application with retries if the transport is
@@ -83,7 +83,7 @@ long SSL_get_mode(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_mode.pod:SSL_MODE_RELEASE_BUFFERS"/>SSL_MODE_RELEASE_BUFFERS</term>
+          <term>SSL_MODE_RELEASE_BUFFERS</term>
           <listitem>
             <para>
 	      When we no longer need a read buffer or a write buffer for a
@@ -95,7 +95,7 @@ long SSL_get_mode(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_mode.pod:SSL_MODE_SEND_FALLBACK_SCSV"/>SSL_MODE_SEND_FALLBACK_SCSV</term>
+          <term>SSL_MODE_SEND_FALLBACK_SCSV</term>
           <listitem>
             <para>
 	      Send TLS_FALLBACK_SCSV in the ClientHello. To be set only by
@@ -112,7 +112,7 @@ long SSL_get_mode(SSL *ssl);</synopsis>
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_mode.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-006f0b8a1a77d5d43d1d63bee1af869d"><title>RETURN VALUES</title>
     <para>
       SSL_CTX_set_mode() and SSL_set_mode() return the new mode bitmask
       after adding <emphasis role="bold">mode</emphasis>.
@@ -121,7 +121,7 @@ long SSL_get_mode(SSL *ssl);</synopsis>
       SSL_CTX_get_mode() and SSL_get_mode() return the current bitmask.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_mode.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-000ef880aa6a732002b477e0c23b6335"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -129,11 +129,6 @@ long SSL_get_mode(SSL *ssl);</synopsis>
       </citerefentry>, <citerefentry>
       <refentrytitle>SSL_write</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_mode.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      SSL_MODE_AUTO_RETRY as been added in OpenSSL 0.9.6.
     </para>
   </refsection>
 </refentry>

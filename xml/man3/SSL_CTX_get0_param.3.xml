@@ -8,13 +8,13 @@
 <refpurpose>get and set verification parameters</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">X509_VERIFY_PARAM *SSL_CTX_get0_param(SSL_CTX *ctx)
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>X509_VERIFY_PARAM *SSL_CTX_get0_param(SSL_CTX *ctx)
 X509_VERIFY_PARAM *SSL_get0_param(SSL *ssl)
 int SSL_CTX_set1_param(SSL_CTX *ctx, X509_VERIFY_PARAM *vpm)
 int SSL_set1_param(SSL *ssl, X509_VERIFY_PARAM *vpm)</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_get0_param.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-3e17e3b79ab2d624494b437b3a6ca880"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_get0_param() and SSL_get0_param() retrieve an internal
       pointer to the verification parameters for <emphasis role="bold">ctx</emphasis> or <emphasis role="bold">ssl</emphasis>
@@ -26,21 +26,21 @@ int SSL_set1_param(SSL *ssl, X509_VERIFY_PARAM *vpm)</synopsis>
       parameters to <emphasis role="bold">vpm</emphasis> for <emphasis role="bold">ctx</emphasis> or <emphasis role="bold">ssl</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_get0_param.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-e0198504651eee45b569729fbce1cf9c"><title>NOTES</title>
     <para>
       Typically parameters are retrieved from an <emphasis role="bold">SSL_CTX</emphasis> or <emphasis role="bold">SSL</emphasis> structure using SSL_CTX_get0_param() or
       SSL_get0_param() and an application modifies them to suit its needs:
       for example to add a hostname check.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_get0_param.pod:EXAMPLE"><title>EXAMPLE</title>
+  <refsection xml:id="ID-3afdc0ae1abcb0526b8d6667d887ab06"><title>EXAMPLE</title>
     <para>
       Check hostname matches "www.foo.com" in peer certificate:
     </para>
     <screen>X509_VERIFY_PARAM *vpm = SSL_get0_param(ssl);
 X509_VERIFY_PARAM_set1_host(vpm, "www.foo.com", 0);</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_get0_param.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-0db93c39db8d7f89db9d4e2c1a109731"><title>RETURN VALUES</title>
     <para>
       SSL_CTX_get0_param() and SSL_get0_param() return a pointer to an
       <emphasis role="bold">X509_VERIFY_PARAM</emphasis> structure.
@@ -50,14 +50,14 @@ X509_VERIFY_PARAM_set1_host(vpm, "www.foo.com", 0);</screen>
       for failure.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_get0_param.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-ae03cf055d0fd6c7fa1fb0d83a583f8b"><title>SEE ALSO</title>
     <para>
       <citerefentry>
       <refentrytitle>X509_VERIFY_PARAM_set_flags</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_get0_param.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-cd109bfbdd70fec695e70e8a189d7f77"><title>HISTORY</title>
     <para>
       These functions were first added to OpenSSL 1.0.2.
     </para>

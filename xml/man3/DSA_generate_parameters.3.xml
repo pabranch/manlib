@@ -8,16 +8,16 @@
 <refpurpose>generate DSA parameters</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/dsa.h&gt;</synopsis>
-<synopsis format="linespecific">int DSA_generate_parameters_ex(DSA *dsa, int bits,
+<synopsis>#include &lt;openssl/dsa.h&gt;</synopsis>
+<synopsis>int DSA_generate_parameters_ex(DSA *dsa, int bits,
                const unsigned char *seed,int seed_len,
                int *counter_ret, unsigned long *h_ret, BN_GENCB *cb);</synopsis>
-<synopsis format="linespecific">Deprecated:</synopsis>
-<synopsis format="linespecific">DSA *DSA_generate_parameters(int bits, unsigned char *seed,
+<synopsis>Deprecated:</synopsis>
+<synopsis>DSA *DSA_generate_parameters(int bits, unsigned char *seed,
                int seed_len, int *counter_ret, unsigned long *h_ret,
                void (*callback)(int, int, void *), void *cb_arg);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.DSA_generate_parameters.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-6fb530fc4a87d31233346e0363052ff8"><title>DESCRIPTION</title>
     <para>
       DSA_generate_parameters_ex() generates primes p and q and a generator
       g for use in the DSA and stores the result in <emphasis role="bold">dsa</emphasis>.
@@ -111,7 +111,7 @@
       <manvolnum>3</manvolnum> </citerefentry> for further information.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.DSA_generate_parameters.pod:RETURN_VALUE"><title>RETURN VALUE</title>
+  <refsection xml:id="ID-b572dba8395ae6ebdadd25afea3e4724"><title>RETURN VALUE</title>
     <para>
       DSA_generate_parameters_ex() returns a 1 on success, or 0 otherwise.
     </para>
@@ -126,12 +126,12 @@
       </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.DSA_generate_parameters.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-edd1eb50dbf281217cdd94a9b7dc105c"><title>BUGS</title>
     <para>
       Seed lengths &gt; 20 are not supported.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.DSA_generate_parameters.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-cd4774ff69cc9ccf09991cada4350199"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>dsa</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -142,17 +142,6 @@
       </citerefentry>, <citerefentry>
       <refentrytitle>BN_generate_prime</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.DSA_generate_parameters.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      DSA_generate_parameters() appeared in SSLeay 0.8. The <emphasis role="bold">cb_arg</emphasis> argument was added in SSLeay 0.9.0. In
-      versions up to OpenSSL 0.9.4, <emphasis role="bold">callback(1,
-      ...)</emphasis> was called in the inner loop of the Miller-Rabin test
-      whenever it reached the squaring step (the parameters to <emphasis role="bold">callback</emphasis> did not reveal how many witnesses had
-      been tested); since OpenSSL 0.9.5, <emphasis role="bold">callback(1,
-      ...)</emphasis> is called as in BN_is_prime(3), i.e. once for each
-      witness. =cut
     </para>
   </refsection>
 </refentry>

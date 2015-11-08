@@ -8,17 +8,17 @@
 <refpurpose>free an allocated SSL structure</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">void SSL_free(SSL *ssl);</synopsis>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>void SSL_free(SSL *ssl);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_free.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-7eed7b2a8083bfde7cfbd4635bee263e"><title>DESCRIPTION</title>
     <para>
       SSL_free() decrements the reference count of <emphasis role="bold">ssl</emphasis>, and removes the SSL structure pointed to
       by <emphasis role="bold">ssl</emphasis> and frees up the allocated
       memory if the reference count has reached 0. If <emphasis role="bold">ssl</emphasis> is NULL nothing is done.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_free.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-f14240624ff1fdabcfafca70ac66c24f"><title>NOTES</title>
     <para>
       SSL_free() also calls the free()ing procedures for indirectly
       affected items, if applicable: the buffering BIO, the read and write
@@ -39,7 +39,7 @@
       session cache as required by RFC2246.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_free.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-81df003cc1bc86f102c494a463ac9b99"><title>RETURN VALUES</title>
     <para>
       SSL_free() does not provide diagnostic information.
     </para>

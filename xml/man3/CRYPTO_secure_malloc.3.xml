@@ -8,15 +8,15 @@
 <refpurpose>use secure heap storage</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/crypto.h&gt;</synopsis>
-<synopsis format="linespecific">int CRYPTO_secure_malloc_init(size_t size, int minsize);</synopsis>
-<synopsis format="linespecific">int CRYPTO_secure_malloc_initialized();</synopsis>
-<synopsis format="linespecific">void CRYPTO_secure_malloc_done();</synopsis>
-<synopsis format="linespecific">void *OPENSSL_secure_malloc(int num);</synopsis>
-<synopsis format="linespecific">void OPENSSL_secure_free(void* ptr);</synopsis>
-<synopsis format="linespecific">int OPENSSL_secure_allocated(const void* ptr);</synopsis>
+<synopsis>#include &lt;openssl/crypto.h&gt;</synopsis>
+<synopsis>int CRYPTO_secure_malloc_init(size_t size, int minsize);</synopsis>
+<synopsis>int CRYPTO_secure_malloc_initialized();</synopsis>
+<synopsis>void CRYPTO_secure_malloc_done();</synopsis>
+<synopsis>void *OPENSSL_secure_malloc(int num);</synopsis>
+<synopsis>void OPENSSL_secure_free(void* ptr);</synopsis>
+<synopsis>int OPENSSL_secure_allocated(const void* ptr);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.CRYPTO_secure_malloc.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-acc0f5d56c3bb5d275e05facac50fb35"><title>DESCRIPTION</title>
     <para>
       In order to help protect applications (particularly long-running
       servers) from pointer overruns or underruns that could return
@@ -65,7 +65,7 @@
       whether or not a pointer is within the secure heap.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.CRYPTO_secure_malloc.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-d6450b1a462e78c26de11735881015b6"><title>RETURN VALUES</title>
     <para>
       <emphasis role="bold">CRYPTO_secure_malloc_init</emphasis> returns 0
       on failure, 1 if successful, and 2 if successful but the heap could
@@ -92,7 +92,7 @@
       values.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.CRYPTO_secure_malloc.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-29fc724a2dd6cffbb7dca81004473c23"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>BN_new</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -100,7 +100,7 @@
       </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.CRYPTO_secure_malloc.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-382e1c6493575a8075a5e616249af658"><title>HISTORY</title>
     <para>
       These functions were contributed to the OpenSSL project by Akamai
       Technologies in April, 2014.

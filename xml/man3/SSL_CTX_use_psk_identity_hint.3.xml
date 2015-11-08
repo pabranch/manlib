@@ -11,18 +11,18 @@ identity hint to use</refpurpose>
   </refnamediv>
   <screen></screen>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">int SSL_CTX_use_psk_identity_hint(SSL_CTX *ctx, const char *hint);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_CTX_use_psk_identity_hint(SSL_CTX *ctx, const char *hint);
 int SSL_use_psk_identity_hint(SSL *ssl, const char *hint);</synopsis>
-<synopsis format="linespecific">void SSL_CTX_set_psk_server_callback(SSL_CTX *ctx,
+<synopsis>void SSL_CTX_set_psk_server_callback(SSL_CTX *ctx,
        unsigned int (*callback)(SSL *ssl, const char *identity,
        unsigned char *psk, int max_psk_len));
 void SSL_set_psk_server_callback(SSL *ssl,
        unsigned int (*callback)(SSL *ssl, const char *identity,
        unsigned char *psk, int max_psk_len));</synopsis>
-<synopsis format="linespecific"/>
+<synopsis/>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_use_psk_identity_hint.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-1d51773a0af3d659b51d3a320a3beadf"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_use_psk_identity_hint() sets the given <emphasis role="bold">NULL</emphasis>-terminated PSK identity hint <emphasis role="bold">hint</emphasis> to SSL context object <emphasis role="bold">ctx</emphasis>. SSL_use_psk_identity_hint() sets the
       given <emphasis role="bold">NULL</emphasis>-terminated PSK identity
@@ -49,7 +49,7 @@ void SSL_set_psk_server_callback(SSL *ssl,
     </para>
     <screen></screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_use_psk_identity_hint.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-2ac1e7263b5996a71757445780d26990"><title>RETURN VALUES</title>
     <para>
       SSL_CTX_use_psk_identity_hint() and SSL_use_psk_identity_hint()
       return 1 on success, 0 otherwise.
@@ -60,7 +60,7 @@ void SSL_set_psk_server_callback(SSL *ssl,
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_use_psk_identity_hint.pod:0"/>0</term>
+          <term>0</term>
           <listitem>
             <para>
 	      PSK identity was not found. An "unknown_psk_identity" alert
@@ -69,7 +69,7 @@ void SSL_set_psk_server_callback(SSL *ssl,
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_use_psk_identity_hint.pod:gt0"/>&gt;0</term>
+          <term>&gt;0</term>
           <listitem>
             <para>
 	      PSK identity was found and the server callback has provided

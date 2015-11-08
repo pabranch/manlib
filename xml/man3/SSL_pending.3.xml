@@ -8,16 +8,16 @@
 <refpurpose>obtain number of readable bytes buffered in an SSL object</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">int SSL_pending(const SSL *ssl);</synopsis>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_pending(const SSL *ssl);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_pending.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-b44820724afbf8d5ee0e27728c02d7ff"><title>DESCRIPTION</title>
     <para>
       SSL_pending() returns the number of bytes which are available inside
       <emphasis role="bold">ssl</emphasis> for immediate read.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_pending.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-7dca332ef12682112cb1f8c504dec251"><title>NOTES</title>
     <para>
       Data are received in blocks from the peer. Therefore data can be
       buffered inside <emphasis role="bold">ssl</emphasis> and are ready
@@ -26,12 +26,12 @@
       </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_pending.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-af2a4aedd3a33d66b085503c13f66b04"><title>RETURN VALUES</title>
     <para>
       The number of bytes pending is returned.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_pending.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-058d3e9c3fd8389624d4a8f209edfc44"><title>BUGS</title>
     <para>
       SSL_pending() takes into account only bytes from the TLS/SSL record
       that is currently being processed (if any).  If the <emphasis role="bold">SSL</emphasis> object's <emphasis role="italic">read_ahead</emphasis> flag is set (see <citerefentry>
@@ -40,12 +40,8 @@
       may have been read containing more TLS/SSL records; these are ignored
       by SSL_pending().
     </para>
-    <para>
-      Up to OpenSSL 0.9.6, SSL_pending() does not check if the record type
-      of pending data is application data.
-    </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_pending.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-f5564e9f3c3c9f5f66fd1ee54af045c0"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>SSL_read</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

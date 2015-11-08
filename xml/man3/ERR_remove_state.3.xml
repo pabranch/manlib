@@ -8,12 +8,12 @@
 <refpurpose>free a thread's error queue</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/err.h&gt;</synopsis>
-<synopsis format="linespecific">void ERR_remove_thread_state(const CRYPTO_THREADID *tid);</synopsis>
-<synopsis format="linespecific">Deprecated:</synopsis>
-<synopsis format="linespecific">void ERR_remove_state(unsigned long pid);</synopsis>
+<synopsis>#include &lt;openssl/err.h&gt;</synopsis>
+<synopsis>void ERR_remove_thread_state(const CRYPTO_THREADID *tid);</synopsis>
+<synopsis>Deprecated:</synopsis>
+<synopsis>void ERR_remove_state(unsigned long pid);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.ERR_remove_state.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-f59c32ce6df9051d801540b6b435795f"><title>DESCRIPTION</title>
     <para>
       ERR_remove_thread_state() frees the error queue associated with
       thread <emphasis role="bold">tid</emphasis>. If <emphasis role="bold">tid</emphasis> == <emphasis role="bold">NULL</emphasis>,
@@ -31,23 +31,22 @@
       ignored. Calling ERR_remove_state is equivalent to <emphasis role="bold">ERR_remove_thread_state(NULL)</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ERR_remove_state.pod:RETURN_VALUE"><title>RETURN VALUE</title>
+  <refsection xml:id="ID-541b36ff54456b0c2b255cdf62c99029"><title>RETURN VALUE</title>
     <para>
       ERR_remove_thread_state and ERR_remove_state() return no value.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ERR_remove_state.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-77dd2c97beffb7a3d86f28bf81464d25"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>err</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ERR_remove_state.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-67f09ff035d770cbeb6eae9db6f9bc02"><title>HISTORY</title>
     <para>
-      ERR_remove_state() is available in all versions of SSLeay and
-      OpenSSL. It was deprecated in OpenSSL 1.0.0 when
-      ERR_remove_thread_state was introduced and thread IDs were introduced
-      to identify threads instead of 'unsigned long'.
+      ERR_remove_state() was deprecated in OpenSSL 1.0.0 when
+      ERR_remove_thread_state() was introduced and thread IDs were
+      introduced to identify threads instead of 'unsigned long'.
     </para>
   </refsection>
 </refentry>

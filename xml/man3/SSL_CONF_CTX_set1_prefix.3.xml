@@ -8,23 +8,23 @@
 <refpurpose>Set configuration context command prefix</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">unsigned int SSL_CONF_CTX_set1_prefix(SSL_CONF_CTX *cctx, const char *prefix);</synopsis>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>unsigned int SSL_CONF_CTX_set1_prefix(SSL_CONF_CTX *cctx, const char *prefix);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_set1_prefix.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-6baffbb1f03661a0eba819f0be6b152c"><title>DESCRIPTION</title>
     <para>
       The function SSL_CONF_CTX_set1_prefix() sets the command prefix of
       <emphasis role="bold">cctx</emphasis> to <emphasis role="bold">prefix</emphasis>. If <emphasis role="bold">prefix</emphasis> is <emphasis role="bold">NULL</emphasis> it is restored to the default value.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_set1_prefix.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-3a472b35a482efbf4bbb9b1de48e9aa3"><title>NOTES</title>
     <para>
       Command prefixes alter the commands recognised by subsequent
       SSL_CTX_cmd() calls. For example for files, if the prefix "SSL" is
       set then command names such as "SSLProtocol", "SSLOptions" etc. are
       recognised instead of "Protocol" and "Options". Similarly for command
       lines if the prefix is "--ssl-" then "--ssl-no_tls1_2" is recognised
-      instead of "-no_tls1_2". 
+      instead of "-no_tls1_2".
     </para>
     <para>
       If the <emphasis role="bold">SSL_CONF_FLAG_CMDLINE</emphasis> flag is
@@ -38,12 +38,12 @@
       default.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_set1_prefix.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-ce23d54687147f858e2f402fa6a67891"><title>RETURN VALUES</title>
     <para>
       SSL_CONF_CTX_set1_prefix() returns 1 for success and 0 for failure.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_set1_prefix.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-50ce75a2b693415c332400555342bb2d"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>SSL_CONF_CTX_new</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -57,7 +57,7 @@
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_CTX_set1_prefix.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-cb9347db1cac48d6b1dd16da269ff267"><title>HISTORY</title>
     <para>
       These functions were first added to OpenSSL 1.0.2
     </para>

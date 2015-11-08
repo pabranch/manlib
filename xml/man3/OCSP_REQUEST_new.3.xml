@@ -9,18 +9,18 @@
     OCSP_request_onereq_get0 - OCSP request functions.
   </para>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ocsp.h&gt;</synopsis>
-<synopsis format="linespecific">OCSP_REQUEST *OCSP_REQUEST_new(void);
+<synopsis>#include &lt;openssl/ocsp.h&gt;</synopsis>
+<synopsis>OCSP_REQUEST *OCSP_REQUEST_new(void);
 void OCSP_REQUEST_free(OCSP_REQUEST *req);</synopsis>
-<synopsis format="linespecific">OCSP_ONEREQ *OCSP_request_add0_id(OCSP_REQUEST *req, OCSP_CERTID *cid);</synopsis>
-<synopsis format="linespecific">int OCSP_request_sign(OCSP_REQUEST *req,
+<synopsis>OCSP_ONEREQ *OCSP_request_add0_id(OCSP_REQUEST *req, OCSP_CERTID *cid);</synopsis>
+<synopsis>int OCSP_request_sign(OCSP_REQUEST *req,
                       X509 *signer, EVP_PKEY *key, const EVP_MD *dgst,
                       STACK_OF(X509) *certs, unsigned long flags);</synopsis>
-<synopsis format="linespecific">int OCSP_request_add1_cert(OCSP_REQUEST *req, X509 *cert);</synopsis>
-<synopsis format="linespecific">int OCSP_request_onereq_count(OCSP_REQUEST *req);
+<synopsis>int OCSP_request_add1_cert(OCSP_REQUEST *req, X509 *cert);</synopsis>
+<synopsis>int OCSP_request_onereq_count(OCSP_REQUEST *req);
 OCSP_ONEREQ *OCSP_request_onereq_get0(OCSP_REQUEST *req, int i);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_REQUEST_new.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-e08257d6dd5de13585ae968a7c5b798a"><title>DESCRIPTION</title>
     <para>
       OCSP_REQUEST_new() allocates and returns an empty <emphasis role="bold">OCSP_REQUEST</emphasis> structure.
     </para>
@@ -50,7 +50,7 @@ OCSP_ONEREQ *OCSP_request_onereq_get0(OCSP_REQUEST *req, int i);</synopsis>
       OCSP_request_onereq_count(req) - 1.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_REQUEST_new.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-bd5968e0402de70add9c31b31ef43590"><title>RETURN VALUES</title>
     <para>
       OCSP_REQUEST_new() returns an empty <emphasis role="bold">OCSP_REQUEST</emphasis> structure or <emphasis role="bold">NULL</emphasis> if an error occurred.
     </para>
@@ -69,7 +69,7 @@ OCSP_ONEREQ *OCSP_request_onereq_get0(OCSP_REQUEST *req, int i);</synopsis>
       OCSP_request_onereq_get0() returns a pointer to an <emphasis role="bold">OCSP_ONEREQ</emphasis> structure or <emphasis role="bold">NULL</emphasis> if the index value is out or range.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_REQUEST_new.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-6c92442d9533a2bae5c6217f204a9d7c"><title>NOTES</title>
     <para>
       An OCSP request structure contains one or more <emphasis role="bold">OCSP_ONEREQ</emphasis> structures corresponding to each
       certificate.
@@ -79,7 +79,7 @@ OCSP_ONEREQ *OCSP_request_onereq_get0(OCSP_REQUEST *req, int i);</synopsis>
       used by OCSP responders.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_REQUEST_new.pod:EXAMPLE"><title>EXAMPLE</title>
+  <refsection xml:id="ID-59ede92453137f808d2162acca0529fe"><title>EXAMPLE</title>
     <para>
       Create an <emphasis role="bold">OCSP_REQUEST</emphasis> structure for
       certificate <emphasis role="bold">cert</emphasis> with issuer
@@ -102,7 +102,7 @@ if (OCSP_REQUEST_add0_id(req, cid) == NULL)
 
 OCSP_REQUEST_free(req);</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_REQUEST_new.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-3e3c1f5e460d47a97941724b5e7a9d03"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>crypto</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

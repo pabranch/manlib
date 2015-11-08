@@ -8,12 +8,12 @@
 <refpurpose>use serverinfo extension</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">int SSL_CTX_use_serverinfo(SSL_CTX *ctx, const unsigned char *serverinfo,
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_CTX_use_serverinfo(SSL_CTX *ctx, const unsigned char *serverinfo,
                            size_t serverinfo_length);</synopsis>
-<synopsis format="linespecific">int SSL_CTX_use_serverinfo_file(SSL_CTX *ctx, const char *file);</synopsis>
+<synopsis>int SSL_CTX_use_serverinfo_file(SSL_CTX *ctx, const char *file);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_use_serverinfo.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-020afc0e4e147bd9a3300edb789e20fd"><title>DESCRIPTION</title>
     <para>
       These functions load "serverinfo" TLS ServerHello Extensions into the
       SSL_CTX. A "serverinfo" extension is returned in response to an empty
@@ -24,7 +24,7 @@
       a byte array into <emphasis role="bold">ctx</emphasis>.  The
       extensions must be concatenated into a sequence of bytes.  Each
       extension must consist of a 2-byte Extension Type, a 2-byte length,
-      and then length bytes of extension_data. 
+      and then length bytes of extension_data.
     </para>
     <para>
       SSL_CTX_use_serverinfo_file() loads one or more serverinfo extensions
@@ -34,19 +34,19 @@
       name must begin with the phrase "BEGIN SERVERINFO FOR ".
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_use_serverinfo.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-d6a8ed6ff030a25e66c764ac679780da"><title>NOTES</title>
     <para/>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_use_serverinfo.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-a4191f895fe56a0dd9bb867db0a0bace"><title>RETURN VALUES</title>
     <para>
       On success, the functions return 1. On failure, the functions return
       0.  Check out the error stack to find out the reason.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_use_serverinfo.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-910d89c2587e321e2535ffbc913f3b63"><title>SEE ALSO</title>
     <para/>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_use_serverinfo.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-a32f1b235becb22072c236b03d5fc09b"><title>HISTORY</title>
     <screen></screen>
   </refsection>
 </refentry>

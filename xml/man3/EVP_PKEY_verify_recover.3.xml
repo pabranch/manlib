@@ -8,13 +8,13 @@
 <refpurpose>recover signature using a public key algorithm</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
-<synopsis format="linespecific">int EVP_PKEY_verify_recover_init(EVP_PKEY_CTX *ctx);
+<synopsis>#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis>int EVP_PKEY_verify_recover_init(EVP_PKEY_CTX *ctx);
 int EVP_PKEY_verify_recover(EVP_PKEY_CTX *ctx,
                        unsigned char *rout, size_t *routlen,
                        const unsigned char *sig, size_t siglen);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_verify_recover.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-1c47c6d4bbc68cb175b0577409495baf"><title>DESCRIPTION</title>
     <para>
       The EVP_PKEY_verify_recover_init() function initializes a public key
       algorithm context using key <emphasis role="bold">pkey</emphasis> for
@@ -31,11 +31,11 @@ int EVP_PKEY_verify_recover(EVP_PKEY_CTX *ctx,
       <emphasis role="bold">routlen</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_verify_recover.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-49dd215383f34cdd9141795f252df4e7"><title>NOTES</title>
     <para>
       Normally an application is only interested in whether a signature
       verification operation is successful in those cases the EVP_verify()
-      function should be used. 
+      function should be used.
     </para>
     <para>
       Sometimes however it is useful to obtain the data originally signed
@@ -54,7 +54,7 @@ int EVP_PKEY_verify_recover(EVP_PKEY_CTX *ctx,
       same parameters.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_verify_recover.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-2239ec58c08ca19fa369f86eb27ecd22"><title>RETURN VALUES</title>
     <para>
       EVP_PKEY_verify_recover_init() and EVP_PKEY_verify_recover() return 1
       for success and 0 or a negative value for failure. In particular a
@@ -62,7 +62,7 @@ int EVP_PKEY_verify_recover(EVP_PKEY_CTX *ctx,
       public key algorithm.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_verify_recover.pod:EXAMPLE"><title>EXAMPLE</title>
+  <refsection xml:id="ID-c3daf3dd8f8d0301bd12d368485da746"><title>EXAMPLE</title>
     <para>
       Recover digest originally signed using PKCS#1 and SHA256 digest:
     </para>
@@ -100,7 +100,7 @@ if (EVP_PKEY_verify_recover(ctx, rout, &amp;routlen, sig, siglen) &lt;= 0)
 
 /* Recovered data is routlen bytes written to buffer rout */</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_verify_recover.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-581944f7a10d6acd28182fd67453e07d"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>EVP_PKEY_CTX_new</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -116,7 +116,7 @@ if (EVP_PKEY_verify_recover(ctx, rout, &amp;routlen, sig, siglen) &lt;= 0)
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_verify_recover.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-61fb84c87900234637c73a3b9dd9fcd2"><title>HISTORY</title>
     <para>
       These functions were first added to OpenSSL 1.0.0.
     </para>

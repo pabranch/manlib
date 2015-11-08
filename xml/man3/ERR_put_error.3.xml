@@ -8,12 +8,12 @@
 <refpurpose>record an error</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/err.h&gt;</synopsis>
-<synopsis format="linespecific">void ERR_put_error(int lib, int func, int reason, const char *file,
+<synopsis>#include &lt;openssl/err.h&gt;</synopsis>
+<synopsis>void ERR_put_error(int lib, int func, int reason, const char *file,
         int line);</synopsis>
-<synopsis format="linespecific">void ERR_add_error_data(int num, ...);</synopsis>
+<synopsis>void ERR_add_error_data(int num, ...);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.ERR_put_error.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-28f663a3783ec5db838bb1f2ac82c156"><title>DESCRIPTION</title>
     <para>
       ERR_put_error() adds an error code to the thread's error queue. It
       signals that the error of reason code <emphasis role="bold">reason</emphasis> occurred in function <emphasis role="bold">func</emphasis> of library <emphasis role="bold">lib</emphasis>, in line number <emphasis role="bold">line</emphasis> of <emphasis role="bold">file</emphasis>.
@@ -30,23 +30,17 @@
       error messages for the error code.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ERR_put_error.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-44a2aa2a90a30f21771db492f5a79825"><title>RETURN VALUES</title>
     <para>
       ERR_put_error() and ERR_add_error_data() return no values.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ERR_put_error.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-96596210ee04d9c112e76436e7e8109a"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>err</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>ERR_load_strings</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ERR_put_error.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      ERR_put_error() is available in all versions of SSLeay and OpenSSL.
-      ERR_add_error_data() was added in SSLeay 0.9.0.
     </para>
   </refsection>
 </refentry>

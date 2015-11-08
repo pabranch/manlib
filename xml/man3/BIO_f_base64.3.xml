@@ -8,11 +8,11 @@
 <refpurpose>base64 BIO filter</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/bio.h&gt;
+<synopsis>#include &lt;openssl/bio.h&gt;
 #include &lt;openssl/evp.h&gt;</synopsis>
-<synopsis format="linespecific">BIO_METHOD *   BIO_f_base64(void);</synopsis>
+<synopsis>BIO_METHOD *   BIO_f_base64(void);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_base64.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-b321ee955b4a0ce81ec077ad0b3440f5"><title>DESCRIPTION</title>
     <para>
       BIO_f_base64() returns the base64 BIO method. This is a filter BIO
       that base64 encodes any data written through it and decodes any data
@@ -32,18 +32,18 @@
       line.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_base64.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-0da283af54a55daa0825e23f88101835"><title>NOTES</title>
     <para>
       Because of the format of base64 encoding the end of the encoded block
       cannot always be reliably determined.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_base64.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-d0d7f425d88f9117d1d413dca5f3896f"><title>RETURN VALUES</title>
     <para>
       BIO_f_base64() returns the base64 BIO method.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_base64.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-4c43ba201f527981bc9a6fb8c2ce028a"><title>EXAMPLES</title>
     <para>
       Base64 encode the string "Hello World\n" and write the result to
       standard output:
@@ -76,7 +76,7 @@ while((inlen = BIO_read(b64, inbuf, 512)) &gt; 0)
 BIO_flush(bio_out);
 BIO_free_all(b64);</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_base64.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-1b2c8b9473e05421ee5e05448e02c48a"><title>BUGS</title>
     <para>
       The ambiguity of EOF in base64 encoded data can cause additional data
       following the base64 encoded block to be misinterpreted.
@@ -86,7 +86,7 @@ BIO_free_all(b64);</screen>
       perform to reliably determine EOF (for example a MIME boundary).
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_base64.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-cc9ad3ac33bd39f3c59a0e7d24039e40"><title>SEE ALSO</title>
     <para>
       TBA
     </para>

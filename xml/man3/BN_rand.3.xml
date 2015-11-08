@@ -8,17 +8,17 @@
 <refpurpose>generate pseudo-random number</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/bn.h&gt;</synopsis>
-<synopsis format="linespecific">int BN_rand(BIGNUM *rnd, int bits, int top, int bottom);</synopsis>
-<synopsis format="linespecific">int BN_pseudo_rand(BIGNUM *rnd, int bits, int top, int bottom);</synopsis>
-<synopsis format="linespecific">int BN_rand_range(BIGNUM *rnd, BIGNUM *range);</synopsis>
-<synopsis format="linespecific">int BN_pseudo_rand_range(BIGNUM *rnd, BIGNUM *range);</synopsis>
+<synopsis>#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis>int BN_rand(BIGNUM *rnd, int bits, int top, int bottom);</synopsis>
+<synopsis>int BN_pseudo_rand(BIGNUM *rnd, int bits, int top, int bottom);</synopsis>
+<synopsis>int BN_rand_range(BIGNUM *rnd, BIGNUM *range);</synopsis>
+<synopsis>int BN_pseudo_rand_range(BIGNUM *rnd, BIGNUM *range);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_rand.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-7b2fdc0b5d368c6e7b5e275ca8c031a7"><title>DESCRIPTION</title>
     <para>
       BN_rand() generates a cryptographically strong pseudo-random number
-      of <emphasis role="bold">bits</emphasis> bits in length and stores it
-      in <emphasis role="bold">rnd</emphasis>. If <emphasis role="bold">top</emphasis> is -1, the most significant bit of the
+      of <emphasis role="bold">bits</emphasis> in length and stores it in
+      <emphasis role="bold">rnd</emphasis>. If <emphasis role="bold">top</emphasis> is -1, the most significant bit of the
       random number can be zero. If <emphasis role="bold">top</emphasis> is
       0, it is set to 1, and if <emphasis role="bold">top</emphasis> is 1,
       the two most significant bits of the number will be set to 1, so that
@@ -44,7 +44,7 @@
       BN_rand_range().
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_rand.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-1f1f2c61fb261bed3951c9b2133e100c"><title>RETURN VALUES</title>
     <para>
       The functions return 1 on success, 0 on error. The error codes can be
       obtained by <citerefentry>
@@ -52,7 +52,7 @@
       </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_rand.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-7edc2ee267054b511a5c315e28bc9f88"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>bn</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -63,14 +63,6 @@
       </citerefentry>, <citerefentry>
       <refentrytitle>RAND_bytes</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_rand.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      BN_rand() is available in all versions of SSLeay and OpenSSL.
-      BN_pseudo_rand() was added in OpenSSL 0.9.5. The <emphasis role="bold">top</emphasis> == -1 case and the function
-      BN_rand_range() were added in OpenSSL 0.9.6a. BN_pseudo_rand_range()
-      was added in OpenSSL 0.9.6c.
     </para>
   </refsection>
 </refentry>

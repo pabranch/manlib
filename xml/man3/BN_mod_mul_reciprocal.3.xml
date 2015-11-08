@@ -10,16 +10,16 @@ BN_RECP_CTX_free, BN_RECP_CTX_set</refname>
 reciprocal</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/bn.h&gt;</synopsis>
-<synopsis format="linespecific">BN_RECP_CTX *BN_RECP_CTX_new(void);
+<synopsis>#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis>BN_RECP_CTX *BN_RECP_CTX_new(void);
 void BN_RECP_CTX_free(BN_RECP_CTX *recp);</synopsis>
-<synopsis format="linespecific">int BN_RECP_CTX_set(BN_RECP_CTX *recp, const BIGNUM *m, BN_CTX *ctx);</synopsis>
-<synopsis format="linespecific">int BN_div_recp(BIGNUM *dv, BIGNUM *rem, BIGNUM *a, BN_RECP_CTX *recp,
+<synopsis>int BN_RECP_CTX_set(BN_RECP_CTX *recp, const BIGNUM *m, BN_CTX *ctx);</synopsis>
+<synopsis>int BN_div_recp(BIGNUM *dv, BIGNUM *rem, BIGNUM *a, BN_RECP_CTX *recp,
        BN_CTX *ctx);</synopsis>
-<synopsis format="linespecific">int BN_mod_mul_reciprocal(BIGNUM *r, BIGNUM *a, BIGNUM *b,
+<synopsis>int BN_mod_mul_reciprocal(BIGNUM *r, BIGNUM *a, BIGNUM *b,
        BN_RECP_CTX *recp, BN_CTX *ctx);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_reciprocal.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-c2633d73b944bb82fadce0d43a1fbf08"><title>DESCRIPTION</title>
     <para>
       BN_mod_mul_reciprocal() can be used to perform an efficient
       <citerefentry> <refentrytitle>BN_mod_mul</refentrytitle>
@@ -54,7 +54,7 @@ void BN_RECP_CTX_free(BN_RECP_CTX *recp);</synopsis>
       shared between threads.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_reciprocal.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-fb5590d38a2f81bfea6a4f559cdd8954"><title>RETURN VALUES</title>
     <para>
       BN_RECP_CTX_new() returns the newly allocated <emphasis role="bold">BN_RECP_CTX</emphasis>, and NULL on error.
     </para>
@@ -68,7 +68,7 @@ void BN_RECP_CTX_free(BN_RECP_CTX *recp);</synopsis>
       </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_reciprocal.pod:REMOVED_FUNCTIONALITY"><title>REMOVED FUNCTIONALITY</title>
+  <refsection xml:id="ID-e0dc243d4f089ebc246d6e0b7de0b863"><title>REMOVED FUNCTIONALITY</title>
     <screen>void BN_RECP_CTX_init(BN_RECP_CTX *recp);</screen>
     <para>
       BN_RECP_CTX_init() is no longer available as of OpenSSL 1.1.0. It was
@@ -87,7 +87,7 @@ if(!ctx) /* Handle error */
 ...
 BN_RECP_CTX_free(ctx);</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_reciprocal.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-fc69f4c2f4297c7ac1129d906bcd6706"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>bn</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -98,11 +98,8 @@ BN_RECP_CTX_free(ctx);</screen>
       </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_reciprocal.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-cd232925d41e42bad5642a51b8e9f83b"><title>HISTORY</title>
     <para>
-      <emphasis role="bold">BN_RECP_CTX</emphasis> was added in SSLeay
-      0.9.0. Before that, the function BN_reciprocal() was used instead,
-      and the BN_mod_mul_reciprocal() arguments were different.
       BN_RECP_CTX_init was removed in OpenSSL 1.1.0
     </para>
   </refsection>

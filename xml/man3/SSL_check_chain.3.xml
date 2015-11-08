@@ -8,16 +8,16 @@
 <refpurpose>check certificate chain suitability</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">int SSL_check_chain(SSL *s, X509 *x, EVP_PKEY *pk, STACK_OF(X509) *chain);</synopsis>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_check_chain(SSL *s, X509 *x, EVP_PKEY *pk, STACK_OF(X509) *chain);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_check_chain.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-39d3e296beb7e027a093c975b7ca37d8"><title>DESCRIPTION</title>
     <para>
       SSL_check_chain() checks whether certificate <emphasis role="bold">x</emphasis>, private key <emphasis role="bold">pk</emphasis> and certificate chain <emphasis role="bold">chain</emphasis> is suitable for use with the current
       session <emphasis role="bold">s</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_check_chain.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-c7a876134a5d83bd8172981fdd3638e5"><title>RETURN VALUES</title>
     <para>
       SSL_check_chain() returns a bitmap of flags indicating the validity
       of the chain.
@@ -68,7 +68,7 @@
       for Suite B use.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_check_chain.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-c8b51e0e41834f7e8c8302d564b0500b"><title>NOTES</title>
     <para>
       SSL_check_chain() must be called in servers after a client hello
       message or in clients after a certificate request message. It will
@@ -99,7 +99,7 @@
       "legacy" chain for earlier versions of TLS or DTLS.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_check_chain.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-2b5baf1d1fbab98ba70ab671fdf36b93"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>SSL_CTX_set_cert_cb</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

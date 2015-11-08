@@ -9,24 +9,24 @@
     functions.
   </para>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ocsp.h&gt;</synopsis>
-<synopsis format="linespecific">int OCSP_resp_find_status(OCSP_BASICRESP *bs, OCSP_CERTID *id, int *status,
+<synopsis>#include &lt;openssl/ocsp.h&gt;</synopsis>
+<synopsis>int OCSP_resp_find_status(OCSP_BASICRESP *bs, OCSP_CERTID *id, int *status,
                           int *reason,
                           ASN1_GENERALIZEDTIME **revtime,
                           ASN1_GENERALIZEDTIME **thisupd,
                           ASN1_GENERALIZEDTIME **nextupd);</synopsis>
-<synopsis format="linespecific">int OCSP_resp_count(OCSP_BASICRESP *bs);
+<synopsis>int OCSP_resp_count(OCSP_BASICRESP *bs);
 OCSP_SINGLERESP *OCSP_resp_get0(OCSP_BASICRESP *bs, int idx);
 int OCSP_resp_find(OCSP_BASICRESP *bs, OCSP_CERTID *id, int last);
 int OCSP_single_get0_status(OCSP_SINGLERESP *single, int *reason,
                             ASN1_GENERALIZEDTIME **revtime,
                             ASN1_GENERALIZEDTIME **thisupd,
                             ASN1_GENERALIZEDTIME **nextupd);</synopsis>
-<synopsis format="linespecific">int OCSP_check_validity(ASN1_GENERALIZEDTIME *thisupd,
+<synopsis>int OCSP_check_validity(ASN1_GENERALIZEDTIME *thisupd,
                         ASN1_GENERALIZEDTIME *nextupd,
                         long sec, long maxsec);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_response_find_status.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-caf7b3ccc971e1dbb063c9fa4af13553"><title>DESCRIPTION</title>
     <para>
       OCSP_resp_find_status() searches <emphasis role="bold">bs</emphasis>
       for an OCSP response for <emphasis role="bold">id</emphasis>. If it
@@ -63,7 +63,7 @@ int OCSP_single_get0_status(OCSP_SINGLERESP *single, int *reason,
       age of <emphasis role="bold">thisupd</emphasis> in seconds.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_response_find_status.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-0c0d36206d09dee2fdebceac9da1f597"><title>RETURN VALUES</title>
     <para>
       OCSP_resp_find_status() returns 1 if <emphasis role="bold">id</emphasis> is found in <emphasis role="bold">bs</emphasis> and 0 otherwise.
     </para>
@@ -83,7 +83,7 @@ int OCSP_single_get0_status(OCSP_SINGLERESP *single, int *reason,
       OCSP_single_get0_status() returns the status of <emphasis role="bold">single</emphasis> or -1 if an error occurred.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_response_find_status.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-2fdf4dcb2e2d7343c6dd9f157cc6fbf8"><title>NOTES</title>
     <para>
       Applications will typically call OCSP_resp_find_status() using the
       certificate ID of interest and then check its validity using
@@ -106,7 +106,7 @@ int OCSP_single_get0_status(OCSP_SINGLERESP *single, int *reason,
       their value is not required.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_response_find_status.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-84cb093e8b4fb96b86102a724cd520e2"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>crypto</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

@@ -8,15 +8,15 @@
 <refpurpose>DSA signatures</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/dsa.h&gt;</synopsis>
-<synopsis format="linespecific">int    DSA_sign(int type, const unsigned char *dgst, int len,
+<synopsis>#include &lt;openssl/dsa.h&gt;</synopsis>
+<synopsis>int    DSA_sign(int type, const unsigned char *dgst, int len,
                unsigned char *sigret, unsigned int *siglen, DSA *dsa);</synopsis>
-<synopsis format="linespecific">int    DSA_sign_setup(DSA *dsa, BN_CTX *ctx, BIGNUM **kinvp,
+<synopsis>int    DSA_sign_setup(DSA *dsa, BN_CTX *ctx, BIGNUM **kinvp,
                BIGNUM **rp);</synopsis>
-<synopsis format="linespecific">int    DSA_verify(int type, const unsigned char *dgst, int len,
+<synopsis>int    DSA_verify(int type, const unsigned char *dgst, int len,
                unsigned char *sigbuf, int siglen, DSA *dsa);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.DSA_sign.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-27541de93c6d177b928912a3173aaec9"><title>DESCRIPTION</title>
     <para>
       DSA_sign() computes a digital signature on the <emphasis role="bold">len</emphasis> byte message digest <emphasis role="bold">dgst</emphasis> using the private key <emphasis role="bold">dsa</emphasis> and places its ASN.1 DER encoding at
       <emphasis role="bold">sigret</emphasis>. The length of the signature
@@ -44,7 +44,7 @@
       called.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.DSA_sign.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-ffb34e696f6ea0e8d195443178431304"><title>RETURN VALUES</title>
     <para>
       DSA_sign() and DSA_sign_setup() return 1 on success, 0 on error.
       DSA_verify() returns 1 for a valid signature, 0 for an incorrect
@@ -53,13 +53,13 @@
       <manvolnum>3</manvolnum> </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.DSA_sign.pod:CONFORMING_TO"><title>CONFORMING TO</title>
+  <refsection xml:id="ID-55d494fcf3d568b39066092bb0632a6f"><title>CONFORMING TO</title>
     <para>
       US Federal Information Processing Standard FIPS 186 (Digital
       Signature Standard, DSS), ANSI X9.30
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.DSA_sign.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-2c5b1ab9a357c5f9401c27a9ec0dd9b4"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>dsa</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -68,12 +68,6 @@
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>DSA_do_sign</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.DSA_sign.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      DSA_sign() and DSA_verify() are available in all versions of SSLeay.
-      DSA_sign_setup() was added in SSLeay 0.8.
     </para>
   </refsection>
 </refentry>

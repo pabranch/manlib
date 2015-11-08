@@ -11,21 +11,21 @@ ERR_peek_last_error_line_data</refname>
 <refpurpose>obtain error code and data</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/err.h&gt;</synopsis>
-<synopsis format="linespecific">unsigned long ERR_get_error(void);
+<synopsis>#include &lt;openssl/err.h&gt;</synopsis>
+<synopsis>unsigned long ERR_get_error(void);
 unsigned long ERR_peek_error(void);
 unsigned long ERR_peek_last_error(void);</synopsis>
-<synopsis format="linespecific">unsigned long ERR_get_error_line(const char **file, int *line);
+<synopsis>unsigned long ERR_get_error_line(const char **file, int *line);
 unsigned long ERR_peek_error_line(const char **file, int *line);
 unsigned long ERR_peek_last_error_line(const char **file, int *line);</synopsis>
-<synopsis format="linespecific">unsigned long ERR_get_error_line_data(const char **file, int *line,
+<synopsis>unsigned long ERR_get_error_line_data(const char **file, int *line,
         const char **data, int *flags);
 unsigned long ERR_peek_error_line_data(const char **file, int *line,
         const char **data, int *flags);
 unsigned long ERR_peek_last_error_line_data(const char **file, int *line,
         const char **data, int *flags);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.ERR_get_error.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-c94cca62b49b7b1b1a75aafa86151487"><title>DESCRIPTION</title>
     <para>
       ERR_get_error() returns the earliest error code from the thread's
       error queue and removes the entry. This function can be called
@@ -57,7 +57,7 @@ unsigned long ERR_peek_last_error_line_data(const char **file, int *line,
       ERR_get_error_line_data(), ERR_peek_error_line_data() and
       ERR_peek_last_error_line_data() store additional data and flags
       associated with the error code in *<emphasis role="bold">data</emphasis> and *<emphasis role="bold">flags</emphasis>, unless these are <emphasis role="bold">NULL</emphasis>. *<emphasis role="bold">data</emphasis>
-      contains a string if *<emphasis role="bold">flags</emphasis>&amp;amp;<emphasis role="bold">ERR_TXT_STRING</emphasis> is true.
+      contains a string if *<emphasis role="bold">flags</emphasis>&amp;<emphasis role="bold">ERR_TXT_STRING</emphasis> is true.
     </para>
     <para>
       An application <emphasis role="bold">MUST NOT</emphasis> free the
@@ -66,12 +66,12 @@ unsigned long ERR_peek_last_error_line_data(const char **file, int *line,
       handled automatically by the error library.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ERR_get_error.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-30d7628fd7ac3771336d6b86cb7dc2fd"><title>RETURN VALUES</title>
     <para>
       The error code, or 0 if there is no error in the queue.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ERR_get_error.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-6e4e9a3b8011dd06dece34eeddad0a28"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>err</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -79,16 +79,6 @@ unsigned long ERR_peek_last_error_line_data(const char **file, int *line,
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>ERR_GET_LIB</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ERR_get_error.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      ERR_get_error(), ERR_peek_error(), ERR_get_error_line() and
-      ERR_peek_error_line() are available in all versions of SSLeay and
-      OpenSSL. ERR_get_error_line_data() and ERR_peek_error_line_data()
-      were added in SSLeay 0.9.0. ERR_peek_last_error(),
-      ERR_peek_last_error_line() and ERR_peek_last_error_line_data() were
-      added in OpenSSL 0.9.7.
     </para>
   </refsection>
 </refentry>

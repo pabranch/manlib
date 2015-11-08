@@ -8,10 +8,10 @@
 <refpurpose>parse a PKCS#12 structure</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/pkcs12.h&gt;</synopsis>
-<synopsis format="linespecific">int PKCS12_parse(PKCS12 *p12, const char *pass, EVP_PKEY **pkey, X509 **cert, STACK_OF(X509) **ca);</synopsis>
+<synopsis>#include &lt;openssl/pkcs12.h&gt;</synopsis>
+<synopsis>int PKCS12_parse(PKCS12 *p12, const char *pass, EVP_PKEY **pkey, X509 **cert, STACK_OF(X509) **ca);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS12_parse.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-7b8bc8249375776cdd2fe40bd489f1df"><title>DESCRIPTION</title>
     <para>
       PKCS12_parse() parses a PKCS12 structure.
     </para>
@@ -22,7 +22,7 @@
       certificates to <emphasis role="bold">*ca</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS12_parse.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-5be5c125d90b4f1cee634972dd9c7965"><title>NOTES</title>
     <para>
       The parameters <emphasis role="bold">pkey</emphasis> and <emphasis role="bold">cert</emphasis> cannot be <emphasis role="bold">NULL</emphasis>. <emphasis role="bold">ca</emphasis> can
       be &lt;NULL&gt; in which case additional certificates will be
@@ -36,7 +36,7 @@
       certificate will be stored in the <emphasis role="bold">alias</emphasis> and <emphasis role="bold">keyid</emphasis> attributes of the <emphasis role="bold">X509</emphasis> structure.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS12_parse.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-60b29354982b6b1bc5cbde3202938467"><title>RETURN VALUES</title>
     <para>
       PKCS12_parse() returns 1 for success and zero if an error occurred.
     </para>
@@ -46,7 +46,7 @@
       </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS12_parse.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-fa980b5e616f51b4267e550dbd8674ab"><title>BUGS</title>
     <para>
       Only a single private key and corresponding certificate is returned
       by this function. More complex PKCS#12 files with multiple private
@@ -60,15 +60,10 @@
       Attributes currently cannot be stored in the private key <emphasis role="bold">EVP_PKEY</emphasis> structure.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS12_parse.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-c5972b140cb0438055ef50c8d691b371"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>d2i_PKCS12</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS12_parse.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      PKCS12_parse was added in OpenSSL 0.9.3
     </para>
   </refsection>
 </refentry>

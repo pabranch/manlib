@@ -8,11 +8,11 @@
 <refpurpose>verify a PKCS#7 signedData structure</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/pkcs7.h&gt;</synopsis>
-<synopsis format="linespecific">int PKCS7_verify(PKCS7 *p7, STACK_OF(X509) *certs, X509_STORE *store, BIO *indata, BIO *out, int flags);</synopsis>
-<synopsis format="linespecific">STACK_OF(X509) *PKCS7_get0_signers(PKCS7 *p7, STACK_OF(X509) *certs, int flags);</synopsis>
+<synopsis>#include &lt;openssl/pkcs7.h&gt;</synopsis>
+<synopsis>int PKCS7_verify(PKCS7 *p7, STACK_OF(X509) *certs, X509_STORE *store, BIO *indata, BIO *out, int flags);</synopsis>
+<synopsis>STACK_OF(X509) *PKCS7_get0_signers(PKCS7 *p7, STACK_OF(X509) *certs, int flags);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_verify.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-7bb4340420c9c33abc4edf5fee69358a"><title>DESCRIPTION</title>
     <para>
       PKCS7_verify() verifies a PKCS#7 signedData structure. <emphasis role="bold">p7</emphasis> is the PKCS7 structure to verify. <emphasis role="bold">certs</emphasis> is a set of certificates in which to
       search for the signer's certificate. <emphasis role="bold">store</emphasis> is a trusted certificate store (used for
@@ -32,7 +32,7 @@
       meanings as in PKCS7_verify().
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_verify.pod:VERIFY_PROCESS"><title>VERIFY PROCESS</title>
+  <refsection xml:id="ID-fc586f3c1d7997e55f087f4dd2dbbdbd"><title>VERIFY PROCESS</title>
     <para>
       Normally the verify process proceeds as follows.
     </para>
@@ -71,7 +71,7 @@
       If <emphasis role="bold">PKCS7_NOINTERN</emphasis> is set the
       certificates in the message itself are not searched when locating the
       signer's certificate. This means that all the signers certificates
-      must be in the <emphasis role="bold">certs</emphasis> parameter. 
+      must be in the <emphasis role="bold">certs</emphasis> parameter.
     </para>
     <para>
       If the <emphasis role="bold">PKCS7_TEXT</emphasis> flag is set MIME
@@ -93,7 +93,7 @@
       signatures on the data are not checked.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_verify.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-6298a85bd58520a11df750c52928b879"><title>NOTES</title>
     <para>
       One application of <emphasis role="bold">PKCS7_NOINTERN</emphasis> is
       to only accept messages signed by a small number of certificates. The
@@ -107,7 +107,7 @@
       disable all verification and any signed message will be considered
       valid. This combination is however useful if one merely wishes to
       write the content to <emphasis role="bold">out</emphasis> and its
-      validity is not considered important. 
+      validity is not considered important.
     </para>
     <para>
       Chain verification should arguably be performed  using the signing
@@ -116,7 +116,7 @@
       evidence (such as a trusted timestamp).
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_verify.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-b89425b4920e5fb3b1f943d7f3ca6073"><title>RETURN VALUES</title>
     <para>
       PKCS7_verify() returns one for a successful verification and zero if
       an error occurs.
@@ -130,7 +130,7 @@
       </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_verify.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-79a1acc7047aa5975087dbec827170ac"><title>BUGS</title>
     <para>
       The trusted certificate store is not searched for the signers
       certificate, this is primarily due to the inadequacies of the current
@@ -141,17 +141,12 @@
       memory as mentioned in PKCS7_sign() also applies to PKCS7_verify().
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_verify.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-7a945b08e10e16aca2e5d0f5984b5dfc"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ERR_get_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>PKCS7_sign</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_verify.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      PKCS7_verify() was added to OpenSSL 0.9.5
     </para>
   </refsection>
 </refentry>

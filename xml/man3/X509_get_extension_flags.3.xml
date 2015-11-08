@@ -8,13 +8,13 @@
 <refpurpose>retrieve certificate extension flags.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/x509v3.h&gt;</synopsis>
-<synopsis format="linespecific">uint32_t X509_get_extension_flags(X509 *x);
+<synopsis>#include &lt;openssl/x509v3.h&gt;</synopsis>
+<synopsis>uint32_t X509_get_extension_flags(X509 *x);
 uint32_t X509_get_key_usage(X509 *x);
 uint32_t X509_get_extended_key_usage(X509 *x);
 const ASN1_OCTET_STRING *X509_get0_subject_key_id(X509 *x);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-f0159d8fb27554ecaed5be0f48779d66"><title>DESCRIPTION</title>
     <para>
       These functions retrieve flags related to commonly used certificate
       extensions.
@@ -27,7 +27,7 @@ const ASN1_OCTET_STRING *X509_get0_subject_key_id(X509 *x);</synopsis>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:EXFLAG_V1"/><emphasis role="bold">EXFLAG_V1</emphasis></term>
+          <term><emphasis role="bold">EXFLAG_V1</emphasis></term>
           <listitem>
             <para>
 	      The certificate is an obsolete version 1 certificate.
@@ -35,7 +35,7 @@ const ASN1_OCTET_STRING *X509_get0_subject_key_id(X509 *x);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:EXFLAG_BCONS"/><emphasis role="bold">EXFLAG_BCONS</emphasis></term>
+          <term><emphasis role="bold">EXFLAG_BCONS</emphasis></term>
           <listitem>
             <para>
 	      The certificate contains a basic constraints extension.
@@ -43,7 +43,7 @@ const ASN1_OCTET_STRING *X509_get0_subject_key_id(X509 *x);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:EXFLAG_CA"/><emphasis role="bold">EXFLAG_CA</emphasis></term>
+          <term><emphasis role="bold">EXFLAG_CA</emphasis></term>
           <listitem>
             <para>
 	      The certificate contains basic constraints and asserts the CA
@@ -52,7 +52,7 @@ const ASN1_OCTET_STRING *X509_get0_subject_key_id(X509 *x);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:EXFLAG_PROXY"/><emphasis role="bold">EXFLAG_PROXY</emphasis></term>
+          <term><emphasis role="bold">EXFLAG_PROXY</emphasis></term>
           <listitem>
             <para>
 	      The certificate is a valid proxy certificate.
@@ -60,7 +60,7 @@ const ASN1_OCTET_STRING *X509_get0_subject_key_id(X509 *x);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:EXFLAG_SI"/><emphasis role="bold">EXFLAG_SI</emphasis></term>
+          <term><emphasis role="bold">EXFLAG_SI</emphasis></term>
           <listitem>
             <para>
 	      The certificate is self issued (that is subject and issuer
@@ -69,7 +69,7 @@ const ASN1_OCTET_STRING *X509_get0_subject_key_id(X509 *x);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:EXFLAG_SS"/><emphasis role="bold">EXFLAG_SS</emphasis></term>
+          <term><emphasis role="bold">EXFLAG_SS</emphasis></term>
           <listitem>
             <para>
 	      The subject and issuer names match and extension values imply
@@ -78,7 +78,7 @@ const ASN1_OCTET_STRING *X509_get0_subject_key_id(X509 *x);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:EXFLAG_FRESHEST"/><emphasis role="bold">EXFLAG_FRESHEST</emphasis></term>
+          <term><emphasis role="bold">EXFLAG_FRESHEST</emphasis></term>
           <listitem>
             <para>
 	      The freshest CRL extension is present in the certificate.
@@ -86,7 +86,7 @@ const ASN1_OCTET_STRING *X509_get0_subject_key_id(X509 *x);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:EXFLAG_CRITICAL"/><emphasis role="bold">EXFLAG_CRITICAL</emphasis></term>
+          <term><emphasis role="bold">EXFLAG_CRITICAL</emphasis></term>
           <listitem>
             <para>
 	      The certificate contains an unhandled critical extension.
@@ -94,7 +94,7 @@ const ASN1_OCTET_STRING *X509_get0_subject_key_id(X509 *x);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:EXFLAG_INVALID"/><emphasis role="bold">EXFLAG_INVALID</emphasis></term>
+          <term><emphasis role="bold">EXFLAG_INVALID</emphasis></term>
           <listitem>
             <para>
 	      Some certificate extension values are invalid or
@@ -103,7 +103,7 @@ const ASN1_OCTET_STRING *X509_get0_subject_key_id(X509 *x);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:EXFLAG_KUSAGE"/><emphasis role="bold">EXFLAG_KUSAGE</emphasis></term>
+          <term><emphasis role="bold">EXFLAG_KUSAGE</emphasis></term>
           <listitem>
             <para>
 	      The certificate contains a key usage extension. The value can
@@ -112,7 +112,7 @@ const ASN1_OCTET_STRING *X509_get0_subject_key_id(X509 *x);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:EXFLAG_XKUSAGE"/><emphasis role="bold">EXFLAG_XKUSAGE</emphasis></term>
+          <term><emphasis role="bold">EXFLAG_XKUSAGE</emphasis></term>
           <listitem>
             <para>
 	      The certificate contains an extended key usage extension. The
@@ -143,7 +143,7 @@ const ASN1_OCTET_STRING *X509_get0_subject_key_id(X509 *x);</synopsis>
       be parsed.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-4b30171ab838fde5aca68fb188a4b643"><title>NOTES</title>
     <para>
       The value of the flags correspond to extension values which are
       cached in the <emphasis role="bold">X509</emphasis> structure. If the
@@ -165,7 +165,7 @@ const ASN1_OCTET_STRING *X509_get0_subject_key_id(X509 *x);</synopsis>
       X509_get_ext_d2i().
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:RETURN_VALUE"><title>RETURN VALUE</title>
+  <refsection xml:id="ID-5f40954d32c61db66d5d88ff6644c4f3"><title>RETURN VALUE</title>
     <para>
       X509_get_extension_flags(), X509_get_key_usage() and
       X509_get_extended_key_usage() return sets of flags corresponding to
@@ -175,10 +175,10 @@ const ASN1_OCTET_STRING *X509_get0_subject_key_id(X509 *x);</synopsis>
       X509_get0_subject_key_id() returns the subject key identifier as a
       pointer to an <emphasis role="bold">ASN1_OCTET_STRING</emphasis>
       structure or <emphasis role="bold">NULL</emphasis> if the extension
-      is absent or an error occured during parsing.
+      is absent or an error occurred during parsing.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_get_extension_flags.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-1aa95e65afe0a4d8d22d038087e86506"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>X509_check_purpose</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>

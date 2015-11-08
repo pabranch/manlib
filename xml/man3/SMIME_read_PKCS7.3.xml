@@ -8,10 +8,10 @@
 <refpurpose>parse S/MIME message.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/pkcs7.h&gt;</synopsis>
-<synopsis format="linespecific">PKCS7 *SMIME_read_PKCS7(BIO *in, BIO **bcont);</synopsis>
+<synopsis>#include &lt;openssl/pkcs7.h&gt;</synopsis>
+<synopsis>PKCS7 *SMIME_read_PKCS7(BIO *in, BIO **bcont);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.SMIME_read_PKCS7.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-5c8b747188f68a3defa0c45d034867ea"><title>DESCRIPTION</title>
     <para>
       SMIME_read_PKCS7() parses a message in S/MIME format.
     </para>
@@ -28,7 +28,7 @@
       The parsed PKCS#7 structure is returned or <emphasis role="bold">NULL</emphasis> if an error occurred.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.SMIME_read_PKCS7.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-95c533aea5cea6583d8d5d094a518183"><title>NOTES</title>
     <para>
       If <emphasis role="bold">*bcont</emphasis> is not <emphasis role="bold">NULL</emphasis> then the message is clear text signed.
       <emphasis role="bold">*bcont</emphasis> can then be passed to
@@ -48,7 +48,7 @@ PKCS7 *p7;
 
 p7 = SMIME_read_PKCS7(in, &amp;cont);</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.SMIME_read_PKCS7.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-c0f7fa8e88a5a65981eaecb8cd98d750"><title>BUGS</title>
     <para>
       The MIME parser used by SMIME_read_PKCS7() is somewhat primitive.
       While it will handle most S/MIME messages more complex compound
@@ -65,13 +65,13 @@ p7 = SMIME_read_PKCS7(in, &amp;cont);</screen>
       single pass option should be available.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.SMIME_read_PKCS7.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-a5b8f9830cb67123f9bc01e38fc5264a"><title>RETURN VALUES</title>
     <para>
       SMIME_read_PKCS7() returns a valid <emphasis role="bold">PKCS7</emphasis> structure or <emphasis role="bold">NULL</emphasis> is an error occurred. The error can be
       obtained from ERR_get_error(3).
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.SMIME_read_PKCS7.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-cac6fd97fd8dd1eac6ff12d3e7db7710"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ERR_get_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -87,11 +87,6 @@ p7 = SMIME_read_PKCS7(in, &amp;cont);</screen>
       </citerefentry> <citerefentry>
       <refentrytitle>PKCS7_decrypt</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.SMIME_read_PKCS7.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      SMIME_read_PKCS7() was added to OpenSSL 0.9.5
     </para>
   </refsection>
 </refentry>

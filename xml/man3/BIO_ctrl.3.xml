@@ -11,12 +11,12 @@ BIO_get_info_callback, BIO_set_info_callback</refname>
 <refpurpose>BIO control operations</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/bio.h&gt;</synopsis>
-<synopsis format="linespecific">long BIO_ctrl(BIO *bp,int cmd,long larg,void *parg);
+<synopsis>#include &lt;openssl/bio.h&gt;</synopsis>
+<synopsis>long BIO_ctrl(BIO *bp,int cmd,long larg,void *parg);
 long BIO_callback_ctrl(BIO *b, int cmd, void (*fp)(struct bio_st *, int, const char *, int, long, long));
 char * BIO_ptr_ctrl(BIO *bp,int cmd,long larg);
 long BIO_int_ctrl(BIO *bp,int cmd,long larg,int iarg);</synopsis>
-<synopsis format="linespecific">int BIO_reset(BIO *b);
+<synopsis>int BIO_reset(BIO *b);
 int BIO_seek(BIO *b, int ofs);
 int BIO_tell(BIO *b);
 int BIO_flush(BIO *b);
@@ -27,11 +27,11 @@ int BIO_pending(BIO *b);
 int BIO_wpending(BIO *b);
 size_t BIO_ctrl_pending(BIO *b);
 size_t BIO_ctrl_wpending(BIO *b);</synopsis>
-<synopsis format="linespecific">int BIO_get_info_callback(BIO *b,bio_info_cb **cbp);
+<synopsis>int BIO_get_info_callback(BIO *b,bio_info_cb **cbp);
 int BIO_set_info_callback(BIO *b,bio_info_cb *cb);</synopsis>
-<synopsis format="linespecific">typedef void bio_info_cb(BIO *b, int oper, const char *ptr, int arg1, long arg2, long arg3);</synopsis>
+<synopsis>typedef void bio_info_cb(BIO *b, int oper, const char *ptr, int arg1, long arg2, long arg3);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_ctrl.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-c3d5f06870dc0dd3c62e5d3e9690b128"><title>DESCRIPTION</title>
     <para>
       BIO_ctrl(), BIO_callback_ctrl(), BIO_ptr_ctrl() and BIO_int_ctrl()
       are BIO "control" operations taking arguments of various types. These
@@ -79,7 +79,7 @@ int BIO_set_info_callback(BIO *b,bio_info_cb *cb);</synopsis>
       BIO_ctrl().
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_ctrl.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-ba4bd225030d44c8ae782ccc8834dcbc"><title>RETURN VALUES</title>
     <para>
       BIO_reset() normally returns 1 for success and 0 or -1 for failure.
       File BIOs are an exception, they return 0 for success and -1 for
@@ -108,12 +108,12 @@ int BIO_set_info_callback(BIO *b,bio_info_cb *cb);</synopsis>
       BIO_ctrl_wpending() return the amount of pending data.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_ctrl.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-00c9818089d3b4e55c1d6db2a2a790a9"><title>NOTES</title>
     <para>
       BIO_flush(), because it can write data may return 0 or -1 indicating
       that the call should be retried later in a similar manner to
       BIO_write(). The BIO_should_retry() call should be used and
-      appropriate action taken is the call fails. 
+      appropriate action taken is the call fails.
     </para>
     <para>
       The return values of BIO_pending() and BIO_wpending() may not
@@ -138,7 +138,7 @@ int BIO_set_info_callback(BIO *b,bio_info_cb *cb);</synopsis>
       operation.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_ctrl.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-2b04c73ab2a48b29d7dc7c800a3a0ce4"><title>BUGS</title>
     <para>
       Some of the return values are ambiguous and care should be taken. In
       particular a return value of 0 can be returned if an operation is not
@@ -146,7 +146,7 @@ int BIO_set_info_callback(BIO *b,bio_info_cb *cb);</synopsis>
       the case of BIO_seek() on a file BIO for a successful operation.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_ctrl.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-a441b33933ec51a83c47b5fd417e5414"><title>SEE ALSO</title>
     <para>
       TBA
     </para>

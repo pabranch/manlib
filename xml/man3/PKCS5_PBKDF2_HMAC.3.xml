@@ -8,16 +8,16 @@
 <refpurpose>password based derivation routines with salt and iteration count</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
-<synopsis format="linespecific">int PKCS5_PBKDF2_HMAC(const char *pass, int passlen,
+<synopsis>#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis>int PKCS5_PBKDF2_HMAC(const char *pass, int passlen,
                       const unsigned char *salt, int saltlen, int iter,
                       const EVP_MD *digest,
                       int keylen, unsigned char *out);</synopsis>
-<synopsis format="linespecific">int PKCS5_PBKDF2_HMAC_SHA1(const char *pass, int passlen,
+<synopsis>int PKCS5_PBKDF2_HMAC_SHA1(const char *pass, int passlen,
 			   const unsigned char *salt, int saltlen, int iter,
 			   int keylen, unsigned char *out);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS5_PBKDF2_HMAC.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-c3b8c1510dc2539f4e21ff6b8b51ab2c"><title>DESCRIPTION</title>
     <para>
       PKCS5_PBKDF2_HMAC() derives a key from a password using a salt and
       iteration count as specified in RFC 2898.
@@ -40,7 +40,7 @@
       <emphasis role="bold">iter</emphasis> is the iteration count and its
       value should be greater than or equal to 1. RFC 2898 suggests an
       iteration count of at least 1000. Any <emphasis role="bold">iter</emphasis> less than 1 is treated as a single
-      iteration. 
+      iteration.
     </para>
     <para>
       <emphasis role="bold">digest</emphasis> is the message digest
@@ -52,7 +52,7 @@
       The derived key will be written to <emphasis role="bold">out</emphasis>. The size of the <emphasis role="bold">out</emphasis> buffer is specified via <emphasis role="bold">keylen</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS5_PBKDF2_HMAC.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-284137b549f4a0ae5780a076ddbf6734"><title>NOTES</title>
     <para>
       A typical application of this function is to derive keying material
       for an encryption algorithm from a password in the <emphasis role="bold">pass</emphasis>, a salt in <emphasis role="bold">salt</emphasis>, and an iteration count.
@@ -63,13 +63,13 @@
       brute force attack using a large number of candidate passwords.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS5_PBKDF2_HMAC.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-5ee05b8821bde6e43ac41c8426628639"><title>RETURN VALUES</title>
     <para>
       PKCS5_PBKDF2_HMAC() and PBKCS5_PBKDF2_HMAC_SHA1() return 1 on success
       or 0 on error.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS5_PBKDF2_HMAC.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-e8f19cfacad2c394019c949eb8df8545"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>evp</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -79,7 +79,7 @@
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS5_PBKDF2_HMAC.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-ef79297460c0ed998f10539c4246fa20"><title>HISTORY</title>
     <para/>
   </refsection>
 </refentry>

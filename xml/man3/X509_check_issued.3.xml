@@ -9,27 +9,27 @@
 certificate</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/x509v3.h&gt;</synopsis>
-<synopsis format="linespecific">int X509_check_issued(X509 *issuer, X509 *subject);</synopsis>
-<synopsis format="linespecific"/>
+<synopsis>#include &lt;openssl/x509v3.h&gt;</synopsis>
+<synopsis>int X509_check_issued(X509 *issuer, X509 *subject);</synopsis>
+<synopsis/>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_check_issued.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-970abe7ebca3b849ae0043a687e24e9d"><title>DESCRIPTION</title>
     <para>
       This function checks if certificate <emphasis role="italic">subject</emphasis> was issued using CA certificate
       <emphasis role="italic">issuer</emphasis>. This function takes into
       account not only matching of issuer field of <emphasis role="italic">subject</emphasis> with subject field of <emphasis role="italic">issuer</emphasis>, but also compares <emphasis role="bold">authorityKeyIdentifier</emphasis> extension of <emphasis role="italic">subject</emphasis> with <emphasis role="bold">subjectKeyIdentifier</emphasis> of <emphasis role="italic">issuer</emphasis> if <emphasis role="bold">authorityKeyIdentifier</emphasis> present in the
       <emphasis role="italic">subject</emphasis> certificate and checks
-      <emphasis role="bold">keyUsage</emphasis> field of <emphasis role="italic">issuer</emphasis>. 
+      <emphasis role="bold">keyUsage</emphasis> field of <emphasis role="italic">issuer</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_check_issued.pod:RETURN_VALUE"><title>RETURN VALUE</title>
+  <refsection xml:id="ID-2e0998bd6a1a438074504f024c69df0d"><title>RETURN VALUE</title>
     <para>
       Function return <emphasis role="bold">X509_V_OK</emphasis> if
       certificate <emphasis role="italic">subject</emphasis> is issued by
       <emphasis role="italic">issuer</emphasis> or some <emphasis role="bold">X509_V_ERR*</emphasis> constant to indicate an error.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_check_issued.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-f37436954b916c186163cd72983058b4"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>X509_verify_cert</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

@@ -9,16 +9,16 @@ ASN1_TIME_print, ASN1_TIME_diff</refname>
 <refpurpose>ASN.1 Time functions.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">ASN1_TIME *ASN1_TIME_set(ASN1_TIME *s, time_t t);
+<synopsis>ASN1_TIME *ASN1_TIME_set(ASN1_TIME *s, time_t t);
 ASN1_TIME *ASN1_TIME_adj(ASN1_TIME *s, time_t t,
                          int offset_day, long offset_sec);
 int ASN1_TIME_set_string(ASN1_TIME *s, const char *str);
 int ASN1_TIME_check(const ASN1_TIME *t);
 int ASN1_TIME_print(BIO *b, const ASN1_TIME *s);</synopsis>
-<synopsis format="linespecific">int ASN1_TIME_diff(int *pday, int *psec,
+<synopsis>int ASN1_TIME_diff(int *pday, int *psec,
                    const ASN1_TIME *from, const ASN1_TIME *to);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.ASN1_TIME_set.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-b821d210c836e42d8e2f4febf484e8e0"><title>DESCRIPTION</title>
     <para>
       The function ASN1_TIME_set() sets the ASN1_TIME structure <emphasis role="bold">s</emphasis> to the time represented by the time_t value
       <emphasis role="bold">t</emphasis>. If <emphasis role="bold">s</emphasis> is NULL a new ASN1_TIME structure is
@@ -59,7 +59,7 @@ int ASN1_TIME_print(BIO *b, const ASN1_TIME *s);</synopsis>
       NULL the current time is used.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ASN1_TIME_set.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-b2cae13ac5d8358aec5bec1612f1568e"><title>NOTES</title>
     <para>
       The ASN1_TIME structure corresponds to the ASN.1 structure <emphasis role="bold">Time</emphasis> defined in RFC5280 et al. The time
       setting functions obey the rules outlined in RFC5280: if the date can
@@ -83,14 +83,14 @@ int ASN1_TIME_print(BIO *b, const ASN1_TIME *s);</synopsis>
       manipulating a time_t value.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ASN1_TIME_set.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-37430c5453a205ffa0b3ae937602d663"><title>BUGS</title>
     <para>
       ASN1_TIME_print() currently does not print out the time zone: it
       either prints out "GMT" or nothing. But all certificates complying
       with RFC5280 et al use GMT anyway.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ASN1_TIME_set.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-15a9587b72d63a70ff9784e98291e4d8"><title>EXAMPLES</title>
     <para>
       Set a time structure to one hour after the current time and print it
       out:
@@ -121,7 +121,7 @@ else if (day &lt; 0 || sec &lt; 0)
 else
   printf("Same\n");</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ASN1_TIME_set.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-bab40b44b4ebed5d811bee0c7142ee9d"><title>RETURN VALUES</title>
     <para>
       ASN1_TIME_set() and ASN1_TIME_adj() return a pointer to an ASN1_TIME
       structure or NULL if an error occurred.

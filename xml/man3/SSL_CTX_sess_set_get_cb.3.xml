@@ -8,22 +8,22 @@
 <refpurpose>provide callback functions for server side external session caching</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">void SSL_CTX_sess_set_new_cb(SSL_CTX *ctx,
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>void SSL_CTX_sess_set_new_cb(SSL_CTX *ctx,
                              int (*new_session_cb)(SSL *, SSL_SESSION *));
 void SSL_CTX_sess_set_remove_cb(SSL_CTX *ctx,
           void (*remove_session_cb)(SSL_CTX *ctx, SSL_SESSION *));
 void SSL_CTX_sess_set_get_cb(SSL_CTX *ctx,
           SSL_SESSION (*get_session_cb)(SSL *, unsigned char *, int, int *));</synopsis>
-<synopsis format="linespecific">int (*SSL_CTX_sess_get_new_cb(SSL_CTX *ctx))(struct ssl_st *ssl, SSL_SESSION *sess);
+<synopsis>int (*SSL_CTX_sess_get_new_cb(SSL_CTX *ctx))(struct ssl_st *ssl, SSL_SESSION *sess);
 void (*SSL_CTX_sess_get_remove_cb(SSL_CTX *ctx))(struct ssl_ctx_st *ctx, SSL_SESSION *sess);
 SSL_SESSION *(*SSL_CTX_sess_get_get_cb(SSL_CTX *ctx))(struct ssl_st *ssl, unsigned char *data, int len, int *copy);</synopsis>
-<synopsis format="linespecific">int (*new_session_cb)(struct ssl_st *ssl, SSL_SESSION *sess);
+<synopsis>int (*new_session_cb)(struct ssl_st *ssl, SSL_SESSION *sess);
 void (*remove_session_cb)(struct ssl_ctx_st *ctx, SSL_SESSION *sess);
 SSL_SESSION *(*get_session_cb)(struct ssl_st *ssl, unsigned char *data,
               int len, int *copy);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_sess_set_get_cb.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-1af0166329eb77b7715e4b711ff894cb"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_sess_set_new_cb() sets the callback function, which is
       automatically called whenever a new session was negotiated.
@@ -49,7 +49,7 @@ SSL_SESSION *(*get_session_cb)(struct ssl_st *ssl, unsigned char *data,
       set, the NULL pointer is returned.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_sess_set_get_cb.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-40898327ce4eb076200b5ba6d8f0bba0"><title>NOTES</title>
     <para>
       In order to allow external session caching, synchronization with the
       internal session cache is realized via callback functions. Inside
@@ -92,7 +92,7 @@ SSL_SESSION *(*get_session_cb)(struct ssl_st *ssl, unsigned char *data,
       <manvolnum>3</manvolnum> </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_sess_set_get_cb.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-7b1afe31be56700cb87aec0d37472295"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

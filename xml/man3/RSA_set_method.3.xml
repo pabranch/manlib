@@ -10,17 +10,17 @@ RSA_new_method</refname>
 <refpurpose>select RSA method</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/rsa.h&gt;</synopsis>
-<synopsis format="linespecific">void RSA_set_default_method(const RSA_METHOD *meth);</synopsis>
-<synopsis format="linespecific">RSA_METHOD *RSA_get_default_method(void);</synopsis>
-<synopsis format="linespecific">int RSA_set_method(RSA *rsa, const RSA_METHOD *meth);</synopsis>
-<synopsis format="linespecific">RSA_METHOD *RSA_get_method(const RSA *rsa);</synopsis>
-<synopsis format="linespecific">RSA_METHOD *RSA_PKCS1_SSLeay(void);</synopsis>
-<synopsis format="linespecific">RSA_METHOD *RSA_null_method(void);</synopsis>
-<synopsis format="linespecific">int RSA_flags(const RSA *rsa);</synopsis>
-<synopsis format="linespecific">RSA *RSA_new_method(RSA_METHOD *method);</synopsis>
+<synopsis>#include &lt;openssl/rsa.h&gt;</synopsis>
+<synopsis>void RSA_set_default_method(const RSA_METHOD *meth);</synopsis>
+<synopsis>RSA_METHOD *RSA_get_default_method(void);</synopsis>
+<synopsis>int RSA_set_method(RSA *rsa, const RSA_METHOD *meth);</synopsis>
+<synopsis>RSA_METHOD *RSA_get_method(const RSA *rsa);</synopsis>
+<synopsis>RSA_METHOD *RSA_PKCS1_SSLeay(void);</synopsis>
+<synopsis>RSA_METHOD *RSA_null_method(void);</synopsis>
+<synopsis>int RSA_flags(const RSA *rsa);</synopsis>
+<synopsis>RSA *RSA_new_method(RSA_METHOD *method);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_set_method.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-af912409aa943f93e0553e85b7c0cd8a"><title>DESCRIPTION</title>
     <para>
       An <emphasis role="bold">RSA_METHOD</emphasis> specifies the
       functions that OpenSSL uses for RSA operations. By modifying the
@@ -43,7 +43,7 @@ RSA_new_method</refname>
       RSA_get_default_method() returns a pointer to the current default
       RSA_METHOD. However, the meaningfulness of this result is dependent
       on whether the ENGINE API is being used, so this function is no
-      longer recommended. 
+      longer recommended.
     </para>
     <para>
       RSA_set_method() selects <emphasis role="bold">meth</emphasis> to
@@ -85,7 +85,7 @@ RSA_new_method</refname>
       <emphasis role="bold">method</emphasis> is <emphasis role="bold">NULL</emphasis>, the default method is used.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_set_method.pod:THE_RSA_METHOD_STRUCTURE"><title>THE RSA_METHOD STRUCTURE</title>
+  <refsection xml:id="ID-6783d73225427a454c355f6aace43d18"><title>THE RSA_METHOD STRUCTURE</title>
     <screen>typedef struct rsa_meth_st
 {
     /* name of the implementation */
@@ -149,7 +149,7 @@ char *app_data; /* ?? */
 
 } RSA_METHOD;</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_set_method.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-a0db8b49c5118522b1cac262c4137c55"><title>RETURN VALUES</title>
     <para>
       RSA_PKCS1_SSLeay(), RSA_PKCS1_null_method(), RSA_get_default_method()
       and RSA_get_method() return pointers to the respective RSA_METHODs.
@@ -174,19 +174,7 @@ char *app_data; /* ?? */
       pointer to the newly allocated structure.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_set_method.pod:NOTES"><title>NOTES</title>
-    <para>
-      As of version 0.9.7, RSA_METHOD implementations are grouped together
-      with other algorithmic APIs (eg. DSA_METHOD, EVP_CIPHER, etc) into
-      <emphasis role="bold">ENGINE</emphasis> modules. If a default ENGINE
-      is specified for RSA functionality using an ENGINE API function, that
-      will override any RSA defaults set using the RSA API (ie. 
-      RSA_set_default_method()). For this reason, the ENGINE API is the
-      recommended way to control default implementations for use in RSA and
-      other cryptographic algorithms.
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_set_method.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-eb2a0c132d45e6e0ee0f7bd7c36b65df"><title>BUGS</title>
     <para>
       The behaviour of RSA_flags() is a mis-feature that is left as-is for
       now to avoid creating compatibility problems. RSA functionality, such
@@ -199,32 +187,12 @@ char *app_data; /* ?? */
       RSA_default_flags() function (which does not currently exist).
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_set_method.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-f72dd5d93ce6ff223ce40723e617a8ce"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>rsa</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>RSA_new</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_set_method.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      RSA_new_method() and RSA_set_default_method() appeared in SSLeay 0.8.
-      RSA_get_default_method(), RSA_set_method() and RSA_get_method() as
-      well as the rsa_sign and rsa_verify components of RSA_METHOD were
-      added in OpenSSL 0.9.4.
-    </para>
-    <para>
-      RSA_set_default_openssl_method() and RSA_get_default_openssl_method()
-      replaced RSA_set_default_method() and RSA_get_default_method()
-      respectively, and RSA_set_method() and RSA_new_method() were altered
-      to use <emphasis role="bold">ENGINE</emphasis>s rather than <emphasis role="bold">RSA_METHOD</emphasis>s during development of the engine
-      version of OpenSSL 0.9.6. For 0.9.7, the handling of defaults in the
-      ENGINE API was restructured so that this change was reversed, and
-      behaviour of the other functions resembled more closely the previous
-      behaviour. The behaviour of defaults in the ENGINE API now
-      transparently overrides the behaviour of defaults in the RSA API
-      without requiring changing these function prototypes.
     </para>
   </refsection>
 </refentry>

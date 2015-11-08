@@ -8,11 +8,11 @@
 <refpurpose>create a PKCS#12 structure</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/pkcs12.h&gt;</synopsis>
-<synopsis format="linespecific">PKCS12 *PKCS12_create(char *pass, char *name, EVP_PKEY *pkey, X509 *cert, STACK_OF(X509) *ca,
+<synopsis>#include &lt;openssl/pkcs12.h&gt;</synopsis>
+<synopsis>PKCS12 *PKCS12_create(char *pass, char *name, EVP_PKEY *pkey, X509 *cert, STACK_OF(X509) *ca,
                                int nid_key, int nid_cert, int iter, int mac_iter, int keytype);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS12_create.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-d52d464d40be83dedc6f8e3c3140fe6c"><title>DESCRIPTION</title>
     <para>
       PKCS12_create() creates a PKCS#12 structure.
     </para>
@@ -31,7 +31,7 @@
       the type of key.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS12_create.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-217eb9def8c8f447fe2e8e9aec48717e"><title>NOTES</title>
     <para>
       The parameters <emphasis role="bold">nid_key</emphasis>, <emphasis role="bold">nid_cert</emphasis>, <emphasis role="bold">iter</emphasis>, <emphasis role="bold">mac_iter</emphasis> and <emphasis role="bold">keytype</emphasis> can all be set to zero and sensible
       defaults will be used.
@@ -57,12 +57,6 @@
       arbitrary size but had restrictions on the permissible sizes of keys
       which could be used for encryption.
     </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS12_create.pod:NEW_FUNCTIONALITY_IN_OPENSSL_0.9.8"><title>NEW FUNCTIONALITY IN OPENSSL 0.9.8</title>
-    <para>
-      Some additional functionality was added to PKCS12_create() in OpenSSL
-      0.9.8. These extensions are detailed below.
-    </para>
     <para>
       If a certificate contains an <emphasis role="bold">alias</emphasis>
       or <emphasis role="bold">keyid</emphasis> then this will be used for
@@ -83,15 +77,10 @@
       MAC will then be omitted entirely.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS12_create.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-a91376774b7f0ceadd38ed90b5539a95"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>d2i_PKCS12</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS12_create.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      PKCS12_create was added in OpenSSL 0.9.3
     </para>
   </refsection>
 </refentry>

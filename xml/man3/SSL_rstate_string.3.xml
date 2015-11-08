@@ -8,11 +8,11 @@
 <refpurpose>get textual description of state of an SSL object during read operation</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">const char *SSL_rstate_string(SSL *ssl);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>const char *SSL_rstate_string(SSL *ssl);
 const char *SSL_rstate_string_long(SSL *ssl);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_rstate_string.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-7993ad270ff673ad7399ecd0cfbe9cc4"><title>DESCRIPTION</title>
     <para>
       SSL_rstate_string() returns a 2 letter string indicating the current
       read state of the SSL object <emphasis role="bold">ssl</emphasis>.
@@ -22,7 +22,7 @@ const char *SSL_rstate_string_long(SSL *ssl);</synopsis>
       state of the SSL object <emphasis role="bold">ssl</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_rstate_string.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-a4ea9feccc02fd20a383bf54e47d9319"><title>NOTES</title>
     <para>
       When performing a read operation, the SSL/TLS engine must parse the
       record, consisting of header and body. When working in a blocking
@@ -33,7 +33,7 @@ const char *SSL_rstate_string_long(SSL *ssl);</synopsis>
       This function should only seldom be needed in applications.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_rstate_string.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-d79a1519c28e5d9d1dab2533b5ca0f3d"><title>RETURN VALUES</title>
     <para>
       SSL_rstate_string() and SSL_rstate_string_long() can return the
       following values:
@@ -41,7 +41,7 @@ const char *SSL_rstate_string_long(SSL *ssl);</synopsis>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_rstate_string.pod:RH.read_header"/>"RH"/"read header"</term>
+          <term>"RH"/"read header"</term>
           <listitem>
             <para>
 	      The header of the record is being evaluated.
@@ -49,7 +49,7 @@ const char *SSL_rstate_string_long(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_rstate_string.pod:RB.read_body"/>"RB"/"read body"</term>
+          <term>"RB"/"read body"</term>
           <listitem>
             <para>
 	      The body of the record is being evaluated.
@@ -57,7 +57,7 @@ const char *SSL_rstate_string_long(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_rstate_string.pod:RD.read_done"/>"RD"/"read done"</term>
+          <term>"RD"/"read done"</term>
           <listitem>
             <para>
 	      The record has been completely processed.
@@ -65,7 +65,7 @@ const char *SSL_rstate_string_long(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_rstate_string.pod:unknown.unknown"/>"unknown"/"unknown"</term>
+          <term>"unknown"/"unknown"</term>
           <listitem>
             <para>
 	      The read state is unknown. This should never happen.
@@ -75,7 +75,7 @@ const char *SSL_rstate_string_long(SSL *ssl);</synopsis>
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_rstate_string.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-0ad8e23d6775c98256c9b938fa82a435"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>

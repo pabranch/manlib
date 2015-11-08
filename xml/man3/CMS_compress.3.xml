@@ -8,10 +8,10 @@
 <refpurpose>create a CMS CompressedData structure</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/cms.h&gt;</synopsis>
-<synopsis format="linespecific">CMS_ContentInfo *CMS_compress(BIO *in, int comp_nid, unsigned int flags);</synopsis>
+<synopsis>#include &lt;openssl/cms.h&gt;</synopsis>
+<synopsis>CMS_ContentInfo *CMS_compress(BIO *in, int comp_nid, unsigned int flags);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.CMS_compress.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-384cc988ea215fe70364ef92dc539e48"><title>DESCRIPTION</title>
     <para>
       CMS_compress() creates and returns a CMS CompressedData structure.
       <emphasis role="bold">comp_nid</emphasis> is the compression
@@ -19,7 +19,7 @@
       the default algorithm (zlib compression). <emphasis role="bold">in</emphasis> is the content to be compressed. <emphasis role="bold">flags</emphasis> is an optional set of flags.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.CMS_compress.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-276343bbb737a54d797e68b14d129ef9"><title>NOTES</title>
     <para>
       The only currently supported compression algorithm is zlib using the
       NID NID_zlib_compression.
@@ -52,7 +52,7 @@
       supported by SMIME_write_CMS().
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.CMS_compress.pod:NOTES_i1"><title>NOTES</title>
+  <refsection xml:id="ID-276343bbb737a54d797e68b14d129ef9"><title>NOTES</title>
     <para>
       If the flag <emphasis role="bold">CMS_STREAM</emphasis> is set the
       returned <emphasis role="bold">CMS_ContentInfo</emphasis> structure
@@ -71,13 +71,13 @@
       cannot currently be set.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.CMS_compress.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-be1d95bd6529174ea2d17ca056ffab90"><title>RETURN VALUES</title>
     <para>
       CMS_compress() returns either a CMS_ContentInfo structure or NULL if
       an error occurred. The error can be obtained from ERR_get_error(3).
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.CMS_compress.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-aab83b68d1576460061635f8f59e0b37"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ERR_get_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -85,10 +85,10 @@
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.CMS_compress.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-0bbe6bee3733653cf9b95f41c096469e"><title>HISTORY</title>
     <para>
-      CMS_compress() was added to OpenSSL 0.9.8 The <emphasis role="bold">CMS_STREAM</emphasis> flag was first supported in OpenSSL
-      1.0.0.
+      The <emphasis role="bold">CMS_STREAM</emphasis> flag was added in
+      OpenSSL 1.0.0.
     </para>
   </refsection>
 </refentry>

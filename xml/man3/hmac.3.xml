@@ -4,26 +4,24 @@
     <refentrytitle>hmac.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>HMAC, HMAC_CTX_init, HMAC_Init, HMAC_Init_ex, HMAC_Update, HMAC_Final, HMAC_CTX_cleanup,
-HMAC_cleanup</refname>
+    <refname>HMAC, HMAC_CTX_init, HMAC_Init, HMAC_Init_ex, HMAC_Update, HMAC_Final, HMAC_CTX_cleanup</refname>
 <refpurpose>HMAC message authentication code</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/hmac.h&gt;</synopsis>
-<synopsis format="linespecific">unsigned char *HMAC(const EVP_MD *evp_md, const void *key,
+<synopsis>#include &lt;openssl/hmac.h&gt;</synopsis>
+<synopsis>unsigned char *HMAC(const EVP_MD *evp_md, const void *key,
               int key_len, const unsigned char *d, int n,
               unsigned char *md, unsigned int *md_len);</synopsis>
-<synopsis format="linespecific">void HMAC_CTX_init(HMAC_CTX *ctx);</synopsis>
-<synopsis format="linespecific">int HMAC_Init(HMAC_CTX *ctx, const void *key, int key_len,
+<synopsis>void HMAC_CTX_init(HMAC_CTX *ctx);</synopsis>
+<synopsis>int HMAC_Init(HMAC_CTX *ctx, const void *key, int key_len,
               const EVP_MD *md);
 int HMAC_Init_ex(HMAC_CTX *ctx, const void *key, int key_len,
                   const EVP_MD *md, ENGINE *impl);
 int HMAC_Update(HMAC_CTX *ctx, const unsigned char *data, int len);
 int HMAC_Final(HMAC_CTX *ctx, unsigned char *md, unsigned int *len);</synopsis>
-<synopsis format="linespecific">void HMAC_CTX_cleanup(HMAC_CTX *ctx);
-void HMAC_cleanup(HMAC_CTX *ctx);</synopsis>
+<synopsis>void HMAC_CTX_cleanup(HMAC_CTX *ctx);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.hmac.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-f0febdb80bc013d096d9f4834d0e6275"><title>DESCRIPTION</title>
     <para>
       HMAC is a MAC (message authentication code), i.e. a keyed hash
       function used for message authentication, which is based on a hash
@@ -51,10 +49,6 @@ void HMAC_cleanup(HMAC_CTX *ctx);</synopsis>
     <para>
       HMAC_CTX_cleanup() erases the key and other data from the <emphasis role="bold">HMAC_CTX</emphasis> and releases any associated
       resources. It must be called when an <emphasis role="bold">HMAC_CTX</emphasis> is no longer required.
-    </para>
-    <para>
-      HMAC_cleanup() is an alias for HMAC_CTX_cleanup() included for back
-      compatibility with 0.9.6b, it is deprecated.
     </para>
     <para>
       The following functions may be used if the message is not completely
@@ -85,7 +79,7 @@ void HMAC_cleanup(HMAC_CTX *ctx);</synopsis>
       function output.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.hmac.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-cb7f86676718a983e9273898f44d4569"><title>RETURN VALUES</title>
     <para>
       HMAC() returns a pointer to the message authentication code or NULL
       if an error occurred.
@@ -98,12 +92,12 @@ void HMAC_cleanup(HMAC_CTX *ctx);</synopsis>
       HMAC_CTX_init() and HMAC_CTX_cleanup() do not return values.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.hmac.pod:CONFORMING_TO"><title>CONFORMING TO</title>
+  <refsection xml:id="ID-b485b56fcf7e01f73849dacc5edc3915"><title>CONFORMING TO</title>
     <para>
       RFC 2104
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.hmac.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-c4348dd0f70348a06e65b4c2c97770e4"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>sha</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -111,15 +105,7 @@ void HMAC_cleanup(HMAC_CTX *ctx);</synopsis>
       </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.hmac.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      HMAC(), HMAC_Init(), HMAC_Update(), HMAC_Final() and HMAC_cleanup()
-      are available since SSLeay 0.9.0.
-    </para>
-    <para>
-      HMAC_CTX_init(), HMAC_Init_ex() and HMAC_CTX_cleanup() are available
-      since OpenSSL 0.9.7.
-    </para>
+  <refsection xml:id="ID-de38b7c1502e9586388383cbfc185c42"><title>HISTORY</title>
     <para>
       HMAC_Init_ex(), HMAC_Update() and HMAC_Final() did not return values
       in versions of OpenSSL before 1.0.0.

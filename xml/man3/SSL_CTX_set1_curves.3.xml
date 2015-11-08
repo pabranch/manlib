@@ -10,22 +10,22 @@ SSL_CTX_set_ecdh_auto, SSL_set_ecdh_auto</refname>
 <refpurpose>EC supported curve functions</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">int SSL_CTX_set1_curves(SSL_CTX *ctx, int *clist, int clistlen);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_CTX_set1_curves(SSL_CTX *ctx, int *clist, int clistlen);
 int SSL_CTX_set1_curves_list(SSL_CTX *ctx, char *list);</synopsis>
-<synopsis format="linespecific">int SSL_set1_curves(SSL *ssl, int *clist, int clistlen);
+<synopsis>int SSL_set1_curves(SSL *ssl, int *clist, int clistlen);
 int SSL_set1_curves_list(SSL *ssl, char *list);</synopsis>
-<synopsis format="linespecific">int SSL_get1_curves(SSL *ssl, int *curves);
+<synopsis>int SSL_get1_curves(SSL *ssl, int *curves);
 int SSL_get_shared_curve(SSL *s, int n);</synopsis>
-<synopsis format="linespecific">int SSL_CTX_set_ecdh_auto(SSL_CTX *ctx, int onoff);
+<synopsis>int SSL_CTX_set_ecdh_auto(SSL_CTX *ctx, int onoff);
 int SSL_set_ecdh_auto(SSL *s, int onoff);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set1_curves.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-a1d4a2a0d68e956245f4df5f4bd50495"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_set1_curves() sets the supported curves for <emphasis role="bold">ctx</emphasis> to <emphasis role="bold">clistlen</emphasis> curves in the array <emphasis role="bold">clist</emphasis>. The array consist of all NIDs of curves
       in preference order. For a TLS client the curves are used directly in
       the supported curves extension. For a TLS server the curves are used
-      to determine the set of shared curves. 
+      to determine the set of shared curves.
     </para>
     <para>
       SSL_CTX_set1_curves_list() sets the supported curves for <emphasis role="bold">ctx</emphasis> to string <emphasis role="bold">list</emphasis>. The string is a colon separated list of
@@ -43,7 +43,7 @@ int SSL_set_ecdh_auto(SSL *s, int onoff);</synopsis>
       return the number of curves for memory allocation purposes. The
       <emphasis role="bold">curves</emphasis> array is in the form of a set
       of curve NIDs in preference order. It can return zero if the client
-      did not send a supported curves extension. 
+      did not send a supported curves extension.
     </para>
     <para>
       SSL_get_shared_curve() returns shared curve <emphasis role="bold">n</emphasis> for a server-side SSL <emphasis role="bold">ssl</emphasis>. If <emphasis role="bold">n</emphasis> is
@@ -58,13 +58,13 @@ int SSL_set_ecdh_auto(SSL *s, int onoff);</synopsis>
       selection for server <emphasis role="bold">ctx</emphasis> or
       <emphasis role="bold">ssl</emphasis> to <emphasis role="bold">onoff</emphasis>. If <emphasis role="bold">onoff</emphasis> is 1 then the highest preference curve
       is automatically used for ECDH temporary keys used during key
-      exchange. 
+      exchange.
     </para>
     <para>
       All these functions are implemented as macros.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set1_curves.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-ffc156da24b8a3d5b14fa296a6f7cc1e"><title>NOTES</title>
     <para>
       If an application wishes to make use of several of these functions
       for configuration purposes either on a command line or in a file it
@@ -85,7 +85,7 @@ int SSL_set_ecdh_auto(SSL *s, int onoff);</synopsis>
       shared curve.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set1_curves.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-e81ed3256ec3e2e691054994bbe83fd9"><title>RETURN VALUES</title>
     <para>
       SSL_CTX_set1_curves(), SSL_CTX_set1_curves_list(), SSL_set1_curves(),
       SSL_set1_curves_list(), SSL_CTX_set_ecdh_auto() and
@@ -104,14 +104,14 @@ int SSL_set_ecdh_auto(SSL *s, int onoff);</synopsis>
       SSL_get_shared_curve() has no meaning and returns -1.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set1_curves.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-069cd7c7079ef998b35b3549a1b6783b"><title>SEE ALSO</title>
     <para>
       <citerefentry>
       <refentrytitle>SSL_CTX_add_extra_chain_cert</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set1_curves.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-c42605712d5b0a738c171d4ae02ddccd"><title>HISTORY</title>
     <para>
       These functions were first added to OpenSSL 1.0.2.
     </para>

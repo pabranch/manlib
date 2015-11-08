@@ -7,7 +7,7 @@
     <refname>x509v3_config</refname>
 <refpurpose>X509 V3 certificate extension configuration format</refpurpose>
   </refnamediv>
-  <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-fe3e1c7b7aa814b5c70437a8c96145bf"><title>DESCRIPTION</title>
     <para>
       Several of the OpenSSL utilities can add extensions to a certificate
       or certificate request based on the contents of a configuration file.
@@ -61,15 +61,15 @@ pathlen=1</screen>
     </para>
     <para>
       If an extension type is unsupported then the <emphasis role="italic">arbitrary</emphasis> extension syntax must be used, see
-      the <link linkend="sources.openssl.doc.apps.x509v3_config.pod:ARBITRARY_EXTENSIONS"><quote>ARBITRARY
+      the <link linkend="ID-aaccb05820f5b766ca48c76b1b13a932"><quote>ARBITRARY
       EXTENSIONS</quote></link> section for more details.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:STANDARD_EXTENSIONS"><title>STANDARD EXTENSIONS</title>
+  <refsection xml:id="ID-f1f13457fc50ab6e80a2209236d6f568"><title>STANDARD EXTENSIONS</title>
     <para>
       The following sections describe each supported extension in detail.
     </para>
-    <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:Basic_Constraints."><title>Basic Constraints.</title>
+    <refsection xml:id="ID-50b1a9b649f1100d12c4162713ed7161"><title>Basic Constraints.</title>
       <para>
 	This is a multi valued extension which indicates whether a
 	certificate is a CA certificate. The first (mandatory) name is
@@ -100,7 +100,7 @@ basicConstraints=critical,CA:TRUE, pathlen:0</screen>
       </para>
       <screen></screen>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:Key_Usage."><title>Key Usage.</title>
+    <refsection xml:id="ID-8e496fa3278a804bbbb2cde4390eb404"><title>Key Usage.</title>
       <para>
 	Key usage is a multi valued extension consisting of a list of names
 	of the permitted key usages.
@@ -119,7 +119,7 @@ keyUsage=critical, keyCertSign
 
 </screen>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:Extended_Key_Usage."><title>Extended Key Usage.</title>
+    <refsection xml:id="ID-03dc291e769113f8b1856514869b7e39"><title>Extended Key Usage.</title>
       <para>
 	This extensions consists of a list of usages indicating purposes
 	for which the certificate public key can be used for,
@@ -148,7 +148,7 @@ extendedKeyUsage=serverAuth,clientAuth
 
 </screen>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:Subject_Key_Identifier."><title>Subject Key Identifier.</title>
+    <refsection xml:id="ID-dcb87f57995fcef95152bdc5ae25216a"><title>Subject Key Identifier.</title>
       <para>
 	This is really a string extension and can take two possible values.
 	Either the word <emphasis role="bold">hash</emphasis> which will
@@ -163,7 +163,7 @@ extendedKeyUsage=serverAuth,clientAuth
 
 </screen>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:Authority_Key_Identifier."><title>Authority Key Identifier.</title>
+    <refsection xml:id="ID-b8fe17a2a2a4a57a49dca190b08a50e1"><title>Authority Key Identifier.</title>
       <para>
 	The authority key identifier extension permits two options. keyid
 	and issuer: both can take the optional value "always".
@@ -186,7 +186,7 @@ extendedKeyUsage=serverAuth,clientAuth
 
 </screen>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:Subject_Alternative_Name."><title>Subject Alternative Name.</title>
+    <refsection xml:id="ID-949e1ff32fca8a7b914368ad4646d9ba"><title>Subject Alternative Name.</title>
       <para>
 	The subject alternative name extension allows various literal
 	values to be included in the configuration file. These include
@@ -235,7 +235,7 @@ CN=My Name
 
 </screen>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:Issuer_Alternative_Name."><title>Issuer Alternative Name.</title>
+    <refsection xml:id="ID-5d6ac6b516277280df7ed70410c66215"><title>Issuer Alternative Name.</title>
       <para>
 	The issuer alternative name option supports all the literal options
 	of subject alternative name. It does <emphasis role="bold">not</emphasis> support the email:copy option because
@@ -250,7 +250,7 @@ CN=My Name
 
 </screen>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:Authority_Info_Access."><title>Authority Info Access.</title>
+    <refsection xml:id="ID-e0062a78c0cf51e731826aaba772428b"><title>Authority Info Access.</title>
       <para>
 	The authority information access extension gives details about how
 	to access certain information relating to the CA. Its syntax is
@@ -267,7 +267,7 @@ authorityInfoAccess = caIssuers;URI:http://my.ca/ca.html
 
 </screen>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:CRL_distribution_points."><title>CRL distribution points.</title>
+    <refsection xml:id="ID-fb8e20d1372f3ead22e57f1326627a27"><title>CRL distribution points.</title>
       <para>
 	This is a multi-valued extension whose options can be either in
 	name:value pair using the same form as subject alternative name or
@@ -326,7 +326,7 @@ C=UK
 O=Organisation
 CN=Some Name</screen>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:Issuing_Distribution_Point"><title>Issuing Distribution Point</title>
+    <refsection xml:id="ID-4032dd8240802e09aa6c57a30ef0c8ab"><title>Issuing Distribution Point</title>
       <para>
 	This extension should only appear in CRLs. It is a multi valued
 	extension whose syntax is similar to the "section" pointed to by
@@ -363,7 +363,7 @@ CN=Some Name
 
 </screen>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:Certificate_Policies."><title>Certificate Policies.</title>
+    <refsection xml:id="ID-4d51bf6aff67733232372ed69a23ef25"><title>Certificate Policies.</title>
       <para>
 	This is a <emphasis role="italic">raw</emphasis> extension. All the
 	fields of this extension can be set by using the appropriate
@@ -425,7 +425,7 @@ noticeNumbers=1,2,3,4</screen>
 	MSIE) may require ia5org.
       </para>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:Policy_Constraints"><title>Policy Constraints</title>
+    <refsection xml:id="ID-372497affc65aa93b7904b9c0256d800"><title>Policy Constraints</title>
       <para>
 	This is a multi-valued extension which consisting of the names
 	<emphasis role="bold">requireExplicitPolicy</emphasis> or <emphasis role="bold">inhibitPolicyMapping</emphasis> and a non negative
@@ -438,7 +438,7 @@ noticeNumbers=1,2,3,4</screen>
 
 </screen>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:Inhibit_Any_Policy"><title>Inhibit Any Policy</title>
+    <refsection xml:id="ID-949b2d1b1853f79a061569276cbd7537"><title>Inhibit Any Policy</title>
       <para>
 	This is a string extension whose value must be a non negative
 	integer.
@@ -450,7 +450,7 @@ noticeNumbers=1,2,3,4</screen>
 
 </screen>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:Name_Constraints"><title>Name Constraints</title>
+    <refsection xml:id="ID-599f163eb27cc78e0815a39d1e309bb2"><title>Name Constraints</title>
       <para>
 	The name constraints extension is a multi-valued extension. The
 	name should begin with the word <emphasis role="bold">permitted</emphasis> or <emphasis role="bold">excluded</emphasis> followed by a <emphasis role="bold">;</emphasis>. The rest of the name and the value
@@ -469,7 +469,7 @@ nameConstraints=excluded;email:.com
 
 </screen>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:OCSP_No_Check"><title>OCSP No Check</title>
+    <refsection xml:id="ID-6e0c81892980b1e63a0f7df83787574e"><title>OCSP No Check</title>
       <para>
 	The OCSP No Check extension is a string extension but its value is
 	ignored.
@@ -482,12 +482,12 @@ nameConstraints=excluded;email:.com
 </screen>
     </refsection>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:DEPRECATED_EXTENSIONS"><title>DEPRECATED EXTENSIONS</title>
+  <refsection xml:id="ID-61860cbe32a38638ab2ad7c7feb918c7"><title>DEPRECATED EXTENSIONS</title>
     <para>
       The following extensions are non standard, Netscape specific and
       largely obsolete. Their use in new applications is discouraged.
     </para>
-    <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:Netscape_String_extensions."><title>Netscape String extensions.</title>
+    <refsection xml:id="ID-20a5316cc0287d9e4baf9d331d4ea494"><title>Netscape String extensions.</title>
       <para>
 	Netscape Comment (<emphasis role="bold">nsComment</emphasis>) is a
 	string extension containing a comment which will be displayed when
@@ -502,7 +502,7 @@ nameConstraints=excluded;email:.com
       </para>
       <screen></screen>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:Netscape_Certificate_Type"><title>Netscape Certificate Type</title>
+    <refsection xml:id="ID-75b573725f6324be75a9b43766f4e251"><title>Netscape Certificate Type</title>
       <para>
 	This is a multi-valued extensions which consists of a list of flags
 	to be included. It was used to indicate the purposes for which a
@@ -515,7 +515,7 @@ nameConstraints=excluded;email:.com
       <screen></screen>
     </refsection>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:ARBITRARY_EXTENSIONS"><title>ARBITRARY EXTENSIONS</title>
+  <refsection xml:id="ID-aaccb05820f5b766ca48c76b1b13a932"><title>ARBITRARY EXTENSIONS</title>
     <para>
       If an extension is not supported by the OpenSSL code then it must be
       encoded using the arbitrary extension format. It is also possible to
@@ -553,7 +553,7 @@ field2 = UTF8:field2</screen>
     </para>
     <screen>basicConstraints=critical,DER:00:01:02:03</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:WARNING"><title>WARNING</title>
+  <refsection xml:id="ID-3b90b3c2dd391efaf54f1b6b1cd80993"><title>WARNING</title>
     <para>
       There is no guarantee that a specific implementation will process a
       given extension. It may therefore be sometimes possible to use
@@ -567,7 +567,7 @@ field2 = UTF8:field2</screen>
     </para>
     <screen></screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-4b99a82aeceab18e3bcf4ddb630372ec"><title>NOTES</title>
     <para>
       If an extension is multi-value and a field value must contain a comma
       the long form must be used otherwise the comma would be
@@ -603,20 +603,7 @@ email=steve@there</screen>
 email.1=steve@here
 email.2=steve@there</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      The X509v3 extension code was first added to OpenSSL 0.9.2.
-    </para>
-    <para>
-      Policy mappings, inhibit any policy and name constraints support was
-      added in OpenSSL 0.9.8
-    </para>
-    <para>
-      The <emphasis role="bold">directoryName</emphasis> and <emphasis role="bold">otherName</emphasis> option as well as the <emphasis role="bold">ASN1</emphasis> option for arbitrary extensions was added
-      in OpenSSL 0.9.8
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.x509v3_config.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-79235201a1b460a17780295135be989d"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>req</refentrytitle>
       <manvolnum>1</manvolnum> </citerefentry>, <citerefentry>

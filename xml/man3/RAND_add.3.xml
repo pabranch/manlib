@@ -9,14 +9,14 @@
 entropy to the PRNG</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/rand.h&gt;</synopsis>
-<synopsis format="linespecific">void RAND_seed(const void *buf, int num);</synopsis>
-<synopsis format="linespecific">void RAND_add(const void *buf, int num, double entropy);</synopsis>
-<synopsis format="linespecific">int  RAND_status(void);</synopsis>
-<synopsis format="linespecific">int  RAND_event(UINT iMsg, WPARAM wParam, LPARAM lParam);
+<synopsis>#include &lt;openssl/rand.h&gt;</synopsis>
+<synopsis>void RAND_seed(const void *buf, int num);</synopsis>
+<synopsis>void RAND_add(const void *buf, int num, double entropy);</synopsis>
+<synopsis>int  RAND_status(void);</synopsis>
+<synopsis>int  RAND_event(UINT iMsg, WPARAM wParam, LPARAM lParam);
 void RAND_screen(void);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.RAND_add.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-371308fb72c989a4d5528e8409a4bf0c"><title>DESCRIPTION</title>
     <para>
       RAND_add() mixes the <emphasis role="bold">num</emphasis> bytes at
       <emphasis role="bold">buf</emphasis> into the PRNG state. Thus, if
@@ -65,7 +65,7 @@ void RAND_screen(void);</synopsis>
       servers that run without user interaction.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RAND_add.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-ac10804b1e84e973876ae9a791c24bed"><title>RETURN VALUES</title>
     <para>
       RAND_status() and RAND_event() return 1 if the PRNG has been seeded
       with enough data, 0 otherwise.
@@ -74,7 +74,7 @@ void RAND_screen(void);</synopsis>
       The other functions do not return values.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RAND_add.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-54c689ebad1b514090697ad4c788950e"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>rand</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -84,13 +84,6 @@ void RAND_screen(void);</synopsis>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>RAND_cleanup</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RAND_add.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      RAND_seed() and RAND_screen() are available in all versions of SSLeay
-      and OpenSSL. RAND_add() and RAND_status() have been added in OpenSSL
-      0.9.5, RAND_event() in OpenSSL 0.9.5a.
     </para>
   </refsection>
 </refentry>

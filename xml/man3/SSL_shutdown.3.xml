@@ -8,16 +8,16 @@
 <refpurpose>shut down a TLS/SSL connection</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">int SSL_shutdown(SSL *ssl);</synopsis>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_shutdown(SSL *ssl);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_shutdown.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-4f4a526c6a656b56dba537359bbe38c6"><title>DESCRIPTION</title>
     <para>
       SSL_shutdown() shuts down an active TLS/SSL connection. It sends the
-      "close notify" shutdown alert to the peer. 
+      "close notify" shutdown alert to the peer.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_shutdown.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-cabd93193a88c49b663355fbd67f9bf0"><title>NOTES</title>
     <para>
       SSL_shutdown() tries to send the "close notify" shutdown alert to the
       peer. Whether the operation succeeds or not, the SSL_SENT_SHUTDOWN
@@ -43,7 +43,7 @@
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_shutdown.pod:When_the_application_is_the_first_party_to_send_the_close_notifyalert_SSL_shutdown_will_only_send_the_alert_and_then_set_theSSL_SENT_SHUTDOWN_flag_so_that_the_session_is_considered_good_and_willbe_kept_in_cache._SSL_shutdown_will_then_return_with_0._If_a_unidirectionalshutdown_is_enough_the_underlying_connection_shall_be_closed_anyway_thisfirst_call_to_SSL_shutdown_is_sufficient._In_order_to_complete_thebidirectional_shutdown_handshake_SSL_shutdown_must_be_called_again.The_second_call_will_make_SSL_shutdown_wait_for_the_peers_close_notifyshutdown_alert._On_success_the_second_call_to_SSL_shutdown_will_returnwith_1."/>When the application is the first party to send the "close notify"
+          <term>When the application is the first party to send the "close notify"
 alert, SSL_shutdown() will only send the alert and then set the
 SSL_SENT_SHUTDOWN flag (so that the session is considered good and will
 be kept in cache). SSL_shutdown() will then return with 0. If a unidirectional
@@ -58,7 +58,7 @@ with 1.</term>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_shutdown.pod:If_the_peer_already_sent_the_close_notify_alert_and_it_wasalready_processed_implicitly_inside_another_function__SSL_read__3_the_SSL_RECEIVED_SHUTDOWN_flag_is_set.SSL_shutdown_will_send_the_close_notify_alert_set_the_SSL_SENT_SHUTDOWNflag_and_will_immediately_return_with_1.Whether_SSL_RECEIVED_SHUTDOWN_is_already_set_can_be_checked_using_theSSL_get_shutdown_see_also___SSL_set_shutdown__3_call."/>If the peer already sent the "close notify" alert <emphasis role="bold">and</emphasis> it was
+          <term>If the peer already sent the "close notify" alert <emphasis role="bold">and</emphasis> it was
 already processed implicitly inside another function
 (<citerefentry>
   <refentrytitle>SSL_read</refentrytitle>
@@ -112,14 +112,14 @@ SSL_get_shutdown() (see also <citerefentry>
       enabled, SSL_shutdown() will always succeed and return 1.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_shutdown.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-99d18adb92c3161a2ef2087f2b22ec68"><title>RETURN VALUES</title>
     <para>
       The following return values can occur:
     </para>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_shutdown.pod:0"/>0</term>
+          <term>0</term>
           <listitem>
             <para>
 	      The shutdown is not yet finished. Call SSL_shutdown() for a
@@ -133,7 +133,7 @@ SSL_get_shutdown() (see also <citerefentry>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_shutdown.pod:1"/>1</term>
+          <term>1</term>
           <listitem>
             <para>
 	      The shutdown was successfully completed. The "close notify"
@@ -143,7 +143,7 @@ SSL_get_shutdown() (see also <citerefentry>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_shutdown.pod:lt0"/>&lt;0</term>
+          <term>&lt;0</term>
           <listitem>
             <para>
 	      The shutdown was not successful because a fatal error
@@ -160,7 +160,7 @@ SSL_get_shutdown() (see also <citerefentry>
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_shutdown.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-3c2c0b565104a1a6c869b71c70c15e5b"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>SSL_get_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

@@ -8,21 +8,21 @@
 <refpurpose>X509 verification parameters</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/x509_vfy.h&gt;</synopsis>
-<synopsis format="linespecific">int X509_VERIFY_PARAM_set_flags(X509_VERIFY_PARAM *param, unsigned long flags);
+<synopsis>#include &lt;openssl/x509_vfy.h&gt;</synopsis>
+<synopsis>int X509_VERIFY_PARAM_set_flags(X509_VERIFY_PARAM *param, unsigned long flags);
 int X509_VERIFY_PARAM_clear_flags(X509_VERIFY_PARAM *param,
                                                        unsigned long flags);
 unsigned long X509_VERIFY_PARAM_get_flags(X509_VERIFY_PARAM *param);</synopsis>
-<synopsis format="linespecific">int X509_VERIFY_PARAM_set_purpose(X509_VERIFY_PARAM *param, int purpose);
+<synopsis>int X509_VERIFY_PARAM_set_purpose(X509_VERIFY_PARAM *param, int purpose);
 int X509_VERIFY_PARAM_set_trust(X509_VERIFY_PARAM *param, int trust);</synopsis>
-<synopsis format="linespecific">void X509_VERIFY_PARAM_set_time(X509_VERIFY_PARAM *param, time_t t);</synopsis>
-<synopsis format="linespecific">int X509_VERIFY_PARAM_add0_policy(X509_VERIFY_PARAM *param,
+<synopsis>void X509_VERIFY_PARAM_set_time(X509_VERIFY_PARAM *param, time_t t);</synopsis>
+<synopsis>int X509_VERIFY_PARAM_add0_policy(X509_VERIFY_PARAM *param,
                                                ASN1_OBJECT *policy);
 int X509_VERIFY_PARAM_set1_policies(X509_VERIFY_PARAM *param, 
                                        STACK_OF(ASN1_OBJECT) *policies);</synopsis>
-<synopsis format="linespecific">void X509_VERIFY_PARAM_set_depth(X509_VERIFY_PARAM *param, int depth);
+<synopsis>void X509_VERIFY_PARAM_set_depth(X509_VERIFY_PARAM *param, int depth);
 int X509_VERIFY_PARAM_get_depth(const X509_VERIFY_PARAM *param);</synopsis>
-<synopsis format="linespecific">int X509_VERIFY_PARAM_set1_host(X509_VERIFY_PARAM *param,
+<synopsis>int X509_VERIFY_PARAM_set1_host(X509_VERIFY_PARAM *param,
                                 const char *name, size_t namelen);
 int X509_VERIFY_PARAM_add1_host(X509_VERIFY_PARAM *param,
                                 const char *name, size_t namelen);
@@ -35,7 +35,7 @@ int X509_VERIFY_PARAM_set1_ip(X509_VERIFY_PARAM *param,
                               const unsigned char *ip, size_t iplen);
 int X509_VERIFY_PARAM_set1_ip_asc(X509_VERIFY_PARAM *param, const char *ipasc);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_VERIFY_PARAM_set_flags.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-7368c00ef5cfbe698b406fe100f4d7fd"><title>DESCRIPTION</title>
     <para>
       These functions manipulate the <emphasis role="bold">X509_VERIFY_PARAM</emphasis> structure associated with a
       certificate verification operation.
@@ -59,7 +59,7 @@ int X509_VERIFY_PARAM_set1_ip_asc(X509_VERIFY_PARAM *param, const char *ipasc);<
       server.
     </para>
     <para>
-      X509_VERIFY_PARAM_set_trust() sets the trust setting in <emphasis role="bold">param</emphasis> to <emphasis role="bold">trust</emphasis>. 
+      X509_VERIFY_PARAM_set_trust() sets the trust setting in <emphasis role="bold">param</emphasis> to <emphasis role="bold">trust</emphasis>.
     </para>
     <para>
       X509_VERIFY_PARAM_set_time() sets the verification time in <emphasis role="bold">param</emphasis> to <emphasis role="bold">t</emphasis>.
@@ -145,7 +145,7 @@ int X509_VERIFY_PARAM_set1_ip_asc(X509_VERIFY_PARAM *param, const char *ipasc);<
       IPv6.  The condensed "::" notation is supported for IPv6 addresses.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_VERIFY_PARAM_set_flags.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-cdc9815ee5eb9fcc33ca7587b8862d9f"><title>RETURN VALUES</title>
     <para>
       X509_VERIFY_PARAM_set_flags(), X509_VERIFY_PARAM_clear_flags(),
       X509_VERIFY_PARAM_set_purpose(), X509_VERIFY_PARAM_set_trust(),
@@ -166,7 +166,7 @@ int X509_VERIFY_PARAM_set1_ip_asc(X509_VERIFY_PARAM *param, const char *ipasc);<
       X509_VERIFY_PARAM_get_depth() returns the current verification depth.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_VERIFY_PARAM_set_flags.pod:VERIFICATION_FLAGS"><title>VERIFICATION FLAGS</title>
+  <refsection xml:id="ID-a63fc3fca36aa3b4be92cd162fa4c45b"><title>VERIFICATION FLAGS</title>
     <para>
       The verification flags consists of zero or more of the following
       flags ored together.
@@ -262,18 +262,18 @@ int X509_VERIFY_PARAM_set1_ip_asc(X509_VERIFY_PARAM *param, const char *ipasc);<
       specify a verification time, the check is not suppressed.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_VERIFY_PARAM_set_flags.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-892e4c0e56df6063bc3300387caafdd7"><title>NOTES</title>
     <para>
       The above functions should be used to manipulate verification
       parameters instead of legacy functions which work in specific
       structures such as X509_STORE_CTX_set_flags().
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_VERIFY_PARAM_set_flags.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-01d94700c55d3fe842407d2dbd7ac097"><title>BUGS</title>
     <para>
       Delta CRL checking is currently primitive. Only a single delta can be
       used and (partly due to limitations of <emphasis role="bold">X509_STORE</emphasis>) constructed CRLs are not
-      maintained. 
+      maintained.
     </para>
     <para>
       If CRLs checking is enable CRLs are expected to be available in the
@@ -282,10 +282,10 @@ int X509_VERIFY_PARAM_set1_ip_asc(X509_VERIFY_PARAM *param, const char *ipasc);<
       extension.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_VERIFY_PARAM_set_flags.pod:EXAMPLE"><title>EXAMPLE</title>
+  <refsection xml:id="ID-e4d547df368b0599cd899e0e8bad50a2"><title>EXAMPLE</title>
     <para>
       Enable CRL checking when performing certificate verification during
-      SSL connections associated with an <emphasis role="bold">SSL_CTX</emphasis> structure <emphasis role="bold">ctx</emphasis>: 
+      SSL connections associated with an <emphasis role="bold">SSL_CTX</emphasis> structure <emphasis role="bold">ctx</emphasis>:
     </para>
     <screen>X509_VERIFY_PARAM *param;
 param = X509_VERIFY_PARAM_new();
@@ -293,7 +293,7 @@ X509_VERIFY_PARAM_set_flags(param, X509_V_FLAG_CRL_CHECK);
 SSL_CTX_set1_param(ctx, param);
 X509_VERIFY_PARAM_free(param);</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_VERIFY_PARAM_set_flags.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-d04fba8963842048f2858eed6b6f7e3e"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>X509_verify_cert</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -305,7 +305,7 @@ X509_VERIFY_PARAM_free(param);</screen>
       </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_VERIFY_PARAM_set_flags.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-993569ec0e6b94f3d13c39b2f962f0d5"><title>HISTORY</title>
     <para>
       The <emphasis role="bold">X509_V_FLAG_NO_ALT_CHAINS</emphasis> flag
       was added in OpenSSL 1.1.0

@@ -9,28 +9,28 @@ BN_mod_sub, BN_mod_mul, BN_mod_sqr, BN_exp, BN_mod_exp, BN_gcd</refname>
 <refpurpose>arithmetic operations on BIGNUMs</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/bn.h&gt;</synopsis>
-<synopsis format="linespecific">int BN_add(BIGNUM *r, const BIGNUM *a, const BIGNUM *b);</synopsis>
-<synopsis format="linespecific">int BN_sub(BIGNUM *r, const BIGNUM *a, const BIGNUM *b);</synopsis>
-<synopsis format="linespecific">int BN_mul(BIGNUM *r, BIGNUM *a, BIGNUM *b, BN_CTX *ctx);</synopsis>
-<synopsis format="linespecific">int BN_sqr(BIGNUM *r, BIGNUM *a, BN_CTX *ctx);</synopsis>
-<synopsis format="linespecific">int BN_div(BIGNUM *dv, BIGNUM *rem, const BIGNUM *a, const BIGNUM *d,
+<synopsis>#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis>int BN_add(BIGNUM *r, const BIGNUM *a, const BIGNUM *b);</synopsis>
+<synopsis>int BN_sub(BIGNUM *r, const BIGNUM *a, const BIGNUM *b);</synopsis>
+<synopsis>int BN_mul(BIGNUM *r, BIGNUM *a, BIGNUM *b, BN_CTX *ctx);</synopsis>
+<synopsis>int BN_sqr(BIGNUM *r, BIGNUM *a, BN_CTX *ctx);</synopsis>
+<synopsis>int BN_div(BIGNUM *dv, BIGNUM *rem, const BIGNUM *a, const BIGNUM *d,
         BN_CTX *ctx);</synopsis>
-<synopsis format="linespecific">int BN_mod(BIGNUM *rem, const BIGNUM *a, const BIGNUM *m, BN_CTX *ctx);</synopsis>
-<synopsis format="linespecific">int BN_nnmod(BIGNUM *r, const BIGNUM *a, const BIGNUM *m, BN_CTX *ctx);</synopsis>
-<synopsis format="linespecific">int BN_mod_add(BIGNUM *r, BIGNUM *a, BIGNUM *b, const BIGNUM *m,
+<synopsis>int BN_mod(BIGNUM *rem, const BIGNUM *a, const BIGNUM *m, BN_CTX *ctx);</synopsis>
+<synopsis>int BN_nnmod(BIGNUM *r, const BIGNUM *a, const BIGNUM *m, BN_CTX *ctx);</synopsis>
+<synopsis>int BN_mod_add(BIGNUM *r, BIGNUM *a, BIGNUM *b, const BIGNUM *m,
         BN_CTX *ctx);</synopsis>
-<synopsis format="linespecific">int BN_mod_sub(BIGNUM *r, BIGNUM *a, BIGNUM *b, const BIGNUM *m,
+<synopsis>int BN_mod_sub(BIGNUM *r, BIGNUM *a, BIGNUM *b, const BIGNUM *m,
         BN_CTX *ctx);</synopsis>
-<synopsis format="linespecific">int BN_mod_mul(BIGNUM *r, BIGNUM *a, BIGNUM *b, const BIGNUM *m,
+<synopsis>int BN_mod_mul(BIGNUM *r, BIGNUM *a, BIGNUM *b, const BIGNUM *m,
         BN_CTX *ctx);</synopsis>
-<synopsis format="linespecific">int BN_mod_sqr(BIGNUM *r, BIGNUM *a, const BIGNUM *m, BN_CTX *ctx);</synopsis>
-<synopsis format="linespecific">int BN_exp(BIGNUM *r, BIGNUM *a, BIGNUM *p, BN_CTX *ctx);</synopsis>
-<synopsis format="linespecific">int BN_mod_exp(BIGNUM *r, BIGNUM *a, const BIGNUM *p,
+<synopsis>int BN_mod_sqr(BIGNUM *r, BIGNUM *a, const BIGNUM *m, BN_CTX *ctx);</synopsis>
+<synopsis>int BN_exp(BIGNUM *r, BIGNUM *a, BIGNUM *p, BN_CTX *ctx);</synopsis>
+<synopsis>int BN_mod_exp(BIGNUM *r, BIGNUM *a, const BIGNUM *p,
         const BIGNUM *m, BN_CTX *ctx);</synopsis>
-<synopsis format="linespecific">int BN_gcd(BIGNUM *r, BIGNUM *a, BIGNUM *b, BN_CTX *ctx);</synopsis>
+<synopsis>int BN_gcd(BIGNUM *r, BIGNUM *a, BIGNUM *b, BN_CTX *ctx);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_add.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-22e269c7f01a8f1de674b9da36c9ec45"><title>DESCRIPTION</title>
     <para>
       BN_add() adds <emphasis role="italic">a</emphasis> and <emphasis role="italic">b</emphasis> and places the result in <emphasis role="italic">r</emphasis> (<literal role="code">r=a+b</literal>). <emphasis role="italic">r</emphasis> may be the same <emphasis role="bold">BIGNUM</emphasis> as <emphasis role="italic">a</emphasis>
       or <emphasis role="italic">b</emphasis>.
@@ -122,7 +122,7 @@ BN_mod_sub, BN_mod_mul, BN_mod_sqr, BN_exp, BN_mod_exp, BN_gcd</refname>
       Unless noted otherwise, the result <emphasis role="bold">BIGNUM</emphasis> must be different from the arguments.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_add.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-e227db04493fbd7b275585498a580e65"><title>RETURN VALUES</title>
     <para>
       For all functions, 1 is returned for success, 0 on error. The return
       value should always be checked (e.g., <literal role="code">if (!BN_add(r,a,b)) goto err;</literal>). The
@@ -131,7 +131,7 @@ BN_mod_sub, BN_mod_mul, BN_mod_sqr, BN_exp, BN_mod_exp, BN_gcd</refname>
       </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_add.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-66b5cd5b1ab65ca9e72b9d8d1d784a32"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>bn</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -143,16 +143,6 @@ BN_mod_sub, BN_mod_mul, BN_mod_sqr, BN_exp, BN_mod_exp, BN_gcd</refname>
       </citerefentry>, <citerefentry>
       <refentrytitle>BN_set_bit</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_add.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      BN_add(), BN_sub(), BN_sqr(), BN_div(), BN_mod(), BN_mod_mul(),
-      BN_mod_exp() and BN_gcd() are available in all versions of SSLeay and
-      OpenSSL. The <emphasis role="italic">ctx</emphasis> argument to
-      BN_mul() was added in SSLeay 0.9.1b. BN_exp() appeared in SSLeay
-      0.9.0. BN_nnmod(), BN_mod_add(), BN_mod_sub(), and BN_mod_sqr() were
-      added in OpenSSL 0.9.7.
     </para>
   </refsection>
 </refentry>

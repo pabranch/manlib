@@ -8,10 +8,10 @@
 <refpurpose>convert PKCS#7 structure to S/MIME format.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/pkcs7.h&gt;</synopsis>
-<synopsis format="linespecific">int SMIME_write_PKCS7(BIO *out, PKCS7 *p7, BIO *data, int flags);</synopsis>
+<synopsis>#include &lt;openssl/pkcs7.h&gt;</synopsis>
+<synopsis>int SMIME_write_PKCS7(BIO *out, PKCS7 *p7, BIO *data, int flags);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.SMIME_write_PKCS7.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-38ae8750365080cbc5b41a1c7de764bf"><title>DESCRIPTION</title>
     <para>
       SMIME_write_PKCS7() adds the appropriate MIME headers to a PKCS#7
       structure to produce an S/MIME message.
@@ -22,7 +22,7 @@
       the content must be supplied in the <emphasis role="bold">data</emphasis> argument. <emphasis role="bold">flags</emphasis> is an optional set of flags.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.SMIME_write_PKCS7.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-086e33876b459a36c53a7a40e069c766"><title>NOTES</title>
     <para>
       The following flags can be passed in the <emphasis role="bold">flags</emphasis> parameter.
     </para>
@@ -54,18 +54,18 @@
       is used.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.SMIME_write_PKCS7.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-b3a71668b0775f0128e25c09aa69b5d0"><title>BUGS</title>
     <para>
       SMIME_write_PKCS7() always base64 encodes PKCS#7 structures, there
       should be an option to disable this.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.SMIME_write_PKCS7.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-135938bea78e6dcd2e44b26368b4bdb7"><title>RETURN VALUES</title>
     <para>
       SMIME_write_PKCS7() returns 1 for success or 0 for failure.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.SMIME_write_PKCS7.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-7b94e20a34de5bcd48a7013624d54c7d"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ERR_get_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -77,11 +77,6 @@
       </citerefentry> <citerefentry>
       <refentrytitle>PKCS7_decrypt</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.SMIME_write_PKCS7.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      SMIME_write_PKCS7() was added to OpenSSL 0.9.5
     </para>
   </refsection>
 </refentry>

@@ -10,24 +10,24 @@ OBJ_cmp, OBJ_dup, OBJ_txt2obj, OBJ_obj2txt, OBJ_create, OBJ_cleanup</refname>
 functions</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/objects.h&gt;</synopsis>
-<synopsis format="linespecific">ASN1_OBJECT * OBJ_nid2obj(int n);
+<synopsis>#include &lt;openssl/objects.h&gt;</synopsis>
+<synopsis>ASN1_OBJECT * OBJ_nid2obj(int n);
 const char *  OBJ_nid2ln(int n);
 const char *  OBJ_nid2sn(int n);</synopsis>
-<synopsis format="linespecific">int OBJ_obj2nid(const ASN1_OBJECT *o);
+<synopsis>int OBJ_obj2nid(const ASN1_OBJECT *o);
 int OBJ_ln2nid(const char *ln);
 int OBJ_sn2nid(const char *sn);</synopsis>
-<synopsis format="linespecific">int OBJ_txt2nid(const char *s);</synopsis>
-<synopsis format="linespecific">ASN1_OBJECT * OBJ_txt2obj(const char *s, int no_name);
+<synopsis>int OBJ_txt2nid(const char *s);</synopsis>
+<synopsis>ASN1_OBJECT * OBJ_txt2obj(const char *s, int no_name);
 int OBJ_obj2txt(char *buf, int buf_len, const ASN1_OBJECT *a, int no_name);</synopsis>
-<synopsis format="linespecific">int OBJ_cmp(const ASN1_OBJECT *a,const ASN1_OBJECT *b);
+<synopsis>int OBJ_cmp(const ASN1_OBJECT *a,const ASN1_OBJECT *b);
 ASN1_OBJECT * OBJ_dup(const ASN1_OBJECT *o);</synopsis>
-<synopsis format="linespecific">int OBJ_create(const char *oid,const char *sn,const char *ln);
+<synopsis>int OBJ_create(const char *oid,const char *sn,const char *ln);
 void OBJ_cleanup(void);</synopsis>
-<synopsis format="linespecific">size_t OBJ_length(const ASN1_OBJECT *obj);
+<synopsis>size_t OBJ_length(const ASN1_OBJECT *obj);
 const unsigned char *OBJ_get0_data(const ASN1_OBJECT *obj);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.OBJ_nid2obj.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-6a711d9483364d894ac55a6e9e382d19"><title>DESCRIPTION</title>
     <para>
       The ASN1 object utility functions process ASN1_OBJECT structures
       which are a representation of the ASN1 OBJECT IDENTIFIER (OID) type.
@@ -35,7 +35,7 @@ const unsigned char *OBJ_get0_data(const ASN1_OBJECT *obj);</synopsis>
     <para>
       OBJ_nid2obj(), OBJ_nid2ln() and OBJ_nid2sn() convert the NID
       <emphasis role="bold">n</emphasis> to an ASN1_OBJECT structure, its
-      long name and its short name respectively, or <emphasis role="bold">NULL</emphasis> is an error occurred. 
+      long name and its short name respectively, or <emphasis role="bold">NULL</emphasis> is an error occurred.
     </para>
     <para>
       OBJ_obj2nid(), OBJ_ln2nid(), OBJ_sn2nid() return the corresponding
@@ -73,7 +73,7 @@ const unsigned char *OBJ_get0_data(const ASN1_OBJECT *obj);</synopsis>
     <para>
       OBJ_create() adds a new object to the internal table. <emphasis role="bold">oid</emphasis> is the numerical form of the object,
       <emphasis role="bold">sn</emphasis> the short name and <emphasis role="bold">ln</emphasis> the long name. A new NID is returned for
-      the created object. 
+      the created object.
     </para>
     <para>
       OBJ_cleanup() cleans up OpenSSLs internal object table: this should
@@ -88,7 +88,7 @@ const unsigned char *OBJ_get0_data(const ASN1_OBJECT *obj);</synopsis>
       pointer which <emphasis role="bold">must not</emphasis> be freed.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OBJ_nid2obj.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-c59fcf519aac53744221c18e5b79ef2b"><title>NOTES</title>
     <para>
       Objects in OpenSSL can have a short name, a long name and a numerical
       identifier (NID) associated with them. A standard set of objects is
@@ -127,7 +127,7 @@ const unsigned char *OBJ_get0_data(const ASN1_OBJECT *obj);</synopsis>
       corresponding OBJECT IDENTIFIER by checking OBJ_length() is not zero.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OBJ_nid2obj.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-a26aa63ddd4142ecc67173324dfb399e"><title>EXAMPLES</title>
     <para>
       Create an object for <emphasis role="bold">commonName</emphasis>:
     </para>
@@ -151,7 +151,7 @@ obj = OBJ_nid2obj(new_nid);</screen>
     </para>
     <screen>obj = OBJ_txt2obj("1.2.3.4", 1);</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OBJ_nid2obj.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-a2f3789f3bc6f04d137acb7a6467de8e"><title>BUGS</title>
     <para>
       OBJ_obj2txt() is awkward and messy to use: it doesn't follow the
       convention of other OpenSSL functions where the buffer can be set to
@@ -159,10 +159,10 @@ obj = OBJ_nid2obj(new_nid);</screen>
       that should be written. Instead <emphasis role="bold">buf</emphasis>
       must point to a valid buffer and <emphasis role="bold">buf_len</emphasis> should be set to a positive value. A
       buffer length of 80 should be more than enough to handle any OID
-      encountered in practice. 
+      encountered in practice.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OBJ_nid2obj.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-ce9efa0e2d5b336c7f2e8838ad9ab4e5"><title>RETURN VALUES</title>
     <para>
       OBJ_nid2obj() returns an <emphasis role="bold">ASN1_OBJECT</emphasis>
       structure or <emphasis role="bold">NULL</emphasis> is an error
@@ -176,13 +176,13 @@ obj = OBJ_nid2obj(new_nid);</screen>
       NID or <emphasis role="bold">NID_undef</emphasis> on error.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OBJ_nid2obj.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-23d499de0b7c12e8ccba1f125a99e6c9"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ERR_get_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OBJ_nid2obj.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-71f7621fc690ac143dd684ccce4fa083"><title>HISTORY</title>
     <para>
       TBA
     </para>

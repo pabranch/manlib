@@ -9,15 +9,15 @@ DH_set_method, DH_new_method, DH_OpenSSL</refname>
 <refpurpose>select DH method</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/dh.h&gt;
+<synopsis>#include &lt;openssl/dh.h&gt;
 #include &lt;openssl/engine.h&gt;</synopsis>
-<synopsis format="linespecific">void DH_set_default_method(const DH_METHOD *meth);</synopsis>
-<synopsis format="linespecific">const DH_METHOD *DH_get_default_method(void);</synopsis>
-<synopsis format="linespecific">int DH_set_method(DH *dh, const DH_METHOD *meth);</synopsis>
-<synopsis format="linespecific">DH *DH_new_method(ENGINE *engine);</synopsis>
-<synopsis format="linespecific">const DH_METHOD *DH_OpenSSL(void);</synopsis>
+<synopsis>void DH_set_default_method(const DH_METHOD *meth);</synopsis>
+<synopsis>const DH_METHOD *DH_get_default_method(void);</synopsis>
+<synopsis>int DH_set_method(DH *dh, const DH_METHOD *meth);</synopsis>
+<synopsis>DH *DH_new_method(ENGINE *engine);</synopsis>
+<synopsis>const DH_METHOD *DH_OpenSSL(void);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.DH_set_method.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-bf8cf5eedef5d7e5583fc666483c2b2a"><title>DESCRIPTION</title>
     <para>
       A <emphasis role="bold">DH_METHOD</emphasis> specifies the functions
       that OpenSSL uses for Diffie-Hellman operations. By modifying the
@@ -59,7 +59,7 @@ DH_set_method, DH_new_method, DH_OpenSSL</refname>
       set, the DH_METHOD controlled by DH_set_default_method() is used.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.DH_set_method.pod:THE_DH_METHOD_STRUCTURE"><title>THE DH_METHOD STRUCTURE</title>
+  <refsection xml:id="ID-de4fd0daa6123c5581004cbb0eebfbda"><title>THE DH_METHOD STRUCTURE</title>
     <screen>typedef struct dh_meth_st
 {
     /* name of the implementation */
@@ -88,7 +88,7 @@ char *app_data; /* ?? */
 
 } DH_METHOD;</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.DH_set_method.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-a45cb364ac74d968a89659e9d8a6993e"><title>RETURN VALUES</title>
     <para>
       DH_OpenSSL() and DH_get_default_method() return pointers to the
       respective <emphasis role="bold">DH_METHOD</emphasis>s.
@@ -109,42 +109,12 @@ char *app_data; /* ?? */
       pointer to the newly allocated structure.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.DH_set_method.pod:NOTES"><title>NOTES</title>
-    <para>
-      As of version 0.9.7, DH_METHOD implementations are grouped together
-      with other algorithmic APIs (eg. RSA_METHOD, EVP_CIPHER, etc) in
-      <emphasis role="bold">ENGINE</emphasis> modules. If a default ENGINE
-      is specified for DH functionality using an ENGINE API function, that
-      will override any DH defaults set using the DH API (ie.
-      DH_set_default_method()). For this reason, the ENGINE API is the
-      recommended way to control default implementations for use in DH and
-      other cryptographic algorithms.
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.DH_set_method.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-4e834cd8ff1917e94458520ed3287c0d"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>dh</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>DH_new</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.DH_set_method.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      DH_set_default_method(), DH_get_default_method(), DH_set_method(),
-      DH_new_method() and DH_OpenSSL() were added in OpenSSL 0.9.4.
-    </para>
-    <para>
-      DH_set_default_openssl_method() and DH_get_default_openssl_method()
-      replaced DH_set_default_method() and DH_get_default_method()
-      respectively, and DH_set_method() and DH_new_method() were altered to
-      use <emphasis role="bold">ENGINE</emphasis>s rather than <emphasis role="bold">DH_METHOD</emphasis>s during development of the engine
-      version of OpenSSL 0.9.6. For 0.9.7, the handling of defaults in the
-      ENGINE API was restructured so that this change was reversed, and
-      behaviour of the other functions resembled more closely the previous
-      behaviour. The behaviour of defaults in the ENGINE API now
-      transparently overrides the behaviour of defaults in the DH API
-      without requiring changing these function prototypes.
     </para>
   </refsection>
 </refentry>

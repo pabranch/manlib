@@ -8,15 +8,15 @@
 <refpurpose>manipulate generation of SSL session IDs (server only)</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">typedef int (*GEN_SESSION_CB)(const SSL *ssl, unsigned char *id,
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>typedef int (*GEN_SESSION_CB)(const SSL *ssl, unsigned char *id,
                               unsigned int *id_len);</synopsis>
-<synopsis format="linespecific">int SSL_CTX_set_generate_session_id(SSL_CTX *ctx, GEN_SESSION_CB cb);
+<synopsis>int SSL_CTX_set_generate_session_id(SSL_CTX *ctx, GEN_SESSION_CB cb);
 int SSL_set_generate_session_id(SSL *ssl, GEN_SESSION_CB, cb);
 int SSL_has_matching_session_id(const SSL *ssl, const unsigned char *id,
                                 unsigned int id_len);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_generate_session_id.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-991eb7901be7d59a607b1dd2c2ad82b8"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_set_generate_session_id() sets the callback function for
       generating new session ids for SSL/TLS sessions for <emphasis role="bold">ctx</emphasis> to be <emphasis role="bold">cb</emphasis>.
@@ -31,7 +31,7 @@ int SSL_has_matching_session_id(const SSL *ssl, const unsigned char *id,
       session cache of the parent context of <emphasis role="bold">ssl</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_generate_session_id.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-ff448eae968d16edde1bca66d05f150d"><title>NOTES</title>
     <para>
       When a new session is established between client and server, the
       server generates a session id. The session id is an arbitrary
@@ -95,7 +95,7 @@ int SSL_has_matching_session_id(const SSL *ssl, const unsigned char *id,
       whatever reason and return 1 on success.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_generate_session_id.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-36367f38b4690e2c735c71cdc1f0f903"><title>EXAMPLES</title>
     <para>
       The callback function listed will generate a session id with the
       server id given, and will fill the rest with pseudo random bytes:
@@ -127,7 +127,7 @@ static int generate_session_id(const SSL *ssl, unsigned char *id,
 
 </screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_generate_session_id.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-e228333042f3c814850db93620dde094"><title>RETURN VALUES</title>
     <para>
       SSL_CTX_set_generate_session_id() and SSL_set_generate_session_id()
       always return 1.
@@ -137,18 +137,12 @@ static int generate_session_id(const SSL *ssl, unsigned char *id,
       same id is already in the cache.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_generate_session_id.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-ada9403b5fa37fec41fdb44eb95633f2"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>SSL_get_version</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_generate_session_id.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      SSL_CTX_set_generate_session_id(), SSL_set_generate_session_id() and
-      SSL_has_matching_session_id() have been introduced in OpenSSL 0.9.7.
     </para>
   </refsection>
 </refentry>

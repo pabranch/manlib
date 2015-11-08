@@ -8,12 +8,12 @@
 <refpurpose>derive public key algorithm shared secret.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
-<synopsis format="linespecific">int EVP_PKEY_derive_init(EVP_PKEY_CTX *ctx);
+<synopsis>#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis>int EVP_PKEY_derive_init(EVP_PKEY_CTX *ctx);
 int EVP_PKEY_derive_set_peer(EVP_PKEY_CTX *ctx, EVP_PKEY *peer);
 int EVP_PKEY_derive(EVP_PKEY_CTX *ctx, unsigned char *key, size_t *keylen);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_derive.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-15f81245f388be259384d6489b8acf25"><title>DESCRIPTION</title>
     <para>
       The EVP_PKEY_derive_init() function initializes a public key
       algorithm context using key <emphasis role="bold">pkey</emphasis> for
@@ -32,7 +32,7 @@ int EVP_PKEY_derive(EVP_PKEY_CTX *ctx, unsigned char *key, size_t *keylen);</syn
       <emphasis role="bold">keylen</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_derive.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-1ccf3b9be225c2a01cea9d427b34f8f0"><title>NOTES</title>
     <para>
       After the call to EVP_PKEY_derive_init() algorithm specific control
       operations can be performed to set any appropriate parameters for the
@@ -44,14 +44,14 @@ int EVP_PKEY_derive(EVP_PKEY_CTX *ctx, unsigned char *key, size_t *keylen);</syn
       parameters.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_derive.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-1d25a72017def8bbc3f27cfe9bc784a5"><title>RETURN VALUES</title>
     <para>
       EVP_PKEY_derive_init() and EVP_PKEY_derive() return 1 for success and
       0 or a negative value for failure. In particular a return value of -2
       indicates the operation is not supported by the public key algorithm.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_derive.pod:EXAMPLE"><title>EXAMPLE</title>
+  <refsection xml:id="ID-a755adaac811977f39d3ccc1ee8ab22c"><title>EXAMPLE</title>
     <para>
       Derive shared secret (for example DH or EC keys):
     </para>
@@ -86,7 +86,7 @@ if (EVP_PKEY_derive(ctx, skey, &amp;skeylen) &lt;= 0)
 
 /* Shared secret is skey bytes written to buffer skey */</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_derive.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-cf00aa599e0372fbb4bbfbe8b86b9836"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>EVP_PKEY_CTX_new</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -102,7 +102,7 @@ if (EVP_PKEY_derive(ctx, skey, &amp;skeylen) &lt;= 0)
       <manvolnum>3</manvolnum> </citerefentry>,
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_derive.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-5ad0a4cc5e052a7d984607df722d5881"><title>HISTORY</title>
     <para>
       These functions were first added to OpenSSL 1.0.0.
     </para>

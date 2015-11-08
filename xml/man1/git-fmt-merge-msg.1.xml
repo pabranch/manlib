@@ -14,7 +14,7 @@
   <refpurpose>Produce a merge commit message</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<literallayout><emphasis>git fmt-merge-msg</emphasis> [-m &lt;message&gt;] [--log[=&lt;n&gt;] | --no-log] &lt;$GIT_DIR/FETCH_HEAD
+<literallayout><emphasis>git fmt-merge-msg</emphasis> [-m &lt;message&gt;] [--log[=&lt;n&gt;] | --no-log]
 <emphasis>git fmt-merge-msg</emphasis> [-m &lt;message&gt;] [--log[=&lt;n&gt;] | --no-log] -F &lt;file&gt;</literallayout>
 <simpara></simpara>
 </refsynopsisdiv>
@@ -135,6 +135,13 @@ merge.summary
 </listitem>
 </varlistentry>
 </variablelist>
+</refsect1>
+<refsect1 id="_example">
+<title>EXAMPLE</title>
+<simpara>$ git fetch origin master
+$ git fmt-merge-msg --log &lt;$GIT_DIR/FETCH_HEAD</simpara>
+<simpara>Print a log message describing a merge of the "master" branch from
+the "origin" remote.</simpara>
 </refsect1>
 <refsect1 id="_see_also">
 <title>SEE ALSO</title>

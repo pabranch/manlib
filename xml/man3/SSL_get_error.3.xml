@@ -8,10 +8,10 @@
 <refpurpose>obtain result code for TLS/SSL I/O operation</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">int SSL_get_error(const SSL *ssl, int ret);</synopsis>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_get_error(const SSL *ssl, int ret);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_error.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-78590cd0862bebf8503800cb469739f6"><title>DESCRIPTION</title>
     <para>
       SSL_get_error() returns a result code (suitable for the C "switch"
       statement) for a preceding call to SSL_connect(), SSL_accept(),
@@ -29,14 +29,14 @@
       is attempted, or SSL_get_error() will not work reliably.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_error.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-54f6eff4bd58dd0663aa8e113407babc"><title>RETURN VALUES</title>
     <para>
       The following return values can currently occur:
     </para>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_error.pod:SSL_ERROR_NONE"/>SSL_ERROR_NONE</term>
+          <term>SSL_ERROR_NONE</term>
           <listitem>
             <para>
 	      The TLS/SSL I/O operation completed.  This result code is
@@ -46,7 +46,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_error.pod:SSL_ERROR_ZERO_RETURN"/>SSL_ERROR_ZERO_RETURN</term>
+          <term>SSL_ERROR_ZERO_RETURN</term>
           <listitem>
             <para>
 	      The TLS/SSL connection has been closed.  If the protocol
@@ -60,7 +60,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_error.pod:SSL_ERROR_WANT_READ_SSL_ERROR_WANT_WRITE"/>SSL_ERROR_WANT_READ, SSL_ERROR_WANT_WRITE</term>
+          <term>SSL_ERROR_WANT_READ, SSL_ERROR_WANT_WRITE</term>
           <listitem>
             <para>
 	      The operation did not complete; the same TLS/SSL I/O function
@@ -95,7 +95,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_error.pod:SSL_ERROR_WANT_CONNECT_SSL_ERROR_WANT_ACCEPT"/>SSL_ERROR_WANT_CONNECT, SSL_ERROR_WANT_ACCEPT</term>
+          <term>SSL_ERROR_WANT_CONNECT, SSL_ERROR_WANT_ACCEPT</term>
           <listitem>
             <para>
 	      The operation did not complete; the same TLS/SSL I/O function
@@ -111,7 +111,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_error.pod:SSL_ERROR_WANT_X509_LOOKUP"/>SSL_ERROR_WANT_X509_LOOKUP</term>
+          <term>SSL_ERROR_WANT_X509_LOOKUP</term>
           <listitem>
             <para>
 	      The operation did not complete because an application
@@ -122,7 +122,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_error.pod:SSL_ERROR_SYSCALL"/>SSL_ERROR_SYSCALL</term>
+          <term>SSL_ERROR_SYSCALL</term>
           <listitem>
             <para>
 	      Some I/O error occurred.	The OpenSSL error queue may contain
@@ -135,7 +135,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_error.pod:SSL_ERROR_SSL"/>SSL_ERROR_SSL</term>
+          <term>SSL_ERROR_SSL</term>
           <listitem>
             <para>
 	      A failure in the SSL library occurred, usually a protocol
@@ -147,17 +147,12 @@
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_error.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-63eb8ac70e512fac6e335b98dc459dae"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>err</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_error.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      SSL_get_error() was added in SSLeay 0.8.
     </para>
   </refsection>
 </refentry>

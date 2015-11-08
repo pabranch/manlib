@@ -5,74 +5,84 @@
   </refmeta>
   <refnamediv>
     <refname>rand</refname>
-<refpurpose>generate pseudo-random bytes</refpurpose>
+<refpurpose>pseudo-random number generator</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific"><emphasis role="bold">openssl rand</emphasis>
-[<emphasis role="bold">-out</emphasis> <emphasis role="italic">file</emphasis>]
-[<emphasis role="bold">-rand</emphasis> <emphasis role="italic">file(s)</emphasis>]
-[<emphasis role="bold">-base64</emphasis>]
-[<emphasis role="bold">-hex</emphasis>]
-<emphasis role="italic">num</emphasis></synopsis>
+<synopsis>#include &lt;openssl/rand.h&gt;</synopsis>
+<synopsis>int  RAND_set_rand_engine(ENGINE *engine);</synopsis>
+<synopsis>int  RAND_bytes(unsigned char *buf, int num);
+int  RAND_pseudo_bytes(unsigned char *buf, int num);</synopsis>
+<synopsis>void RAND_seed(const void *buf, int num);
+void RAND_add(const void *buf, int num, int entropy);
+int  RAND_status(void);</synopsis>
+<synopsis>int  RAND_load_file(const char *file, long max_bytes);
+int  RAND_write_file(const char *file);
+const char *RAND_file_name(char *file, size_t num);</synopsis>
+<synopsis>int  RAND_egd(const char *path);</synopsis>
+<synopsis>void RAND_set_rand_method(const RAND_METHOD *meth);
+const RAND_METHOD *RAND_get_rand_method(void);
+RAND_METHOD *RAND_OpenSSL(void);</synopsis>
+<synopsis>void RAND_cleanup(void);</synopsis>
+<synopsis>/* For Win32 only */
+void RAND_screen(void);
+int RAND_event(UINT, WPARAM, LPARAM);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.apps.rand.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-b881dfda9d3447f881317f09e1a106cc"><title>DESCRIPTION</title>
     <para>
-      The <emphasis role="bold">rand</emphasis> command outputs <emphasis role="italic">num</emphasis> pseudo-random bytes after seeding the
-      random number generator once.  As in other <emphasis role="bold">openssl</emphasis> command line tools, PRNG seeding uses
-      the file <emphasis role="italic">$HOME/</emphasis><emphasis role="bold">.rnd</emphasis> or <emphasis role="bold">.rnd</emphasis>
-      in addition to the files given in the <emphasis role="bold">-rand</emphasis> option.  A new <emphasis role="italic">$HOME</emphasis>/<emphasis role="bold">.rnd</emphasis>
-      or <emphasis role="bold">.rnd</emphasis> file will be written back if
-      enough seeding was obtained from these sources.
+      Since the introduction of the ENGINE API, the recommended way of
+      controlling default implementations is by using the ENGINE API
+      functions. The default <emphasis role="bold">RAND_METHOD</emphasis>,
+      as set by RAND_set_rand_method() and returned by
+      RAND_get_rand_method(), is only used if no ENGINE has been set as the
+      default "rand" implementation. Hence, these two functions are no
+      longer the recommended way to control defaults.
     </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.rand.pod:OPTIONS"><title>OPTIONS</title>
     <para>
-      <variablelist>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.rand.pod:-out_file"/><emphasis role="bold">-out</emphasis> <emphasis role="italic">file</emphasis></term>
-          <listitem>
-            <para>
-	      Write to <emphasis role="italic">file</emphasis> instead of
-	      standard output.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.rand.pod:-rand_files"/><emphasis role="bold">-rand</emphasis> <emphasis role="italic">file(s)</emphasis></term>
-          <listitem>
-            <para>
-	      Use specified file or files or EGD socket (see <citerefentry>
-	      <refentrytitle>RAND_egd</refentrytitle>
-	      <manvolnum>3</manvolnum> </citerefentry>) for seeding the
-	      random number generator. Multiple files can be specified
-	      separated by a OS-dependent character. The separator is
-	      <emphasis role="bold">;</emphasis> for MS-Windows, <emphasis role="bold">,</emphasis> for OpenVMS, and <emphasis role="bold">:</emphasis> for all others.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.rand.pod:-base64"/><emphasis role="bold">-base64</emphasis></term>
-          <listitem>
-            <para>
-	      Perform base64 encoding on the output.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.rand.pod:-hex"/><emphasis role="bold">-hex</emphasis></term>
-          <listitem>
-            <para>
-	      Show the output as a hex string.
-            </para>
-          </listitem>
-        </varlistentry>
-      </variablelist>
+      If an alternative <emphasis role="bold">RAND_METHOD</emphasis>
+      implementation is being used (either set directly or as provided by
+      an ENGINE module), then it is entirely responsible for the generation
+      and management of a cryptographically secure PRNG stream. The
+      mechanisms described below relate solely to the software PRNG
+      implementation built in to OpenSSL and used by default.
     </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.rand.pod:SEE_ALSO"><title>SEE ALSO</title>
+    <para>
+      These functions implement a cryptographically secure pseudo-random
+      number generator (PRNG). It is used by other library functions for
+      example to generate random keys, and applications can use it when
+      they need randomness.
+    </para>
+    <para>
+      A cryptographic PRNG must be seeded with unpredictable data such as
+      mouse movements or keys pressed at random by the user. This is
+      described in <citerefentry> <refentrytitle>RAND_add</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>. Its state can be saved in a
+      seed file (see <citerefentry>
+      <refentrytitle>RAND_load_file</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>) to avoid having to go
+      through the seeding process whenever the application is started.
+    </para>
     <para>
       <citerefentry> <refentrytitle>RAND_bytes</refentrytitle>
-      <manvolnum>3</manvolnum> </citerefentry>
+      <manvolnum>3</manvolnum> </citerefentry> describes how to obtain
+      random data from the PRNG.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-7b48f0b97e9c07f9cdcc32c175760a88"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>BN_rand</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>RAND_add</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>RAND_load_file</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>RAND_egd</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>RAND_bytes</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>RAND_set_rand_method</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>RAND_cleanup</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>
     </para>
   </refsection>
 </refentry>

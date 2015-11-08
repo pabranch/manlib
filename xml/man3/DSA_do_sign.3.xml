@@ -8,12 +8,12 @@
 <refpurpose>raw DSA signature operations</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/dsa.h&gt;</synopsis>
-<synopsis format="linespecific">DSA_SIG *DSA_do_sign(const unsigned char *dgst, int dlen, DSA *dsa);</synopsis>
-<synopsis format="linespecific">int DSA_do_verify(const unsigned char *dgst, int dgst_len,
+<synopsis>#include &lt;openssl/dsa.h&gt;</synopsis>
+<synopsis>DSA_SIG *DSA_do_sign(const unsigned char *dgst, int dlen, DSA *dsa);</synopsis>
+<synopsis>int DSA_do_verify(const unsigned char *dgst, int dgst_len,
             DSA_SIG *sig, DSA *dsa);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.DSA_do_sign.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-0ba2d95e9c0a8d17e7731714b1965dd2"><title>DESCRIPTION</title>
     <para>
       DSA_do_sign() computes a digital signature on the <emphasis role="bold">len</emphasis> byte message digest <emphasis role="bold">dgst</emphasis> using the private key <emphasis role="bold">dsa</emphasis> and returns it in a newly allocated
       <emphasis role="bold">DSA_SIG</emphasis> structure.
@@ -29,7 +29,7 @@
       the signer's public key.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.DSA_do_sign.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-e512e3cc835a12b84145eb28bb9cb481"><title>RETURN VALUES</title>
     <para>
       DSA_do_sign() returns the signature, NULL on error.  DSA_do_verify()
       returns 1 for a valid signature, 0 for an incorrect signature and -1
@@ -38,7 +38,7 @@
       </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.DSA_do_sign.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-d0fcc601c49828b2a40f152185c979d8"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>dsa</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -49,11 +49,6 @@
       </citerefentry>, <citerefentry>
       <refentrytitle>DSA_sign</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.DSA_do_sign.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      DSA_do_sign() and DSA_do_verify() were added in OpenSSL 0.9.3.
     </para>
   </refsection>
 </refentry>

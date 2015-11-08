@@ -8,13 +8,13 @@
 <refpurpose>signature verification using a public key algorithm</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
-<synopsis format="linespecific">int EVP_PKEY_verify_init(EVP_PKEY_CTX *ctx);
+<synopsis>#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis>int EVP_PKEY_verify_init(EVP_PKEY_CTX *ctx);
 int EVP_PKEY_verify(EVP_PKEY_CTX *ctx,
                        const unsigned char *sig, size_t siglen,
                        const unsigned char *tbs, size_t tbslen);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_verify.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-05547a68c6b4c49d1e0d4f0efd502f3c"><title>DESCRIPTION</title>
     <para>
       The EVP_PKEY_verify_init() function initializes a public key
       algorithm context using key <emphasis role="bold">pkey</emphasis> for
@@ -29,7 +29,7 @@ int EVP_PKEY_verify(EVP_PKEY_CTX *ctx,
       <emphasis role="bold">tbs</emphasis> and <emphasis role="bold">tbslen</emphasis> parameters.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_verify.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-2676eae7bbf5999a6b73482becc3830c"><title>NOTES</title>
     <para>
       After the call to EVP_PKEY_verify_init() algorithm specific control
       operations can be performed to set any appropriate parameters for the
@@ -41,7 +41,7 @@ int EVP_PKEY_verify(EVP_PKEY_CTX *ctx,
       parameters.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_verify.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-104130d072c11e1b489b4a9890e2d609"><title>RETURN VALUES</title>
     <para>
       EVP_PKEY_verify_init() and EVP_PKEY_verify() return 1 if the
       verification was successful and 0 if it failed. Unlike other
@@ -56,7 +56,7 @@ int EVP_PKEY_verify(EVP_PKEY_CTX *ctx,
       is not supported by the public key algorithm.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_verify.pod:EXAMPLE"><title>EXAMPLE</title>
+  <refsection xml:id="ID-ba2b19bfbbdad0a430e28fa04e019148"><title>EXAMPLE</title>
     <para>
       Verify signature using PKCS#1 and SHA256 digest:
     </para>
@@ -87,7 +87,7 @@ ret = EVP_PKEY_verify(ctx, sig, siglen, md, mdlen);
  * other error.
  */</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_verify.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-1d2583f26bb290e96ceea6f760452298"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>EVP_PKEY_CTX_new</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -103,7 +103,7 @@ ret = EVP_PKEY_verify(ctx, sig, siglen, md, mdlen);
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_verify.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-58135458eb278803cdcfdd3b087d69d3"><title>HISTORY</title>
     <para>
       These functions were first added to OpenSSL 1.0.0.
     </para>

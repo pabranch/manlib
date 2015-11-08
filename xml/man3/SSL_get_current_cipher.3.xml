@@ -9,8 +9,8 @@ SSL_get_cipher_bits, SSL_get_cipher_version</refname>
 <refpurpose>get SSL_CIPHER of a connection</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">SSL_CIPHER *SSL_get_current_cipher(const SSL *ssl);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>SSL_CIPHER *SSL_get_current_cipher(const SSL *ssl);
 #define SSL_get_cipher(s) \
                SSL_CIPHER_get_name(SSL_get_current_cipher(s))
 #define SSL_get_cipher_name(s) \
@@ -20,7 +20,7 @@ SSL_get_cipher_bits, SSL_get_cipher_version</refname>
 #define SSL_get_cipher_version(s) \
                SSL_CIPHER_get_version(SSL_get_current_cipher(s))</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_current_cipher.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-d60c7ed155b963cc6fdba7317285dfd5"><title>DESCRIPTION</title>
     <para>
       SSL_get_current_cipher() returns a pointer to an SSL_CIPHER object
       containing the description of the actually used cipher of a
@@ -33,16 +33,16 @@ SSL_get_cipher_bits, SSL_get_cipher_version</refname>
       is a macro to obtain the number of secret/algorithm bits used and
       SSL_get_cipher_version() returns the protocol name. See
       <citerefentry> <refentrytitle>SSL_CIPHER_get_name</refentrytitle>
-      <manvolnum>3</manvolnum> </citerefentry> for more details. 
+      <manvolnum>3</manvolnum> </citerefentry> for more details.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_current_cipher.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-142721712ea16ad410793648b09f6714"><title>RETURN VALUES</title>
     <para>
       SSL_get_current_cipher() returns the cipher actually used or NULL,
       when no session has been established.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_current_cipher.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-74845037c0074347e7ce7604e8b7b848"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

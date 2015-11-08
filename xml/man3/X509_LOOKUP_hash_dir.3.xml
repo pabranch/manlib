@@ -12,14 +12,14 @@ X509_load_cert_crl_file</refname>
 lookup methods</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/x509_vfy.h&gt;</synopsis>
-<synopsis format="linespecific">X509_LOOKUP_METHOD *X509_LOOKUP_hash_dir(void);
+<synopsis>#include &lt;openssl/x509_vfy.h&gt;</synopsis>
+<synopsis>X509_LOOKUP_METHOD *X509_LOOKUP_hash_dir(void);
 X509_LOOKUP_METHOD *X509_LOOKUP_file(void);</synopsis>
-<synopsis format="linespecific">int X509_load_cert_file(X509_LOOKUP *ctx, const char *file, int type);
+<synopsis>int X509_load_cert_file(X509_LOOKUP *ctx, const char *file, int type);
 int X509_load_crl_file(X509_LOOKUP *ctx, const char *file, int type);
 int X509_load_cert_crl_file(X509_LOOKUP *ctx, const char *file, int type);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_LOOKUP_hash_dir.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-3d72e616dbbca0125388a2087574b9ca"><title>DESCRIPTION</title>
     <para>
       <emphasis role="bold">X509_LOOKUP_hash_dir</emphasis> and <emphasis role="bold">X509_LOOKUP_file</emphasis> are two certificate lookup
       methods to use with <emphasis role="bold">X509_STORE</emphasis>,
@@ -69,7 +69,7 @@ int X509_load_cert_crl_file(X509_LOOKUP *ctx, const char *file, int type);</syno
       This page documents certificate store formats used by these methods
       and caching policy.
     </para>
-    <refsection xml:id="sources.openssl.doc.crypto.X509_LOOKUP_hash_dir.pod:FILE_METHOD"><title>FILE METHOD</title>
+    <refsection xml:id="ID-d82437cedbcdc2e783c48a6b783641fb"><title>FILE METHOD</title>
       <para>
 	<emphasis role="bold">X509_LOOKUP_file</emphasis> method loads
 	entire set of certificates and CRLs into memory immediately when
@@ -85,7 +85,7 @@ int X509_load_cert_crl_file(X509_LOOKUP *ctx, const char *file, int type);</syno
       </para>
       <screen></screen>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.crypto.X509_LOOKUP_hash_dir.pod:HASHED_DIR_METHOD"><title>HASHED DIR METHOD</title>
+    <refsection xml:id="ID-6353468d341322a7b4e95cd200afcc83"><title>HASHED DIR METHOD</title>
       <para>
 	<emphasis role="bold">X509_LOOKUP_hash_dir</emphasis> is more
 	sophisticated method, which loads certificates and CRLs on demand,
@@ -116,7 +116,7 @@ int X509_load_cert_crl_file(X509_LOOKUP *ctx, const char *file, int type);</syno
       <para>
 	When checking for new CRLs once one CRL for given hash value is
 	loaded, hash_dir lookup method checks only for certificates with
-	sequentual number greater than one of already cached CRL. 
+	sequentual number greater than one of already cached CRL.
       </para>
       <para>
 	Note that hash algorithm used for subject hashing is changed in
@@ -131,7 +131,7 @@ int X509_load_cert_crl_file(X509_LOOKUP *ctx, const char *file, int type);</syno
       </para>
     </refsection>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_LOOKUP_hash_dir.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-b0910dc2c45d7faaa8d3861280bebbaa"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>pem</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

@@ -1,0 +1,146 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<info>
+    
+</info>
+<refmeta>
+<refentrytitle>abrt-dump-journal-core</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source"> </refmiscinfo>
+<refmiscinfo class="manual"> </refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>abrt-dump-journal-core</refname>
+    <refpurpose>Extract coredumps from systemd-journal</refpurpose>
+</refnamediv>
+<refsynopsisdiv xml:id="_synopsis">
+<simpara><emphasis>abrt-dump-journal-core</emphasis> [-vsf] [-e]/[-c CURSOR] [-t INT]/[-T] [-d DIR]/[-D]</simpara>
+</refsynopsisdiv>
+<refsect1 xml:id="_description">
+<title>DESCRIPTION</title>
+<simpara>This tool creates problem directory from coredumps extracted from
+systemd-journal.
+The tool can follow systemd-journal and extract coredumps in time of their
+occurrence.</simpara>
+<simpara>The following start from the last seen cursor. If the last seen cursor file
+does not exist, the following start by scanning the entire sytemd-journal or
+from the end if <emphasis>-e</emphasis> option is specified.</simpara>
+<simpara>-c and -e options conflicts because both specifies the first read message.</simpara>
+<simpara>-e is useful only for -f because the following of journal starts by reading
+the entire journal if the last seen possition is not available.</simpara>
+</refsect1>
+<refsect1 xml:id="_files">
+<title>FILES</title>
+<variablelist>
+<varlistentry>
+<term>
+/var/lib/abrt/abrt-dump-journal-core.state
+</term>
+<listitem>
+<simpara>
+   State file where systemd-journal cursor to the last seen message is saved
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-v, --verbose
+</term>
+<listitem>
+<simpara>
+   Be more verbose. Can be given multiple times.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-s
+</term>
+<listitem>
+<simpara>
+   Log to syslog
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-d DIR
+</term>
+<listitem>
+<simpara>
+   Create new problem directory in DIR for every coredump
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-D
+</term>
+<listitem>
+<simpara>
+   Same as -d DumpLocation, DumpLocation is specified in abrt.conf
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-e
+</term>
+<listitem>
+<simpara>
+   Starts following systemd-journal from the end
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-t INT
+</term>
+<listitem>
+<simpara>
+   Throttle problem directory creation to 1 per INT second
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-T
+</term>
+<listitem>
+<simpara>
+   Same as -t INT, INT is specified in plugins/CCpp.conf
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-f
+</term>
+<listitem>
+<simpara>
+   Follow systemd-journal from the last seen position (if available)
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 xml:id="_see_also">
+<title>SEE ALSO</title>
+<simpara>abrt.conf(5), journalctl(1)</simpara>
+</refsect1>
+<refsect1 xml:id="_authors">
+<title>AUTHORS</title>
+<itemizedlist>
+<listitem>
+<simpara>
+ABRT team
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect1>
+</refentry>

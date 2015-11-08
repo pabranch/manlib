@@ -8,16 +8,16 @@
 <refpurpose>get or set certificate verification status information</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/x509.h&gt;
+<synopsis>#include &lt;openssl/x509.h&gt;
 #include &lt;openssl/x509_vfy.h&gt;</synopsis>
-<synopsis format="linespecific">int    X509_STORE_CTX_get_error(X509_STORE_CTX *ctx);
+<synopsis>int    X509_STORE_CTX_get_error(X509_STORE_CTX *ctx);
 void   X509_STORE_CTX_set_error(X509_STORE_CTX *ctx,int s);
 int    X509_STORE_CTX_get_error_depth(X509_STORE_CTX *ctx);
 X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
-<synopsis format="linespecific">STACK_OF(X509) *X509_STORE_CTX_get1_chain(X509_STORE_CTX *ctx);</synopsis>
-<synopsis format="linespecific">const char *X509_verify_cert_error_string(long n);</synopsis>
+<synopsis>STACK_OF(X509) *X509_STORE_CTX_get1_chain(X509_STORE_CTX *ctx);</synopsis>
+<synopsis>const char *X509_verify_cert_error_string(long n);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-b0224fd806138c6dcca4b8e9ac0b0bb7"><title>DESCRIPTION</title>
     <para>
       These functions are typically called after X509_verify_cert() has
       indicated an error or in a verification callback to determine the
@@ -58,7 +58,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
       for verification error <emphasis role="bold">n</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-19d63560cee2ab6522476f6f6648e051"><title>RETURN VALUES</title>
     <para>
       X509_STORE_CTX_get_error() returns <emphasis role="bold">X509_V_OK</emphasis> or an error code.
     </para>
@@ -75,7 +75,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
       for verification error <emphasis role="bold">n</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:ERROR_CODES"><title>ERROR CODES</title>
+  <refsection xml:id="ID-97403a705296a8dfc553ef3bbb5a6a20"><title>ERROR CODES</title>
     <para>
       A list of error codes and messages is shown below.  Some of the error
       codes are defined but currently never returned: these are described
@@ -84,7 +84,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_OK:_ok"/><emphasis role="bold">X509_V_OK: ok</emphasis></term>
+          <term><emphasis role="bold">X509_V_OK: ok</emphasis></term>
           <listitem>
             <para>
 	      the operation was successful.
@@ -92,7 +92,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT:_unable_to_get_issuer_certificate"/><emphasis role="bold">X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT: unable to get issuer certificate</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT: unable to get issuer certificate</emphasis></term>
           <listitem>
             <para>
 	      the issuer certificate could not be found: this occurs if the
@@ -102,7 +102,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_UNABLE_TO_GET_CRL:_unable_to_get_certificate_CRL"/><emphasis role="bold">X509_V_ERR_UNABLE_TO_GET_CRL: unable to get certificate CRL</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_UNABLE_TO_GET_CRL: unable to get certificate CRL</emphasis></term>
           <listitem>
             <para>
 	      the CRL of a certificate could not be found.
@@ -110,7 +110,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_UNABLE_TO_DECRYPT_CERT_SIGNATURE:_unable_to_decrypt_certificates_signature"/><emphasis role="bold">X509_V_ERR_UNABLE_TO_DECRYPT_CERT_SIGNATURE: unable to decrypt certificate's signature</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_UNABLE_TO_DECRYPT_CERT_SIGNATURE: unable to decrypt certificate's signature</emphasis></term>
           <listitem>
             <para>
 	      the certificate signature could not be decrypted. This means
@@ -121,7 +121,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_UNABLE_TO_DECRYPT_CRL_SIGNATURE:_unable_to_decrypt_CRLs_signature"/><emphasis role="bold">X509_V_ERR_UNABLE_TO_DECRYPT_CRL_SIGNATURE: unable to decrypt CRL's signature</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_UNABLE_TO_DECRYPT_CRL_SIGNATURE: unable to decrypt CRL's signature</emphasis></term>
           <listitem>
             <para>
 	      the CRL signature could not be decrypted: this means that the
@@ -131,7 +131,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_UNABLE_TO_DECODE_ISSUER_PUBLIC_KEY:_unable_to_decode_issuer_public_key"/><emphasis role="bold">X509_V_ERR_UNABLE_TO_DECODE_ISSUER_PUBLIC_KEY: unable to decode issuer public key</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_UNABLE_TO_DECODE_ISSUER_PUBLIC_KEY: unable to decode issuer public key</emphasis></term>
           <listitem>
             <para>
 	      the public key in the certificate SubjectPublicKeyInfo could
@@ -140,7 +140,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_CERT_SIGNATURE_FAILURE:_certificate_signature_failure"/><emphasis role="bold">X509_V_ERR_CERT_SIGNATURE_FAILURE: certificate signature failure</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_CERT_SIGNATURE_FAILURE: certificate signature failure</emphasis></term>
           <listitem>
             <para>
 	      the signature of the certificate is invalid.
@@ -148,7 +148,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_CRL_SIGNATURE_FAILURE:_CRL_signature_failure"/><emphasis role="bold">X509_V_ERR_CRL_SIGNATURE_FAILURE: CRL signature failure</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_CRL_SIGNATURE_FAILURE: CRL signature failure</emphasis></term>
           <listitem>
             <para>
 	      the signature of the certificate is invalid.
@@ -156,7 +156,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_CERT_NOT_YET_VALID:_certificate_is_not_yet_valid"/><emphasis role="bold">X509_V_ERR_CERT_NOT_YET_VALID: certificate is not yet valid</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_CERT_NOT_YET_VALID: certificate is not yet valid</emphasis></term>
           <listitem>
             <para>
 	      the certificate is not yet valid: the notBefore date is after
@@ -165,7 +165,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_CERT_HAS_EXPIRED:_certificate_has_expired"/><emphasis role="bold">X509_V_ERR_CERT_HAS_EXPIRED: certificate has expired</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_CERT_HAS_EXPIRED: certificate has expired</emphasis></term>
           <listitem>
             <para>
 	      the certificate has expired: that is the notAfter date is
@@ -174,7 +174,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_CRL_NOT_YET_VALID:_CRL_is_not_yet_valid"/><emphasis role="bold">X509_V_ERR_CRL_NOT_YET_VALID: CRL is not yet valid</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_CRL_NOT_YET_VALID: CRL is not yet valid</emphasis></term>
           <listitem>
             <para>
 	      the CRL is not yet valid.
@@ -182,7 +182,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_CRL_HAS_EXPIRED:_CRL_has_expired"/><emphasis role="bold">X509_V_ERR_CRL_HAS_EXPIRED: CRL has expired</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_CRL_HAS_EXPIRED: CRL has expired</emphasis></term>
           <listitem>
             <para>
 	      the CRL has expired.
@@ -190,7 +190,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_ERROR_IN_CERT_NOT_BEFORE_FIELD:_format_error_in_certificates_notBefore_field"/><emphasis role="bold">X509_V_ERR_ERROR_IN_CERT_NOT_BEFORE_FIELD: format error in certificate's notBefore field</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_ERROR_IN_CERT_NOT_BEFORE_FIELD: format error in certificate's notBefore field</emphasis></term>
           <listitem>
             <para>
 	      the certificate notBefore field contains an invalid time.
@@ -198,7 +198,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_ERROR_IN_CERT_NOT_AFTER_FIELD:_format_error_in_certificates_notAfter_field"/><emphasis role="bold">X509_V_ERR_ERROR_IN_CERT_NOT_AFTER_FIELD: format error in certificate's notAfter field</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_ERROR_IN_CERT_NOT_AFTER_FIELD: format error in certificate's notAfter field</emphasis></term>
           <listitem>
             <para>
 	      the certificate notAfter field contains an invalid time.
@@ -206,7 +206,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_ERROR_IN_CRL_LAST_UPDATE_FIELD:_format_error_in_CRLs_lastUpdate_field"/><emphasis role="bold">X509_V_ERR_ERROR_IN_CRL_LAST_UPDATE_FIELD: format error in CRL's lastUpdate field</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_ERROR_IN_CRL_LAST_UPDATE_FIELD: format error in CRL's lastUpdate field</emphasis></term>
           <listitem>
             <para>
 	      the CRL lastUpdate field contains an invalid time.
@@ -214,7 +214,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_ERROR_IN_CRL_NEXT_UPDATE_FIELD:_format_error_in_CRLs_nextUpdate_field"/><emphasis role="bold">X509_V_ERR_ERROR_IN_CRL_NEXT_UPDATE_FIELD: format error in CRL's nextUpdate field</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_ERROR_IN_CRL_NEXT_UPDATE_FIELD: format error in CRL's nextUpdate field</emphasis></term>
           <listitem>
             <para>
 	      the CRL nextUpdate field contains an invalid time.
@@ -222,7 +222,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_OUT_OF_MEM:_out_of_memory"/><emphasis role="bold">X509_V_ERR_OUT_OF_MEM: out of memory</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_OUT_OF_MEM: out of memory</emphasis></term>
           <listitem>
             <para>
 	      an error occurred trying to allocate memory. This should
@@ -231,7 +231,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT:_self_signed_certificate"/><emphasis role="bold">X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT: self signed certificate</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT: self signed certificate</emphasis></term>
           <listitem>
             <para>
 	      the passed certificate is self signed and the same
@@ -241,7 +241,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_SELF_SIGNED_CERT_IN_CHAIN:_self_signed_certificate_in_certificate_chain"/><emphasis role="bold">X509_V_ERR_SELF_SIGNED_CERT_IN_CHAIN: self signed certificate in certificate chain</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_SELF_SIGNED_CERT_IN_CHAIN: self signed certificate in certificate chain</emphasis></term>
           <listitem>
             <para>
 	      the certificate chain could be built up using the untrusted
@@ -250,7 +250,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY:_unable_to_get_local_issuer_certificate"/><emphasis role="bold">X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY: unable to get local issuer certificate</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY: unable to get local issuer certificate</emphasis></term>
           <listitem>
             <para>
 	      the issuer certificate of a locally looked up certificate
@@ -260,7 +260,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_UNABLE_TO_VERIFY_LEAF_SIGNATURE:_unable_to_verify_the_first_certificate"/><emphasis role="bold">X509_V_ERR_UNABLE_TO_VERIFY_LEAF_SIGNATURE: unable to verify the first certificate</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_UNABLE_TO_VERIFY_LEAF_SIGNATURE: unable to verify the first certificate</emphasis></term>
           <listitem>
             <para>
 	      no signatures could be verified because the chain contains
@@ -269,7 +269,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_CERT_CHAIN_TOO_LONG:_certificate_chain_too_long"/><emphasis role="bold">X509_V_ERR_CERT_CHAIN_TOO_LONG: certificate chain too long</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_CERT_CHAIN_TOO_LONG: certificate chain too long</emphasis></term>
           <listitem>
             <para>
 	      the certificate chain length is greater than the supplied
@@ -278,7 +278,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_CERT_REVOKED:_certificate_revoked"/><emphasis role="bold">X509_V_ERR_CERT_REVOKED: certificate revoked</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_CERT_REVOKED: certificate revoked</emphasis></term>
           <listitem>
             <para>
 	      the certificate has been revoked.
@@ -286,7 +286,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_INVALID_CA:_invalid_CA_certificate"/><emphasis role="bold">X509_V_ERR_INVALID_CA: invalid CA certificate</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_INVALID_CA: invalid CA certificate</emphasis></term>
           <listitem>
             <para>
 	      a CA certificate is invalid. Either it is not a CA or its
@@ -295,7 +295,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_PATH_LENGTH_EXCEEDED:_path_length_constraint_exceeded"/><emphasis role="bold">X509_V_ERR_PATH_LENGTH_EXCEEDED: path length constraint exceeded</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_PATH_LENGTH_EXCEEDED: path length constraint exceeded</emphasis></term>
           <listitem>
             <para>
 	      the basicConstraints pathlength parameter has been exceeded.
@@ -303,7 +303,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_INVALID_PURPOSE:_unsupported_certificate_purpose"/><emphasis role="bold">X509_V_ERR_INVALID_PURPOSE: unsupported certificate purpose</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_INVALID_PURPOSE: unsupported certificate purpose</emphasis></term>
           <listitem>
             <para>
 	      the supplied certificate cannot be used for the specified
@@ -312,7 +312,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_CERT_UNTRUSTED:_certificate_not_trusted"/><emphasis role="bold">X509_V_ERR_CERT_UNTRUSTED: certificate not trusted</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_CERT_UNTRUSTED: certificate not trusted</emphasis></term>
           <listitem>
             <para>
 	      the root CA is not marked as trusted for the specified
@@ -321,7 +321,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_CERT_REJECTED:_certificate_rejected"/><emphasis role="bold">X509_V_ERR_CERT_REJECTED: certificate rejected</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_CERT_REJECTED: certificate rejected</emphasis></term>
           <listitem>
             <para>
 	      the root CA is marked to reject the specified purpose.
@@ -329,7 +329,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_SUBJECT_ISSUER_MISMATCH:_subject_issuer_mismatch"/><emphasis role="bold">X509_V_ERR_SUBJECT_ISSUER_MISMATCH: subject issuer mismatch</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_SUBJECT_ISSUER_MISMATCH: subject issuer mismatch</emphasis></term>
           <listitem>
             <para>
 	      the current candidate issuer certificate was rejected because
@@ -340,7 +340,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_AKID_SKID_MISMATCH:_authority_and_subject_key_identifier_mismatch"/><emphasis role="bold">X509_V_ERR_AKID_SKID_MISMATCH: authority and subject key identifier mismatch</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_AKID_SKID_MISMATCH: authority and subject key identifier mismatch</emphasis></term>
           <listitem>
             <para>
 	      the current candidate issuer certificate was rejected because
@@ -352,7 +352,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_AKID_ISSUER_SERIAL_MISMATCH:_authority_and_issuer_serial_number_mismatch"/><emphasis role="bold">X509_V_ERR_AKID_ISSUER_SERIAL_MISMATCH: authority and issuer serial number mismatch</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_AKID_ISSUER_SERIAL_MISMATCH: authority and issuer serial number mismatch</emphasis></term>
           <listitem>
             <para>
 	      the current candidate issuer certificate was rejected because
@@ -364,7 +364,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_KEYUSAGE_NO_CERTSIGN:key_usage_does_not_include_certificate_signing"/><emphasis role="bold">X509_V_ERR_KEYUSAGE_NO_CERTSIGN:key usage does not include certificate signing</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_KEYUSAGE_NO_CERTSIGN:key usage does not include certificate signing</emphasis></term>
           <listitem>
             <para>
 	      the current candidate issuer certificate was rejected because
@@ -375,7 +375,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_INVALID_EXTENSION:_invalid_or_inconsistent_certificate_extension"/><emphasis role="bold">X509_V_ERR_INVALID_EXTENSION: invalid or inconsistent certificate extension</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_INVALID_EXTENSION: invalid or inconsistent certificate extension</emphasis></term>
           <listitem>
             <para>
 	      A certificate extension had an invalid value (for example an
@@ -386,7 +386,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_INVALID_POLICY_EXTENSION:_invalid_or_inconsistent_certificate_policy_extension"/><emphasis role="bold">X509_V_ERR_INVALID_POLICY_EXTENSION: invalid or inconsistent certificate policy extension</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_INVALID_POLICY_EXTENSION: invalid or inconsistent certificate policy extension</emphasis></term>
           <listitem>
             <para>
 	      A certificate policies extension had an invalid value (for
@@ -397,7 +397,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_NO_EXPLICIT_POLICY:_no_explicit_policy"/><emphasis role="bold">X509_V_ERR_NO_EXPLICIT_POLICY: no explicit policy</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_NO_EXPLICIT_POLICY: no explicit policy</emphasis></term>
           <listitem>
             <para>
 	      The verification flags were set to require and explicit
@@ -406,7 +406,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_DIFFERENT_CRL_SCOPE:_Different_CRL_scope"/><emphasis role="bold">X509_V_ERR_DIFFERENT_CRL_SCOPE: Different CRL scope</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_DIFFERENT_CRL_SCOPE: Different CRL scope</emphasis></term>
           <listitem>
             <para>
 	      The only CRLs that could be found did not match the scope of
@@ -415,7 +415,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_UNSUPPORTED_EXTENSION_FEATURE:_Unsupported_extension_feature"/><emphasis role="bold">X509_V_ERR_UNSUPPORTED_EXTENSION_FEATURE: Unsupported extension feature</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_UNSUPPORTED_EXTENSION_FEATURE: Unsupported extension feature</emphasis></term>
           <listitem>
             <para>
 	      Some feature of a certificate extension is not supported.
@@ -424,7 +424,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_PERMITTED_VIOLATION:_permitted_subtree_violation"/><emphasis role="bold">X509_V_ERR_PERMITTED_VIOLATION: permitted subtree violation</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_PERMITTED_VIOLATION: permitted subtree violation</emphasis></term>
           <listitem>
             <para>
 	      A name constraint violation occurred in the permitted
@@ -433,7 +433,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_EXCLUDED_VIOLATION:_excluded_subtree_violation"/><emphasis role="bold">X509_V_ERR_EXCLUDED_VIOLATION: excluded subtree violation</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_EXCLUDED_VIOLATION: excluded subtree violation</emphasis></term>
           <listitem>
             <para>
 	      A name constraint violation occurred in the excluded
@@ -442,7 +442,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_SUBTREE_MINMAX:_name_constraints_minimum_and_maximum_not_supported"/><emphasis role="bold">X509_V_ERR_SUBTREE_MINMAX: name constraints minimum and maximum not supported</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_SUBTREE_MINMAX: name constraints minimum and maximum not supported</emphasis></term>
           <listitem>
             <para>
 	      A certificate name constraints extension included a minimum
@@ -451,7 +451,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_UNSUPPORTED_CONSTRAINT_TYPE:_unsupported_name_constraint_type"/><emphasis role="bold">X509_V_ERR_UNSUPPORTED_CONSTRAINT_TYPE: unsupported name constraint type</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_UNSUPPORTED_CONSTRAINT_TYPE: unsupported name constraint type</emphasis></term>
           <listitem>
             <para>
 	      An unsupported name constraint type was encountered. OpenSSL
@@ -461,7 +461,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_UNSUPPORTED_CONSTRAINT_SYNTAX:_unsupported_or_invalid_name_constraint_syntax"/><emphasis role="bold">X509_V_ERR_UNSUPPORTED_CONSTRAINT_SYNTAX: unsupported or invalid name constraint syntax</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_UNSUPPORTED_CONSTRAINT_SYNTAX: unsupported or invalid name constraint syntax</emphasis></term>
           <listitem>
             <para>
 	      The format of the name constraint is not recognised: for
@@ -472,7 +472,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_CRL_PATH_VALIDATION_ERROR:_CRL_path_validation_error"/><emphasis role="bold">X509_V_ERR_CRL_PATH_VALIDATION_ERROR: CRL path validation error</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_CRL_PATH_VALIDATION_ERROR: CRL path validation error</emphasis></term>
           <listitem>
             <para>
 	      An error occurred when attempting to verify the CRL path.
@@ -482,7 +482,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:X509_V_ERR_APPLICATION_VERIFICATION:_application_verification_failure"/><emphasis role="bold">X509_V_ERR_APPLICATION_VERIFICATION: application verification failure</emphasis></term>
+          <term><emphasis role="bold">X509_V_ERR_APPLICATION_VERIFICATION: application verification failure</emphasis></term>
           <listitem>
             <para>
 	      an application specific error. This will never be returned
@@ -493,7 +493,7 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-cb32c05b4bbfd107de48e26d5a690f23"><title>NOTES</title>
     <para>
       The above functions should be used instead of directly referencing
       the fields in the <emphasis role="bold">X509_VERIFY_CTX</emphasis>
@@ -512,13 +512,13 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
       never happen unless an invalid code is passed.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-477a9fa523edd523db0554a27295ed01"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>X509_verify_cert</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_error.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-4a1c8f4bc113dd9942292ea8a19f73d4"><title>HISTORY</title>
     <para>
       TBA
     </para>

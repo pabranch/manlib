@@ -8,12 +8,12 @@
 <refpurpose>allocate and free BN_CTX structures</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/bn.h&gt;</synopsis>
-<synopsis format="linespecific">BN_CTX *BN_CTX_new(void);</synopsis>
-<synopsis format="linespecific">BN_CTX *BN_CTX_secure_new(void);</synopsis>
-<synopsis format="linespecific">void BN_CTX_free(BN_CTX *c);</synopsis>
+<synopsis>#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis>BN_CTX *BN_CTX_new(void);</synopsis>
+<synopsis>BN_CTX *BN_CTX_secure_new(void);</synopsis>
+<synopsis>void BN_CTX_free(BN_CTX *c);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_CTX_new.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-a451809ae187dcb06d5c724b07e6b26a"><title>DESCRIPTION</title>
     <para>
       A <emphasis role="bold">BN_CTX</emphasis> is a structure that holds
       <emphasis role="bold">BIGNUM</emphasis> temporary variables used by
@@ -38,7 +38,7 @@
       <emphasis role="bold">c</emphasis> is NULL, nothing is done.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_CTX_new.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-e0f33e3e925a9335fa4877139a1a5f46"><title>RETURN VALUES</title>
     <para>
       BN_CTX_new() and BN_CTX_secure_new() return a pointer to the
       <emphasis role="bold">BN_CTX</emphasis>. If the allocation fails,
@@ -51,7 +51,7 @@
       BN_CTX_free() has no return values.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_CTX_new.pod:REMOVED_FUNCTIONALITY"><title>REMOVED FUNCTIONALITY</title>
+  <refsection xml:id="ID-952cf7deac055f9715e03c60cf4b860d"><title>REMOVED FUNCTIONALITY</title>
     <screen>void BN_CTX_init(BN_CTX *c);</screen>
     <para>
       BN_CTX_init() is no longer available as of OpenSSL 1.1.0.
@@ -64,7 +64,7 @@ if(!ctx) /* Handle error */
 ...
 BN_CTX_free(ctx);</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_CTX_new.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-c9787d8b08267a5ad70de01d5011d703"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>bn</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -75,11 +75,9 @@ BN_CTX_free(ctx);</screen>
       </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_CTX_new.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-2d0a50602ea8694cdb5373e873316a0f"><title>HISTORY</title>
     <para>
-      BN_CTX_new() and BN_CTX_free() are available in all versions on
-      SSLeay and OpenSSL. BN_CTX_init() was added in SSLeay 0.9.1b and
-      removed in OpenSSL 1.1.0.
+      BN_CTX_init() was removed in OpenSSL 1.1.0.
     </para>
   </refsection>
 </refentry>

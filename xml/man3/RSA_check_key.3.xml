@@ -8,11 +8,11 @@
 <refpurpose>validate private RSA keys</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/rsa.h&gt;</synopsis>
-<synopsis format="linespecific">int RSA_check_key_ex(RSA *rsa, BN_GENCB *cb);</synopsis>
-<synopsis format="linespecific">int RSA_check_key(RSA *rsa);</synopsis>
+<synopsis>#include &lt;openssl/rsa.h&gt;</synopsis>
+<synopsis>int RSA_check_key_ex(RSA *rsa, BN_GENCB *cb);</synopsis>
+<synopsis>int RSA_check_key(RSA *rsa);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_check_key.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-af5842da141cfeb1e8b26af3e66ee59c"><title>DESCRIPTION</title>
     <para>
       RSA_check_key_ex() function validates RSA keys. It checks that
       <emphasis role="bold">p</emphasis> and <emphasis role="bold">q</emphasis> are in fact prime, and that <emphasis role="bold">n = p*q</emphasis>.
@@ -38,7 +38,7 @@
       <emphasis role="bold">cb</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_check_key.pod:RETURN_VALUE"><title>RETURN VALUE</title>
+  <refsection xml:id="ID-1231bf22cfa64c017d54571063a3f67c"><title>RETURN VALUE</title>
     <para>
       RSA_check_key_ex() and RSA_check_key() return 1 if <emphasis role="bold">rsa</emphasis> is a valid RSA key, and 0 otherwise. They
       return -1 if an error occurs while checking the key.
@@ -50,7 +50,7 @@
       </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_check_key.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-bcba8721d788584e56bd85e925272996"><title>NOTES</title>
     <para>
       Unlike most other RSA functions, this function does <emphasis role="bold">not</emphasis> work transparently with any underlying
       ENGINE implementation because it uses the key data in the RSA
@@ -62,7 +62,7 @@
       be assumed in the general case.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_check_key.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-7e3975112c0a006a0c4688ec40308ae7"><title>BUGS</title>
     <para>
       A method of verifying the RSA key using opaque RSA API functions
       might need to be considered. Right now RSA_check_key() simply uses
@@ -74,7 +74,7 @@
       verifiers.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_check_key.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-cf8843a78fcf10793cb71636432110d8"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>BN_is_prime_ex</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -84,10 +84,9 @@
       </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_check_key.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-fe76800cf3fa0825a26fb931b6d8797d"><title>HISTORY</title>
     <para>
-      RSA_check_key() appeared in OpenSSL 0.9.4. RSA_check_key_ex()
-      appeared after OpenSSL 1.0.2.
+      RSA_check_key_ex() appeared after OpenSSL 1.0.2.
     </para>
   </refsection>
 </refentry>

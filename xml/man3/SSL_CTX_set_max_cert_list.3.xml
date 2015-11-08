@@ -8,13 +8,13 @@
 <refpurpose>manipulate allowed size for the peer's certificate chain</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">long SSL_CTX_set_max_cert_list(SSL_CTX *ctx, long size);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>long SSL_CTX_set_max_cert_list(SSL_CTX *ctx, long size);
 long SSL_CTX_get_max_cert_list(SSL_CTX *ctx);</synopsis>
-<synopsis format="linespecific">long SSL_set_max_cert_list(SSL *ssl, long size);
+<synopsis>long SSL_set_max_cert_list(SSL *ssl, long size);
 long SSL_get_max_cert_list(SSL *ctx);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_max_cert_list.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-177541bf94e655c16b07470af5f25c2c"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_set_max_cert_list() sets the maximum size allowed for the
       peer's certificate chain for all SSL objects created from <emphasis role="bold">ctx</emphasis> to be &lt;size&gt; bytes. The SSL objects
@@ -37,7 +37,7 @@ long SSL_get_max_cert_list(SSL *ctx);</synopsis>
       <emphasis role="bold">ssl</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_max_cert_list.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-732b92017d6aedfb51c6ad6310a36b73"><title>NOTES</title>
     <para>
       During the handshake process, the peer may send a certificate chain.
       The TLS/SSL standard does not give any maximum size of the
@@ -71,7 +71,7 @@ long SSL_get_max_cert_list(SSL *ctx);</synopsis>
       handshake will fail with a SSL_R_EXCESSIVE_MESSAGE_SIZE error.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_max_cert_list.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-9556315c5c8cad6753602719a3489156"><title>RETURN VALUES</title>
     <para>
       SSL_CTX_set_max_cert_list() and SSL_set_max_cert_list() return the
       previously set value.
@@ -81,7 +81,7 @@ long SSL_get_max_cert_list(SSL *ctx);</synopsis>
       currently set value.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_max_cert_list.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-45fb5a32f4932fb3f7d6163ac32e5997"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -89,11 +89,6 @@ long SSL_get_max_cert_list(SSL *ctx);</synopsis>
       </citerefentry>, <citerefentry>
       <refentrytitle>SSL_CTX_set_verify</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_max_cert_list.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      SSL*_set/get_max_cert_list() have been introduced in OpenSSL 0.9.7.
     </para>
   </refsection>
 </refentry>

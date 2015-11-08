@@ -15,8 +15,8 @@ bn_print, bn_dump, bn_set_max, bn_set_high, bn_set_low</refname>
 library internal functions</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/bn.h&gt;</synopsis>
-<synopsis format="linespecific">BN_ULONG bn_mul_words(BN_ULONG *rp, BN_ULONG *ap, int num, BN_ULONG w);
+<synopsis>#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis>BN_ULONG bn_mul_words(BN_ULONG *rp, BN_ULONG *ap, int num, BN_ULONG w);
 BN_ULONG bn_mul_add_words(BN_ULONG *rp, BN_ULONG *ap, int num,
   BN_ULONG w);
 void     bn_sqr_words(BN_ULONG *rp, BN_ULONG *ap, int num);
@@ -25,12 +25,12 @@ BN_ULONG bn_add_words(BN_ULONG *rp, BN_ULONG *ap, BN_ULONG *bp,
   int num);
 BN_ULONG bn_sub_words(BN_ULONG *rp, BN_ULONG *ap, BN_ULONG *bp,
   int num);</synopsis>
-<synopsis format="linespecific">void bn_mul_comba4(BN_ULONG *r, BN_ULONG *a, BN_ULONG *b);
+<synopsis>void bn_mul_comba4(BN_ULONG *r, BN_ULONG *a, BN_ULONG *b);
 void bn_mul_comba8(BN_ULONG *r, BN_ULONG *a, BN_ULONG *b);
 void bn_sqr_comba4(BN_ULONG *r, BN_ULONG *a);
 void bn_sqr_comba8(BN_ULONG *r, BN_ULONG *a);</synopsis>
-<synopsis format="linespecific">int bn_cmp_words(BN_ULONG *a, BN_ULONG *b, int n);</synopsis>
-<synopsis format="linespecific">void bn_mul_normal(BN_ULONG *r, BN_ULONG *a, int na, BN_ULONG *b,
+<synopsis>int bn_cmp_words(BN_ULONG *a, BN_ULONG *b, int n);</synopsis>
+<synopsis>void bn_mul_normal(BN_ULONG *r, BN_ULONG *a, int na, BN_ULONG *b,
   int nb);
 void bn_mul_low_normal(BN_ULONG *r, BN_ULONG *a, BN_ULONG *b, int n);
 void bn_mul_recursive(BN_ULONG *r, BN_ULONG *a, BN_ULONG *b, int n2,
@@ -41,23 +41,23 @@ void bn_mul_low_recursive(BN_ULONG *r, BN_ULONG *a, BN_ULONG *b,
   int n2, BN_ULONG *tmp);
 void bn_mul_high(BN_ULONG *r, BN_ULONG *a, BN_ULONG *b, BN_ULONG *l,
   int n2, BN_ULONG *tmp);</synopsis>
-<synopsis format="linespecific">void bn_sqr_normal(BN_ULONG *r, BN_ULONG *a, int n, BN_ULONG *tmp);
+<synopsis>void bn_sqr_normal(BN_ULONG *r, BN_ULONG *a, int n, BN_ULONG *tmp);
 void bn_sqr_recursive(BN_ULONG *r, BN_ULONG *a, int n2, BN_ULONG *tmp);</synopsis>
-<synopsis format="linespecific">void mul(BN_ULONG r, BN_ULONG a, BN_ULONG w, BN_ULONG c);
+<synopsis>void mul(BN_ULONG r, BN_ULONG a, BN_ULONG w, BN_ULONG c);
 void mul_add(BN_ULONG r, BN_ULONG a, BN_ULONG w, BN_ULONG c);
 void sqr(BN_ULONG r0, BN_ULONG r1, BN_ULONG a);</synopsis>
-<synopsis format="linespecific">BIGNUM *bn_expand(BIGNUM *a, int bits);
+<synopsis>BIGNUM *bn_expand(BIGNUM *a, int bits);
 BIGNUM *bn_wexpand(BIGNUM *a, int n);
 BIGNUM *bn_expand2(BIGNUM *a, int n);
 void bn_fix_top(BIGNUM *a);</synopsis>
-<synopsis format="linespecific">void bn_check_top(BIGNUM *a);
+<synopsis>void bn_check_top(BIGNUM *a);
 void bn_print(BIGNUM *a);
 void bn_dump(BN_ULONG *d, int n);
 void bn_set_max(BIGNUM *a);
 void bn_set_high(BIGNUM *r, BIGNUM *a, int n);
 void bn_set_low(BIGNUM *r, BIGNUM *a, int n);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.bn_internal.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-1f77c2bb0259e2a7baaf044ccbc86b4f"><title>DESCRIPTION</title>
     <para>
       This page documents the internal functions used by the OpenSSL
       <emphasis role="bold">BIGNUM</emphasis> implementation. They are
@@ -65,7 +65,7 @@ void bn_set_low(BIGNUM *r, BIGNUM *a, int n);</synopsis>
       They are <emphasis role="italic">not</emphasis> to be used by
       applications.
     </para>
-    <refsection xml:id="sources.openssl.doc.crypto.bn_internal.pod:The_BIGNUM_structure"><title>The BIGNUM structure</title>
+    <refsection xml:id="ID-01b29c4d16bc14b45406e6ab42739a05"><title>The BIGNUM structure</title>
       <screen>typedef struct bignum_st BIGNUM;
 
 struct bignum_st
@@ -96,7 +96,7 @@ struct bignum_st
 	which are defined in <literal role="code">openssl/bn.h</literal>. The flags begin
 	with <emphasis role="bold">BN_FLG_</emphasis>. The macros
 	BN_set_flags(b,n) and BN_get_flags(b,n) exist to enable or fetch
-	flag(s) <emphasis role="bold">n</emphasis> from <emphasis role="bold">BIGNUM</emphasis> structure <emphasis role="bold">b</emphasis>. 
+	flag(s) <emphasis role="bold">n</emphasis> from <emphasis role="bold">BIGNUM</emphasis> structure <emphasis role="bold">b</emphasis>.
       </para>
       <para>
 	Various routines in this library require the use of temporary
@@ -108,7 +108,7 @@ struct bignum_st
 	<manvolnum>3</manvolnum> </citerefentry>.
       </para>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.crypto.bn_internal.pod:Low-level_arithmetic_operations"><title>Low-level arithmetic operations</title>
+    <refsection xml:id="ID-9508f3900a8eadc3bb5955aa050d3e3e"><title>Low-level arithmetic operations</title>
       <para>
 	These functions are implemented in C and for several platforms in
 	assembly language:
@@ -263,7 +263,7 @@ struct bignum_st
 	<emphasis role="bold">r0</emphasis> and the high word in <emphasis role="bold">r1</emphasis>.
       </para>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.crypto.bn_internal.pod:Size_changes"><title>Size changes</title>
+    <refsection xml:id="ID-7c9435a446bb6618cdf5262723ff0f9d"><title>Size changes</title>
       <para>
 	bn_expand() ensures that <emphasis role="bold">b</emphasis> has
 	enough space for a <emphasis role="bold">bits</emphasis> bit
@@ -278,11 +278,11 @@ struct bignum_st
 	shrunk.
       </para>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.crypto.bn_internal.pod:Debugging"><title>Debugging</title>
+    <refsection xml:id="ID-f9a435d91bb4d424ba2f61b4549f7846"><title>Debugging</title>
       <para>
-	bn_check_top() verifies that <literal role="code">((a)-&amp;gt;top &amp;gt;= 0 &amp;amp;&amp;amp; (a)-&amp;gt;top
-	&amp;lt;= (a)-&amp;gt;dmax)</literal>.  A violation will cause the
-	program to abort.
+	bn_check_top() verifies that <literal role="code">((a)-&amp;gt;top &amp;gt;= 0 &amp;&amp; (a)-&amp;gt;top &amp;lt;=
+	(a)-&amp;gt;dmax)</literal>.  A violation will cause the program to
+	abort.
       </para>
       <para>
 	bn_print() prints <emphasis role="bold">a</emphasis> to stderr.
@@ -303,7 +303,7 @@ struct bignum_st
       </para>
     </refsection>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.bn_internal.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-6010330346c0126ca4867e7ced24675a"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>bn</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>

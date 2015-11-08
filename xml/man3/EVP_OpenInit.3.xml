@@ -8,15 +8,15 @@
 <refpurpose>EVP envelope decryption</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
-<synopsis format="linespecific">int EVP_OpenInit(EVP_CIPHER_CTX *ctx,EVP_CIPHER *type,unsigned char *ek,
+<synopsis>#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis>int EVP_OpenInit(EVP_CIPHER_CTX *ctx,EVP_CIPHER *type,unsigned char *ek,
                int ekl,unsigned char *iv,EVP_PKEY *priv);
 int EVP_OpenUpdate(EVP_CIPHER_CTX *ctx, unsigned char *out,
         int *outl, unsigned char *in, int inl);
 int EVP_OpenFinal(EVP_CIPHER_CTX *ctx, unsigned char *out,
         int *outl);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_OpenInit.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-cd159513612d6df75a8c238cd33d9c03"><title>DESCRIPTION</title>
     <para>
       The EVP envelope routines are a high level interface to envelope
       decryption. They decrypt a public key encrypted symmetric key and
@@ -34,10 +34,10 @@ int EVP_OpenFinal(EVP_CIPHER_CTX *ctx, unsigned char *out,
       as the EVP_DecryptUpdate() and EVP_DecryptFinal() routines, as
       documented on the <citerefentry>
       <refentrytitle>EVP_EncryptInit</refentrytitle>
-      <manvolnum>3</manvolnum> </citerefentry> manual page. 
+      <manvolnum>3</manvolnum> </citerefentry> manual page.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_OpenInit.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-5af86bdac2199ea280d7785cc419ff4f"><title>NOTES</title>
     <para>
       It is possible to call EVP_OpenInit() twice in the same way as
       EVP_DecryptInit(). The first call should have <emphasis role="bold">priv</emphasis> set to NULL and (after setting any cipher
@@ -51,7 +51,7 @@ int EVP_OpenFinal(EVP_CIPHER_CTX *ctx, unsigned char *out,
       cipher length.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_OpenInit.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-1c7e2b8b29b81c2794b3e8ee44fb8b25"><title>RETURN VALUES</title>
     <para>
       EVP_OpenInit() returns 0 on error or a non zero integer (actually the
       recovered secret key size) if successful.
@@ -63,7 +63,7 @@ int EVP_OpenFinal(EVP_CIPHER_CTX *ctx, unsigned char *out,
       EVP_OpenFinal() returns 0 if the decrypt failed or 1 for success.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_OpenInit.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-73d09d599608dcf0710cdcffcabe1366"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>evp</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -75,7 +75,7 @@ int EVP_OpenFinal(EVP_CIPHER_CTX *ctx, unsigned char *out,
       </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_OpenInit.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-e1169c8a9d0c37044633597fab024803"><title>HISTORY</title>
     <para/>
   </refsection>
 </refentry>

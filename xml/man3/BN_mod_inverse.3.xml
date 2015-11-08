@@ -8,11 +8,11 @@
 <refpurpose>compute inverse modulo n</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/bn.h&gt;</synopsis>
-<synopsis format="linespecific">BIGNUM *BN_mod_inverse(BIGNUM *r, BIGNUM *a, const BIGNUM *n,
+<synopsis>#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis>BIGNUM *BN_mod_inverse(BIGNUM *r, BIGNUM *a, const BIGNUM *n,
           BN_CTX *ctx);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_inverse.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-9bd6f5f209c96ca27cc2b8bda4a8dd97"><title>DESCRIPTION</title>
     <para>
       BN_mod_inverse() computes the inverse of <emphasis role="bold">a</emphasis> modulo <emphasis role="bold">n</emphasis>
       places the result in <emphasis role="bold">r</emphasis> (<literal role="code">(a*r)%n==1</literal>). If <emphasis role="bold">r</emphasis> is NULL, a new <emphasis role="bold">BIGNUM</emphasis> is created.
@@ -24,7 +24,7 @@
       or <emphasis role="bold">n</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_inverse.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-59276edc39c4868c693be3799bc32a3a"><title>RETURN VALUES</title>
     <para>
       BN_mod_inverse() returns the <emphasis role="bold">BIGNUM</emphasis>
       containing the inverse, and NULL on error. The error codes can be
@@ -33,18 +33,13 @@
       </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_inverse.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-91d1b45c500332a54410ab4105bd9afd"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>bn</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>ERR_get_error</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>, <citerefentry> <refentrytitle>BN_add</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_inverse.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      BN_mod_inverse() is available in all versions of SSLeay and OpenSSL.
     </para>
   </refsection>
 </refentry>

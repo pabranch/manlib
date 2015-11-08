@@ -8,11 +8,11 @@
 <refpurpose>manipulate shutdown state of an SSL connection</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">void SSL_set_shutdown(SSL *ssl, int mode);</synopsis>
-<synopsis format="linespecific">int SSL_get_shutdown(const SSL *ssl);</synopsis>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>void SSL_set_shutdown(SSL *ssl, int mode);</synopsis>
+<synopsis>int SSL_get_shutdown(const SSL *ssl);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_set_shutdown.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-a20202d54aee891af4a32e49225562a7"><title>DESCRIPTION</title>
     <para>
       SSL_set_shutdown() sets the shutdown state of <emphasis role="bold">ssl</emphasis> to <emphasis role="bold">mode</emphasis>.
     </para>
@@ -20,14 +20,14 @@
       SSL_get_shutdown() returns the shutdown mode of <emphasis role="bold">ssl</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_set_shutdown.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-c6f6117e842ebd0519d720361ce2d451"><title>NOTES</title>
     <para>
       The shutdown state of an ssl connection is a bitmask of:
     </para>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_set_shutdown.pod:0"/>0</term>
+          <term>0</term>
           <listitem>
             <para>
 	      No shutdown setting, yet.
@@ -35,7 +35,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_set_shutdown.pod:SSL_SENT_SHUTDOWN"/>SSL_SENT_SHUTDOWN</term>
+          <term>SSL_SENT_SHUTDOWN</term>
           <listitem>
             <para>
 	      A "close notify" shutdown alert was sent to the peer, the
@@ -45,7 +45,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_set_shutdown.pod:SSL_RECEIVED_SHUTDOWN"/>SSL_RECEIVED_SHUTDOWN</term>
+          <term>SSL_RECEIVED_SHUTDOWN</term>
           <listitem>
             <para>
 	      A shutdown alert was received form the peer, either a normal
@@ -82,7 +82,7 @@
       itself.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_set_shutdown.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-147a8c34f75d1d26940d6e3564eb67a6"><title>RETURN VALUES</title>
     <para>
       SSL_set_shutdown() does not return diagnostic information.
     </para>
@@ -90,7 +90,7 @@
       SSL_get_shutdown() returns the current setting.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_set_shutdown.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-901fb01a3e5929cb21755fdea379032c"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

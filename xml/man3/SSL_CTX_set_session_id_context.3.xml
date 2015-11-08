@@ -8,13 +8,13 @@
 <refpurpose>set context within which session can be reused (server side only)</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">int SSL_CTX_set_session_id_context(SSL_CTX *ctx, const unsigned char *sid_ctx,
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_CTX_set_session_id_context(SSL_CTX *ctx, const unsigned char *sid_ctx,
                                    unsigned int sid_ctx_len);
 int SSL_set_session_id_context(SSL *ssl, const unsigned char *sid_ctx,
                                unsigned int sid_ctx_len);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_id_context.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-b828b95680ca462075c90ee95abd310f"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_set_session_id_context() sets the context <emphasis role="bold">sid_ctx</emphasis> of length <emphasis role="bold">sid_ctx_len</emphasis> within which a session can be
       reused for the <emphasis role="bold">ctx</emphasis> object.
@@ -24,7 +24,7 @@ int SSL_set_session_id_context(SSL *ssl, const unsigned char *sid_ctx,
       reused for the <emphasis role="bold">ssl</emphasis> object.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_id_context.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-67f86399b5cd18dcc0b9fac65b1b422d"><title>NOTES</title>
     <para>
       Sessions are generated within a certain context. When
       exporting/importing sessions with <emphasis role="bold">i2d_SSL_SESSION</emphasis>/<emphasis role="bold">d2i_SSL_SESSION</emphasis> it would be possible, to
@@ -50,7 +50,7 @@ int SSL_set_session_id_context(SSL *ssl, const unsigned char *sid_ctx,
       limited to <emphasis role="bold">SSL_MAX_SSL_SESSION_ID_LENGTH</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_id_context.pod:WARNINGS"><title>WARNINGS</title>
+  <refsection xml:id="ID-417281b78d88c9c54ec2486733801a80"><title>WARNINGS</title>
     <para>
       If the session id context is not set on an SSL/TLS server and client
       certificates are used, stored sessions will not be reused but a fatal
@@ -64,7 +64,7 @@ int SSL_set_session_id_context(SSL *ssl, const unsigned char *sid_ctx,
       context itself before reusing a session as described above.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_id_context.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-e96bcc96badfb4765a285784bafa24cd"><title>RETURN VALUES</title>
     <para>
       SSL_CTX_set_session_id_context() and SSL_set_session_id_context()
       return the following values:
@@ -72,7 +72,7 @@ int SSL_set_session_id_context(SSL *ssl, const unsigned char *sid_ctx,
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_id_context.pod:0"/>0</term>
+          <term>0</term>
           <listitem>
             <para>
 	      The length <emphasis role="bold">sid_ctx_len</emphasis> of
@@ -83,7 +83,7 @@ int SSL_set_session_id_context(SSL *ssl, const unsigned char *sid_ctx,
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_id_context.pod:1"/>1</term>
+          <term>1</term>
           <listitem>
             <para>
 	      The operation succeeded.
@@ -93,7 +93,7 @@ int SSL_set_session_id_context(SSL *ssl, const unsigned char *sid_ctx,
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_id_context.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-941f4ab869958ed31b1567f344b2e1ff"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>

@@ -8,13 +8,13 @@
 <refpurpose>generate RSA key pair</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/rsa.h&gt;</synopsis>
-<synopsis format="linespecific">int RSA_generate_key_ex(RSA *rsa, int bits, BIGNUM *e, BN_GENCB *cb);</synopsis>
-<synopsis format="linespecific">Deprecated:</synopsis>
-<synopsis format="linespecific">RSA *RSA_generate_key(int num, unsigned long e,
+<synopsis>#include &lt;openssl/rsa.h&gt;</synopsis>
+<synopsis>int RSA_generate_key_ex(RSA *rsa, int bits, BIGNUM *e, BN_GENCB *cb);</synopsis>
+<synopsis>Deprecated:</synopsis>
+<synopsis>RSA *RSA_generate_key(int num, unsigned long e,
    void (*callback)(int,int,void *), void *cb_arg);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_generate_key.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-bcfe1d42967d8b41df3d20c488efd11a"><title>DESCRIPTION</title>
     <para>
       RSA_generate_key_ex() generates a key pair and stores it in the
       <emphasis role="bold">RSA</emphasis> structure provided in <emphasis role="bold">rsa</emphasis>. The pseudo-random number generator must
@@ -68,7 +68,7 @@
       <manvolnum>3</manvolnum> </citerefentry> for further details.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_generate_key.pod:RETURN_VALUE"><title>RETURN VALUE</title>
+  <refsection xml:id="ID-9b62d68dbf4f2205df45029c78fa8e89"><title>RETURN VALUE</title>
     <para>
       If key generation fails, RSA_generate_key() returns <emphasis role="bold">NULL</emphasis>.
     </para>
@@ -78,7 +78,7 @@
       </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_generate_key.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-b8ce2e6e1677f35ba304cb80b4f8d816"><title>BUGS</title>
     <para>
       <emphasis role="bold">BN_GENCB_call(cb, 2, x)</emphasis> is used with
       two different meanings.
@@ -88,7 +88,7 @@
       values.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_generate_key.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-f9b672c5dc6cb9d3f68fdab8d9594c4d"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ERR_get_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -99,12 +99,6 @@
       </citerefentry>, <citerefentry>
       <refentrytitle>BN_generate_prime</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_generate_key.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      The <emphasis role="bold">cb_arg</emphasis> argument was added in
-      SSLeay 0.9.0.
     </para>
   </refsection>
 </refentry>

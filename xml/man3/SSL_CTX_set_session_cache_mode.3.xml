@@ -8,11 +8,11 @@
 <refpurpose>enable/disable session caching</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">long SSL_CTX_set_session_cache_mode(SSL_CTX ctx, long mode);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>long SSL_CTX_set_session_cache_mode(SSL_CTX ctx, long mode);
 long SSL_CTX_get_session_cache_mode(SSL_CTX ctx);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_cache_mode.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-9fb58ab87978ef8ba332f9d2610b8c25"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_set_session_cache_mode() enables/disables session caching by
       setting the operational mode for <emphasis role="bold">ctx</emphasis>
@@ -23,7 +23,7 @@ long SSL_CTX_get_session_cache_mode(SSL_CTX ctx);</synopsis>
       mode.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_cache_mode.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-ff1d35a5d8f1e5c2e26b8c170c7a9a18"><title>NOTES</title>
     <para>
       The OpenSSL library can store/retrieve SSL/TLS sessions for later
       reuse. The sessions can be held in memory for each <emphasis role="bold">ctx</emphasis>, if more than one SSL_CTX object is being
@@ -33,7 +33,7 @@ long SSL_CTX_get_session_cache_mode(SSL_CTX ctx);</synopsis>
       In order to reuse a session, a client must send the session's id to
       the server. It can only send exactly one id.  The server then either
       agrees to reuse the session or it starts a full handshake (to create
-      a new session). 
+      a new session).
     </para>
     <para>
       A server will lookup up the session in its internal session storage.
@@ -55,7 +55,7 @@ long SSL_CTX_get_session_cache_mode(SSL_CTX ctx);</synopsis>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_cache_mode.pod:SSL_SESS_CACHE_OFF"/>SSL_SESS_CACHE_OFF</term>
+          <term>SSL_SESS_CACHE_OFF</term>
           <listitem>
             <para>
 	      No session caching for client or server takes place.
@@ -63,7 +63,7 @@ long SSL_CTX_get_session_cache_mode(SSL_CTX ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_cache_mode.pod:SSL_SESS_CACHE_CLIENT"/>SSL_SESS_CACHE_CLIENT</term>
+          <term>SSL_SESS_CACHE_CLIENT</term>
           <listitem>
             <para>
 	      Client sessions are added to the session cache. As there is
@@ -79,7 +79,7 @@ long SSL_CTX_get_session_cache_mode(SSL_CTX ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_cache_mode.pod:SSL_SESS_CACHE_SERVER"/>SSL_SESS_CACHE_SERVER</term>
+          <term>SSL_SESS_CACHE_SERVER</term>
           <listitem>
             <para>
 	      Server sessions are added to the session cache. When a client
@@ -93,7 +93,7 @@ long SSL_CTX_get_session_cache_mode(SSL_CTX ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_cache_mode.pod:SSL_SESS_CACHE_BOTH"/>SSL_SESS_CACHE_BOTH</term>
+          <term>SSL_SESS_CACHE_BOTH</term>
           <listitem>
             <para>
 	      Enable both SSL_SESS_CACHE_CLIENT and SSL_SESS_CACHE_SERVER
@@ -102,7 +102,7 @@ long SSL_CTX_get_session_cache_mode(SSL_CTX ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_cache_mode.pod:SSL_SESS_CACHE_NO_AUTO_CLEAR"/>SSL_SESS_CACHE_NO_AUTO_CLEAR</term>
+          <term>SSL_SESS_CACHE_NO_AUTO_CLEAR</term>
           <listitem>
             <para>
 	      Normally the session cache is checked for expired sessions
@@ -118,7 +118,7 @@ long SSL_CTX_get_session_cache_mode(SSL_CTX ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_cache_mode.pod:SSL_SESS_CACHE_NO_INTERNAL_LOOKUP"/>SSL_SESS_CACHE_NO_INTERNAL_LOOKUP</term>
+          <term>SSL_SESS_CACHE_NO_INTERNAL_LOOKUP</term>
           <listitem>
             <para>
 	      By setting this flag, session-resume operations in an SSL/TLS
@@ -132,7 +132,7 @@ long SSL_CTX_get_session_cache_mode(SSL_CTX ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_cache_mode.pod:SSL_SESS_CACHE_NO_INTERNAL_STORE"/>SSL_SESS_CACHE_NO_INTERNAL_STORE</term>
+          <term>SSL_SESS_CACHE_NO_INTERNAL_STORE</term>
           <listitem>
             <para>
 	      Depending on the presence of SSL_SESS_CACHE_CLIENT and/or
@@ -154,7 +154,7 @@ long SSL_CTX_get_session_cache_mode(SSL_CTX ctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_cache_mode.pod:SSL_SESS_CACHE_NO_INTERNAL"/>SSL_SESS_CACHE_NO_INTERNAL</term>
+          <term>SSL_SESS_CACHE_NO_INTERNAL</term>
           <listitem>
             <para>
 	      Enable both SSL_SESS_CACHE_NO_INTERNAL_LOOKUP and
@@ -169,7 +169,7 @@ long SSL_CTX_get_session_cache_mode(SSL_CTX ctx);</synopsis>
       The default mode is SSL_SESS_CACHE_SERVER.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_cache_mode.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-8ca18e07615743ba88a2cbd0f2654436"><title>RETURN VALUES</title>
     <para>
       SSL_CTX_set_session_cache_mode() returns the previously set cache
       mode.
@@ -180,7 +180,7 @@ long SSL_CTX_get_session_cache_mode(SSL_CTX ctx);</synopsis>
     </para>
     <screen></screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_cache_mode.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-af503812b506329d0b5d4385667cd974"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -202,12 +202,6 @@ long SSL_CTX_get_session_cache_mode(SSL_CTX ctx);</synopsis>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>SSL_CTX_flush_sessions</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_session_cache_mode.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      SSL_SESS_CACHE_NO_INTERNAL_STORE and SSL_SESS_CACHE_NO_INTERNAL were
-      introduced in OpenSSL 0.9.6h.
     </para>
   </refsection>
 </refentry>

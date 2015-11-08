@@ -15,7 +15,8 @@
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
 <literallayout><emphasis>git worktree add</emphasis> [-f] [--detach] [-b &lt;new-branch&gt;] &lt;path&gt; [&lt;branch&gt;]
-<emphasis>git worktree prune</emphasis> [-n] [-v] [--expire &lt;expire&gt;]</literallayout>
+<emphasis>git worktree prune</emphasis> [-n] [-v] [--expire &lt;expire&gt;]
+<emphasis>git worktree list</emphasis> [--porcelain]</literallayout>
 <simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
@@ -71,6 +72,19 @@ prune
 <listitem>
 <simpara>
 Prune working tree information in $GIT_DIR/worktrees.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+list
+</term>
+<listitem>
+<simpara>
+List details of each worktree.  The main worktree is listed first, followed by
+each of the linked worktrees.  The output details include if the worktree is
+bare, the revision currently checked out, and the branch currently checked out
+(or <emphasis>detached HEAD</emphasis> if none).
 </simpara>
 </listitem>
 </varlistentry>
@@ -141,6 +155,18 @@ Prune working tree information in $GIT_DIR/worktrees.
 </varlistentry>
 <varlistentry>
 <term>
+--porcelain
+</term>
+<listitem>
+<simpara>
+        With <literal>list</literal>, output in an easy-to-parse format for scripts.
+        This format will remain stable across Git versions and regardless of user
+        configuration.  See below for details.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 -v
 </term>
 <term>
@@ -205,6 +231,34 @@ to <literal>/path/main/.git/worktrees/test-next</literal> then a file named
 <refentrytitle>gitrepository-layout</refentrytitle><manvolnum>5</manvolnum>
 </citerefentry> for details.</simpara>
 </refsect1>
+<refsect1 id="_list_output_format">
+<title>LIST OUTPUT FORMAT</title>
+<simpara>The worktree list command has two output formats.  The default format shows the
+details on a single line with columns.  For example:</simpara>
+<literallayout class="monospaced">S git worktree list
+/path/to/bare-source            (bare)
+/path/to/linked-worktree        abcd1234 [master]
+/path/to/other-linked-worktree  1234abc  (detached HEAD)</literallayout><simpara></simpara>
+<refsect2 id="_porcelain_format">
+<title>Porcelain Format</title>
+<simpara>The porcelain format has a line per attribute.  Attributes are listed with a
+label and value separated by a single space.  Boolean attributes (like <emphasis>bare</emphasis>
+and <emphasis>detached</emphasis>) are listed as a label only, and are only present if and only
+if the value is true.  An empty line indicates the end of a worktree.  For
+example:</simpara>
+<literallayout class="monospaced">S git worktree list --porcelain
+worktree /path/to/bare-source
+bare
+
+worktree /path/to/linked-worktree
+HEAD abcd1234abcd1234abcd1234abcd1234abcd1234
+branch refs/heads/master
+
+worktree /path/to/other-linked-worktree
+HEAD 1234abc1234abc1234abc1234abc1234abc1234a
+detached</literallayout><simpara></simpara>
+</refsect2>
+</refsect1>
 <refsect1 id="_examples">
 <title>EXAMPLES</title>
 <simpara>You are in the middle of a refactoring session and your boss comes in and
@@ -242,11 +296,6 @@ performed manually, such as:</simpara>
 <listitem>
 <simpara>
 <literal>mv</literal> to move or rename a working tree and update its administrative files
-</simpara>
-</listitem>
-<listitem>
-<simpara>
-<literal>list</literal> to list linked working trees
 </simpara>
 </listitem>
 <listitem>

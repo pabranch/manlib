@@ -8,17 +8,17 @@
 <refpurpose>ENGINE cryptographic module support</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/engine.h&gt;</synopsis>
-<synopsis format="linespecific">ENGINE *ENGINE_get_first(void);
+<synopsis>#include &lt;openssl/engine.h&gt;</synopsis>
+<synopsis>ENGINE *ENGINE_get_first(void);
 ENGINE *ENGINE_get_last(void);
 ENGINE *ENGINE_get_next(ENGINE *e);
 ENGINE *ENGINE_get_prev(ENGINE *e);</synopsis>
-<synopsis format="linespecific">int ENGINE_add(ENGINE *e);
+<synopsis>int ENGINE_add(ENGINE *e);
 int ENGINE_remove(ENGINE *e);</synopsis>
-<synopsis format="linespecific">ENGINE *ENGINE_by_id(const char *id);</synopsis>
-<synopsis format="linespecific">int ENGINE_init(ENGINE *e);
+<synopsis>ENGINE *ENGINE_by_id(const char *id);</synopsis>
+<synopsis>int ENGINE_init(ENGINE *e);
 int ENGINE_finish(ENGINE *e);</synopsis>
-<synopsis format="linespecific">void ENGINE_load_openssl(void);
+<synopsis>void ENGINE_load_openssl(void);
 void ENGINE_load_dynamic(void);
 #ifndef OPENSSL_NO_STATIC_ENGINE
 void ENGINE_load_chil(void);
@@ -27,8 +27,8 @@ void ENGINE_load_ubsec(void);
 #endif
 void ENGINE_load_cryptodev(void);
 void ENGINE_load_builtin_engines(void);</synopsis>
-<synopsis format="linespecific">void ENGINE_cleanup(void);</synopsis>
-<synopsis format="linespecific">ENGINE *ENGINE_get_default_RSA(void);
+<synopsis>void ENGINE_cleanup(void);</synopsis>
+<synopsis>ENGINE *ENGINE_get_default_RSA(void);
 ENGINE *ENGINE_get_default_DSA(void);
 ENGINE *ENGINE_get_default_ECDH(void);
 ENGINE *ENGINE_get_default_ECDSA(void);
@@ -36,7 +36,7 @@ ENGINE *ENGINE_get_default_DH(void);
 ENGINE *ENGINE_get_default_RAND(void);
 ENGINE *ENGINE_get_cipher_engine(int nid);
 ENGINE *ENGINE_get_digest_engine(int nid);</synopsis>
-<synopsis format="linespecific">int ENGINE_set_default_RSA(ENGINE *e);
+<synopsis>int ENGINE_set_default_RSA(ENGINE *e);
 int ENGINE_set_default_DSA(ENGINE *e);
 int ENGINE_set_default_ECDH(ENGINE *e);
 int ENGINE_set_default_ECDSA(ENGINE *e);
@@ -45,10 +45,10 @@ int ENGINE_set_default_RAND(ENGINE *e);
 int ENGINE_set_default_ciphers(ENGINE *e);
 int ENGINE_set_default_digests(ENGINE *e);
 int ENGINE_set_default_string(ENGINE *e, const char *list);</synopsis>
-<synopsis format="linespecific">int ENGINE_set_default(ENGINE *e, unsigned int flags);</synopsis>
-<synopsis format="linespecific">unsigned int ENGINE_get_table_flags(void);
+<synopsis>int ENGINE_set_default(ENGINE *e, unsigned int flags);</synopsis>
+<synopsis>unsigned int ENGINE_get_table_flags(void);
 void ENGINE_set_table_flags(unsigned int flags);</synopsis>
-<synopsis format="linespecific">int ENGINE_register_RSA(ENGINE *e);
+<synopsis>int ENGINE_register_RSA(ENGINE *e);
 void ENGINE_unregister_RSA(ENGINE *e);
 void ENGINE_register_all_RSA(void);
 int ENGINE_register_DSA(ENGINE *e);
@@ -77,20 +77,20 @@ void ENGINE_unregister_digests(ENGINE *e);
 void ENGINE_register_all_digests(void);
 int ENGINE_register_complete(ENGINE *e);
 int ENGINE_register_all_complete(void);</synopsis>
-<synopsis format="linespecific">int ENGINE_ctrl(ENGINE *e, int cmd, long i, void *p, void (*f)(void));
+<synopsis>int ENGINE_ctrl(ENGINE *e, int cmd, long i, void *p, void (*f)(void));
 int ENGINE_cmd_is_executable(ENGINE *e, int cmd);
 int ENGINE_ctrl_cmd(ENGINE *e, const char *cmd_name,
         long i, void *p, void (*f)(void), int cmd_optional);
 int ENGINE_ctrl_cmd_string(ENGINE *e, const char *cmd_name, const char *arg,
         int cmd_optional);</synopsis>
-<synopsis format="linespecific">int ENGINE_set_ex_data(ENGINE *e, int idx, void *arg);
+<synopsis>int ENGINE_set_ex_data(ENGINE *e, int idx, void *arg);
 void *ENGINE_get_ex_data(const ENGINE *e, int idx);</synopsis>
-<synopsis format="linespecific">int ENGINE_get_ex_new_index(long argl, void *argp, CRYPTO_EX_new *new_func,
+<synopsis>int ENGINE_get_ex_new_index(long argl, void *argp, CRYPTO_EX_new *new_func,
         CRYPTO_EX_dup *dup_func, CRYPTO_EX_free *free_func);</synopsis>
-<synopsis format="linespecific">ENGINE *ENGINE_new(void);
+<synopsis>ENGINE *ENGINE_new(void);
 int ENGINE_free(ENGINE *e);
 int ENGINE_up_ref(ENGINE *e);</synopsis>
-<synopsis format="linespecific">int ENGINE_set_id(ENGINE *e, const char *id);
+<synopsis>int ENGINE_set_id(ENGINE *e, const char *id);
 int ENGINE_set_name(ENGINE *e, const char *name);
 int ENGINE_set_RSA(ENGINE *e, const RSA_METHOD *rsa_meth);
 int ENGINE_set_DSA(ENGINE *e, const DSA_METHOD *dsa_meth);
@@ -109,7 +109,7 @@ int ENGINE_set_ciphers(ENGINE *e, ENGINE_CIPHERS_PTR f);
 int ENGINE_set_digests(ENGINE *e, ENGINE_DIGESTS_PTR f);
 int ENGINE_set_flags(ENGINE *e, int flags);
 int ENGINE_set_cmd_defns(ENGINE *e, const ENGINE_CMD_DEFN *defns);</synopsis>
-<synopsis format="linespecific">const char *ENGINE_get_id(const ENGINE *e);
+<synopsis>const char *ENGINE_get_id(const ENGINE *e);
 const char *ENGINE_get_name(const ENGINE *e);
 const RSA_METHOD *ENGINE_get_RSA(const ENGINE *e);
 const DSA_METHOD *ENGINE_get_DSA(const ENGINE *e);
@@ -130,13 +130,13 @@ const EVP_CIPHER *ENGINE_get_cipher(ENGINE *e, int nid);
 const EVP_MD *ENGINE_get_digest(ENGINE *e, int nid);
 int ENGINE_get_flags(const ENGINE *e);
 const ENGINE_CMD_DEFN *ENGINE_get_cmd_defns(const ENGINE *e);</synopsis>
-<synopsis format="linespecific">EVP_PKEY *ENGINE_load_private_key(ENGINE *e, const char *key_id,
+<synopsis>EVP_PKEY *ENGINE_load_private_key(ENGINE *e, const char *key_id,
     UI_METHOD *ui_method, void *callback_data);
 EVP_PKEY *ENGINE_load_public_key(ENGINE *e, const char *key_id,
     UI_METHOD *ui_method, void *callback_data);</synopsis>
-<synopsis format="linespecific">void ENGINE_add_conf_module(void);</synopsis>
+<synopsis>void ENGINE_add_conf_module(void);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.engine.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-30e92ed78f7a4a1c537296c6bf099e47"><title>DESCRIPTION</title>
     <para>
       These functions create, manipulate, and use cryptographic modules in
       the form of <emphasis role="bold">ENGINE</emphasis> objects. These
@@ -154,7 +154,7 @@ DSA_METHOD, DH_METHOD, RAND_METHOD, ECDH_METHOD, ECDSA_METHOD,
 EVP_CIPHER - potentially multiple cipher algorithms (indexed by 'nid')
 EVP_DIGEST - potentially multiple hash algorithms (indexed by 'nid')
 key-loading - loading public and/or private EVP_PKEY keys</screen>
-    <refsection xml:id="sources.openssl.doc.crypto.engine.pod:Reference_counting_and_handles"><title>Reference counting and handles</title>
+    <refsection xml:id="ID-99f5ada1c85bfa7c1657f2f70e9b1ed4"><title>Reference counting and handles</title>
       <para>
 	Due to the modular nature of the ENGINE API, pointers to ENGINEs
 	need to be treated as handles - ie. not only as pointers, but also
@@ -264,7 +264,7 @@ key-loading - loading public and/or private EVP_PKEY keys</screen>
 	EVP_CIPHER_CTX, etc.
       </para>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.crypto.engine.pod:Default_implementations"><title>Default implementations</title>
+    <refsection xml:id="ID-45d5a1c68f8c34153d0ae71829cc1895"><title>Default implementations</title>
       <para>
 	For each supported abstraction, the ENGINE code maintains an
 	internal table of state to control which implementations are
@@ -311,7 +311,7 @@ key-loading - loading public and/or private EVP_PKEY keys</screen>
 	each 'nid' value.
       </para>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.crypto.engine.pod:Application_requirements"><title>Application requirements</title>
+    <refsection xml:id="ID-7d9ad3b9e5287a56e7daca5ee22eb2f9"><title>Application requirements</title>
       <para>
 	This section will explain the basic things an application
 	programmer should support to make the most useful elements of the
@@ -433,7 +433,7 @@ ENGINE_register_all_complete();</screen>
 	will be set as the default for RSA use from then on.
       </para>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.crypto.engine.pod:Advanced_configuration_support"><title>Advanced configuration support</title>
+    <refsection xml:id="ID-23f75cbf7dc62a2e8c78f689dd5fb7df"><title>Advanced configuration support</title>
       <para>
 	There is a mechanism supported by the ENGINE framework that allows
 	each ENGINE implementation to define an arbitrary set of
@@ -623,20 +623,8 @@ if a ctrl() handler and array of control commands was supplied;
 	extension).
       </para>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.crypto.engine.pod:Future_developments"><title>Future developments</title>
-      <para>
-	The ENGINE API and internal architecture is currently being
-	reviewed. Slated for possible release in 0.9.8 is support for
-	transparent loading of "dynamic" ENGINEs (built as self-contained
-	shared-libraries). This would allow ENGINE implementations to be
-	provided independently of OpenSSL libraries and/or OpenSSL-based
-	applications, and would also remove any requirement for
-	applications to explicitly use the "dynamic" ENGINE to bind to
-	shared-library implementations.
-      </para>
-    </refsection>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.engine.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-c1812b03a55b684bfc21ea37bb1b92c1"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>rsa</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

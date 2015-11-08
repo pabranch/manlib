@@ -8,18 +8,18 @@
 <refpurpose>handle RSA keys for ephemeral key exchange</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">void SSL_CTX_set_tmp_rsa_callback(SSL_CTX *ctx,
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>void SSL_CTX_set_tmp_rsa_callback(SSL_CTX *ctx,
            RSA *(*tmp_rsa_callback)(SSL *ssl, int is_export, int keylength));
 long SSL_CTX_set_tmp_rsa(SSL_CTX *ctx, RSA *rsa);
 long SSL_CTX_need_tmp_rsa(SSL_CTX *ctx);</synopsis>
-<synopsis format="linespecific">void SSL_set_tmp_rsa_callback(SSL_CTX *ctx,
+<synopsis>void SSL_set_tmp_rsa_callback(SSL_CTX *ctx,
            RSA *(*tmp_rsa_callback)(SSL *ssl, int is_export, int keylength));
 long SSL_set_tmp_rsa(SSL *ssl, RSA *rsa)
 long SSL_need_tmp_rsa(SSL *ssl)</synopsis>
-<synopsis format="linespecific">RSA *(*tmp_rsa_callback)(SSL *ssl, int is_export, int keylength);</synopsis>
+<synopsis>RSA *(*tmp_rsa_callback)(SSL *ssl, int is_export, int keylength);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tmp_rsa_callback.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-85b23aa6b59c5f2193294df1057ecf21"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_set_tmp_rsa_callback() sets the callback function for
       <emphasis role="bold">ctx</emphasis> to be used when a
@@ -53,7 +53,7 @@ long SSL_need_tmp_rsa(SSL *ssl)</synopsis>
       These functions apply to SSL/TLS servers only.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tmp_rsa_callback.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-75386186ded09e654eb6025333d5f545"><title>NOTES</title>
     <para>
       When using a cipher with RSA authentication, an ephemeral RSA key
       exchange can take place. In this case the session data are negotiated
@@ -106,7 +106,7 @@ long SSL_need_tmp_rsa(SSL *ssl)</synopsis>
       key exchange is performed with an export cipher.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tmp_rsa_callback.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-ba74ebb35b4bc0060902e3d9197b25ba"><title>EXAMPLES</title>
     <para>
       Generate temporary RSA keys to prepare ephemeral RSA key exchange. As
       the generation of a RSA key costs a lot of computer time, they saved
@@ -157,7 +157,7 @@ RSA *tmp_rsa_callback(SSL *s, int is_export, int keylength)
    return(rsa_tmp);
 }</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tmp_rsa_callback.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-fb86c04e39ed41c1d3636a321242bf68"><title>RETURN VALUES</title>
     <para>
       SSL_CTX_set_tmp_rsa_callback() and SSL_set_tmp_rsa_callback() do not
       return diagnostic output.
@@ -172,7 +172,7 @@ RSA *tmp_rsa_callback(SSL *s, int is_export, int keylength)
       RSA key is needed and 0 otherwise.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tmp_rsa_callback.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-2235abde464aa21c9af1c6a20e734a4d"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

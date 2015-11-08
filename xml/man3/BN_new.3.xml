@@ -8,13 +8,13 @@
 <refpurpose>allocate and free BIGNUMs</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/bn.h&gt;</synopsis>
-<synopsis format="linespecific">BIGNUM *BN_new(void);</synopsis>
-<synopsis format="linespecific">void BN_clear(BIGNUM *a);</synopsis>
-<synopsis format="linespecific">void BN_free(BIGNUM *a);</synopsis>
-<synopsis format="linespecific">void BN_clear_free(BIGNUM *a);</synopsis>
+<synopsis>#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis>BIGNUM *BN_new(void);</synopsis>
+<synopsis>void BN_clear(BIGNUM *a);</synopsis>
+<synopsis>void BN_free(BIGNUM *a);</synopsis>
+<synopsis>void BN_clear_free(BIGNUM *a);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_new.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-e522bc5aac11ffe75217729bb096f128"><title>DESCRIPTION</title>
     <para>
       BN_new() allocates and initializes a <emphasis role="bold">BIGNUM</emphasis> structure.
     </para>
@@ -28,7 +28,7 @@
       the data before the memory is returned to the system. If <emphasis role="bold">a</emphasis> is NULL, nothing is done.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_new.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-bb530e351e8b7ca68ffc3e8aba1c8596"><title>RETURN VALUES</title>
     <para>
       BN_new() returns a pointer to the <emphasis role="bold">BIGNUM</emphasis>. If the allocation fails, it returns
       <emphasis role="bold">NULL</emphasis> and sets an error code that can
@@ -40,7 +40,7 @@
       BN_clear(), BN_free() and BN_clear_free() have no return values.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_new.pod:REMOVED_FUNCTIONALITY"><title>REMOVED FUNCTIONALITY</title>
+  <refsection xml:id="ID-dddc13ab19d848d6f4e55a33f0fd6f1c"><title>REMOVED FUNCTIONALITY</title>
     <screen>void BN_init(BIGNUM *);</screen>
     <para>
       BN_init() is no longer available as of OpenSSL 1.1.0. It was used to
@@ -58,7 +58,7 @@ if(!a) /* Handle error */
 ...
 BN_free(a);</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_new.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-4d7530a116e02ef28e918eac83ccf0ad"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>bn</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -66,11 +66,9 @@ BN_free(a);</screen>
       </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_new.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-dc076b4b8f18c7723a242312ab91e10f"><title>HISTORY</title>
     <para>
-      BN_new(), BN_clear(), BN_free() and BN_clear_free() are available in
-      all versions on SSLeay and OpenSSL.  BN_init() was added in SSLeay
-      0.9.1b and removed in OpenSSL 1.1.0.
+      BN_init() was removed in OpenSSL 1.1.0.
     </para>
   </refsection>
 </refentry>

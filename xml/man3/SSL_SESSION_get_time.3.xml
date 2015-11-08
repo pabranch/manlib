@@ -8,17 +8,17 @@
 <refpurpose>retrieve and manipulate session time and timeout settings</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">long SSL_SESSION_get_time(const SSL_SESSION *s);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>long SSL_SESSION_get_time(const SSL_SESSION *s);
 long SSL_SESSION_set_time(SSL_SESSION *s, long tm);
 long SSL_SESSION_get_timeout(const SSL_SESSION *s);
 long SSL_SESSION_set_timeout(SSL_SESSION *s, long tm);</synopsis>
-<synopsis format="linespecific">long SSL_get_time(const SSL_SESSION *s);
+<synopsis>long SSL_get_time(const SSL_SESSION *s);
 long SSL_set_time(SSL_SESSION *s, long tm);
 long SSL_get_timeout(const SSL_SESSION *s);
 long SSL_set_timeout(SSL_SESSION *s, long tm);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_SESSION_get_time.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-0706996d550d4f149db7c5c0ca88836a"><title>DESCRIPTION</title>
     <para>
       SSL_SESSION_get_time() returns the time at which the session
       <emphasis role="bold">s</emphasis> was established. The time is given
@@ -43,7 +43,7 @@ long SSL_set_timeout(SSL_SESSION *s, long tm);</synopsis>
       counterparts.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_SESSION_get_time.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-996ad94a80f36e3f183b9f07182c4592"><title>NOTES</title>
     <para>
       Sessions are expired by examining the creation time and the timeout
       value. Both are set at creation time of the session to the actual
@@ -53,7 +53,7 @@ long SSL_set_timeout(SSL_SESSION *s, long tm);</synopsis>
       possible to extend or shorten the lifetime of the session.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_SESSION_get_time.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-2739841f151dfa7027e8cbaff5371db8"><title>RETURN VALUES</title>
     <para>
       SSL_SESSION_get_time() and SSL_SESSION_get_timeout() return the
       currently valid values.
@@ -64,10 +64,10 @@ long SSL_set_timeout(SSL_SESSION *s, long tm);</synopsis>
     </para>
     <para>
       If any of the function is passed the NULL pointer for the session
-      <emphasis role="bold">s</emphasis>, 0 is returned. 
+      <emphasis role="bold">s</emphasis>, 0 is returned.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_SESSION_get_time.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-9a6267a0290f73a4fa9f620142358968"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

@@ -8,13 +8,13 @@
 <refpurpose>get textual description of alert information</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">const char *SSL_alert_type_string(int value);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>const char *SSL_alert_type_string(int value);
 const char *SSL_alert_type_string_long(int value);</synopsis>
-<synopsis format="linespecific">const char *SSL_alert_desc_string(int value);
+<synopsis>const char *SSL_alert_desc_string(int value);
 const char *SSL_alert_desc_string_long(int value);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-00ab565174bdc1581ca949f7c6caf9c1"><title>DESCRIPTION</title>
     <para>
       SSL_alert_type_string() returns a one letter string indicating the
       type of the alert specified by <emphasis role="bold">value</emphasis>.
@@ -32,7 +32,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
       of the alert specified by <emphasis role="bold">value</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-03e1b9e769d2bc29a3ea2aeeaf155d35"><title>NOTES</title>
     <para>
       When one side of an SSL/TLS communication wants to inform the peer
       about a special situation, it sends an alert. The alert is sent as a
@@ -54,7 +54,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
       abort.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-74e03d30075799e2c59805c93eb2f716"><title>RETURN VALUES</title>
     <para>
       The following strings can occur for SSL_alert_type_string() or
       SSL_alert_type_string_long():
@@ -62,19 +62,19 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:W.warning"/>"W"/"warning"</term>
+          <term>"W"/"warning"</term>
           <listitem>
             <para/>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:F.fatal"/>"F"/"fatal"</term>
+          <term>"F"/"fatal"</term>
           <listitem>
             <para/>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:U.unknown"/>"U"/"unknown"</term>
+          <term>"U"/"unknown"</term>
           <listitem>
             <para>
 	      This indicates that no support is available for this alert
@@ -92,7 +92,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:CN.close_notify"/>"CN"/"close notify"</term>
+          <term>"CN"/"close notify"</term>
           <listitem>
             <para>
 	      The connection shall be closed. This is a warning alert.
@@ -100,7 +100,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:UM.unexpected_message"/>"UM"/"unexpected message"</term>
+          <term>"UM"/"unexpected message"</term>
           <listitem>
             <para>
 	      An inappropriate message was received. This alert is always
@@ -110,7 +110,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:BM.bad_record_mac"/>"BM"/"bad record mac"</term>
+          <term>"BM"/"bad record mac"</term>
           <listitem>
             <para>
 	      This alert is returned if a record is received with an
@@ -119,7 +119,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:DF.decompression_failure"/>"DF"/"decompression failure"</term>
+          <term>"DF"/"decompression failure"</term>
           <listitem>
             <para>
 	      The decompression function received improper input (e.g. data
@@ -129,7 +129,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:HF.handshake_failure"/>"HF"/"handshake failure"</term>
+          <term>"HF"/"handshake failure"</term>
           <listitem>
             <para>
 	      Reception of a handshake_failure alert message indicates that
@@ -140,7 +140,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:NC.no_certificate"/>"NC"/"no certificate"</term>
+          <term>"NC"/"no certificate"</term>
           <listitem>
             <para>
 	      A client, that was asked to send a certificate, does not send
@@ -149,7 +149,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:BC.bad_certificate"/>"BC"/"bad certificate"</term>
+          <term>"BC"/"bad certificate"</term>
           <listitem>
             <para>
 	      A certificate was corrupt, contained signatures that did not
@@ -158,7 +158,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:UC.unsupported_certificate"/>"UC"/"unsupported certificate"</term>
+          <term>"UC"/"unsupported certificate"</term>
           <listitem>
             <para>
 	      A certificate was of an unsupported type.
@@ -166,7 +166,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:CR.certificate_revoked"/>"CR"/"certificate revoked"</term>
+          <term>"CR"/"certificate revoked"</term>
           <listitem>
             <para>
 	      A certificate was revoked by its signer.
@@ -174,7 +174,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:CE.certificate_expired"/>"CE"/"certificate expired"</term>
+          <term>"CE"/"certificate expired"</term>
           <listitem>
             <para>
 	      A certificate has expired or is not currently valid.
@@ -182,7 +182,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:CU.certificate_unknown"/>"CU"/"certificate unknown"</term>
+          <term>"CU"/"certificate unknown"</term>
           <listitem>
             <para>
 	      Some other (unspecified) issue arose in processing the
@@ -191,7 +191,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:IP.illegal_parameter"/>"IP"/"illegal parameter"</term>
+          <term>"IP"/"illegal parameter"</term>
           <listitem>
             <para>
 	      A field in the handshake was out of range or inconsistent
@@ -200,7 +200,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:DC.decryption_failed"/>"DC"/"decryption failed"</term>
+          <term>"DC"/"decryption failed"</term>
           <listitem>
             <para>
 	      A TLSCiphertext decrypted in an invalid way: either it wasn't
@@ -210,7 +210,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:RO.record_overflow"/>"RO"/"record overflow"</term>
+          <term>"RO"/"record overflow"</term>
           <listitem>
             <para>
 	      A TLSCiphertext record was received which had a length more
@@ -221,7 +221,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:CA.unknown_CA"/>"CA"/"unknown CA"</term>
+          <term>"CA"/"unknown CA"</term>
           <listitem>
             <para>
 	      A valid certificate chain or partial chain was received, but
@@ -232,7 +232,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:AD.access_denied"/>"AD"/"access denied"</term>
+          <term>"AD"/"access denied"</term>
           <listitem>
             <para>
 	      A valid certificate was received, but when access control was
@@ -242,7 +242,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:DE.decode_error"/>"DE"/"decode error"</term>
+          <term>"DE"/"decode error"</term>
           <listitem>
             <para>
 	      A message could not be decoded because some field was out of
@@ -252,7 +252,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:CY.decrypt_error"/>"CY"/"decrypt error"</term>
+          <term>"CY"/"decrypt error"</term>
           <listitem>
             <para>
 	      A handshake cryptographic operation failed, including being
@@ -262,7 +262,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:ER.export_restriction"/>"ER"/"export restriction"</term>
+          <term>"ER"/"export restriction"</term>
           <listitem>
             <para>
 	      A negotiation not in compliance with export restrictions was
@@ -273,7 +273,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:PV.protocol_version"/>"PV"/"protocol version"</term>
+          <term>"PV"/"protocol version"</term>
           <listitem>
             <para>
 	      The protocol version the client has attempted to negotiate is
@@ -284,7 +284,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:IS.insufficient_security"/>"IS"/"insufficient security"</term>
+          <term>"IS"/"insufficient security"</term>
           <listitem>
             <para>
 	      Returned instead of handshake_failure when a negotiation has
@@ -295,7 +295,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:IE.internal_error"/>"IE"/"internal error"</term>
+          <term>"IE"/"internal error"</term>
           <listitem>
             <para>
 	      An internal error unrelated to the peer or the correctness of
@@ -305,7 +305,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:US.user_canceled"/>"US"/"user canceled"</term>
+          <term>"US"/"user canceled"</term>
           <listitem>
             <para>
 	      This handshake is being canceled for some reason unrelated to
@@ -318,7 +318,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:NR.no_renegotiation"/>"NR"/"no renegotiation"</term>
+          <term>"NR"/"no renegotiation"</term>
           <listitem>
             <para>
 	      Sent by the client in response to a hello request or by the
@@ -337,7 +337,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:UP.unknown_PSK_identity"/>"UP"/"unknown PSK identity"</term>
+          <term>"UP"/"unknown PSK identity"</term>
           <listitem>
             <para>
 	      Sent by the server to indicate that it does not recognize a
@@ -346,7 +346,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:UK.unknown"/>"UK"/"unknown"</term>
+          <term>"UK"/"unknown"</term>
           <listitem>
             <para>
 	      This indicates that no description is available for this
@@ -358,7 +358,7 @@ const char *SSL_alert_desc_string_long(int value);</synopsis>
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_alert_type_string.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-15cb8991a17875b0869a65096bf201c2"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

@@ -8,19 +8,19 @@
 <refpurpose>CMS envelopedData RecipientInfo routines</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/cms.h&gt;</synopsis>
-<synopsis format="linespecific">STACK_OF(CMS_RecipientInfo) *CMS_get0_RecipientInfos(CMS_ContentInfo *cms);
+<synopsis>#include &lt;openssl/cms.h&gt;</synopsis>
+<synopsis>STACK_OF(CMS_RecipientInfo) *CMS_get0_RecipientInfos(CMS_ContentInfo *cms);
 int CMS_RecipientInfo_type(CMS_RecipientInfo *ri);</synopsis>
-<synopsis format="linespecific">int CMS_RecipientInfo_ktri_get0_signer_id(CMS_RecipientInfo *ri, ASN1_OCTET_STRING **keyid, X509_NAME **issuer, ASN1_INTEGER **sno);
+<synopsis>int CMS_RecipientInfo_ktri_get0_signer_id(CMS_RecipientInfo *ri, ASN1_OCTET_STRING **keyid, X509_NAME **issuer, ASN1_INTEGER **sno);
 int CMS_RecipientInfo_ktri_cert_cmp(CMS_RecipientInfo *ri, X509 *cert);
 int CMS_RecipientInfo_set0_pkey(CMS_RecipientInfo *ri, EVP_PKEY *pkey);</synopsis>
-<synopsis format="linespecific">int CMS_RecipientInfo_kekri_get0_id(CMS_RecipientInfo *ri, X509_ALGOR **palg, ASN1_OCTET_STRING **pid, ASN1_GENERALIZEDTIME **pdate, ASN1_OBJECT **potherid, ASN1_TYPE **pothertype);
+<synopsis>int CMS_RecipientInfo_kekri_get0_id(CMS_RecipientInfo *ri, X509_ALGOR **palg, ASN1_OCTET_STRING **pid, ASN1_GENERALIZEDTIME **pdate, ASN1_OBJECT **potherid, ASN1_TYPE **pothertype);
 int CMS_RecipientInfo_kekri_id_cmp(CMS_RecipientInfo *ri, const unsigned char *id, size_t idlen);
 int CMS_RecipientInfo_set0_key(CMS_RecipientInfo *ri, unsigned char *key, size_t keylen);</synopsis>
-<synopsis format="linespecific">int CMS_RecipientInfo_decrypt(CMS_ContentInfo *cms, CMS_RecipientInfo *ri);
+<synopsis>int CMS_RecipientInfo_decrypt(CMS_ContentInfo *cms, CMS_RecipientInfo *ri);
 int CMS_RecipientInfo_encrypt(CMS_ContentInfo *cms, CMS_RecipientInfo *ri);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.CMS_get0_RecipientInfos.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-b358a19c3ba135aba1d7e6196d308fd4"><title>DESCRIPTION</title>
     <para>
       The function CMS_get0_RecipientInfos() returns all the
       CMS_RecipientInfo structures associated with a CMS EnvelopedData
@@ -87,7 +87,7 @@ int CMS_RecipientInfo_encrypt(CMS_ContentInfo *cms, CMS_RecipientInfo *ri);</syn
       example by a previous call to CMS_RecipientInfo_decrypt().
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.CMS_get0_RecipientInfos.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-98c039e6fc691a25683b06b1fe5c3059"><title>NOTES</title>
     <para>
       The main purpose of these functions is to enable an application to
       lookup recipient keys using any appropriate technique when the
@@ -113,7 +113,7 @@ int CMS_RecipientInfo_encrypt(CMS_ContentInfo *cms, CMS_RecipientInfo *ri);</syn
       content encryption key using CMS_RecipientInfo_encrypt().
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.CMS_get0_RecipientInfos.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-7a92d1991d3d8ea4ae160f1d581f9035"><title>RETURN VALUES</title>
     <para>
       CMS_get0_RecipientInfos() returns all CMS_RecipientInfo structures,
       or NULL if an error occurs.
@@ -135,17 +135,12 @@ int CMS_RecipientInfo_encrypt(CMS_ContentInfo *cms, CMS_RecipientInfo *ri);</syn
       </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.CMS_get0_RecipientInfos.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-4a1e371873e2835dddc290d218e21062"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ERR_get_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>CMS_decrypt</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.CMS_get0_RecipientInfos.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      These functions were first was added to OpenSSL 0.9.8
     </para>
   </refsection>
 </refentry>

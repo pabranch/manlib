@@ -11,17 +11,17 @@ SSL_set1_client_sigalgs_list</refname>
 <refpurpose>set supported signature algorithms</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">long SSL_CTX_set1_sigalgs(SSL_CTX *ctx, const int *slist, long slistlen);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>long SSL_CTX_set1_sigalgs(SSL_CTX *ctx, const int *slist, long slistlen);
 long SSL_set1_sigalgs(SSL *ssl, const int *slist, long slistlen);
 long SSL_CTX_set1_sigalgs_list(SSL_CTX *ctx, const char *str);
 long SSL_set1_sigalgs_list(SSL *ssl, const char *str);</synopsis>
-<synopsis format="linespecific">long SSL_CTX_set1_client_sigalgs(SSL_CTX *ctx, const int *slist, long slistlen);
+<synopsis>long SSL_CTX_set1_client_sigalgs(SSL_CTX *ctx, const int *slist, long slistlen);
 long SSL_set1_client_sigalgs(SSL *ssl, const int *slist, long slistlen);
 long SSL_CTX_set1_client_sigalgs_list(SSL_CTX *ctx, const char *str);
 long SSL_set1_client_sigalgs_list(SSL *ssl, const char *str);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set1_sigalgs.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-8d4b8af3058bcb690666835d77131d2f"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_set1_sigalgs() and SSL_set1_sigalgs() set the supported
       signature algorithms for <emphasis role="bold">ctx</emphasis> or
@@ -48,7 +48,7 @@ long SSL_set1_client_sigalgs_list(SSL *ssl, const char *str);</synopsis>
       application should free it, if necessary.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set1_sigalgs.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-757097d79f3578cd11db5a7b2ccd6ef6"><title>NOTES</title>
     <para>
       If an application wishes to allow the setting of signature algorithms
       as one of many user configurable options it should consider using the
@@ -94,7 +94,7 @@ long SSL_set1_client_sigalgs_list(SSL *ssl, const char *str);</synopsis>
       weaknesses.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set1_sigalgs.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-df0741f7ad57c30dc1ce86e890f7240d"><title>EXAMPLES</title>
     <para>
       Set supported signature algoritms to SHA256 with ECDSA and SHA256
       with RSA using an array:
@@ -108,12 +108,12 @@ SSL_CTX_set1_sigalgs(ctx, slist, 4);</screen>
     </para>
     <screen>SSL_CTX_set1_sigalgs_list(ctx, "ECDSA+SHA256:RSA+SHA256");</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set1_sigalgs.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-f8d5f7f8c08793138a62ce2b4682776b"><title>RETURN VALUES</title>
     <para>
       All these functions return 1 for success and 0 for failure.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set1_sigalgs.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-fe41e5949caed574132fee6e43536fb4"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

@@ -8,11 +8,11 @@
 <refpurpose>convert SSL_SESSION object from/to ASN1 representation</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">SSL_SESSION *d2i_SSL_SESSION(SSL_SESSION **a, const unsigned char **pp, long length);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>SSL_SESSION *d2i_SSL_SESSION(SSL_SESSION **a, const unsigned char **pp, long length);
 int i2d_SSL_SESSION(SSL_SESSION *in, unsigned char **pp);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.d2i_SSL_SESSION.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-9867e58d082db95db7ba9b6eaee6c128"><title>DESCRIPTION</title>
     <para>
       d2i_SSL_SESSION() transforms the external ASN1 representation of an
       SSL/TLS session, stored as binary data at location <emphasis role="bold">pp</emphasis> with length <emphasis role="bold">length</emphasis>, into an SSL_SESSION object.
@@ -24,7 +24,7 @@ int i2d_SSL_SESSION(SSL_SESSION *in, unsigned char **pp);</synopsis>
       the NULL pointer, only the length is calculated and returned.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.d2i_SSL_SESSION.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-0c172c74dce5617e85ec3fda030f19e5"><title>NOTES</title>
     <para>
       The SSL_SESSION object is built from several malloc()ed parts, it can
       therefore not be moved, copied or stored directly. In order to store
@@ -60,11 +60,11 @@ int i2d_SSL_SESSION(SSL_SESSION *in, unsigned char **pp);</synopsis>
       this will advance the value contained in <emphasis role="bold">*pp</emphasis> so it is necessary to save a copy of the
       original allocation. For example: int i,j; char *p, *temp; i =
       i2d_SSL_SESSION(sess, NULL); p = temp = malloc(i); j =
-      i2d_SSL_SESSION(sess, &amp;amp;temp); assert(i == j); assert(p+i ==
+      i2d_SSL_SESSION(sess, &amp;temp); assert(i == j); assert(p+i ==
       temp);
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.d2i_SSL_SESSION.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-120c9e5775bd5c0cd5df9a7beaa77bd9"><title>RETURN VALUES</title>
     <para>
       d2i_SSL_SESSION() returns a pointer to the newly allocated
       SSL_SESSION object. In case of failure the NULL-pointer is returned
@@ -75,7 +75,7 @@ int i2d_SSL_SESSION(SSL_SESSION *in, unsigned char **pp);</synopsis>
       bytes. When the session is not valid, <emphasis role="bold">0</emphasis> is returned and no operation is performed.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.d2i_SSL_SESSION.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-12d449e1c6fd080242e5236c3c82df7b"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

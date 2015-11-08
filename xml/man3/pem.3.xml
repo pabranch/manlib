@@ -30,117 +30,117 @@ PEM_write_NETSCAPE_CERT_SEQUENCE</refname>
 <refpurpose>PEM routines</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/pem.h&gt;</synopsis>
-<synopsis format="linespecific">EVP_PKEY *PEM_read_bio_PrivateKey(BIO *bp, EVP_PKEY **x,
+<synopsis>#include &lt;openssl/pem.h&gt;</synopsis>
+<synopsis>EVP_PKEY *PEM_read_bio_PrivateKey(BIO *bp, EVP_PKEY **x,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">EVP_PKEY *PEM_read_PrivateKey(FILE *fp, EVP_PKEY **x,
+<synopsis>EVP_PKEY *PEM_read_PrivateKey(FILE *fp, EVP_PKEY **x,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">int PEM_write_bio_PrivateKey(BIO *bp, EVP_PKEY *x, const EVP_CIPHER *enc,
+<synopsis>int PEM_write_bio_PrivateKey(BIO *bp, EVP_PKEY *x, const EVP_CIPHER *enc,
                                        unsigned char *kstr, int klen,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">int PEM_write_PrivateKey(FILE *fp, EVP_PKEY *x, const EVP_CIPHER *enc,
+<synopsis>int PEM_write_PrivateKey(FILE *fp, EVP_PKEY *x, const EVP_CIPHER *enc,
                                        unsigned char *kstr, int klen,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">int PEM_write_bio_PKCS8PrivateKey(BIO *bp, EVP_PKEY *x, const EVP_CIPHER *enc,
+<synopsis>int PEM_write_bio_PKCS8PrivateKey(BIO *bp, EVP_PKEY *x, const EVP_CIPHER *enc,
                                        char *kstr, int klen,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">int PEM_write_PKCS8PrivateKey(FILE *fp, EVP_PKEY *x, const EVP_CIPHER *enc,
+<synopsis>int PEM_write_PKCS8PrivateKey(FILE *fp, EVP_PKEY *x, const EVP_CIPHER *enc,
                                        char *kstr, int klen,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">int PEM_write_bio_PKCS8PrivateKey_nid(BIO *bp, EVP_PKEY *x, int nid,
+<synopsis>int PEM_write_bio_PKCS8PrivateKey_nid(BIO *bp, EVP_PKEY *x, int nid,
                                        char *kstr, int klen,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">int PEM_write_PKCS8PrivateKey_nid(FILE *fp, EVP_PKEY *x, int nid,
+<synopsis>int PEM_write_PKCS8PrivateKey_nid(FILE *fp, EVP_PKEY *x, int nid,
                                        char *kstr, int klen,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">EVP_PKEY *PEM_read_bio_PUBKEY(BIO *bp, EVP_PKEY **x,
+<synopsis>EVP_PKEY *PEM_read_bio_PUBKEY(BIO *bp, EVP_PKEY **x,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">EVP_PKEY *PEM_read_PUBKEY(FILE *fp, EVP_PKEY **x,
+<synopsis>EVP_PKEY *PEM_read_PUBKEY(FILE *fp, EVP_PKEY **x,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">int PEM_write_bio_PUBKEY(BIO *bp, EVP_PKEY *x);
+<synopsis>int PEM_write_bio_PUBKEY(BIO *bp, EVP_PKEY *x);
 int PEM_write_PUBKEY(FILE *fp, EVP_PKEY *x);</synopsis>
-<synopsis format="linespecific">RSA *PEM_read_bio_RSAPrivateKey(BIO *bp, RSA **x,
+<synopsis>RSA *PEM_read_bio_RSAPrivateKey(BIO *bp, RSA **x,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">RSA *PEM_read_RSAPrivateKey(FILE *fp, RSA **x,
+<synopsis>RSA *PEM_read_RSAPrivateKey(FILE *fp, RSA **x,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">int PEM_write_bio_RSAPrivateKey(BIO *bp, RSA *x, const EVP_CIPHER *enc,
+<synopsis>int PEM_write_bio_RSAPrivateKey(BIO *bp, RSA *x, const EVP_CIPHER *enc,
                                        unsigned char *kstr, int klen,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">int PEM_write_RSAPrivateKey(FILE *fp, RSA *x, const EVP_CIPHER *enc,
+<synopsis>int PEM_write_RSAPrivateKey(FILE *fp, RSA *x, const EVP_CIPHER *enc,
                                        unsigned char *kstr, int klen,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">RSA *PEM_read_bio_RSAPublicKey(BIO *bp, RSA **x,
+<synopsis>RSA *PEM_read_bio_RSAPublicKey(BIO *bp, RSA **x,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">RSA *PEM_read_RSAPublicKey(FILE *fp, RSA **x,
+<synopsis>RSA *PEM_read_RSAPublicKey(FILE *fp, RSA **x,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">int PEM_write_bio_RSAPublicKey(BIO *bp, RSA *x);</synopsis>
-<synopsis format="linespecific">int PEM_write_RSAPublicKey(FILE *fp, RSA *x);</synopsis>
-<synopsis format="linespecific">RSA *PEM_read_bio_RSA_PUBKEY(BIO *bp, RSA **x,
+<synopsis>int PEM_write_bio_RSAPublicKey(BIO *bp, RSA *x);</synopsis>
+<synopsis>int PEM_write_RSAPublicKey(FILE *fp, RSA *x);</synopsis>
+<synopsis>RSA *PEM_read_bio_RSA_PUBKEY(BIO *bp, RSA **x,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">RSA *PEM_read_RSA_PUBKEY(FILE *fp, RSA **x,
+<synopsis>RSA *PEM_read_RSA_PUBKEY(FILE *fp, RSA **x,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">int PEM_write_bio_RSA_PUBKEY(BIO *bp, RSA *x);</synopsis>
-<synopsis format="linespecific">int PEM_write_RSA_PUBKEY(FILE *fp, RSA *x);</synopsis>
-<synopsis format="linespecific">DSA *PEM_read_bio_DSAPrivateKey(BIO *bp, DSA **x,
+<synopsis>int PEM_write_bio_RSA_PUBKEY(BIO *bp, RSA *x);</synopsis>
+<synopsis>int PEM_write_RSA_PUBKEY(FILE *fp, RSA *x);</synopsis>
+<synopsis>DSA *PEM_read_bio_DSAPrivateKey(BIO *bp, DSA **x,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">DSA *PEM_read_DSAPrivateKey(FILE *fp, DSA **x,
+<synopsis>DSA *PEM_read_DSAPrivateKey(FILE *fp, DSA **x,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">int PEM_write_bio_DSAPrivateKey(BIO *bp, DSA *x, const EVP_CIPHER *enc,
+<synopsis>int PEM_write_bio_DSAPrivateKey(BIO *bp, DSA *x, const EVP_CIPHER *enc,
                                        unsigned char *kstr, int klen,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">int PEM_write_DSAPrivateKey(FILE *fp, DSA *x, const EVP_CIPHER *enc,
+<synopsis>int PEM_write_DSAPrivateKey(FILE *fp, DSA *x, const EVP_CIPHER *enc,
                                        unsigned char *kstr, int klen,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">DSA *PEM_read_bio_DSA_PUBKEY(BIO *bp, DSA **x,
+<synopsis>DSA *PEM_read_bio_DSA_PUBKEY(BIO *bp, DSA **x,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">DSA *PEM_read_DSA_PUBKEY(FILE *fp, DSA **x,
+<synopsis>DSA *PEM_read_DSA_PUBKEY(FILE *fp, DSA **x,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">int PEM_write_bio_DSA_PUBKEY(BIO *bp, DSA *x);</synopsis>
-<synopsis format="linespecific">int PEM_write_DSA_PUBKEY(FILE *fp, DSA *x);</synopsis>
-<synopsis format="linespecific">DSA *PEM_read_bio_DSAparams(BIO *bp, DSA **x, pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">DSA *PEM_read_DSAparams(FILE *fp, DSA **x, pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">int PEM_write_bio_DSAparams(BIO *bp, DSA *x);</synopsis>
-<synopsis format="linespecific">int PEM_write_DSAparams(FILE *fp, DSA *x);</synopsis>
-<synopsis format="linespecific">DH *PEM_read_bio_DHparams(BIO *bp, DH **x, pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">DH *PEM_read_DHparams(FILE *fp, DH **x, pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">int PEM_write_bio_DHparams(BIO *bp, DH *x);</synopsis>
-<synopsis format="linespecific">int PEM_write_DHparams(FILE *fp, DH *x);</synopsis>
-<synopsis format="linespecific">X509 *PEM_read_bio_X509(BIO *bp, X509 **x, pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">X509 *PEM_read_X509(FILE *fp, X509 **x, pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">int PEM_write_bio_X509(BIO *bp, X509 *x);</synopsis>
-<synopsis format="linespecific">int PEM_write_X509(FILE *fp, X509 *x);</synopsis>
-<synopsis format="linespecific">X509 *PEM_read_bio_X509_AUX(BIO *bp, X509 **x, pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">X509 *PEM_read_X509_AUX(FILE *fp, X509 **x, pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">int PEM_write_bio_X509_AUX(BIO *bp, X509 *x);</synopsis>
-<synopsis format="linespecific">int PEM_write_X509_AUX(FILE *fp, X509 *x);</synopsis>
-<synopsis format="linespecific">X509_REQ *PEM_read_bio_X509_REQ(BIO *bp, X509_REQ **x,
+<synopsis>int PEM_write_bio_DSA_PUBKEY(BIO *bp, DSA *x);</synopsis>
+<synopsis>int PEM_write_DSA_PUBKEY(FILE *fp, DSA *x);</synopsis>
+<synopsis>DSA *PEM_read_bio_DSAparams(BIO *bp, DSA **x, pem_password_cb *cb, void *u);</synopsis>
+<synopsis>DSA *PEM_read_DSAparams(FILE *fp, DSA **x, pem_password_cb *cb, void *u);</synopsis>
+<synopsis>int PEM_write_bio_DSAparams(BIO *bp, DSA *x);</synopsis>
+<synopsis>int PEM_write_DSAparams(FILE *fp, DSA *x);</synopsis>
+<synopsis>DH *PEM_read_bio_DHparams(BIO *bp, DH **x, pem_password_cb *cb, void *u);</synopsis>
+<synopsis>DH *PEM_read_DHparams(FILE *fp, DH **x, pem_password_cb *cb, void *u);</synopsis>
+<synopsis>int PEM_write_bio_DHparams(BIO *bp, DH *x);</synopsis>
+<synopsis>int PEM_write_DHparams(FILE *fp, DH *x);</synopsis>
+<synopsis>X509 *PEM_read_bio_X509(BIO *bp, X509 **x, pem_password_cb *cb, void *u);</synopsis>
+<synopsis>X509 *PEM_read_X509(FILE *fp, X509 **x, pem_password_cb *cb, void *u);</synopsis>
+<synopsis>int PEM_write_bio_X509(BIO *bp, X509 *x);</synopsis>
+<synopsis>int PEM_write_X509(FILE *fp, X509 *x);</synopsis>
+<synopsis>X509 *PEM_read_bio_X509_AUX(BIO *bp, X509 **x, pem_password_cb *cb, void *u);</synopsis>
+<synopsis>X509 *PEM_read_X509_AUX(FILE *fp, X509 **x, pem_password_cb *cb, void *u);</synopsis>
+<synopsis>int PEM_write_bio_X509_AUX(BIO *bp, X509 *x);</synopsis>
+<synopsis>int PEM_write_X509_AUX(FILE *fp, X509 *x);</synopsis>
+<synopsis>X509_REQ *PEM_read_bio_X509_REQ(BIO *bp, X509_REQ **x,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">X509_REQ *PEM_read_X509_REQ(FILE *fp, X509_REQ **x,
+<synopsis>X509_REQ *PEM_read_X509_REQ(FILE *fp, X509_REQ **x,
                                        pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">int PEM_write_bio_X509_REQ(BIO *bp, X509_REQ *x);</synopsis>
-<synopsis format="linespecific">int PEM_write_X509_REQ(FILE *fp, X509_REQ *x);</synopsis>
-<synopsis format="linespecific">int PEM_write_bio_X509_REQ_NEW(BIO *bp, X509_REQ *x);</synopsis>
-<synopsis format="linespecific">int PEM_write_X509_REQ_NEW(FILE *fp, X509_REQ *x);</synopsis>
-<synopsis format="linespecific">X509_CRL *PEM_read_bio_X509_CRL(BIO *bp, X509_CRL **x,
+<synopsis>int PEM_write_bio_X509_REQ(BIO *bp, X509_REQ *x);</synopsis>
+<synopsis>int PEM_write_X509_REQ(FILE *fp, X509_REQ *x);</synopsis>
+<synopsis>int PEM_write_bio_X509_REQ_NEW(BIO *bp, X509_REQ *x);</synopsis>
+<synopsis>int PEM_write_X509_REQ_NEW(FILE *fp, X509_REQ *x);</synopsis>
+<synopsis>X509_CRL *PEM_read_bio_X509_CRL(BIO *bp, X509_CRL **x,
                                        pem_password_cb *cb, void *u);
 X509_CRL *PEM_read_X509_CRL(FILE *fp, X509_CRL **x,
                                        pem_password_cb *cb, void *u);
 int PEM_write_bio_X509_CRL(BIO *bp, X509_CRL *x);
 int PEM_write_X509_CRL(FILE *fp, X509_CRL *x);</synopsis>
-<synopsis format="linespecific">PKCS7 *PEM_read_bio_PKCS7(BIO *bp, PKCS7 **x, pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">PKCS7 *PEM_read_PKCS7(FILE *fp, PKCS7 **x, pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">int PEM_write_bio_PKCS7(BIO *bp, PKCS7 *x);</synopsis>
-<synopsis format="linespecific">int PEM_write_PKCS7(FILE *fp, PKCS7 *x);</synopsis>
-<synopsis format="linespecific">NETSCAPE_CERT_SEQUENCE *PEM_read_bio_NETSCAPE_CERT_SEQUENCE(BIO *bp,
+<synopsis>PKCS7 *PEM_read_bio_PKCS7(BIO *bp, PKCS7 **x, pem_password_cb *cb, void *u);</synopsis>
+<synopsis>PKCS7 *PEM_read_PKCS7(FILE *fp, PKCS7 **x, pem_password_cb *cb, void *u);</synopsis>
+<synopsis>int PEM_write_bio_PKCS7(BIO *bp, PKCS7 *x);</synopsis>
+<synopsis>int PEM_write_PKCS7(FILE *fp, PKCS7 *x);</synopsis>
+<synopsis>NETSCAPE_CERT_SEQUENCE *PEM_read_bio_NETSCAPE_CERT_SEQUENCE(BIO *bp,
                                                NETSCAPE_CERT_SEQUENCE **x,
                                                pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">NETSCAPE_CERT_SEQUENCE *PEM_read_NETSCAPE_CERT_SEQUENCE(FILE *fp,
+<synopsis>NETSCAPE_CERT_SEQUENCE *PEM_read_NETSCAPE_CERT_SEQUENCE(FILE *fp,
                                                NETSCAPE_CERT_SEQUENCE **x,
                                                pem_password_cb *cb, void *u);</synopsis>
-<synopsis format="linespecific">int PEM_write_bio_NETSCAPE_CERT_SEQUENCE(BIO *bp, NETSCAPE_CERT_SEQUENCE *x);</synopsis>
-<synopsis format="linespecific">int PEM_write_NETSCAPE_CERT_SEQUENCE(FILE *fp, NETSCAPE_CERT_SEQUENCE *x);</synopsis>
+<synopsis>int PEM_write_bio_NETSCAPE_CERT_SEQUENCE(BIO *bp, NETSCAPE_CERT_SEQUENCE *x);</synopsis>
+<synopsis>int PEM_write_NETSCAPE_CERT_SEQUENCE(FILE *fp, NETSCAPE_CERT_SEQUENCE *x);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.pem.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-2eebbbe569f99191ab27acb2e293d9c5"><title>DESCRIPTION</title>
     <para>
       The PEM functions read or write structures in PEM format. In this
       sense PEM format is simply base64 encoded data surrounded by header
@@ -257,7 +257,7 @@ int PEM_write_X509_CRL(FILE *fp, X509_CRL *x);</synopsis>
       NETSCAPE_CERT_SEQUENCE structure.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.pem.pod:PEM_FUNCTION_ARGUMENTS"><title>PEM FUNCTION ARGUMENTS</title>
+  <refsection xml:id="ID-80e457219e9afe9c04cc4f61fcb9d14e"><title>PEM FUNCTION ARGUMENTS</title>
     <para>
       The PEM functions have many common arguments.
     </para>
@@ -323,7 +323,7 @@ int PEM_write_X509_CRL(FILE *fp, X509_CRL *x);</synopsis>
       characters in the passphrase or 0 if an error occurred.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.pem.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-63360b342d9ce14e3cb8249967709827"><title>EXAMPLES</title>
     <para>
       Although the PEM routines take several arguments in almost all
       applications most of them are set to 0 or NULL.
@@ -412,7 +412,7 @@ memcpy(buf, tmp, len);
 return len;
 }</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.pem.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-c01c71309fcc06b816c99da0ffa45cba"><title>NOTES</title>
     <para>
       The old <emphasis role="bold">PrivateKey</emphasis> write routines
       are retained for compatibility. New applications should write private
@@ -438,7 +438,7 @@ PEM_read_bio_X509(bp, &amp;x, 0, NULL);</screen>
       <emphasis role="bold">x</emphasis> which is an uninitialised pointer.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.pem.pod:PEM_ENCRYPTION_FORMAT"><title>PEM ENCRYPTION FORMAT</title>
+  <refsection xml:id="ID-356db4c8c62b4ef67c71acb3be0b0f3f"><title>PEM ENCRYPTION FORMAT</title>
     <para>
       This old <emphasis role="bold">PrivateKey</emphasis> routines use a
       non standard technique for encryption.
@@ -467,7 +467,7 @@ DEK-Info: DES-EDE3-CBC,3F17F5316E2BAC89
       *not* the IV returned by EVP_BytesToKey().
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.pem.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-bbbc794a8a5fafd94fa74427cd2ff6fc"><title>BUGS</title>
     <para>
       The PEM read routines in some versions of OpenSSL will not correctly
       reuse an existing structure. Therefore the following:
@@ -483,7 +483,7 @@ x = PEM_read_bio_X509(bp, NULL, 0, NULL);</screen>
       is guaranteed to work.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.pem.pod:RETURN_CODES"><title>RETURN CODES</title>
+  <refsection xml:id="ID-d8984e396e8482d8e4138d9bc131d533"><title>RETURN CODES</title>
     <para>
       The read routines return either a pointer to the structure read or
       NULL if an error occurred.
@@ -492,7 +492,7 @@ x = PEM_read_bio_X509(bp, NULL, 0, NULL);</screen>
       The write routines return 1 for success or 0 for failure.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.pem.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-1b12b2a242800eeaea000533201c8f4a"><title>SEE ALSO</title>
     <para>
       EVP_get_cipherbyname(3), EVP_BytesToKey(3)
     </para>

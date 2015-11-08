@@ -8,16 +8,16 @@
 <refpurpose>CMS certificate and CRL utility functions</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/cms.h&gt;</synopsis>
-<synopsis format="linespecific">int CMS_add0_cert(CMS_ContentInfo *cms, X509 *cert);
+<synopsis>#include &lt;openssl/cms.h&gt;</synopsis>
+<synopsis>int CMS_add0_cert(CMS_ContentInfo *cms, X509 *cert);
 int CMS_add1_cert(CMS_ContentInfo *cms, X509 *cert);
 STACK_OF(X509) *CMS_get1_certs(CMS_ContentInfo *cms);</synopsis>
-<synopsis format="linespecific">int CMS_add0_crl(CMS_ContentInfo *cms, X509_CRL *crl);
+<synopsis>int CMS_add0_crl(CMS_ContentInfo *cms, X509_CRL *crl);
 int CMS_add1_crl(CMS_ContentInfo *cms, X509_CRL *crl);
 STACK_OF(X509_CRL) *CMS_get1_crls(CMS_ContentInfo *cms);</synopsis>
-<synopsis format="linespecific"/>
+<synopsis/>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.CMS_add0_cert.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-751f26d6e6d5b155a76a2e53d9044135"><title>DESCRIPTION</title>
     <para>
       CMS_add0_cert() and CMS_add1_cert() add certificate <emphasis role="bold">cert</emphasis> to <emphasis role="bold">cms</emphasis>.
       must be of type signed data or enveloped data.
@@ -30,7 +30,7 @@ STACK_OF(X509_CRL) *CMS_get1_crls(CMS_ContentInfo *cms);</synopsis>
       CMS_get1_crls() returns any CRLs in <emphasis role="bold">cms</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.CMS_add0_cert.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-6e036f35db74c5b5c8defddd7b112654"><title>NOTES</title>
     <para>
       The CMS_ContentInfo structure <emphasis role="bold">cms</emphasis>
       must be of type signed data or enveloped data or an error will be
@@ -50,7 +50,7 @@ STACK_OF(X509_CRL) *CMS_get1_crls(CMS_ContentInfo *cms);</synopsis>
       structure more than once.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.CMS_add0_cert.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-92659b3eaea8efdb381d15bfe20d0544"><title>RETURN VALUES</title>
     <para>
       CMS_add0_cert(), CMS_add1_cert() and CMS_add0_crl() and
       CMS_add1_crl() return 1 for success and 0 for failure.
@@ -61,7 +61,7 @@ STACK_OF(X509_CRL) *CMS_get1_crls(CMS_ContentInfo *cms);</synopsis>
       which will occur in practice is if the <emphasis role="bold">cms</emphasis> type is invalid.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.CMS_add0_cert.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-11dce8b31460a0c19eb10b4fe1ba9bf9"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ERR_get_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -69,12 +69,6 @@ STACK_OF(X509_CRL) *CMS_get1_crls(CMS_ContentInfo *cms);</synopsis>
       </citerefentry>, <citerefentry>
       <refentrytitle>CMS_encrypt</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.CMS_add0_cert.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      CMS_add0_cert(), CMS_add1_cert(), CMS_get1_certs(), CMS_add0_crl()
-      and CMS_get1_crls() were all first added to OpenSSL 0.9.8
     </para>
   </refsection>
 </refentry>

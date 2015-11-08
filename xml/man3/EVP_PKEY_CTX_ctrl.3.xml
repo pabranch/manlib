@@ -15,27 +15,27 @@ EVP_PKEY_CTX_set_ec_param_enc</refname>
 <refpurpose>algorithm specific control operations</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
-<synopsis format="linespecific">int EVP_PKEY_CTX_ctrl(EVP_PKEY_CTX *ctx, int keytype, int optype,
+<synopsis>#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis>int EVP_PKEY_CTX_ctrl(EVP_PKEY_CTX *ctx, int keytype, int optype,
                                int cmd, int p1, void *p2);
 int EVP_PKEY_CTX_ctrl_str(EVP_PKEY_CTX *ctx, const char *type,
                                                const char *value);</synopsis>
-<synopsis format="linespecific">#include &lt;openssl/rsa.h&gt;</synopsis>
-<synopsis format="linespecific">int EVP_PKEY_CTX_set_signature_md(EVP_PKEY_CTX *ctx, const EVP_MD *md);</synopsis>
-<synopsis format="linespecific">int EVP_PKEY_CTX_set_rsa_padding(EVP_PKEY_CTX *ctx, int pad);
+<synopsis>#include &lt;openssl/rsa.h&gt;</synopsis>
+<synopsis>int EVP_PKEY_CTX_set_signature_md(EVP_PKEY_CTX *ctx, const EVP_MD *md);</synopsis>
+<synopsis>int EVP_PKEY_CTX_set_rsa_padding(EVP_PKEY_CTX *ctx, int pad);
 int EVP_PKEY_CTX_set_rsa_pss_saltlen(EVP_PKEY_CTX *ctx, int len);
 int EVP_PKEY_CTX_set_rsa_rsa_keygen_bits(EVP_PKEY_CTX *ctx, int mbits);
 int EVP_PKEY_CTX_set_rsa_keygen_pubexp(EVP_PKEY_CTX *ctx, BIGNUM *pubexp);</synopsis>
-<synopsis format="linespecific">#include &lt;openssl/dsa.h&gt;
+<synopsis>#include &lt;openssl/dsa.h&gt;
 int EVP_PKEY_CTX_set_dsa_paramgen_bits(EVP_PKEY_CTX *ctx, int nbits);</synopsis>
-<synopsis format="linespecific">#include &lt;openssl/dh.h&gt;
+<synopsis>#include &lt;openssl/dh.h&gt;
 int EVP_PKEY_CTX_set_dh_paramgen_prime_len(EVP_PKEY_CTX *ctx, int len);
 int EVP_PKEY_CTX_set_dh_paramgen_generator(EVP_PKEY_CTX *ctx, int gen);</synopsis>
-<synopsis format="linespecific">#include &lt;openssl/ec.h&gt;
+<synopsis>#include &lt;openssl/ec.h&gt;
 int EVP_PKEY_CTX_set_ec_paramgen_curve_nid(EVP_PKEY_CTX *ctx, int nid);
 int EVP_PKEY_CTX_set_ec_param_enc(EVP_PKEY_CTX *ctx, int param_enc);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_CTX_ctrl.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-03e687a35d9ec48af78f39979eefb55d"><title>DESCRIPTION</title>
     <para>
       The function EVP_PKEY_CTX_ctrl() sends a control operation to the
       context <emphasis role="bold">ctx</emphasis>. The key type used must
@@ -128,9 +128,8 @@ int EVP_PKEY_CTX_set_ec_param_enc(EVP_PKEY_CTX *ctx, int param_enc);</synopsis>
       The EVP_PKEY_CTX_set_ec_paramgen_curve_nid() sets the EC curve for EC
       parameter generation to <emphasis role="bold">nid</emphasis>. For EC
       parameter generation this macro must be called or an error occurs
-      because there is no default curve. In OpenSSL 1.0.2 and later this
-      function can also be called to set the curve explicitly when
-      generating an EC key.
+      because there is no default curve. This function can also be called
+      to set the curve explicitly when generating an EC key.
     </para>
     <para>
       The EVP_PKEY_CTX_set_ec_param_enc() sets the EC parameter encoding to
@@ -140,10 +139,10 @@ int EVP_PKEY_CTX_set_ec_param_enc(EVP_PKEY_CTX *ctx, int param_enc);</synopsis>
       <emphasis role="bold">OPENSSL_EC_NAMED_CURVE</emphasis> to use named
       curve form. For maximum compatibility the named curve form should be
       used. Note: the <emphasis role="bold">OPENSSL_EC_NAMED_CURVE</emphasis> value was only added to
-      OpenSSL 1.1.0: previous versions should use 0 instead.
+      OpenSSL 1.1.0; previous versions should use 0 instead.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_CTX_ctrl.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-0366e6368f242b1c2c2668a3336cee2b"><title>RETURN VALUES</title>
     <para>
       EVP_PKEY_CTX_ctrl() and its macros return a positive value for
       success and 0 or a negative value for failure. In particular a return
@@ -151,7 +150,7 @@ int EVP_PKEY_CTX_set_ec_param_enc(EVP_PKEY_CTX *ctx, int param_enc);</synopsis>
       key algorithm.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_CTX_ctrl.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-e2cd25dc52e057991ee247cb2e013b60"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>EVP_PKEY_CTX_new</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -171,7 +170,7 @@ int EVP_PKEY_CTX_set_ec_param_enc(EVP_PKEY_CTX *ctx, int param_enc);</synopsis>
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_CTX_ctrl.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-b274b3e7daac61e1ce7fc0db455688a0"><title>HISTORY</title>
     <para>
       These functions were first added to OpenSSL 1.0.0.
     </para>

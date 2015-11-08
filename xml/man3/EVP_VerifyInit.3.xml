@@ -8,13 +8,13 @@
 <refpurpose>EVP signature verification functions</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
-<synopsis format="linespecific">int EVP_VerifyInit_ex(EVP_MD_CTX *ctx, const EVP_MD *type, ENGINE *impl);
+<synopsis>#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis>int EVP_VerifyInit_ex(EVP_MD_CTX *ctx, const EVP_MD *type, ENGINE *impl);
 int EVP_VerifyUpdate(EVP_MD_CTX *ctx, const void *d, unsigned int cnt);
 int EVP_VerifyFinal(EVP_MD_CTX *ctx,unsigned char *sigbuf, unsigned int siglen,EVP_PKEY *pkey);</synopsis>
-<synopsis format="linespecific">int EVP_VerifyInit(EVP_MD_CTX *ctx, const EVP_MD *type);</synopsis>
+<synopsis>int EVP_VerifyInit(EVP_MD_CTX *ctx, const EVP_MD *type);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_VerifyInit.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-44289fb6600e5dd52f86d26d546a3954"><title>DESCRIPTION</title>
     <para>
       The EVP signature verification routines are a high level interface to
       digital signatures.
@@ -39,7 +39,7 @@ int EVP_VerifyFinal(EVP_MD_CTX *ctx,unsigned char *sigbuf, unsigned int siglen,E
       digest <emphasis role="bold">type</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_VerifyInit.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-497746534bd1250b149ac26aa4531114"><title>RETURN VALUES</title>
     <para>
       EVP_VerifyInit_ex() and EVP_VerifyUpdate() return 1 for success and 0
       for failure.
@@ -54,7 +54,7 @@ int EVP_VerifyFinal(EVP_MD_CTX *ctx,unsigned char *sigbuf, unsigned int siglen,E
       </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_VerifyInit.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-fc7406bd9618668df92e4f542d67d03a"><title>NOTES</title>
     <para>
       The <emphasis role="bold">EVP</emphasis> interface to digital
       signatures should almost always be used in preference to the low
@@ -67,7 +67,7 @@ int EVP_VerifyFinal(EVP_MD_CTX *ctx,unsigned char *sigbuf, unsigned int siglen,E
       type. A list of algorithms and associated public key algorithms
       appears in <citerefentry>
       <refentrytitle>EVP_DigestInit</refentrytitle>
-      <manvolnum>3</manvolnum> </citerefentry>. 
+      <manvolnum>3</manvolnum> </citerefentry>.
     </para>
     <para>
       The call to EVP_VerifyFinal() internally finalizes a copy of the
@@ -81,10 +81,10 @@ int EVP_VerifyFinal(EVP_MD_CTX *ctx,unsigned char *sigbuf, unsigned int siglen,E
       memory leak will occur.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_VerifyInit.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-db9250f99d419e85c685acc2fed221d9"><title>BUGS</title>
     <para>
       Older versions of this documentation wrongly stated that calls to
-      EVP_VerifyUpdate() could not be made after calling EVP_VerifyFinal(). 
+      EVP_VerifyUpdate() could not be made after calling EVP_VerifyFinal().
     </para>
     <para>
       Since the public key is passed in the call to EVP_SignFinal() any
@@ -101,7 +101,7 @@ int EVP_VerifyFinal(EVP_MD_CTX *ctx,unsigned char *sigbuf, unsigned int siglen,E
       function.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_VerifyInit.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-3b9f7208ccedc810581506335d7caf41"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>evp</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -123,15 +123,6 @@ int EVP_VerifyFinal(EVP_MD_CTX *ctx,unsigned char *sigbuf, unsigned int siglen,E
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>dgst</refentrytitle> <manvolnum>1</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_VerifyInit.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      EVP_VerifyInit(), EVP_VerifyUpdate() and EVP_VerifyFinal() are
-      available in all versions of SSLeay and OpenSSL.
-    </para>
-    <para>
-      EVP_VerifyInit_ex() was added in OpenSSL 0.9.7
     </para>
   </refsection>
 </refentry>

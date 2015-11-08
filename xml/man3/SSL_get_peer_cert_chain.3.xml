@@ -8,10 +8,10 @@
 <refpurpose>get the X509 certificate chain of the peer</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">STACK_OF(X509) *SSL_get_peer_cert_chain(const SSL *ssl);</synopsis>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>STACK_OF(X509) *SSL_get_peer_cert_chain(const SSL *ssl);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_peer_cert_chain.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-3ab22f264eecb169937f76227af91c85"><title>DESCRIPTION</title>
     <para>
       SSL_get_peer_cert_chain() returns a pointer to STACK_OF(X509)
       certificates forming the certificate chain of the peer. If called on
@@ -23,7 +23,7 @@
       a certificate, NULL is returned.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_peer_cert_chain.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-ef3fbeabd89cb4eb2e216aaad57c0be1"><title>NOTES</title>
     <para>
       The peer certificate chain is not necessarily available after reusing
       a session, in which case a NULL pointer is returned.
@@ -34,14 +34,14 @@
       any longer.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_peer_cert_chain.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-4fdc3e1dc97e13ae93475b6694f455d7"><title>RETURN VALUES</title>
     <para>
       The following return values can occur:
     </para>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_peer_cert_chain.pod:NULL"/>NULL</term>
+          <term>NULL</term>
           <listitem>
             <para>
 	      No certificate was presented by the peer or no connection was
@@ -51,7 +51,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_peer_cert_chain.pod:Pointer_to_a_STACK_OFX509"/>Pointer to a STACK_OF(X509)</term>
+          <term>Pointer to a STACK_OF(X509)</term>
           <listitem>
             <para>
 	      The return value points to the certificate chain presented by
@@ -62,7 +62,7 @@
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_peer_cert_chain.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-22cfc6ae7ff4126cefc083561f4b02c6"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

@@ -8,10 +8,10 @@
 <refpurpose>set peer certificate verification procedure</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">void SSL_CTX_set_cert_verify_callback(SSL_CTX *ctx, int (*callback)(X509_STORE_CTX *,void *), void *arg);</synopsis>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>void SSL_CTX_set_cert_verify_callback(SSL_CTX *ctx, int (*callback)(X509_STORE_CTX *,void *), void *arg);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cert_verify_callback.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-26f8f851d116990e380da044c6a12c1f"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_set_cert_verify_callback() sets the verification callback
       function for <emphasis role="italic">ctx</emphasis>. SSL objects that
@@ -21,7 +21,7 @@
       </citerefentry> is called.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cert_verify_callback.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-985d99279fd7debea3576b7a786e51ac"><title>NOTES</title>
     <para>
       Whenever a certificate is verified during a SSL/TLS handshake, a
       verification function is called. If the application does not
@@ -35,7 +35,7 @@
       When the verification must be performed, <emphasis role="italic">callback</emphasis> will be called with the arguments
       callback(X509_STORE_CTX *x509_store_ctx, void *arg). The argument
       <emphasis role="italic">arg</emphasis> is specified by the
-      application when setting <emphasis role="italic">callback</emphasis>. 
+      application when setting <emphasis role="italic">callback</emphasis>.
     </para>
     <para>
       <emphasis role="italic">callback</emphasis> should return 1 to
@@ -54,7 +54,7 @@
       <manvolnum>3</manvolnum> </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cert_verify_callback.pod:WARNINGS"><title>WARNINGS</title>
+  <refsection xml:id="ID-aa77edad7318ced16d1e36e04b0ac18b"><title>WARNINGS</title>
     <para>
       Do not mix the verification callback described in this function with
       the <emphasis role="bold">verify_callback</emphasis> function called
@@ -69,16 +69,16 @@
       its behaviour using the <emphasis role="bold">verify_callback</emphasis> function.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cert_verify_callback.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-37e05195a174f7bbd6214f98f38e368f"><title>BUGS</title>
     <para/>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cert_verify_callback.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-09cbc8a25bffed071dad6e08435af0ab"><title>RETURN VALUES</title>
     <para>
       SSL_CTX_set_cert_verify_callback() does not provide diagnostic
       information.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cert_verify_callback.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-847f630138576bfff37f000979724b5b"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -88,16 +88,6 @@
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>SSL_CTX_load_verify_locations</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cert_verify_callback.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      Previous to OpenSSL 0.9.7, the <emphasis role="italic">arg</emphasis>
-      argument to <emphasis role="bold">SSL_CTX_set_cert_verify_callback</emphasis> was ignored,
-      and <emphasis role="italic">callback</emphasis> was called simply as
-      int (*callback)(X509_STORE_CTX *) To compile software written for
-      previous versions of OpenSSL, a dummy argument will have to be added
-      to <emphasis role="italic">callback</emphasis>.
     </para>
   </refsection>
 </refentry>

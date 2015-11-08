@@ -8,13 +8,13 @@
     OCSP_RESPONSE_free - OCSP response functions.
   </para>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ocsp.h&gt;</synopsis>
-<synopsis format="linespecific">int OCSP_response_status(OCSP_RESPONSE *resp);
+<synopsis>#include &lt;openssl/ocsp.h&gt;</synopsis>
+<synopsis>int OCSP_response_status(OCSP_RESPONSE *resp);
 OCSP_BASICRESP *OCSP_response_get1_basic(OCSP_RESPONSE *resp);
 OCSP_RESPONSE *OCSP_response_create(int status, OCSP_BASICRESP *bs);
 void OCSP_RESPONSE_free(OCSP_RESPONSE *resp);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_response_status.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-51fffb405f58629099f0439e0b28412f"><title>DESCRIPTION</title>
     <para>
       OCSP_response_status() returns the OCSP response status of <emphasis role="bold">resp</emphasis>. It returns one of the values: <emphasis role="bold">OCSP_RESPONSE_STATUS_SUCCESSFUL</emphasis>, <emphasis role="bold">OCSP_RESPONSE_STATUS_MALFORMEDREQUEST</emphasis>,
       <emphasis role="bold">OCSP_RESPONSE_STATUS_INTERNALERROR</emphasis>,
@@ -34,7 +34,7 @@ void OCSP_RESPONSE_free(OCSP_RESPONSE *resp);</synopsis>
       OCSP_RESPONSE_free() frees up OCSP reponse <emphasis role="bold">resp</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_response_status.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-0d133a5687bb926e1bc76318dad00bbf"><title>RETURN VALUES</title>
     <para>
       OCSP_RESPONSE_status() returns a status value.
     </para>
@@ -48,13 +48,13 @@ void OCSP_RESPONSE_free(OCSP_RESPONSE *resp);</synopsis>
       OCSP_RESPONSE_free() does not return a value.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_response_status.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-7c6bd0ec149a09ca842e0c691b6b25b8"><title>NOTES</title>
     <para>
       OCSP_response_get1_basic() is only called if the status of a response
       is <emphasis role="bold">OCSP_RESPONSE_STATUS_SUCCESSFUL</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_response_status.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-7f243a59904a63b2b3cdb5d174ae6485"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>crypto</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry> <citerefentry>

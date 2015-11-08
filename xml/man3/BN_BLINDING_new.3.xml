@@ -4,18 +4,16 @@
     <refentrytitle>BN_BLINDING_new.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>BN_BLINDING_new, BN_BLINDING_free, BN_BLINDING_update, BN_BLINDING_convert,
+    <refname>BN_BLINDING_new, BN_BLINDING_free, BN_BLINDING_update, BN_BLINDING_convert, 
 BN_BLINDING_invert, BN_BLINDING_convert_ex, BN_BLINDING_invert_ex, 
 BN_BLINDING_get_thread_id, BN_BLINDING_set_thread_id, BN_BLINDING_thread_id, BN_BLINDING_get_flags,
 BN_BLINDING_set_flags, BN_BLINDING_create_param</refname>
 <refpurpose>blinding related BIGNUM
-functions.
-
-</refpurpose>
+functions.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/bn.h&gt;</synopsis>
-<synopsis format="linespecific">BN_BLINDING *BN_BLINDING_new(const BIGNUM *A, const BIGNUM *Ai,
+<synopsis>#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis>BN_BLINDING *BN_BLINDING_new(const BIGNUM *A, const BIGNUM *Ai,
        BIGNUM *mod);
 void BN_BLINDING_free(BN_BLINDING *b);
 int BN_BLINDING_update(BN_BLINDING *b,BN_CTX *ctx);
@@ -38,7 +36,7 @@ BN_BLINDING *BN_BLINDING_create_param(BN_BLINDING *b,
                          const BIGNUM *m, BN_CTX *ctx, BN_MONT_CTX *m_ctx),
        BN_MONT_CTX *m_ctx);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_BLINDING_new.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-060e8022c5ae74ebf2a3abc8efe8e8c7"><title>DESCRIPTION</title>
     <para>
       BN_BLINDING_new() allocates a new <emphasis role="bold">BN_BLINDING</emphasis> structure and copies the <emphasis role="bold">A</emphasis> and <emphasis role="bold">Ai</emphasis>
       values into the newly created <emphasis role="bold">BN_BLINDING</emphasis> object.
@@ -89,7 +87,7 @@ BN_BLINDING *BN_BLINDING_create_param(BN_BLINDING *b,
       <emphasis role="bold">BN_MONT_CTX</emphasis>).
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_BLINDING_new.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-f3d9b766188b7424b5f6cdcce66f38bc"><title>RETURN VALUES</title>
     <para>
       BN_BLINDING_new() returns the newly allocated <emphasis role="bold">BN_BLINDING</emphasis> structure or NULL in case of an
       error.
@@ -107,30 +105,20 @@ BN_BLINDING *BN_BLINDING_create_param(BN_BLINDING *b,
       BN_BLINDING_get_flags() returns the currently set <emphasis role="bold">BN_BLINDING</emphasis> flags (a <emphasis role="bold">unsigned long</emphasis> value).
     </para>
     <para>
-      BN_BLINDING_create_param() returns the newly created <emphasis role="bold">BN_BLINDING</emphasis> parameters or NULL on error. 
+      BN_BLINDING_create_param() returns the newly created <emphasis role="bold">BN_BLINDING</emphasis> parameters or NULL on error.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_BLINDING_new.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-25950b53aea78fce2e92bc06ed402774"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>bn</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_BLINDING_new.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-a7a8439f7fa6b81dc72e23cc82923f00"><title>HISTORY</title>
     <para>
-      BN_BLINDING_thread_id was first introduced in OpenSSL 1.0.0, and it
-      deprecates BN_BLINDING_set_thread_id and BN_BLINDING_get_thread_id.
-    </para>
-    <para>
-      BN_BLINDING_convert_ex, BN_BLINDIND_invert_ex,
-      BN_BLINDING_get_thread_id, BN_BLINDING_set_thread_id,
-      BN_BLINDING_set_flags, BN_BLINDING_get_flags and
-      BN_BLINDING_create_param were first introduced in OpenSSL 0.9.8
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_BLINDING_new.pod:AUTHOR"><title>AUTHOR</title>
-    <para>
-      Nils Larsch for the OpenSSL project (http://www.openssl.org).
+      BN_BLINDING_thread_id() was first introduced in OpenSSL 1.0.0, and it
+      deprecates BN_BLINDING_set_thread_id() and
+      BN_BLINDING_get_thread_id().
     </para>
   </refsection>
 </refentry>

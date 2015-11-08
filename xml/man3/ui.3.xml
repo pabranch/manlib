@@ -14,13 +14,13 @@ UI_set_method, UI_OpenSSL, ERR_load_UI_strings</refname>
 <refpurpose>New User Interface</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ui.h&gt;</synopsis>
-<synopsis format="linespecific">typedef struct ui_st UI;
+<synopsis>#include &lt;openssl/ui.h&gt;</synopsis>
+<synopsis>typedef struct ui_st UI;
 typedef struct ui_method_st UI_METHOD;</synopsis>
-<synopsis format="linespecific">UI *UI_new(void);
+<synopsis>UI *UI_new(void);
 UI *UI_new_method(const UI_METHOD *method);
 void UI_free(UI *ui);</synopsis>
-<synopsis format="linespecific">int UI_add_input_string(UI *ui, const char *prompt, int flags,
+<synopsis>int UI_add_input_string(UI *ui, const char *prompt, int flags,
        char *result_buf, int minsize, int maxsize);
 int UI_dup_input_string(UI *ui, const char *prompt, int flags,
        char *result_buf, int minsize, int maxsize);
@@ -38,25 +38,25 @@ int UI_add_info_string(UI *ui, const char *text);
 int UI_dup_info_string(UI *ui, const char *text);
 int UI_add_error_string(UI *ui, const char *text);
 int UI_dup_error_string(UI *ui, const char *text);</synopsis>
-<synopsis format="linespecific">/* These are the possible flags.  They can be or'ed together. */
+<synopsis>/* These are the possible flags.  They can be or'ed together. */
 #define UI_INPUT_FLAG_ECHO             0x01
 #define UI_INPUT_FLAG_DEFAULT_PWD      0x02</synopsis>
-<synopsis format="linespecific">char *UI_construct_prompt(UI *ui_method,
+<synopsis>char *UI_construct_prompt(UI *ui_method,
        const char *object_desc, const char *object_name);</synopsis>
-<synopsis format="linespecific">void *UI_add_user_data(UI *ui, void *user_data);
+<synopsis>void *UI_add_user_data(UI *ui, void *user_data);
 void *UI_get0_user_data(UI *ui);</synopsis>
-<synopsis format="linespecific">const char *UI_get0_result(UI *ui, int i);</synopsis>
-<synopsis format="linespecific">int UI_process(UI *ui);</synopsis>
-<synopsis format="linespecific">int UI_ctrl(UI *ui, int cmd, long i, void *p, void (*f)());
+<synopsis>const char *UI_get0_result(UI *ui, int i);</synopsis>
+<synopsis>int UI_process(UI *ui);</synopsis>
+<synopsis>int UI_ctrl(UI *ui, int cmd, long i, void *p, void (*f)());
 #define UI_CTRL_PRINT_ERRORS           1
 #define UI_CTRL_IS_REDOABLE            2</synopsis>
-<synopsis format="linespecific">void UI_set_default_method(const UI_METHOD *meth);
+<synopsis>void UI_set_default_method(const UI_METHOD *meth);
 const UI_METHOD *UI_get_default_method(void);
 const UI_METHOD *UI_get_method(UI *ui);
 const UI_METHOD *UI_set_method(UI *ui, const UI_METHOD *meth);</synopsis>
-<synopsis format="linespecific">UI_METHOD *UI_OpenSSL(void);</synopsis>
+<synopsis>UI_METHOD *UI_OpenSSL(void);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.ui.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-e5f34e65e10d803b960b7700e08ef615"><title>DESCRIPTION</title>
     <para>
       UI stands for User Interface, and is general purpose set of routines
       to prompt the user for text-based information.  Through user-written
@@ -197,23 +197,12 @@ const UI_METHOD *UI_set_method(UI *ui, const UI_METHOD *meth);</synopsis>
       UI_set_method() changes the UI method associated with a given UI.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ui.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-4435439ab70b9593152f4ee08545514f"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ui_create</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>ui_compat</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ui.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      The UI section was first introduced in OpenSSL 0.9.7.
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ui.pod:AUTHOR"><title>AUTHOR</title>
-    <para>
-      Richard Levitte (richard@levitte.org) for the OpenSSL project
-      (http://www.openssl.org).
     </para>
   </refsection>
 </refentry>

@@ -8,12 +8,12 @@
 <refpurpose>choose a new TLS/SSL method</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">int SSL_CTX_set_ssl_version(SSL_CTX *ctx, const SSL_METHOD *method);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_CTX_set_ssl_version(SSL_CTX *ctx, const SSL_METHOD *method);
 int SSL_set_ssl_method(SSL *s, const SSL_METHOD *method);
 const SSL_METHOD *SSL_get_ssl_method(SSL *ssl);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_ssl_version.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-a74e0aec9c549a2203e5001247d72771"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_set_ssl_version() sets a new default TLS/SSL <emphasis role="bold">method</emphasis> for SSL objects newly created from this
       <emphasis role="bold">ctx</emphasis>. SSL objects already created
@@ -31,7 +31,7 @@ const SSL_METHOD *SSL_get_ssl_method(SSL *ssl);</synopsis>
       set in <emphasis role="bold">ssl</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_ssl_version.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-c9c811922f2392e8b5d84ba0543723a2"><title>NOTES</title>
     <para>
       The available <emphasis role="bold">method</emphasis> choices are
       described in <citerefentry>
@@ -45,7 +45,7 @@ const SSL_METHOD *SSL_get_ssl_method(SSL *ssl);</synopsis>
       the method currently set in the corresponding SSL_CTX object.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_ssl_version.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-02e0142f0078ddf9d3424c613f66fc5d"><title>RETURN VALUES</title>
     <para>
       The following return values can occur for SSL_CTX_set_ssl_version()
       and SSL_set_ssl_method():
@@ -53,7 +53,7 @@ const SSL_METHOD *SSL_get_ssl_method(SSL *ssl);</synopsis>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_ssl_version.pod:0"/>0</term>
+          <term>0</term>
           <listitem>
             <para>
 	      The new choice failed, check the error stack to find out the
@@ -62,7 +62,7 @@ const SSL_METHOD *SSL_get_ssl_method(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_ssl_version.pod:1"/>1</term>
+          <term>1</term>
           <listitem>
             <para>
 	      The operation succeeded.
@@ -72,7 +72,7 @@ const SSL_METHOD *SSL_get_ssl_method(SSL *ssl);</synopsis>
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_ssl_version.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-82d9a499b25820b385fa15b74497849e"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>SSL_CTX_new</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

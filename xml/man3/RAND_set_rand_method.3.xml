@@ -4,16 +4,16 @@
     <refentrytitle>RAND_set_rand_method.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>RAND_set_rand_method, RAND_get_rand_method, RAND_SSLeay</refname>
+    <refname>RAND_set_rand_method, RAND_get_rand_method, RAND_OpenSSL</refname>
 <refpurpose>select RAND method</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/rand.h&gt;</synopsis>
-<synopsis format="linespecific">void RAND_set_rand_method(const RAND_METHOD *meth);</synopsis>
-<synopsis format="linespecific">const RAND_METHOD *RAND_get_rand_method(void);</synopsis>
-<synopsis format="linespecific">RAND_METHOD *RAND_SSLeay(void);</synopsis>
+<synopsis>#include &lt;openssl/rand.h&gt;</synopsis>
+<synopsis>void RAND_set_rand_method(const RAND_METHOD *meth);</synopsis>
+<synopsis>const RAND_METHOD *RAND_get_rand_method(void);</synopsis>
+<synopsis>RAND_METHOD *RAND_OpenSSL(void);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.RAND_set_rand_method.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-dfd8cc6f1f8fe16c0325e72ca8091b35"><title>DESCRIPTION</title>
     <para>
       A <emphasis role="bold">RAND_METHOD</emphasis> specifies the
       functions that OpenSSL uses for random number generation. By
@@ -24,7 +24,7 @@
     </para>
     <para>
       Initially, the default RAND_METHOD is the OpenSSL internal
-      implementation, as returned by RAND_SSLeay().
+      implementation, as returned by RAND_OpenSSL().
     </para>
     <para>
       RAND_set_default_method() makes <emphasis role="bold">meth</emphasis>
@@ -39,7 +39,7 @@
       longer recommended.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RAND_set_rand_method.pod:THE_RAND_METHOD_STRUCTURE"><title>THE RAND_METHOD STRUCTURE</title>
+  <refsection xml:id="ID-e1a61a095c1370506802767dccc70227"><title>THE RAND_METHOD STRUCTURE</title>
     <screen>typedef struct rand_meth_st
 {
        void (*seed)(const void *buf, int num);
@@ -56,43 +56,29 @@
       implemented.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RAND_set_rand_method.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-16b2faf9eb75f5598a6ca78e0bee7737"><title>RETURN VALUES</title>
     <para>
       RAND_set_rand_method() returns no value. RAND_get_rand_method() and
-      RAND_SSLeay() return pointers to the respective methods.
+      RAND_OpenSSL() return pointers to the respective methods.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RAND_set_rand_method.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-18c37f22819c399febdc29efaaf10071"><title>NOTES</title>
     <para>
-      As of version 0.9.7, RAND_METHOD implementations are grouped together
-      with other algorithmic APIs (eg. RSA_METHOD, EVP_CIPHER, etc) in
-      <emphasis role="bold">ENGINE</emphasis> modules. If a default ENGINE
-      is specified for RAND functionality using an ENGINE API function,
-      that will override any RAND defaults set using the RAND API (ie.
+      RAND_METHOD implementations are grouped together with other
+      algorithmic APIs (eg. RSA_METHOD, EVP_CIPHER, etc) in <emphasis role="bold">ENGINE</emphasis> modules. If a default ENGINE is
+      specified for RAND functionality using an ENGINE API function, that
+      will override any RAND defaults set using the RAND API (ie.
       RAND_set_rand_method()). For this reason, the ENGINE API is the
       recommended way to control default implementations for use in RAND
       and other cryptographic algorithms.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RAND_set_rand_method.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-d82d076a9c80bb027dc7af0fb981c18c"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>rand</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>engine</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RAND_set_rand_method.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      RAND_set_rand_method(), RAND_get_rand_method() and RAND_SSLeay() are
-      available in all versions of OpenSSL.
-    </para>
-    <para>
-      In the engine version of version 0.9.6, RAND_set_rand_method() was
-      altered to take an ENGINE pointer as its argument. As of version
-      0.9.7, that has been reverted as the ENGINE API transparently
-      overrides RAND defaults if used, otherwise RAND API functions work as
-      before. RAND_set_rand_engine() was also introduced in version 0.9.7.
     </para>
   </refsection>
 </refentry>

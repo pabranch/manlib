@@ -8,13 +8,13 @@
 <refpurpose>file descriptor BIO</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/bio.h&gt;</synopsis>
-<synopsis format="linespecific">BIO_METHOD *   BIO_s_fd(void);</synopsis>
-<synopsis format="linespecific">#define BIO_set_fd(b,fd,c)     BIO_int_ctrl(b,BIO_C_SET_FD,c,fd)
+<synopsis>#include &lt;openssl/bio.h&gt;</synopsis>
+<synopsis>BIO_METHOD *   BIO_s_fd(void);</synopsis>
+<synopsis>#define BIO_set_fd(b,fd,c)     BIO_int_ctrl(b,BIO_C_SET_FD,c,fd)
 #define BIO_get_fd(b,c)        BIO_ctrl(b,BIO_C_GET_FD,0,(char *)c)</synopsis>
-<synopsis format="linespecific">BIO *BIO_new_fd(int fd, int close_flag);</synopsis>
+<synopsis>BIO *BIO_new_fd(int fd, int close_flag);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_fd.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-b7571fb2d6cfc70d16838e73005a3fcf"><title>DESCRIPTION</title>
     <para>
       BIO_s_fd() returns the file descriptor BIO method. This is a wrapper
       round the platforms file descriptor routines such as read() and
@@ -53,7 +53,7 @@
       BIO_new_fd() returns a file descriptor BIO using <emphasis role="bold">fd</emphasis> and <emphasis role="bold">close_flag</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_fd.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-a7648b27e505545432b5041ef6bb1085"><title>NOTES</title>
     <para>
       The behaviour of BIO_read() and BIO_write() depends on the behavior
       of the platforms read() and write() calls on the descriptor. If the
@@ -62,14 +62,14 @@
       <refentrytitle>BIO_read</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry> and <citerefentry>
       <refentrytitle>BIO_should_retry</refentrytitle>
-      <manvolnum>3</manvolnum> </citerefentry> manual pages. 
+      <manvolnum>3</manvolnum> </citerefentry> manual pages.
     </para>
     <para>
       File descriptor BIOs should not be used for socket I/O. Use socket
       BIOs instead.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_fd.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-578242c7ec1bb1080ea7006dd9aa0582"><title>RETURN VALUES</title>
     <para>
       BIO_s_fd() returns the file descriptor BIO method.
     </para>
@@ -91,7 +91,7 @@
       occurred.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_fd.pod:EXAMPLE"><title>EXAMPLE</title>
+  <refsection xml:id="ID-36d520cc18e4c11bcb769c6291c68eaf"><title>EXAMPLE</title>
     <para>
       This is a file descriptor BIO version of "Hello World":
     </para>
@@ -100,7 +100,7 @@ out = BIO_new_fd(fileno(stdout), BIO_NOCLOSE);
 BIO_printf(out, "Hello World\n");
 BIO_free(out);</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_fd.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-efa533b1baf0b672d676f55bf539cbc6"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>BIO_seek</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

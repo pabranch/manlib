@@ -10,19 +10,19 @@ OCSP_REQ_CTX_set1_req, OCSP_sendreq_bio</refname>
 <refpurpose>OCSP responder query functions</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ocsp.h&gt;</synopsis>
-<synopsis format="linespecific">OCSP_REQ_CTX *OCSP_sendreq_new(BIO *io, const char *path, OCSP_REQUEST *req,
+<synopsis>#include &lt;openssl/ocsp.h&gt;</synopsis>
+<synopsis>OCSP_REQ_CTX *OCSP_sendreq_new(BIO *io, const char *path, OCSP_REQUEST *req,
                                int maxline);</synopsis>
-<synopsis format="linespecific">int OCSP_sendreq_nbio(OCSP_RESPONSE **presp, OCSP_REQ_CTX *rctx);</synopsis>
-<synopsis format="linespecific">void OCSP_REQ_CTX_free(OCSP_REQ_CTX *rctx);</synopsis>
-<synopsis format="linespecific">void OCSP_set_max_response_length(OCSP_REQ_CTX *rctx, unsigned long len);</synopsis>
-<synopsis format="linespecific">int OCSP_REQ_CTX_add1_header(OCSP_REQ_CTX *rctx,
+<synopsis>int OCSP_sendreq_nbio(OCSP_RESPONSE **presp, OCSP_REQ_CTX *rctx);</synopsis>
+<synopsis>void OCSP_REQ_CTX_free(OCSP_REQ_CTX *rctx);</synopsis>
+<synopsis>void OCSP_set_max_response_length(OCSP_REQ_CTX *rctx, unsigned long len);</synopsis>
+<synopsis>int OCSP_REQ_CTX_add1_header(OCSP_REQ_CTX *rctx,
                              const char *name, const char *value);</synopsis>
-<synopsis format="linespecific">int OCSP_REQ_CTX_set1_req(OCSP_REQ_CTX *rctx, OCSP_REQUEST *req);</synopsis>
-<synopsis format="linespecific">OCSP_RESPONSE *OCSP_sendreq_bio(BIO *io, const char *path, OCSP_REQUEST *req,
+<synopsis>int OCSP_REQ_CTX_set1_req(OCSP_REQ_CTX *rctx, OCSP_REQUEST *req);</synopsis>
+<synopsis>OCSP_RESPONSE *OCSP_sendreq_bio(BIO *io, const char *path, OCSP_REQUEST *req,
                                 int maxline);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_sendreq_new.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-83fd802045e02543424a06a5e82d0a6f"><title>DESCRIPTION</title>
     <para>
       The function OCSP_sendreq_new() returns an <emphasis role="bold">OCSP_CTX</emphasis> structure using the responder
       <emphasis role="bold">io</emphasis>, the URL path <emphasis role="bold">path</emphasis>, the OCSP request <emphasis role="bold">req</emphasis> and with a response header maximum line
@@ -60,7 +60,7 @@ OCSP_REQ_CTX_set1_req, OCSP_sendreq_bio</refname>
       length of <emphasis role="bold">maxline</emphasis>. If <emphasis role="bold">maxline</emphasis> is zero a default value of 4k is used.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_sendreq_new.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-765388870d78d536449fbf6462bb283f"><title>RETURN VALUES</title>
     <para>
       OCSP_sendreq_new() returns a valid <emphasis role="bold">OCSP_REQ_CTX</emphasis> structure or <emphasis role="bold">NULL</emphasis> if an error occurred.
     </para>
@@ -82,7 +82,7 @@ OCSP_REQ_CTX_set1_req, OCSP_sendreq_bio</refname>
       values.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_sendreq_new.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-fe36593644c5a54dfa53df7fd17b305d"><title>NOTES</title>
     <para>
       These functions only perform a minimal HTTP query to a responder. If
       an application wishes to support more advanced features it should use
@@ -112,7 +112,7 @@ OCSP_REQ_CTX_set1_req, OCSP_sendreq_bio</refname>
       its use in new applications is not recommended.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_sendreq_new.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-12676fb39cd1a23361564f47bc13285e"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>crypto</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

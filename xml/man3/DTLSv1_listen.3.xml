@@ -8,10 +8,10 @@
 <refpurpose>listen for incoming DTLS connections.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">int DTLSv1_listen(SSL *ssl, struct sockaddr *peer);</synopsis>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int DTLSv1_listen(SSL *ssl, struct sockaddr *peer);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.DTLSv1_listen.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-76b7e3447291b899e18e1fe442944622"><title>DESCRIPTION</title>
     <para>
       DTLSv1_listen() listens for new incoming DTLS connections. If a
       ClientHello is received that does not contain a cookie, then
@@ -21,7 +21,7 @@
       using SSL_accept()).
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.DTLSv1_listen.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-71d50e42d1dfd0a66dbf9f37285e2ceb"><title>NOTES</title>
     <para>
       Datagram based protocols can be susceptible to Denial of Service
       attacks. A DTLS attacker could, for example, submit a series of
@@ -77,7 +77,7 @@
       supports ClientHellos that fit inside a single datagram.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.DTLSv1_listen.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-34d4e8b06a239e33da692b749dfd98df"><title>RETURN VALUES</title>
     <para>
       From OpenSSL 1.1.0 a return value of &gt;= 1 indicates success. In
       this instance the <emphasis role="bold">peer</emphasis> value will be
@@ -104,15 +104,14 @@
       as non-fatal), whilst return codes &gt;0 indicate success.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.DTLSv1_listen.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-dea2daf171e36c62d7602d3f6fd49fcb"><title>SEE ALSO</title>
     <para>
       SSL_get_error(3), SSL_accept(3), ssl(3), bio(3)
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.DTLSv1_listen.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-0285ea7c3e4123d8a027c999df05f746"><title>HISTORY</title>
     <para>
-      DTLSv1_listen() was added in OpenSSL 0.9.8. Its return codes were
-      clarified in OpenSSL 1.1.0.
+      DTLSv1_listen() return codes were clarified in OpenSSL 1.1.0.
     </para>
   </refsection>
 </refentry>

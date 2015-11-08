@@ -8,12 +8,12 @@
 <refpurpose>retrieve TLS/SSL session data</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">SSL_SESSION *SSL_get_session(const SSL *ssl);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>SSL_SESSION *SSL_get_session(const SSL *ssl);
 SSL_SESSION *SSL_get0_session(const SSL *ssl);
 SSL_SESSION *SSL_get1_session(SSL *ssl);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_session.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-29dfeec2c7820ac085c4356d3b0aa168"><title>DESCRIPTION</title>
     <para>
       SSL_get_session() returns a pointer to the <emphasis role="bold">SSL_SESSION</emphasis> actually used in <emphasis role="bold">ssl</emphasis>. The reference count of the <emphasis role="bold">SSL_SESSION</emphasis> is not incremented, so that the
       pointer can become invalid by other operations.
@@ -27,7 +27,7 @@ SSL_SESSION *SSL_get1_session(SSL *ssl);</synopsis>
       is incremented by one.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_session.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-a29813b08003ecacd123ed7523e3cc43"><title>NOTES</title>
     <para>
       The ssl session contains all information required to re-establish the
       connection without a new handshake.
@@ -63,14 +63,14 @@ SSL_SESSION *SSL_get1_session(SSL *ssl);</synopsis>
       objects created from this SSL_CTX object).
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_session.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-345ed22f67ae3be0dabaacb1c88e9a37"><title>RETURN VALUES</title>
     <para>
       The following return values can occur:
     </para>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_session.pod:NULL"/>NULL</term>
+          <term>NULL</term>
           <listitem>
             <para>
 	      There is no session available in <emphasis role="bold">ssl</emphasis>.
@@ -78,7 +78,7 @@ SSL_SESSION *SSL_get1_session(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_session.pod:Pointer_to_an_SSL"/>Pointer to an SSL</term>
+          <term>Pointer to an SSL</term>
           <listitem>
             <para>
 	      The return value points to the data of an SSL session.
@@ -88,7 +88,7 @@ SSL_SESSION *SSL_get1_session(SSL *ssl);</synopsis>
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_session.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-3fa09c4866cd1eb38dc443cb8624cbc2"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

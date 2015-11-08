@@ -8,16 +8,16 @@
 <refpurpose>a fast PostgreSQL log analysis report</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">Usage: pgbadger [options] logfile [...]</synopsis>
-<synopsis format="linespecific">PostgreSQL log analyzer with fully detailed reports and graphs.</synopsis>
-<synopsis format="linespecific">Arguments:</synopsis>
-<synopsis format="linespecific">logfile can be a single log file, a list of files, or a shell command
+<synopsis>Usage: pgbadger [options] logfile [...]</synopsis>
+<synopsis>PostgreSQL log analyzer with fully detailed reports and graphs.</synopsis>
+<synopsis>Arguments:</synopsis>
+<synopsis>logfile can be a single log file, a list of files, or a shell command
 returning a list of files. If you want to pass log content from stdin
 use - as filename. Note that input from stdin will not work with csvlog.
 You can also use a file containing a list of log files to parse, see
 the -L command line option.</synopsis>
-<synopsis format="linespecific">Options:</synopsis>
-<synopsis format="linespecific">-a | --average minutes : number of minutes to build the average graphs of
+<synopsis>Options:</synopsis>
+<synopsis>-a | --average minutes : number of minutes to build the average graphs of
                          queries and connections. Default 5 minutes.
 -A | --histo-avg minutes: number of minutes to build the histogram graphs
                          of queries. Default 60 minutes.
@@ -132,10 +132,10 @@ the -L command line option.</synopsis>
 --log-duration         : force pgBadger to associate log entries generated
                          by both log_duration = on and log_statement = 'all'
 --enable-checksum      : used to add a md5 sum under each query report.</synopsis>
-<synopsis format="linespecific">pgBadger is able to parse a remote log file using a passwordless ssh connection.
+<synopsis>pgBadger is able to parse a remote log file using a passwordless ssh connection.
 Use the -r or --remote-host to set the host ip address or hostname. There's also
 some additional options to fully control the ssh connection.</synopsis>
-<synopsis format="linespecific">--ssh-program ssh        path to the ssh program to use. Default: ssh.
+<synopsis>--ssh-program ssh        path to the ssh program to use. Default: ssh.
 --ssh-user username      connection login name. Default to running user.
 --ssh-identity file      path to the identity file to use.
 --ssh-timeout second     timeout to ssh connection failure. Default 10 secs.
@@ -143,8 +143,8 @@ some additional options to fully control the ssh connection.</synopsis>
                          Options always used:
                              -o ConnectTimeout=$ssh_timeout
                              -o PreferredAuthentications=hostbased,publickey</synopsis>
-<synopsis format="linespecific">Examples:</synopsis>
-<synopsis format="linespecific">pgbadger /var/log/postgresql.log
+<synopsis>Examples:</synopsis>
+<synopsis>pgbadger /var/log/postgresql.log
 pgbadger /var/log/postgres.log.2.gz /var/log/postgres.log.1.gz 
                /var/log/postgres.log
 pgbadger /var/log/postgresql/postgresql-2012-05-*
@@ -161,32 +161,32 @@ perl pgbadger --prefix 'user=%u,db=%d,client=%h,app=%a'
                 /pglog/postgresql-2012-08-21*
 # Use my 8 CPUs to parse my 10GB file faster, much faster
 perl pgbadger -j 8 /pglog/postgresql-9.1-main.log</synopsis>
-<synopsis format="linespecific"/>
-<synopsis format="linespecific">Generate Tsung sessions XML file with select queries only:</synopsis>
-<synopsis format="linespecific">perl pgbadger -S -o sessions.tsung --prefix '%t [%p]: [%l-1] user=%u,db=%d ' /pglog/postgresql-9.1.log</synopsis>
-<synopsis format="linespecific">Reporting errors every week by cron job:</synopsis>
-<synopsis format="linespecific">30 23 * * 1 /usr/bin/pgbadger -q -w /var/log/postgresql.log -o /var/reports/pg_errors.html</synopsis>
-<synopsis format="linespecific">Generate report every week using incremental behavior:</synopsis>
-<synopsis format="linespecific">0 4 * * 1 /usr/bin/pgbadger -q `find /var/log/ -mtime -7 -name "postgresql.log*"` 
+<synopsis/>
+<synopsis>Generate Tsung sessions XML file with select queries only:</synopsis>
+<synopsis>perl pgbadger -S -o sessions.tsung --prefix '%t [%p]: [%l-1] user=%u,db=%d ' /pglog/postgresql-9.1.log</synopsis>
+<synopsis>Reporting errors every week by cron job:</synopsis>
+<synopsis>30 23 * * 1 /usr/bin/pgbadger -q -w /var/log/postgresql.log -o /var/reports/pg_errors.html</synopsis>
+<synopsis>Generate report every week using incremental behavior:</synopsis>
+<synopsis>0 4 * * 1 /usr/bin/pgbadger -q `find /var/log/ -mtime -7 -name "postgresql.log*"` 
     -o /var/reports/pg_errors-`date +%F`.html -l /var/reports/pgbadger_incremental_file.dat</synopsis>
-<synopsis format="linespecific">This supposes that your log file and HTML report are also rotated every week.</synopsis>
-<synopsis format="linespecific">Or better, use the auto-generated incremental reports:</synopsis>
-<synopsis format="linespecific">0 4 * * * /usr/bin/pgbadger -I -q /var/log/postgresql/postgresql.log.1 
+<synopsis>This supposes that your log file and HTML report are also rotated every week.</synopsis>
+<synopsis>Or better, use the auto-generated incremental reports:</synopsis>
+<synopsis>0 4 * * * /usr/bin/pgbadger -I -q /var/log/postgresql/postgresql.log.1 
     -O /var/www/pg_reports/</synopsis>
-<synopsis format="linespecific">will generate a report per day and per week.</synopsis>
-<synopsis format="linespecific">In incremental mode, you can also specify the number of weeks to keep in
+<synopsis>will generate a report per day and per week.</synopsis>
+<synopsis>In incremental mode, you can also specify the number of weeks to keep in
 reports:</synopsis>
-<synopsis format="linespecific">/usr/bin/pgbadger --retention 2 -I -q /var/log/postgresql/postgresql.log.1 
+<synopsis>/usr/bin/pgbadger --retention 2 -I -q /var/log/postgresql/postgresql.log.1 
     -O /var/www/pg_reports/</synopsis>
-<synopsis format="linespecific">If you have a pg_dump at 23:00 and 13:00 each day lasting half an hour,
+<synopsis>If you have a pg_dump at 23:00 and 13:00 each day lasting half an hour,
 you can use pgBadger as follows to exclude those periods from the report:</synopsis>
-<synopsis format="linespecific">pgbadger --exclude-time "2013-09-.* (23|13):.*" postgresql.log</synopsis>
-<synopsis format="linespecific">This will help avoid having COPY statements, as generated by pg_dump, at
+<synopsis>pgbadger --exclude-time "2013-09-.* (23|13):.*" postgresql.log</synopsis>
+<synopsis>This will help avoid having COPY statements, as generated by pg_dump, at
 the top of the list of slowest queries. You can also use --exclude-appname
 solve this problem in a simpler way.</synopsis>
-<synopsis format="linespecific"/>
+<synopsis/>
   </refsynopsisdiv>
-  <refsection xml:id="sources.pgbadger.doc.pgBadger.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-4b7a80c06b9eeef41ea39770e544411e"><title>DESCRIPTION</title>
     <para>
       pgBadger is a PostgreSQL log analyzer built for speed with fully
       reports from your PostgreSQL log file. It's a single and small Perl
@@ -230,7 +230,7 @@ solve this problem in a simpler way.</synopsis>
       number of queries only.
     </para>
   </refsection>
-  <refsection xml:id="sources.pgbadger.doc.pgBadger.pod:FEATURE"><title>FEATURE</title>
+  <refsection xml:id="ID-b3095437cdddc4e9da3291acd3459bd2"><title>FEATURE</title>
     <para>
       pgBadger reports everything about your SQL queries:
     </para>
@@ -294,7 +294,7 @@ Queries per user and total duration per user.</screen>
     </para>
     <screen></screen>
   </refsection>
-  <refsection xml:id="sources.pgbadger.doc.pgBadger.pod:REQUIREMENT"><title>REQUIREMENT</title>
+  <refsection xml:id="ID-6de1354613ea3120d0c465376e593c24"><title>REQUIREMENT</title>
     <para>
       pgBadger comes as a single Perl script - you do not need anything
       other than a modern Perl distribution. Charts are rendered using a
@@ -344,7 +344,7 @@ Queries per user and total duration per user.</screen>
       CSV files as well as under Windows platform.
     </para>
   </refsection>
-  <refsection xml:id="sources.pgbadger.doc.pgBadger.pod:INSTALLATION"><title>INSTALLATION</title>
+  <refsection xml:id="ID-ee6519df62dad4496d51dcb5dd3bfa9f"><title>INSTALLATION</title>
     <para>
       Download the tarball from github and unpack the archive as follow:
     </para>
@@ -372,7 +372,7 @@ make &amp;&amp; sudo make install</screen>
       By default INSTALLDIRS is set to site.
     </para>
   </refsection>
-  <refsection xml:id="sources.pgbadger.doc.pgBadger.pod:POSTGRESQL_CONFIGURATION"><title>POSTGRESQL CONFIGURATION</title>
+  <refsection xml:id="ID-47b4e88775fdaf8c0c59255676f77c68"><title>POSTGRESQL CONFIGURATION</title>
     <para>
       You must enable and set some configuration directives in your
       postgresql.conf before starting.
@@ -439,7 +439,7 @@ log_autovacuum_min_duration = 0</screen>
       line option accordingly.
     </para>
   </refsection>
-  <refsection xml:id="sources.pgbadger.doc.pgBadger.pod:log_min_duration_statement_log_duration_and_log_statement"><title>log_min_duration_statement, log_duration and log_statement</title>
+  <refsection xml:id="ID-051ffca68febac76e9f7d9e19dd4e544"><title>log_min_duration_statement, log_duration and log_statement</title>
     <para>
       If you want the query statistics to include the actual query strings,
       you must set log_min_duration_statement to 0 or more milliseconds.
@@ -460,7 +460,7 @@ log_autovacuum_min_duration = 0</screen>
     </para>
     <screen></screen>
   </refsection>
-  <refsection xml:id="sources.pgbadger.doc.pgBadger.pod:PARALLEL_PROCESSING"><title>PARALLEL PROCESSING</title>
+  <refsection xml:id="ID-62c3b249b3e12ce38a2a0bcd3da87fd2"><title>PARALLEL PROCESSING</title>
     <para>
       To enable parallel processing you just have to use the -j N option
       where N is the number of cores you want to use.
@@ -522,7 +522,7 @@ memory to build the html output.</screen>
       tmp_pgbadgerXXXX.bin so they can be easily identified.
     </para>
   </refsection>
-  <refsection xml:id="sources.pgbadger.doc.pgBadger.pod:INCREMENTAL_REPORTS"><title>INCREMENTAL REPORTS</title>
+  <refsection xml:id="ID-1a795b849230a3ca417f14c990aaab8c"><title>INCREMENTAL REPORTS</title>
     <para>
       pgBadger includes an automatic incremental report mode using option
       -I or --incremental. When running in this mode, pgBadger will
@@ -559,7 +559,7 @@ memory to build the html output.</screen>
       loaded using script and link tags.
     </para>
   </refsection>
-  <refsection xml:id="sources.pgbadger.doc.pgBadger.pod:BINARY_FORMAT"><title>BINARY FORMAT</title>
+  <refsection xml:id="ID-c41d95f67ec89509239a0632543039ff"><title>BINARY FORMAT</title>
     <para>
       Using the binary format it is possible to create custom incremental
       and cumulative reports. For example, if you want to refresh a
@@ -590,14 +590,14 @@ pgbadger -o day1/hour03.bin /var/log/pgsql/pglog/postgresql-2012-03-23_12.log
       Adjust the commands to suit your particular needs.
     </para>
   </refsection>
-  <refsection xml:id="sources.pgbadger.doc.pgBadger.pod:JSON_FORMAT"><title>JSON FORMAT</title>
+  <refsection xml:id="ID-9fbde83ed59d264077cafcb5b9cd3ed4"><title>JSON FORMAT</title>
     <para>
       JSON format is good for sharing data with other languages, which
       makes it easy to integrate pgBadger's result into other monitoring
       tools like Cacti or Graphite.
     </para>
   </refsection>
-  <refsection xml:id="sources.pgbadger.doc.pgBadger.pod:AUTHORS"><title>AUTHORS</title>
+  <refsection xml:id="ID-7a2532642e9f50cbac48a03d2fcc2c36"><title>AUTHORS</title>
     <para>
       pgBadger is an original work from Gilles Darold.
     </para>
@@ -619,7 +619,7 @@ pgbadger -o day1/hour03.bin /var/log/pgsql/pglog/postgresql-2012-03-23_12.log
       Changelog file.
     </para>
   </refsection>
-  <refsection xml:id="sources.pgbadger.doc.pgBadger.pod:LICENSE"><title>LICENSE</title>
+  <refsection xml:id="ID-b3215ad01d54f1a212cede7780f38156"><title>LICENSE</title>
     <para>
       pgBadger is free software distributed under the PostgreSQL Licence.
     </para>

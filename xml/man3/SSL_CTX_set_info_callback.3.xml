@@ -8,13 +8,13 @@
 <refpurpose>handle information callback for SSL connections</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">void SSL_CTX_set_info_callback(SSL_CTX *ctx, void (*callback)());
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>void SSL_CTX_set_info_callback(SSL_CTX *ctx, void (*callback)());
 void (*SSL_CTX_get_info_callback(const SSL_CTX *ctx))();</synopsis>
-<synopsis format="linespecific">void SSL_set_info_callback(SSL *ssl, void (*callback)());
+<synopsis>void SSL_set_info_callback(SSL *ssl, void (*callback)());
 void (*SSL_get_info_callback(const SSL *ssl))();</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_info_callback.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-265dbe42798123d8b073278aad433051"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_set_info_callback() sets the <emphasis role="bold">callback</emphasis> function, that can be used to obtain
       state information for SSL objects created from <emphasis role="bold">ctx</emphasis> during connection setup and use. The
@@ -37,7 +37,7 @@ void (*SSL_get_info_callback(const SSL *ssl))();</synopsis>
       information callback function for <emphasis role="bold">ssl</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_info_callback.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-70f6ba79de6874c12aba7206e263f38c"><title>NOTES</title>
     <para>
       When setting up a connection and during use, it is possible to obtain
       state information from the SSL/TLS engine. When set, an information
@@ -58,7 +58,7 @@ void (*SSL_get_info_callback(const SSL *ssl))();</synopsis>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_info_callback.pod:SSL_CB_LOOP"/>SSL_CB_LOOP</term>
+          <term>SSL_CB_LOOP</term>
           <listitem>
             <para>
 	      Callback has been called to indicate state change inside a
@@ -67,7 +67,7 @@ void (*SSL_get_info_callback(const SSL *ssl))();</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_info_callback.pod:SSL_CB_EXIT"/>SSL_CB_EXIT</term>
+          <term>SSL_CB_EXIT</term>
           <listitem>
             <para>
 	      Callback has been called to indicate error exit of a
@@ -77,7 +77,7 @@ void (*SSL_get_info_callback(const SSL *ssl))();</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_info_callback.pod:SSL_CB_READ"/>SSL_CB_READ</term>
+          <term>SSL_CB_READ</term>
           <listitem>
             <para>
 	      Callback has been called during read operation.
@@ -85,7 +85,7 @@ void (*SSL_get_info_callback(const SSL *ssl))();</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_info_callback.pod:SSL_CB_WRITE"/>SSL_CB_WRITE</term>
+          <term>SSL_CB_WRITE</term>
           <listitem>
             <para>
 	      Callback has been called during write operation.
@@ -93,7 +93,7 @@ void (*SSL_get_info_callback(const SSL *ssl))();</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_info_callback.pod:SSL_CB_ALERT"/>SSL_CB_ALERT</term>
+          <term>SSL_CB_ALERT</term>
           <listitem>
             <para>
 	      Callback has been called due to an alert being sent or
@@ -102,43 +102,43 @@ void (*SSL_get_info_callback(const SSL *ssl))();</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_info_callback.pod:SSL_CB_READ_ALERT_______________SSL_CB_ALERTSSL_CB_READ"/>SSL_CB_READ_ALERT               (SSL_CB_ALERT|SSL_CB_READ)</term>
+          <term>SSL_CB_READ_ALERT               (SSL_CB_ALERT|SSL_CB_READ)</term>
           <listitem>
             <para/>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_info_callback.pod:SSL_CB_WRITE_ALERT______________SSL_CB_ALERTSSL_CB_WRITE"/>SSL_CB_WRITE_ALERT              (SSL_CB_ALERT|SSL_CB_WRITE)</term>
+          <term>SSL_CB_WRITE_ALERT              (SSL_CB_ALERT|SSL_CB_WRITE)</term>
           <listitem>
             <para/>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_info_callback.pod:SSL_CB_ACCEPT_LOOP______________SSL_ST_ACCEPTSSL_CB_LOOP"/>SSL_CB_ACCEPT_LOOP              (SSL_ST_ACCEPT|SSL_CB_LOOP)</term>
+          <term>SSL_CB_ACCEPT_LOOP              (SSL_ST_ACCEPT|SSL_CB_LOOP)</term>
           <listitem>
             <para/>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_info_callback.pod:SSL_CB_ACCEPT_EXIT______________SSL_ST_ACCEPTSSL_CB_EXIT"/>SSL_CB_ACCEPT_EXIT              (SSL_ST_ACCEPT|SSL_CB_EXIT)</term>
+          <term>SSL_CB_ACCEPT_EXIT              (SSL_ST_ACCEPT|SSL_CB_EXIT)</term>
           <listitem>
             <para/>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_info_callback.pod:SSL_CB_CONNECT_LOOP_____________SSL_ST_CONNECTSSL_CB_LOOP"/>SSL_CB_CONNECT_LOOP             (SSL_ST_CONNECT|SSL_CB_LOOP)</term>
+          <term>SSL_CB_CONNECT_LOOP             (SSL_ST_CONNECT|SSL_CB_LOOP)</term>
           <listitem>
             <para/>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_info_callback.pod:SSL_CB_CONNECT_EXIT_____________SSL_ST_CONNECTSSL_CB_EXIT"/>SSL_CB_CONNECT_EXIT             (SSL_ST_CONNECT|SSL_CB_EXIT)</term>
+          <term>SSL_CB_CONNECT_EXIT             (SSL_ST_CONNECT|SSL_CB_EXIT)</term>
           <listitem>
             <para/>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_info_callback.pod:SSL_CB_HANDSHAKE_START"/>SSL_CB_HANDSHAKE_START</term>
+          <term>SSL_CB_HANDSHAKE_START</term>
           <listitem>
             <para>
 	      Callback has been called because a new handshake is started.
@@ -146,7 +146,7 @@ void (*SSL_get_info_callback(const SSL *ssl))();</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_info_callback.pod:SSL_CB_HANDSHAKE_DONE___________0x20"/>SSL_CB_HANDSHAKE_DONE           0x20</term>
+          <term>SSL_CB_HANDSHAKE_DONE           0x20</term>
           <listitem>
             <para>
 	      Callback has been called because a handshake is finished.
@@ -167,7 +167,7 @@ void (*SSL_get_info_callback(const SSL *ssl))();</synopsis>
       <manvolnum>3</manvolnum> </citerefentry> family of functions.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_info_callback.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-25f77029741784790eae289615a4c872"><title>RETURN VALUES</title>
     <para>
       SSL_set_info_callback() does not provide diagnostic information.
     </para>
@@ -175,7 +175,7 @@ void (*SSL_get_info_callback(const SSL *ssl))();</synopsis>
       SSL_get_info_callback() returns the current setting.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_info_callback.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-4803473b3aa7591eb6a3eb74b676a514"><title>EXAMPLES</title>
     <para>
       The following example callback function prints state strings,
       information about alerts being handled and error messages to the
@@ -217,7 +217,7 @@ else if (where &amp; SSL_CB_EXIT)
         }
 }</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_info_callback.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-fde5923d2d34531ea5becd8b7187738b"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

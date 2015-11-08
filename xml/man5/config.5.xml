@@ -7,7 +7,7 @@
     <refname>config</refname>
 <refpurpose>OpenSSL CONF library configuration files</refpurpose>
   </refnamediv>
-  <refsection xml:id="sources.openssl.doc.apps.config.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-c725102b08dcf365b313d5992766eb0c"><title>DESCRIPTION</title>
     <para>
       The OpenSSL CONF library can be used to read configuration files. It
       is used for the OpenSSL master configuration file <emphasis role="bold">openssl.cnf</emphasis> and in a few other places like
@@ -69,11 +69,11 @@
       <emphasis role="bold">\b</emphasis> and <emphasis role="bold">\t</emphasis> are recognized.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.config.pod:OPENSSL_LIBRARY_CONFIGURATION"><title>OPENSSL LIBRARY CONFIGURATION</title>
+  <refsection xml:id="ID-ffe87ff6f9b314fa82fd21e3acfd483e"><title>OPENSSL LIBRARY CONFIGURATION</title>
     <para>
-      In OpenSSL 0.9.7 and later applications can automatically configure
-      certain aspects of OpenSSL using the master OpenSSL configuration
-      file, or optionally an alternative configuration file. The <emphasis role="bold">openssl</emphasis> utility includes this functionality:
+      Applications can automatically configure certain aspects of OpenSSL
+      using the master OpenSSL configuration file, or optionally an
+      alternative configuration file. The <emphasis role="bold">openssl</emphasis> utility includes this functionality:
       any sub command uses the master OpenSSL configuration file unless an
       option is used in the sub command to use an alternative configuration
       file.
@@ -84,7 +84,7 @@
       The default name is <emphasis role="bold">openssl_conf</emphasis>
       which is used by the <emphasis role="bold">openssl</emphasis>
       utility. Other applications may use an alternative name such as
-      <emphasis role="bold">myapplicaton_conf</emphasis>. 
+      <emphasis role="bold">myapplicaton_conf</emphasis>.
     </para>
     <para>
       The configuration section should consist of a set of name value pairs
@@ -93,7 +93,7 @@
       <emphasis role="italic">configuration module</emphasis> the meaning
       of the <emphasis role="bold">value</emphasis> is module specific: it
       may, for example, represent a further configuration section
-      containing configuration module specific information. E.g. 
+      containing configuration module specific information. E.g.
     </para>
     <screen>openssl_conf = openssl_init
 
@@ -112,7 +112,7 @@ engines = engine_section
     <para>
       The features of each configuration module are described below.
     </para>
-    <refsection xml:id="sources.openssl.doc.apps.config.pod:ASN1_OBJECT_CONFIGURATION_MODULE"><title>ASN1 OBJECT CONFIGURATION MODULE</title>
+    <refsection xml:id="ID-b533ebf9d7463d4ab04a206b6cc092ac"><title>ASN1 OBJECT CONFIGURATION MODULE</title>
       <para>
 	This module has the name <emphasis role="bold">oid_section</emphasis>. The value of this variable
 	points to a section containing name value pairs of OIDs: the name
@@ -127,12 +127,12 @@ engines = engine_section
 some_new_oid = 1.2.3.4
 some_other_oid = 1.2.3.5</screen>
       <para>
-	In OpenSSL 0.9.8 it is also possible to set the value to the long
-	name followed by a comma and the numerical OID form. For example:
+	It is also possible to set the value to the long name followed by a
+	comma and the numerical OID form. For example:
       </para>
       <screen>shortName = some object long name, 1.2.3.4</screen>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.apps.config.pod:ENGINE_CONFIGURATION_MODULE"><title>ENGINE CONFIGURATION MODULE</title>
+    <refsection xml:id="ID-d1c01fa692c1f2c3d2fcbeb26ba830bc"><title>ENGINE CONFIGURATION MODULE</title>
       <para>
 	This ENGINE configuration module has the name <emphasis role="bold">engines</emphasis>. The value of this variable points
 	to a section containing further ENGINE configuration information.
@@ -166,7 +166,7 @@ bar = bar_section
       <para>
 	The command <emphasis role="bold">engine_id</emphasis> is used to
 	give the ENGINE name. If used this command must be first. For
-	example: 
+	example:
       </para>
       <screen>[engine_section]
 # This would normally handle an ENGINE named "foo"
@@ -203,7 +203,7 @@ engine_id = myfoo</screen>
 	to be a ctrl command which is sent to the ENGINE. The value of the
 	command is the argument to the ctrl command. If the value is the
 	string <emphasis role="bold">EMPTY</emphasis> then no value is sent
-	to the command. 
+	to the command.
       </para>
       <para>
 	For example:
@@ -225,7 +225,7 @@ other_ctrl = EMPTY
 # Supply all default algorithms
 default_algorithms = ALL</screen>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.apps.config.pod:EVP_CONFIGURATION_MODULE"><title>EVP CONFIGURATION MODULE</title>
+    <refsection xml:id="ID-bf22a0432040c11fc41b56754ad081fa"><title>EVP CONFIGURATION MODULE</title>
       <para>
 	This modules has the name <emphasis role="bold">alg_section</emphasis> which points to a section
 	containing algorithm commands.
@@ -247,7 +247,7 @@ fips_mode = on
 </screen>
     </refsection>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.config.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-1fdc56627441823196e5195b60fa2c84"><title>NOTES</title>
     <para>
       If a configuration file attempts to expand a variable that doesn't
       exist then an error is flagged and the file will not load. This can
@@ -273,7 +273,7 @@ fips_mode = on
     <screen>1.OU="My first OU"
 2.OU="My Second OU"</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.config.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-cfd8d85488b8284e9f4758512c531097"><title>EXAMPLES</title>
     <para>
       Here is a sample configuration file using some of the features
       mentioned above.
@@ -310,7 +310,7 @@ greeting = $section_one::message</screen>
       you just include the environment variable names and the variable
       doesn't exist then this will cause an error when an attempt is made
       to load the configuration file. By making use of the default section
-      both values can be looked up with <emphasis role="bold">TEMP</emphasis> taking priority and <emphasis role="bold">/tmp</emphasis> used if neither is defined: 
+      both values can be looked up with <emphasis role="bold">TEMP</emphasis> taking priority and <emphasis role="bold">/tmp</emphasis> used if neither is defined:
     </para>
     <screen>TMP=/tmp
 # The above value is used if TMP isn't in the environment
@@ -376,7 +376,7 @@ newoid2 = New OID 2 long name, 1.2.3.4.2</screen>
       showing that the OID "newoid1" has been added as "1.2.3.4.1".
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.config.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-800271a12975f97ba9ebe37836722ee0"><title>BUGS</title>
     <para>
       Currently there is no way to include characters using the octal
       <emphasis role="bold">\nnn</emphasis> form. Strings are all null
@@ -393,7 +393,7 @@ newoid2 = New OID 2 long name, 1.2.3.4.2</screen>
       earlier in the file.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.config.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-ba08a9a4289de4887d673b282095135b"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>x509</refentrytitle>
       <manvolnum>1</manvolnum> </citerefentry>, <citerefentry>

@@ -8,8 +8,8 @@
 <refpurpose>set PSK client callback</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">void SSL_CTX_set_psk_client_callback(SSL_CTX *ctx,
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>void SSL_CTX_set_psk_client_callback(SSL_CTX *ctx,
        unsigned int (*callback)(SSL *ssl, const char *hint,
        char *identity, unsigned int max_identity_len,
        unsigned char *psk, unsigned int max_psk_len));
@@ -17,9 +17,9 @@ void SSL_set_psk_client_callback(SSL *ssl,
        unsigned int (*callback)(SSL *ssl, const char *hint,
        char *identity, unsigned int max_identity_len,
        unsigned char *psk, unsigned int max_psk_len));</synopsis>
-<synopsis format="linespecific"/>
+<synopsis/>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_psk_client_callback.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-3d37af7b4c4c4b80c013c7b2e2145853"><title>DESCRIPTION</title>
     <para>
       A client application must provide a callback function which is called
       when the client is sending the ClientKeyExchange message to the
@@ -41,13 +41,13 @@ void SSL_set_psk_client_callback(SSL *ssl,
       resulting pre-shared key is to be stored.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_psk_client_callback.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-5388958faf013f443985877ce8cd4f2e"><title>NOTES</title>
     <para>
       Note that parameter <emphasis role="bold">hint</emphasis> given to
       the callback may be <emphasis role="bold">NULL</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_psk_client_callback.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-61498779aa27c9fa50439543cad8e69d"><title>RETURN VALUES</title>
     <para>
       Return values from the client callback are interpreted as follows:
     </para>

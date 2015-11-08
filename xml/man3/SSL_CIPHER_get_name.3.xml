@@ -8,15 +8,15 @@
 <refpurpose>get SSL_CIPHER properties</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">const char *SSL_CIPHER_get_name(const SSL_CIPHER *cipher);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>const char *SSL_CIPHER_get_name(const SSL_CIPHER *cipher);
 int SSL_CIPHER_get_bits(const SSL_CIPHER *cipher, int *alg_bits);
 char *SSL_CIPHER_get_version(const SSL_CIPHER *cipher);
 char *SSL_CIPHER_description(const SSL_CIPHER *cipher, char *buf, int size);
 int SSL_CIPHER_get_cipher_nid(const SSL_CIPHER *c);
 int SSL_CIPHER_get_digest_nid(const SSL_CIPHER *c);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-297f52d37c7901b4c78a50c535e67c89"><title>DESCRIPTION</title>
     <para>
       SSL_CIPHER_get_name() returns a pointer to the name of <emphasis role="bold">cipher</emphasis>. If the argument is the NULL pointer, a
       pointer to the constant value "NONE" is returned.
@@ -53,7 +53,7 @@ int SSL_CIPHER_get_digest_nid(const SSL_CIPHER *c);</synopsis>
       digest (e.g. for AEAD ciphersuites) then <emphasis role="bold">NID_undef</emphasis> is returned.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-d85c98fea9a4ba4160afa6ca24065f85"><title>NOTES</title>
     <para>
       The number of bits processed can be different from the secret bits.
       An export cipher like e.g. EXP-RC4-MD5 has only 40 secret bits. The
@@ -69,7 +69,7 @@ int SSL_CIPHER_get_digest_nid(const SSL_CIPHER *c);</synopsis>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:ltciphernamegt"/>&lt;ciphername&gt;</term>
+          <term>&lt;ciphername&gt;</term>
           <listitem>
             <para>
 	      Textual representation of the cipher name.
@@ -77,7 +77,7 @@ int SSL_CIPHER_get_digest_nid(const SSL_CIPHER *c);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:ltprotocol_versiongt"/>&lt;protocol version&gt;</term>
+          <term>&lt;protocol version&gt;</term>
           <listitem>
             <para>
 	      Protocol version: <emphasis role="bold">SSLv3</emphasis>,
@@ -87,7 +87,7 @@ int SSL_CIPHER_get_digest_nid(const SSL_CIPHER *c);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:Kxltkey_exchangegt"/>Kx=&lt;key exchange&gt;</term>
+          <term>Kx=&lt;key exchange&gt;</term>
           <listitem>
             <para>
 	      Key exchange method: <emphasis role="bold">RSA</emphasis>
@@ -96,7 +96,7 @@ int SSL_CIPHER_get_digest_nid(const SSL_CIPHER *c);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:Aultauthenticationgt"/>Au=&lt;authentication&gt;</term>
+          <term>Au=&lt;authentication&gt;</term>
           <listitem>
             <para>
 	      Authentication method: <emphasis role="bold">RSA</emphasis>,
@@ -106,7 +106,7 @@ int SSL_CIPHER_get_digest_nid(const SSL_CIPHER *c);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:Encltsymmetric_encryption_methodgt"/>Enc=&lt;symmetric encryption method&gt;</term>
+          <term>Enc=&lt;symmetric encryption method&gt;</term>
           <listitem>
             <para>
 	      Encryption method with number of secret bits: <emphasis role="bold">DES(40)</emphasis>, <emphasis role="bold">DES(56)</emphasis>, <emphasis role="bold">3DES(168)</emphasis>, <emphasis role="bold">RC4(40)</emphasis>, <emphasis role="bold">RC4(56)</emphasis>, <emphasis role="bold">RC4(64)</emphasis>, <emphasis role="bold">RC4(128)</emphasis>, <emphasis role="bold">RC2(40)</emphasis>, <emphasis role="bold">RC2(56)</emphasis>, <emphasis role="bold">RC2(128)</emphasis>, <emphasis role="bold">IDEA(128)</emphasis>, <emphasis role="bold">Fortezza</emphasis>, <emphasis role="bold">None</emphasis>.
@@ -114,7 +114,7 @@ int SSL_CIPHER_get_digest_nid(const SSL_CIPHER *c);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:Macltmessage_authentication_codegt"/>Mac=&lt;message authentication code&gt;</term>
+          <term>Mac=&lt;message authentication code&gt;</term>
           <listitem>
             <para>
 	      Message digest: <emphasis role="bold">MD5</emphasis>,
@@ -123,7 +123,7 @@ int SSL_CIPHER_get_digest_nid(const SSL_CIPHER *c);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:ltexport_flaggt"/>&lt;export flag&gt;</term>
+          <term>&lt;export flag&gt;</term>
           <listitem>
             <para>
 	      If the cipher is flagged exportable with respect to old US
@@ -134,7 +134,7 @@ int SSL_CIPHER_get_digest_nid(const SSL_CIPHER *c);</synopsis>
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-4c444d34153888fef5c94bd322afb474"><title>EXAMPLES</title>
     <para>
       Some examples for the output of SSL_CIPHER_description():
     </para>
@@ -147,7 +147,7 @@ EXP-RC4-MD5             SSLv3 Kx=RSA(512) Au=RSA  Enc=RC4(40)   Mac=MD5  export<
     </para>
     <screen>openssl ciphers -v ALL</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-94f84dfa19bce56627d65def6a33adfc"><title>BUGS</title>
     <para>
       If SSL_CIPHER_description() is called with <emphasis role="bold">cipher</emphasis> being NULL, the library crashes.
     </para>
@@ -156,12 +156,12 @@ EXP-RC4-MD5             SSLv3 Kx=RSA(512) Au=RSA  Enc=RC4(40)   Mac=MD5  export<
       according description of the cipher property is <emphasis role="bold">unknown</emphasis>. This case should not occur.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-948bc29ca93f509c8c450aa6caf4aa16"><title>RETURN VALUES</title>
     <para>
       See DESCRIPTION
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CIPHER_get_name.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-8be33cdb5d3ce4379ae3d41e8f4144ec"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

@@ -4,38 +4,36 @@
     <refentrytitle>SSL_library_init.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>SSL_library_init, OpenSSL_add_ssl_algorithms, SSLeay_add_ssl_algorithms</refname>
+    <refname>SSL_library_init, OpenSSL_add_ssl_algorithms,</refname>
 <refpurpose>initialize SSL library by registering algorithms</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">int SSL_library_init(void);
-#define OpenSSL_add_ssl_algorithms()    SSL_library_init()
-#define SSLeay_add_ssl_algorithms()     SSL_library_init()</synopsis>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_library_init(void);
+#define OpenSSL_add_ssl_algorithms()    SSL_library_init()</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_library_init.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-8fbf408b9d20d0c1afc2aa7c1cce3b87"><title>DESCRIPTION</title>
     <para>
       SSL_library_init() registers the available SSL/TLS ciphers and
       digests.
     </para>
     <para>
-      OpenSSL_add_ssl_algorithms() and SSLeay_add_ssl_algorithms() are
-      synonyms for SSL_library_init().
+      OpenSSL_add_ssl_algorithms() is a synonym for SSL_library_init().
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_library_init.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-63f0998ef1a00df33560d2f100c42e59"><title>NOTES</title>
     <para>
       SSL_library_init() must be called before any other action takes
       place. SSL_library_init() is not reentrant.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_library_init.pod:WARNING"><title>WARNING</title>
+  <refsection xml:id="ID-a27aedc6468607ea2b4139763835d98f"><title>WARNING</title>
     <para>
       SSL_library_init() adds ciphers and digests used directly and
       indirectly by SSL/TLS.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_library_init.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-adc16205ff1a43a528a803ccfa2046da"><title>EXAMPLES</title>
     <para>
       A typical TLS/SSL application will start with the library
       initialization, and provide readable error messages.
@@ -43,20 +41,13 @@
     <screen>SSL_load_error_strings();                /* readable error messages */
 SSL_library_init();                      /* initialize library */</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_library_init.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-08182d893a22242803262c63d9599de3"><title>RETURN VALUES</title>
     <para>
       SSL_library_init() always returns "1", so it is safe to discard the
       return value.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_library_init.pod:NOTES_i1"><title>NOTES</title>
-    <para>
-      OpenSSL 0.9.8o and 1.0.0a and later added SHA2 algorithms to
-      SSL_library_init(). Applications which need to use SHA2 in earlier
-      versions of OpenSSL should call OpenSSL_add_all_algorithms() as well.
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_library_init.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-571248341ca2ee2150cc79a52a909a87"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

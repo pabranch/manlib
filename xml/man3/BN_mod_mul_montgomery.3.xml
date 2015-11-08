@@ -10,19 +10,19 @@ BN_from_montgomery, BN_to_montgomery</refname>
 <refpurpose>Montgomery multiplication</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/bn.h&gt;</synopsis>
-<synopsis format="linespecific">BN_MONT_CTX *BN_MONT_CTX_new(void);
+<synopsis>#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis>BN_MONT_CTX *BN_MONT_CTX_new(void);
 void BN_MONT_CTX_free(BN_MONT_CTX *mont);</synopsis>
-<synopsis format="linespecific">int BN_MONT_CTX_set(BN_MONT_CTX *mont, const BIGNUM *m, BN_CTX *ctx);
+<synopsis>int BN_MONT_CTX_set(BN_MONT_CTX *mont, const BIGNUM *m, BN_CTX *ctx);
 BN_MONT_CTX *BN_MONT_CTX_copy(BN_MONT_CTX *to, BN_MONT_CTX *from);</synopsis>
-<synopsis format="linespecific">int BN_mod_mul_montgomery(BIGNUM *r, BIGNUM *a, BIGNUM *b,
+<synopsis>int BN_mod_mul_montgomery(BIGNUM *r, BIGNUM *a, BIGNUM *b,
         BN_MONT_CTX *mont, BN_CTX *ctx);</synopsis>
-<synopsis format="linespecific">int BN_from_montgomery(BIGNUM *r, BIGNUM *a, BN_MONT_CTX *mont,
+<synopsis>int BN_from_montgomery(BIGNUM *r, BIGNUM *a, BN_MONT_CTX *mont,
         BN_CTX *ctx);</synopsis>
-<synopsis format="linespecific">int BN_to_montgomery(BIGNUM *r, BIGNUM *a, BN_MONT_CTX *mont,
+<synopsis>int BN_to_montgomery(BIGNUM *r, BIGNUM *a, BN_MONT_CTX *mont,
         BN_CTX *ctx);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_montgomery.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-a0fdd387e6340dfe56dfac74c9e299a3"><title>DESCRIPTION</title>
     <para>
       These functions implement Montgomery multiplication. They are used
       automatically when <citerefentry>
@@ -62,7 +62,7 @@ BN_MONT_CTX *BN_MONT_CTX_copy(BN_MONT_CTX *to, BN_MONT_CTX *from);</synopsis>
       temporary variables.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_montgomery.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-121a63632571444c0e839925bc6ff5c6"><title>RETURN VALUES</title>
     <para>
       BN_MONT_CTX_new() returns the newly allocated <emphasis role="bold">BN_MONT_CTX</emphasis>, and NULL on error.
     </para>
@@ -76,13 +76,13 @@ BN_MONT_CTX *BN_MONT_CTX_copy(BN_MONT_CTX *to, BN_MONT_CTX *from);</synopsis>
       </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_montgomery.pod:WARNING"><title>WARNING</title>
+  <refsection xml:id="ID-2a9375bf471e99524ee800b87404575c"><title>WARNING</title>
     <para>
       The inputs must be reduced modulo <emphasis role="bold">m</emphasis>,
       otherwise the result will be outside the expected range.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_montgomery.pod:REMOVED_FUNCTIONALITY"><title>REMOVED FUNCTIONALITY</title>
+  <refsection xml:id="ID-05124dda24f9ecb926b9a9c8e0ba37b9"><title>REMOVED FUNCTIONALITY</title>
     <screen>void BN_MONT_CTX_init(BN_MONT_CTX *c);</screen>
     <para>
       BN_MONT_CTX_init() is no longer available as of OpenSSL 1.1.0. It was
@@ -101,7 +101,7 @@ if(!ctx) /* handle error */
 ...
 BN_MONT_CTX_free(ctx);</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_montgomery.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-f9b834162fc048e07c853084d0fa96c5"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>bn</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -112,15 +112,9 @@ BN_MONT_CTX_free(ctx);</screen>
       </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_mod_mul_montgomery.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-18aacce13452b4c9b1cf1d933184a007"><title>HISTORY</title>
     <para>
-      BN_MONT_CTX_new(), BN_MONT_CTX_free(), BN_MONT_CTX_set(),
-      BN_mod_mul_montgomery(), BN_from_montgomery() and BN_to_montgomery()
-      are available in all versions of SSLeay and OpenSSL.
-    </para>
-    <para>
-      BN_MONT_CTX_init() and BN_MONT_CTX_copy() were added in SSLeay
-      0.9.1b. BN_MONT_CTX_init was removed in OpenSSL 1.1.0
+      BN_MONT_CTX_init() was removed in OpenSSL 1.1.0
     </para>
   </refsection>
 </refentry>

@@ -8,15 +8,15 @@
 <refpurpose>buffering BIO</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/bio.h&gt;</synopsis>
-<synopsis format="linespecific">BIO_METHOD * BIO_f_buffer(void);</synopsis>
-<synopsis format="linespecific">#define BIO_get_buffer_num_lines(b)
+<synopsis>#include &lt;openssl/bio.h&gt;</synopsis>
+<synopsis>BIO_METHOD * BIO_f_buffer(void);</synopsis>
+<synopsis>#define BIO_get_buffer_num_lines(b)
 #define BIO_set_read_buffer_size(b,size)
 #define BIO_set_write_buffer_size(b,size)
 #define BIO_set_buffer_size(b,size)
 #define BIO_set_buffer_read_data(b,buf,num)</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_buffer.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-3d995db05001a38dfb7a1de2816267be"><title>DESCRIPTION</title>
     <para>
       BIO_f_buffer() returns the buffering BIO method.
     </para>
@@ -47,7 +47,7 @@
       is larger than the current buffer size the buffer is expanded.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_buffer.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-fe1109f1ec8fa1d5169485e5f1cb2137"><title>NOTES</title>
     <para>
       Buffering BIOs implement BIO_gets() by using BIO_read() operations on
       the next BIO in the chain. By prepending a buffering BIO to a chain
@@ -62,7 +62,7 @@
       need to be retried if the ultimate source/sink BIO is non blocking.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_buffer.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-e998805d36253f8669415a76daa8801b"><title>RETURN VALUES</title>
     <para>
       BIO_f_buffer() returns the buffering BIO method.
     </para>
@@ -80,7 +80,7 @@
       0 if there was an error.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_buffer.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-4540d86d0b65874a7d636729a9fa90b4"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>BIO</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

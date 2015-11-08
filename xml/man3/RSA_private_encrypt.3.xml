@@ -8,13 +8,13 @@
 <refpurpose>low level signature operations</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/rsa.h&gt;</synopsis>
-<synopsis format="linespecific">int RSA_private_encrypt(int flen, unsigned char *from,
+<synopsis>#include &lt;openssl/rsa.h&gt;</synopsis>
+<synopsis>int RSA_private_encrypt(int flen, unsigned char *from,
    unsigned char *to, RSA *rsa, int padding);</synopsis>
-<synopsis format="linespecific">int RSA_public_decrypt(int flen, unsigned char *from, 
+<synopsis>int RSA_public_decrypt(int flen, unsigned char *from, 
    unsigned char *to, RSA *rsa, int padding);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_private_encrypt.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-a976b3a4ade68ddba3427b9a58c4aba8"><title>DESCRIPTION</title>
     <para>
       These functions handle RSA signatures at a low level.
     </para>
@@ -32,7 +32,7 @@
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.RSA_private_encrypt.pod:RSA_PKCS1_PADDING"/>RSA_PKCS1_PADDING</term>
+          <term>RSA_PKCS1_PADDING</term>
           <listitem>
             <para>
 	      PKCS #1 v1.5 padding. This function does not handle the
@@ -47,7 +47,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.RSA_private_encrypt.pod:RSA_NO_PADDING"/>RSA_NO_PADDING</term>
+          <term>RSA_NO_PADDING</term>
           <listitem>
             <para>
 	      Raw RSA signature. This mode should <emphasis role="italic">only</emphasis> be used to implement
@@ -66,7 +66,7 @@
       padding mode that was used to sign the data.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_private_encrypt.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-42973f2294cf418eab82e0f112680a2b"><title>RETURN VALUES</title>
     <para>
       RSA_private_encrypt() returns the size of the signature (i.e.,
       RSA_size(rsa)). RSA_public_decrypt() returns the size of the
@@ -78,7 +78,7 @@
       <manvolnum>3</manvolnum> </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_private_encrypt.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-44071583512f28cb5d9881efa013330f"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ERR_get_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -88,12 +88,6 @@
       </citerefentry>, <citerefentry>
       <refentrytitle>RSA_verify</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_private_encrypt.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      The <emphasis role="bold">padding</emphasis> argument was added in
-      SSLeay 0.8. RSA_NO_PADDING is available since SSLeay 0.9.0.
     </para>
   </refsection>
 </refentry>

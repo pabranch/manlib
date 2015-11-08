@@ -42,7 +42,8 @@ however, these conflicts are resolved favouring lines from <literal>&lt;current-
 lines from <literal>&lt;other-file&gt;</literal>, or lines from both respectively.  The length of the
 conflict markers can be given with the <literal>--marker-size</literal> option.</simpara>
 <simpara>The exit value of this program is negative on error, and the number of
-conflicts otherwise. If the merge was clean, the exit value is 0.</simpara>
+conflicts otherwise (truncated to 127 if there are more than that many
+conflicts). If the merge was clean, the exit value is 0.</simpara>
 <simpara><emphasis>git merge-file</emphasis> is designed to be a minimal clone of RCS <emphasis>merge</emphasis>; that is, it
 implements all of RCS <emphasis>merge</emphasis>'s functionality which is needed by
 <citerefentry>

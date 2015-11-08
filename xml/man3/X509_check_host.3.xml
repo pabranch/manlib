@@ -8,8 +8,8 @@
 <refpurpose>X.509 certificate matching</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/x509.h&gt;</synopsis>
-<synopsis format="linespecific">int X509_check_host(X509 *, const char *name, size_t namelen,
+<synopsis>#include &lt;openssl/x509.h&gt;</synopsis>
+<synopsis>int X509_check_host(X509 *, const char *name, size_t namelen,
                     unsigned int flags, char **peername);
 int X509_check_email(X509 *, const char *address, size_t addresslen,
                      unsigned int flags);
@@ -17,7 +17,7 @@ int X509_check_ip(X509 *, const unsigned char *address, size_t addresslen,
                   unsigned int flags);
 int X509_check_ip_asc(X509 *, const char *address, unsigned int flags);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_check_host.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-06927de909ad5c2efeb8d01ed452832d"><title>DESCRIPTION</title>
     <para>
       The certificate matching functions are used to check whether a
       certificate matches a given host name, email address, or IP address.
@@ -80,31 +80,31 @@ int X509_check_ip_asc(X509 *, const char *address, unsigned int flags);</synopsi
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_check_host.pod:X509_CHECK_FLAG_ALWAYS_CHECK_SUBJECT"/><emphasis role="bold">X509_CHECK_FLAG_ALWAYS_CHECK_SUBJECT</emphasis>,</term>
+          <term><emphasis role="bold">X509_CHECK_FLAG_ALWAYS_CHECK_SUBJECT</emphasis>,</term>
           <listitem>
             <para/>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_check_host.pod:X509_CHECK_FLAG_NO_WILDCARDS"/><emphasis role="bold">X509_CHECK_FLAG_NO_WILDCARDS</emphasis>,</term>
+          <term><emphasis role="bold">X509_CHECK_FLAG_NO_WILDCARDS</emphasis>,</term>
           <listitem>
             <para/>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_check_host.pod:X509_CHECK_FLAG_NO_PARTIAL_WILDCARDS"/><emphasis role="bold">X509_CHECK_FLAG_NO_PARTIAL_WILDCARDS</emphasis>,</term>
+          <term><emphasis role="bold">X509_CHECK_FLAG_NO_PARTIAL_WILDCARDS</emphasis>,</term>
           <listitem>
             <para/>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_check_host.pod:X509_CHECK_FLAG_MULTI_LABEL_WILDCARDS."/><emphasis role="bold">X509_CHECK_FLAG_MULTI_LABEL_WILDCARDS</emphasis>.</term>
+          <term><emphasis role="bold">X509_CHECK_FLAG_MULTI_LABEL_WILDCARDS</emphasis>.</term>
           <listitem>
             <para/>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.X509_check_host.pod:X509_CHECK_FLAG_SINGLE_LABEL_SUBDOMAINS."/><emphasis role="bold">X509_CHECK_FLAG_SINGLE_LABEL_SUBDOMAINS</emphasis>.</term>
+          <term><emphasis role="bold">X509_CHECK_FLAG_SINGLE_LABEL_SUBDOMAINS</emphasis>.</term>
           <listitem>
             <para/>
           </listitem>
@@ -145,7 +145,7 @@ int X509_check_ip_asc(X509 *, const char *address, unsigned int flags);</synopsi
       name of "www.sub.example.com"; this flag only applies to <emphasis role="bold">X509_check_host</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_check_host.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-abea7083e347013cce98fb95200ad278"><title>RETURN VALUES</title>
     <para>
       The functions return 1 for a successful match, 0 for a failed match
       and -1 for an internal error: typically a memory allocation failure
@@ -156,7 +156,7 @@ int X509_check_ip_asc(X509 *, const char *address, unsigned int flags);</synopsi
       example, X509_check_host() returns -2 if the provided <emphasis role="bold">name</emphasis> contains embedded NULs.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_check_host.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-f0e85c76ba686121663bc2a70dbcf16b"><title>NOTES</title>
     <para>
       Applications are encouraged to use X509_VERIFY_PARAM_set1_host()
       rather than explicitly calling <citerefentry>
@@ -167,7 +167,7 @@ int X509_check_ip_asc(X509 *, const char *address, unsigned int flags);</synopsi
       OpenSSL.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_check_host.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-d2cbd5237125d602cf515836762c00df"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>SSL_get_verify_result</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -183,7 +183,7 @@ int X509_check_ip_asc(X509 *, const char *address, unsigned int flags);</synopsi
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_check_host.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-986b7eb39f73ca27e9c307faa4da0e5d"><title>HISTORY</title>
     <para>
       These functions were added in OpenSSL 1.0.2.
     </para>

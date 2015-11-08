@@ -8,12 +8,12 @@
 <refpurpose>instrument references to memory bus</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#ifdef OPENSSL_CPUID_OBJ
+<synopsis>#ifdef OPENSSL_CPUID_OBJ
 size_t OPENSSL_instrument_bus (int *vector,size_t num);
 size_t OPENSSL_instrument_bus2(int *vector,size_t num,size_t max);
 #endif</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.OPENSSL_instrument_bus.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-bfa15e906b197929e318d19051b3fecf"><title>DESCRIPTION</title>
     <para>
       It was empirically found that timings of references to primary memory
       are subject to irregular, apparently non-deterministic variations.
@@ -36,7 +36,7 @@ size_t OPENSSL_instrument_bus2(int *vector,size_t num,size_t max);
       appeared deterministic. The subroutine performs at most <emphasis role="bold">max</emphasis> probes in attempt to fill the <emphasis role="bold">vector[num]</emphasis>, with <emphasis role="bold">max</emphasis> value of 0 meaning "as many as it takes."
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OPENSSL_instrument_bus.pod:RETURN_VALUE"><title>RETURN VALUE</title>
+  <refsection xml:id="ID-eb18cfe9394224a3a28e5186e7b95aa9"><title>RETURN VALUE</title>
     <para>
       Return value of 0 indicates that CPU is not capable of performing the
       benchmark, either because oscillator counter or 'flush cache line' is

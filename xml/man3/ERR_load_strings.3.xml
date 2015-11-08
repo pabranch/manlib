@@ -9,12 +9,12 @@
 arbitrary error strings</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/err.h&gt;</synopsis>
-<synopsis format="linespecific">void ERR_load_strings(int lib, ERR_STRING_DATA str[]);</synopsis>
-<synopsis format="linespecific">int ERR_get_next_error_library(void);</synopsis>
-<synopsis format="linespecific">unsigned long ERR_PACK(int lib, int func, int reason);</synopsis>
+<synopsis>#include &lt;openssl/err.h&gt;</synopsis>
+<synopsis>void ERR_load_strings(int lib, ERR_STRING_DATA str[]);</synopsis>
+<synopsis>int ERR_get_next_error_library(void);</synopsis>
+<synopsis>unsigned long ERR_PACK(int lib, int func, int reason);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.ERR_load_strings.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-09e50aa80dfe757a509400c5de19ae08"><title>DESCRIPTION</title>
     <para>
       ERR_load_strings() registers error strings for library number
       <emphasis role="bold">lib</emphasis>.
@@ -41,25 +41,18 @@ arbitrary error strings</refpurpose>
       user libraries at runtime.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ERR_load_strings.pod:RETURN_VALUE"><title>RETURN VALUE</title>
+  <refsection xml:id="ID-ac4789fefd5ed04873bbcf7b36cda713"><title>RETURN VALUE</title>
     <para>
       ERR_load_strings() returns no value. ERR_PACK() return the error
       code. ERR_get_next_error_library() returns a new library number.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ERR_load_strings.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-98379e4c637037ce75945c806d3e2533"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>err</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>ERR_load_strings</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ERR_load_strings.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      ERR_load_error_strings() and ERR_PACK() are available in all versions
-      of SSLeay and OpenSSL. ERR_get_next_error_library() was added in
-      SSLeay 0.9.0.
     </para>
   </refsection>
 </refentry>

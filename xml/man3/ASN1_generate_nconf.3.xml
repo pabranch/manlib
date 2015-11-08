@@ -8,11 +8,11 @@
 <refpurpose>ASN1 generation functions</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/asn1.h&gt;</synopsis>
-<synopsis format="linespecific">ASN1_TYPE *ASN1_generate_nconf(char *str, CONF *nconf);
+<synopsis>#include &lt;openssl/asn1.h&gt;</synopsis>
+<synopsis>ASN1_TYPE *ASN1_generate_nconf(char *str, CONF *nconf);
 ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-10be80873723fd0eb0ac1ae20200021e"><title>DESCRIPTION</title>
     <para>
       These functions generate the ASN1 encoding of a string in an
       <emphasis role="bold">ASN1_TYPE</emphasis> structure.
@@ -28,7 +28,7 @@ ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);</synopsis>
       used.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:GENERATION_STRING_FORMAT"><title>GENERATION STRING FORMAT</title>
+  <refsection xml:id="ID-33e77a5b96efa372d1725b80839fe8c9"><title>GENERATION STRING FORMAT</title>
     <para>
       The actual data encoded is determined by the string <emphasis role="bold">str</emphasis> and the configuration information. The
       general format of the string is:
@@ -36,7 +36,7 @@ ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);</synopsis>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:modifiertype:value"/><emphasis role="bold">[modifier,]type[:value]</emphasis></term>
+          <term><emphasis role="bold">[modifier,]type[:value]</emphasis></term>
           <listitem>
             <para/>
           </listitem>
@@ -48,7 +48,7 @@ ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);</synopsis>
       followed by an optional colon and a value. The formats of <emphasis role="bold">type</emphasis>, <emphasis role="bold">value</emphasis>
       and <emphasis role="bold">modifier</emphasis> are explained below.
     </para>
-    <refsection xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:SUPPORTED_TYPES"><title>SUPPORTED TYPES</title>
+    <refsection xml:id="ID-172ebc8a84167e7bcdf43eb6300056e4"><title>SUPPORTED TYPES</title>
       <para>
 	The supported types are listed below. Unless otherwise specified
 	only the <emphasis role="bold">ASCII</emphasis> format is
@@ -57,7 +57,7 @@ ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);</synopsis>
       <para>
         <variablelist>
           <varlistentry>
-            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:BOOLEAN_BOOL"/><emphasis role="bold">BOOLEAN</emphasis>, <emphasis role="bold">BOOL</emphasis></term>
+            <term><emphasis role="bold">BOOLEAN</emphasis>, <emphasis role="bold">BOOL</emphasis></term>
             <listitem>
               <para>
 		This encodes a boolean type. The <emphasis role="bold">value</emphasis> string is mandatory and should
@@ -66,7 +66,7 @@ ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);</synopsis>
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:NULL"/><emphasis role="bold">NULL</emphasis></term>
+            <term><emphasis role="bold">NULL</emphasis></term>
             <listitem>
               <para>
 		Encode the <emphasis role="bold">NULL</emphasis> type, the
@@ -76,7 +76,7 @@ ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);</synopsis>
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:INTEGER_INT"/><emphasis role="bold">INTEGER</emphasis>, <emphasis role="bold">INT</emphasis></term>
+            <term><emphasis role="bold">INTEGER</emphasis>, <emphasis role="bold">INT</emphasis></term>
             <listitem>
               <para>
 		Encodes an ASN1 <emphasis role="bold">INTEGER</emphasis>
@@ -89,7 +89,7 @@ ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);</synopsis>
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:ENUMERATED_ENUM"/><emphasis role="bold">ENUMERATED</emphasis>, <emphasis role="bold">ENUM</emphasis></term>
+            <term><emphasis role="bold">ENUMERATED</emphasis>, <emphasis role="bold">ENUM</emphasis></term>
             <listitem>
               <para>
 		Encodes the ASN1 <emphasis role="bold">ENUMERATED</emphasis> type, it is otherwise
@@ -98,7 +98,7 @@ ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);</synopsis>
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:OBJECT_OID"/><emphasis role="bold">OBJECT</emphasis>, <emphasis role="bold">OID</emphasis></term>
+            <term><emphasis role="bold">OBJECT</emphasis>, <emphasis role="bold">OID</emphasis></term>
             <listitem>
               <para>
 		Encodes an ASN1 <emphasis role="bold">OBJECT
@@ -108,7 +108,7 @@ ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);</synopsis>
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:UTCTIME_UTC"/><emphasis role="bold">UTCTIME</emphasis>, <emphasis role="bold">UTC</emphasis></term>
+            <term><emphasis role="bold">UTCTIME</emphasis>, <emphasis role="bold">UTC</emphasis></term>
             <listitem>
               <para>
 		Encodes an ASN1 <emphasis role="bold">UTCTime</emphasis>
@@ -117,7 +117,7 @@ ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);</synopsis>
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:GENERALIZEDTIME_GENTIME"/><emphasis role="bold">GENERALIZEDTIME</emphasis>, <emphasis role="bold">GENTIME</emphasis></term>
+            <term><emphasis role="bold">GENERALIZEDTIME</emphasis>, <emphasis role="bold">GENTIME</emphasis></term>
             <listitem>
               <para>
 		Encodes an ASN1 <emphasis role="bold">GeneralizedTime</emphasis> structure, the value
@@ -126,7 +126,7 @@ ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);</synopsis>
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:OCTETSTRING_OCT"/><emphasis role="bold">OCTETSTRING</emphasis>, <emphasis role="bold">OCT</emphasis></term>
+            <term><emphasis role="bold">OCTETSTRING</emphasis>, <emphasis role="bold">OCT</emphasis></term>
             <listitem>
               <para>
 		Encodes an ASN1 <emphasis role="bold">OCTET
@@ -139,7 +139,7 @@ ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);</synopsis>
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:BITSTRING_BITSTR"/><emphasis role="bold">BITSTRING</emphasis>, <emphasis role="bold">BITSTR</emphasis></term>
+            <term><emphasis role="bold">BITSTRING</emphasis>, <emphasis role="bold">BITSTR</emphasis></term>
             <listitem>
               <para>
 		Encodes an ASN1 <emphasis role="bold">BIT
@@ -155,7 +155,7 @@ ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);</synopsis>
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:UNIVERSALSTRING_UNIV_IA5_IA5STRING_UTF8UTF8String_BMP_BMPSTRING_VISIBLESTRINGVISIBLE_PRINTABLESTRING_PRINTABLE_T61T61STRING_TELETEXSTRING_GeneralString_NUMERICSTRINGNUMERIC"/><emphasis role="bold">UNIVERSALSTRING</emphasis>, <emphasis role="bold">UNIV</emphasis>, <emphasis role="bold">IA5</emphasis>, <emphasis role="bold">IA5STRING</emphasis>, <emphasis role="bold">UTF8</emphasis>,
+            <term><emphasis role="bold">UNIVERSALSTRING</emphasis>, <emphasis role="bold">UNIV</emphasis>, <emphasis role="bold">IA5</emphasis>, <emphasis role="bold">IA5STRING</emphasis>, <emphasis role="bold">UTF8</emphasis>,
 <emphasis role="bold">UTF8String</emphasis>, <emphasis role="bold">BMP</emphasis>, <emphasis role="bold">BMPSTRING</emphasis>, <emphasis role="bold">VISIBLESTRING</emphasis>,
 <emphasis role="bold">VISIBLE</emphasis>, <emphasis role="bold">PRINTABLESTRING</emphasis>, <emphasis role="bold">PRINTABLE</emphasis>, <emphasis role="bold">T61</emphasis>,
 <emphasis role="bold">T61STRING</emphasis>, <emphasis role="bold">TELETEXSTRING</emphasis>, <emphasis role="bold">GeneralString</emphasis>, <emphasis role="bold">NUMERICSTRING</emphasis>,
@@ -168,7 +168,7 @@ ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);</synopsis>
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:SEQUENCE_SEQ_SET"/><emphasis role="bold">SEQUENCE</emphasis>, <emphasis role="bold">SEQ</emphasis>, <emphasis role="bold">SET</emphasis></term>
+            <term><emphasis role="bold">SEQUENCE</emphasis>, <emphasis role="bold">SEQ</emphasis>, <emphasis role="bold">SET</emphasis></term>
             <listitem>
               <para>
 		Formats the result as an ASN1 <emphasis role="bold">SEQUENCE</emphasis> or <emphasis role="bold">SET</emphasis> type. <emphasis role="bold">value</emphasis> should be a section name which
@@ -182,7 +182,7 @@ ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);</synopsis>
         </variablelist>
       </para>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:MODIFIERS"><title>MODIFIERS</title>
+    <refsection xml:id="ID-8c136d0ae3ff8d3f6af8521b111e6429"><title>MODIFIERS</title>
       <para>
 	Modifiers affect the following structure, they can be used to add
 	EXPLICIT or IMPLICIT tagging, add wrappers or to change the string
@@ -192,7 +192,7 @@ ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);</synopsis>
       <para>
         <variablelist>
           <varlistentry>
-            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:EXPLICIT_EXP"/><emphasis role="bold">EXPLICIT</emphasis>, <emphasis role="bold">EXP</emphasis></term>
+            <term><emphasis role="bold">EXPLICIT</emphasis>, <emphasis role="bold">EXP</emphasis></term>
             <listitem>
               <para>
 		Add an explicit tag to the following structure. This string
@@ -207,7 +207,7 @@ ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);</synopsis>
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:IMPLICIT_IMP"/><emphasis role="bold">IMPLICIT</emphasis>, <emphasis role="bold">IMP</emphasis></term>
+            <term><emphasis role="bold">IMPLICIT</emphasis>, <emphasis role="bold">IMP</emphasis></term>
             <listitem>
               <para>
 		This is the same as <emphasis role="bold">EXPLICIT</emphasis> except IMPLICIT tagging is
@@ -216,7 +216,7 @@ ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);</synopsis>
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:OCTWRAP_SEQWRAP_SETWRAP_BITWRAP"/><emphasis role="bold">OCTWRAP</emphasis>, <emphasis role="bold">SEQWRAP</emphasis>, <emphasis role="bold">SETWRAP</emphasis>, <emphasis role="bold">BITWRAP</emphasis></term>
+            <term><emphasis role="bold">OCTWRAP</emphasis>, <emphasis role="bold">SEQWRAP</emphasis>, <emphasis role="bold">SETWRAP</emphasis>, <emphasis role="bold">BITWRAP</emphasis></term>
             <listitem>
               <para>
 		The following structure is surrounded by an OCTET STRING, a
@@ -226,7 +226,7 @@ ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);</synopsis>
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term><anchor xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:FORMAT"/><emphasis role="bold">FORMAT</emphasis></term>
+            <term><emphasis role="bold">FORMAT</emphasis></term>
             <listitem>
               <para>
 		This specifies the format of the ultimate value. It should
@@ -245,7 +245,7 @@ ASN1_TYPE *ASN1_generate_v3(char *str, X509V3_CTX *cnf);</synopsis>
       </para>
     </refsection>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-b5fe759d1b5891a5228e771e5be2b594"><title>EXAMPLES</title>
     <para>
       A simple IA5String:
     </para>
@@ -330,7 +330,7 @@ D4D2C6D000430DEC66ABF47829E74B8C5108623A1C0EE8BE217B3AD8D36D5EB4FCA1D9
 
 e=INTEGER:0x010001</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-510d743fc9043869e912f4704057c400"><title>RETURN VALUES</title>
     <para>
       ASN1_generate_nconf() and ASN1_generate_v3() return the encoded data
       as an <emphasis role="bold">ASN1_TYPE</emphasis> structure or
@@ -342,16 +342,10 @@ e=INTEGER:0x010001</screen>
       </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-77e87a2ccf50567b63b1d10856026495"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ERR_get_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ASN1_generate_nconf.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      ASN1_generate_nconf() and ASN1_generate_v3() were added to OpenSSL
-      0.9.8
     </para>
   </refsection>
 </refentry>

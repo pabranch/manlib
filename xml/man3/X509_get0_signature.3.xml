@@ -10,18 +10,18 @@ X509_CRL_get_signature_nid</refname>
 <refpurpose>signature information.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/x509.h&gt;</synopsis>
-<synopsis format="linespecific">void X509_get0_signature(ASN1_BIT_STRING **psig, X509_ALGOR **palg,
+<synopsis>#include &lt;openssl/x509.h&gt;</synopsis>
+<synopsis>void X509_get0_signature(ASN1_BIT_STRING **psig, X509_ALGOR **palg,
                          const X509 *x);
 int X509_get_signature_nid(const X509 *x);</synopsis>
-<synopsis format="linespecific">void X509_REQ_get0_signature(ASN1_BIT_STRING **psig, X509_ALGOR **palg,
+<synopsis>void X509_REQ_get0_signature(ASN1_BIT_STRING **psig, X509_ALGOR **palg,
                              const X509_REQ *crl);
 int X509_REQ_get_signature_nid(const X509_REQ *crl);</synopsis>
-<synopsis format="linespecific">void X509_CRL_get0_signature(ASN1_BIT_STRING **psig, X509_ALGOR **palg,
+<synopsis>void X509_CRL_get0_signature(ASN1_BIT_STRING **psig, X509_ALGOR **palg,
                              const X509_CRL *crl);
 int X509_CRL_get_signature_nid(const X509_CRL *crl);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_get0_signature.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-a978311a28619a499c00dd7d6e201259"><title>DESCRIPTION</title>
     <para>
       X509_get0_signature() sets <emphasis role="bold">*psig</emphasis> to
       the signature of <emphasis role="bold">x</emphasis> and <emphasis role="bold">*palg</emphasis> to the signature algorithm of <emphasis role="bold">x</emphasis>. The values returned are internal pointers
@@ -38,7 +38,7 @@ int X509_CRL_get_signature_nid(const X509_CRL *crl);</synopsis>
       the same function for certificate requests and CRLs.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_get0_signature.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-f634b668f3379beac41d3d0732b4283a"><title>NOTES</title>
     <para>
       These functions provide lower level access to signatures in
       certificates where an application wishes to analyse or generate a
@@ -46,7 +46,7 @@ int X509_CRL_get_signature_nid(const X509_CRL *crl);</synopsis>
       example a non standard or unsupported format).
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_get0_signature.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-2690f8b7a3e9f012f54d69cfc12f53d9"><title>RETURN VALUES</title>
     <para>
       X509_get_signature_nid(), X509_REQ_get_signature_nid() and
       X509_CRL_get_signature_nid() return a NID.
@@ -56,7 +56,7 @@ int X509_CRL_get_signature_nid(const X509_CRL *crl);</synopsis>
       X509_CRL_get0_signature() do not return values.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_get0_signature.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-34dfaa15024a5b863aadcea2a962eab7"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>d2i_X509</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -92,7 +92,7 @@ int X509_CRL_get_signature_nid(const X509_CRL *crl);</synopsis>
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_get0_signature.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-8356cd17e0e20483f1035fe9537b1050"><title>HISTORY</title>
     <para>
       X509_get0_signature() and X509_get_signature_nid() were first added
       to OpenSSL 1.0.2.

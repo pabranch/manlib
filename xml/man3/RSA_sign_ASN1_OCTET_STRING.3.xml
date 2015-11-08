@@ -8,15 +8,15 @@
 <refpurpose>RSA signatures</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/rsa.h&gt;</synopsis>
-<synopsis format="linespecific">int RSA_sign_ASN1_OCTET_STRING(int dummy, unsigned char *m,
+<synopsis>#include &lt;openssl/rsa.h&gt;</synopsis>
+<synopsis>int RSA_sign_ASN1_OCTET_STRING(int dummy, unsigned char *m,
    unsigned int m_len, unsigned char *sigret, unsigned int *siglen,
    RSA *rsa);</synopsis>
-<synopsis format="linespecific">int RSA_verify_ASN1_OCTET_STRING(int dummy, unsigned char *m,
+<synopsis>int RSA_verify_ASN1_OCTET_STRING(int dummy, unsigned char *m,
    unsigned int m_len, unsigned char *sigbuf, unsigned int siglen,
    RSA *rsa);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_sign_ASN1_OCTET_STRING.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-151fc0e3efed523eab72ede0b8fb58e1"><title>DESCRIPTION</title>
     <para>
       RSA_sign_ASN1_OCTET_STRING() signs the octet string <emphasis role="bold">m</emphasis> of size <emphasis role="bold">m_len</emphasis> using the private key <emphasis role="bold">rsa</emphasis> represented in DER using PKCS #1 padding.
       It stores the signature in <emphasis role="bold">sigret</emphasis>
@@ -37,7 +37,7 @@
       public key.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_sign_ASN1_OCTET_STRING.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-ee66dcbf4b911ebed486004073fb3655"><title>RETURN VALUES</title>
     <para>
       RSA_sign_ASN1_OCTET_STRING() returns 1 on success, 0 otherwise.
       RSA_verify_ASN1_OCTET_STRING() returns 1 on successful verification,
@@ -49,12 +49,12 @@
       </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_sign_ASN1_OCTET_STRING.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-d43863ed5decab0a374b2a556967a6da"><title>BUGS</title>
     <para>
       These functions serve no recognizable purpose.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_sign_ASN1_OCTET_STRING.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-c5dbbc1c37ada5a8e6b86bd0379269a4"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ERR_get_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -65,12 +65,6 @@
       </citerefentry>, <citerefentry>
       <refentrytitle>RSA_verify</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_sign_ASN1_OCTET_STRING.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      RSA_sign_ASN1_OCTET_STRING() and RSA_verify_ASN1_OCTET_STRING() were
-      added in SSLeay 0.8.
     </para>
   </refsection>
 </refentry>

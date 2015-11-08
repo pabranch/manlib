@@ -9,14 +9,14 @@
 certificates</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">int SSL_CTX_load_verify_locations(SSL_CTX *ctx, const char *CAfile,
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_CTX_load_verify_locations(SSL_CTX *ctx, const char *CAfile,
                                   const char *CApath);</synopsis>
-<synopsis format="linespecific">int SSL_CTX_set_default_verify_paths(SSL_CTX *ctx);</synopsis>
-<synopsis format="linespecific">int SSL_CTX_set_default_verify_dir(SSL_CTX *ctx);</synopsis>
-<synopsis format="linespecific">int SSL_CTX_set_default_verify_file(SSL_CTX *ctx);</synopsis>
+<synopsis>int SSL_CTX_set_default_verify_paths(SSL_CTX *ctx);</synopsis>
+<synopsis>int SSL_CTX_set_default_verify_dir(SSL_CTX *ctx);</synopsis>
+<synopsis>int SSL_CTX_set_default_verify_file(SSL_CTX *ctx);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_load_verify_locations.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-b4008bd1a4d5b5000d2895090729f021"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_load_verify_locations() specifies the locations for <emphasis role="bold">ctx</emphasis>, at which CA certificates for verification
       purposes are located. The certificates available via <emphasis role="bold">CAfile</emphasis> and <emphasis role="bold">CApath</emphasis> are trusted.
@@ -37,7 +37,7 @@ certificates</refpurpose>
       is used.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_load_verify_locations.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-77a8c3d7b5072ac7a4faac7d8489f3bf"><title>NOTES</title>
     <para>
       If <emphasis role="bold">CAfile</emphasis> is not NULL, it points to
       a file of CA certificates in PEM format. The file can contain several
@@ -99,7 +99,7 @@ certificates</refpurpose>
       <manvolnum>3</manvolnum> </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_load_verify_locations.pod:WARNINGS"><title>WARNINGS</title>
+  <refsection xml:id="ID-83dcfea6678bf7bdb1d6d4e7582002d9"><title>WARNINGS</title>
     <para>
       If several CA certificates matching the name, key identifier, and
       serial number condition are available, only the first one will be
@@ -110,7 +110,7 @@ certificates</refpurpose>
       with valid ones.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_load_verify_locations.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-d1cd6a31899bcd8c2cc343606a892dba"><title>EXAMPLES</title>
     <para>
       Generate a CA certificate file with descriptive text from the CA
       certificates ca1.pem ca2.pem ca3.pem:
@@ -127,7 +127,7 @@ done</screen>
     <screen>cd /some/where/certs
 c_rehash .</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_load_verify_locations.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-f4115172fd509f931e387e70b9fdbcae"><title>RETURN VALUES</title>
     <para>
       For SSL_CTX_load_verify_locations the following return values can
       occur:
@@ -135,7 +135,7 @@ c_rehash .</screen>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_load_verify_locations.pod:0"/>0</term>
+          <term>0</term>
           <listitem>
             <para>
 	      The operation failed because <emphasis role="bold">CAfile</emphasis> and <emphasis role="bold">CApath</emphasis> are NULL or the processing at
@@ -145,7 +145,7 @@ c_rehash .</screen>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_load_verify_locations.pod:1"/>1</term>
+          <term>1</term>
           <listitem>
             <para>
 	      The operation succeeded.
@@ -160,7 +160,7 @@ c_rehash .</screen>
       failure. A missing default location is still treated as a success.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_load_verify_locations.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-e039614a9e24187c4b0c1031a6ee23ba"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

@@ -8,15 +8,15 @@
 <refpurpose>cipher BIO filter</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/bio.h&gt;
+<synopsis>#include &lt;openssl/bio.h&gt;
 #include &lt;openssl/evp.h&gt;</synopsis>
-<synopsis format="linespecific">BIO_METHOD *   BIO_f_cipher(void);
+<synopsis>BIO_METHOD *   BIO_f_cipher(void);
 void BIO_set_cipher(BIO *b,const EVP_CIPHER *cipher,
                unsigned char *key, unsigned char *iv, int enc);
 int BIO_get_cipher_status(BIO *b)
 int BIO_get_cipher_ctx(BIO *b, EVP_CIPHER_CTX **pctx)</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_cipher.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-6c36d3c4cce36bf0e6dc159ac1d2ea63"><title>DESCRIPTION</title>
     <para>
       BIO_f_cipher() returns the cipher BIO method. This is a filter BIO
       that encrypts any data written through it, and decrypts any data read
@@ -50,7 +50,7 @@ int BIO_get_cipher_ctx(BIO *b, EVP_CIPHER_CTX **pctx)</synopsis>
       applications needs.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_cipher.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-d37719e23eda630038f21b6752cca2d1"><title>NOTES</title>
     <para>
       When encrypting BIO_flush() <emphasis role="bold">must</emphasis> be
       called to flush the final block through the BIO. If it is not then
@@ -68,7 +68,7 @@ int BIO_get_cipher_ctx(BIO *b, EVP_CIPHER_CTX **pctx)</synopsis>
       be achieved by preceding the cipher BIO with a buffering BIO.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_cipher.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-b6b8025ee679a0661aa1435867a31c8b"><title>RETURN VALUES</title>
     <para>
       BIO_f_cipher() returns the cipher BIO method.
     </para>
@@ -83,12 +83,12 @@ int BIO_get_cipher_ctx(BIO *b, EVP_CIPHER_CTX **pctx)</synopsis>
       BIO_get_cipher_ctx() currently always returns 1.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_cipher.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-2aea854db22f10acba22ac6c83e2b393"><title>EXAMPLES</title>
     <para>
       TBA
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_cipher.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-cf43e1e82d6b3678eef17969ecea2d0e"><title>SEE ALSO</title>
     <para>
       TBA
     </para>

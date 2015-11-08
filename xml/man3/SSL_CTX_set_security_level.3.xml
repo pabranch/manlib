@@ -8,25 +8,25 @@
 <refpurpose>SSL/TLS security framework</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">void SSL_CTX_set_security_level(SSL_CTX *ctx, int level);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>void SSL_CTX_set_security_level(SSL_CTX *ctx, int level);
 void SSL_set_security_level(SSL *s, int level);</synopsis>
-<synopsis format="linespecific">int SSL_CTX_get_security_level(const SSL_CTX *ctx);
+<synopsis>int SSL_CTX_get_security_level(const SSL_CTX *ctx);
 int SSL_get_security_level(const SSL *s);</synopsis>
-<synopsis format="linespecific">void SSL_CTX_set_security_callback(SSL_CTX *ctx,
+<synopsis>void SSL_CTX_set_security_callback(SSL_CTX *ctx,
                int (*cb)(SSL *s, SSL_CTX *ctx, int op, int bits, int nid,
                                                        void *other, void *ex));</synopsis>
-<synopsis format="linespecific">void SSL_set_security_callback(SSL *s,
+<synopsis>void SSL_set_security_callback(SSL *s,
                int (*cb)(SSL *s, SSL_CTX *ctx, int op, int bits, int nid,
                                                        void *other, void *ex));</synopsis>
-<synopsis format="linespecific">int (*SSL_CTX_get_security_callback(const SSL_CTX *ctx))(SSL *s, SSL_CTX *ctx, int op, int bits, int nid, void *other, void *ex);
+<synopsis>int (*SSL_CTX_get_security_callback(const SSL_CTX *ctx))(SSL *s, SSL_CTX *ctx, int op, int bits, int nid, void *other, void *ex);
 int (*SSL_get_security_callback(const SSL *s))(SSL *s, SSL_CTX *ctx, int op, int bits, int nid, void *other, void *ex);</synopsis>
-<synopsis format="linespecific">void SSL_CTX_set0_security_ex_data(SSL_CTX *ctx, void *ex);
+<synopsis>void SSL_CTX_set0_security_ex_data(SSL_CTX *ctx, void *ex);
 void SSL_set0_security_ex_data(SSL *s, void *ex);</synopsis>
-<synopsis format="linespecific">void *SSL_CTX_get0_security_ex_data(const SSL_CTX *ctx);
+<synopsis>void *SSL_CTX_get0_security_ex_data(const SSL_CTX *ctx);
 void *SSL_get0_security_ex_data(const SSL *s);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_security_level.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-8937a4031ce6acfab83ca7ad34afa867"><title>DESCRIPTION</title>
     <para>
       The functions SSL_CTX_set_security_level() and
       SSL_set_security_level() set the security level to <emphasis role="bold">level</emphasis>. If not set the library default security
@@ -52,7 +52,7 @@ void *SSL_get0_security_ex_data(const SSL *s);</synopsis>
       application specific value.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_security_level.pod:DEFAULT_CALLBACK_BEHAVIOUR"><title>DEFAULT CALLBACK BEHAVIOUR</title>
+  <refsection xml:id="ID-c1f8062de7d3cc5a6168c6333c169c6e"><title>DEFAULT CALLBACK BEHAVIOUR</title>
     <para>
       If an application doesn't set it's own security callback the default
       callback is used. It is intended to provide sane defaults. The
@@ -61,7 +61,7 @@ void *SSL_get0_security_ex_data(const SSL *s);</synopsis>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_security_level.pod:Level_0"/><emphasis role="bold">Level 0</emphasis></term>
+          <term><emphasis role="bold">Level 0</emphasis></term>
           <listitem>
             <para>
 	      Everything is permitted. This retains compatibility with
@@ -70,7 +70,7 @@ void *SSL_get0_security_ex_data(const SSL *s);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_security_level.pod:Level_1"/><emphasis role="bold">Level 1</emphasis></term>
+          <term><emphasis role="bold">Level 1</emphasis></term>
           <listitem>
             <para>
 	      The security level corresponds to a minimum of 80 bits of
@@ -84,7 +84,7 @@ void *SSL_get0_security_ex_data(const SSL *s);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_security_level.pod:Level_2"/><emphasis role="bold">Level 2</emphasis></term>
+          <term><emphasis role="bold">Level 2</emphasis></term>
           <listitem>
             <para>
 	      Security level set to 112 bits of security. As a result RSA,
@@ -96,7 +96,7 @@ void *SSL_get0_security_ex_data(const SSL *s);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_security_level.pod:Level_3"/><emphasis role="bold">Level 3</emphasis></term>
+          <term><emphasis role="bold">Level 3</emphasis></term>
           <listitem>
             <para>
 	      Security level set to 128 bits of security. As a result RSA,
@@ -109,7 +109,7 @@ void *SSL_get0_security_ex_data(const SSL *s);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_security_level.pod:Level_4"/><emphasis role="bold">Level 4</emphasis></term>
+          <term><emphasis role="bold">Level 4</emphasis></term>
           <listitem>
             <para>
 	      Security level set to 192 bits of security. As a result RSA,
@@ -120,7 +120,7 @@ void *SSL_get0_security_ex_data(const SSL *s);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_security_level.pod:Level_5"/><emphasis role="bold">Level 5</emphasis></term>
+          <term><emphasis role="bold">Level 5</emphasis></term>
           <listitem>
             <para>
 	      Security level set to 256 bits of security. As a result RSA,
@@ -132,12 +132,12 @@ void *SSL_get0_security_ex_data(const SSL *s);</synopsis>
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_security_level.pod:APPLICATION_DEFINED_SECURITY_CALLBACKS"><title>APPLICATION DEFINED SECURITY CALLBACKS</title>
+  <refsection xml:id="ID-9c3f22aed3a0e678a27499fc176cef96"><title>APPLICATION DEFINED SECURITY CALLBACKS</title>
     <para>
       TBA
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_security_level.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-2d5a16b68bf9f03fff268b8f78dc9d6f"><title>NOTES</title>
     <para>
       <emphasis role="bold">WARNING</emphasis> at this time setting the
       security level higher than 1 for general internet use is likely to
@@ -198,12 +198,12 @@ void *SSL_get0_security_ex_data(const SSL *s);</synopsis>
       it had been rejected.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_security_level.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-a3f278d910ee133790c6fe270b0b4fca"><title>SEE ALSO</title>
     <para>
       TBA
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_security_level.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-0d6712e0ebd74a4cc3ca4c817889a5ea"><title>HISTORY</title>
     <para>
       These functions were first added to OpenSSL 1.1.0
     </para>

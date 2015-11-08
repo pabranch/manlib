@@ -8,8 +8,8 @@
 <refpurpose>error codes</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/err.h&gt;</synopsis>
-<synopsis format="linespecific">unsigned long ERR_get_error(void);
+<synopsis>#include &lt;openssl/err.h&gt;</synopsis>
+<synopsis>unsigned long ERR_get_error(void);
 unsigned long ERR_peek_error(void);
 unsigned long ERR_get_error_line(const char **file, int *line);
 unsigned long ERR_peek_error_line(const char **file, int *line);
@@ -17,27 +17,27 @@ unsigned long ERR_get_error_line_data(const char **file, int *line,
         const char **data, int *flags);
 unsigned long ERR_peek_error_line_data(const char **file, int *line,
         const char **data, int *flags);</synopsis>
-<synopsis format="linespecific">int ERR_GET_LIB(unsigned long e);
+<synopsis>int ERR_GET_LIB(unsigned long e);
 int ERR_GET_FUNC(unsigned long e);
 int ERR_GET_REASON(unsigned long e);</synopsis>
-<synopsis format="linespecific">void ERR_clear_error(void);</synopsis>
-<synopsis format="linespecific">char *ERR_error_string(unsigned long e, char *buf);
+<synopsis>void ERR_clear_error(void);</synopsis>
+<synopsis>char *ERR_error_string(unsigned long e, char *buf);
 const char *ERR_lib_error_string(unsigned long e);
 const char *ERR_func_error_string(unsigned long e);
 const char *ERR_reason_error_string(unsigned long e);</synopsis>
-<synopsis format="linespecific">void ERR_print_errors(BIO *bp);
+<synopsis>void ERR_print_errors(BIO *bp);
 void ERR_print_errors_fp(FILE *fp);</synopsis>
-<synopsis format="linespecific">void ERR_load_crypto_strings(void);
+<synopsis>void ERR_load_crypto_strings(void);
 void ERR_free_strings(void);</synopsis>
-<synopsis format="linespecific">void ERR_remove_state(unsigned long pid);</synopsis>
-<synopsis format="linespecific">void ERR_put_error(int lib, int func, int reason, const char *file,
+<synopsis>void ERR_remove_state(unsigned long pid);</synopsis>
+<synopsis>void ERR_put_error(int lib, int func, int reason, const char *file,
         int line);
 void ERR_add_error_data(int num, ...);</synopsis>
-<synopsis format="linespecific">void ERR_load_strings(int lib,ERR_STRING_DATA str[]);
+<synopsis>void ERR_load_strings(int lib,ERR_STRING_DATA str[]);
 unsigned long ERR_PACK(int lib, int func, int reason);
 int ERR_get_next_error_library(void);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.err.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-cd84503e33f660f3bac793ca50823b84"><title>DESCRIPTION</title>
     <para>
       When a call to the OpenSSL library fails, this is usually signaled by
       the return value, and an error code is stored in an error queue
@@ -70,7 +70,7 @@ int ERR_get_next_error_library(void);</synopsis>
       memory leaks when threads are terminated.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.err.pod:ADDING_NEW_ERROR_CODES_TO_OPENSSL"><title>ADDING NEW ERROR CODES TO OPENSSL</title>
+  <refsection xml:id="ID-dfd7c0ea420ac6d4d5f530ec5adbe27d"><title>ADDING NEW ERROR CODES TO OPENSSL</title>
     <para>
       See <citerefentry> <refentrytitle>ERR_put_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry> if you want to record error
@@ -81,7 +81,7 @@ int ERR_get_next_error_library(void);</synopsis>
       new error codes to OpenSSL or add error codes from external
       libraries.
     </para>
-    <refsection xml:id="sources.openssl.doc.crypto.err.pod:Reporting_errors"><title>Reporting errors</title>
+    <refsection xml:id="ID-e98395b9502608724a3a3843b9130781"><title>Reporting errors</title>
       <para>
 	Each sub-library has a specific macro XXXerr() that is used to
 	report errors. Its first argument is a function code <emphasis role="bold">XXX_F_...</emphasis>, the second argument is a reason
@@ -114,7 +114,7 @@ int ERR_get_next_error_library(void);</synopsis>
 	must use the ASN1err() macro.
       </para>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.crypto.err.pod:Adding_new_libraries"><title>Adding new libraries</title>
+    <refsection xml:id="ID-bbaf11fbb63847a68c6cf974b01e450f"><title>Adding new libraries</title>
       <para>
 	When adding a new sub-library to OpenSSL, assign it a library
 	number <emphasis role="bold">ERR_LIB_XXX</emphasis>, define a macro
@@ -167,7 +167,7 @@ extern "C" {
       </para>
     </refsection>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.err.pod:USING_ERROR_CODES_IN_EXTERNAL_LIBRARIES"><title>USING ERROR CODES IN EXTERNAL LIBRARIES</title>
+  <refsection xml:id="ID-73b708d127b68d22888d6d483d385e2a"><title>USING ERROR CODES IN EXTERNAL LIBRARIES</title>
     <para>
       It is also possible to use OpenSSL's error code scheme in external
       libraries. The library needs to load its own codes and call the
@@ -180,7 +180,7 @@ extern "C" {
       TBA more details
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.err.pod:INTERNALS"><title>INTERNALS</title>
+  <refsection xml:id="ID-713b6c1a84aa0aab944d2548fac457fc"><title>INTERNALS</title>
     <para>
       The error queues are stored in a hash table with one <emphasis role="bold">ERR_STATE</emphasis> entry for each pid. ERR_get_state()
       returns the current thread's <emphasis role="bold">ERR_STATE</emphasis>. An <emphasis role="bold">ERR_STATE</emphasis> can hold up to <emphasis role="bold">ERR_NUM_ERRORS</emphasis> error codes. When more error
@@ -193,7 +193,7 @@ extern "C" {
       ERR_get_string_table(void) respectively.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.err.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-a034ef55cf8a3c04df3f63cf4a19c437"><title>SEE ALSO</title>
     <para>
       <citerefentry>
       <refentrytitle>CRYPTO_set_locking_callback</refentrytitle>

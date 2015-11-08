@@ -8,13 +8,13 @@
 <refpurpose>EVP signature verification functions</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
-<synopsis format="linespecific">int EVP_DigestVerifyInit(EVP_MD_CTX *ctx, EVP_PKEY_CTX **pctx,
+<synopsis>#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis>int EVP_DigestVerifyInit(EVP_MD_CTX *ctx, EVP_PKEY_CTX **pctx,
                        const EVP_MD *type, ENGINE *e, EVP_PKEY *pkey);
 int EVP_DigestVerifyUpdate(EVP_MD_CTX *ctx, const void *d, unsigned int cnt);
 int EVP_DigestVerifyFinal(EVP_MD_CTX *ctx, const unsigned char *sig, size_t siglen);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_DigestVerifyInit.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-81ad3f78dd5be94833f32cf7f0d30508"><title>DESCRIPTION</title>
     <para>
       The EVP signature routines are a high level interface to digital
       signatures.
@@ -38,17 +38,18 @@ int EVP_DigestVerifyFinal(EVP_MD_CTX *ctx, const unsigned char *sig, size_t sigl
       EVP_DigestVerifyFinal() verifies the data in <emphasis role="bold">ctx</emphasis> against the signature in <emphasis role="bold">sig</emphasis> of length <emphasis role="bold">siglen</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_DigestVerifyInit.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-b68db085a001733ee0cde1e88125d1c0"><title>RETURN VALUES</title>
     <para>
       EVP_DigestVerifyInit() and EVP_DigestVerifyUpdate() return 1 for
       success and 0 for failure.
     </para>
     <para>
-      Unlike other functions the return value 0 from
-      EVP_DigestVerifyFinal() only indicates that the signature did not
-      verify successfully (that is tbs did not match the original data or
-      the signature was of invalid form) it is not an indication of a more
-      serious error.
+      EVP_DigestVerifyFinal() returns 1 for success; any other value
+      indicates failure.  A return value of zero indicates that the
+      signature did not verify successfully (that is, tbs did not match the
+      original data or the signature had an invalid form), while other
+      values indicate a more serious error (and sometimes also indicate an
+      invalid signature form).
     </para>
     <para>
       The error codes can be obtained from <citerefentry>
@@ -56,7 +57,7 @@ int EVP_DigestVerifyFinal(EVP_MD_CTX *ctx, const unsigned char *sig, size_t sigl
       </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_DigestVerifyInit.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-2a1bcec2cfb387ea1cb9ee08c273cb3e"><title>NOTES</title>
     <para>
       The <emphasis role="bold">EVP</emphasis> interface to digital
       signatures should almost always be used in preference to the low
@@ -86,7 +87,7 @@ int EVP_DigestVerifyFinal(EVP_MD_CTX *ctx, const unsigned char *sig, size_t sigl
       memory leak will occur.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_DigestVerifyInit.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-ea5e50fb68983bc452254c2ae4c789d1"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>EVP_DigestSignInit</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -108,10 +109,10 @@ int EVP_DigestVerifyFinal(EVP_MD_CTX *ctx, const unsigned char *sig, size_t sigl
       </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_DigestVerifyInit.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-851186b0cb7ebcc1ccdece288c07eee2"><title>HISTORY</title>
     <para>
       EVP_DigestVerifyInit(), EVP_DigestVerifyUpdate() and
-      EVP_DigestVerifyFinal() were first added to OpenSSL 1.0.0. 
+      EVP_DigestVerifyFinal() were first added to OpenSSL 1.0.0.
     </para>
   </refsection>
 </refentry>

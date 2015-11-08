@@ -8,15 +8,15 @@
 <refpurpose>handle DH keys for ephemeral key exchange</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">void SSL_CTX_set_tmp_dh_callback(SSL_CTX *ctx,
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>void SSL_CTX_set_tmp_dh_callback(SSL_CTX *ctx,
            DH *(*tmp_dh_callback)(SSL *ssl, int is_export, int keylength));
 long SSL_CTX_set_tmp_dh(SSL_CTX *ctx, DH *dh);</synopsis>
-<synopsis format="linespecific">void SSL_set_tmp_dh_callback(SSL *ctx,
+<synopsis>void SSL_set_tmp_dh_callback(SSL *ctx,
            DH *(*tmp_dh_callback)(SSL *ssl, int is_export, int keylength));
 long SSL_set_tmp_dh(SSL *ssl, DH *dh)</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tmp_dh_callback.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-e8a575cb76ffb1d5acdcb66bb7810567"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_set_tmp_dh_callback() sets the callback function for
       <emphasis role="bold">ctx</emphasis> to be used when a DH parameters
@@ -37,7 +37,7 @@ long SSL_set_tmp_dh(SSL *ssl, DH *dh)</synopsis>
       These functions apply to SSL/TLS servers only.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tmp_dh_callback.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-46e3270713953b2156fcbda660941014"><title>NOTES</title>
     <para>
       When using a cipher with RSA authentication, an ephemeral DH key
       exchange can take place. Ciphers with DSA keys always use ephemeral
@@ -115,7 +115,7 @@ long SSL_set_tmp_dh(SSL *ssl, DH *dh)</synopsis>
       parameters in the callback.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tmp_dh_callback.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-b81d541bb4fbdd0103a3a92086d062d8"><title>EXAMPLES</title>
     <para>
       Setup DH parameters with a key length of 2048 bits. (Error handling
       partly left out.)
@@ -148,7 +148,7 @@ if (SSL_CTX_set_tmp_dh(ctx, dh_2048) != 1) {
 SSL_CTX_set_options(ctx, SSL_OP_SINGLE_DH_USE);
 ...</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tmp_dh_callback.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-090764993aba858f0da1f6f4f750867a"><title>RETURN VALUES</title>
     <para>
       SSL_CTX_set_tmp_dh_callback() and SSL_set_tmp_dh_callback() do not
       return diagnostic output.
@@ -159,7 +159,7 @@ SSL_CTX_set_options(ctx, SSL_OP_SINGLE_DH_USE);
       failure.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tmp_dh_callback.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-20452985b38333205bf059cc286e9f71"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

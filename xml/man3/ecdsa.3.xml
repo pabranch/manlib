@@ -8,13 +8,13 @@
 <refpurpose>Elliptic Curve Digital Signature Algorithm</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ecdsa.h&gt;</synopsis>
-<synopsis format="linespecific">ECDSA_SIG*     ECDSA_SIG_new(void);
+<synopsis>#include &lt;openssl/ecdsa.h&gt;</synopsis>
+<synopsis>ECDSA_SIG*     ECDSA_SIG_new(void);
 void           ECDSA_SIG_free(ECDSA_SIG *sig);
 int            i2d_ECDSA_SIG(const ECDSA_SIG *sig, unsigned char **pp);
 ECDSA_SIG*     d2i_ECDSA_SIG(ECDSA_SIG **sig, const unsigned char **pp, 
                long len);</synopsis>
-<synopsis format="linespecific">ECDSA_SIG*     ECDSA_do_sign(const unsigned char *dgst, int dgst_len,
+<synopsis>ECDSA_SIG*     ECDSA_do_sign(const unsigned char *dgst, int dgst_len,
                        EC_KEY *eckey);
 ECDSA_SIG*     ECDSA_do_sign_ex(const unsigned char *dgst, int dgstlen, 
                        const BIGNUM *kinv, const BIGNUM *rp,
@@ -34,18 +34,18 @@ int            ECDSA_verify(int type, const unsigned char *dgst,
                        int dgstlen, const unsigned char *sig,
                        int siglen, EC_KEY *eckey);
 int            ECDSA_size(const EC_KEY *eckey);</synopsis>
-<synopsis format="linespecific">const ECDSA_METHOD*    ECDSA_OpenSSL(void);
+<synopsis>const ECDSA_METHOD*    ECDSA_OpenSSL(void);
 void           ECDSA_set_default_method(const ECDSA_METHOD *meth);
 const ECDSA_METHOD*    ECDSA_get_default_method(void);
 int            ECDSA_set_method(EC_KEY *eckey,const ECDSA_METHOD *meth);</synopsis>
-<synopsis format="linespecific">int            ECDSA_get_ex_new_index(long argl, void *argp,
+<synopsis>int            ECDSA_get_ex_new_index(long argl, void *argp,
                        CRYPTO_EX_new *new_func,
                        CRYPTO_EX_dup *dup_func,
                        CRYPTO_EX_free *free_func);
 int            ECDSA_set_ex_data(EC_KEY *d, int idx, void *arg);
 void*          ECDSA_get_ex_data(EC_KEY *d, int idx);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.ecdsa.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-f5de99d2d42109357e354a95a7f258e4"><title>DESCRIPTION</title>
     <para>
       The <emphasis role="bold">ECDSA_SIG</emphasis> structure consists of
       two BIGNUMs for the r and s value of a ECDSA signature (see X9.62 or
@@ -69,7 +69,7 @@ void*          ECDSA_get_ex_data(EC_KEY *d, int idx);</synopsis>
       <emphasis role="bold">sig</emphasis> and writes the encoded signature
       to <emphasis role="bold">*pp</emphasis> (note: if <emphasis role="bold">pp</emphasis> is NULL <emphasis role="bold">i2d_ECDSA_SIG</emphasis> returns the expected length in
       bytes of the DER encoded signature). <emphasis role="bold">i2d_ECDSA_SIG</emphasis> returns the length of the DER
-      encoded signature (or 0 on error). 
+      encoded signature (or 0 on error).
     </para>
     <para>
       d2i_ECDSA_SIG() decodes a DER encoded ECDSA signature and returns the
@@ -118,7 +118,7 @@ void*          ECDSA_get_ex_data(EC_KEY *d, int idx);</synopsis>
       value <emphasis role="bold">dgst</emphasis> of size <emphasis role="bold">dgst_len</emphasis> using the public key <emphasis role="bold">eckey</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ecdsa.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-3b27086a2b185d44b00cd19d0d0d6fa0"><title>RETURN VALUES</title>
     <para>
       ECDSA_size() returns the maximum length signature or 0 on error.
     </para>
@@ -134,7 +134,7 @@ void*          ECDSA_get_ex_data(EC_KEY *d, int idx);</synopsis>
       </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ecdsa.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-b1d50c90af1ffccf6ab2099364409ece"><title>EXAMPLES</title>
     <para>
       Creating a ECDSA signature of given SHA-1 hash value using the named
       curve secp192k1.
@@ -156,7 +156,7 @@ if (!EC_KEY_generate_key(eckey))
        }</screen>
     <para>
       Second step: compute the ECDSA signature of a SHA-1 hash value using
-      <emphasis role="bold">ECDSA_do_sign</emphasis> 
+      <emphasis role="bold">ECDSA_do_sign</emphasis>
     </para>
     <screen>sig = ECDSA_do_sign(digest, 20, eckey);
 if (sig == NULL)
@@ -199,28 +199,18 @@ else   /* ret == 1 */
        /* signature ok */
        }</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ecdsa.pod:CONFORMING_TO"><title>CONFORMING TO</title>
+  <refsection xml:id="ID-62bdd5621d2e39f691408d712b6fa0a0"><title>CONFORMING TO</title>
     <para>
       ANSI X9.62, US Federal Information Processing Standard FIPS 186-2
       (Digital Signature Standard, DSS)
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ecdsa.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-b60b85cac98c8705827076cb52509b16"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>dsa</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>rsa</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ecdsa.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      The ecdsa implementation was first introduced in OpenSSL 0.9.8
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ecdsa.pod:AUTHOR"><title>AUTHOR</title>
-    <para>
-      Nils Larsch for the OpenSSL project (http://www.openssl.org).
     </para>
   </refsection>
 </refentry>

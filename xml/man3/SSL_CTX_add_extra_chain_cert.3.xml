@@ -9,11 +9,11 @@
 extra chain certificates</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">long SSL_CTX_add_extra_chain_cert(SSL_CTX *ctx, X509 *x509);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>long SSL_CTX_add_extra_chain_cert(SSL_CTX *ctx, X509 *x509);
 long SSL_CTX_clear_extra_chain_certs(SSL_CTX *ctx);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add_extra_chain_cert.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-09439b4da300bd8c47b86f98d89b1464"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_add_extra_chain_cert() adds the certificate <emphasis role="bold">x509</emphasis> to the extra chain certificates
       associated with <emphasis role="bold">ctx</emphasis>. Several
@@ -27,7 +27,7 @@ long SSL_CTX_clear_extra_chain_certs(SSL_CTX *ctx);</synopsis>
       These functions are implemented as macros.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add_extra_chain_cert.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-eb739d283b5f5885b50eb03437a2ef1a"><title>NOTES</title>
     <para>
       When sending a certificate chain, extra chain certificates are sent
       in order following the end entity certificate.
@@ -46,7 +46,7 @@ long SSL_CTX_clear_extra_chain_certs(SSL_CTX *ctx);</synopsis>
       <emphasis role="bold">should not</emphasis> free the <emphasis role="bold">x509</emphasis> object.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add_extra_chain_cert.pod:RESTRICTIONS"><title>RESTRICTIONS</title>
+  <refsection xml:id="ID-5cded972dd6f43b03a828bdbcd018158"><title>RESTRICTIONS</title>
     <para>
       Only one set of extra chain certificates can be specified per SSL_CTX
       structure. Different chains for different certificates (for example
@@ -56,14 +56,14 @@ long SSL_CTX_clear_extra_chain_certs(SSL_CTX *ctx);</synopsis>
       SSL_add1_chain_cert() should be used instead.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add_extra_chain_cert.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-42401b211f727502ceb852e304b7c648"><title>RETURN VALUES</title>
     <para>
       SSL_CTX_add_extra_chain_cert() and SSL_CTX_clear_extra_chain_certs()
       return 1 on success and 0 for failure. Check out the error stack to
       find out the reason for failure.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add_extra_chain_cert.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-0607a1fac6c01e57169c462bdd1cf340"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

@@ -8,13 +8,13 @@
     OCSP_copy_nonce - OCSP nonce functions.
   </para>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ocsp.h&gt;</synopsis>
-<synopsis format="linespecific">int OCSP_request_add1_nonce(OCSP_REQUEST *req, unsigned char *val, int len);
+<synopsis>#include &lt;openssl/ocsp.h&gt;</synopsis>
+<synopsis>int OCSP_request_add1_nonce(OCSP_REQUEST *req, unsigned char *val, int len);
 int OCSP_basic_add1_nonce(OCSP_BASICRESP *resp, unsigned char *val, int len);
 int OCSP_copy_nonce(OCSP_BASICRESP *resp, OCSP_REQUEST *req);
 int OCSP_check_nonce(OCSP_REQUEST *req, OCSP_BASICRESP *resp);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_request_add1_nonce.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-9a5143e5445cab0f0685e9aebbf1961d"><title>DESCRIPTION</title>
     <para>
       OCSP_request_add1_nonce() adds a nonce of value <emphasis role="bold">val</emphasis> and length <emphasis role="bold">len</emphasis> to OCSP request <emphasis role="bold">req</emphasis>. If <emphasis role="bold">val</emphasis>
       is <emphasis role="bold">NULL</emphasis> a random nonce is used. If
@@ -32,7 +32,7 @@ int OCSP_check_nonce(OCSP_REQUEST *req, OCSP_BASICRESP *resp);</synopsis>
       OCSP_copy_nonce() copys any nonce value present in <emphasis role="bold">req</emphasis> to <emphasis role="bold">resp</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_request_add1_nonce.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-31e1395ddf347b51f3ce9996d12a24dc"><title>RETURN VALUES</title>
     <para>
       OCSP_request_add1_nonce() and OCSP_basic_add1_nonce() return 1 for
       success and 0 for failure.
@@ -52,7 +52,7 @@ int OCSP_check_nonce(OCSP_REQUEST *req, OCSP_BASICRESP *resp);</synopsis>
       returned.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_request_add1_nonce.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-fb92c474b6750a327eb7126554974788"><title>NOTES</title>
     <para>
       For most purposes the nonce value in a request is set to a random
       value so the <emphasis role="bold">val</emphasis> parameter in
@@ -80,7 +80,7 @@ int OCSP_check_nonce(OCSP_REQUEST *req, OCSP_BASICRESP *resp);</synopsis>
       mismatched nonces: this should be treated as an error condition.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_request_add1_nonce.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-a7ff5ff9c1042af95688ce08d00d185f"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>crypto</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

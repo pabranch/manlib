@@ -8,17 +8,17 @@
 <refpurpose>read bytes from a TLS/SSL connection.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">int SSL_read(SSL *ssl, void *buf, int num);</synopsis>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_read(SSL *ssl, void *buf, int num);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_read.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-fc63dbb8c21108a89bc1323f292addd7"><title>DESCRIPTION</title>
     <para>
       SSL_read() tries to read <emphasis role="bold">num</emphasis> bytes
       from the specified <emphasis role="bold">ssl</emphasis> into the
       buffer <emphasis role="bold">buf</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_read.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-dec15e7d692845ea287f36e7b36390f4"><title>NOTES</title>
     <para>
       If necessary, SSL_read() will negotiate a TLS/SSL session, if not
       already explicitly performed by <citerefentry>
@@ -63,7 +63,7 @@
       place, in which case a SSL_ERROR_WANT_READ may occur. This behaviour
       can be controlled with the SSL_MODE_AUTO_RETRY flag of the
       <citerefentry> <refentrytitle>SSL_CTX_set_mode</refentrytitle>
-      <manvolnum>3</manvolnum> </citerefentry> call. 
+      <manvolnum>3</manvolnum> </citerefentry> call.
     </para>
     <para>
       If the underlying BIO is <emphasis role="bold">non-blocking</emphasis>, SSL_read() will also return when
@@ -89,20 +89,20 @@
       receiving new data from the underlying socket.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_read.pod:WARNING"><title>WARNING</title>
+  <refsection xml:id="ID-b909031c0e2ef2310a2dece4757f8c7c"><title>WARNING</title>
     <para>
       When an SSL_read() operation has to be repeated because of <emphasis role="bold">SSL_ERROR_WANT_READ</emphasis> or <emphasis role="bold">SSL_ERROR_WANT_WRITE</emphasis>, it must be repeated with
       the same arguments.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_read.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-4afb2640cb86e238abed1c4de5e8c22f"><title>RETURN VALUES</title>
     <para>
       The following return values can occur:
     </para>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_read.pod:gt0"/>&gt;0</term>
+          <term>&gt;0</term>
           <listitem>
             <para>
 	      The read operation was successful; the return value is the
@@ -111,7 +111,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_read.pod:0"/>0</term>
+          <term>0</term>
           <listitem>
             <para>
 	      The read operation was not successful. The reason may either
@@ -128,16 +128,10 @@
 	      occurred or the connection was shut down cleanly
 	      (SSL_ERROR_ZERO_RETURN).
             </para>
-            <para>
-	      SSLv2 (deprecated) does not support a shutdown alert
-	      protocol, so it can only be detected, whether the underlying
-	      connection was closed. It cannot be checked, whether the
-	      closure was initiated by the peer or by something else.
-            </para>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_read.pod:lt0"/>&lt;0</term>
+          <term>&lt;0</term>
           <listitem>
             <para>
 	      The read operation was not successful, because either an
@@ -149,7 +143,7 @@
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_read.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-a689109ee4218ad84b6465c62d75513f"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>SSL_get_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

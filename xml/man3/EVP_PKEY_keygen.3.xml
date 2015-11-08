@@ -8,19 +8,19 @@
 <refpurpose>key and parameter generation functions</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
-<synopsis format="linespecific">int EVP_PKEY_keygen_init(EVP_PKEY_CTX *ctx);
+<synopsis>#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis>int EVP_PKEY_keygen_init(EVP_PKEY_CTX *ctx);
 int EVP_PKEY_keygen(EVP_PKEY_CTX *ctx, EVP_PKEY **ppkey);
 int EVP_PKEY_paramgen_init(EVP_PKEY_CTX *ctx);
 int EVP_PKEY_paramgen(EVP_PKEY_CTX *ctx, EVP_PKEY **ppkey);</synopsis>
-<synopsis format="linespecific">typedef int EVP_PKEY_gen_cb(EVP_PKEY_CTX *ctx);</synopsis>
-<synopsis format="linespecific">void EVP_PKEY_CTX_set_cb(EVP_PKEY_CTX *ctx, EVP_PKEY_gen_cb *cb);
+<synopsis>typedef int EVP_PKEY_gen_cb(EVP_PKEY_CTX *ctx);</synopsis>
+<synopsis>void EVP_PKEY_CTX_set_cb(EVP_PKEY_CTX *ctx, EVP_PKEY_gen_cb *cb);
 EVP_PKEY_gen_cb *EVP_PKEY_CTX_get_cb(EVP_PKEY_CTX *ctx);</synopsis>
-<synopsis format="linespecific">int EVP_PKEY_CTX_get_keygen_info(EVP_PKEY_CTX *ctx, int idx);</synopsis>
-<synopsis format="linespecific">void EVP_PKEY_CTX_set_app_data(EVP_PKEY_CTX *ctx, void *data);
+<synopsis>int EVP_PKEY_CTX_get_keygen_info(EVP_PKEY_CTX *ctx, int idx);</synopsis>
+<synopsis>void EVP_PKEY_CTX_set_app_data(EVP_PKEY_CTX *ctx, void *data);
 void *EVP_PKEY_CTX_get_app_data(EVP_PKEY_CTX *ctx);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_keygen.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-5a25bcf7c43769ab753b34162ffda577"><title>DESCRIPTION</title>
     <para>
       The EVP_PKEY_keygen_init() function initializes a public key
       algorithm context using key <emphasis role="bold">pkey</emphasis> for
@@ -28,7 +28,7 @@ void *EVP_PKEY_CTX_get_app_data(EVP_PKEY_CTX *ctx);</synopsis>
     </para>
     <para>
       The EVP_PKEY_keygen() function performs a key generation operation,
-      the generated key is written to <emphasis role="bold">ppkey</emphasis>. 
+      the generated key is written to <emphasis role="bold">ppkey</emphasis>.
     </para>
     <para>
       The functions EVP_PKEY_paramgen_init() and EVP_PKEY_paramgen() are
@@ -61,7 +61,7 @@ void *EVP_PKEY_CTX_get_app_data(EVP_PKEY_CTX *ctx);</synopsis>
       update a "progress dialog".
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_keygen.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-c41127652d5e328d22a0888286a416c7"><title>NOTES</title>
     <para>
       After the call to EVP_PKEY_keygen_init() or EVP_PKEY_paramgen_init()
       algorithm specific control operations can be performed to set any
@@ -92,7 +92,7 @@ void *EVP_PKEY_CTX_get_app_data(EVP_PKEY_CTX *ctx);</synopsis>
       of a public key or parameters.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_keygen.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-4aff55cad5371fe3efec71fbd2c581e7"><title>RETURN VALUES</title>
     <para>
       EVP_PKEY_keygen_init(), EVP_PKEY_paramgen_init(), EVP_PKEY_keygen()
       and EVP_PKEY_paramgen() return 1 for success and 0 or a negative
@@ -100,7 +100,7 @@ void *EVP_PKEY_CTX_get_app_data(EVP_PKEY_CTX *ctx);</synopsis>
       operation is not supported by the public key algorithm.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_keygen.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-3ad898372f99f80a23ee275acbc56462"><title>EXAMPLES</title>
     <para>
       Generate a 2048 bit RSA key:
     </para>
@@ -161,7 +161,7 @@ static int genpkey_cb(EVP_PKEY_CTX *ctx)
        return 1;
        }</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_keygen.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-3714f29f0e074b16b505c2119a66568e"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>EVP_PKEY_CTX_new</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -179,7 +179,7 @@ static int genpkey_cb(EVP_PKEY_CTX *ctx)
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_keygen.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-9de523c67415a48c5f7d3207c711f1e1"><title>HISTORY</title>
     <para>
       These functions were first added to OpenSSL 1.0.0.
     </para>

@@ -8,11 +8,11 @@
 <refpurpose>add a signer PKCS7 signed data structure.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/pkcs7.h&gt;</synopsis>
-<synopsis format="linespecific">PKCS7_SIGNER_INFO *PKCS7_sign_add_signer(PKCS7 *p7, X509 *signcert, EVP_PKEY *pkey, const EVP_MD *md, int flags);</synopsis>
-<synopsis format="linespecific"/>
+<synopsis>#include &lt;openssl/pkcs7.h&gt;</synopsis>
+<synopsis>PKCS7_SIGNER_INFO *PKCS7_sign_add_signer(PKCS7 *p7, X509 *signcert, EVP_PKEY *pkey, const EVP_MD *md, int flags);</synopsis>
+<synopsis/>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_sign_add_signer.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-a0d8433d2f438f24414f7711d760df4c"><title>DESCRIPTION</title>
     <para>
       PKCS7_sign_add_signer() adds a signer with certificate <emphasis role="bold">signcert</emphasis> and private key <emphasis role="bold">pkey</emphasis> using message digest <emphasis role="bold">md</emphasis> to a PKCS7 signed data structure <emphasis role="bold">p7</emphasis>.
     </para>
@@ -33,7 +33,7 @@
     </para>
     <screen></screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_sign_add_signer.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-0f1b88344cde6bcefa8a65240bbf3e1f"><title>NOTES</title>
     <para>
       The main purpose of this function is to provide finer control over a
       PKCS#7 signed data structure where the simpler PKCS7_sign() function
@@ -56,7 +56,7 @@
       to <emphasis role="bold">PKCS7_REUSE_DIGEST</emphasis> then the
       <emphasis role="bold">PKCS7_SIGNER_INO</emphasis> structure will not
       be finalized so additional attributes can be added. In this case an
-      explicit call to PKCS7_SIGNER_INFO_sign() is needed to finalize it. 
+      explicit call to PKCS7_SIGNER_INFO_sign() is needed to finalize it.
     </para>
     <para>
       If <emphasis role="bold">PKCS7_NOCERTS</emphasis> is set the signer's
@@ -83,16 +83,16 @@
     <para>
       PKCS7_sign_add_signers() returns an internal pointer to the
       PKCS7_SIGNER_INFO structure just added, this can be used to set
-      additional attributes before it is finalized. 
+      additional attributes before it is finalized.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_sign_add_signer.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-7c16598b58f4f0bf581779adfbe65e9a"><title>RETURN VALUES</title>
     <para>
       PKCS7_sign_add_signers() returns an internal pointer to the
       PKCS7_SIGNER_INFO structure just added or NULL if an error occurs.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_sign_add_signer.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-f68362e872ba50458758acb8375a8e98"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ERR_get_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -102,7 +102,7 @@
       </citerefentry>,
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_sign_add_signer.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-37490d9d60699661d0310b03dd4b0aa2"><title>HISTORY</title>
     <para>
       PPKCS7_sign_add_signer() was added to OpenSSL 1.0.0
     </para>

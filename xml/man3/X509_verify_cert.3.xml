@@ -8,10 +8,10 @@
 <refpurpose>discover and verify X509 certificate chain</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/x509.h&gt;</synopsis>
-<synopsis format="linespecific">int X509_verify_cert(X509_STORE_CTX *ctx);</synopsis>
+<synopsis>#include &lt;openssl/x509.h&gt;</synopsis>
+<synopsis>int X509_verify_cert(X509_STORE_CTX *ctx);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_verify_cert.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-d1431e5b94d628efbd2ddcc68c38b40d"><title>DESCRIPTION</title>
     <para>
       The X509_verify_cert() function attempts to discover and validate a
       certificate chain based on parameters in <emphasis role="bold">ctx</emphasis>. A complete description of the process is
@@ -19,7 +19,7 @@
       <manvolnum>1</manvolnum> </citerefentry> manual page.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_verify_cert.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-8913f70383aaec39ca9718c9e1c6a011"><title>RETURN VALUES</title>
     <para>
       If a complete chain can be built and validated this function returns
       1, otherwise it return zero, in exceptional circumstances it can also
@@ -31,7 +31,7 @@
       X509_STORE_CTX_get_error().
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_verify_cert.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-c67affddb51fb9224a36fd5247a407ee"><title>NOTES</title>
     <para>
       Applications rarely call this function directly but it is used by
       OpenSSL internally for certificate validation, in both the S/MIME and
@@ -47,23 +47,17 @@
       application check for &lt;= 0 return value on error.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_verify_cert.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-4ce7e4759efdcdfc5d10bbb79ed86167"><title>BUGS</title>
     <para>
       This function uses the header <emphasis role="bold">x509.h</emphasis>
       as opposed to most chain verification functiosn which use <emphasis role="bold">x509_vfy.h</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_verify_cert.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-32864dcef1ebfc14f6d63d5cb5a3336c"><title>SEE ALSO</title>
     <para>
       <citerefentry>
       <refentrytitle>X509_STORE_CTX_get_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_verify_cert.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      X509_verify_cert() is available in all versions of SSLeay and
-      OpenSSL.
     </para>
   </refsection>
 </refentry>

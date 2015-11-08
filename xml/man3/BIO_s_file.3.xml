@@ -10,18 +10,18 @@ BIO_rw_filename</refname>
 <refpurpose>FILE bio</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/bio.h&gt;</synopsis>
-<synopsis format="linespecific">BIO_METHOD *   BIO_s_file(void);
+<synopsis>#include &lt;openssl/bio.h&gt;</synopsis>
+<synopsis>BIO_METHOD *   BIO_s_file(void);
 BIO *BIO_new_file(const char *filename, const char *mode);
 BIO *BIO_new_fp(FILE *stream, int flags);</synopsis>
-<synopsis format="linespecific">BIO_set_fp(BIO *b,FILE *fp, int flags);
+<synopsis>BIO_set_fp(BIO *b,FILE *fp, int flags);
 BIO_get_fp(BIO *b,FILE **fpp);</synopsis>
-<synopsis format="linespecific">int BIO_read_filename(BIO *b, char *name)
+<synopsis>int BIO_read_filename(BIO *b, char *name)
 int BIO_write_filename(BIO *b, char *name)
 int BIO_append_filename(BIO *b, char *name)
 int BIO_rw_filename(BIO *b, char *name)</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_file.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-31f21716e8cad04e079a5384470aec8a"><title>DESCRIPTION</title>
     <para>
       BIO_s_file() returns the BIO file method. As its name implies it is a
       wrapper round the stdio FILE structure and it is a source/sink BIO.
@@ -79,7 +79,7 @@ int BIO_rw_filename(BIO *b, char *name)</synopsis>
       writing, append or read write respectively.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_file.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-786540ae6d1f9929be9bce79c5a091de"><title>NOTES</title>
     <para>
       When wrapping stdout, stdin or stderr the underlying stream should
       not normally be closed so the BIO_NOCLOSE flag should be set.
@@ -94,7 +94,7 @@ int BIO_rw_filename(BIO *b, char *name)</synopsis>
       lingual environment, encode file names in UTF-8.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_file.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-2be5cdac83707c588fbe4a2dfbcfa50f"><title>EXAMPLES</title>
     <para>
       File BIO "hello world":
     </para>
@@ -127,7 +127,7 @@ if(!BIO_write_filename(out, "filename.txt")) /* Error ... */
 BIO_printf(out, "Hello World\n");
 BIO_free(out);</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_file.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-31e0d492bbe6cefa7960a9208b812e18"><title>RETURN VALUES</title>
     <para>
       BIO_s_file() returns the file BIO method.
     </para>
@@ -151,7 +151,7 @@ BIO_free(out);</screen>
       BIO_rw_filename() return 1 for success or 0 for failure.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_file.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-77418387eb24a45edad1f2eae41ebbbd"><title>BUGS</title>
     <para>
       BIO_reset() and BIO_seek() are implemented using fseek() on the
       underlying stream. The return value for fseek() is 0 for success or
@@ -160,7 +160,7 @@ BIO_free(out);</screen>
       error occurred.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_file.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-810f4c9405028b1aee5a76f86f71dfa8"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>BIO_seek</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

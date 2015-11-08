@@ -8,13 +8,13 @@
 <refpurpose>encrypt using a public key algorithm</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
-<synopsis format="linespecific">int EVP_PKEY_encrypt_init(EVP_PKEY_CTX *ctx);
+<synopsis>#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis>int EVP_PKEY_encrypt_init(EVP_PKEY_CTX *ctx);
 int EVP_PKEY_encrypt(EVP_PKEY_CTX *ctx,
                        unsigned char *out, size_t *outlen,
                        const unsigned char *in, size_t inlen);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_encrypt.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-eae40f485c9d66dae5c4af5f82328f85"><title>DESCRIPTION</title>
     <para>
       The EVP_PKEY_encrypt_init() function initializes a public key
       algorithm context using key <emphasis role="bold">pkey</emphasis> for
@@ -32,7 +32,7 @@ int EVP_PKEY_encrypt(EVP_PKEY_CTX *ctx,
       <emphasis role="bold">outlen</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_encrypt.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-0d4efbe4dd3958778ec9fb0e0ecc9049"><title>NOTES</title>
     <para>
       After the call to EVP_PKEY_encrypt_init() algorithm specific control
       operations can be performed to set any appropriate parameters for the
@@ -44,7 +44,7 @@ int EVP_PKEY_encrypt(EVP_PKEY_CTX *ctx,
       parameters.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_encrypt.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-a52cfa104fe5d055174a672e4c13b9c2"><title>RETURN VALUES</title>
     <para>
       EVP_PKEY_encrypt_init() and EVP_PKEY_encrypt() return 1 for success
       and 0 or a negative value for failure. In particular a return value
@@ -52,7 +52,7 @@ int EVP_PKEY_encrypt(EVP_PKEY_CTX *ctx,
       algorithm.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_encrypt.pod:EXAMPLE"><title>EXAMPLE</title>
+  <refsection xml:id="ID-4054dee115e87317c52b5264df8d986c"><title>EXAMPLE</title>
     <para>
       Encrypt data using OAEP (for RSA keys). See also <citerefentry>
       <refentrytitle>pem</refentrytitle> <manvolnum>3</manvolnum>
@@ -96,7 +96,7 @@ if (EVP_PKEY_encrypt(ctx, out, &amp;outlen, in, inlen) &lt;= 0)
 
 /* Encrypted data is outlen bytes written to buffer out */</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_encrypt.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-7b6bfa2c2823eeee79de71479dd0d584"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>d2i_X509</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -116,7 +116,7 @@ if (EVP_PKEY_encrypt(ctx, out, &amp;outlen, in, inlen) &lt;= 0)
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_encrypt.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-4563fba2edeb6d69640a319024878b09"><title>HISTORY</title>
     <para>
       These functions were first added to OpenSSL 1.0.0.
     </para>

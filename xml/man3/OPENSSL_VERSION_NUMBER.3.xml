@@ -4,17 +4,18 @@
     <refentrytitle>OPENSSL_VERSION_NUMBER.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>OPENSSL_VERSION_NUMBER, SSLeay, SSLeay_version</refname>
+    <refname>OPENSSL_VERSION_NUMBER, OpenSSL_version,
+OpenSSL_version_num</refname>
 <refpurpose>get OpenSSL version number</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/opensslv.h&gt;
+<synopsis>#include &lt;openssl/opensslv.h&gt;
 #define OPENSSL_VERSION_NUMBER 0xnnnnnnnnnL</synopsis>
-<synopsis format="linespecific">#include &lt;openssl/crypto.h&gt;
-long SSLeay(void);
-const char *SSLeay_version(int t);</synopsis>
+<synopsis>#include &lt;openssl/crypto.h&gt;</synopsis>
+<synopsis>unsigned long OpenSSL_version_num();
+const char *OpenSSL_version(int t);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.OPENSSL_VERSION_NUMBER.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-bed6d4ff56d9cac326521b91a47d6de6"><title>DESCRIPTION</title>
     <para>
       OPENSSL_VERSION_NUMBER is a numeric release version identifier:
     </para>
@@ -45,31 +46,25 @@ const char *SSLeay_version(int t);</synopsis>
       one, except the patch level got the highest bit set, to keep
       continuity.  The number was therefore 0x0090581f.
     </para>
-    <screen></screen>
     <para>
-      For backward compatibility, SSLEAY_VERSION_NUMBER is also defined.
+      OpenSSL_version_num() returns the version number.
     </para>
     <para>
-      SSLeay() returns this number. The return value can be compared to the
-      macro to make sure that the correct version of the library has been
-      loaded, especially when using DLLs on Windows systems.
-    </para>
-    <para>
-      SSLeay_version() returns different strings depending on <emphasis role="bold">t</emphasis>:
+      OpenSSL_version() returns different strings depending on <emphasis role="bold">t</emphasis>:
     </para>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.OPENSSL_VERSION_NUMBER.pod:SSLEAY_VERSION"/>SSLEAY_VERSION</term>
+          <term>OPENSSL_VERSION</term>
           <listitem>
             <para>
 	      The text variant of the version number and the release date. 
-	      For example, "OpenSSL 0.9.5a 1 Apr 2000".
+	      For example, "OpenSSL 1.0.1a 15 Oct 2015".
             </para>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.OPENSSL_VERSION_NUMBER.pod:SSLEAY_CFLAGS"/>SSLEAY_CFLAGS</term>
+          <term>OPENSSL_CFLAGS</term>
           <listitem>
             <para>
 	      The compiler flags set for the compilation process in the
@@ -79,7 +74,7 @@ const char *SSLeay_version(int t);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.OPENSSL_VERSION_NUMBER.pod:SSLEAY_BUILT_ON"/>SSLEAY_BUILT_ON</term>
+          <term>OPENSSL_BUILT_ON</term>
           <listitem>
             <para>
 	      The date of the build process in the form "built on: ..." if
@@ -88,7 +83,7 @@ const char *SSLeay_version(int t);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.OPENSSL_VERSION_NUMBER.pod:SSLEAY_PLATFORM"/>SSLEAY_PLATFORM</term>
+          <term>OPENSSL_PLATFORM</term>
           <listitem>
             <para>
 	      The "Configure" target of the library build in the form
@@ -98,7 +93,7 @@ const char *SSLeay_version(int t);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.crypto.OPENSSL_VERSION_NUMBER.pod:SSLEAY_DIR"/>SSLEAY_DIR</term>
+          <term>OPENSSL_DIR</term>
           <listitem>
             <para>
 	      The "OPENSSLDIR" setting of the library build in the form
@@ -114,23 +109,15 @@ const char *SSLeay_version(int t);</synopsis>
       available" is returned.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OPENSSL_VERSION_NUMBER.pod:RETURN_VALUE"><title>RETURN VALUE</title>
+  <refsection xml:id="ID-c7501ad42e0ab5102708f4ff3cc7c3fc"><title>RETURN VALUE</title>
     <para>
       The version number.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OPENSSL_VERSION_NUMBER.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-4689d528c61da50e02457779deebd3a8"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>crypto</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OPENSSL_VERSION_NUMBER.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      SSLeay() and SSLEAY_VERSION_NUMBER are available in all versions of
-      SSLeay and OpenSSL. OPENSSL_VERSION_NUMBER is available in all
-      versions of OpenSSL. <emphasis role="bold">SSLEAY_DIR</emphasis> was
-      added in OpenSSL 0.9.7.
     </para>
   </refsection>
 </refentry>

@@ -8,14 +8,14 @@
 <refpurpose>message digest BIO filter</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/bio.h&gt;
+<synopsis>#include &lt;openssl/bio.h&gt;
 #include &lt;openssl/evp.h&gt;</synopsis>
-<synopsis format="linespecific">BIO_METHOD *   BIO_f_md(void);
+<synopsis>BIO_METHOD *   BIO_f_md(void);
 int BIO_set_md(BIO *b,EVP_MD *md);
 int BIO_get_md(BIO *b,EVP_MD **mdp);
 int BIO_get_md_ctx(BIO *b,EVP_MD_CTX **mdcp);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_md.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-8431a763e51cb17c89e1d3d62320acdb"><title>DESCRIPTION</title>
     <para>
       BIO_f_md() returns the message digest BIO method. This is a filter
       BIO that digests any data passed through it, it is a BIO wrapper for
@@ -47,7 +47,7 @@ int BIO_get_md_ctx(BIO *b,EVP_MD_CTX **mdcp);</synopsis>
       BIO_get_md_ctx() returns the digest BIOs context into <emphasis role="bold">mdcp</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_md.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-a2c9d8a973a72d5b6e1c5714f7d7b4f7"><title>NOTES</title>
     <para>
       The context returned by BIO_get_md_ctx() can be used in calls to
       EVP_DigestFinal() and also the signature routines EVP_SignFinal() and
@@ -70,15 +70,13 @@ int BIO_get_md_ctx(BIO *b,EVP_MD_CTX **mdcp);</synopsis>
       buffering BIO.
     </para>
     <para>
-      Before OpenSSL 1.0.0 the call to BIO_get_md_ctx() would only work if
-      the BIO had been initialized for example by calling BIO_set_md() ).
-      In OpenSSL 1.0.0 and later the context is always returned and the BIO
-      is state is set to initialized. This allows applications to
-      initialize the context externally if the standard calls such as
-      BIO_set_md() are not sufficiently flexible.
+      Calling BIO_get_md_ctx() will return the context and initialize the
+      BIO state. This allows applications to initialize the context
+      externally if the standard calls such as BIO_set_md() are not
+      sufficiently flexible.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_md.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-4a0bcf1dc4a04436cfa0033b07c32e42"><title>RETURN VALUES</title>
     <para>
       BIO_f_md() returns the digest BIO method.
     </para>
@@ -87,7 +85,7 @@ int BIO_get_md_ctx(BIO *b,EVP_MD_CTX **mdcp);</synopsis>
       0 for failure.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_md.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-4745ee0604f03d1fdd5c628517f98e70"><title>EXAMPLES</title>
     <para>
       The following example creates a BIO chain containing an SHA1 and MD5
       digest BIO and passes the string "Hello World" through it. Error
@@ -147,7 +145,7 @@ do {
 
 BIO_free_all(bio);</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_md.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-24431df29bd4dcc0044de320f8cb9c7d"><title>BUGS</title>
     <para>
       The lack of support for BIO_puts() and the non standard behaviour of
       BIO_gets() could be regarded as anomalous. It could be argued that
@@ -156,7 +154,13 @@ BIO_free_all(bio);</screen>
       retrieved using a separate BIO_ctrl() call.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_md.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-adc261d265ccf3329234a61b6aaf7da4"><title>HISTORY</title>
+    <para>
+      Before OpenSSL 1.0.0., the call to BIO_get_md_ctx() would only work
+      if the BIO was initialized first.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-6c14f5e308014b13fb574fbd92ea05fb"><title>SEE ALSO</title>
     <para>
       TBA
     </para>

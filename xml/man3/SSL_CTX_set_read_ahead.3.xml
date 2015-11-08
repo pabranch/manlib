@@ -9,15 +9,15 @@ SSL_CTX_get_default_read_ahead, SSL_set_read_ahead, SSL_get_read_ahead</refname>
 <refpurpose>manage whether to read as many input bytes as possible</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">int SSL_get_read_ahead(const SSL *s);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_get_read_ahead(const SSL *s);
 void SSL_set_read_ahead(SSL *s, int yes);</synopsis>
-<synopsis format="linespecific">#define SSL_CTX_get_default_read_ahead(ctx)
+<synopsis>#define SSL_CTX_get_default_read_ahead(ctx)
 #define SSL_CTX_set_default_read_ahead(ctx,m)
 #define SSL_CTX_get_read_ahead(ctx)
 #define SSL_CTX_set_read_ahead(ctx,m)</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_read_ahead.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-e6e000d8c1d669fdb66cdc519e23b693"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_set_read_ahead() and SSL_set_read_ahead() set whether we
       should read as many input bytes as possible (for non-blocking reads)
@@ -41,20 +41,20 @@ void SSL_set_read_ahead(SSL *s, int yes);</synopsis>
       reading ahead has been set or not.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_read_ahead.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-a16d5e0496febb51a295811a27586099"><title>NOTES</title>
     <para>
       These functions have no impact when used with DTLS. The return values
       for SSL_CTX_get_read_head() and SSL_get_read_ahead() are undefined
       for DTLS.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_read_ahead.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-036f6a72846cd5a462411269cbfbe142"><title>RETURN VALUES</title>
     <para>
       SSL_get_read_ahead and SSL_CTX_get_read_ahead return 0 if reading
       ahead is off, and non zero otherwise.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_read_ahead.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-678f8f78253aecf71812d62041ee9308"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>

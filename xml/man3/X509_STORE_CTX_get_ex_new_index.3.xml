@@ -8,15 +8,15 @@
 <refpurpose>add application specific data to X509_STORE_CTX structures</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/x509_vfy.h&gt;</synopsis>
-<synopsis format="linespecific">int X509_STORE_CTX_get_ex_new_index(long argl, void *argp,
+<synopsis>#include &lt;openssl/x509_vfy.h&gt;</synopsis>
+<synopsis>int X509_STORE_CTX_get_ex_new_index(long argl, void *argp,
                CRYPTO_EX_new *new_func,
                CRYPTO_EX_dup *dup_func,
                CRYPTO_EX_free *free_func);</synopsis>
-<synopsis format="linespecific">int X509_STORE_CTX_set_ex_data(X509_STORE_CTX *d, int idx, void *arg);</synopsis>
-<synopsis format="linespecific">void *X509_STORE_CTX_get_ex_data(X509_STORE_CTX *d, int idx);</synopsis>
+<synopsis>int X509_STORE_CTX_set_ex_data(X509_STORE_CTX *d, int idx, void *arg);</synopsis>
+<synopsis>void *X509_STORE_CTX_get_ex_data(X509_STORE_CTX *d, int idx);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_ex_new_index.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-1962faa2af02f2aa860d032425abea94"><title>DESCRIPTION</title>
     <para>
       These functions handle application specific data in X509_STORE_CTX
       structures. Their usage is identical to that of
@@ -26,23 +26,17 @@
       <manvolnum>3</manvolnum> </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_ex_new_index.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-33283f90326537167fdba9ac05a1387d"><title>NOTES</title>
     <para>
       This mechanism is used internally by the <emphasis role="bold">ssl</emphasis> library to store the <emphasis role="bold">SSL</emphasis> structure associated with a verification
       operation in an <emphasis role="bold">X509_STORE_CTX</emphasis>
       structure.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_ex_new_index.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-7b9d0cdf8583d96e722e66a0c9f37ecb"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>RSA_get_ex_new_index</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_get_ex_new_index.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      X509_STORE_CTX_get_ex_new_index(), X509_STORE_CTX_set_ex_data() and
-      X509_STORE_CTX_get_ex_data() are available since OpenSSL 0.9.5.
     </para>
   </refsection>
 </refentry>

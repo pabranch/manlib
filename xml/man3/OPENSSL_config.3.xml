@@ -8,11 +8,11 @@
 <refpurpose>simple OpenSSL configuration functions</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/conf.h&gt;</synopsis>
-<synopsis format="linespecific">void OPENSSL_config(const char *config_name);
+<synopsis>#include &lt;openssl/conf.h&gt;</synopsis>
+<synopsis>void OPENSSL_config(const char *config_name);
 void OPENSSL_no_config(void);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.OPENSSL_config.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-16218ca0e000749da2fc561eddf5a7a9"><title>DESCRIPTION</title>
     <para>
       OPENSSL_config() configures OpenSSL using the standard <emphasis role="bold">openssl.cnf</emphasis> configuration file name using
       <emphasis role="bold">config_name</emphasis>. If <emphasis role="bold">config_name</emphasis> is NULL then the file specified in
@@ -34,7 +34,7 @@ void OPENSSL_no_config(void);</synopsis>
       first.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OPENSSL_config.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-f60ca3b0acbcbf9466aa92962165250a"><title>NOTES</title>
     <para>
       The OPENSSL_config() function is designed to be a very simple "call
       it and forget it" function. It is however <emphasis role="bold">much</emphasis> better than nothing. Applications which
@@ -46,24 +46,22 @@ void OPENSSL_no_config(void);</synopsis>
     </para>
     <para>
       There are several reasons why calling the OpenSSL configuration
-      routines is advisable. For example new ENGINE functionality was added
-      to OpenSSL 0.9.7. In OpenSSL 0.9.7 control functions can be supported
-      by ENGINEs, this can be used (among other things) to load dynamic
-      ENGINEs from shared libraries (DSOs). However very few applications
-      currently support the control interface and so very few can load and
-      use dynamic ENGINEs. Equally in future more sophisticated ENGINEs
-      will require certain control operations to customize them. If an
+      routines is advisable. For example, to load dynamic ENGINEs from
+      shared libraries (DSOs). However very few applications currently
+      support the control interface and so very few can load and use
+      dynamic ENGINEs. Equally in future more sophisticated ENGINEs will
+      require certain control operations to customize them. If an
       application calls OPENSSL_config() it doesn't need to know or care
       about ENGINE control operations because they can be performed by
       editing a configuration file.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OPENSSL_config.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-17d3daac03f78c1bb3792eaea7db099a"><title>RETURN VALUES</title>
     <para>
       Neither OPENSSL_config() nor OPENSSL_no_config() return a value.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OPENSSL_config.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-7ebf3eadda4f8751cfcc98be89e6df7d"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>conf</refentrytitle>
       <manvolnum>5</manvolnum> </citerefentry>, <citerefentry>
@@ -71,12 +69,6 @@ void OPENSSL_no_config(void);</synopsis>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>CONF_modules_free</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OPENSSL_config.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      OPENSSL_config() and OPENSSL_no_config() first appeared in OpenSSL
-      0.9.7
     </para>
   </refsection>
 </refentry>

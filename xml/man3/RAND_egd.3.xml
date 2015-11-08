@@ -8,12 +8,12 @@
 <refpurpose>query entropy gathering daemon</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/rand.h&gt;</synopsis>
-<synopsis format="linespecific">int RAND_egd(const char *path);
+<synopsis>#include &lt;openssl/rand.h&gt;</synopsis>
+<synopsis>int RAND_egd(const char *path);
 int RAND_egd_bytes(const char *path, int bytes);</synopsis>
-<synopsis format="linespecific">int RAND_query_egd_bytes(const char *path, unsigned char *buf, int bytes);</synopsis>
+<synopsis>int RAND_query_egd_bytes(const char *path, unsigned char *buf, int bytes);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.RAND_egd.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-46e3e62e45733af958205ee21669ffc9"><title>DESCRIPTION</title>
     <para>
       RAND_egd() queries the entropy gathering daemon EGD on socket
       <emphasis role="bold">path</emphasis>. It queries 255 bytes and uses
@@ -40,7 +40,7 @@ int RAND_egd_bytes(const char *path, int bytes);</synopsis>
       </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RAND_egd.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-a7f1f110410750d64c6988b81bdbf950"><title>NOTES</title>
     <para>
       On systems without /dev/*random devices providing entropy from the
       kernel, the EGD entropy gathering daemon can be used to collect
@@ -73,7 +73,7 @@ int RAND_egd_bytes(const char *path, int bytes);</synopsis>
       /etc/egd-pool.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RAND_egd.pod:RETURN_VALUE"><title>RETURN VALUE</title>
+  <refsection xml:id="ID-15cbe6473c8ac54566bcf0c580822b28"><title>RETURN VALUE</title>
     <para>
       RAND_egd() and RAND_egd_bytes() return the number of bytes read from
       the daemon on success, and -1 if the connection failed or the daemon
@@ -85,7 +85,7 @@ int RAND_egd_bytes(const char *path, int bytes);</synopsis>
       not considered.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RAND_egd.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-9f687e8f841799254d7e095336cffde0"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>rand</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -93,21 +93,6 @@ int RAND_egd_bytes(const char *path, int bytes);</synopsis>
       </citerefentry>, <citerefentry>
       <refentrytitle>RAND_cleanup</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RAND_egd.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      RAND_egd() is available since OpenSSL 0.9.5.
-    </para>
-    <para>
-      RAND_egd_bytes() is available since OpenSSL 0.9.6.
-    </para>
-    <para>
-      RAND_query_egd_bytes() is available since OpenSSL 0.9.7.
-    </para>
-    <para>
-      The automatic query of /var/run/egd-pool et al was added in OpenSSL
-      0.9.7.
     </para>
   </refsection>
 </refentry>

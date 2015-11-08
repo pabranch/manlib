@@ -16,24 +16,24 @@ DES_fcrypt, DES_crypt, DES_enc_read, DES_enc_write</refname>
 <refpurpose>DES encryption</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/des.h&gt;</synopsis>
-<synopsis format="linespecific">void DES_random_key(DES_cblock *ret);</synopsis>
-<synopsis format="linespecific">int DES_set_key(const_DES_cblock *key, DES_key_schedule *schedule);
+<synopsis>#include &lt;openssl/des.h&gt;</synopsis>
+<synopsis>void DES_random_key(DES_cblock *ret);</synopsis>
+<synopsis>int DES_set_key(const_DES_cblock *key, DES_key_schedule *schedule);
 int DES_key_sched(const_DES_cblock *key, DES_key_schedule *schedule);
 int DES_set_key_checked(const_DES_cblock *key,
        DES_key_schedule *schedule);
 void DES_set_key_unchecked(const_DES_cblock *key,
        DES_key_schedule *schedule);</synopsis>
-<synopsis format="linespecific">void DES_set_odd_parity(DES_cblock *key);
+<synopsis>void DES_set_odd_parity(DES_cblock *key);
 int DES_is_weak_key(const_DES_cblock *key);</synopsis>
-<synopsis format="linespecific">void DES_ecb_encrypt(const_DES_cblock *input, DES_cblock *output, 
+<synopsis>void DES_ecb_encrypt(const_DES_cblock *input, DES_cblock *output, 
        DES_key_schedule *ks, int enc);
 void DES_ecb2_encrypt(const_DES_cblock *input, DES_cblock *output, 
        DES_key_schedule *ks1, DES_key_schedule *ks2, int enc);
 void DES_ecb3_encrypt(const_DES_cblock *input, DES_cblock *output, 
        DES_key_schedule *ks1, DES_key_schedule *ks2, 
        DES_key_schedule *ks3, int enc);</synopsis>
-<synopsis format="linespecific">void DES_ncbc_encrypt(const unsigned char *input, unsigned char *output, 
+<synopsis>void DES_ncbc_encrypt(const unsigned char *input, unsigned char *output, 
        long length, DES_key_schedule *schedule, DES_cblock *ivec, 
        int enc);
 void DES_cfb_encrypt(const unsigned char *in, unsigned char *out,
@@ -51,10 +51,10 @@ void DES_cfb64_encrypt(const unsigned char *in, unsigned char *out,
 void DES_ofb64_encrypt(const unsigned char *in, unsigned char *out,
        long length, DES_key_schedule *schedule, DES_cblock *ivec,
        int *num);</synopsis>
-<synopsis format="linespecific">void DES_xcbc_encrypt(const unsigned char *input, unsigned char *output, 
+<synopsis>void DES_xcbc_encrypt(const unsigned char *input, unsigned char *output, 
        long length, DES_key_schedule *schedule, DES_cblock *ivec, 
        const_DES_cblock *inw, const_DES_cblock *outw, int enc);</synopsis>
-<synopsis format="linespecific">void DES_ede2_cbc_encrypt(const unsigned char *input,
+<synopsis>void DES_ede2_cbc_encrypt(const unsigned char *input,
        unsigned char *output, long length, DES_key_schedule *ks1,
        DES_key_schedule *ks2, DES_cblock *ivec, int enc);
 void DES_ede2_cfb64_encrypt(const unsigned char *in,
@@ -63,7 +63,7 @@ void DES_ede2_cfb64_encrypt(const unsigned char *in,
 void DES_ede2_ofb64_encrypt(const unsigned char *in,
        unsigned char *out, long length, DES_key_schedule *ks1,
        DES_key_schedule *ks2, DES_cblock *ivec, int *num);</synopsis>
-<synopsis format="linespecific">void DES_ede3_cbc_encrypt(const unsigned char *input,
+<synopsis>void DES_ede3_cbc_encrypt(const unsigned char *input,
        unsigned char *output, long length, DES_key_schedule *ks1,
        DES_key_schedule *ks2, DES_key_schedule *ks3, DES_cblock *ivec,
        int enc);
@@ -74,7 +74,7 @@ void DES_ede3_ofb64_encrypt(const unsigned char *in, unsigned char *out,
        long length, DES_key_schedule *ks1, 
        DES_key_schedule *ks2, DES_key_schedule *ks3, 
        DES_cblock *ivec, int *num);</synopsis>
-<synopsis format="linespecific">DES_LONG DES_cbc_cksum(const unsigned char *input, DES_cblock *output, 
+<synopsis>DES_LONG DES_cbc_cksum(const unsigned char *input, DES_cblock *output, 
        long length, DES_key_schedule *schedule, 
        const_DES_cblock *ivec);
 DES_LONG DES_quad_cksum(const unsigned char *input, DES_cblock output[], 
@@ -82,14 +82,14 @@ DES_LONG DES_quad_cksum(const unsigned char *input, DES_cblock output[],
 void DES_string_to_key(const char *str, DES_cblock *key);
 void DES_string_to_2keys(const char *str, DES_cblock *key1,
        DES_cblock *key2);</synopsis>
-<synopsis format="linespecific">char *DES_fcrypt(const char *buf, const char *salt, char *ret);
+<synopsis>char *DES_fcrypt(const char *buf, const char *salt, char *ret);
 char *DES_crypt(const char *buf, const char *salt);</synopsis>
-<synopsis format="linespecific">int DES_enc_read(int fd, void *buf, int len, DES_key_schedule *sched,
+<synopsis>int DES_enc_read(int fd, void *buf, int len, DES_key_schedule *sched,
        DES_cblock *iv);
 int DES_enc_write(int fd, const void *buf, int len,
        DES_key_schedule *sched, DES_cblock *iv);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.des.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-c3d1062a97dd9e0455cb6dbb767d1ed9"><title>DESCRIPTION</title>
     <para>
       This library contains a fast implementation of the DES encryption
       algorithm.
@@ -312,7 +312,7 @@ int DES_enc_write(int fd, const void *buf, int len,
       default), DES_pcbc_encrypt is used.  If set to <emphasis role="italic">DES_CBC_MODE</emphasis> DES_cbc_encrypt is used.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.des.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-368a209e1b74134f7f8bddc9612e85e7"><title>BUGS</title>
     <para>
       DES_3cbc_encrypt() is flawed and must not be used in applications.
     </para>
@@ -336,7 +336,7 @@ int DES_enc_write(int fd, const void *buf, int len,
       function. The same applies for DES_string_to_2key().
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.des.pod:CONFORMING_TO"><title>CONFORMING TO</title>
+  <refsection xml:id="ID-f812910377d0f59cb508383d220459fa"><title>CONFORMING TO</title>
     <para>
       ANSI X3.106
     </para>
@@ -345,7 +345,7 @@ int DES_enc_write(int fd, const void *buf, int len,
       source code compatible with the MIT Kerberos library.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.des.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-6fce7ee84a06d0e2339437b1be74c10b"><title>NOTES</title>
     <para>
       Applications should use the higher level functions <citerefentry>
       <refentrytitle>EVP_EncryptInit</refentrytitle>
@@ -359,13 +359,7 @@ int DES_enc_write(int fd, const void *buf, int len,
       </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.des.pod:AUTHOR"><title>AUTHOR</title>
-    <para>
-      Eric Young (eay@cryptsoft.com). Modified for the OpenSSL project
-      (http://www.openssl.org).
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.des.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-5f7ea4ec7fa756a6e799cbae85189b18"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>des_modes</refentrytitle>
       <manvolnum>7</manvolnum> </citerefentry>, <citerefentry>

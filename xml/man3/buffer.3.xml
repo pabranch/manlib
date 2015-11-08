@@ -13,20 +13,20 @@ character array structure</refpurpose>
     standard C library equivalents
   </para>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/buffer.h&gt;</synopsis>
-<synopsis format="linespecific">BUF_MEM *BUF_MEM_new(void);</synopsis>
-<synopsis format="linespecific">#define BUF_MEM_FLAG_SECURE</synopsis>
-<synopsis format="linespecific">BUF_MEM *BUF_MEM_new_ex(unsigned long flags);</synopsis>
-<synopsis format="linespecific">void   BUF_MEM_free(BUF_MEM *a);</synopsis>
-<synopsis format="linespecific">int    BUF_MEM_grow(BUF_MEM *str, int len);</synopsis>
-<synopsis format="linespecific">char *BUF_strdup(const char *str);</synopsis>
-<synopsis format="linespecific">char *BUF_strndup(const char *str, size_t siz);</synopsis>
-<synopsis format="linespecific">void *BUF_memdup(const void *data, size_t siz);</synopsis>
-<synopsis format="linespecific">size_t BUF_strlcpy(char *dst, const char *src, size_t size);</synopsis>
-<synopsis format="linespecific">size_t BUF_strlcat(char *dst, const char *src, size_t size);</synopsis>
-<synopsis format="linespecific">size_t BUF_strnlen(const char *str, size_t maxlen);</synopsis>
+<synopsis>#include &lt;openssl/buffer.h&gt;</synopsis>
+<synopsis>BUF_MEM *BUF_MEM_new(void);</synopsis>
+<synopsis>#define BUF_MEM_FLAG_SECURE</synopsis>
+<synopsis>BUF_MEM *BUF_MEM_new_ex(unsigned long flags);</synopsis>
+<synopsis>void   BUF_MEM_free(BUF_MEM *a);</synopsis>
+<synopsis>int    BUF_MEM_grow(BUF_MEM *str, int len);</synopsis>
+<synopsis>char *BUF_strdup(const char *str);</synopsis>
+<synopsis>char *BUF_strndup(const char *str, size_t siz);</synopsis>
+<synopsis>void *BUF_memdup(const void *data, size_t siz);</synopsis>
+<synopsis>size_t BUF_strlcpy(char *dst, const char *src, size_t size);</synopsis>
+<synopsis>size_t BUF_strlcat(char *dst, const char *src, size_t size);</synopsis>
+<synopsis>size_t BUF_strnlen(const char *str, size_t maxlen);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.buffer.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-f6097c5d2df595835e7c09f25fa131b8"><title>DESCRIPTION</title>
     <para>
       The buffer library handles simple character arrays. Buffers are used
       for various purposes in the library, most notably memory BIOs.
@@ -67,7 +67,7 @@ character array structure</refpurpose>
       the first <emphasis role="bold">siz</emphasis> bytes of <emphasis role="bold">str</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.buffer.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-742b9485aa57c1072bd7b02a7dafe863"><title>RETURN VALUES</title>
     <para>
       BUF_MEM_new() returns the buffer or NULL on error.
     </para>
@@ -78,7 +78,7 @@ character array structure</refpurpose>
       BUF_MEM_grow() returns zero on error or the new size (i.e. <emphasis role="bold">len</emphasis>).
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.buffer.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-e9b20686eaa662168c11890912f0a740"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>bio</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -86,14 +86,9 @@ character array structure</refpurpose>
       <manvolnum>3</manvolnum> </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.buffer.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-d4260ff8af1d771b3101b4f004ea55fd"><title>HISTORY</title>
     <para>
-      BUF_MEM_new(), BUF_MEM_free() and BUF_MEM_grow() are available in all
-      versions of SSLeay and OpenSSL. BUF_strdup() was added in SSLeay 0.8.
-    </para>
-    <para>
-      BUF_MEM_new_ex() was contributed to OpenSSL by Akamai Technologies in
-      May, 2014.
+      BUF_MEM_new_ex() was added in OpenSSL 1.1.0.
     </para>
   </refsection>
 </refentry>

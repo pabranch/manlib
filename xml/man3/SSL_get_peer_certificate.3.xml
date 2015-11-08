@@ -8,17 +8,17 @@
 <refpurpose>get the X509 certificate of the peer</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">X509 *SSL_get_peer_certificate(const SSL *ssl);</synopsis>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>X509 *SSL_get_peer_certificate(const SSL *ssl);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_peer_certificate.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-561f137e60eeff37215327fff68899a7"><title>DESCRIPTION</title>
     <para>
       SSL_get_peer_certificate() returns a pointer to the X509 certificate
       the peer presented. If the peer did not present a certificate, NULL
       is returned.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_peer_certificate.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-0df276b664f681407021061e0e83f8f3"><title>NOTES</title>
     <para>
       Due to the protocol definition, a TLS/SSL server will always send a
       certificate, if present. A client will only send a certificate when
@@ -41,14 +41,14 @@
       X509_free().
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_peer_certificate.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-d0c57a81fabfcd26aca5fcfcd8dd9ef3"><title>RETURN VALUES</title>
     <para>
       The following return values can occur:
     </para>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_peer_certificate.pod:NULL"/>NULL</term>
+          <term>NULL</term>
           <listitem>
             <para>
 	      No certificate was presented by the peer or no connection was
@@ -57,7 +57,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_peer_certificate.pod:Pointer_to_an_X509_certificate"/>Pointer to an X509 certificate</term>
+          <term>Pointer to an X509 certificate</term>
           <listitem>
             <para>
 	      The return value points to the certificate presented by the
@@ -68,7 +68,7 @@
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_peer_certificate.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-405d3b60c4bffcf332813f100a82a82f"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

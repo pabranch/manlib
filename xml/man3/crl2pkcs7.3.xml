@@ -8,7 +8,7 @@
 <refpurpose>Create a PKCS#7 structure from a CRL and certificates.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific"><emphasis role="bold">openssl</emphasis> <emphasis role="bold">crl2pkcs7</emphasis>
+<synopsis><emphasis role="bold">openssl</emphasis> <emphasis role="bold">crl2pkcs7</emphasis>
 [<emphasis role="bold">-inform PEM|DER</emphasis>]
 [<emphasis role="bold">-outform PEM|DER</emphasis>]
 [<emphasis role="bold">-in filename</emphasis>]
@@ -16,18 +16,18 @@
 [<emphasis role="bold">-certfile filename</emphasis>]
 [<emphasis role="bold">-nocrl</emphasis>]</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.apps.crl2pkcs7.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-b73581082fd0674fc96bef4dc10a605f"><title>DESCRIPTION</title>
     <para>
       The <emphasis role="bold">crl2pkcs7</emphasis> command takes an
       optional CRL and one or more certificates and converts them into a
       PKCS#7 degenerate "certificates only" structure.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.crl2pkcs7.pod:COMMAND_OPTIONS"><title>COMMAND OPTIONS</title>
+  <refsection xml:id="ID-9c2b1e317ab310a30e5eb0d25dfc1efd"><title>COMMAND OPTIONS</title>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.crl2pkcs7.pod:-inform_DERPEM"/><emphasis role="bold">-inform DER|PEM</emphasis></term>
+          <term><emphasis role="bold">-inform DER|PEM</emphasis></term>
           <listitem>
             <para>
 	      This specifies the CRL input format. <emphasis role="bold">DER</emphasis> format is DER encoded CRL
@@ -38,7 +38,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.crl2pkcs7.pod:-outform_DERPEM"/><emphasis role="bold">-outform DER|PEM</emphasis></term>
+          <term><emphasis role="bold">-outform DER|PEM</emphasis></term>
           <listitem>
             <para>
 	      This specifies the PKCS#7 structure output format. <emphasis role="bold">DER</emphasis> format is DER encoded PKCS#7
@@ -49,7 +49,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.crl2pkcs7.pod:-in_filename"/><emphasis role="bold">-in filename</emphasis></term>
+          <term><emphasis role="bold">-in filename</emphasis></term>
           <listitem>
             <para>
 	      This specifies the input filename to read a CRL from or
@@ -58,7 +58,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.crl2pkcs7.pod:-out_filename"/><emphasis role="bold">-out filename</emphasis></term>
+          <term><emphasis role="bold">-out filename</emphasis></term>
           <listitem>
             <para>
 	      specifies the output filename to write the PKCS#7 structure
@@ -67,7 +67,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.crl2pkcs7.pod:-certfile_filename"/><emphasis role="bold">-certfile filename</emphasis></term>
+          <term><emphasis role="bold">-certfile filename</emphasis></term>
           <listitem>
             <para>
 	      specifies a filename containing one or more certificates in
@@ -79,7 +79,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.crl2pkcs7.pod:-nocrl"/><emphasis role="bold">-nocrl</emphasis></term>
+          <term><emphasis role="bold">-nocrl</emphasis></term>
           <listitem>
             <para>
 	      normally a CRL is included in the output file. With this
@@ -91,7 +91,7 @@
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.crl2pkcs7.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-bd15f7cec764e76527b2db651a172f40"><title>EXAMPLES</title>
     <para>
       Create a PKCS#7 structure from a certificate and CRL:
     </para>
@@ -103,7 +103,7 @@
     <screen>openssl crl2pkcs7 -nocrl -certfile newcert.pem 
        -certfile demoCA/cacert.pem -outform DER -out p7.der</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.crl2pkcs7.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-0992dd33b8b6ab5cc631dc9bb50dddf5"><title>NOTES</title>
     <para>
       The output file is a PKCS#7 signed data structure containing no
       signers and just certificates and an optional CRL.
@@ -119,7 +119,7 @@
       CAs in MSIE using the Xenroll control.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.crl2pkcs7.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-2ea94dd5929700fc3a832395884cfe91"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>pkcs7</refentrytitle>
       <manvolnum>1</manvolnum> </citerefentry>

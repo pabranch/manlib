@@ -11,10 +11,10 @@ BIO_ssl_shutdown</refname>
 <refpurpose>SSL BIO</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/bio.h&gt;
+<synopsis>#include &lt;openssl/bio.h&gt;
 #include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">BIO_METHOD *BIO_f_ssl(void);</synopsis>
-<synopsis format="linespecific">#define BIO_set_ssl(b,ssl,c)   BIO_ctrl(b,BIO_C_SET_SSL,c,(char *)ssl)
+<synopsis>BIO_METHOD *BIO_f_ssl(void);</synopsis>
+<synopsis>#define BIO_set_ssl(b,ssl,c)   BIO_ctrl(b,BIO_C_SET_SSL,c,(char *)ssl)
 #define BIO_get_ssl(b,sslp)    BIO_ctrl(b,BIO_C_GET_SSL,0,(char *)sslp)
 #define BIO_set_ssl_mode(b,client)     BIO_ctrl(b,BIO_C_SSL_MODE,client,NULL)
 #define BIO_set_ssl_renegotiate_bytes(b,num) \
@@ -23,14 +23,14 @@ BIO_ssl_shutdown</refname>
        BIO_ctrl(b,BIO_C_SET_SSL_RENEGOTIATE_TIMEOUT,seconds,NULL);
 #define BIO_get_num_renegotiates(b) \
        BIO_ctrl(b,BIO_C_SET_SSL_NUM_RENEGOTIATES,0,NULL);</synopsis>
-<synopsis format="linespecific">BIO *BIO_new_ssl(SSL_CTX *ctx,int client);
+<synopsis>BIO *BIO_new_ssl(SSL_CTX *ctx,int client);
 BIO *BIO_new_ssl_connect(SSL_CTX *ctx);
 BIO *BIO_new_buffer_ssl_connect(SSL_CTX *ctx);
 int BIO_ssl_copy_session_id(BIO *to,BIO *from);
 void BIO_ssl_shutdown(BIO *bio);</synopsis>
-<synopsis format="linespecific">#define BIO_do_handshake(b)    BIO_ctrl(b,BIO_C_DO_STATE_MACHINE,0,NULL)</synopsis>
+<synopsis>#define BIO_do_handshake(b)    BIO_ctrl(b,BIO_C_DO_STATE_MACHINE,0,NULL)</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_ssl.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-1e7284fb80fb261d168e1b072b32a34e"><title>DESCRIPTION</title>
     <para>
       BIO_f_ssl() returns the SSL BIO method. This is a filter BIO which is
       a wrapper round the OpenSSL SSL routines adding a BIO "flavour" to
@@ -70,7 +70,7 @@ void BIO_ssl_shutdown(BIO *bio);</synopsis>
     <para>
       BIO_set_ssl_renegotiate_bytes() sets the renegotiate byte count to
       <emphasis role="bold">num</emphasis>. When set after every <emphasis role="bold">num</emphasis> bytes of I/O (read and write) the SSL
-      session is automatically renegotiated. <emphasis role="bold">num</emphasis> must be at least 512 bytes. 
+      session is automatically renegotiated. <emphasis role="bold">num</emphasis> must be at least 512 bytes.
     </para>
     <para>
       BIO_set_ssl_renegotiate_timeout() sets the renegotiate timeout to
@@ -97,7 +97,7 @@ void BIO_ssl_shutdown(BIO *bio);</synopsis>
       BIO_ssl_copy_session_id() copies an SSL session id between BIO chains
       <emphasis role="bold">from</emphasis> and <emphasis role="bold">to</emphasis>. It does this by locating the SSL BIOs in
       each chain and calling SSL_copy_session_id() on the internal SSL
-      pointer. 
+      pointer.
     </para>
     <para>
       BIO_ssl_shutdown() closes down an SSL connection on BIO chain
@@ -115,7 +115,7 @@ void BIO_ssl_shutdown(BIO *bio);</synopsis>
       already been established this call has no effect.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_ssl.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-8c735afa1efae3e7038d899212597670"><title>NOTES</title>
     <para>
       SSL BIOs are exceptional in that if the underlying transport is non
       blocking they can still request a retry in exceptional circumstances.
@@ -124,9 +124,9 @@ void BIO_ssl_shutdown(BIO *bio);</synopsis>
       step up occurs.
     </para>
     <para>
-      In OpenSSL 0.9.6 and later the SSL flag SSL_AUTO_RETRY can be set to
-      disable this behaviour. That is when this flag is set an SSL BIO
-      using a blocking transport will never request a retry.
+      The SSL flag SSL_AUTO_RETRY can be set to disable this behaviour.
+      That is when this flag is set an SSL BIO using a blocking transport
+      will never request a retry.
     </para>
     <para>
       Since unknown BIO_ctrl() operations are sent through filter BIOs the
@@ -139,12 +139,12 @@ void BIO_ssl_shutdown(BIO *bio);</synopsis>
       do so to separate the handshake process from other I/O processing.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_ssl.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-80a1c45bfb4ee507c5f2ebfe59bb6fc9"><title>RETURN VALUES</title>
     <para>
       TBA
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_ssl.pod:EXAMPLE"><title>EXAMPLE</title>
+  <refsection xml:id="ID-b9c41e6f4a19cef26a242b8550e20a8e"><title>EXAMPLE</title>
     <para>
       This SSL/TLS client example, attempts to retrieve a page from an
       SSL/TLS web server. The I/O routines are identical to those of the
@@ -326,7 +326,7 @@ BIO_flush(sbio);
 
 BIO_free_all(sbio);</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_ssl.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-c425dcf171be7b90f8622a8c4dc9db7a"><title>BUGS</title>
     <para>
       In OpenSSL versions before 1.0.0 the BIO_pop() call was handled
       incorrectly, the I/O BIO reference count was incorrectly incremented
@@ -337,7 +337,7 @@ BIO_free_all(sbio);</screen>
       they may free up an already freed BIO.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_f_ssl.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-e59d071479627aa2dcc37c87cfa23dfd"><title>SEE ALSO</title>
     <para>
       TBA
     </para>

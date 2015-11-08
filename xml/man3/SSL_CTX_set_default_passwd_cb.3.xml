@@ -8,12 +8,12 @@
 <refpurpose>set passwd callback for encrypted PEM file handling</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">void SSL_CTX_set_default_passwd_cb(SSL_CTX *ctx, pem_password_cb *cb);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>void SSL_CTX_set_default_passwd_cb(SSL_CTX *ctx, pem_password_cb *cb);
 void SSL_CTX_set_default_passwd_cb_userdata(SSL_CTX *ctx, void *u);</synopsis>
-<synopsis format="linespecific">int pem_passwd_cb(char *buf, int size, int rwflag, void *userdata);</synopsis>
+<synopsis>int pem_passwd_cb(char *buf, int size, int rwflag, void *userdata);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_default_passwd_cb.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-c5e162abc2a314af19662718cb392cfe"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_set_default_passwd_cb() sets the default password callback
       called when loading/storing a PEM certificate with encryption.
@@ -32,7 +32,7 @@ void SSL_CTX_set_default_passwd_cb_userdata(SSL_CTX *ctx, void *u);</synopsis>
       for reading/decryption (rwflag=0) or writing/encryption (rwflag=1).
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_default_passwd_cb.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-a92387b6bbdf8ab6621915fe6b1cec65"><title>NOTES</title>
     <para>
       When loading or storing private keys, a password might be supplied to
       protect the private key. The way this password can be supplied may
@@ -57,14 +57,14 @@ void SSL_CTX_set_default_passwd_cb_userdata(SSL_CTX *ctx, void *u);</synopsis>
       public.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_default_passwd_cb.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-c8f423a7315d084815a0ddda7293d6fd"><title>RETURN VALUES</title>
     <para>
       SSL_CTX_set_default_passwd_cb() and
       SSL_CTX_set_default_passwd_cb_userdata() do not provide diagnostic
       information.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_default_passwd_cb.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-d98314f22f1244e327f8749d67e71f57"><title>EXAMPLES</title>
     <para>
       The following example returns the password provided as <emphasis role="bold">userdata</emphasis> to the calling function. The password
       is considered to be a '\0' terminated string. If the password does
@@ -77,7 +77,7 @@ void SSL_CTX_set_default_passwd_cb_userdata(SSL_CTX *ctx, void *u);</synopsis>
  return(strlen(buf));
 }</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_default_passwd_cb.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-1e384cf6f1b2ecc8ccb68979fad48e5b"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

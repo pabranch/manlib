@@ -8,11 +8,11 @@
 <refpurpose>manipulate X509 certificate verification storage</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">void SSL_CTX_set_cert_store(SSL_CTX *ctx, X509_STORE *store);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>void SSL_CTX_set_cert_store(SSL_CTX *ctx, X509_STORE *store);
 X509_STORE *SSL_CTX_get_cert_store(const SSL_CTX *ctx);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cert_store.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-61d4e36bd1caf84b8ae8939652d78e1e"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_set_cert_store() sets/replaces the certificate verification
       storage of <emphasis role="bold">ctx</emphasis> to/with <emphasis role="bold">store</emphasis>. If another X509_STORE object is
@@ -24,7 +24,7 @@ X509_STORE *SSL_CTX_get_cert_store(const SSL_CTX *ctx);</synopsis>
       verification storage.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cert_store.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-c05d70d15246e6882b7b90733d9d632b"><title>NOTES</title>
     <para>
       In order to verify the certificates presented by the peer, trusted CA
       certificates must be accessed. These CA certificates are made
@@ -54,15 +54,15 @@ X509_STORE *SSL_CTX_get_cert_store(const SSL_CTX *ctx);</synopsis>
       X509_STORE object and its handling becomes available.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cert_store.pod:RESTRICTIONS"><title>RESTRICTIONS</title>
+  <refsection xml:id="ID-03a418e5c8812cf176edbe62088a39c5"><title>RESTRICTIONS</title>
     <para>
       The X509_STORE structure used by an SSL_CTX is used for verifying
       peer certificates and building certificate chains, it is also shared
       by every child SSL structure. Applications wanting finer control can
-      use functions such as SSL_CTX_set1_verify_cert_store() instead. 
+      use functions such as SSL_CTX_set1_verify_cert_store() instead.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cert_store.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-4f86ecc75e18fc420fdf982ea24dd3d8"><title>RETURN VALUES</title>
     <para>
       SSL_CTX_set_cert_store() does not return diagnostic output.
     </para>
@@ -70,7 +70,7 @@ X509_STORE *SSL_CTX_get_cert_store(const SSL_CTX *ctx);</synopsis>
       SSL_CTX_get_cert_store() returns the current setting.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cert_store.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-a6740d6be82d0b6a080d170c21a89476"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

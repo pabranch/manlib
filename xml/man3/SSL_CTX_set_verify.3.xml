@@ -8,16 +8,16 @@
 <refpurpose>set peer certificate verification parameters</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">void SSL_CTX_set_verify(SSL_CTX *ctx, int mode,
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>void SSL_CTX_set_verify(SSL_CTX *ctx, int mode,
                         int (*verify_callback)(int, X509_STORE_CTX *));
 void SSL_set_verify(SSL *s, int mode,
                     int (*verify_callback)(int, X509_STORE_CTX *));
 void SSL_CTX_set_verify_depth(SSL_CTX *ctx,int depth);
 void SSL_set_verify_depth(SSL *s, int depth);</synopsis>
-<synopsis format="linespecific">int verify_callback(int preverify_ok, X509_STORE_CTX *x509_ctx);</synopsis>
+<synopsis>int verify_callback(int preverify_ok, X509_STORE_CTX *x509_ctx);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_verify.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-bc4de9e9b14d7468f2e6c6792eece2e1"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_set_verify() sets the verification flags for <emphasis role="bold">ctx</emphasis> to be <emphasis role="bold">mode</emphasis> and specifies the <emphasis role="bold">verify_callback</emphasis> function to be used. If no
       callback function shall be specified, the NULL pointer can be used
@@ -46,7 +46,7 @@ void SSL_set_verify_depth(SSL *s, int depth);</synopsis>
       the BUGS section.)
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_verify.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-399e2ad3e931a2fd3a05f1a02764612c"><title>NOTES</title>
     <para>
       The verification of certificates can be controlled by a set of
       logically or'ed <emphasis role="bold">mode</emphasis> flags:
@@ -54,7 +54,7 @@ void SSL_set_verify_depth(SSL *s, int depth);</synopsis>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_verify.pod:SSL_VERIFY_NONE"/>SSL_VERIFY_NONE</term>
+          <term>SSL_VERIFY_NONE</term>
           <listitem>
             <para>
 	      <emphasis role="bold">Server mode:</emphasis> the server will
@@ -75,7 +75,7 @@ void SSL_set_verify_depth(SSL *s, int depth);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_verify.pod:SSL_VERIFY_PEER"/>SSL_VERIFY_PEER</term>
+          <term>SSL_VERIFY_PEER</term>
           <listitem>
             <para>
 	      <emphasis role="bold">Server mode:</emphasis> the server
@@ -98,7 +98,7 @@ void SSL_set_verify_depth(SSL *s, int depth);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_verify.pod:SSL_VERIFY_FAIL_IF_NO_PEER_CERT"/>SSL_VERIFY_FAIL_IF_NO_PEER_CERT</term>
+          <term>SSL_VERIFY_FAIL_IF_NO_PEER_CERT</term>
           <listitem>
             <para>
 	      <emphasis role="bold">Server mode:</emphasis> if the client
@@ -112,7 +112,7 @@ void SSL_set_verify_depth(SSL *s, int depth);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_verify.pod:SSL_VERIFY_CLIENT_ONCE"/>SSL_VERIFY_CLIENT_ONCE</term>
+          <term>SSL_VERIFY_CLIENT_ONCE</term>
           <listitem>
             <para>
 	      <emphasis role="bold">Server mode:</emphasis> only request a
@@ -201,7 +201,7 @@ void SSL_set_verify_depth(SSL *s, int depth);</synopsis>
       handshake with an alert message, if SSL_VERIFY_PEER is set.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_verify.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-b621738ec7c3871ecb4be56f76d27523"><title>BUGS</title>
     <para>
       In client mode, it is not checked whether the SSL_VERIFY_PEER flag is
       set, but whether SSL_VERIFY_NONE is not set. This can lead to
@@ -215,13 +215,13 @@ void SSL_set_verify_depth(SSL *s, int depth);</synopsis>
       X509_V_ERR_CERT_CHAIN_TOO_LONG as may be expected.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_verify.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-228736fd995106ea5f3ee3fa4f4ab980"><title>RETURN VALUES</title>
     <para>
       The SSL*_set_verify*() functions do not provide diagnostic
       information.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_verify.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-57157dd82b76a71881dce20ca2ff673f"><title>EXAMPLES</title>
     <para>
       The following code sequence realizes an example <emphasis role="bold">verify_callback</emphasis> function that will always
       continue the TLS/SSL handshake regardless of verification failure, if
@@ -342,7 +342,7 @@ if (peer = SSL_get_peer_certificate(ssl))
   }
 }</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_verify.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-133690e13a5e2010dd06bfe706a883e6"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

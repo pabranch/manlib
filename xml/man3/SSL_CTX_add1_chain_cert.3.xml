@@ -14,27 +14,27 @@ SSL_select_current_cert, SSL_CTX_set_current_cert, SSL_set_current_cert</refname
 chain certificate processing</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">int SSL_CTX_set0_chain(SSL_CTX *ctx, STACK_OF(X509) *sk);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_CTX_set0_chain(SSL_CTX *ctx, STACK_OF(X509) *sk);
 int SSL_CTX_set1_chain(SSL_CTX *ctx, STACK_OF(X509) *sk);
 int SSL_CTX_add0_chain_cert(SSL_CTX *ctx, X509 *x509);
 int SSL_CTX_add1_chain_cert(SSL_CTX *ctx, X509 *x509);
 int SSL_CTX_get0_chain_certs(SSL_CTX *ctx, STACK_OF(X509) **sk);
 int SSL_CTX_clear_chain_certs(SSL_CTX *ctx);</synopsis>
-<synopsis format="linespecific">int SSL_set0_chain(SSL *ssl, STACK_OF(X509) *sk);
+<synopsis>int SSL_set0_chain(SSL *ssl, STACK_OF(X509) *sk);
 int SSL_set1_chain(SSL *ssl, STACK_OF(X509) *sk);
 int SSL_add0_chain_cert(SSL *ssl, X509 *x509);
 int SSL_add1_chain_cert(SSL *ssl, X509 *x509);
 int SSL_get0_chain_certs(SSL *ssl, STACK_OF(X509) **sk);
 int SSL_clear_chain_certs(SSL *ssl);</synopsis>
-<synopsis format="linespecific">int SSL_CTX_build_cert_chain(SSL_CTX *ctx, flags);
+<synopsis>int SSL_CTX_build_cert_chain(SSL_CTX *ctx, flags);
 int SSL_build_cert_chain(SSL *ssl, flags);</synopsis>
-<synopsis format="linespecific">int SSL_CTX_select_current_cert(SSL_CTX *ctx, X509 *x509);
+<synopsis>int SSL_CTX_select_current_cert(SSL_CTX *ctx, X509 *x509);
 int SSL_select_current_cert(SSL *ssl, X509 *x509);
 int SSL_CTX_set_current_cert(SSL_CTX *ctx, long op);
 int SSL_set_current_cert(SSL *ssl, long op);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add1_chain_cert.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-e9f215b83079a619d1f288eae834ab8f"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_set0_chain() and SSL_CTX_set1_chain() set the certificate
       chain associated with the current certificate of <emphasis role="bold">ctx</emphasis> to <emphasis role="bold">sk</emphasis>.
@@ -111,7 +111,7 @@ int SSL_set_current_cert(SSL *ssl, long op);</synopsis>
       NOT</emphasis> be freed after the operation.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add1_chain_cert.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-4960a95a0ab9166be07431cd06d3dae4"><title>NOTES</title>
     <para>
       The chains associate with an SSL_CTX structure are copied to any SSL
       structures when SSL_new() is called. SSL structures will not be
@@ -150,7 +150,7 @@ int SSL_set_current_cert(SSL *ssl, long op);</synopsis>
       added using SSL_CTX_add_extra_chain_cert() will be used.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add1_chain_cert.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-aed017b207c01a23452ec20f18805d37"><title>RETURN VALUES</title>
     <para>
       SSL_set_current_cert() with <emphasis role="bold">SSL_CERT_SET_SERVER</emphasis> return 1 for success, 2 if
       no server certificate is used because the ciphersuites is anonymous
@@ -165,14 +165,14 @@ int SSL_set_current_cert(SSL *ssl, long op);</synopsis>
       All other functions return 1 for success and 0 for failure.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add1_chain_cert.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-16973d4078502dab131be6a3f3b27afa"><title>SEE ALSO</title>
     <para>
       <citerefentry>
       <refentrytitle>SSL_CTX_add_extra_chain_cert</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add1_chain_cert.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-11b4e530b4c5ad902f80a53a9fb557bc"><title>HISTORY</title>
     <para>
       These functions were first added to OpenSSL 1.0.2.
     </para>

@@ -8,12 +8,12 @@
 <refpurpose>handle certificate callback function</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">void SSL_CTX_set_cert_cb(SSL_CTX *c, int (*cert_cb)(SSL *ssl, void *arg), void *arg);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>void SSL_CTX_set_cert_cb(SSL_CTX *c, int (*cert_cb)(SSL *ssl, void *arg), void *arg);
 void SSL_set_cert_cb(SSL *s, int (*cert_cb)(SSL *ssl, void *arg), void *arg);</synopsis>
-<synopsis format="linespecific">int (*cert_cb)(SSL *ssl, void *arg);</synopsis>
+<synopsis>int (*cert_cb)(SSL *ssl, void *arg);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cert_cb.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-1081be0ee67568886cb84c7061449147"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_set_cert_cb() and SSL_set_cert_cb() sets the <emphasis role="bold">cert_cb()</emphasis> callback, <emphasis role="bold">arg</emphasis> value is pointer which is passed to the
       application callback.
@@ -40,7 +40,7 @@ void SSL_set_cert_cb(SSL *s, int (*cert_cb)(SSL *ssl, void *arg), void *arg);</s
       if required to continue.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cert_cb.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-a985cb8b09efd708e9a0fe64da6e58e0"><title>NOTES</title>
     <para>
       An application will typically call SSL_use_certificate() and
       SSL_use_PrivateKey() to set the end entity certificate and private
@@ -71,7 +71,7 @@ void SSL_set_cert_cb(SSL *s, int (*cert_cb)(SSL *ssl, void *arg), void *arg);</s
       not support it will <emphasis role="bold">not</emphasis> be used.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_cert_cb.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-e37cb31395656ced62839c0422d13f93"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

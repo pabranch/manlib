@@ -8,16 +8,16 @@
 <refpurpose>load certificate names from file</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">STACK_OF(X509_NAME) *SSL_load_client_CA_file(const char *file);</synopsis>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>STACK_OF(X509_NAME) *SSL_load_client_CA_file(const char *file);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_load_client_CA_file.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-3d7e7453661271c37c0cde94a6153f51"><title>DESCRIPTION</title>
     <para>
       SSL_load_client_CA_file() reads certificates from <emphasis role="bold">file</emphasis> and returns a STACK_OF(X509_NAME) with
       the subject names found.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_load_client_CA_file.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-e5273e04c0f4ff3c267d88cd272712d2"><title>NOTES</title>
     <para>
       SSL_load_client_CA_file() reads a file of PEM formatted certificates
       and extracts the X509_NAMES of the certificates found. While the name
@@ -27,7 +27,7 @@
       certificates.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_load_client_CA_file.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-3d1e158a58dae320591755f9c78c356e"><title>EXAMPLES</title>
     <para>
       Load names of CAs from file and use it as a client CA list:
     </para>
@@ -42,14 +42,14 @@ else
   error_handling();
 ...</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_load_client_CA_file.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-d6f24e94a65dcd32f9743649a8ffe7ab"><title>RETURN VALUES</title>
     <para>
       The following return values can occur:
     </para>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_load_client_CA_file.pod:NULL"/>NULL</term>
+          <term>NULL</term>
           <listitem>
             <para>
 	      The operation failed, check out the error stack for the
@@ -58,7 +58,7 @@ else
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_load_client_CA_file.pod:Pointer_to_STACK_OFX509_NAME"/>Pointer to STACK_OF(X509_NAME)</term>
+          <term>Pointer to STACK_OF(X509_NAME)</term>
           <listitem>
             <para>
 	      Pointer to the subject names of the successfully read
@@ -69,7 +69,7 @@ else
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_load_client_CA_file.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-9661ed2e65e279e9ba62f8c4ce3e1f71"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

@@ -9,18 +9,18 @@ X509_REQ_verify, X509_CRL_sign, X509_CRL_sign_ctx, X509_CRL_verify</refname>
 <refpurpose>sign or verify certificate, certificate request or CRL signature.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/x509.h&gt;</synopsis>
-<synopsis format="linespecific">int X509_sign(X509 *x, EVP_PKEY *pkey, const EVP_MD *md);
+<synopsis>#include &lt;openssl/x509.h&gt;</synopsis>
+<synopsis>int X509_sign(X509 *x, EVP_PKEY *pkey, const EVP_MD *md);
 int X509_sign_ctx(X509 *x, EVP_MD_CTX *ctx);
 int X509_verify(X509 *a, EVP_PKEY *r);</synopsis>
-<synopsis format="linespecific">int X509_REQ_sign(X509_REQ *x, EVP_PKEY *pkey, const EVP_MD *md);
+<synopsis>int X509_REQ_sign(X509_REQ *x, EVP_PKEY *pkey, const EVP_MD *md);
 int X509_REQ_sign_ctx(X509_REQ *x, EVP_MD_CTX *ctx);
 int X509_REQ_verify(X509_REQ *a, EVP_PKEY *r);</synopsis>
-<synopsis format="linespecific">int X509_CRL_sign(X509_CRL *x, EVP_PKEY *pkey, const EVP_MD *md);
+<synopsis>int X509_CRL_sign(X509_CRL *x, EVP_PKEY *pkey, const EVP_MD *md);
 int X509_CRL_sign_ctx(X509_CRL *x, EVP_MD_CTX *ctx);
 int X509_CRL_verify(X509_CRL *a, EVP_PKEY *r);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_sign.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-1f3f4d5a76fa28fcb2eba477bcbc6cfa"><title>DESCRIPTION</title>
     <para>
       X509_sign() signs certificate <emphasis role="bold">x</emphasis>
       using private key <emphasis role="bold">pkey</emphasis> and message
@@ -39,7 +39,7 @@ int X509_CRL_verify(X509_CRL *a, EVP_PKEY *r);</synopsis>
       verify certificate requests and CRLs respectively.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_sign.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-73632901102b71b58aace62b4eb2b14c"><title>NOTES</title>
     <para>
       X509_sign_ctx() is used where the default parameters for the
       corresponding public key and digest are not suitable. It can be used
@@ -55,7 +55,7 @@ int X509_CRL_verify(X509_CRL *a, EVP_PKEY *r);</synopsis>
       signing will always update the encoding.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_sign.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-7c3afa3bf99b4b54116e10aac693bd85"><title>RETURN VALUES</title>
     <para>
       X509_sign(), X509_sign_ctx(), X509_REQ_sign(), X509_REQ_sign_ctx(),
       X509_CRL_sign() and X509_CRL_sign_ctx() return 1 for success and 0
@@ -68,7 +68,7 @@ int X509_CRL_verify(X509_CRL *a, EVP_PKEY *r);</synopsis>
       other error occurred then -1 is returned.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_sign.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-12050bef0bc471c0e6ce1db714fe835d"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>d2i_X509</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -104,7 +104,7 @@ int X509_CRL_verify(X509_CRL *a, EVP_PKEY *r);</synopsis>
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_sign.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-0eefb206a18556f985d4c9ed59b54f76"><title>HISTORY</title>
     <para>
       X509_sign(), X509_REQ_sign() and X509_CRL_sign() are available in all
       versions of OpenSSL.

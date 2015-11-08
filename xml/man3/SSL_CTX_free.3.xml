@@ -8,10 +8,10 @@
 <refpurpose>free an allocated SSL_CTX object</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">void SSL_CTX_free(SSL_CTX *ctx);</synopsis>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>void SSL_CTX_free(SSL_CTX *ctx);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_free.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-b3f2bc8019bfd63d2b8f8fe002e2945d"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_free() decrements the reference count of <emphasis role="bold">ctx</emphasis>, and removes the SSL_CTX object pointed to
       by <emphasis role="bold">ctx</emphasis> and frees up the allocated
@@ -26,7 +26,7 @@
       If <emphasis role="bold">ctx</emphasis> is NULL nothing is done.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_free.pod:WARNINGS"><title>WARNINGS</title>
+  <refsection xml:id="ID-457f60f6f82b2b9886a9c9cac7860ef5"><title>WARNINGS</title>
     <para>
       If a session-remove callback is set (SSL_CTX_sess_set_remove_cb()),
       this callback will be called for each session being freed from
@@ -36,12 +36,12 @@
       unset the callback by calling SSL_CTX_sess_set_remove_cb(<emphasis role="bold">ctx</emphasis>, NULL) prior to calling SSL_CTX_free().
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_free.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-996deb81f2c95d727d27970e6c8f6c3b"><title>RETURN VALUES</title>
     <para>
       SSL_CTX_free() does not provide diagnostic information.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_free.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-1accf6127f778a92cb530be76dc3bf81"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>SSL_CTX_new</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

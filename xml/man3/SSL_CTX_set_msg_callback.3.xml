@@ -8,13 +8,13 @@
 <refpurpose>install callback for observing protocol messages</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">void SSL_CTX_set_msg_callback(SSL_CTX *ctx, void (*cb)(int write_p, int version, int content_type, const void *buf, size_t len, SSL *ssl, void *arg));
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>void SSL_CTX_set_msg_callback(SSL_CTX *ctx, void (*cb)(int write_p, int version, int content_type, const void *buf, size_t len, SSL *ssl, void *arg));
 void SSL_CTX_set_msg_callback_arg(SSL_CTX *ctx, void *arg);</synopsis>
-<synopsis format="linespecific">void SSL_set_msg_callback(SSL *ssl, void (*cb)(int write_p, int version, int content_type, const void *buf, size_t len, SSL *ssl, void *arg));
+<synopsis>void SSL_set_msg_callback(SSL *ssl, void (*cb)(int write_p, int version, int content_type, const void *buf, size_t len, SSL *ssl, void *arg));
 void SSL_set_msg_callback_arg(SSL *ssl, void *arg);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_msg_callback.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-709c728cb4cad2873d63d4a547d11558"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_set_msg_callback() or SSL_set_msg_callback() can be used to
       define a message callback function <emphasis role="italic">cb</emphasis> for observing all SSL/TLS protocol
@@ -38,7 +38,7 @@ void SSL_set_msg_callback_arg(SSL *ssl, void *arg);</synopsis>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_msg_callback.pod:write_p"/><emphasis role="italic">write_p</emphasis></term>
+          <term><emphasis role="italic">write_p</emphasis></term>
           <listitem>
             <para>
 	      This flag is <emphasis role="bold">0</emphasis> when a
@@ -48,7 +48,7 @@ void SSL_set_msg_callback_arg(SSL *ssl, void *arg);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_msg_callback.pod:version"/><emphasis role="italic">version</emphasis></term>
+          <term><emphasis role="italic">version</emphasis></term>
           <listitem>
             <para>
 	      The protocol version according to which the protocol message
@@ -59,7 +59,7 @@ void SSL_set_msg_callback_arg(SSL *ssl, void *arg);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_msg_callback.pod:content_type"/><emphasis role="italic">content_type</emphasis></term>
+          <term><emphasis role="italic">content_type</emphasis></term>
           <listitem>
             <para>
 	      In the case of SSL 2.0, this is always <emphasis role="bold">0</emphasis>.  In the case of SSL 3.0 or TLS 1.0,
@@ -70,7 +70,7 @@ void SSL_set_msg_callback_arg(SSL *ssl, void *arg);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_msg_callback.pod:buf_len"/><emphasis role="italic">buf</emphasis>, <emphasis role="italic">len</emphasis></term>
+          <term><emphasis role="italic">buf</emphasis>, <emphasis role="italic">len</emphasis></term>
           <listitem>
             <para>
 	      <emphasis role="italic">buf</emphasis> points to a buffer
@@ -80,7 +80,7 @@ void SSL_set_msg_callback_arg(SSL *ssl, void *arg);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_msg_callback.pod:ssl"/><emphasis role="italic">ssl</emphasis></term>
+          <term><emphasis role="italic">ssl</emphasis></term>
           <listitem>
             <para>
 	      The <emphasis role="bold">SSL</emphasis> object that received
@@ -89,7 +89,7 @@ void SSL_set_msg_callback_arg(SSL *ssl, void *arg);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_msg_callback.pod:arg"/><emphasis role="italic">arg</emphasis></term>
+          <term><emphasis role="italic">arg</emphasis></term>
           <listitem>
             <para>
 	      The user-defined argument optionally defined by
@@ -100,7 +100,7 @@ void SSL_set_msg_callback_arg(SSL *ssl, void *arg);</synopsis>
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_msg_callback.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-d10c8164ec3df85136211d65e66c786e"><title>NOTES</title>
     <para>
       Protocol messages are passed to the callback function after
       decryption and fragment collection where applicable. (Thus record
@@ -118,19 +118,12 @@ void SSL_set_msg_callback_arg(SSL *ssl, void *arg);</synopsis>
       message is received by an SSL 3.0-only server, <emphasis role="italic">version</emphasis> will be <emphasis role="bold">SSL3_VERSION</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_msg_callback.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-b3e359236a92f638a42a7dcb5ce73df3"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>SSL_new</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_msg_callback.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      SSL_CTX_set_msg_callback(), SSL_CTX_set_msg_callback_arg(),
-      SSL_set_msg_callback() and SSL_get_msg_callback_arg() were added in
-      OpenSSL 0.9.7.
     </para>
   </refsection>
 </refentry>

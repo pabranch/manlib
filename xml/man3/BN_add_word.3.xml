@@ -9,14 +9,14 @@
 functions on BIGNUMs with integers</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/bn.h&gt;</synopsis>
-<synopsis format="linespecific">int BN_add_word(BIGNUM *a, BN_ULONG w);</synopsis>
-<synopsis format="linespecific">int BN_sub_word(BIGNUM *a, BN_ULONG w);</synopsis>
-<synopsis format="linespecific">int BN_mul_word(BIGNUM *a, BN_ULONG w);</synopsis>
-<synopsis format="linespecific">BN_ULONG BN_div_word(BIGNUM *a, BN_ULONG w);</synopsis>
-<synopsis format="linespecific">BN_ULONG BN_mod_word(const BIGNUM *a, BN_ULONG w);</synopsis>
+<synopsis>#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis>int BN_add_word(BIGNUM *a, BN_ULONG w);</synopsis>
+<synopsis>int BN_sub_word(BIGNUM *a, BN_ULONG w);</synopsis>
+<synopsis>int BN_mul_word(BIGNUM *a, BN_ULONG w);</synopsis>
+<synopsis>BN_ULONG BN_div_word(BIGNUM *a, BN_ULONG w);</synopsis>
+<synopsis>BN_ULONG BN_mod_word(const BIGNUM *a, BN_ULONG w);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_add_word.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-7e1be86a08228983a783c66063b53a8f"><title>DESCRIPTION</title>
     <para>
       These functions perform arithmetic operations on BIGNUMs with
       unsigned integers. They are much more efficient than the normal
@@ -43,7 +43,7 @@ functions on BIGNUMs with integers</refpurpose>
       For BN_div_word() and BN_mod_word(), <emphasis role="bold">w</emphasis> must not be 0.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_add_word.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-52235d9954662614be2dbdcfcc19c19e"><title>RETURN VALUES</title>
     <para>
       BN_add_word(), BN_sub_word() and BN_mul_word() return 1 for success,
       0 on error. The error codes can be obtained by <citerefentry>
@@ -56,24 +56,13 @@ functions on BIGNUMs with integers</refpurpose>
       occurred.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_add_word.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-7f412588baebff37efbc5dc73260feaf"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>bn</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>ERR_get_error</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>, <citerefentry> <refentrytitle>BN_add</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_add_word.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      BN_add_word() and BN_mod_word() are available in all versions of
-      SSLeay and OpenSSL. BN_div_word() was added in SSLeay 0.8, and
-      BN_sub_word() and BN_mul_word() in SSLeay 0.9.0.
-    </para>
-    <para>
-      Before 0.9.8a the return value for BN_div_word() and BN_mod_word() in
-      case of an error was 0.
     </para>
   </refsection>
 </refentry>

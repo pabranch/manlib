@@ -8,11 +8,11 @@
 <refpurpose>verify a CMS SignedData structure</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/cms.h&gt;</synopsis>
-<synopsis format="linespecific">int CMS_verify(CMS_ContentInfo *cms, STACK_OF(X509) *certs, X509_STORE *store, BIO *indata, BIO *out, unsigned int flags);</synopsis>
-<synopsis format="linespecific">STACK_OF(X509) *CMS_get0_signers(CMS_ContentInfo *cms);</synopsis>
+<synopsis>#include &lt;openssl/cms.h&gt;</synopsis>
+<synopsis>int CMS_verify(CMS_ContentInfo *cms, STACK_OF(X509) *certs, X509_STORE *store, BIO *indata, BIO *out, unsigned int flags);</synopsis>
+<synopsis>STACK_OF(X509) *CMS_get0_signers(CMS_ContentInfo *cms);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.CMS_verify.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-bea91e2bba64719411f35be277b300e2"><title>DESCRIPTION</title>
     <para>
       CMS_verify() verifies a CMS SignedData structure. <emphasis role="bold">cms</emphasis> is the CMS_ContentInfo structure to
       verify. <emphasis role="bold">certs</emphasis> is a set of
@@ -31,7 +31,7 @@
       successful CMS_verify() operation.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.CMS_verify.pod:VERIFY_PROCESS"><title>VERIFY PROCESS</title>
+  <refsection xml:id="ID-3d1b324d0f201bd3c126ead543c42bca"><title>VERIFY PROCESS</title>
     <para>
       Normally the verify process proceeds as follows.
     </para>
@@ -87,14 +87,14 @@
     </para>
     <para>
       If <emphasis role="bold">CMS_NO_ATTR_VERIFY</emphasis> is set the
-      signed attributes signature is not verified. 
+      signed attributes signature is not verified.
     </para>
     <para>
       If <emphasis role="bold">CMS_NO_CONTENT_VERIFY</emphasis> is set then
       the content digest is not checked.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.CMS_verify.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-6abc80da0b70a63c12db6ea203afee8d"><title>NOTES</title>
     <para>
       One application of <emphasis role="bold">CMS_NOINTERN</emphasis> is
       to only accept messages signed by a small number of certificates. The
@@ -108,7 +108,7 @@
       to lookup certificates in a database or perform customised
       verification. This can be achieved by setting and verifying the
       signers certificates manually using the signed data utility
-      functions. 
+      functions.
     </para>
     <para>
       Care should be taken when modifying the default verify behaviour, for
@@ -116,7 +116,7 @@
       content verification and any modified content will be considered
       valid. This combination is however useful if one merely wishes to
       write the content to <emphasis role="bold">out</emphasis> and its
-      validity is not considered important. 
+      validity is not considered important.
     </para>
     <para>
       Chain verification should arguably be performed using the signing
@@ -125,7 +125,7 @@
       evidence (such as a trusted timestamp).
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.CMS_verify.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-62b6b79a3557507dce62ec6e74d010b9"><title>RETURN VALUES</title>
     <para>
       CMS_verify() returns 1 for a successful verification and zero if an
       error occurred.
@@ -139,7 +139,7 @@
       </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.CMS_verify.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-a960d6fc284b4a4fa75645588c64a402"><title>BUGS</title>
     <para>
       The trusted certificate store is not searched for the signing
       certificate, this is primarily due to the inadequacies of the current
@@ -150,17 +150,12 @@
       all be held in memory if it is not detached.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.CMS_verify.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-3c1f8fc4e791f5ecc0c56c145016cf1b"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ERR_get_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>CMS_sign</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.CMS_verify.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      CMS_verify() was added to OpenSSL 0.9.8
     </para>
   </refsection>
 </refentry>

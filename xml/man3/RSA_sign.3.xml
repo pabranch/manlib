@@ -8,13 +8,13 @@
 <refpurpose>RSA signatures</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/rsa.h&gt;</synopsis>
-<synopsis format="linespecific">int RSA_sign(int type, const unsigned char *m, unsigned int m_len,
+<synopsis>#include &lt;openssl/rsa.h&gt;</synopsis>
+<synopsis>int RSA_sign(int type, const unsigned char *m, unsigned int m_len,
    unsigned char *sigret, unsigned int *siglen, RSA *rsa);</synopsis>
-<synopsis format="linespecific">int RSA_verify(int type, const unsigned char *m, unsigned int m_len,
+<synopsis>int RSA_verify(int type, const unsigned char *m, unsigned int m_len,
    unsigned char *sigbuf, unsigned int siglen, RSA *rsa);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_sign.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-74d778647ba784289b6adbc55d20c69d"><title>DESCRIPTION</title>
     <para>
       RSA_sign() signs the message digest <emphasis role="bold">m</emphasis> of size <emphasis role="bold">m_len</emphasis> using the private key <emphasis role="bold">rsa</emphasis> as specified in PKCS #1 v2.0. It stores
       the signature in <emphasis role="bold">sigret</emphasis> and the
@@ -38,7 +38,7 @@
       public key.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_sign.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-28661d29117539c455103e9e297b193c"><title>RETURN VALUES</title>
     <para>
       RSA_sign() returns 1 on success. RSA_verify() returns 1 on successful
       verification.
@@ -49,18 +49,12 @@
       </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_sign.pod:BUGS"><title>BUGS</title>
-    <para>
-      Certain signatures with an improper algorithm identifier are accepted
-      for compatibility with SSLeay 0.4.5 :-)
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_sign.pod:CONFORMING_TO"><title>CONFORMING TO</title>
+  <refsection xml:id="ID-f29f19d0934bc301802800730a84c822"><title>CONFORMING TO</title>
     <para>
       SSL, PKCS #1 v2.0
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_sign.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-72eeeeac5741260659f0dcc2b559f6da"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ERR_get_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -70,12 +64,6 @@
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>RSA_public_decrypt</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_sign.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      RSA_sign() and RSA_verify() are available in all versions of SSLeay
-      and OpenSSL.
     </para>
   </refsection>
 </refentry>

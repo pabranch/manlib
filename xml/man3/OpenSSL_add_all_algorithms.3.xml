@@ -8,13 +8,13 @@
 <refpurpose>add algorithms to internal table</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
-<synopsis format="linespecific">void OpenSSL_add_all_algorithms(void);
+<synopsis>#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis>void OpenSSL_add_all_algorithms(void);
 void OpenSSL_add_all_ciphers(void);
 void OpenSSL_add_all_digests(void);</synopsis>
-<synopsis format="linespecific">void EVP_cleanup(void);</synopsis>
+<synopsis>void EVP_cleanup(void);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.OpenSSL_add_all_algorithms.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-4f65264ccffeb92be9501fa97d12dcd8"><title>DESCRIPTION</title>
     <para>
       OpenSSL keeps an internal table of digest algorithms and ciphers. It
       uses this table to lookup ciphers via functions such as
@@ -35,12 +35,12 @@ void OpenSSL_add_all_digests(void);</synopsis>
       EVP_cleanup() removes all ciphers and digests from the table.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OpenSSL_add_all_algorithms.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-ae7430076dec71d85c9c9ce59f82af1c"><title>RETURN VALUES</title>
     <para>
       None of the functions return a value.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OpenSSL_add_all_algorithms.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-300c47902f723fbc21ec5b68edaa5ae0"><title>NOTES</title>
     <para>
       A typical application will call OpenSSL_add_all_algorithms()
       initially and EVP_cleanup() before exiting.
@@ -64,14 +64,14 @@ void OpenSSL_add_all_digests(void);</synopsis>
       digests.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OpenSSL_add_all_algorithms.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-7b8789bef20cb17f142b4384a80ec303"><title>BUGS</title>
     <para>
       Although the functions do not return error codes it is possible for
       them to fail. This will only happen as a result of a memory
       allocation failure so this is not too much of a problem in practice.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OpenSSL_add_all_algorithms.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-2263fb2b6557c2d8c0880eb9fdf9b849"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>evp</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

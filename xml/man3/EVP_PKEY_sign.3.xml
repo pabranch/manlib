@@ -8,13 +8,13 @@
 <refpurpose>sign using a public key algorithm</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
-<synopsis format="linespecific">int EVP_PKEY_sign_init(EVP_PKEY_CTX *ctx);
+<synopsis>#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis>int EVP_PKEY_sign_init(EVP_PKEY_CTX *ctx);
 int EVP_PKEY_sign(EVP_PKEY_CTX *ctx,
                        unsigned char *sig, size_t *siglen,
                        const unsigned char *tbs, size_t tbslen);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_sign.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-8fa3d017eb7ef395ea96836224630eb8"><title>DESCRIPTION</title>
     <para>
       The EVP_PKEY_sign_init() function initializes a public key algorithm
       context using key <emphasis role="bold">pkey</emphasis> for a signing
@@ -32,7 +32,7 @@ int EVP_PKEY_sign(EVP_PKEY_CTX *ctx,
       <emphasis role="bold">siglen</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_sign.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-090035ca97a8a2ad208582ed7db737d4"><title>NOTES</title>
     <para>
       EVP_PKEY_sign() does not hash the data to be signed, and therefore is
       normally used to sign digests. For signing arbitrary messages, see
@@ -54,14 +54,14 @@ int EVP_PKEY_sign(EVP_PKEY_CTX *ctx,
       parameters.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_sign.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-86f970ce7f5bb7118f5dacbdf46ec7bd"><title>RETURN VALUES</title>
     <para>
       EVP_PKEY_sign_init() and EVP_PKEY_sign() return 1 for success and 0
       or a negative value for failure. In particular a return value of -2
       indicates the operation is not supported by the public key algorithm.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_sign.pod:EXAMPLE"><title>EXAMPLE</title>
+  <refsection xml:id="ID-81214e1fda2fd06249066420bd9e7e8c"><title>EXAMPLE</title>
     <para>
       Sign data using RSA with PKCS#1 padding and SHA256 digest:
     </para>
@@ -105,7 +105,7 @@ if (EVP_PKEY_sign(ctx, sig, &amp;siglen, md, mdlen) &lt;= 0)
 
 </screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_sign.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-969ec7037fe05409edb67f0a89c9c706"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>EVP_PKEY_CTX_new</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -123,7 +123,7 @@ if (EVP_PKEY_sign(ctx, sig, &amp;siglen, md, mdlen) &lt;= 0)
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_sign.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-96aafe74aa0dc26d6ff84da319d1208d"><title>HISTORY</title>
     <para>
       These functions were first added to OpenSSL 1.0.0.
     </para>

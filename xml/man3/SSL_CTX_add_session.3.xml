@@ -8,13 +8,13 @@
 <refpurpose>manipulate session cache</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">int SSL_CTX_add_session(SSL_CTX *ctx, SSL_SESSION *c);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_CTX_add_session(SSL_CTX *ctx, SSL_SESSION *c);
 int SSL_add_session(SSL_CTX *ctx, SSL_SESSION *c);</synopsis>
-<synopsis format="linespecific">int SSL_CTX_remove_session(SSL_CTX *ctx, SSL_SESSION *c);
+<synopsis>int SSL_CTX_remove_session(SSL_CTX *ctx, SSL_SESSION *c);
 int SSL_remove_session(SSL_CTX *ctx, SSL_SESSION *c);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add_session.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-0bf178c1b756e04446e244d4eb5786e7"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_add_session() adds the session <emphasis role="bold">c</emphasis> to the context <emphasis role="bold">ctx</emphasis>. The reference count for session <emphasis role="bold">c</emphasis> is incremented by 1. If a session with the
       same session id already exists, the old session is removed by calling
@@ -31,7 +31,7 @@ int SSL_remove_session(SSL_CTX *ctx, SSL_SESSION *c);</synopsis>
       SSL_CTX_*() counterparts.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add_session.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-fcb7ff25cef15205483433bde68fa179"><title>NOTES</title>
     <para>
       When adding a new session to the internal session cache, it is
       examined whether a session with the same session id already exists.
@@ -53,14 +53,14 @@ int SSL_remove_session(SSL_CTX *ctx, SSL_SESSION *c);</synopsis>
     </para>
     <screen></screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add_session.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-c557f23f44b8199c4c29219c01a8e9ad"><title>RETURN VALUES</title>
     <para>
       The following values are returned by all functions:
     </para>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_add_session.pod:0"/>0</term>
+          <term>0</term>
           <listitem>
             <screen>The operation failed. In case of the add operation, it was tried to add
 the same (identical) session twice. In case of the remove operation, the
@@ -68,7 +68,7 @@ session was not found in the cache.</screen>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_add_session.pod:1"/>1</term>
+          <term>1</term>
           <listitem>
             <screen>The operation succeeded.</screen>
           </listitem>
@@ -76,7 +76,7 @@ session was not found in the cache.</screen>
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_add_session.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-6cb0d8e5f8e0f718079afd77c7517519"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

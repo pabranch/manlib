@@ -8,13 +8,13 @@
 <refpurpose>decrypt using a public key algorithm</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
-<synopsis format="linespecific">int EVP_PKEY_decrypt_init(EVP_PKEY_CTX *ctx);
+<synopsis>#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis>int EVP_PKEY_decrypt_init(EVP_PKEY_CTX *ctx);
 int EVP_PKEY_decrypt(EVP_PKEY_CTX *ctx,
                        unsigned char *out, size_t *outlen,
                        const unsigned char *in, size_t inlen);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_decrypt.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-a8712f2f49f3bde2a12936b0a3c263c9"><title>DESCRIPTION</title>
     <para>
       The EVP_PKEY_decrypt_init() function initializes a public key
       algorithm context using key <emphasis role="bold">pkey</emphasis> for
@@ -32,7 +32,7 @@ int EVP_PKEY_decrypt(EVP_PKEY_CTX *ctx,
       <emphasis role="bold">outlen</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_decrypt.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-8849033246bb8fc014c5ba352419e19b"><title>NOTES</title>
     <para>
       After the call to EVP_PKEY_decrypt_init() algorithm specific control
       operations can be performed to set any appropriate parameters for the
@@ -44,7 +44,7 @@ int EVP_PKEY_decrypt(EVP_PKEY_CTX *ctx,
       parameters.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_decrypt.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-4df4e86fe9b4ec60cd96b442e32103f8"><title>RETURN VALUES</title>
     <para>
       EVP_PKEY_decrypt_init() and EVP_PKEY_decrypt() return 1 for success
       and 0 or a negative value for failure. In particular a return value
@@ -52,7 +52,7 @@ int EVP_PKEY_decrypt(EVP_PKEY_CTX *ctx,
       algorithm.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_decrypt.pod:EXAMPLE"><title>EXAMPLE</title>
+  <refsection xml:id="ID-83ba603565e2a4b9d4c7f2f8da8d04ce"><title>EXAMPLE</title>
     <para>
       Decrypt data using OAEP (for RSA keys):
     </para>
@@ -88,7 +88,7 @@ if (EVP_PKEY_decrypt(ctx, out, &amp;outlen, in, inlen) &lt;= 0)
 
 /* Decrypted data is outlen bytes written to buffer out */</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_decrypt.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-1171be9f05384840a01b0c69f02aa1c6"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>EVP_PKEY_CTX_new</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -104,7 +104,7 @@ if (EVP_PKEY_decrypt(ctx, out, &amp;outlen, in, inlen) &lt;= 0)
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_decrypt.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-ce1c0efa4736e7334e1022e0ae1bb4b7"><title>HISTORY</title>
     <para>
       These functions were first added to OpenSSL 1.0.0.
     </para>

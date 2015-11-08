@@ -9,14 +9,14 @@ X509_NAME_add_entry, X509_NAME_delete_entry</refname>
 <refpurpose>X509_NAME modification functions</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/x509.h&gt;</synopsis>
-<synopsis format="linespecific">int X509_NAME_add_entry_by_txt(X509_NAME *name, const char *field, int type, const unsigned char *bytes, int len, int loc, int set);</synopsis>
-<synopsis format="linespecific">int X509_NAME_add_entry_by_OBJ(X509_NAME *name, ASN1_OBJECT *obj, int type, unsigned char *bytes, int len, int loc, int set);</synopsis>
-<synopsis format="linespecific">int X509_NAME_add_entry_by_NID(X509_NAME *name, int nid, int type, unsigned char *bytes, int len, int loc, int set);</synopsis>
-<synopsis format="linespecific">int X509_NAME_add_entry(X509_NAME *name,X509_NAME_ENTRY *ne, int loc, int set);</synopsis>
-<synopsis format="linespecific">X509_NAME_ENTRY *X509_NAME_delete_entry(X509_NAME *name, int loc);</synopsis>
+<synopsis>#include &lt;openssl/x509.h&gt;</synopsis>
+<synopsis>int X509_NAME_add_entry_by_txt(X509_NAME *name, const char *field, int type, const unsigned char *bytes, int len, int loc, int set);</synopsis>
+<synopsis>int X509_NAME_add_entry_by_OBJ(X509_NAME *name, ASN1_OBJECT *obj, int type, unsigned char *bytes, int len, int loc, int set);</synopsis>
+<synopsis>int X509_NAME_add_entry_by_NID(X509_NAME *name, int nid, int type, unsigned char *bytes, int len, int loc, int set);</synopsis>
+<synopsis>int X509_NAME_add_entry(X509_NAME *name,X509_NAME_ENTRY *ne, int loc, int set);</synopsis>
+<synopsis>X509_NAME_ENTRY *X509_NAME_delete_entry(X509_NAME *name, int loc);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_add_entry_by_txt.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-baa35d3e396eb3ecf9b4bc22030ec645"><title>DESCRIPTION</title>
     <para>
       X509_NAME_add_entry_by_txt(), X509_NAME_add_entry_by_OBJ() and
       X509_NAME_add_entry_by_NID() add a field whose name is defined by a
@@ -42,7 +42,7 @@ X509_NAME_add_entry, X509_NAME_delete_entry</refname>
       freed up.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_add_entry_by_txt.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-5ce7b747b5eea7b067907d45bbfb74ef"><title>NOTES</title>
     <para>
       The use of string types such as <emphasis role="bold">MBSTRING_ASC</emphasis> or <emphasis role="bold">MBSTRING_UTF8</emphasis> is strongly recommended for the
       <emphasis role="bold">type</emphasis> parameter. This allows the
@@ -80,7 +80,7 @@ X509_NAME_add_entry, X509_NAME_delete_entry</refname>
       <emphasis role="bold">set</emphasis> is almost always set to zero.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_add_entry_by_txt.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-78e6a6879a8c4225d66512e1f0cdc02c"><title>EXAMPLES</title>
     <para>
       Create an <emphasis role="bold">X509_NAME</emphasis> structure:
     </para>
@@ -101,7 +101,7 @@ if (!X509_NAME_add_entry_by_txt(nm, "CN", MBSTRING_ASC,
                        "Joe Bloggs", -1, -1, 0))
        /* Error */</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_add_entry_by_txt.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-459a5e92a0db7e469b275fbab6a2fa58"><title>RETURN VALUES</title>
     <para>
       X509_NAME_add_entry_by_txt(), X509_NAME_add_entry_by_OBJ(),
       X509_NAME_add_entry_by_NID() and X509_NAME_add_entry() return 1 for
@@ -111,7 +111,7 @@ if (!X509_NAME_add_entry_by_txt(nm, "CN", MBSTRING_ASC,
       X509_NAME_delete_entry() returns either the deleted <emphasis role="bold">X509_NAME_ENTRY</emphasis> structure of <emphasis role="bold">NULL</emphasis> if an error occurred.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_add_entry_by_txt.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-4e148e45f3341ac22b856949e902d13d"><title>BUGS</title>
     <para>
       <emphasis role="bold">type</emphasis> can still be set to <emphasis role="bold">V_ASN1_APP_CHOOSE</emphasis> to use a different algorithm
       to determine field types. Since this form does not understand
@@ -119,7 +119,7 @@ if (!X509_NAME_add_entry_by_txt(nm, "CN", MBSTRING_ASC,
       invalid field types its use is strongly discouraged.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_add_entry_by_txt.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-f12eca2a90ff8ab3d579a3cf3d5ce005"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ERR_get_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -127,7 +127,7 @@ if (!X509_NAME_add_entry_by_txt(nm, "CN", MBSTRING_ASC,
       </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_add_entry_by_txt.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-0d059084ca232a4356aebec4afe74286"><title>HISTORY</title>
     <para/>
   </refsection>
 </refentry>

@@ -8,15 +8,15 @@
 <refpurpose>public key algorithm printing routines.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
-<synopsis format="linespecific">int EVP_PKEY_print_public(BIO *out, const EVP_PKEY *pkey,
+<synopsis>#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis>int EVP_PKEY_print_public(BIO *out, const EVP_PKEY *pkey,
                                int indent, ASN1_PCTX *pctx);
 int EVP_PKEY_print_private(BIO *out, const EVP_PKEY *pkey,
                                int indent, ASN1_PCTX *pctx);
 int EVP_PKEY_print_params(BIO *out, const EVP_PKEY *pkey,
                                int indent, ASN1_PCTX *pctx);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_print_private.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-5cb746972a855f2128ccb12a1d009805"><title>DESCRIPTION</title>
     <para>
       The functions EVP_PKEY_print_public(), EVP_PKEY_print_private() and
       EVP_PKEY_print_params() print out the public, private or parameter
@@ -32,10 +32,10 @@ int EVP_PKEY_print_params(BIO *out, const EVP_PKEY *pkey,
       values will be used.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_print_private.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-e695ec8062f97490be14b942db1570a1"><title>NOTES</title>
     <para>
       Currently no public key algorithms include any options in the
-      <emphasis role="bold">pctx</emphasis> parameter parameter. 
+      <emphasis role="bold">pctx</emphasis> parameter parameter.
     </para>
     <para>
       If the key does not include all the components indicated by the
@@ -44,14 +44,14 @@ int EVP_PKEY_print_params(BIO *out, const EVP_PKEY *pkey,
       print the public components.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_print_private.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-66eae9ebb6f66603844c0f496fcc46c8"><title>RETURN VALUES</title>
     <para>
       These functions all return 1 for success and 0 or a negative value
       for failure. In particular a return value of -2 indicates the
       operation is not supported by the public key algorithm.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_print_private.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-b77d262a439e077346fbbb8c3103fb75"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>EVP_PKEY_CTX_new</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -59,7 +59,7 @@ int EVP_PKEY_print_params(BIO *out, const EVP_PKEY *pkey,
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_PKEY_print_private.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-293404c7d89c7e6f023dcb1fab36a8d4"><title>HISTORY</title>
     <para>
       These functions were first added to OpenSSL 1.0.0.
     </para>

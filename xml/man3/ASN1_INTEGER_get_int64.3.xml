@@ -8,23 +8,23 @@
 <refpurpose>ASN.1 INTEGER and ENUMERATED utilities</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/asn1.h&gt;</synopsis>
-<synopsis format="linespecific">int ASN1_INTEGER_get_int64(int64_t *pr, const ASN1_INTEGER *a);
+<synopsis>#include &lt;openssl/asn1.h&gt;</synopsis>
+<synopsis>int ASN1_INTEGER_get_int64(int64_t *pr, const ASN1_INTEGER *a);
 int ASN1_INTEGER_get(ASN1_INTEGER *a, long v);</synopsis>
-<synopsis format="linespecific">int ASN1_INTEGER_set_int64(ASN1_INTEGER *a, int64_t r);
+<synopsis>int ASN1_INTEGER_set_int64(ASN1_INTEGER *a, int64_t r);
 long ASN1_INTEGER_set(const ASN1_INTEGER *a);</synopsis>
-<synopsis format="linespecific">int ASN1_INTEGER_get_uint64(uint64_t *pr, const ASN1_INTEGER *a);
+<synopsis>int ASN1_INTEGER_get_uint64(uint64_t *pr, const ASN1_INTEGER *a);
 int ASN1_INTEGER_set_uint64(ASN1_INTEGER *a, uint64_t r);</synopsis>
-<synopsis format="linespecific">ASN1_INTEGER *BN_to_ASN1_INTEGER(const BIGNUM *bn, ASN1_INTEGER *ai);
+<synopsis>ASN1_INTEGER *BN_to_ASN1_INTEGER(const BIGNUM *bn, ASN1_INTEGER *ai);
 BIGNUM *ASN1_INTEGER_to_BN(const ASN1_INTEGER *ai, BIGNUM *bn);</synopsis>
-<synopsis format="linespecific">int ASN1_ENUMERATED_get_int64(int64_t *pr, const ASN1_INTEGER *a);
+<synopsis>int ASN1_ENUMERATED_get_int64(int64_t *pr, const ASN1_INTEGER *a);
 long ASN1_ENUMERATED_get(ASN1_ENUMERATED *a);</synopsis>
-<synopsis format="linespecific">int ASN1_ENUMERATED_set_int64(ASN1_INTEGER *a, int64_t r);
+<synopsis>int ASN1_ENUMERATED_set_int64(ASN1_INTEGER *a, int64_t r);
 int ASN1_ENUMERATED_set(ASN1_ENUMERATED *a, long v);</synopsis>
-<synopsis format="linespecific">ASN1_ENUMERATED *BN_to_ASN1_ENUMERATED(BIGNUM *bn, ASN1_ENUMERATED *ai);
+<synopsis>ASN1_ENUMERATED *BN_to_ASN1_ENUMERATED(BIGNUM *bn, ASN1_ENUMERATED *ai);
 BIGNUM *ASN1_ENUMERATED_to_BN(ASN1_ENUMERATED *ai, BIGNUM *bn);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.ASN1_INTEGER_get_int64.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-2b1975597ab14e463afae5fec86bc498"><title>DESCRIPTION</title>
     <para>
       These functions convert to and from <emphasis role="bold">ASN1_INTEGER</emphasis> and <emphasis role="bold">ASN1_ENUMERATED</emphasis> structures.
     </para>
@@ -78,7 +78,7 @@ BIGNUM *ASN1_ENUMERATED_to_BN(ASN1_ENUMERATED *ai, BIGNUM *bn);</synopsis>
       New applications should use ASN1_ENUMERATED_get_int64() instead.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ASN1_INTEGER_get_int64.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-8244a0bfa77f81854d888e717e22b76a"><title>NOTES</title>
     <para>
       In general an <emphasis role="bold">ASN1_INTEGER</emphasis> or
       <emphasis role="bold">ASN1_ENUMERATED</emphasis> type can contain an
@@ -89,7 +89,7 @@ BIGNUM *ASN1_ENUMERATED_to_BN(ASN1_ENUMERATED *ai, BIGNUM *bn);</synopsis>
       integer type.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ASN1_INTEGER_get_int64.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-36c70d818058c98536c5e6e5ee064b0b"><title>BUGS</title>
     <para>
       The ambigious return values of ASN1_INTEGER_get() and
       ASN1_ENUMERATED_get() mean these functions should be avoided if
@@ -98,7 +98,7 @@ BIGNUM *ASN1_ENUMERATED_to_BN(ASN1_ENUMERATED *ai, BIGNUM *bn);</synopsis>
       represent.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ASN1_INTEGER_get_int64.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-b66479cd75a77cb480e54be8ad2c214a"><title>RETURN VALUES</title>
     <para>
       ASN1_INTEGER_set_int64(), ASN1_INTEGER_set(),
       ASN1_ENUMERATED_set_int64() and ASN1_ENUMERATED_set() return 1 for
@@ -122,13 +122,13 @@ BIGNUM *ASN1_ENUMERATED_to_BN(ASN1_ENUMERATED *ai, BIGNUM *bn);</synopsis>
       error) or due to a memory allocation failure.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ASN1_INTEGER_get_int64.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-199ce79ee1e86ef231bdae9f03e08f3b"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ERR_get_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.ASN1_INTEGER_get_int64.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-e8b8006bdf9df50e781f47cfb443f715"><title>HISTORY</title>
     <para>
       ASN1_INTEGER_set_int64(), ASN1_INTEGER_get_int64(),
       ASN1_ENUMERATED_set_int64() and ASN1_ENUMERATED_get_int64() were

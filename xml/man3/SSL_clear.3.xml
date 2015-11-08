@@ -8,16 +8,16 @@
 <refpurpose>reset SSL object to allow another connection</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">int SSL_clear(SSL *ssl);</synopsis>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_clear(SSL *ssl);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_clear.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-83859847a1a74cf3ed5b38d7f7594ca7"><title>DESCRIPTION</title>
     <para>
       Reset <emphasis role="bold">ssl</emphasis> to allow another
       connection. All settings (method, ciphers, BIOs) are kept.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_clear.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-f664c14aa1d7d0ee894a61613dbdfe02"><title>NOTES</title>
     <para>
       SSL_clear is used to prepare an SSL object for a new connection.
       While all settings are kept, a side effect is the handling of the
@@ -43,7 +43,7 @@
       method's properties.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_clear.pod:WARNINGS"><title>WARNINGS</title>
+  <refsection xml:id="ID-cc21eac02e8e8334f058ae63f44b0846"><title>WARNINGS</title>
     <para>
       SSL_clear() resets the SSL object to allow for another connection.
       The reset operation however keeps several settings of the last
@@ -65,14 +65,14 @@
       </citerefentry> if session reuse is not desired).
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_clear.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-5343e7efbfee5470d25daa576cf81d64"><title>RETURN VALUES</title>
     <para>
       The following return values can occur:
     </para>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_clear.pod:0"/>0</term>
+          <term>0</term>
           <listitem>
             <para>
 	      The SSL_clear() operation could not be performed. Check the
@@ -81,7 +81,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_clear.pod:1"/>1</term>
+          <term>1</term>
           <listitem>
             <para>
 	      The SSL_clear() operation was successful.

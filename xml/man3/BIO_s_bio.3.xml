@@ -4,30 +4,28 @@
     <refentrytitle>BIO_s_bio.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>BIO_s_bio, BIO_make_bio_pair, BIO_destroy_bio_pair, BIO_shutdown_wr,
+    <refname>BIO_s_bio, BIO_make_bio_pair, BIO_destroy_bio_pair, BIO_shutdown_wr, 
 BIO_set_write_buf_size, BIO_get_write_buf_size, BIO_new_bio_pair,
 BIO_get_write_guarantee, BIO_ctrl_get_write_guarantee, BIO_get_read_request,
 BIO_ctrl_get_read_request, BIO_ctrl_reset_read_request</refname>
-<refpurpose>BIO pair BIO
-
-</refpurpose>
+<refpurpose>BIO pair BIO</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/bio.h&gt;</synopsis>
-<synopsis format="linespecific">BIO_METHOD *BIO_s_bio(void);</synopsis>
-<synopsis format="linespecific">#define BIO_make_bio_pair(b1,b2)   (int)BIO_ctrl(b1,BIO_C_MAKE_BIO_PAIR,0,b2)
+<synopsis>#include &lt;openssl/bio.h&gt;</synopsis>
+<synopsis>BIO_METHOD *BIO_s_bio(void);</synopsis>
+<synopsis>#define BIO_make_bio_pair(b1,b2)   (int)BIO_ctrl(b1,BIO_C_MAKE_BIO_PAIR,0,b2)
 #define BIO_destroy_bio_pair(b)    (int)BIO_ctrl(b,BIO_C_DESTROY_BIO_PAIR,0,NULL)</synopsis>
-<synopsis format="linespecific">#define BIO_shutdown_wr(b) (int)BIO_ctrl(b, BIO_C_SHUTDOWN_WR, 0, NULL)</synopsis>
-<synopsis format="linespecific">#define BIO_set_write_buf_size(b,size) (int)BIO_ctrl(b,BIO_C_SET_WRITE_BUF_SIZE,size,NULL)
+<synopsis>#define BIO_shutdown_wr(b) (int)BIO_ctrl(b, BIO_C_SHUTDOWN_WR, 0, NULL)</synopsis>
+<synopsis>#define BIO_set_write_buf_size(b,size) (int)BIO_ctrl(b,BIO_C_SET_WRITE_BUF_SIZE,size,NULL)
 #define BIO_get_write_buf_size(b,size) (size_t)BIO_ctrl(b,BIO_C_GET_WRITE_BUF_SIZE,size,NULL)</synopsis>
-<synopsis format="linespecific">int BIO_new_bio_pair(BIO **bio1, size_t writebuf1, BIO **bio2, size_t writebuf2);</synopsis>
-<synopsis format="linespecific">#define BIO_get_write_guarantee(b) (int)BIO_ctrl(b,BIO_C_GET_WRITE_GUARANTEE,0,NULL)
+<synopsis>int BIO_new_bio_pair(BIO **bio1, size_t writebuf1, BIO **bio2, size_t writebuf2);</synopsis>
+<synopsis>#define BIO_get_write_guarantee(b) (int)BIO_ctrl(b,BIO_C_GET_WRITE_GUARANTEE,0,NULL)
 size_t BIO_ctrl_get_write_guarantee(BIO *b);</synopsis>
-<synopsis format="linespecific">#define BIO_get_read_request(b)    (int)BIO_ctrl(b,BIO_C_GET_READ_REQUEST,0,NULL)
+<synopsis>#define BIO_get_read_request(b)    (int)BIO_ctrl(b,BIO_C_GET_READ_REQUEST,0,NULL)
 size_t BIO_ctrl_get_read_request(BIO *b);</synopsis>
-<synopsis format="linespecific">int BIO_ctrl_reset_read_request(BIO *b);</synopsis>
+<synopsis>int BIO_ctrl_reset_read_request(BIO *b);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_bio.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-7db5e8e172679a2e9bdc3ae7be7c96e9"><title>DESCRIPTION</title>
     <para>
       BIO_s_bio() returns the method for a BIO pair. A BIO pair is a pair
       of source/sink BIOs where data written to either half of the pair is
@@ -120,7 +118,7 @@ size_t BIO_ctrl_get_read_request(BIO *b);</synopsis>
       returned by BIO_get_read_request() to zero.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_bio.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-6bc380de9d990ece7ec1d0f584865540"><title>NOTES</title>
     <para>
       Both halves of a BIO pair should be freed. That is even if one half
       is implicit freed due to a BIO_free_all() or SSL_free() call the
@@ -145,7 +143,7 @@ size_t BIO_ctrl_get_read_request(BIO *b);</synopsis>
       sent!
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_bio.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-6ff61b2d84ca42f511f1f08c22d4e023"><title>RETURN VALUES</title>
     <para>
       BIO_new_bio_pair() returns 1 on success, with the new BIOs available
       in <emphasis role="bold">bio1</emphasis> and <emphasis role="bold">bio2</emphasis>, or 0 on failure, with NULL pointers
@@ -157,7 +155,7 @@ size_t BIO_ctrl_get_read_request(BIO *b);</synopsis>
       [XXXXX: More return values need to be added here]
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_bio.pod:EXAMPLE"><title>EXAMPLE</title>
+  <refsection xml:id="ID-0dc6e4cd894414c4b657419404e6e60e"><title>EXAMPLE</title>
     <para>
       The BIO pair can be used to have full control over the network access
       of an application. The application can call select() on the socket as
@@ -203,7 +201,7 @@ BIO_free(network_bio);
       be continued.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_bio.pod:WARNING"><title>WARNING</title>
+  <refsection xml:id="ID-7cf438a03f0a2ef0fdd4ea326862a09a"><title>WARNING</title>
     <para>
       As the data is buffered, SSL_operation() may return with a
       ERROR_SSL_WANT_READ condition, but there is still data in the write
@@ -213,7 +211,7 @@ BIO_free(network_bio);
       waiting for the data before being able to continue.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BIO_s_bio.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-0fae99e0bc0e88fb5cb085b6716f12dd"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>SSL_set_bio</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

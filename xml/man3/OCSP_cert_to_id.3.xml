@@ -9,22 +9,22 @@
     ID utility functions.
   </para>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ocsp.h&gt;</synopsis>
-<synopsis format="linespecific">OCSP_CERTID *OCSP_cert_to_id(const EVP_MD *dgst,
+<synopsis>#include &lt;openssl/ocsp.h&gt;</synopsis>
+<synopsis>OCSP_CERTID *OCSP_cert_to_id(const EVP_MD *dgst,
                              X509 *subject, X509 *issuer);</synopsis>
-<synopsis format="linespecific">OCSP_CERTID *OCSP_cert_id_new(const EVP_MD *dgst,
+<synopsis>OCSP_CERTID *OCSP_cert_id_new(const EVP_MD *dgst,
                               X509_NAME *issuerName,
                               ASN1_BIT_STRING *issuerKey,
                               ASN1_INTEGER *serialNumber);</synopsis>
-<synopsis format="linespecific">void OCSP_CERTID_free(OCSP_CERTID *id);</synopsis>
-<synopsis format="linespecific">int OCSP_id_issuer_cmp(OCSP_CERTID *a, OCSP_CERTID *b);
+<synopsis>void OCSP_CERTID_free(OCSP_CERTID *id);</synopsis>
+<synopsis>int OCSP_id_issuer_cmp(OCSP_CERTID *a, OCSP_CERTID *b);
 int OCSP_id_cmp(OCSP_CERTID *a, OCSP_CERTID *b);</synopsis>
-<synopsis format="linespecific">int OCSP_id_get0_info(ASN1_OCTET_STRING **piNameHash, ASN1_OBJECT **pmd,
+<synopsis>int OCSP_id_get0_info(ASN1_OCTET_STRING **piNameHash, ASN1_OBJECT **pmd,
                       ASN1_OCTET_STRING **pikeyHash,
                       ASN1_INTEGER **pserial, OCSP_CERTID *cid);</synopsis>
-<synopsis format="linespecific"/>
+<synopsis/>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_cert_to_id.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-4a2242d8e076cacfc6b94876d02fb809"><title>DESCRIPTION</title>
     <para>
       OCSP_cert_to_id() creates and returns a new <emphasis role="bold">OCSP_CERTID</emphasis> structure using message digest
       <emphasis role="bold">dgst</emphasis> for certificate <emphasis role="bold">subject</emphasis> with issuer <emphasis role="bold">issuer</emphasis>. If <emphasis role="bold">dgst</emphasis> is <emphasis role="bold">NULL</emphasis>
@@ -50,7 +50,7 @@ int OCSP_id_cmp(OCSP_CERTID *a, OCSP_CERTID *b);</synopsis>
       corresponding parameter can be set to <emphasis role="bold">NULL</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_cert_to_id.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-8104c6df59b2a39d0f86e28a09333811"><title>RETURN VALUES</title>
     <para>
       OCSP_cert_to_id() and OCSP_cert_id_new() return either a pointer to a
       valid <emphasis role="bold">OCSP_CERTID</emphasis> structure or
@@ -67,7 +67,7 @@ int OCSP_id_cmp(OCSP_CERTID *a, OCSP_CERTID *b);</synopsis>
       OCSP_id_get0_info() returns 1 for sucess and 0 for failure.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_cert_to_id.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-7b4f3d11a1cf3171a72f7dbf1720a259"><title>NOTES</title>
     <para>
       OCSP clients will typically only use OCSP_cert_to_id() or
       OCSP_cert_id_new(): the other functions are used by responder
@@ -79,7 +79,7 @@ int OCSP_id_cmp(OCSP_CERTID *a, OCSP_CERTID *b);</synopsis>
       application: they will be freed when the corresponding <emphasis role="bold">OCSP_CERTID</emphasis> structure is freed.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.OCSP_cert_to_id.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-703f86ef5e4c86d6eba95a3c4416b4fb"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>crypto</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

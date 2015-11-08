@@ -8,16 +8,16 @@
 <refpurpose>get result of peer certificate verification</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">long SSL_get_verify_result(const SSL *ssl);</synopsis>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>long SSL_get_verify_result(const SSL *ssl);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_verify_result.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-8c12ec2878e5d1ad18628d8d9313a8d6"><title>DESCRIPTION</title>
     <para>
       SSL_get_verify_result() returns the result of the verification of the
       X509 certificate presented by the peer, if any.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_verify_result.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-80c1f33300d82311da8137af19a3c45e"><title>NOTES</title>
     <para>
       SSL_get_verify_result() can only return one error code while the
       verification of a certificate can fail because of many reasons at the
@@ -29,7 +29,7 @@
       restored when a session is reused.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_verify_result.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-c61b9a99adfdd76925578f0b0f35964b"><title>BUGS</title>
     <para>
       If no peer certificate was presented, the returned result code is
       X509_V_OK. This is because no verification error occurred, it does
@@ -39,14 +39,14 @@
       <manvolnum>3</manvolnum> </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_verify_result.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-46a5a9ba10af38ff0c1ab24349283ace"><title>RETURN VALUES</title>
     <para>
       The following return values can currently occur:
     </para>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_verify_result.pod:X509_V_OK"/>X509_V_OK</term>
+          <term>X509_V_OK</term>
           <listitem>
             <para>
 	      The verification succeeded or no peer certificate was
@@ -55,7 +55,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_get_verify_result.pod:Any_other_value"/>Any other value</term>
+          <term>Any other value</term>
           <listitem>
             <para>
 	      Documented in <citerefentry>
@@ -67,7 +67,7 @@
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_verify_result.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-edde75e06dc148151f3f53b099eab959"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

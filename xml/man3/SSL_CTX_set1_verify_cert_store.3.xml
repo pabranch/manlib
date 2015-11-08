@@ -12,17 +12,17 @@ SSL_set0_chain_cert_store, SSL_set1_chain_cert_store</refname>
 verification or chain store</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">int SSL_CTX_set0_verify_cert_store(SSL_CTX *ctx, X509_STORE *st);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_CTX_set0_verify_cert_store(SSL_CTX *ctx, X509_STORE *st);
 int SSL_CTX_set1_verify_cert_store(SSL_CTX *ctx, X509_STORE *st);
 int SSL_CTX_set0_chain_cert_store(SSL_CTX *ctx, X509_STORE *st);
 int SSL_CTX_set1_chain_cert_store(SSL_CTX *ctx, X509_STORE *st);</synopsis>
-<synopsis format="linespecific">int SSL_set0_verify_cert_store(SSL_CTX *ctx, X509_STORE *st);
+<synopsis>int SSL_set0_verify_cert_store(SSL_CTX *ctx, X509_STORE *st);
 int SSL_set1_verify_cert_store(SSL_CTX *ctx, X509_STORE *st);
 int SSL_set0_chain_cert_store(SSL_CTX *ctx, X509_STORE *st);
 int SSL_set1_chain_cert_store(SSL_CTX *ctx, X509_STORE *st);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set1_verify_cert_store.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-a8eda32ae7376b26703d8fa74425107c"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_set0_verify_cert_store() and SSL_CTX_set1_verify_cert_store()
       set the certificate store used for certificate verification to
@@ -46,7 +46,7 @@ int SSL_set1_chain_cert_store(SSL_CTX *ctx, X509_STORE *st);</synopsis>
       not increment reference counts and the supplied store <emphasis role="bold">MUST NOT</emphasis> be freed after the operation.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set1_verify_cert_store.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-50c0600cb317b70a4b7ad42e93359d81"><title>NOTES</title>
     <para>
       The stores pointers associated with an SSL_CTX structure are copied
       to any SSL structures when SSL_new() is called. As a result SSL
@@ -70,7 +70,7 @@ int SSL_set1_chain_cert_store(SSL_CTX *ctx, X509_STORE *st);</synopsis>
       <manvolnum>3</manvolnum> </citerefentry> or <citerefentry>
       <refentrytitle>SSL_CTX_add_extra_chain_cert</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>) then automatic chain
-      building is disabled. 
+      building is disabled.
     </para>
     <para>
       If the mode <emphasis role="bold">SSL_MODE_NO_AUTO_CHAIN</emphasis>
@@ -82,12 +82,12 @@ int SSL_set1_chain_cert_store(SSL_CTX *ctx, X509_STORE *st);</synopsis>
       compatibility with previous versions of OpenSSL.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set1_verify_cert_store.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-33fd0bd4b927ba228d7e6db8b62e33ce"><title>RETURN VALUES</title>
     <para>
       All these functions return 1 for success and 0 for failure.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set1_verify_cert_store.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-96b973f576c2eb9fc1e749138e5c379e"><title>SEE ALSO</title>
     <para>
       <citerefentry>
       <refentrytitle>SSL_CTX_add_extra_chain_cert</refentrytitle>
@@ -114,7 +114,7 @@ int SSL_set1_chain_cert_store(SSL_CTX *ctx, X509_STORE *st);</synopsis>
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set1_verify_cert_store.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-738b2154ac8f0ca0d47515ad464b51ac"><title>HISTORY</title>
     <para>
       These functions were first added to OpenSSL 1.0.2.
     </para>

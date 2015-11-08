@@ -8,20 +8,20 @@
 <refpurpose>set a callback for session ticket processing</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/tls1.h&gt;</synopsis>
-<synopsis format="linespecific">long SSL_CTX_set_tlsext_ticket_key_cb(SSL_CTX sslctx,
+<synopsis>#include &lt;openssl/tls1.h&gt;</synopsis>
+<synopsis>long SSL_CTX_set_tlsext_ticket_key_cb(SSL_CTX sslctx,
        int (*cb)(SSL *s, unsigned char key_name[16],
                  unsigned char iv[EVP_MAX_IV_LENGTH],
                  EVP_CIPHER_CTX *ctx, HMAC_CTX *hctx, int enc));</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tlsext_ticket_key_cb.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-72070385400d15150e7552763c9fce5d"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_set_tlsext_ticket_key_cb() sets a callback function <emphasis role="italic">cb</emphasis> for handling session tickets for the ssl
       context <emphasis role="italic">sslctx</emphasis>. Session tickets,
       defined in RFC5077 provide an enhanced session resumption capability
       where the server implementation is not required to maintain per
       session state. It only applies to TLS and there is no SSLv3
-      implementation. 
+      implementation.
     </para>
     <para>
       The callback function <emphasis role="italic">cb</emphasis> will be
@@ -35,7 +35,7 @@
       common TLS ticket construction state according to RFC5077 Section 4
       such that per session state is unnecessary and a small set of
       cryptographic variables needs to be maintained by the callback
-      function implementation. 
+      function implementation.
     </para>
     <para>
       In order to reuse a session, a TLS client must send the a session
@@ -85,7 +85,7 @@
       <refentrytitle>EVP_DecryptInit_ex</refentrytitle> </citerefentry>.
       The <emphasis role="italic">hctx</emphasis> needs to be set using
       <citerefentry> <refentrytitle>HMAC_Init_ex</refentrytitle>
-      </citerefentry>. 
+      </citerefentry>.
     </para>
     <para>
       If the <emphasis role="italic">name</emphasis> is still valid but a
@@ -101,34 +101,34 @@
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tlsext_ticket_key_cb.pod:2"/>2</term>
+          <term>2</term>
           <listitem>
             <para>
 	      This indicates that the <emphasis role="italic">ctx</emphasis> and <emphasis role="italic">hctx</emphasis> have been set and the session
 	      can continue on those parameters. Additionally it indicates
 	      that the session ticket is in a renewal period and should be
 	      replaced. The OpenSSL library will call <emphasis role="italic">cb</emphasis> again with an enc argument of 1
-	      to set the new ticket (see RFC5077 3.3 paragraph 2). 
+	      to set the new ticket (see RFC5077 3.3 paragraph 2).
             </para>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tlsext_ticket_key_cb.pod:1"/>1</term>
+          <term>1</term>
           <listitem>
             <para>
 	      This indicates that the <emphasis role="italic">ctx</emphasis> and <emphasis role="italic">hctx</emphasis> have been set and the session
-	      can continue on those parameters. 
+	      can continue on those parameters.
             </para>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tlsext_ticket_key_cb.pod:0"/>0</term>
+          <term>0</term>
           <listitem>
             <para>
 	      This indicates that it was not possible to set/retrieve a
 	      session ticket and the SSL/TLS session will continue by by
 	      negotiating a set of cryptographic parameters or using the
-	      alternate SSL/TLS resumption mechanism, session ids. 
+	      alternate SSL/TLS resumption mechanism, session ids.
             </para>
             <para>
 	      If called with enc equal to 0 the library will call the
@@ -138,7 +138,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tlsext_ticket_key_cb.pod:less_than_0"/>less than 0</term>
+          <term>less than 0</term>
           <listitem>
             <para>
 	      This indicates an error.
@@ -148,7 +148,7 @@
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tlsext_ticket_key_cb.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-74353575d57775dbd80f2f03eed8ac4e"><title>NOTES</title>
     <para>
       Session resumption shortcuts the TLS so that the client certificate
       negotiation don't occur. It makes up for this by storing client
@@ -172,7 +172,7 @@
       keys.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tlsext_ticket_key_cb.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-1423aa6749d6ac37b534cb91e50eebcb"><title>EXAMPLES</title>
     <para>
       Reference Implementation:
       SSL_CTX_set_tlsext_ticket_key_cb(SSL,ssl_tlsext_ticket_key_cb); ....
@@ -225,12 +225,12 @@ return 1;
 
 </screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tlsext_ticket_key_cb.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-624e8b46f0b2e2c978a133eff4671fc4"><title>RETURN VALUES</title>
     <para>
       returns 0 to indicate the callback function was set.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tlsext_ticket_key_cb.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-a7ebd00182bca5204454ae880bdecacd"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -246,11 +246,6 @@ return 1;
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>SSL_CTX_set_session_id_context</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>,
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_tlsext_ticket_key_cb.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      This function was introduced in OpenSSL 0.9.8h
     </para>
   </refsection>
 </refentry>

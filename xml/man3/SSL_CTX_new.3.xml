@@ -8,16 +8,16 @@
 <refpurpose>create a new SSL_CTX object as framework for TLS/SSL enabled functions</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">SSL_CTX *SSL_CTX_new(const SSL_METHOD *method);</synopsis>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>SSL_CTX *SSL_CTX_new(const SSL_METHOD *method);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-17f25e7c09058367afb5bb56bb5d1717"><title>DESCRIPTION</title>
     <para>
       SSL_CTX_new() creates a new <emphasis role="bold">SSL_CTX</emphasis>
       object as framework to establish TLS/SSL enabled connections.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-58eeecd4fb86c7f869b40b7c21afe9b9"><title>NOTES</title>
     <para>
       The SSL_CTX object uses <emphasis role="bold">method</emphasis> as
       connection method. The methods exist in a generic type (for client
@@ -28,7 +28,7 @@
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:SSLv3_methodvoid_SSLv3_server_methodvoid_SSLv3_client_methodvoid"/>SSLv3_method(void), SSLv3_server_method(void), SSLv3_client_method(void)</term>
+          <term>SSLv3_method(void), SSLv3_server_method(void), SSLv3_client_method(void)</term>
           <listitem>
             <para>
 	      A TLS/SSL connection established with these methods will only
@@ -40,7 +40,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:TLSv1_methodvoid_TLSv1_server_methodvoid_TLSv1_client_methodvoid"/>TLSv1_method(void), TLSv1_server_method(void), TLSv1_client_method(void)</term>
+          <term>TLSv1_method(void), TLSv1_server_method(void), TLSv1_client_method(void)</term>
           <listitem>
             <para>
 	      A TLS/SSL connection established with these methods will only
@@ -52,7 +52,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:TLSv1_1_methodvoid_TLSv1_1_server_methodvoid_TLSv1_1_client_methodvoid"/>TLSv1_1_method(void), TLSv1_1_server_method(void), TLSv1_1_client_method(void)</term>
+          <term>TLSv1_1_method(void), TLSv1_1_server_method(void), TLSv1_1_client_method(void)</term>
           <listitem>
             <para>
 	      A TLS/SSL connection established with these methods will only
@@ -64,7 +64,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:TLSv1_2_methodvoid_TLSv1_2_server_methodvoid_TLSv1_2_client_methodvoid"/>TLSv1_2_method(void), TLSv1_2_server_method(void), TLSv1_2_client_method(void)</term>
+          <term>TLSv1_2_method(void), TLSv1_2_server_method(void), TLSv1_2_client_method(void)</term>
           <listitem>
             <para>
 	      A TLS/SSL connection established with these methods will only
@@ -76,7 +76,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:TLS_methodvoid_TLS_server_methodvoid_TLS_client_methodvoid"/>TLS_method(void), TLS_server_method(void), TLS_client_method(void)</term>
+          <term>TLS_method(void), TLS_server_method(void), TLS_client_method(void)</term>
           <listitem>
             <para>
 	      A TLS/SSL connection established with these methods may
@@ -93,7 +93,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:SSLv23_methodvoid_SSLv23_server_methodvoid_SSLv23_client_methodvoid"/>SSLv23_method(void), SSLv23_server_method(void), SSLv23_client_method(void)</term>
+          <term>SSLv23_method(void), SSLv23_server_method(void), SSLv23_client_method(void)</term>
           <listitem>
             <para>
 	      Use of these functions is deprecated. They have been replaced
@@ -110,7 +110,7 @@
       SSL_OP_NO_SSLv3, SSL_OP_NO_TLSv1, SSL_OP_NO_TLSv1_1 and
       SSL_OP_NO_TLSv1_2 options of the SSL_CTX_set_options() or
       SSL_set_options() functions. Using these options it is possible to
-      choose e.g. SSLv23_server_method() and be able to negotiate with all
+      choose e.g. TLS_server_method() and be able to negotiate with all
       possible clients, but to only allow newer protocols like TLSv1,
       TLSv1.1 or TLS v1.2.
     </para>
@@ -124,14 +124,14 @@
       its default values.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-c78783788a0f1c4b372f52d293356f2e"><title>RETURN VALUES</title>
     <para>
       The following return values can occur:
     </para>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:NULL"/>NULL</term>
+          <term>NULL</term>
           <listitem>
             <para>
 	      The creation of a new SSL_CTX object failed. Check the error
@@ -140,7 +140,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:Pointer_to_an_SSL_CTX_object"/>Pointer to an SSL_CTX object</term>
+          <term>Pointer to an SSL_CTX object</term>
           <listitem>
             <para>
 	      The return value points to an allocated SSL_CTX object.
@@ -150,7 +150,7 @@
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-a23b42e01647bd33b7dc822bad4214bf"><title>HISTORY</title>
     <para>
       SSLv2_method, SSLv2_server_method and SSLv2_client_method where
       removed in OpenSSL 1.1.0. SSLv23_method, SSLv23_server_method and
@@ -159,7 +159,7 @@
       1.1.0.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_new.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-e545d521238a4a7c41bc03d0e5f9cb87"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>SSL_CTX_free</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

@@ -9,15 +9,15 @@ X509_NAME_entry_count, X509_NAME_get_text_by_NID, X509_NAME_get_text_by_OBJ</ref
 <refpurpose>X509_NAME lookup and enumeration functions</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/x509.h&gt;</synopsis>
-<synopsis format="linespecific">int X509_NAME_get_index_by_NID(X509_NAME *name,int nid,int lastpos);
+<synopsis>#include &lt;openssl/x509.h&gt;</synopsis>
+<synopsis>int X509_NAME_get_index_by_NID(X509_NAME *name,int nid,int lastpos);
 int X509_NAME_get_index_by_OBJ(X509_NAME *name,ASN1_OBJECT *obj, int lastpos);</synopsis>
-<synopsis format="linespecific">int X509_NAME_entry_count(X509_NAME *name);
+<synopsis>int X509_NAME_entry_count(X509_NAME *name);
 X509_NAME_ENTRY *X509_NAME_get_entry(X509_NAME *name, int loc);</synopsis>
-<synopsis format="linespecific">int X509_NAME_get_text_by_NID(X509_NAME *name, int nid, char *buf,int len);
+<synopsis>int X509_NAME_get_text_by_NID(X509_NAME *name, int nid, char *buf,int len);
 int X509_NAME_get_text_by_OBJ(X509_NAME *name, ASN1_OBJECT *obj, char *buf,int len);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_get_index_by_NID.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-fc92e905217316b46ab64e79225348b4"><title>DESCRIPTION</title>
     <para>
       These functions allow an <emphasis role="bold">X509_NAME</emphasis>
       structure to be examined. The <emphasis role="bold">X509_NAME</emphasis> structure is the same as the
@@ -53,7 +53,7 @@ int X509_NAME_get_text_by_OBJ(X509_NAME *name, ASN1_OBJECT *obj, char *buf,int l
       null) is returned.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_get_index_by_NID.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-9b22d1ddae90b6ce389bc2258eb0992c"><title>NOTES</title>
     <para>
       X509_NAME_get_text_by_NID() and X509_NAME_get_text_by_OBJ() are
       legacy functions which have various limitations which make them of
@@ -82,7 +82,7 @@ int X509_NAME_get_text_by_OBJ(X509_NAME *name, ASN1_OBJECT *obj, char *buf,int l
       OBJ_nid2obj(nid) is not NULL.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_get_index_by_NID.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-60bbead31b5f50c368df4e364cb85415"><title>EXAMPLES</title>
     <para>
       Process all entries:
     </para>
@@ -110,7 +110,7 @@ for (;;)
        /* Do something with e */
        }</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_get_index_by_NID.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-c1a8786ce6598e113b79926cb27772ce"><title>RETURN VALUES</title>
     <para>
       X509_NAME_get_index_by_NID() and X509_NAME_get_index_by_OBJ() return
       the index of the next matching entry or -1 if not found.
@@ -125,7 +125,7 @@ for (;;)
       <emphasis role="bold">NULL</emphasis> if the index is invalid.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_get_index_by_NID.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-e264a53eb57ee741c6946567262f6ab4"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ERR_get_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -133,7 +133,7 @@ for (;;)
       </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_NAME_get_index_by_NID.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-4909b314832022c9684dd8db37bfe3d4"><title>HISTORY</title>
     <para>
       TBA
     </para>

@@ -8,15 +8,15 @@
 <refpurpose>get supported signature algorithms</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">int SSL_get_shared_sigalgs(SSL *s, int idx,
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_get_shared_sigalgs(SSL *s, int idx,
                            int *psign, int *phash, int *psignhash,
                            unsigned char *rsig, unsigned char *rhash);</synopsis>
-<synopsis format="linespecific">int SSL_get_sigalgs(SSL *s, int idx,
+<synopsis>int SSL_get_sigalgs(SSL *s, int idx,
                     int *psign, int *phash, int *psignhash,
                     unsigned char *rsig, unsigned char *rhash);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_shared_sigalgs.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-dd4e6fb5a1a57547419a35f4fef74bb7"><title>DESCRIPTION</title>
     <para>
       SSL_get_shared_sigalgs() returns information about the shared
       signature algorithms supported by peer <emphasis role="bold">s</emphasis>. The parameter <emphasis role="bold">idx</emphasis> indicates the index of the shared
@@ -33,14 +33,14 @@
       peer.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_shared_sigalgs.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-d127ebf8d4434f99f64d4184c871f0f6"><title>RETURN VALUES</title>
     <para>
       SSL_get_shared_sigalgs() and SSL_get_sigalgs() return the number of
       signature algorithms or <emphasis role="bold">0</emphasis> if the
       <emphasis role="bold">idx</emphasis> parameter is out of range.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_shared_sigalgs.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-9ceacf6f061aba99df885c92b1c0f323"><title>NOTES</title>
     <para>
       These functions are typically called for debugging purposes (to
       report the peer's preferences) or where an application wants finer
@@ -85,7 +85,7 @@
       combination (for example MD5 and DSA).
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_get_shared_sigalgs.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-0494bb48c11a3b0d9a954e812517e3e0"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>SSL_CTX_set_cert_cb</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

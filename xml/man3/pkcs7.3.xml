@@ -8,7 +8,7 @@
 <refpurpose>PKCS#7 utility</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific"><emphasis role="bold">openssl</emphasis> <emphasis role="bold">pkcs7</emphasis>
+<synopsis><emphasis role="bold">openssl</emphasis> <emphasis role="bold">pkcs7</emphasis>
 [<emphasis role="bold">-inform PEM|DER</emphasis>]
 [<emphasis role="bold">-outform PEM|DER</emphasis>]
 [<emphasis role="bold">-in filename</emphasis>]
@@ -18,17 +18,17 @@
 [<emphasis role="bold">-noout</emphasis>]
 [<emphasis role="bold">-engine id</emphasis>]</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.apps.pkcs7.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-b5652c77ac7095b491294ee5544f5323"><title>DESCRIPTION</title>
     <para>
       The <emphasis role="bold">pkcs7</emphasis> command processes PKCS#7
       files in DER or PEM format.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.pkcs7.pod:COMMAND_OPTIONS"><title>COMMAND OPTIONS</title>
+  <refsection xml:id="ID-dcfc974e11df7cbbbb23544f46361bd8"><title>COMMAND OPTIONS</title>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.pkcs7.pod:-inform_DERPEM"/><emphasis role="bold">-inform DER|PEM</emphasis></term>
+          <term><emphasis role="bold">-inform DER|PEM</emphasis></term>
           <listitem>
             <para>
 	      This specifies the input format. <emphasis role="bold">DER</emphasis> format is DER encoded PKCS#7 v1.5
@@ -39,17 +39,17 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.pkcs7.pod:-outform_DERPEM"/><emphasis role="bold">-outform DER|PEM</emphasis></term>
+          <term><emphasis role="bold">-outform DER|PEM</emphasis></term>
           <listitem>
             <para>
 	      This specifies the output format, the options have the same
 	      meaning as the <emphasis role="bold">-inform</emphasis>
-	      option. 
+	      option.
             </para>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.pkcs7.pod:-in_filename"/><emphasis role="bold">-in filename</emphasis></term>
+          <term><emphasis role="bold">-in filename</emphasis></term>
           <listitem>
             <para>
 	      This specifies the input filename to read from or standard
@@ -58,7 +58,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.pkcs7.pod:-out_filename"/><emphasis role="bold">-out filename</emphasis></term>
+          <term><emphasis role="bold">-out filename</emphasis></term>
           <listitem>
             <para>
 	      specifies the output filename to write to or standard output
@@ -67,7 +67,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.pkcs7.pod:-print_certs"/><emphasis role="bold">-print_certs</emphasis></term>
+          <term><emphasis role="bold">-print_certs</emphasis></term>
           <listitem>
             <para>
 	      prints out any certificates or CRLs contained in the file.
@@ -77,7 +77,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.pkcs7.pod:-text"/><emphasis role="bold">-text</emphasis></term>
+          <term><emphasis role="bold">-text</emphasis></term>
           <listitem>
             <para>
 	      prints out certificates details in full rather than just
@@ -86,7 +86,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.pkcs7.pod:-noout"/><emphasis role="bold">-noout</emphasis></term>
+          <term><emphasis role="bold">-noout</emphasis></term>
           <listitem>
             <para>
 	      don't output the encoded version of the PKCS#7 structure (or
@@ -96,7 +96,7 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.apps.pkcs7.pod:-engine_id"/><emphasis role="bold">-engine id</emphasis></term>
+          <term><emphasis role="bold">-engine id</emphasis></term>
           <listitem>
             <para>
 	      specifying an engine (by its unique <emphasis role="bold">id</emphasis> string) will cause <emphasis role="bold">pkcs7</emphasis> to attempt to obtain a
@@ -109,7 +109,7 @@
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.pkcs7.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-07c59664be99d48497ac4c4896dede13"><title>EXAMPLES</title>
     <para>
       Convert a PKCS#7 file from PEM to DER:
     </para>
@@ -119,7 +119,7 @@
     </para>
     <screen>openssl pkcs7 -in file.pem -print_certs -out certs.pem</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.pkcs7.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-bf7e969faa5ac5f9061c8622d83da3f6"><title>NOTES</title>
     <para>
       The PEM PKCS#7 format uses the header and footer lines:
     </para>
@@ -131,17 +131,17 @@
     <screen>-----BEGIN CERTIFICATE-----
 -----END CERTIFICATE-----</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.pkcs7.pod:RESTRICTIONS"><title>RESTRICTIONS</title>
+  <refsection xml:id="ID-16d071f41c83efa862dd32308a5844bf"><title>RESTRICTIONS</title>
     <para>
       There is no option to print out all the fields of a PKCS#7 file.
     </para>
     <para>
       This PKCS#7 routines only understand PKCS#7 v 1.5 as specified in
       RFC2315 they cannot currently parse, for example, the new CMS as
-      described in RFC2630. 
+      described in RFC2630.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.apps.pkcs7.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-85cfd8a6e2a118d6f0eed9e2273cb10b"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>crl2pkcs7</refentrytitle>
       <manvolnum>1</manvolnum> </citerefentry>

@@ -8,11 +8,11 @@
 <refpurpose>protect the RSA operation from timing attacks</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/rsa.h&gt;</synopsis>
-<synopsis format="linespecific">int RSA_blinding_on(RSA *rsa, BN_CTX *ctx);</synopsis>
-<synopsis format="linespecific">void RSA_blinding_off(RSA *rsa);</synopsis>
+<synopsis>#include &lt;openssl/rsa.h&gt;</synopsis>
+<synopsis>int RSA_blinding_on(RSA *rsa, BN_CTX *ctx);</synopsis>
+<synopsis>void RSA_blinding_off(RSA *rsa);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_blinding_on.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-d40a3445ab1f9117d37796ee11fb4b68"><title>DESCRIPTION</title>
     <para>
       RSA is vulnerable to timing attacks. In a setup where attackers can
       measure the time of RSA decryption or signature operations, blinding
@@ -29,7 +29,7 @@
       the blinding factor.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_blinding_on.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-4db13e3e7e3a54cef788e2cad33e6f9a"><title>RETURN VALUES</title>
     <para>
       RSA_blinding_on() returns 1 on success, and 0 if an error occurred.
     </para>
@@ -37,17 +37,12 @@
       RSA_blinding_off() returns no value.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_blinding_on.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-3075934c50c96317cd1f20e05dca0358"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>rsa</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>rand</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.RSA_blinding_on.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      RSA_blinding_on() and RSA_blinding_off() appeared in SSLeay 0.9.0.
     </para>
   </refsection>
 </refentry>

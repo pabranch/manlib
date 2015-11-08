@@ -8,9 +8,9 @@
 <refpurpose>Functions for performing mathematical operations and tests on <emphasis role="bold">EC_POINT</emphasis> objects.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ec.h&gt;
+<synopsis>#include &lt;openssl/ec.h&gt;
 #include &lt;openssl/bn.h&gt;</synopsis>
-<synopsis format="linespecific">int EC_POINT_add(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a, const EC_POINT *b, BN_CTX *ctx);
+<synopsis>int EC_POINT_add(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a, const EC_POINT *b, BN_CTX *ctx);
 int EC_POINT_dbl(const EC_GROUP *group, EC_POINT *r, const EC_POINT *a, BN_CTX *ctx);
 int EC_POINT_invert(const EC_GROUP *group, EC_POINT *a, BN_CTX *ctx);
 int EC_POINT_is_at_infinity(const EC_GROUP *group, const EC_POINT *p);
@@ -22,9 +22,9 @@ int EC_POINTs_mul(const EC_GROUP *group, EC_POINT *r, const BIGNUM *n, size_t nu
 int EC_POINT_mul(const EC_GROUP *group, EC_POINT *r, const BIGNUM *n, const EC_POINT *q, const BIGNUM *m, BN_CTX *ctx);
 int EC_GROUP_precompute_mult(EC_GROUP *group, BN_CTX *ctx);
 int EC_GROUP_have_precompute_mult(const EC_GROUP *group);</synopsis>
-<synopsis format="linespecific"/>
+<synopsis/>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.EC_POINT_add.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-8dc28985a6d8ff56455fa51d053560c5"><title>DESCRIPTION</title>
     <para>
       EC_POINT_add adds the two points <emphasis role="bold">a</emphasis>
       and <emphasis role="bold">b</emphasis> and places the result in
@@ -77,7 +77,7 @@ int EC_GROUP_have_precompute_mult(const EC_GROUP *group);</synopsis>
     </para>
     <screen></screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EC_POINT_add.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-b241a99850ddd4cc1ca50cb87d3c5666"><title>RETURN VALUES</title>
     <para>
       The following functions return 1 on success or 0 on error:
       EC_POINT_add, EC_POINT_dbl, EC_POINT_invert, EC_POINT_make_affine,
@@ -101,7 +101,7 @@ int EC_GROUP_have_precompute_mult(const EC_GROUP *group);</synopsis>
       done, or 0 if not.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EC_POINT_add.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-27fdda04a42c90412a837ac739118061"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>crypto</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

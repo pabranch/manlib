@@ -8,9 +8,9 @@
 <refpurpose>Functions for creating, destroying and manipulating <emphasis role="bold">EC_POINT</emphasis> objects.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ec.h&gt;
+<synopsis>#include &lt;openssl/ec.h&gt;
 #include &lt;openssl/bn.h&gt;</synopsis>
-<synopsis format="linespecific">EC_POINT *EC_POINT_new(const EC_GROUP *group);
+<synopsis>EC_POINT *EC_POINT_new(const EC_GROUP *group);
 void EC_POINT_free(EC_POINT *point);
 void EC_POINT_clear_free(EC_POINT *point);
 int EC_POINT_copy(EC_POINT *dst, const EC_POINT *src);
@@ -46,9 +46,9 @@ char *EC_POINT_point2hex(const EC_GROUP *, const EC_POINT *,
        point_conversion_form_t form, BN_CTX *);
 EC_POINT *EC_POINT_hex2point(const EC_GROUP *, const char *,
        EC_POINT *, BN_CTX *);</synopsis>
-<synopsis format="linespecific"/>
+<synopsis/>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.EC_POINT_new.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-097999a738a98890779e345ffb1efe07"><title>DESCRIPTION</title>
     <para>
       An EC_POINT represents a point on a curve. A new point is constructed
       by calling the function EC_POINT_new and providing the <emphasis role="bold">group</emphasis> object that the point relates to.
@@ -137,7 +137,7 @@ EC_POINT *EC_POINT_hex2point(const EC_GROUP *, const char *,
       free this memory with a subsequent call to OPENSSL_free().
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EC_POINT_new.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-e1d069aa5fb784bf739a2f450e383ac4"><title>RETURN VALUES</title>
     <para>
       EC_POINT_new and EC_POINT_dup return the newly allocated EC_POINT or
       NULL on error.
@@ -179,7 +179,7 @@ EC_POINT *EC_POINT_hex2point(const EC_GROUP *, const char *,
       NULL on error.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EC_POINT_new.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-b4fd19918e02a69711874cfea16e32f2"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>crypto</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

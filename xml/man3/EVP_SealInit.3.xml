@@ -8,8 +8,8 @@
 <refpurpose>EVP envelope encryption</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/evp.h&gt;</synopsis>
-<synopsis format="linespecific">int EVP_SealInit(EVP_CIPHER_CTX *ctx, const EVP_CIPHER *type,
+<synopsis>#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis>int EVP_SealInit(EVP_CIPHER_CTX *ctx, const EVP_CIPHER *type,
                  unsigned char **ek, int *ekl, unsigned char *iv,
                  EVP_PKEY **pubk, int npubk);
 int EVP_SealUpdate(EVP_CIPHER_CTX *ctx, unsigned char *out,
@@ -17,7 +17,7 @@ int EVP_SealUpdate(EVP_CIPHER_CTX *ctx, unsigned char *out,
 int EVP_SealFinal(EVP_CIPHER_CTX *ctx, unsigned char *out,
         int *outl);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_SealInit.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-8b695cbb08c9345c2532a46ffc1b59d8"><title>DESCRIPTION</title>
     <para>
       The EVP envelope routines are a high level interface to envelope
       encryption. They generate a random key and IV (if required) then
@@ -49,10 +49,10 @@ int EVP_SealFinal(EVP_CIPHER_CTX *ctx, unsigned char *out,
       as the EVP_EncryptUpdate() and EVP_EncryptFinal() routines, as
       documented on the <citerefentry>
       <refentrytitle>EVP_EncryptInit</refentrytitle>
-      <manvolnum>3</manvolnum> </citerefentry> manual page. 
+      <manvolnum>3</manvolnum> </citerefentry> manual page.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_SealInit.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-9a7d84982bafa184c6a45822676ebf26"><title>RETURN VALUES</title>
     <para>
       EVP_SealInit() returns 0 on error or <emphasis role="bold">npubk</emphasis> if successful.
     </para>
@@ -61,7 +61,7 @@ int EVP_SealFinal(EVP_CIPHER_CTX *ctx, unsigned char *out,
       failure.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_SealInit.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-12dcf8aac6e161a8bbc690e8b0a6aa08"><title>NOTES</title>
     <para>
       Because a random secret key is generated the random number generator
       must be seeded before calling EVP_SealInit().
@@ -83,7 +83,7 @@ int EVP_SealFinal(EVP_CIPHER_CTX *ctx, unsigned char *out,
       parameters) it should be called again with <emphasis role="bold">type</emphasis> set to NULL.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_SealInit.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-845c00fc157870a69bd374431ffa73ed"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>evp</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -93,11 +93,6 @@ int EVP_SealFinal(EVP_CIPHER_CTX *ctx, unsigned char *out,
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>EVP_OpenInit</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EVP_SealInit.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      EVP_SealFinal() did not return a value before OpenSSL 0.9.7.
     </para>
   </refsection>
 </refentry>

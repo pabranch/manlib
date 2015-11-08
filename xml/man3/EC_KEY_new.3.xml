@@ -8,9 +8,9 @@
 <refpurpose>Functions for creating, destroying and manipulating <emphasis role="bold">EC_KEY</emphasis> objects.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ec.h&gt;
+<synopsis>#include &lt;openssl/ec.h&gt;
 #include &lt;openssl/bn.h&gt;</synopsis>
-<synopsis format="linespecific">EC_KEY *EC_KEY_new(void);
+<synopsis>EC_KEY *EC_KEY_new(void);
 int EC_KEY_get_flags(const EC_KEY *key);
 void EC_KEY_set_flags(EC_KEY *key, int flags);
 void EC_KEY_clear_flags(EC_KEY *key, int flags);
@@ -37,7 +37,7 @@ int EC_KEY_generate_key(EC_KEY *key);
 int EC_KEY_check_key(const EC_KEY *key);
 int EC_KEY_set_public_key_affine_coordinates(EC_KEY *key, BIGNUM *x, BIGNUM *y);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.EC_KEY_new.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-a2ac6fb7e1d469eb58c431b33f9684c6"><title>DESCRIPTION</title>
     <para>
       An EC_KEY represents a public key and (optionally) an associated
       private key. A new EC_KEY (with no associated curve) can be
@@ -51,7 +51,7 @@ int EC_KEY_set_public_key_affine_coordinates(EC_KEY *key, BIGNUM *x, BIGNUM *y);
       curve. Refer to <citerefentry>
       <refentrytitle>EC_GROUP_new</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry> for a description of curve names. This function
-      simply wraps calls to EC_KEY_new and EC_GROUP_new_by_curve_name. 
+      simply wraps calls to EC_KEY_new and EC_GROUP_new_by_curve_name.
     </para>
     <para>
       Calling EC_KEY_free decrements the reference count for the EC_KEY
@@ -109,12 +109,12 @@ int EC_KEY_set_public_key_affine_coordinates(EC_KEY *key, BIGNUM *x, BIGNUM *y);
       the caller to associate arbitrary additional data specific to the
       elliptic curve scheme being used with the EC_KEY object. This data is
       treated as a "black box" by the ec library. The data to be stored by
-      EC_KEY_insert_key_method_data is provided in the <emphasis role="bold">data</emphasis> parameter, which must have have
-      associated functions for duplicating, freeing and "clear_freeing" the
-      data item. If a subsequent EC_KEY_get_key_method_data call is issued,
-      the functions for duplicating, freeing and "clear_freeing" the data
-      item must be provided again, and they must be the same as they were
-      when the data item was inserted.
+      EC_KEY_insert_key_method_data is provided in the <emphasis role="bold">data</emphasis> parameter, which must have associated
+      functions for duplicating, freeing and "clear_freeing" the data item.
+      If a subsequent EC_KEY_get_key_method_data call is issued, the
+      functions for duplicating, freeing and "clear_freeing" the data item
+      must be provided again, and they must be the same as they were when
+      the data item was inserted.
     </para>
     <para>
       EC_KEY_set_flags sets the flags in the <emphasis role="bold">flags</emphasis> parameter on the EC_KEY object. Any
@@ -140,7 +140,7 @@ int EC_KEY_set_public_key_affine_coordinates(EC_KEY *key, BIGNUM *x, BIGNUM *y);
     </para>
     <screen></screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EC_KEY_new.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-8feff9d03037074a737cb848404d0a29"><title>RETURN VALUES</title>
     <para>
       EC_KEY_new, EC_KEY_new_by_curve_name and EC_KEY_dup return a pointer
       to the newly created EC_KEY object, or NULL on error.
@@ -171,7 +171,7 @@ int EC_KEY_set_public_key_affine_coordinates(EC_KEY *key, BIGNUM *x, BIGNUM *y);
     </para>
     <screen></screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EC_KEY_new.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-1588f77a9847e8f0cf3b7c1e92741dd0"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>crypto</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

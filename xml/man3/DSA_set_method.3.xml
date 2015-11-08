@@ -9,15 +9,15 @@ DSA_set_method, DSA_new_method, DSA_OpenSSL</refname>
 <refpurpose>select DSA method</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/dsa.h&gt;
+<synopsis>#include &lt;openssl/dsa.h&gt;
 #include &lt;openssl/engine.h&gt;</synopsis>
-<synopsis format="linespecific">void DSA_set_default_method(const DSA_METHOD *meth);</synopsis>
-<synopsis format="linespecific">const DSA_METHOD *DSA_get_default_method(void);</synopsis>
-<synopsis format="linespecific">int DSA_set_method(DSA *dsa, const DSA_METHOD *meth);</synopsis>
-<synopsis format="linespecific">DSA *DSA_new_method(ENGINE *engine);</synopsis>
-<synopsis format="linespecific">DSA_METHOD *DSA_OpenSSL(void);</synopsis>
+<synopsis>void DSA_set_default_method(const DSA_METHOD *meth);</synopsis>
+<synopsis>const DSA_METHOD *DSA_get_default_method(void);</synopsis>
+<synopsis>int DSA_set_method(DSA *dsa, const DSA_METHOD *meth);</synopsis>
+<synopsis>DSA *DSA_new_method(ENGINE *engine);</synopsis>
+<synopsis>DSA_METHOD *DSA_OpenSSL(void);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.DSA_set_method.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-2a01b0e873724fc53b48cc830f0926f8"><title>DESCRIPTION</title>
     <para>
       A <emphasis role="bold">DSA_METHOD</emphasis> specifies the functions
       that OpenSSL uses for DSA operations. By modifying the method,
@@ -40,7 +40,7 @@ DSA_set_method, DSA_new_method, DSA_OpenSSL</refname>
       DSA_get_default_method() returns a pointer to the current default
       DSA_METHOD. However, the meaningfulness of this result is dependent
       on whether the ENGINE API is being used, so this function is no
-      longer recommended. 
+      longer recommended.
     </para>
     <para>
       DSA_set_method() selects <emphasis role="bold">meth</emphasis> to
@@ -61,7 +61,7 @@ DSA_set_method, DSA_new_method, DSA_OpenSSL</refname>
       used.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.DSA_set_method.pod:THE_DSA_METHOD_STRUCTURE"><title>THE DSA_METHOD STRUCTURE</title>
+  <refsection xml:id="ID-e7afc53e660590c92db983bd0df75443"><title>THE DSA_METHOD STRUCTURE</title>
     <para>
       struct { /* name of the implementation */ const char *name;
     </para>
@@ -100,7 +100,7 @@ char *app_data; /* ?? */
 
 } DSA_METHOD;</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.DSA_set_method.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-8a010a8edf29a2b0b8f46c7244d0ca3a"><title>RETURN VALUES</title>
     <para>
       DSA_OpenSSL() and DSA_get_default_method() return pointers to the
       respective <emphasis role="bold">DSA_METHOD</emphasis>s.
@@ -121,42 +121,12 @@ char *app_data; /* ?? */
       pointer to the newly allocated structure.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.DSA_set_method.pod:NOTES"><title>NOTES</title>
-    <para>
-      As of version 0.9.7, DSA_METHOD implementations are grouped together
-      with other algorithmic APIs (eg. RSA_METHOD, EVP_CIPHER, etc) in
-      <emphasis role="bold">ENGINE</emphasis> modules. If a default ENGINE
-      is specified for DSA functionality using an ENGINE API function, that
-      will override any DSA defaults set using the DSA API (ie.
-      DSA_set_default_method()). For this reason, the ENGINE API is the
-      recommended way to control default implementations for use in DSA and
-      other cryptographic algorithms.
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.DSA_set_method.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-74ecb9e45faa4e8b1653def766776751"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>dsa</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>DSA_new</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.DSA_set_method.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      DSA_set_default_method(), DSA_get_default_method(), DSA_set_method(),
-      DSA_new_method() and DSA_OpenSSL() were added in OpenSSL 0.9.4.
-    </para>
-    <para>
-      DSA_set_default_openssl_method() and DSA_get_default_openssl_method()
-      replaced DSA_set_default_method() and DSA_get_default_method()
-      respectively, and DSA_set_method() and DSA_new_method() were altered
-      to use <emphasis role="bold">ENGINE</emphasis>s rather than <emphasis role="bold">DSA_METHOD</emphasis>s during development of the engine
-      version of OpenSSL 0.9.6. For 0.9.7, the handling of defaults in the
-      ENGINE API was restructured so that this change was reversed, and
-      behaviour of the other functions resembled more closely the previous
-      behaviour. The behaviour of defaults in the ENGINE API now
-      transparently overrides the behaviour of defaults in the DSA API
-      without requiring changing these function prototypes.
     </para>
   </refsection>
 </refentry>

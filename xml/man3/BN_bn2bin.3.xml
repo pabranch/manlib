@@ -9,19 +9,19 @@ BN_print, BN_print_fp, BN_bn2mpi, BN_mpi2bn</refname>
 <refpurpose>format conversions</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/bn.h&gt;</synopsis>
-<synopsis format="linespecific">int BN_bn2bin(const BIGNUM *a, unsigned char *to);
+<synopsis>#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis>int BN_bn2bin(const BIGNUM *a, unsigned char *to);
 BIGNUM *BN_bin2bn(const unsigned char *s, int len, BIGNUM *ret);</synopsis>
-<synopsis format="linespecific">char *BN_bn2hex(const BIGNUM *a);
+<synopsis>char *BN_bn2hex(const BIGNUM *a);
 char *BN_bn2dec(const BIGNUM *a);
 int BN_hex2bn(BIGNUM **a, const char *str);
 int BN_dec2bn(BIGNUM **a, const char *str);</synopsis>
-<synopsis format="linespecific">int BN_print(BIO *fp, const BIGNUM *a);
+<synopsis>int BN_print(BIO *fp, const BIGNUM *a);
 int BN_print_fp(FILE *fp, const BIGNUM *a);</synopsis>
-<synopsis format="linespecific">int BN_bn2mpi(const BIGNUM *a, unsigned char *to);
+<synopsis>int BN_bn2mpi(const BIGNUM *a, unsigned char *to);
 BIGNUM *BN_mpi2bn(unsigned char *s, int len, BIGNUM *ret);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_bn2bin.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-b7e55d6d8d813766a4c9201e23703564"><title>DESCRIPTION</title>
     <para>
       BN_bn2bin() converts the absolute value of <emphasis role="bold">a</emphasis> into big-endian form and stores it at
       <emphasis role="bold">to</emphasis>. <emphasis role="bold">to</emphasis> must point to BN_num_bytes(<emphasis role="bold">a</emphasis>) bytes of memory.
@@ -71,7 +71,7 @@ BIGNUM *BN_mpi2bn(unsigned char *s, int len, BIGNUM *ret);</synopsis>
       is NULL.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_bn2bin.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-1292fca0123e16ae83d4df0054620dfb"><title>RETURN VALUES</title>
     <para>
       BN_bn2bin() returns the length of the big-endian number placed at
       <emphasis role="bold">to</emphasis>. BN_bin2bn() returns the
@@ -96,7 +96,7 @@ BIGNUM *BN_mpi2bn(unsigned char *s, int len, BIGNUM *ret);</synopsis>
       </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_bn2bin.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-631806693987275623ebff3999b49bcb"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>bn</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -108,16 +108,6 @@ BIGNUM *BN_mpi2bn(unsigned char *s, int len, BIGNUM *ret);</synopsis>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>BN_num_bytes</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_bn2bin.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      BN_bn2bin(), BN_bin2bn(), BN_print_fp() and BN_print() are available
-      in all versions of SSLeay and OpenSSL.
-    </para>
-    <para>
-      BN_bn2hex(), BN_bn2dec(), BN_hex2bn(), BN_dec2bn(), BN_bn2mpi() and
-      BN_mpi2bn() were added in SSLeay 0.9.0.
     </para>
   </refsection>
 </refentry>

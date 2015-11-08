@@ -8,14 +8,14 @@
 <refpurpose>obtain state information TLS/SSL I/O operation</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">int SSL_want(const SSL *ssl);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_want(const SSL *ssl);
 int SSL_want_nothing(const SSL *ssl);
 int SSL_want_read(const SSL *ssl);
 int SSL_want_write(const SSL *ssl);
 int SSL_want_x509_lookup(const SSL *ssl);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_want.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-3190a997ce3274826b187a311c504d32"><title>DESCRIPTION</title>
     <para>
       SSL_want() returns state information for the SSL object <emphasis role="bold">ssl</emphasis>.
     </para>
@@ -24,7 +24,7 @@ int SSL_want_x509_lookup(const SSL *ssl);</synopsis>
       returned by SSL_want().
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_want.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-bfdcd13f0de1b37d1841550c4d58a878"><title>NOTES</title>
     <para>
       SSL_want() examines the internal state information of the SSL object.
       Its return values are similar to that of <citerefentry>
@@ -46,14 +46,14 @@ int SSL_want_x509_lookup(const SSL *ssl);</synopsis>
       </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_want.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-d601ba8c71fcd411cfa25dfc906a7b77"><title>RETURN VALUES</title>
     <para>
       The following return values can currently occur for SSL_want():
     </para>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_want.pod:SSL_NOTHING"/>SSL_NOTHING</term>
+          <term>SSL_NOTHING</term>
           <listitem>
             <para>
 	      There is no data to be written or to be read.
@@ -61,7 +61,7 @@ int SSL_want_x509_lookup(const SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_want.pod:SSL_WRITING"/>SSL_WRITING</term>
+          <term>SSL_WRITING</term>
           <listitem>
             <para>
 	      There are data in the SSL buffer that must be written to the
@@ -74,7 +74,7 @@ int SSL_want_x509_lookup(const SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_want.pod:SSL_READING"/>SSL_READING</term>
+          <term>SSL_READING</term>
           <listitem>
             <para>
 	      More data must be read from the underlying <emphasis role="bold">BIO</emphasis> layer in order to complete the
@@ -86,7 +86,7 @@ int SSL_want_x509_lookup(const SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_want.pod:SSL_X509_LOOKUP"/>SSL_X509_LOOKUP</term>
+          <term>SSL_X509_LOOKUP</term>
           <listitem>
             <para>
 	      The operation did not complete because an application
@@ -106,7 +106,7 @@ int SSL_want_x509_lookup(const SSL *ssl);</synopsis>
       true or 0 otherwise.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_want.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-e743680f5cd5c4f852795571ca29930e"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

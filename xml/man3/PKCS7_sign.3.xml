@@ -8,10 +8,10 @@
 <refpurpose>create a PKCS#7 signedData structure</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/pkcs7.h&gt;</synopsis>
-<synopsis format="linespecific">PKCS7 *PKCS7_sign(X509 *signcert, EVP_PKEY *pkey, STACK_OF(X509) *certs, BIO *data, int flags);</synopsis>
+<synopsis>#include &lt;openssl/pkcs7.h&gt;</synopsis>
+<synopsis>PKCS7 *PKCS7_sign(X509 *signcert, EVP_PKEY *pkey, STACK_OF(X509) *certs, BIO *data, int flags);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_sign.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-67a335566587e9ab804e64f626d3e4f7"><title>DESCRIPTION</title>
     <para>
       PKCS7_sign() creates and returns a PKCS#7 signedData structure.
       <emphasis role="bold">signcert</emphasis> is the certificate to sign
@@ -27,7 +27,7 @@
       <emphasis role="bold">flags</emphasis> is an optional set of flags.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_sign.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-21d3aeaa72fd54c6e462f5872a275a94"><title>NOTES</title>
     <para>
       Any of the following flags (ored together) can be passed in the
       <emphasis role="bold">flags</emphasis> parameter.
@@ -88,7 +88,7 @@
     </para>
     <screen></screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_sign.pod:NOTES_i1"><title>NOTES</title>
+  <refsection xml:id="ID-21d3aeaa72fd54c6e462f5872a275a94"><title>NOTES</title>
     <para>
       If the flag <emphasis role="bold">PKCS7_STREAM</emphasis> is set the
       returned <emphasis role="bold">PKCS7</emphasis> structure is
@@ -109,34 +109,32 @@
       both RSA and DSA keys.
     </para>
     <para>
-      In OpenSSL 1.0.0 the <emphasis role="bold">certs</emphasis>,
-      <emphasis role="bold">signcert</emphasis> and <emphasis role="bold">pkey</emphasis> parameters can all be <emphasis role="bold">NULL</emphasis> if the <emphasis role="bold">PKCS7_PARTIAL</emphasis> flag is set. One or more signers
+      The <emphasis role="bold">certs</emphasis>, <emphasis role="bold">signcert</emphasis> and <emphasis role="bold">pkey</emphasis> parameters can all be <emphasis role="bold">NULL</emphasis> if the <emphasis role="bold">PKCS7_PARTIAL</emphasis> flag is set. One or more signers
       can be added using the function <emphasis role="bold">PKCS7_sign_add_signer()</emphasis>. <emphasis role="bold">PKCS7_final()</emphasis> must also be called to finalize
       the structure if streaming is not enabled. Alternative signing
       digests can also be specified using this method.
     </para>
     <para>
-      In OpenSSL 1.0.0 if <emphasis role="bold">signcert</emphasis> and
-      <emphasis role="bold">pkey</emphasis> are NULL then a certificates
-      only PKCS#7 structure is output.
+      If <emphasis role="bold">signcert</emphasis> and <emphasis role="bold">pkey</emphasis> are NULL then a certificates only PKCS#7
+      structure is output.
     </para>
     <para>
       In versions of OpenSSL before 1.0.0 the <emphasis role="bold">signcert</emphasis> and <emphasis role="bold">pkey</emphasis> parameters must <emphasis role="bold">NOT</emphasis> be NULL.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_sign.pod:BUGS"><title>BUGS</title>
+  <refsection xml:id="ID-1a7849616b21402ddc970ef3c7e68c71"><title>BUGS</title>
     <para>
       Some advanced attributes such as counter signatures are not
       supported.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_sign.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-908c927da17fac4ede366e75f7d82df5"><title>RETURN VALUES</title>
     <para>
       PKCS7_sign() returns either a valid PKCS7 structure or NULL if an
       error occurred.  The error can be obtained from ERR_get_error(3).
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_sign.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-c616de5437b1e44b9ad3dcfa0b8beeda"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ERR_get_error</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -144,13 +142,10 @@
       </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.PKCS7_sign.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-3f33623d76433ad1b5530c2dfae5cb62"><title>HISTORY</title>
     <para>
-      PKCS7_sign() was added to OpenSSL 0.9.5
-    </para>
-    <para>
-      The <emphasis role="bold">PKCS7_PARTIAL</emphasis> flag was added in
-      OpenSSL 1.0.0
+      The <emphasis role="bold">PKCS7_PARTIAL</emphasis> flag, and the
+      ability for <emphasis role="bold">certs</emphasis>, <emphasis role="bold">signcert</emphasis>, and <emphasis role="bold">pkey</emphasis> parameters to be <emphasis role="bold">NULL</emphasis> to be was added in OpenSSL 1.0.0
     </para>
     <para>
       The <emphasis role="bold">PKCS7_STREAM</emphasis> flag was added in

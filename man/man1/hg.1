@@ -4765,8 +4765,21 @@ variables are not overridden.
 .B HGPLAINEXCEPT
 .
 This is a comma\-separated list of features to preserve when
-HGPLAIN is enabled. Currently the only value supported is "i18n",
-which preserves internationalization in plain mode.
+HGPLAIN is enabled. Currently the following values are supported:
+.INDENT 7.0
+.TP
+.B \fBalias\fP
+.sp
+Don\(aqt remove aliases.
+.TP
+.B \fBi18n\fP
+.sp
+Preserve internationalization.
+.TP
+.B \fBrevsetalias\fP
+.sp
+Don\(aqt remove revset aliases.
+.UNINDENT
 .sp
 Setting HGPLAINEXCEPT to anything (even an empty string) will
 enable plain mode.
@@ -5903,7 +5916,7 @@ rendering the page.
 .sp
 Many commands take a \fB{revision}\fP URL parameter. This defines the
 changeset to operate on. This is commonly specified as the short,
-12 digit hexidecimal abbreviation for the full 40 character unique
+12 digit hexadecimal abbreviation for the full 40 character unique
 revision identifier. However, any value described by
 \%\fBhg help revisions\fP\: typically works.
 .SS Commands and URLs
@@ -5994,7 +6007,7 @@ Show how a file changed in a particular commit.
 .sp
 The \fBfilediff\fP template is rendered.
 .sp
-This hander is registered under both the \fB/diff\fP and \fB/filediff\fP
+This handler is registered under both the \fB/diff\fP and \fB/filediff\fP
 paths. \fB/diff\fP is used in modern code.
 .SS /file/{revision}[/{path}]
 .sp
@@ -6017,7 +6030,7 @@ Show how a file changed in a particular commit.
 .sp
 The \fBfilediff\fP template is rendered.
 .sp
-This hander is registered under both the \fB/diff\fP and \fB/filediff\fP
+This handler is registered under both the \fB/diff\fP and \fB/filediff\fP
 paths. \fB/diff\fP is used in modern code.
 .SS /filelog/{revision}/{path}
 .sp
@@ -8852,7 +8865,7 @@ Typical uses for censor are due to security or legal requirements, including:
 .sp
 .nf
 .ft C
-* Passwords, private keys, crytographic material
+* Passwords, private keys, cryptographic material
 * Licensed data/code/libraries for which the license has expired
 * Personally Identifiable Information or other private data
 .ft P

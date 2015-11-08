@@ -12,19 +12,19 @@ X509_CRL_add0_revoked, X509_CRL_sort</refname>
 functions.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/x509.h&gt;</synopsis>
-<synopsis format="linespecific">int X509_CRL_get0_by_serial(X509_CRL *crl,
+<synopsis>#include &lt;openssl/x509.h&gt;</synopsis>
+<synopsis>int X509_CRL_get0_by_serial(X509_CRL *crl,
                             X509_REVOKED **ret, ASN1_INTEGER *serial);
 int X509_CRL_get0_by_cert(X509_CRL *crl, X509_REVOKED **ret, X509 *x);</synopsis>
-<synopsis format="linespecific">STACK_OF(X509_REVOKED) *X509_CRL_get_REVOKED(X509_CRL *crl);</synopsis>
-<synopsis format="linespecific">ASN1_INTEGER *X509_REVOKED_get0_serialNumber(X509_REVOKED *r);
+<synopsis>STACK_OF(X509_REVOKED) *X509_CRL_get_REVOKED(X509_CRL *crl);</synopsis>
+<synopsis>ASN1_INTEGER *X509_REVOKED_get0_serialNumber(X509_REVOKED *r);
 ASN1_TIME *X509_REVOKED_get0_revocationDate(X509_REVOKED *r);</synopsis>
-<synopsis format="linespecific">int X509_REVOKED_set_serialNumber(X509_REVOKED *r, ASN1_INTEGER *serial);
+<synopsis>int X509_REVOKED_set_serialNumber(X509_REVOKED *r, ASN1_INTEGER *serial);
 int X509_REVOKED_set_revocationDate(X509_REVOKED *r, ASN1_TIME *tm);</synopsis>
-<synopsis format="linespecific">int X509_CRL_add0_revoked(X509_CRL *crl, X509_REVOKED *rev);</synopsis>
-<synopsis format="linespecific">int X509_CRL_sort(X509_CRL *crl);</synopsis>
+<synopsis>int X509_CRL_add0_revoked(X509_CRL *crl, X509_REVOKED *rev);</synopsis>
+<synopsis>int X509_CRL_sort(X509_CRL *crl);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_CRL_get0_by_serial.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-76c862b6781d181c8434b728e61d2ddc"><title>DESCRIPTION</title>
     <para>
       X509_CRL_get0_by_serial() attempts to find a revoked entry in
       <emphasis role="bold">crl</emphasis> for serial number <emphasis role="bold">serial</emphasis>. If it is successful it sets <emphasis role="bold">*ret</emphasis> to the internal pointer of the matching
@@ -66,14 +66,14 @@ int X509_REVOKED_set_revocationDate(X509_REVOKED *r, ASN1_TIME *tm);</synopsis>
       X509_CRL_sort() sorts the revoked entries of <emphasis role="bold">crl</emphasis> into ascending serial number order.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_CRL_get0_by_serial.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-ad01c47f02aa89606554fc5966527263"><title>NOTES</title>
     <para>
       Applications can determine the number of revoked entries returned by
       X509_CRL_get_revoked() using sk_X509_REVOKED_num() and examine each
       one in turn using sk_X509_REVOKED_value().
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_CRL_get0_by_serial.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-e4eaac5a1f6538663a0fd87cbb439ea5"><title>RETURN VALUES</title>
     <para>
       X509_CRL_get0_by_serial(), X509_CRL_get0_by_cert(),
       X509_REVOKED_set_serialNumber(), X509_REVOKED_set_revocationDate(),
@@ -90,7 +90,7 @@ int X509_REVOKED_set_revocationDate(X509_REVOKED *r, ASN1_TIME *tm);</synopsis>
       X509_CRL_get_REVOKED() returns a STACK of revoked entries.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_CRL_get0_by_serial.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-24c13d83130ed9e626b9736a80636842"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>d2i_X509</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

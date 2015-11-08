@@ -8,8 +8,8 @@
 <refpurpose>Functions for decoding and encoding ASN1 representations of elliptic curve entities</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ec.h&gt;</synopsis>
-<synopsis format="linespecific">EC_GROUP *d2i_ECPKParameters(EC_GROUP **px, const unsigned char **in, long len);
+<synopsis>#include &lt;openssl/ec.h&gt;</synopsis>
+<synopsis>EC_GROUP *d2i_ECPKParameters(EC_GROUP **px, const unsigned char **in, long len);
 int i2d_ECPKParameters(const EC_GROUP *x, unsigned char **out);
 #define d2i_ECPKParameters_bio(bp,x) ASN1_d2i_bio_of(EC_GROUP,NULL,d2i_ECPKParameters,bp,x)
 #define i2d_ECPKParameters_bio(bp,x) ASN1_i2d_bio_of_const(EC_GROUP,i2d_ECPKParameters,bp,x)
@@ -19,9 +19,9 @@ int i2d_ECPKParameters(const EC_GROUP *x, unsigned char **out);
                (unsigned char *)(x))
 int     ECPKParameters_print(BIO *bp, const EC_GROUP *x, int off);
 int     ECPKParameters_print_fp(FILE *fp, const EC_GROUP *x, int off);</synopsis>
-<synopsis format="linespecific"/>
+<synopsis/>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.d2i_ECPKParameters.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-d7bdbd403dde5c8aea1afbeb881ff77c"><title>DESCRIPTION</title>
     <para>
       The ECPKParameters encode and decode routines encode and parse the
       public parameters for an <emphasis role="bold">EC_GROUP</emphasis>
@@ -33,7 +33,7 @@ int     ECPKParameters_print_fp(FILE *fp, const EC_GROUP *x, int off);</synopsis
       <emphasis role="bold">px</emphasis> is not <emphasis role="bold">NULL</emphasis> then the returned structure is written to
       <emphasis role="bold">*px</emphasis>. If <emphasis role="bold">*px</emphasis> is not <emphasis role="bold">NULL</emphasis> then it is assumed that <emphasis role="bold">*px</emphasis> contains a valid <emphasis role="bold">EC_GROUP</emphasis> structure and an attempt is made to
       reuse it. If the call is successful <emphasis role="bold">*in</emphasis> is incremented to the byte following the
-      parsed data. 
+      parsed data.
     </para>
     <para>
       i2d_ECPKParameters() encodes the structure pointed to by <emphasis role="bold">x</emphasis> into DER format. If <emphasis role="bold">out</emphasis> is not <emphasis role="bold">NULL</emphasis> is writes the DER encoded data to the
@@ -76,7 +76,7 @@ int     ECPKParameters_print_fp(FILE *fp, const EC_GROUP *x, int off);</synopsis
       <emphasis role="bold">bp</emphasis> or <emphasis role="bold">fp</emphasis>. The output lines are indented by <emphasis role="bold">off</emphasis> spaces.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.d2i_ECPKParameters.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-34e55c97e0b6a70ffd86407dfbb5bca5"><title>RETURN VALUES</title>
     <para>
       d2i_ECPKParameters(), d2i_ECPKParameters_bio() and
       d2i_ECPKParameters_fp() return a valid <emphasis role="bold">EC_GROUP</emphasis> structure or <emphasis role="bold">NULL</emphasis> if an error occurs.
@@ -91,7 +91,7 @@ int     ECPKParameters_print_fp(FILE *fp, const EC_GROUP *x, int off);</synopsis
       and 0 if an error occurs.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.d2i_ECPKParameters.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-d2df44a5799359b5173b123d94d3ddd4"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>crypto</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

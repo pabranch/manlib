@@ -8,21 +8,21 @@
 <refpurpose>Functions for creating and destroying <emphasis role="bold">EC_GROUP</emphasis> objects.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ec.h&gt;
+<synopsis>#include &lt;openssl/ec.h&gt;
 #include &lt;openssl/bn.h&gt;</synopsis>
-<synopsis format="linespecific">EC_GROUP *EC_GROUP_new(const EC_METHOD *meth);
+<synopsis>EC_GROUP *EC_GROUP_new(const EC_METHOD *meth);
 void EC_GROUP_free(EC_GROUP *group);
 void EC_GROUP_clear_free(EC_GROUP *group);</synopsis>
-<synopsis format="linespecific">EC_GROUP *EC_GROUP_new_curve_GFp(const BIGNUM *p, const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx);
+<synopsis>EC_GROUP *EC_GROUP_new_curve_GFp(const BIGNUM *p, const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx);
 EC_GROUP *EC_GROUP_new_curve_GF2m(const BIGNUM *p, const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx);
 EC_GROUP *EC_GROUP_new_by_curve_name(int nid);</synopsis>
-<synopsis format="linespecific">int EC_GROUP_set_curve_GFp(EC_GROUP *group, const BIGNUM *p, const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx);
+<synopsis>int EC_GROUP_set_curve_GFp(EC_GROUP *group, const BIGNUM *p, const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx);
 int EC_GROUP_get_curve_GFp(const EC_GROUP *group, BIGNUM *p, BIGNUM *a, BIGNUM *b, BN_CTX *ctx);
 int EC_GROUP_set_curve_GF2m(EC_GROUP *group, const BIGNUM *p, const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx);
 int EC_GROUP_get_curve_GF2m(const EC_GROUP *group, BIGNUM *p, BIGNUM *a, BIGNUM *b, BN_CTX *ctx);</synopsis>
-<synopsis format="linespecific">size_t EC_get_builtin_curves(EC_builtin_curve *r, size_t nitems);</synopsis>
+<synopsis>size_t EC_get_builtin_curves(EC_builtin_curve *r, size_t nitems);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.EC_GROUP_new.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-4c8d9057e92582f65f3539307caa7655"><title>DESCRIPTION</title>
     <para>
       Within the library there are two forms of elliptic curve that are of
       interest. The first form is those defined over the prime field Fp.
@@ -111,7 +111,7 @@ int EC_GROUP_get_curve_GF2m(const EC_GROUP *group, BIGNUM *p, BIGNUM *a, BIGNUM 
       EC_GROUP and then frees its memory. If <emphasis role="bold">group</emphasis> is NULL nothing is done.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EC_GROUP_new.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-cfaee5227d3a7ccfcd7fe9f352914aa7"><title>RETURN VALUES</title>
     <para>
       All EC_GROUP_new* functions return a pointer to the newly constructed
       group, or NULL on error.
@@ -126,7 +126,7 @@ int EC_GROUP_get_curve_GF2m(const EC_GROUP *group, BIGNUM *p, BIGNUM *a, BIGNUM 
       or 0 on error.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.EC_GROUP_new.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-0282f2a44c845c50900fd80018d7a74a"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>crypto</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

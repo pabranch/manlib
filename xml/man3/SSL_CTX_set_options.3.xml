@@ -8,16 +8,16 @@
 <refpurpose>manipulate SSL options</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">long SSL_CTX_set_options(SSL_CTX *ctx, long options);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>long SSL_CTX_set_options(SSL_CTX *ctx, long options);
 long SSL_set_options(SSL *ssl, long options);</synopsis>
-<synopsis format="linespecific">long SSL_CTX_clear_options(SSL_CTX *ctx, long options);
+<synopsis>long SSL_CTX_clear_options(SSL_CTX *ctx, long options);
 long SSL_clear_options(SSL *ssl, long options);</synopsis>
-<synopsis format="linespecific">long SSL_CTX_get_options(SSL_CTX *ctx);
+<synopsis>long SSL_CTX_get_options(SSL_CTX *ctx);
 long SSL_get_options(SSL *ssl);</synopsis>
-<synopsis format="linespecific">long SSL_get_secure_renegotiation_support(SSL *ssl);</synopsis>
+<synopsis>long SSL_get_secure_renegotiation_support(SSL *ssl);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-a0acb4d6f5afd45baaa6771d9ab30aa0"><title>DESCRIPTION</title>
     <para>
       Note: all these functions are implemented using macros.
     </para>
@@ -47,7 +47,7 @@ long SSL_get_options(SSL *ssl);</synopsis>
       supports secure renegotiation.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-99ac20b4ec3b9fc36ed11d369f9aba27"><title>NOTES</title>
     <para>
       The behaviour of the SSL library can be changed by setting several
       options. The options are coded as bitmasks and can be combined by a
@@ -74,31 +74,7 @@ long SSL_get_options(SSL *ssl);</synopsis>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SSL_OP_MICROSOFT_SESS_ID_BUG"/>SSL_OP_MICROSOFT_SESS_ID_BUG</term>
-          <listitem>
-            <para>
-	      As of OpenSSL 1.0.0 this option has no effect.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SSL_OP_NETSCAPE_CHALLENGE_BUG"/>SSL_OP_NETSCAPE_CHALLENGE_BUG</term>
-          <listitem>
-            <para>
-	      As of OpenSSL 1.0.0 this option has no effect.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG"/>SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG</term>
-          <listitem>
-            <para>
-	      As of OpenSSL 0.9.8q and 1.0.0c, this option has no effect.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SSL_OP_SSLREF2_REUSE_CERT_TYPE_BUG"/>SSL_OP_SSLREF2_REUSE_CERT_TYPE_BUG</term>
+          <term>SSL_OP_SSLREF2_REUSE_CERT_TYPE_BUG</term>
           <listitem>
             <para>
 	      ...
@@ -106,7 +82,7 @@ long SSL_get_options(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER"/>SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER</term>
+          <term>SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER</term>
           <listitem>
             <para>
 	      ...
@@ -114,7 +90,7 @@ long SSL_get_options(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SSL_OP_SAFARI_ECDHE_ECDSA_BUG"/>SSL_OP_SAFARI_ECDHE_ECDSA_BUG</term>
+          <term>SSL_OP_SAFARI_ECDHE_ECDSA_BUG</term>
           <listitem>
             <para>
 	      Don't prefer ECDHE-ECDSA ciphers when the client appears to
@@ -124,7 +100,7 @@ long SSL_get_options(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SSL_OP_SSLEAY_080_CLIENT_DH_BUG"/>SSL_OP_SSLEAY_080_CLIENT_DH_BUG</term>
+          <term>SSL_OP_SSLEAY_080_CLIENT_DH_BUG</term>
           <listitem>
             <para>
 	      ...
@@ -132,7 +108,7 @@ long SSL_get_options(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SSL_OP_TLS_D5_BUG"/>SSL_OP_TLS_D5_BUG</term>
+          <term>SSL_OP_TLS_D5_BUG</term>
           <listitem>
             <para>
 	      ...
@@ -140,7 +116,7 @@ long SSL_get_options(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS"/>SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS</term>
+          <term>SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS</term>
           <listitem>
             <para>
 	      Disables a countermeasure against a SSL 3.0/TLS 1.0 protocol
@@ -151,7 +127,7 @@ long SSL_get_options(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SSL_OP_TLSEXT_PADDING"/>SSL_OP_TLSEXT_PADDING</term>
+          <term>SSL_OP_TLSEXT_PADDING</term>
           <listitem>
             <para>
 	      Adds a padding extension to ensure the ClientHello size is
@@ -161,7 +137,7 @@ long SSL_get_options(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SSL_OP_ALL"/>SSL_OP_ALL</term>
+          <term>SSL_OP_ALL</term>
           <listitem>
             <para>
 	      All of the above bug workarounds.
@@ -182,7 +158,7 @@ long SSL_get_options(SSL *ssl);</synopsis>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SSL_OP_TLS_ROLLBACK_BUG"/>SSL_OP_TLS_ROLLBACK_BUG</term>
+          <term>SSL_OP_TLS_ROLLBACK_BUG</term>
           <listitem>
             <para>
 	      Disable version rollback attack detection.
@@ -201,7 +177,7 @@ long SSL_get_options(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SSL_OP_SINGLE_DH_USE"/>SSL_OP_SINGLE_DH_USE</term>
+          <term>SSL_OP_SINGLE_DH_USE</term>
           <listitem>
             <para>
 	      Always create a new key when using temporary/ephemeral DH
@@ -222,7 +198,7 @@ long SSL_get_options(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SSL_OP_EPHEMERAL_RSA"/>SSL_OP_EPHEMERAL_RSA</term>
+          <term>SSL_OP_EPHEMERAL_RSA</term>
           <listitem>
             <para>
 	      This option is no longer implemented and is treated as no op.
@@ -230,21 +206,18 @@ long SSL_get_options(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SSL_OP_CIPHER_SERVER_PREFERENCE"/>SSL_OP_CIPHER_SERVER_PREFERENCE</term>
+          <term>SSL_OP_CIPHER_SERVER_PREFERENCE</term>
           <listitem>
             <para>
 	      When choosing a cipher, use the server's preferences instead
 	      of the client preferences. When not set, the SSL server will
-	      always follow the clients preferences. When set, the
-	      SSLv3/TLSv1 server will choose following its own preferences.
-	      Because of the different protocol, for SSLv2 the server will
-	      send its list of preferences to the client and the client
-	      chooses.
+	      always follow the clients preferences. When set, the SSL/TLS
+	      server will choose following its own preferences.
             </para>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SSL_OP_PKCS1_CHECK_1"/>SSL_OP_PKCS1_CHECK_1</term>
+          <term>SSL_OP_PKCS1_CHECK_1</term>
           <listitem>
             <para>
 	      ...
@@ -252,26 +225,16 @@ long SSL_get_options(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SSL_OP_PKCS1_CHECK_2"/>SSL_OP_PKCS1_CHECK_2</term>
+          <term>SSL_OP_PKCS1_CHECK_2</term>
           <listitem>
             <para>
 	      ...
             </para>
-            <screen>
-
-</screen>
+            <screen></screen>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SSL_OP_NO_SSLv2"/>SSL_OP_NO_SSLv2</term>
-          <listitem>
-            <para>
-	      Do not use the SSLv2 protocol.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SSL_OP_NO_SSLv3"/>SSL_OP_NO_SSLv3</term>
+          <term>SSL_OP_NO_SSLv3</term>
           <listitem>
             <para>
 	      Do not use the SSLv3 protocol.
@@ -279,7 +242,7 @@ long SSL_get_options(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SSL_OP_NO_TLSv1"/>SSL_OP_NO_TLSv1</term>
+          <term>SSL_OP_NO_TLSv1</term>
           <listitem>
             <para>
 	      Do not use the TLSv1 protocol.
@@ -287,7 +250,7 @@ long SSL_get_options(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION"/>SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION</term>
+          <term>SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION</term>
           <listitem>
             <para>
 	      When performing renegotiation as a server, always start a new
@@ -298,7 +261,7 @@ long SSL_get_options(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SSL_OP_NO_TICKET"/>SSL_OP_NO_TICKET</term>
+          <term>SSL_OP_NO_TICKET</term>
           <listitem>
             <para>
 	      Normally clients and servers will, where possible,
@@ -312,7 +275,7 @@ long SSL_get_options(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION"/>SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION</term>
+          <term>SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION</term>
           <listitem>
             <para>
 	      Allow legacy insecure renegotiation between OpenSSL and
@@ -322,7 +285,7 @@ long SSL_get_options(SSL *ssl);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SSL_OP_LEGACY_SERVER_CONNECT"/>SSL_OP_LEGACY_SERVER_CONNECT</term>
+          <term>SSL_OP_LEGACY_SERVER_CONNECT</term>
           <listitem>
             <para>
 	      Allow legacy insecure renegotiation between OpenSSL and
@@ -335,15 +298,11 @@ long SSL_get_options(SSL *ssl);</synopsis>
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SECURE_RENEGOTIATION"><title>SECURE RENEGOTIATION</title>
+  <refsection xml:id="ID-785aefe48b1cc3bb09a9f1dacd77285d"><title>SECURE RENEGOTIATION</title>
     <para>
-      OpenSSL 0.9.8m and later always attempts to use secure renegotiation
-      as described in RFC5746. This counters the prefix attack described in
-      CVE-2009-3555 and elsewhere.
-    </para>
-    <para>
-      The deprecated and highly broken SSLv2 protocol does not support
-      renegotiation at all: its use is <emphasis role="bold">strongly</emphasis> discouraged.
+      OpenSSL always attempts to use secure renegotiation as described in
+      RFC5746. This counters the prefix attack described in CVE-2009-3555
+      and elsewhere.
     </para>
     <para>
       This attack has far reaching consequences which application writers
@@ -355,13 +314,13 @@ long SSL_get_options(SSL *ssl);</synopsis>
       The following sections describe the operations permitted by OpenSSL's
       secure renegotiation implementation.
     </para>
-    <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:Patched_client_and_server"><title>Patched client and server</title>
+    <refsection xml:id="ID-56e1ee2da10a0471860e0bca822fb5d7"><title>Patched client and server</title>
       <para>
 	Connections and renegotiation are always permitted by OpenSSL
 	implementations.
       </para>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:Unpatched_client_and_patched_OpenSSL_server"><title>Unpatched client and patched OpenSSL server</title>
+    <refsection xml:id="ID-ff39d1af5e3e40d5d21deb81f32f0ce3"><title>Unpatched client and patched OpenSSL server</title>
       <para>
 	The initial connection succeeds but client renegotiation is denied
 	by the server with a <emphasis role="bold">no_renegotiation</emphasis> warning alert if TLS v1.0
@@ -378,18 +337,8 @@ long SSL_get_options(SSL *ssl);</synopsis>
 	set then renegotiation <emphasis role="bold">always</emphasis>
 	succeeds.
       </para>
-      <para>
-	<emphasis role="bold">NB:</emphasis> a bug in OpenSSL clients
-	earlier than 0.9.8m (all of which are unpatched) will result in the
-	connection hanging if it receives a <emphasis role="bold">no_renegotiation</emphasis> alert. OpenSSL versions
-	0.9.8m and later will regard a <emphasis role="bold">no_renegotiation</emphasis> alert as fatal and respond
-	with a fatal <emphasis role="bold">handshake_failure</emphasis>
-	alert. This is because the OpenSSL API currently has no provision
-	to indicate to an application that a renegotiation attempt was
-	refused.
-      </para>
     </refsection>
-    <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:Patched_OpenSSL_client_and_unpatched_server."><title>Patched OpenSSL client and unpatched server.</title>
+    <refsection xml:id="ID-26cbb96d83bf53f6b7f7a89ec1050ae3"><title>Patched OpenSSL client and unpatched server.</title>
       <para>
 	If the option <emphasis role="bold">SSL_OP_LEGACY_SERVER_CONNECT</emphasis> or <emphasis role="bold">SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION</emphasis> is
 	set then initial connections and renegotiation between patched
@@ -429,7 +378,7 @@ long SSL_get_options(SSL *ssl);</synopsis>
       </para>
     </refsection>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-4b94f8cf1a390c1ad811784e9590a3ad"><title>RETURN VALUES</title>
     <para>
       SSL_CTX_set_options() and SSL_set_options() return the new options
       bitmask after adding <emphasis role="bold">options</emphasis>.
@@ -447,7 +396,7 @@ long SSL_get_options(SSL *ssl);</synopsis>
       secure renegotiation and 0 if it does not.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-1e81f780633ed25522bbf2b81a6e14e6"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -463,33 +412,10 @@ long SSL_get_options(SSL *ssl);</synopsis>
       </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CTX_set_options.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-0e560b9eb227d07587c0d75ff15dbe89"><title>HISTORY</title>
     <para>
-      <emphasis role="bold">SSL_OP_CIPHER_SERVER_PREFERENCE</emphasis> and
-      <emphasis role="bold">SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION</emphasis>
-      have been added in OpenSSL 0.9.7.
-    </para>
-    <para>
-      <emphasis role="bold">SSL_OP_TLS_ROLLBACK_BUG</emphasis> has been
-      added in OpenSSL 0.9.6 and was automatically enabled with <emphasis role="bold">SSL_OP_ALL</emphasis>. As of 0.9.7, it is no longer
-      included in <emphasis role="bold">SSL_OP_ALL</emphasis> and must be
-      explicitly set.
-    </para>
-    <para>
-      <emphasis role="bold">SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS</emphasis>
-      has been added in OpenSSL 0.9.6e. Versions up to OpenSSL 0.9.6c do
-      not include the countermeasure that can be disabled with this option
-      (in OpenSSL 0.9.6d, it was always enabled).
-    </para>
-    <para>
-      SSL_CTX_clear_options() and SSL_clear_options() were first added in
-      OpenSSL 0.9.8m.
-    </para>
-    <para>
-      <emphasis role="bold">SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION</emphasis>,
-      <emphasis role="bold">SSL_OP_LEGACY_SERVER_CONNECT</emphasis> and the
-      function SSL_get_secure_renegotiation_support() were first added in
-      OpenSSL 0.9.8m.
+      The attempt to always try to use secure renegotiation was added in
+      Openssl 0.9.8m.
     </para>
   </refsection>
 </refentry>

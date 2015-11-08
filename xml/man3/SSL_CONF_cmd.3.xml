@@ -8,12 +8,12 @@
 <refpurpose>send configuration command</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis format="linespecific">int SSL_CONF_cmd(SSL_CONF_CTX *cctx, const char *cmd, const char *value);
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_CONF_cmd(SSL_CONF_CTX *cctx, const char *cmd, const char *value);
 int SSL_CONF_cmd_value_type(SSL_CONF_CTX *cctx, const char *cmd);
 int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-662fd36a8d44d95de3d216256c4cb8d5"><title>DESCRIPTION</title>
     <para>
       The function SSL_CONF_cmd() performs configuration operation
       <emphasis role="bold">cmd</emphasis> with optional parameter
@@ -31,7 +31,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
       or to process defaults.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:SUPPORTED_COMMAND_LINE_COMMANDS"><title>SUPPORTED COMMAND LINE COMMANDS</title>
+  <refsection xml:id="ID-eb266bd8ed40d4fe5d093d81c2d1c83c"><title>SUPPORTED COMMAND LINE COMMANDS</title>
     <para>
       Currently supported <emphasis role="bold">cmd</emphasis> names for
       command lines (i.e. when the flag <emphasis role="bold">SSL_CONF_CMDLINE</emphasis> is set) are listed below.
@@ -44,7 +44,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:-sigalgs"/><emphasis role="bold">-sigalgs</emphasis></term>
+          <term><emphasis role="bold">-sigalgs</emphasis></term>
           <listitem>
             <para>
 	      This sets the supported signature algorithms for TLS v1.2.
@@ -67,7 +67,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:-client_sigalgs"/><emphasis role="bold">-client_sigalgs</emphasis></term>
+          <term><emphasis role="bold">-client_sigalgs</emphasis></term>
           <listitem>
             <para>
 	      This sets the supported signature algorithms associated with
@@ -86,7 +86,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:-curves"/><emphasis role="bold">-curves</emphasis></term>
+          <term><emphasis role="bold">-curves</emphasis></term>
           <listitem>
             <para>
 	      This sets the supported elliptic curves. For clients the
@@ -105,11 +105,11 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:-named_curve"/><emphasis role="bold">-named_curve</emphasis></term>
+          <term><emphasis role="bold">-named_curve</emphasis></term>
           <listitem>
             <para>
 	      This sets the temporary curve used for ephemeral ECDH modes.
-	      Only used by servers 
+	      Only used by servers
             </para>
             <para>
 	      The <emphasis role="bold">value</emphasis> argument is a
@@ -123,19 +123,19 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:-cipher"/><emphasis role="bold">-cipher</emphasis></term>
+          <term><emphasis role="bold">-cipher</emphasis></term>
           <listitem>
             <para>
 	      Sets the cipher suite list to <emphasis role="bold">value</emphasis>. Note: syntax checking of
 	      <emphasis role="bold">value</emphasis> is currently not
 	      performed unless a <emphasis role="bold">SSL</emphasis> or
 	      <emphasis role="bold">SSL_CTX</emphasis> structure is
-	      associated with <emphasis role="bold">cctx</emphasis>. 
+	      associated with <emphasis role="bold">cctx</emphasis>.
             </para>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:-cert"/><emphasis role="bold">-cert</emphasis></term>
+          <term><emphasis role="bold">-cert</emphasis></term>
           <listitem>
             <para>
 	      Attempts to use the file <emphasis role="bold">value</emphasis> as the certificate for the
@@ -147,7 +147,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:-key"/><emphasis role="bold">-key</emphasis></term>
+          <term><emphasis role="bold">-key</emphasis></term>
           <listitem>
             <para>
 	      Attempts to use the file <emphasis role="bold">value</emphasis> as the private key for the
@@ -158,7 +158,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:-dhparam"/><emphasis role="bold">-dhparam</emphasis></term>
+          <term><emphasis role="bold">-dhparam</emphasis></term>
           <listitem>
             <para>
 	      Attempts to use the file <emphasis role="bold">value</emphasis> as the set of temporary DH
@@ -168,16 +168,16 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:-no_ssl3_-no_tls1_-no_tls1_1_-no_tls1_2"/><emphasis role="bold">-no_ssl3</emphasis>, <emphasis role="bold">-no_tls1</emphasis>, <emphasis role="bold">-no_tls1_1</emphasis>, <emphasis role="bold">-no_tls1_2</emphasis></term>
+          <term><emphasis role="bold">-no_ssl3</emphasis>, <emphasis role="bold">-no_tls1</emphasis>, <emphasis role="bold">-no_tls1_1</emphasis>, <emphasis role="bold">-no_tls1_2</emphasis></term>
           <listitem>
             <para>
 	      Disables protocol support for SSLv3, TLS 1.0, TLS 1.1 or TLS
-	      1.2 by setting the corresponding options <emphasis role="bold">SSL_OP_NO_SSL3</emphasis>, <emphasis role="bold">SSL_OP_NO_TLS1</emphasis>, <emphasis role="bold">SSL_OP_NO_TLS1_1</emphasis> and <emphasis role="bold">SSL_OP_NO_TLS1_2</emphasis> respectively. 
+	      1.2 by setting the corresponding options <emphasis role="bold">SSL_OP_NO_SSL3</emphasis>, <emphasis role="bold">SSL_OP_NO_TLS1</emphasis>, <emphasis role="bold">SSL_OP_NO_TLS1_1</emphasis> and <emphasis role="bold">SSL_OP_NO_TLS1_2</emphasis> respectively.
             </para>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:-bugs"/><emphasis role="bold">-bugs</emphasis></term>
+          <term><emphasis role="bold">-bugs</emphasis></term>
           <listitem>
             <para>
 	      Various bug workarounds are set, same as setting <emphasis role="bold">SSL_OP_ALL</emphasis>.
@@ -185,7 +185,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:-no_comp"/><emphasis role="bold">-no_comp</emphasis></term>
+          <term><emphasis role="bold">-no_comp</emphasis></term>
           <listitem>
             <para>
 	      Disables support for SSL/TLS compression, same as setting
@@ -194,7 +194,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:-no_ticket"/><emphasis role="bold">-no_ticket</emphasis></term>
+          <term><emphasis role="bold">-no_ticket</emphasis></term>
           <listitem>
             <para>
 	      Disables support for session tickets, same as setting
@@ -203,7 +203,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:-serverpref"/><emphasis role="bold">-serverpref</emphasis></term>
+          <term><emphasis role="bold">-serverpref</emphasis></term>
           <listitem>
             <para>
 	      Use server and not client preference order when determining
@@ -214,7 +214,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:-no_resumption_on_reneg"/><emphasis role="bold">-no_resumption_on_reneg</emphasis></term>
+          <term><emphasis role="bold">-no_resumption_on_reneg</emphasis></term>
           <listitem>
             <para>
 	      set SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION flag. Only
@@ -223,7 +223,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:-legacyrenegotiation"/><emphasis role="bold">-legacyrenegotiation</emphasis></term>
+          <term><emphasis role="bold">-legacyrenegotiation</emphasis></term>
           <listitem>
             <para>
 	      permits the use of unsafe legacy renegotiation. Equivalent to
@@ -232,7 +232,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:-legacy_server_connect_-no_legacy_server_connect"/><emphasis role="bold">-legacy_server_connect</emphasis>, <emphasis role="bold">-no_legacy_server_connect</emphasis></term>
+          <term><emphasis role="bold">-legacy_server_connect</emphasis>, <emphasis role="bold">-no_legacy_server_connect</emphasis></term>
           <listitem>
             <para>
 	      permits or prohibits the use of unsafe legacy renegotiation
@@ -243,7 +243,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:-strict"/><emphasis role="bold">-strict</emphasis></term>
+          <term><emphasis role="bold">-strict</emphasis></term>
           <listitem>
             <para>
 	      enables strict mode protocol handling. Equivalent to setting
@@ -252,7 +252,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:-debug_broken_protocol"/><emphasis role="bold">-debug_broken_protocol</emphasis></term>
+          <term><emphasis role="bold">-debug_broken_protocol</emphasis></term>
           <listitem>
             <para>
 	      disables various checks and permits several kinds of broken
@@ -265,7 +265,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:SUPPORTED_CONFIGURATION_FILE_COMMANDS"><title>SUPPORTED CONFIGURATION FILE COMMANDS</title>
+  <refsection xml:id="ID-cb29dd5604c3cb26841f4b7f9463bbcb"><title>SUPPORTED CONFIGURATION FILE COMMANDS</title>
     <para>
       Currently supported <emphasis role="bold">cmd</emphasis> names for
       configuration files (i.e. when the flag <emphasis role="bold">SSL_CONF_FLAG_FILE</emphasis> is set) are listed below.
@@ -281,19 +281,19 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:CipherString"/><emphasis role="bold">CipherString</emphasis></term>
+          <term><emphasis role="bold">CipherString</emphasis></term>
           <listitem>
             <para>
 	      Sets the cipher suite list to <emphasis role="bold">value</emphasis>. Note: syntax checking of
 	      <emphasis role="bold">value</emphasis> is currently not
 	      performed unless an <emphasis role="bold">SSL</emphasis> or
 	      <emphasis role="bold">SSL_CTX</emphasis> structure is
-	      associated with <emphasis role="bold">cctx</emphasis>. 
+	      associated with <emphasis role="bold">cctx</emphasis>.
             </para>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:Certificate"/><emphasis role="bold">Certificate</emphasis></term>
+          <term><emphasis role="bold">Certificate</emphasis></term>
           <listitem>
             <para>
 	      Attempts to use the file <emphasis role="bold">value</emphasis> as the certificate for the
@@ -305,7 +305,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:PrivateKey"/><emphasis role="bold">PrivateKey</emphasis></term>
+          <term><emphasis role="bold">PrivateKey</emphasis></term>
           <listitem>
             <para>
 	      Attempts to use the file <emphasis role="bold">value</emphasis> as the private key for the
@@ -316,7 +316,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:ChainCAFile_ChainCAPath_VerifyCAFile_VerifyCAPath"/><emphasis role="bold">ChainCAFile</emphasis>, <emphasis role="bold">ChainCAPath</emphasis>, <emphasis role="bold">VerifyCAFile</emphasis>, <emphasis role="bold">VerifyCAPath</emphasis></term>
+          <term><emphasis role="bold">ChainCAFile</emphasis>, <emphasis role="bold">ChainCAPath</emphasis>, <emphasis role="bold">VerifyCAFile</emphasis>, <emphasis role="bold">VerifyCAPath</emphasis></term>
           <listitem>
             <para>
 	      These options indicate a file or directory used for building
@@ -327,7 +327,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:ServerInfoFile"/><emphasis role="bold">ServerInfoFile</emphasis></term>
+          <term><emphasis role="bold">ServerInfoFile</emphasis></term>
           <listitem>
             <para>
 	      Attempts to use the file <emphasis role="bold">value</emphasis> in the "serverinfo" extension
@@ -336,7 +336,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:DHParameters"/><emphasis role="bold">DHParameters</emphasis></term>
+          <term><emphasis role="bold">DHParameters</emphasis></term>
           <listitem>
             <para>
 	      Attempts to use the file <emphasis role="bold">value</emphasis> as the set of temporary DH
@@ -346,7 +346,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:SignatureAlgorithms"/><emphasis role="bold">SignatureAlgorithms</emphasis></term>
+          <term><emphasis role="bold">SignatureAlgorithms</emphasis></term>
           <listitem>
             <para>
 	      This sets the supported signature algorithms for TLS v1.2.
@@ -369,7 +369,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:ClientSignatureAlgorithms"/><emphasis role="bold">ClientSignatureAlgorithms</emphasis></term>
+          <term><emphasis role="bold">ClientSignatureAlgorithms</emphasis></term>
           <listitem>
             <para>
 	      This sets the supported signature algorithms associated with
@@ -387,7 +387,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:Curves"/><emphasis role="bold">Curves</emphasis></term>
+          <term><emphasis role="bold">Curves</emphasis></term>
           <listitem>
             <para>
 	      This sets the supported elliptic curves. For clients the
@@ -406,11 +406,11 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:ECDHParameters"/><emphasis role="bold">ECDHParameters</emphasis></term>
+          <term><emphasis role="bold">ECDHParameters</emphasis></term>
           <listitem>
             <para>
 	      This sets the temporary curve used for ephemeral ECDH modes.
-	      Only used by servers 
+	      Only used by servers
             </para>
             <para>
 	      The <emphasis role="bold">value</emphasis> argument is a
@@ -424,7 +424,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:Protocol"/><emphasis role="bold">Protocol</emphasis></term>
+          <term><emphasis role="bold">Protocol</emphasis></term>
           <listitem>
             <para>
 	      The supported versions of the SSL or TLS protocol.
@@ -436,12 +436,12 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
 	      versions are enabled by default, though applications may
 	      choose to explicitly disable some. Currently supported
 	      protocol values are <emphasis role="bold">SSLv3</emphasis>,
-	      <emphasis role="bold">TLSv1</emphasis>, <emphasis role="bold">TLSv1.1</emphasis> and <emphasis role="bold">TLSv1.2</emphasis>. The special value <emphasis role="bold">ALL</emphasis> refers to all supported versions. 
+	      <emphasis role="bold">TLSv1</emphasis>, <emphasis role="bold">TLSv1.1</emphasis> and <emphasis role="bold">TLSv1.2</emphasis>. The special value <emphasis role="bold">ALL</emphasis> refers to all supported versions.
             </para>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:Options"/><emphasis role="bold">Options</emphasis></term>
+          <term><emphasis role="bold">Options</emphasis></term>
           <listitem>
             <para>
 	      The <emphasis role="bold">value</emphasis> argument is a
@@ -510,7 +510,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:VerifyMode"/><emphasis role="bold">VerifyMode</emphasis></term>
+          <term><emphasis role="bold">VerifyMode</emphasis></term>
           <listitem>
             <para>
 	      The <emphasis role="bold">value</emphasis> argument is a
@@ -537,7 +537,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:ClientCAFile_ClientCAPath"/><emphasis role="bold">ClientCAFile</emphasis>, <emphasis role="bold">ClientCAPath</emphasis></term>
+          <term><emphasis role="bold">ClientCAFile</emphasis>, <emphasis role="bold">ClientCAPath</emphasis></term>
           <listitem>
             <para>
 	      A file or directory of certificates in PEM format whose names
@@ -550,7 +550,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:SUPPORTED_COMMAND_TYPES"><title>SUPPORTED COMMAND TYPES</title>
+  <refsection xml:id="ID-eb76e5a707a7413e87308fed84f31960"><title>SUPPORTED COMMAND TYPES</title>
     <para>
       The function SSL_CONF_cmd_value_type() currently returns one of the
       following types:
@@ -558,7 +558,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
     <para>
       <variablelist>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:SSL_CONF_TYPE_UNKNOWN"/><emphasis role="bold">SSL_CONF_TYPE_UNKNOWN</emphasis></term>
+          <term><emphasis role="bold">SSL_CONF_TYPE_UNKNOWN</emphasis></term>
           <listitem>
             <para>
 	      The <emphasis role="bold">cmd</emphasis> string is
@@ -568,7 +568,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:SSL_CONF_TYPE_STRING"/><emphasis role="bold">SSL_CONF_TYPE_STRING</emphasis></term>
+          <term><emphasis role="bold">SSL_CONF_TYPE_STRING</emphasis></term>
           <listitem>
             <para>
 	      The value is a string without any specific structure.
@@ -576,7 +576,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:SSL_CONF_TYPE_FILE"/><emphasis role="bold">SSL_CONF_TYPE_FILE</emphasis></term>
+          <term><emphasis role="bold">SSL_CONF_TYPE_FILE</emphasis></term>
           <listitem>
             <para>
 	      The value is a file name.
@@ -584,7 +584,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:SSL_CONF_TYPE_DIR"/><emphasis role="bold">SSL_CONF_TYPE_DIR</emphasis></term>
+          <term><emphasis role="bold">SSL_CONF_TYPE_DIR</emphasis></term>
           <listitem>
             <para>
 	      The value is a directory name.
@@ -592,7 +592,7 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><anchor xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:SSL_CONF_TYPE_NONE"/><emphasis role="bold">SSL_CONF_TYPE_NONE</emphasis></term>
+          <term><emphasis role="bold">SSL_CONF_TYPE_NONE</emphasis></term>
           <listitem>
             <para>
 	      The value string is not used e.g. a command line option which
@@ -603,22 +603,22 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
       </variablelist>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-fd7043451bbb5fda46c2f195632419da"><title>NOTES</title>
     <para>
       The order of operations is significant. This can be used to set
       either defaults or values which cannot be overridden. For example if
       an application calls:
     </para>
-    <screen>SSL_CONF_cmd(ctx, "Protocol", "-SSLv2");
+    <screen>SSL_CONF_cmd(ctx, "Protocol", "-SSLv3");
 SSL_CONF_cmd(ctx, userparam, uservalue);</screen>
     <para>
-      it will disable SSLv2 support by default but the user can override
-      it. If however the call sequence is: 
+      it will disable SSLv3 support by default but the user can override
+      it. If however the call sequence is:
     </para>
     <screen>SSL_CONF_cmd(ctx, userparam, uservalue);
-SSL_CONF_cmd(ctx, "Protocol", "-SSLv2");</screen>
+SSL_CONF_cmd(ctx, "Protocol", "-SSLv3");</screen>
     <para>
-      SSLv2 is <emphasis role="bold">always</emphasis> disabled and attempt
+      SSLv3 is <emphasis role="bold">always</emphasis> disabled and attempt
       to override this by the user are ignored.
     </para>
     <para>
@@ -654,18 +654,18 @@ SSL_CONF_cmd(ctx, "Protocol", "-SSLv2");</screen>
       checking or translation of the command value. For example if the
       return value is <emphasis role="bold">SSL_CONF_TYPE_FILE</emphasis>
       an application could translate a relative pathname to an absolute
-      pathname. 
+      pathname.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-3eb8552ccff9d8a15d37022d2e6cf756"><title>EXAMPLES</title>
     <para>
       Set supported signature algorithms:
     </para>
     <screen>SSL_CONF_cmd(ctx, "SignatureAlgorithms", "ECDSA+SHA256:RSA+SHA256:DSA+SHA256");</screen>
     <para>
-      Enable all protocols except SSLv3 and SSLv2:
+      Enable all protocols except SSLv3:
     </para>
-    <screen>SSL_CONF_cmd(ctx, "Protocol", "ALL,-SSLv3,-SSLv2");</screen>
+    <screen>SSL_CONF_cmd(ctx, "Protocol", "ALL,-SSLv3");</screen>
     <para>
       Only enable TLSv1.2:
     </para>
@@ -683,7 +683,7 @@ SSL_CONF_cmd(ctx, "Protocol", "-SSLv2");</screen>
     </para>
     <screen>SSL_CONF_cmd(ctx, "ECDHParameters", "Automatic");</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-53691bacc815eac2ddc7df287552a684"><title>RETURN VALUES</title>
     <para>
       SSL_CONF_cmd() returns 1 if the value of <emphasis role="bold">cmd</emphasis> is recognised and <emphasis role="bold">value</emphasis> is <emphasis role="bold">NOT</emphasis>
       used and 2 if both <emphasis role="bold">cmd</emphasis> and <emphasis role="bold">value</emphasis> are used. In other words it returns the
@@ -708,7 +708,7 @@ SSL_CONF_cmd(ctx, "Protocol", "-SSLv2");</screen>
       SSL_CONF_finish() returns 1 for success and 0 for failure.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-93f416fd7dfea59dea1c48d60d9897fb"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>SSL_CONF_CTX_new</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -722,7 +722,7 @@ SSL_CONF_cmd(ctx, "Protocol", "-SSLv2");</screen>
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.ssl.SSL_CONF_cmd.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-6b80532de92c3291fa0c01b5148fe3d7"><title>HISTORY</title>
     <para>
       SSL_CONF_cmd() was first added to OpenSSL 1.0.2
     </para>

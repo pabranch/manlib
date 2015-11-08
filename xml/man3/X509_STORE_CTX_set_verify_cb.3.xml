@@ -8,11 +8,11 @@
 <refpurpose>set verification callback</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/x509_vfy.h&gt;</synopsis>
-<synopsis format="linespecific">void X509_STORE_CTX_set_verify_cb(X509_STORE_CTX *ctx,
+<synopsis>#include &lt;openssl/x509_vfy.h&gt;</synopsis>
+<synopsis>void X509_STORE_CTX_set_verify_cb(X509_STORE_CTX *ctx,
                                int (*verify_cb)(int ok, X509_STORE_CTX *ctx));</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_set_verify_cb.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-4a417828ec593b9c47567245e94eb924"><title>DESCRIPTION</title>
     <para>
       X509_STORE_CTX_set_verify_cb() sets the verification callback of
       <emphasis role="bold">ctx</emphasis> to <emphasis role="bold">verify_cb</emphasis> overwriting any existing callback.
@@ -43,7 +43,7 @@
       application data can be passed to the callback via the <emphasis role="bold">ex_data</emphasis> mechanism.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_set_verify_cb.pod:WARNING"><title>WARNING</title>
+  <refsection xml:id="ID-87c94f400bd64c61ba7d6ac3743f3882"><title>WARNING</title>
     <para>
       In general a verification callback should <emphasis role="bold">NOT</emphasis> unconditionally return 1 in all
       circumstances because this will allow verification to succeed no
@@ -52,7 +52,7 @@
       (including untrusted generated ones) will be accepted.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_set_verify_cb.pod:NOTES"><title>NOTES</title>
+  <refsection xml:id="ID-f685b60c75c72c9ef7f9bfc42e8492b6"><title>NOTES</title>
     <para>
       The verification callback can be set and inherited from the parent
       structure performing the operation. In some cases (such as S/MIME
@@ -62,12 +62,12 @@
       associated <emphasis role="bold">X509_STORE</emphasis>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_set_verify_cb.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-4c6cb6c7bc5363817e90093e3b312e66"><title>RETURN VALUES</title>
     <para>
       X509_STORE_CTX_set_verify_cb() does not return a value.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_set_verify_cb.pod:EXAMPLES"><title>EXAMPLES</title>
+  <refsection xml:id="ID-0aaa253db499caef6ab0148446928c95"><title>EXAMPLES</title>
     <para>
       Default callback operation:
     </para>
@@ -159,7 +159,7 @@ BIO_printf(bio_err,"verify return:%d\n",ok);
 return(ok);
 }</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_set_verify_cb.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-3040bbc3b1ceafd4c182af9d48d06a97"><title>SEE ALSO</title>
     <para>
       <citerefentry>
       <refentrytitle>X509_STORE_CTX_get_error</refentrytitle>
@@ -168,12 +168,6 @@ return(ok);
       <manvolnum>3</manvolnum> </citerefentry> <citerefentry>
       <refentrytitle>X509_STORE_CTX_get_ex_new_index</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.X509_STORE_CTX_set_verify_cb.pod:HISTORY"><title>HISTORY</title>
-    <para>
-      X509_STORE_CTX_set_verify_cb() is available in all versions of SSLeay
-      and OpenSSL.
     </para>
   </refsection>
 </refentry>

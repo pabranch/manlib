@@ -11,30 +11,30 @@ BN_generate_prime, BN_is_prime, BN_is_prime_fasttest</refname>
 for primality</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis format="linespecific">#include &lt;openssl/bn.h&gt;</synopsis>
-<synopsis format="linespecific">int BN_generate_prime_ex(BIGNUM *ret,int bits,int safe, const BIGNUM *add,
+<synopsis>#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis>int BN_generate_prime_ex(BIGNUM *ret,int bits,int safe, const BIGNUM *add,
     const BIGNUM *rem, BN_GENCB *cb);</synopsis>
-<synopsis format="linespecific">int BN_is_prime_ex(const BIGNUM *p,int nchecks, BN_CTX *ctx, BN_GENCB *cb);</synopsis>
-<synopsis format="linespecific">int BN_is_prime_fasttest_ex(const BIGNUM *p,int nchecks, BN_CTX *ctx,
+<synopsis>int BN_is_prime_ex(const BIGNUM *p,int nchecks, BN_CTX *ctx, BN_GENCB *cb);</synopsis>
+<synopsis>int BN_is_prime_fasttest_ex(const BIGNUM *p,int nchecks, BN_CTX *ctx,
     int do_trial_division, BN_GENCB *cb);</synopsis>
-<synopsis format="linespecific">int BN_GENCB_call(BN_GENCB *cb, int a, int b);</synopsis>
-<synopsis format="linespecific">BN_GENCB *BN_GENCB_new(void);</synopsis>
-<synopsis format="linespecific">void BN_GENCB_free(BN_GENCB *cb);</synopsis>
-<synopsis format="linespecific">void BN_GENCB_set_old(BN_GENCB *gencb,
+<synopsis>int BN_GENCB_call(BN_GENCB *cb, int a, int b);</synopsis>
+<synopsis>BN_GENCB *BN_GENCB_new(void);</synopsis>
+<synopsis>void BN_GENCB_free(BN_GENCB *cb);</synopsis>
+<synopsis>void BN_GENCB_set_old(BN_GENCB *gencb,
     void (*callback)(int, int, void *), void *cb_arg);</synopsis>
-<synopsis format="linespecific">void BN_GENCB_set(BN_GENCB *gencb,
+<synopsis>void BN_GENCB_set(BN_GENCB *gencb,
     int (*callback)(int, int, BN_GENCB *), void *cb_arg);</synopsis>
-<synopsis format="linespecific">void *BN_GENCB_get_arg(BN_GENCB *cb);</synopsis>
-<synopsis format="linespecific">Deprecated:</synopsis>
-<synopsis format="linespecific">BIGNUM *BN_generate_prime(BIGNUM *ret, int num, int safe, BIGNUM *add,
+<synopsis>void *BN_GENCB_get_arg(BN_GENCB *cb);</synopsis>
+<synopsis>Deprecated:</synopsis>
+<synopsis>BIGNUM *BN_generate_prime(BIGNUM *ret, int num, int safe, BIGNUM *add,
     BIGNUM *rem, void (*callback)(int, int, void *), void *cb_arg);</synopsis>
-<synopsis format="linespecific">int BN_is_prime(const BIGNUM *a, int checks, void (*callback)(int, int, 
+<synopsis>int BN_is_prime(const BIGNUM *a, int checks, void (*callback)(int, int, 
     void *), BN_CTX *ctx, void *cb_arg);</synopsis>
-<synopsis format="linespecific">int BN_is_prime_fasttest(const BIGNUM *a, int checks,
+<synopsis>int BN_is_prime_fasttest(const BIGNUM *a, int checks,
     void (*callback)(int, int, void *), BN_CTX *ctx, void *cb_arg,
     int do_trial_division);</synopsis>
   </refsynopsisdiv>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_generate_prime.pod:DESCRIPTION"><title>DESCRIPTION</title>
+  <refsection xml:id="ID-bf6bb1344dc80a31018d150e694b4baa"><title>DESCRIPTION</title>
     <para>
       BN_generate_prime_ex() generates a pseudo-random prime number of at
       least bit length <emphasis role="bold">bits</emphasis>. If <emphasis role="bold">ret</emphasis> is not <emphasis role="bold">NULL</emphasis>, it will be used to store the number.
@@ -147,7 +147,7 @@ for primality</refpurpose>
       BN_is_prime_ex and BN_is_prime_fasttest_ex respectively.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_generate_prime.pod:RETURN_VALUES"><title>RETURN VALUES</title>
+  <refsection xml:id="ID-e11e3288b2473cdb75ad6c178f9de5c1"><title>RETURN VALUES</title>
     <para>
       BN_generate_prime_ex() return 1 on success or 0 on error.
     </para>
@@ -176,7 +176,7 @@ for primality</refpurpose>
       </citerefentry>.
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_generate_prime.pod:REMOVED_FUNCTIONALITY"><title>REMOVED FUNCTIONALITY</title>
+  <refsection xml:id="ID-5f6365482ae92ebf02ed5d58c5629338"><title>REMOVED FUNCTIONALITY</title>
     <para>
       As of OpenSSL 1.1.0 it is no longer possible to create a BN_GENCB
       structure directly, as in:
@@ -192,7 +192,7 @@ if(!callback) /* handle error */
 ...
 BN_GENCB_free(callback);</screen>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_generate_prime.pod:SEE_ALSO"><title>SEE ALSO</title>
+  <refsection xml:id="ID-36cf6cd0560ec8a878929f64150770e0"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>bn</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
@@ -201,14 +201,10 @@ BN_GENCB_free(callback);</screen>
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
-  <refsection xml:id="sources.openssl.doc.crypto.BN_generate_prime.pod:HISTORY"><title>HISTORY</title>
+  <refsection xml:id="ID-4f19b68c8b19b89f8aa7e6202ed8b7e8"><title>HISTORY</title>
     <para>
-      The <emphasis role="bold">cb_arg</emphasis> arguments to
-      BN_generate_prime() and to BN_is_prime() were added in SSLeay 0.9.0.
-      The <emphasis role="bold">ret</emphasis> argument to
-      BN_generate_prime() was added in SSLeay 0.9.1. BN_is_prime_fasttest()
-      was added in OpenSSL 0.9.5. BN_GENCB_new, BN_GENCB_free and
-      BN_GENCB_get_arg were added in OpenSSL 1.1.0
+      BN_GENCB_new(), BN_GENCB_free(), and BN_GENCB_get_arg() were added in
+      OpenSSL 1.1.0
     </para>
   </refsection>
 </refentry>
