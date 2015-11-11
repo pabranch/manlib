@@ -4,13 +4,17 @@
     <refentrytitle>SSL_CTX_set_default_passwd_cb.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>SSL_CTX_set_default_passwd_cb, SSL_CTX_set_default_passwd_cb_userdata</refname>
-<refpurpose>set passwd callback for encrypted PEM file handling</refpurpose>
+    <refname>SSL_CTX_set_default_passwd_cb, SSL_CTX_set_default_passwd_cb_userdata,
+SSL_set_default_passwd_cb, SSL_set_default_passwd_cb_userdata</refname>
+<refpurpose>set passwd
+callback for encrypted PEM file handling</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
 <synopsis>void SSL_CTX_set_default_passwd_cb(SSL_CTX *ctx, pem_password_cb *cb);
-void SSL_CTX_set_default_passwd_cb_userdata(SSL_CTX *ctx, void *u);</synopsis>
+void SSL_CTX_set_default_passwd_cb_userdata(SSL_CTX *ctx, void *u);
+void SSL_set_default_passwd_cb(SSL *s, pem_password_cb *cb);
+void SSL_set_default_passwd_cb_userdata(SSL *s, void *u);</synopsis>
 <synopsis>int pem_passwd_cb(char *buf, int size, int rwflag, void *userdata);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-c5e162abc2a314af19662718cb392cfe"><title>DESCRIPTION</title>
@@ -21,6 +25,11 @@ void SSL_CTX_set_default_passwd_cb_userdata(SSL_CTX *ctx, void *u);</synopsis>
     <para>
       SSL_CTX_set_default_passwd_cb_userdata() sets a pointer to <emphasis role="bold">userdata</emphasis> which will be provided to the
       password callback on invocation.
+    </para>
+    <para>
+      SSL_set_default_passwd_cb() and SSL_set_default_passwd_cb_userdata()
+      perform the same function as their SSL_CTX counterparts, but using an
+      SSL object.
     </para>
     <para>
       The pem_passwd_cb(), which must be provided by the application, hands
@@ -59,9 +68,7 @@ void SSL_CTX_set_default_passwd_cb_userdata(SSL_CTX *ctx, void *u);</synopsis>
   </refsection>
   <refsection xml:id="ID-c8f423a7315d084815a0ddda7293d6fd"><title>RETURN VALUES</title>
     <para>
-      SSL_CTX_set_default_passwd_cb() and
-      SSL_CTX_set_default_passwd_cb_userdata() do not provide diagnostic
-      information.
+      These functions do not provide diagnostic information.
     </para>
   </refsection>
   <refsection xml:id="ID-d98314f22f1244e327f8749d67e71f57"><title>EXAMPLES</title>
