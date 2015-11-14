@@ -4,8 +4,8 @@
     <refentrytitle>X509_get0_signature.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>X509_get0_signature, X509_get_signature_nid, X509_REQ_get0_signature,
-X509_REQ_get_signature_nid, X509_CRL_get0_signature,
+    <refname>X509_get0_signature, X509_get_signature_nid, X509_get0_tbs_sigalg,
+X509_REQ_get0_signature, X509_REQ_get_signature_nid, X509_CRL_get0_signature,
 X509_CRL_get_signature_nid</refname>
 <refpurpose>signature information.</refpurpose>
   </refnamediv>
@@ -13,7 +13,8 @@ X509_CRL_get_signature_nid</refname>
 <synopsis>#include &lt;openssl/x509.h&gt;</synopsis>
 <synopsis>void X509_get0_signature(ASN1_BIT_STRING **psig, X509_ALGOR **palg,
                          const X509 *x);
-int X509_get_signature_nid(const X509 *x);</synopsis>
+int X509_get_signature_nid(const X509 *x);
+X509_ALGOR *X509_get0_tbs_sigalg(X509 *x);</synopsis>
 <synopsis>void X509_REQ_get0_signature(ASN1_BIT_STRING **psig, X509_ALGOR **palg,
                              const X509_REQ *crl);
 int X509_REQ_get_signature_nid(const X509_REQ *crl);</synopsis>
@@ -27,6 +28,10 @@ int X509_CRL_get_signature_nid(const X509_CRL *crl);</synopsis>
       the signature of <emphasis role="bold">x</emphasis> and <emphasis role="bold">*palg</emphasis> to the signature algorithm of <emphasis role="bold">x</emphasis>. The values returned are internal pointers
       which <emphasis role="bold">MUST NOT</emphasis> be freed up after the
       call.
+    </para>
+    <para>
+      X509_get0_tbs_sigalg() returns the signature algorithm in the signed
+      portion of <emphasis role="bold">x</emphasis>.
     </para>
     <para>
       X509_get_signature_nid() returns the NID corresponding to the

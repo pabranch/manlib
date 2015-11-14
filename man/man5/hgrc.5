@@ -910,6 +910,15 @@ myfeature = ~/.hgext/myfeature.py
 .SS \fBformat\fP
 .INDENT 0.0
 .TP
+.B \fBusegeneraldelta\fP
+.sp
+Enable or disable the "generaldelta" repository format which improves
+repository compression by allowing "revlog" to store delta against arbitrary
+revision instead of the previous stored one. This provides significant
+improvement for repositories with branches. Disabling this option ensures that
+the on\-disk format of newly created repository will be compatible with
+Mercurial before version 1.9.
+.TP
 .B \fBusestore\fP
 .sp
 Enable or disable the "store" repository format which improves
@@ -1871,6 +1880,11 @@ specified by the \fB\-\-encoding\fP global option, \fBHGENCODING\fP or other
 environment variables that govern your locale. If the encoding of the merge
 markers is different from the encoding of the merged files,
 serious problems may occur.
+.TP
+.B \fBorigbackuppath\fP
+.sp
+The path to a directory used to store generated .orig files. If the path is
+not a directory, one will be created.
 .TP
 .B \fBpatch\fP
 .sp

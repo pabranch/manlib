@@ -14,6 +14,10 @@
 [<emphasis role="bold">-V</emphasis>]
 [<emphasis role="bold">-ssl3</emphasis>]
 [<emphasis role="bold">-tls1</emphasis>]
+[<emphasis role="bold">-tls1_1</emphasis>]
+[<emphasis role="bold">-tls1_2</emphasis>]
+[<emphasis role="bold">-s</emphasis>]
+[<emphasis role="bold">-psk</emphasis>]
 [<emphasis role="bold">-stdname</emphasis>]
 [<emphasis role="bold">cipherlist</emphasis>]</synopsis>
   </refsynopsisdiv>
@@ -35,6 +39,15 @@
 	      security level. This is the actual cipher list an application
 	      will support. If this option is not used then ciphers
 	      excluded by the security level will still be listed.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-psk</emphasis></term>
+          <listitem>
+            <para>
+	      When combined with <emphasis role="bold">-s</emphasis>
+	      includes cipher suites which require PSK.
             </para>
           </listitem>
         </varlistentry>
@@ -62,7 +75,8 @@
           <term><emphasis role="bold">-ssl3</emphasis></term>
           <listitem>
             <para>
-	      only include SSL v3 ciphers.
+	      List the ciphers which would be used if SSL v3 was
+	      negotiated.
             </para>
           </listitem>
         </varlistentry>
@@ -70,7 +84,26 @@
           <term><emphasis role="bold">-tls1</emphasis></term>
           <listitem>
             <para>
-	      only include TLS v1 ciphers.
+	      List the ciphers which would be used if TLS v1.0 was
+	      negotiated.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-tls1_1</emphasis></term>
+          <listitem>
+            <para>
+	      List the ciphers which would be used if TLS v1.1 was
+	      negotiated.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-tls1_2</emphasis></term>
+          <listitem>
+            <para>
+	      List the ciphers which would be used if TLS v1.2 was
+	      negotiated.
             </para>
           </listitem>
         </varlistentry>
@@ -424,11 +457,19 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><emphasis role="bold">TLSv1.2</emphasis>, <emphasis role="bold">TLSv1</emphasis>, <emphasis role="bold">SSLv3</emphasis></term>
+          <term><emphasis role="bold">TLSv1.2</emphasis>, <emphasis role="bold">TLSv1.0</emphasis>, <emphasis role="bold">SSLv3</emphasis></term>
           <listitem>
             <para>
-	      TLS v1.2, TLS v1.0 or SSL v3.0 cipher suites respectively.
-	      Note: there are no ciphersuites specific to TLS v1.1.
+	      Lists ciphersuites which are only supported in at least TLS
+	      v1.2, TLS v1.0 or SSL v3.0 respectively. Note: there are no
+	      ciphersuites specific to TLS v1.1. Since this is only the
+	      minimum version if, for example, TLS v1.0 is supported then
+	      both TLS v1.0 and SSL v3.0 ciphersuites are included.
+            </para>
+            <para>
+	      Note: these cipher strings <emphasis role="bold">do
+	      not</emphasis> change the negotiated version of SSL or TLS
+	      only the list of cipher suites.
             </para>
           </listitem>
         </varlistentry>

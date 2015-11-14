@@ -1,0 +1,71 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>X509_get0_uids.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>X509_get0_uids</refname>
+<refpurpose>get certificate unique identifiers</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis>#include &lt;openssl/x509.h&gt;</synopsis>
+<synopsis>void X509_get0_uids(ASN1_BIT_STRING **piuid, ASN1_BIT_STRING **psuid, X509 *x);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="ID-31763ad1ffb23f8dccc75d3bc769a042"><title>DESCRIPTION</title>
+    <para>
+      X509_get0_uids() sets <emphasis role="bold">*piuid</emphasis> and
+      <emphasis role="bold">*psuid</emphasis> to the issuer and subject
+      unique identifiers of certificate <emphasis role="bold">x</emphasis>
+      or NULL if the fields are not present.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-6e528c33422bb376a2c0d1bac7daae58"><title>NOTES</title>
+    <para>
+      The issuer and subject unique identifier fields are very rarely
+      encountered in practice outside test cases.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-711cb53ff1292100f2fd3f17f7b1c930"><title>RETURN VALUES</title>
+    <para>
+      X509_get0_uids() does not return a value.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-de3c14d7d6aa1fa7127306b4e6514d39"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>d2i_X509</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ERR_get_error</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>X509_CRL_get0_by_serial</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get0_signature</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_ext_d2i</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_extension_flags</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_pubkey</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_subject_name</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_version</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_NAME_add_entry_by_txt</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_NAME_ENTRY_get_object</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_NAME_get_index_by_NID</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_NAME_print_ex</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>X509_sign</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>X509V3_get_d2i</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_verify_cert</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
+    </para>
+  </refsection>
+</refentry>

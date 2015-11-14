@@ -27,6 +27,9 @@ int X509_CRL_add1_ext_i2d(X509_CRL *crl, int nid, void *value, int crit,
 <synopsis>void *X509_REVOKED_get_ext_d2i(X509_REVOKED *r, int nid, int *crit, int *idx);
 int X509_REVOKED_add1_ext_i2d(X509_REVOKED *r, int nid, void *value, int crit,
                               unsigned long flags);</synopsis>
+<synopsis>STACK_OF(X509_EXTENSION) *X509_get0_extensions(const X509 *x);
+STACK_OF(X509_EXTENSION) *X509_CRL_get0_extensions(X509_CRL *crl);
+STACK_OF(X509_EXTENSION) *X509_REVOKED_get0_extensions(X509_REVOKED *r);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-4c03a434ad33aee18c969e46da575633"><title>DESCRIPTION</title>
     <para>
@@ -71,6 +74,11 @@ int X509_REVOKED_add1_ext_i2d(X509_REVOKED *r, int nid, void *value, int crit,
       structure <emphasis role="bold">r</emphasis> (i.e for CRL entry
       extensions), they are otherwise identical to X509V3_get_d2i() and
       X509V3_add_i2d().
+    </para>
+    <para>
+      X509_get0_extensions(), X509_CRL_get0_extensions() and
+      X509_REVOKED_get0_extensions() return a stack of all the extensions
+      of a certificate a CRL or a CRL entry respectively.
     </para>
   </refsection>
   <refsection xml:id="ID-1c52092b0400b887e0921e6718f2ffa6"><title>NOTES</title>
@@ -221,6 +229,11 @@ CT Certificate SCTs                NID_ct_cert_scts</screen>
       it fails due to a non-fatal error (extension not found, already
       exists, cannot be encoded) or -1 due to a fatal error such as a
       memory allocation failure.
+    </para>
+    <para>
+      X509_get0_extensions(), X509_CRL_get0_extensions() and
+      X509_REVOKED_get0_extensions() return a stack of extensions. They can
+      return NULL if no extensions are present.
     </para>
   </refsection>
   <refsection xml:id="ID-f39404f9eb62efba31054a7f3f29e813"><title>SEE ALSO</title>
