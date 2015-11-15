@@ -19,7 +19,7 @@
 .\" Agency (DARPA) and Air Force Research Laboratory, Air Force
 .\" Materiel Command, USAF, under agreement number F39502-99-1-0512.
 .\"
-.Dd September 25, 2015
+.Dd October 24, 2015
 .Dt SUDOERS 5
 .Os Sudo 1.8.15
 .Sh NAME
@@ -1645,6 +1645,16 @@ A list of all supported Defaults parameters, grouped by type, are listed below.
 .Pp
 .Sy Boolean Flags :
 .Bl -tag -width 16n
+.It always_query_group_plugin
+If a
+.Em group_plugin
+is configured, use it to resolve groups of the form %group as long
+as there is not also a system group of the same name.
+Normally, only groups of the form %:group are passed to the
+.Em group_plugin .
+This flag is
+.Em off
+by default.
 .It always_set_home
 If enabled,
 .Nm sudo
@@ -2460,6 +2470,16 @@ This option is only effective on systems that support either the
 or
 .Xr setresuid 2
 system call.
+This flag is
+.Em off
+by default.
+.It sudoedit_checkdir
+If set,
+.Nm sudoedit
+will refuse to edit files located in a directory that is writable
+by the invoking user unless it is run by root.
+On many systems, this option requires that the parent directory
+of the file to be edited be readable by the target user.
 This flag is
 .Em off
 by default.

@@ -565,7 +565,7 @@ find sources/sox/ -name '*.7' -exec rsync --checksum {} man/man7/ \\;"
   "sudo": {
     "type": "hg",
     "url": "http://www.sudo.ws/repos/sudo",
-    "cmd": "(cd sources/sudo/; ./configure; make; mkdir -p /tmp/sudo-inst; make DESTDIR=/tmp/sudo-inst install-doc);
+    "cmd": "(cd sources/sudo/; ./configure; make; mkdir -p /tmp/sudo-inst; sed -i \"s/install_uid = 0/install_uid = $UID/g\" Makefile; sed -i \"s/install_gid = 0/install_gid = $UID/g\" Makefile; make DESTDIR=/tmp/sudo-inst install-doc);
 rsync --checksum -a /tmp/sudo-inst/usr/local/man/man[1-8] man/"
   },
 
