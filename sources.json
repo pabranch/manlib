@@ -276,12 +276,10 @@ rsync --checksum sources/libtirpc/man/*.5 man/man5/"
   },
   */
 
-  // (cd sources/libXi; ./autogen.sh) Then set .SECONDARY: to blank in man/Makefile to stop it deleting intermediate xml files.
   "libXi": {
     "type": "git",
     "url": "git://anongit.freedesktop.org/xorg/lib/libXi",
-    "cmd": "(cd sources/libXi/man; make);
-for f in sources/libXi/man/*.xml; do xsltproc -o xml/man3/$(basename -s .xml $f).3.xml --xinclude utils/db4-upgrade.xsl $f; done;"
+      "cmd": "find sources/libXi/man -name '*.txt' -exec bash -c 'asciidoc -d manpage -b docbook -o- {} | sed 's~libmansuffix~3~g' | xsltproc utils/db4-upgrade.xsl - > xml/man3/$(basename -s .txt {}).3.xml' \\;"
   },
 
   "linux-pam": {
