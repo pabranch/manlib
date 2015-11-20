@@ -1,0 +1,707 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry lang="en">
+<refentryinfo>
+    <title>A2X(1)</title>
+</refentryinfo>
+<refmeta>
+<refentrytitle>a2x</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">&#160;</refmiscinfo>
+<refmiscinfo class="manual">&#160;</refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>a2x</refname>
+    <refpurpose>A toolchain manager for AsciiDoc (converts Asciidoc text files to other       file formats)</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis role="strong">a2x</emphasis> [<emphasis>OPTIONS</emphasis>] <emphasis>SOURCE_FILE</emphasis></simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>A DocBook toolchain manager that translates an AsciiDoc text file
+<emphasis>SOURCE_FILE</emphasis> to PDF, EPUB, DVI, PS, LaTeX, XHTML (single page or
+chunked), man page, HTML Help or plain text formats using
+<emphasis>asciidoc(1)</emphasis> and other applications (see <link linkend="X1">REQUISITES section</link>).
+<emphasis>SOURCE_FILE</emphasis> can also be a DocBook file with an .xml extension.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">-a, --attribute</emphasis>=<emphasis>ATTRIBUTE</emphasis>
+</term>
+<listitem>
+<simpara>
+  Set asciidoc(1) attribute value (shortcut for <emphasis role="strong">--asciidoc-opts</emphasis>=<emphasis>"-a
+  ATTRIBUTE"</emphasis> option).
+  This option may be specified more than once.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--asciidoc-opts</emphasis>=<emphasis>ASCIIDOC_OPTS</emphasis>
+</term>
+<listitem>
+<simpara>
+  Additional <emphasis>asciidoc(1)</emphasis> options.
+  This option may be specified more than once.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--conf-file</emphasis>=<emphasis>CONF_FILE</emphasis>
+</term>
+<listitem>
+<simpara>
+  Load configuration file. See <link linkend="X2">CONF FILES section</link>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-D, --destination-dir</emphasis>=<emphasis>DESTINATION_DIR</emphasis>
+</term>
+<listitem>
+<simpara>
+  Output directory. Defaults to <emphasis>SOURCE_FILE</emphasis> directory. This option
+  is only applicable to HTML and manpage based output formats (<emphasis>chunked</emphasis>, <emphasis>epub</emphasis>,
+  <emphasis>htmlhelp</emphasis>, <emphasis>xhtml</emphasis>, <emphasis>manpage</emphasis>).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-d, --doctype</emphasis>=<emphasis>DOCTYPE</emphasis>
+</term>
+<listitem>
+<simpara>
+  DocBook document type: <emphasis>article</emphasis>, <emphasis>manpage</emphasis> or <emphasis>book</emphasis>.  Default
+  document type is <emphasis>article</emphasis> unless the format is <emphasis>manpage</emphasis> (in which
+  case it defaults to <emphasis>manpage</emphasis>).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-b, --backend</emphasis>=<emphasis>BACKEND</emphasis>
+</term>
+<listitem>
+<simpara>
+  <emphasis>BACKEND</emphasis> is the name of an installed backend plugin. When this
+  option is specified <emphasis>a2x</emphasis> attempts to load a file name <emphasis>a2x-backend.py</emphasis>
+  from the <emphasis>BACKEND</emphasis> plugin directory. It then converts the
+  <emphasis>SOURCE_FILE</emphasis> to a <emphasis>BACKEND</emphasis> formatted output file using a global
+  function defined in <emphasis>a2x-backend.py</emphasis> called <emphasis>to_BACKEND</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-f, --format</emphasis>=<emphasis>FORMAT</emphasis>
+</term>
+<listitem>
+<simpara>
+  Output formats: <emphasis>chunked</emphasis>, <emphasis>docbook</emphasis>, <emphasis>dvi</emphasis>, <emphasis>epub</emphasis>, <emphasis>htmlhelp</emphasis>,
+  <emphasis>manpage</emphasis>, <emphasis>pdf</emphasis> (default), <emphasis>ps</emphasis>, <emphasis>tex</emphasis>, <emphasis>text</emphasis>, <emphasis>xhtml</emphasis>.
+  The AsciiDoc <emphasis>a2x-format</emphasis> attribute value is set to <emphasis>FORMAT</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-h, --help</emphasis>
+</term>
+<listitem>
+<simpara>
+  Print command-line syntax and program options to stdout.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--icons</emphasis>
+</term>
+<listitem>
+<simpara>
+  Use admonition or navigation icon images in output documents. The
+  default behavior is to use text in place of icons.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--icons-dir</emphasis>=<emphasis>PATH</emphasis>
+</term>
+<listitem>
+<simpara>
+  A path (relative to output files) containing admonition
+  and navigation icons. Defaults to <literal>images/icons</literal>.
+  The <emphasis>--icons</emphasis> option is implicit if this option is used.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-k, --keep-artifacts</emphasis>
+</term>
+<listitem>
+<simpara>
+  Do not delete temporary build files.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--lynx</emphasis>
+</term>
+<listitem>
+<simpara>
+  Use <emphasis>lynx(1)</emphasis> (actually: the text-based browser defined by the <literal>LYNX</literal> config
+  variable) when generating text formatted output. The default behavior is to
+  use <emphasis>w3m(1)</emphasis> (actually: the text-based browser defined by the <literal>W3M</literal> config
+  variable).
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-L, --no-xmllint</emphasis>
+</term>
+<listitem>
+<simpara>
+  Do not check asciidoc output with <emphasis>xmllint(1)</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">---epubcheck</emphasis>
+</term>
+<listitem>
+<simpara>
+  Check EPUB output with <emphasis>epubcheck(1)</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-n, --dry-run</emphasis>
+</term>
+<listitem>
+<simpara>
+  Do not do anything just print what would have been done.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-r, --resource</emphasis>=<emphasis>RESOURCE_SPEC</emphasis>
+</term>
+<listitem>
+<simpara>
+  Specify a resource.  This option may be specified more than once.
+  See the <link linkend="X3"><emphasis role="strong">RESOURCES</emphasis></link> section for more details.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-m, --resource-manifest</emphasis>=<emphasis>FILE</emphasis>
+</term>
+<listitem>
+<simpara>
+  <emphasis>FILE</emphasis> contains a list resources (one per line). Manifest <emphasis>FILE</emphasis>
+  entries are formatted just like <emphasis role="strong">--resource</emphasis> option arguments.
+  Environment variables and tilde home directories are allowed.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--stylesheet</emphasis>=<emphasis>STYLESHEET</emphasis>
+</term>
+<listitem>
+<simpara>
+  A space delimited list of one or more CSS stylesheet file names that
+  are used to style HTML output generated by DocBook XSL Stylesheets.
+  Defaults to <emphasis>docbook-xsl.css</emphasis>.  The stylesheets are processed in
+  list order. The stylesheets must reside in a valid <link linkend="X3">resource   file</link> location.  Applies to HTML formats: <emphasis>xhtml</emphasis>, <emphasis>epub</emphasis>,
+  <emphasis>chunked</emphasis>, <emphasis>htmlhelp</emphasis> formats.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-v, --verbose</emphasis>
+</term>
+<listitem>
+<simpara>
+  Print operational details to stderr.
+  A second <emphasis role="strong">-v</emphasis> option applies the verbose option to toolchain commands.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--version</emphasis>
+</term>
+<listitem>
+<simpara>
+  Print program version to stdout.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--xsltproc-opts</emphasis>=<emphasis>XSLTPROC_OPTS</emphasis>
+</term>
+<listitem>
+<simpara>
+  Additional <emphasis>xsltproc(1)</emphasis> options.
+  This option may be specified more than once.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--xsl-file</emphasis>=<emphasis>XSL_FILE</emphasis>
+</term>
+<listitem>
+<simpara>
+  Override the built-in XSL stylesheet with the custom XSL stylesheet
+  <emphasis>XSL_FILE</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--fop</emphasis>
+</term>
+<listitem>
+<simpara>
+  Use FOP to generate PDFs. The default behavior is to use
+  <emphasis>dblatex(1)</emphasis>.  The <emphasis>--fop</emphasis> option is implicit if this option is
+  used.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--fop-opts</emphasis>=<emphasis>FOP_OPTS</emphasis>
+</term>
+<listitem>
+<simpara>
+  Additional <emphasis>fop(1)</emphasis> options. If this option is specified FOP is used
+  to generate PDFs.
+  This option may be specified more than once.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--dblatex-opts</emphasis>=<emphasis>DBLATEX_OPTS</emphasis>
+</term>
+<listitem>
+<simpara>
+  Additional <emphasis>dblatex(1)</emphasis> options.
+  This option may be specified more than once.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--backend-opts</emphasis>=<emphasis>BACKEND_OPTS</emphasis>
+</term>
+<listitem>
+<simpara>
+  Options for the backend plugin specified by the <emphasis>--backend</emphasis> option.
+  This option may be specified more than once.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+<simpara>Options can also be set in the AsciiDoc source file. If <emphasis>SOURCE_FILE</emphasis>
+contains a comment line beginning with <emphasis role="strong">// a2x:</emphasis> then the remainder of
+the line will be treated as <emphasis>a2x</emphasis> command-line options. For example:</simpara>
+<literallayout class="monospaced">// a2x default options.
+//    a2x: -dbook --epubcheck
+// Suppress revision history in dblatex outputs.
+//    a2x: --dblatex-opts "-P latex.output.revhistory=0"</literallayout>
+<itemizedlist>
+<listitem>
+<simpara>
+Options spanning multiple such comment lines will be concatenated.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Zero or more white space characters can appear between the leading
+  <emphasis role="strong">//</emphasis> and <emphasis role="strong">a2x:</emphasis>.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Command-line options take precedence over options set in the source
+  file.
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect1>
+<refsect1 id="X4">
+<title>OUTPUT FILES</title>
+<simpara>Output files are written to the directory specified by the
+<emphasis role="strong">--destination-dir</emphasis> option. If no <emphasis role="strong">--destination-dir</emphasis> option is set
+output files are written to the <emphasis>SOURCE_FILE</emphasis> directory.</simpara>
+<simpara>Output files have the same name as the <emphasis>SOURCE_FILE</emphasis> but with an
+appropriate file name extension: <literal>.html</literal> for <emphasis>xhtml</emphasis>; <literal>.epub</literal> for
+<emphasis>epub</emphasis>; <literal>.hhp</literal> for <emphasis>htmlhelp</emphasis>; <literal>.pdf</literal> for <emphasis>pdf</emphasis>; <literal>.text</literal> for <emphasis>text</emphasis>,
+<literal>.xml</literal> for <emphasis>docbook</emphasis>. By convention manpages have no <literal>.man</literal> extension
+(man page section number only).  Chunked HTML directory names have a
+<literal>.chunked</literal> extension; chunked HTML Help directory names have a
+<literal>.htmlhelp</literal> extension.</simpara>
+<simpara>Same named existing files are overwritten.</simpara>
+<simpara>In addition to generating HTML files the <emphasis>xhtml</emphasis>, <emphasis>epub</emphasis>, <emphasis>chunked</emphasis>
+and <emphasis>htmlhelp</emphasis> formats ensure <link linkend="X3">resource files</link> are copied to
+their correct destination directory locations.</simpara>
+</refsect1>
+<refsect1 id="X3">
+<title>RESOURCES</title>
+<simpara>Resources are files (typically CSS and images) that are required by
+HTML based outputs (<emphasis>xhtml</emphasis>, <emphasis>epub</emphasis>, <emphasis>chunked</emphasis>, <emphasis>htmlhelp</emphasis> formats).
+<emphasis>a2x</emphasis> scans the generated HTML files and builds a list of required CSS
+and image files. Additional resource files can be specified explicitly
+using the <emphasis role="strong">--resource</emphasis> option.</simpara>
+<simpara><emphasis>a2x</emphasis> searches for resource files in the following locations in the
+following order:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>
+The <emphasis>SOURCE_FILE</emphasis> directory.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Resource directories specified by the <emphasis role="strong">--resource</emphasis> option (searched
+  recursively).
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Resource directories specified by the <emphasis role="strong">--resource-manifest</emphasis> option
+  (searched recursively in the order they appear in the manifest
+  file).
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+The stock <literal>images</literal> and <literal>stylesheets</literal> directories in the
+  <emphasis>asciidoc(1)</emphasis> configuration files directories (searched
+  recursively).
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+The destination directory.
+</simpara>
+</listitem>
+</orderedlist>
+<simpara>When a resource file is found it is copied to the correct relative
+destination directory. Missing destination sub-directories are created
+automatically.</simpara>
+<simpara>There are two distinct mechanisms for specifying additional resources:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>
+A resource directory which will be searched recursively for missing
+  resource files.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+A resource file which will be copied to the output destination
+  directory.
+</simpara>
+</listitem>
+</orderedlist>
+<simpara>Resources are specified with <emphasis role="strong">--resource</emphasis> option values which can be
+one of the following formats:</simpara>
+<literallayout class="monospaced">&lt;resource_dir&gt;
+&lt;resource_file&gt;[=&lt;destination_file&gt;]
+.&lt;ext&gt;=&lt;mimetype&gt;</literallayout>
+<simpara>Where:</simpara>
+<variablelist>
+<varlistentry>
+<term>
+<literal>&lt;resource_dir&gt;</literal>
+</term>
+<listitem>
+<simpara>
+  Specifies a directory (absolute or relative to the <emphasis>SOURCE_FILE</emphasis>)
+  which is searched recursively for missing resource files.  To
+  eliminate ambiguity the <literal>&lt;resource_dir&gt;</literal> name should end with a
+  directory separator character.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<literal>&lt;resource_file&gt;</literal>
+</term>
+<listitem>
+<simpara>
+  Specifies a resource file (absolute or relative to the
+  <emphasis>SOURCE_FILE</emphasis>) which will be copied to <literal>&lt;destination_file&gt;</literal>. If
+  <literal>&lt;destination_file&gt;</literal> is not specified then it is the same as the
+  <literal>&lt;resource_file&gt;</literal>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<literal>&lt;destination_file&gt;</literal>
+</term>
+<listitem>
+<simpara>
+  Specifies the destination of the copied source file. The
+  <literal>&lt;destination_file&gt;</literal> path is relative to the destination directory
+  (absolute paths are not allowed). The location of the destination
+  directory depends on the output <emphasis>FORMAT</emphasis> (see the <link linkend="X4"><emphasis role="strong">OUTPUT   FILES</emphasis></link> section for details):
+</simpara>
+<variablelist>
+<varlistentry>
+<term>
+chunked, htmlhelp
+</term>
+<listitem>
+<simpara>
+The chunked output directory.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+epub
+</term>
+<listitem>
+<simpara>
+The archived <literal>OEBPS</literal> directory.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+xhtml
+</term>
+<listitem>
+<simpara>
+The output <emphasis role="strong">DESTINATION_DIR</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<literal>.&lt;ext&gt;=&lt;mimetype&gt;</literal>
+</term>
+<listitem>
+<simpara>
+  When adding resources to EPUB files the mimetype is inferred from
+  the <literal>&lt;destination file&gt;</literal> extension, if the mimetype cannot be
+  guessed an error occurs. The <literal>.&lt;ext&gt;=&lt;mimetype&gt;</literal> resource syntax can
+  be used to explicitly set mimetypes. <literal>&lt;ext&gt;</literal> is the file name
+  extension, <literal>&lt;mimetype&gt;</literal> is the corresponding MIME type.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+<simpara>Resource option examples:</simpara>
+<literallayout class="monospaced">--resource ../images/
+--resource doc/README.txt=README.txt
+--resource ~/images/tiger.png=images/tiger.png
+--resource .ttf=application/x-font-ttf</literallayout>
+</refsect1>
+<refsect1 id="_examples">
+<title>EXAMPLES</title>
+<variablelist>
+<varlistentry>
+<term>
+<literal>a2x -f pdf doc/source-highlight-filter.txt</literal>
+</term>
+<listitem>
+<simpara>
+  Generates <literal>doc/source-highlight-filter.pdf</literal> file.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<literal>a2x -f xhtml -D ../doc --icons -r ../images/ team.txt</literal>
+</term>
+<listitem>
+<simpara>
+  Creates HTML file <literal>../doc/team.html</literal>, uses admonition icons and
+  recursively searches the <literal>../images/</literal> directory for any missing
+  resources.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<literal>a2x -f manpage doc/asciidoc.1.txt</literal>
+</term>
+<listitem>
+<simpara>
+  Generate <literal>doc/asciidoc.1</literal> manpage.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="X1">
+<title>REQUISITES</title>
+<simpara><emphasis>a2x</emphasis> uses the following programs:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+<emphasis role="strong">Asciidoc</emphasis>:
+  <ulink url="http://asciidoc.org/">http://asciidoc.org/</ulink>
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<emphasis role="strong">xsltproc</emphasis>: (all formats except text):
+  <ulink url="http://xmlsoft.org/XSLT/">http://xmlsoft.org/XSLT/</ulink>
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<emphasis role="strong">DocBook XSL Stylesheets</emphasis> (all formats except text):
+  <ulink url="http://docbook.sourceforge.net/projects/xsl/">http://docbook.sourceforge.net/projects/xsl/</ulink>
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<emphasis role="strong">dblatex</emphasis> (pdf, dvi, ps, tex formats):
+  <ulink url="http://dblatex.sourceforge.net/">http://dblatex.sourceforge.net/</ulink>
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<emphasis role="strong">FOP</emphasis> (pdf format&#8201;&#8212;&#8201;alternative PDF file generator):
+  <ulink url="http://xmlgraphics.apache.org/fop/">http://xmlgraphics.apache.org/fop/</ulink>
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<emphasis role="strong">w3m</emphasis> (text format):
+  <ulink url="http://w3m.sourceforge.net/index.en.html">http://w3m.sourceforge.net/index.en.html</ulink>
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<emphasis role="strong">Lynx</emphasis> (text format&#8201;&#8212;&#8201;alternative text file generator):
+  <ulink url="http://lynx.isc.org/">http://lynx.isc.org/</ulink>
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<emphasis role="strong">epubcheck</emphasis> (epub format&#8201;&#8212;&#8201;EPUB file validator):
+  <ulink url="http://code.google.com/p/epubcheck/">http://code.google.com/p/epubcheck/</ulink>
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara>See also the latest README file.</simpara>
+</refsect1>
+<refsect1 id="X2">
+<title>CONF FILES</title>
+<simpara>A configuration file contains executable Python code that overrides
+the global configuration parameters in <literal>a2x.py</literal>.  Optional configuration
+files are loaded in the following order:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>
+<literal>a2x.conf</literal> from the directory containing the <emphasis>a2x.py</emphasis> executable.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>a2x.conf</literal> from the AsciiDoc global configuration directory.  Skip
+  this step if we are executing a locally installed (non system wide)
+  copy.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>a2x.conf</literal> from the AsciiDoc <literal>$HOME/.asciidoc</literal> configuration
+  directory.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+The <emphasis>CONF_FILE</emphasis> specified in the <emphasis>--conf-file</emphasis> option.
+</simpara>
+</listitem>
+</orderedlist>
+<simpara>Here are the default configuration file option values:</simpara>
+<screen># Optional environment variable dictionary passed to
+# executing programs. If set to None the existing
+# environment is used.
+ENV = None
+
+# External executables.
+ASCIIDOC = 'asciidoc'
+XSLTPROC = 'xsltproc'
+DBLATEX = 'dblatex'         # pdf generation.
+FOP = 'fop'                 # pdf generation (--fop option).
+W3M = 'w3m'                 # primary text file generator.
+LYNX = 'lynx'               # alternate text file generator.
+XMLLINT = 'xmllint'         # Set to '' to disable.
+EPUBCHECK = 'epubcheck'     # Set to '' to disable.
+# External executable default options.
+ASCIIDOC_OPTS = ''
+BACKEND_OPTS = ''
+DBLATEX_OPTS = ''
+FOP_OPTS = ''
+LYNX_OPTS = '-dump'
+W3M_OPTS = '-dump -cols 70 -T text/html -no-graph'
+XSLTPROC_OPTS = ''</screen>
+<simpara>Note, that it is possible to redefine <literal>W3M</literal> and <literal>LYNX</literal> to use different text-based
+browsers, e.g. <emphasis>links</emphasis>: <ulink url="http://links.twibright.com/">http://links.twibright.com/</ulink> or
+<emphasis>elinks</emphasis>: <ulink url="http://elinks.or.cz/">http://elinks.or.cz/</ulink>. <literal>LYNX_OPTS</literal> and <literal>W3M_OPTS</literal> can be used to pass
+options to the selected browser. If these are defined they override the
+respective defaults listed above (so don&#8217;t forget to include the <emphasis>-dump</emphasis> option
+in your definition: this is mandatory at least with <emphasis>w3m</emphasis>, <emphasis>lynx</emphasis>, <emphasis>links</emphasis>, and
+<emphasis>elinks</emphasis> in order to send the formatted text to stdout).</simpara>
+</refsect1>
+<refsect1 id="_bugs">
+<title>BUGS</title>
+<simpara>See the AsciiDoc distribution BUGS file.</simpara>
+</refsect1>
+<refsect1 id="_author">
+<title>AUTHOR</title>
+<simpara>a2x was originally written by Stuart Rackham. Many people have
+contributed to it.</simpara>
+</refsect1>
+<refsect1 id="_resources">
+<title>RESOURCES</title>
+<simpara>SourceForge: <ulink url="http://sourceforge.net/projects/asciidoc/">http://sourceforge.net/projects/asciidoc/</ulink></simpara>
+<simpara>Main web site: <ulink url="http://asciidoc.org/">http://asciidoc.org/</ulink></simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara>asciidoc(1)</simpara>
+</refsect1>
+<refsect1 id="_copying">
+<title>COPYING</title>
+<simpara>Copyright (C) 2002-2011 Stuart Rackham. Free use of this software is
+granted under the terms of the MIT license.</simpara>
+</refsect1>
+</refentry>

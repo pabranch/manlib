@@ -27,6 +27,13 @@ rsync --checksum sources/abrt/doc/*.5 man/man5/;"
 rsync --checksum sources/acct/*.8 man/man8/"
   },
 
+  "asciidoc": {
+    "type": "git",
+    "url": "https://github.com/asciidoc/asciidoc.git",
+    "sparse": "doc/",
+    "cmd": "(cd sources/asciidoc/doc/; find . -name '*.1.txt' -exec bash -c 'base=$(basename -s .txt {}); asciidoc -d manpage -b docbook -o ../../../xml/man1/$base.xml {}' \\;)"
+  },
+
   "atop": {
     "type": "tarball",
     "url": "http://www.atoptool.nl/download/atop-2.2-3.tar.gz",
