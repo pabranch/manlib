@@ -115,9 +115,6 @@ image. So, you could completly change your root partition (move it inside a md
 raid with encryption and LVM on top), as long as you specify the correct
 filesystem LABEL or UUID on the kernel command line for your root device, dracut
 will find it and boot from it.</simpara>
-<simpara>The kernel command line usually can be configured in <emphasis>/boot/grub/grub.conf</emphasis> or
-<emphasis>/boot/grub2/grub.cfg</emphasis>, if grub is your bootloader and it also can be edited in
-the real boot process in the grub menu.</simpara>
 <simpara>The kernel command line can also be provided by the dhcp server with the
 root-path option. See <xref linkend="NetworkBoot"/>.</simpara>
 <simpara>For a full reference of all kernel command line parameters,
@@ -283,7 +280,7 @@ stick and mount that. Then you can store the output for later inspection.</simpa
 <listitem>
 <simpara>
 The exact kernel command-line used. Typically from the bootloader
-configuration file (e.g. <emphasis>/etc/grub.conf</emphasis>) or from <emphasis>/proc/cmdline</emphasis>.
+configuration file (e.g. <emphasis>/boot/grub2/grub.cfg</emphasis>) or from <emphasis>/proc/cmdline</emphasis>.
 </simpara>
 </listitem>
 <listitem>
@@ -338,7 +335,7 @@ First, enable serial console output for both the kernel and the bootloader.
 </listitem>
 <listitem>
 <simpara>
-Open the file <emphasis>/etc/grub.conf</emphasis> for editing. Below the line <emphasis>'timeout=5</emphasis>', add
+Open the file <emphasis>/boot/grub2/grub.cfg</emphasis> for editing. Below the line <emphasis>'timeout=5</emphasis>', add
 the following:
 </simpara>
 <screen>serial --unit=0 --speed=9600
@@ -346,14 +343,14 @@ terminal --timeout=5 serial console</screen>
 </listitem>
 <listitem>
 <simpara>
-Also in <emphasis>/etc/grub.conf</emphasis>, add the following boot arguemnts to the <emphasis>'kernel</emphasis>'
+Also in <emphasis>/boot/grub2/grub.cfg</emphasis>, add the following boot arguemnts to the <emphasis>'kernel</emphasis>'
 line:
 </simpara>
 <screen>console=tty0 console=ttyS0,9600</screen>
 </listitem>
 <listitem>
 <simpara>
-When finished, the <emphasis>/etc/grub.conf</emphasis> file should look similar to the example
+When finished, the <emphasis>/boot/grub2/grub.cfg</emphasis> file should look similar to the example
 below.
 </simpara>
 <screen>default=0
@@ -390,14 +387,14 @@ locate your root filesystem. To enable the shell:</simpara>
 <listitem>
 <simpara>
 Add the boot parameter <emphasis>'rd.shell</emphasis>' to your bootloader configuration file
-(e.g. <emphasis>/etc/grub.conf</emphasis>)
+(e.g. <emphasis>/boot/grub2/grub.cfg</emphasis>)
 </simpara>
 </listitem>
 <listitem>
 <simpara>
 Remove the boot arguments <emphasis>'rhgb</emphasis>' and <emphasis>'quiet</emphasis>'
 </simpara>
-<simpara>A sample <emphasis>/etc/grub.conf</emphasis> bootloader configuration file is listed below.</simpara>
+<simpara>A sample <emphasis>/boot/grub2/grub.cfg</emphasis> bootloader configuration file is listed below.</simpara>
 <screen>default=0
 timeout=5
 serial --unit=0 --speed=9600
@@ -1133,6 +1130,17 @@ provide a valid <emphasis>/etc/fstab</emphasis>.</simpara>
 </varlistentry>
 <varlistentry>
 <term>
+<emphasis role="strong">--mount</emphasis> "<emphasis>&lt;mountpoint&gt;</emphasis>"
+</term>
+<listitem>
+<simpara>
+    Like above, but <emphasis>&lt;device&gt;</emphasis>, <emphasis>&lt;filesystem type&gt;</emphasis> and <emphasis>&lt;filesystem options&gt;</emphasis>
+    are determined by looking at the current mounts.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 <emphasis role="strong">--add-device</emphasis> <emphasis>&lt;device&gt;</emphasis> 
 </term>
 <listitem>
@@ -1301,6 +1309,16 @@ will not be able to boot.</simpara>
 <listitem>
 <simpara>
     Create reproducible images.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--no-reproducible</emphasis>
+</term>
+<listitem>
+<simpara>
+    Do not create reproducible images.
 </simpara>
 </listitem>
 </varlistentry>
@@ -1539,6 +1557,6 @@ will not be able to boot.</simpara>
 </refsect1>
 <refsect1 id="_see_also">
 <title>SEE ALSO</title>
-<simpara><emphasis role="strong">dracut.cmdline</emphasis>(7) <emphasis role="strong">dracut.conf</emphasis>(5)</simpara>
+<simpara><emphasis role="strong">dracut.cmdline</emphasis>(7) <emphasis role="strong">dracut.conf</emphasis>(5) <emphasis role="strong">lsinitrd</emphasis>(1)</simpara>
 </refsect1>
 </refentry>
