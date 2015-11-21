@@ -6798,6 +6798,14 @@ transfer.hideRefs
 explicitly exposing it, even if an earlier entry marked it as hidden.
 If you have multiple hideRefs values, later entries override earlier ones
 (and entries in more-specific config files override less-specific ones).</simpara>
+<simpara>If a namespace is in use, the namespace prefix is stripped from each
+reference before it is matched against <literal>transfer.hiderefs</literal> patterns.
+For example, if <literal>refs/heads/master</literal> is specified in <literal>transfer.hideRefs</literal> and
+the current namespace is <literal>foo</literal>, then <literal>refs/namespaces/foo/refs/heads/master</literal>
+is omitted from the advertisements but <literal>refs/heads/master</literal> and
+<literal>refs/namespaces/bar/refs/heads/master</literal> are still advertised as so-called
+"have" lines. In order to match refs before stripping, add a <literal>^</literal> in front of
+the ref name. If you combine <literal>!</literal> and <literal>^</literal>, <literal>!</literal> must be specified first.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>

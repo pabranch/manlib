@@ -5088,7 +5088,7 @@ File that is recorded as being copied.
 .TP
 .B \fBdeleted()\fP
 .sp
-File that is deleted according to \%\fBhg status\fP\:.
+Alias for \fBmissing()\fP.
 .TP
 .B \fBencoding(name)\fP
 .sp
@@ -5118,6 +5118,10 @@ File that matches the active .hgignore pattern.
 .sp
 File that is ignored according to \%\fBhg status\fP\:. These files will only be
 considered if this predicate is used.
+.TP
+.B \fBmissing()\fP
+.sp
+File that is missing according to \%\fBhg status\fP\:.
 .TP
 .B \fBmodified()\fP
 .sp
@@ -13714,9 +13718,13 @@ abort an incomplete unshelve operation
 .
 continue an incomplete unshelve operation
 .TP
-.B \-\-keep
+.B \-k,  \-\-keep
 .
 keep shelve after unshelving
+.TP
+.BI \-t,  \-\-tool \ <VALUE>
+.
+specify merge tool
 .TP
 .BI \-\-date \ <DATE>
 .
@@ -13792,7 +13800,7 @@ ignored  (DEPRECATED)
 .
 do not modify working directory during strip
 .TP
-.BI \-B,  \-\-bookmark \ <VALUE>
+.BI \-B,  \-\-bookmark \ <VALUE[+]>
 .
 remove revs only reachable from given bookmark
 .UNINDENT

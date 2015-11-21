@@ -74,6 +74,7 @@
 [<emphasis role="bold">-dtls1</emphasis>]
 [<emphasis role="bold">-dtls1_2</emphasis>]
 [<emphasis role="bold">-listen</emphasis>]
+[<emphasis role="bold">-async</emphasis>]
 [<emphasis role="bold">-no_ssl3</emphasis>]
 [<emphasis role="bold">-no_tls1</emphasis>]
 [<emphasis role="bold">-no_dhe</emphasis>]
@@ -488,6 +489,17 @@
 	      HelloVerifyRequest. If a ClientHello with a cookie is
 	      received then s_server will connect to that peer and complete
 	      the handshake.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-async</emphasis></term>
+          <listitem>
+            <para>
+	      switch on asynchronous mode. Cryptographic operations will be
+	      performed asynchronously. This will only have an effect if an
+	      asynchronous capable engine is also used via the <emphasis role="bold">-engine</emphasis> option. For test purposes the
+	      dummy async engine (dasync) can be used (if available).
             </para>
           </listitem>
         </varlistentry>

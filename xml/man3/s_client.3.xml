@@ -69,6 +69,7 @@
 [<emphasis role="bold">-no_tls1_1</emphasis>]
 [<emphasis role="bold">-no_tls1_2</emphasis>]
 [<emphasis role="bold">-fallback_scsv</emphasis>]
+[<emphasis role="bold">-async</emphasis>]
 [<emphasis role="bold">-bugs</emphasis>]
 [<emphasis role="bold">-cipher cipherlist</emphasis>]
 [<emphasis role="bold">-serverpref</emphasis>]
@@ -436,6 +437,17 @@
           <listitem>
             <para>
 	      Send TLS_FALLBACK_SCSV in the ClientHello.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-async</emphasis></term>
+          <listitem>
+            <para>
+	      switch on asynchronous mode. Cryptographic operations will be
+	      performed asynchronously. This will only have an effect if an
+	      asynchronous capable engine is also used via the <emphasis role="bold">-engine</emphasis> option. For test purposes the
+	      dummy async engine (dasync) can be used (if available).
             </para>
           </listitem>
         </varlistentry>

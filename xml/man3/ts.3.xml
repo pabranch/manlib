@@ -29,6 +29,7 @@
 [<emphasis role="bold">-passin</emphasis> password_src]
 [<emphasis role="bold">-signer</emphasis> tsa_cert.pem]
 [<emphasis role="bold">-inkey</emphasis> private.pem]
+[<emphasis role="bold">-sha1|-sha224|-sha256|-sha384|-sha512</emphasis>]
 [<emphasis role="bold">-chain</emphasis> certs_file.pem]
 [<emphasis role="bold">-policy</emphasis> object_id]
 [<emphasis role="bold">-in</emphasis> response.tsr]
@@ -306,6 +307,15 @@
 		The signer private key of the TSA in PEM format. Overrides
 		the <emphasis role="bold">signer_key</emphasis> config file
 		option. (Optional)
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term><emphasis role="bold">-sha1|-sha224|-sha256|-sha384|-sha512</emphasis></term>
+            <listitem>
+              <para>
+		Signing digest to use. Overrides the <emphasis role="bold">signer_digest</emphasis> config file option.
+		(Optional)
               </para>
             </listitem>
           </varlistentry>
@@ -618,6 +628,15 @@
 	      The private key of the TSA in PEM format. The same as the
 	      <emphasis role="bold">-inkey</emphasis> command line option.
 	      (Optional)
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">signer_digest</emphasis></term>
+          <listitem>
+            <para>
+	      Signing digest to use. The same as the <emphasis role="bold">-sha1|-sha224|-sha256|-sha384|-sha512</emphasis>
+	      command line option. (Optional)
             </para>
           </listitem>
         </varlistentry>

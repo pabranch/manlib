@@ -109,6 +109,19 @@ long SSL_get_mode(SSL *ssl);</synopsis>
             </para>
           </listitem>
         </varlistentry>
+        <varlistentry>
+          <term>SSL_MODE_ASYNC</term>
+          <listitem>
+            <para>
+	      Enable asynchronous processing. TLS I/O operations may
+	      indicate a retry with SSL_ERROR_WANT_ASYNC with this mode set
+	      if an asynchronous capable engine is used to perform
+	      cryptographic operations. See <citerefentry>
+	      <refentrytitle>SSL_get_error</refentrytitle>
+	      <manvolnum>3</manvolnum> </citerefentry>.
+            </para>
+          </listitem>
+        </varlistentry>
       </variablelist>
     </para>
   </refsection>
@@ -128,7 +141,14 @@ long SSL_get_mode(SSL *ssl);</synopsis>
       <refentrytitle>SSL_read</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>, <citerefentry>
       <refentrytitle>SSL_write</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_get_error</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
+    </para>
+  </refsection>
+  <refsection xml:id="ID-526cb4864cef7afc9a8e577eb610ba45"><title>HISTORY</title>
+    <para>
+      SSL_MODE_ASYNC was first added to OpenSSL 1.1.0.
     </para>
   </refsection>
 </refentry>

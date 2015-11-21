@@ -122,6 +122,28 @@
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term>SSL_ERROR_WANT_ASYNC</term>
+          <listitem>
+            <para>
+	      The operation did not complete because an asynchronous engine
+	      is still processing data. This will only occur if the mode
+	      has been set to SSL_MODE_ASYNC using <citerefentry>
+	      <refentrytitle>SSL_CTX_set_mode</refentrytitle>
+	      <manvolnum>3</manvolnum> </citerefentry> or <citerefentry>
+	      <refentrytitle>SSL_set_mode</refentrytitle>
+	      <manvolnum>3</manvolnum> </citerefentry> and an asynchronous
+	      capable engine is being used. An application can determine
+	      whether the engine has completed its processing using
+	      select() or poll() on the asynchronous wait file descriptor.
+	      This file descriptor is available by calling <citerefentry>
+	      <refentrytitle>SSL_get_async_wait_fd</refentrytitle>
+	      <manvolnum>3</manvolnum> </citerefentry>. The TLS/SSL I/O
+	      function should be called again later. The function <emphasis role="bold">must</emphasis> be called from the same thread
+	      that the original call was made from.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term>SSL_ERROR_SYSCALL</term>
           <listitem>
             <para>
@@ -153,6 +175,11 @@
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>err</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
+    </para>
+  </refsection>
+  <refsection xml:id="ID-31f9669c3ef7ecc366d9abeceaa5864c"><title>HISTORY</title>
+    <para>
+      SSL_ERROR_WANT_ASYNC was added in OpenSSL 1.1.0.
     </para>
   </refsection>
 </refentry>
