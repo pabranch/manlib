@@ -94,10 +94,10 @@ int X509_VERIFY_PARAM_set1_ip_asc(X509_VERIFY_PARAM *param, const char *ipasc);<
       specified, certificate verification automatically invokes
       <citerefentry> <refentrytitle>X509_check_host</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry> with flags equal to the
-      <emphasis role="bold">flags</emphasis> argument given to <emphasis role="bold">X509_VERIFY_PARAM_set_hostflags()</emphasis> (default
-      zero).  Applications are strongly advised to use this interface in
-      preference to explicitly calling <citerefentry>
-      <refentrytitle>X509_check_host</refentrytitle>
+      <emphasis role="bold">flags</emphasis> argument given to
+      X509_VERIFY_PARAM_set_hostflags() (default zero).  Applications are
+      strongly advised to use this interface in preference to explicitly
+      calling <citerefentry> <refentrytitle>X509_check_host</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, hostname checks are out of
       scope with the DANE-EE(3) certificate usage, and the internal check
       will be suppressed as appropriate when DANE support is added to

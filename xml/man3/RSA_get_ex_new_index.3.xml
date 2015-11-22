@@ -35,86 +35,80 @@ typedef int CRYPTO_EX_dup(CRYPTO_EX_DATA *to, CRYPTO_EX_DATA *from, void *from_d
       retrieved as a <emphasis role="bold">void *</emphasis> type.
     </para>
     <para>
-      The <emphasis role="bold">RSA_get_ex_new_index()</emphasis> function
-      is initially called to "register" some new application specific data.
-      It takes three optional function pointers which are called when the
-      parent structure (in this case an RSA structure) is initially
-      created, when it is copied and when it is freed up. If any or all of
-      these function pointer arguments are not used they should be set to
-      NULL. The precise manner in which these function pointers are called
-      is described in more detail below. <emphasis role="bold">RSA_get_ex_new_index()</emphasis> also takes additional
-      long and pointer parameters which will be passed to the supplied
-      functions but which otherwise have no special meaning. It returns an
-      <emphasis role="bold">index</emphasis> which should be stored
-      (typically in a static variable) and passed used in the <emphasis role="bold">idx</emphasis> parameter in the remaining functions. Each
-      successful call to <emphasis role="bold">RSA_get_ex_new_index()</emphasis> will return an index
+      The RSA_get_ex_new_index() function is initially called to "register"
+      some new application specific data. It takes three optional function
+      pointers which are called when the parent structure (in this case an
+      RSA structure) is initially created, when it is copied and when it is
+      freed up. If any or all of these function pointer arguments are not
+      used they should be set to NULL. The precise manner in which these
+      function pointers are called is described in more detail below.
+      RSA_get_ex_new_index() also takes additional long and pointer
+      parameters which will be passed to the supplied functions but which
+      otherwise have no special meaning. It returns an <emphasis role="bold">index</emphasis> which should be stored (typically in a
+      static variable) and passed used in the <emphasis role="bold">idx</emphasis> parameter in the remaining functions. Each
+      successful call to RSA_get_ex_new_index() will return an index
       greater than any previously returned, this is important because the
       optional functions are called in order of increasing index value.
     </para>
     <para>
-      <emphasis role="bold">RSA_set_ex_data()</emphasis> is used to set
-      application specific data, the data is supplied in the <emphasis role="bold">arg</emphasis> parameter and its precise meaning is up to
-      the application.
+      RSA_set_ex_data() is used to set application specific data, the data
+      is supplied in the <emphasis role="bold">arg</emphasis> parameter and
+      its precise meaning is up to the application.
     </para>
     <para>
-      <emphasis role="bold">RSA_get_ex_data()</emphasis> is used to
-      retrieve application specific data. The data is returned to the
-      application, this will be the same value as supplied to a previous
-      <emphasis role="bold">RSA_set_ex_data()</emphasis> call.
+      RSA_get_ex_data() is used to retrieve application specific data. The
+      data is returned to the application, this will be the same value as
+      supplied to a previous RSA_set_ex_data() call.
     </para>
     <para>
-      <emphasis role="bold">new_func()</emphasis> is called when a
-      structure is initially allocated (for example with <emphasis role="bold">RSA_new()</emphasis>. The parent structure members will
-      not have any meaningful values at this point. This function will
-      typically be used to allocate any application specific structure.
+      new_func() is called when a structure is initially allocated (for
+      example with RSA_new(). The parent structure members will not have
+      any meaningful values at this point. This function will typically be
+      used to allocate any application specific structure.
     </para>
     <para>
-      <emphasis role="bold">free_func()</emphasis> is called when a
-      structure is being freed up. The dynamic parent structure members
-      should not be accessed because they will be freed up when this
-      function is called.
+      free_func() is called when a structure is being freed up. The dynamic
+      parent structure members should not be accessed because they will be
+      freed up when this function is called.
     </para>
     <para>
-      <emphasis role="bold">new_func()</emphasis> and <emphasis role="bold">free_func()</emphasis> take the same parameters.
-      <emphasis role="bold">parent</emphasis> is a pointer to the parent
-      RSA structure. <emphasis role="bold">ptr</emphasis> is a the
-      application specific data (this wont be of much use in <emphasis role="bold">new_func()</emphasis>. <emphasis role="bold">ad</emphasis> is a pointer to the <emphasis role="bold">CRYPTO_EX_DATA</emphasis> structure from the parent RSA
-      structure: the functions <emphasis role="bold">CRYPTO_get_ex_data()</emphasis> and <emphasis role="bold">CRYPTO_set_ex_data()</emphasis> can be called to
-      manipulate it. The <emphasis role="bold">idx</emphasis> parameter is
-      the index: this will be the same value returned by <emphasis role="bold">RSA_get_ex_new_index()</emphasis> when the functions were
+      new_func() and free_func() take the same parameters. <emphasis role="bold">parent</emphasis> is a pointer to the parent RSA
+      structure. <emphasis role="bold">ptr</emphasis> is a the application
+      specific data (this wont be of much use in new_func(). <emphasis role="bold">ad</emphasis> is a pointer to the <emphasis role="bold">CRYPTO_EX_DATA</emphasis> structure from the parent RSA
+      structure: the functions CRYPTO_get_ex_data() and
+      CRYPTO_set_ex_data() can be called to manipulate it. The <emphasis role="bold">idx</emphasis> parameter is the index: this will be the
+      same value returned by RSA_get_ex_new_index() when the functions were
       initially registered. Finally the <emphasis role="bold">argl</emphasis> and <emphasis role="bold">argp</emphasis>
       parameters are the values originally passed to the same corresponding
-      parameters when <emphasis role="bold">RSA_get_ex_new_index()</emphasis> was called.
+      parameters when RSA_get_ex_new_index() was called.
     </para>
     <para>
-      <emphasis role="bold">dup_func()</emphasis> is called when a
-      structure is being copied. Pointers to the destination and source
-      <emphasis role="bold">CRYPTO_EX_DATA</emphasis> structures are passed
-      in the <emphasis role="bold">to</emphasis> and <emphasis role="bold">from</emphasis> parameters respectively. The <emphasis role="bold">from_d</emphasis> parameter is passed a pointer to the
+      dup_func() is called when a structure is being copied. Pointers to
+      the destination and source <emphasis role="bold">CRYPTO_EX_DATA</emphasis> structures are passed in the
+      <emphasis role="bold">to</emphasis> and <emphasis role="bold">from</emphasis> parameters respectively. The <emphasis role="bold">from_d</emphasis> parameter is passed a pointer to the
       source application data when the function is called, when the
       function returns the value is copied to the destination: the
       application can thus modify the data pointed to by <emphasis role="bold">from_d</emphasis> and have different values in the source
       and destination. The <emphasis role="bold">idx</emphasis>, <emphasis role="bold">argl</emphasis> and <emphasis role="bold">argp</emphasis>
-      parameters are the same as those in <emphasis role="bold">new_func()</emphasis> and <emphasis role="bold">free_func()</emphasis>.
+      parameters are the same as those in new_func() and free_func().
     </para>
   </refsection>
   <refsection xml:id="ID-b3a5517a40071ca4dbe9675c5bfda556"><title>RETURN VALUES</title>
     <para>
-      <emphasis role="bold">RSA_get_ex_new_index()</emphasis> returns a new
-      index or -1 on failure (note 0 is a valid index value).
+      RSA_get_ex_new_index() returns a new index or -1 on failure (note 0
+      is a valid index value).
     </para>
     <para>
-      <emphasis role="bold">RSA_set_ex_data()</emphasis> returns 1 on
-      success or 0 on failure.
+      RSA_set_ex_data() returns 1 on success or 0 on failure.
     </para>
     <para>
-      <emphasis role="bold">RSA_get_ex_data()</emphasis> returns the
-      application data or 0 on failure. 0 may also be valid application
-      data but currently it can only fail if given an invalid <emphasis role="bold">idx</emphasis> parameter.
+      RSA_get_ex_data() returns the application data or 0 on failure. 0 may
+      also be valid application data but currently it can only fail if
+      given an invalid <emphasis role="bold">idx</emphasis> parameter.
     </para>
     <para>
-      <emphasis role="bold">new_func()</emphasis> and <emphasis role="bold">dup_func()</emphasis> should return 0 for failure and 1
-      for success.
+      new_func() and dup_func() should return 0 for failure and 1 for
+      success.
     </para>
     <para>
       On failure an error code can be obtained from <citerefentry>
@@ -124,17 +118,14 @@ typedef int CRYPTO_EX_dup(CRYPTO_EX_DATA *to, CRYPTO_EX_DATA *from, void *from_d
   </refsection>
   <refsection xml:id="ID-93c4a8f4da0291a1ed6b7e4e86ad7fd3"><title>BUGS</title>
     <para>
-      <emphasis role="bold">dup_func()</emphasis> is currently never
-      called.
+      dup_func() is currently never called.
     </para>
     <para>
-      The return value of <emphasis role="bold">new_func()</emphasis> is
-      ignored.
+      The return value of new_func() is ignored.
     </para>
     <para>
-      The <emphasis role="bold">new_func()</emphasis> function isn't very
-      useful because no meaningful values are present in the parent RSA
-      structure when it is called.
+      The new_func() function isn't very useful because no meaningful
+      values are present in the parent RSA structure when it is called.
     </para>
   </refsection>
   <refsection xml:id="ID-7b491350b932aa248dd9099fa7c93ee8"><title>SEE ALSO</title>

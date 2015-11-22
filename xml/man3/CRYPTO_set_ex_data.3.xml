@@ -22,29 +22,28 @@
     <para>
       These functions should only be used by applications to manipulate
       <emphasis role="bold">CRYPTO_EX_DATA</emphasis> structures passed to
-      the <emphasis role="bold">new_func()</emphasis>, <emphasis role="bold">free_func()</emphasis> and <emphasis role="bold">dup_func()</emphasis> callbacks: as passed to <emphasis role="bold">RSA_get_ex_new_index()</emphasis> for example.
+      the new_func(), free_func() and dup_func() callbacks: as passed to
+      RSA_get_ex_new_index() for example.
     </para>
     <para>
-      <emphasis role="bold">CRYPTO_set_ex_data()</emphasis> is used to set
-      application specific data, the data is supplied in the <emphasis role="bold">arg</emphasis> parameter and its precise meaning is up to
-      the application.
+      CRYPTO_set_ex_data() is used to set application specific data, the
+      data is supplied in the <emphasis role="bold">arg</emphasis>
+      parameter and its precise meaning is up to the application.
     </para>
     <para>
-      <emphasis role="bold">CRYPTO_get_ex_data()</emphasis> is used to
-      retrieve application specific data. The data is returned to the
-      application, this will be the same value as supplied to a previous
-      <emphasis role="bold">CRYPTO_set_ex_data()</emphasis> call.
+      CRYPTO_get_ex_data() is used to retrieve application specific data.
+      The data is returned to the application, this will be the same value
+      as supplied to a previous CRYPTO_set_ex_data() call.
     </para>
   </refsection>
   <refsection xml:id="ID-6c1d4402020b5c79b6e86dd0e4af862f"><title>RETURN VALUES</title>
     <para>
-      <emphasis role="bold">CRYPTO_set_ex_data()</emphasis> returns 1 on
-      success or 0 on failure.
+      CRYPTO_set_ex_data() returns 1 on success or 0 on failure.
     </para>
     <para>
-      <emphasis role="bold">CRYPTO_get_ex_data()</emphasis> returns the
-      application data or 0 on failure. 0 may also be valid application
-      data but currently it can only fail if given an invalid <emphasis role="bold">idx</emphasis> parameter.
+      CRYPTO_get_ex_data() returns the application data or 0 on failure. 0
+      may also be valid application data but currently it can only fail if
+      given an invalid <emphasis role="bold">idx</emphasis> parameter.
     </para>
     <para>
       On failure an error code can be obtained from <citerefentry>

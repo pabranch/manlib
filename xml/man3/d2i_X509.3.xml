@@ -91,9 +91,8 @@ int i2d_X509_fp(FILE *fp, X509 *x);</synopsis>
     <para>
       The encoded data is in binary form and may contain embedded zeroes.
       Therefore any FILE pointers or BIOs should be opened in binary mode.
-      Functions such as <emphasis role="bold">strlen()</emphasis> will
-      <emphasis role="bold">not</emphasis> return the correct length of the
-      encoded structure.
+      Functions such as strlen() will <emphasis role="bold">not</emphasis>
+      return the correct length of the encoded structure.
     </para>
     <para>
       The ways that <emphasis role="bold">*in</emphasis> and <emphasis role="bold">*out</emphasis> are incremented after the operation can
@@ -166,22 +165,23 @@ OPENSSL_free(buf);</screen>
       This code will result in <emphasis role="bold">buf</emphasis>
       apparently containing garbage because it was incremented after the
       call to point after the data just written. Also <emphasis role="bold">buf</emphasis> will no longer contain the pointer
-      allocated by <emphasis role="bold">OPENSSL_malloc()</emphasis> and
-      the subsequent call to <emphasis role="bold">OPENSSL_free()</emphasis> may well crash.
+      allocated by OPENSSL_malloc() and the subsequent call to
+      OPENSSL_free() may well crash.
     </para>
     <para>
-      Another trap to avoid is misuse of the <emphasis role="bold">xp</emphasis> argument to <emphasis role="bold">d2i_X509()</emphasis>:
+      Another trap to avoid is misuse of the <emphasis role="bold">xp</emphasis> argument to d2i_X509():
     </para>
     <screen>X509 *x;
 
 if (!d2i_X509(&amp;x, &amp;p, len))
        /* Some error */</screen>
     <para>
-      This will probably crash somewhere in <emphasis role="bold">d2i_X509()</emphasis>. The reason for this is that the
-      variable <emphasis role="bold">x</emphasis> is uninitialized and an
-      attempt will be made to interpret its (invalid) value as an <emphasis role="bold">X509</emphasis> structure, typically causing a
-      segmentation violation. If <emphasis role="bold">x</emphasis> is set
-      to NULL first then this will not happen.
+      This will probably crash somewhere in d2i_X509(). The reason for this
+      is that the variable <emphasis role="bold">x</emphasis> is
+      uninitialized and an attempt will be made to interpret its (invalid)
+      value as an <emphasis role="bold">X509</emphasis> structure,
+      typically causing a segmentation violation. If <emphasis role="bold">x</emphasis> is set to NULL first then this will not
+      happen.
     </para>
   </refsection>
   <refsection xml:id="ID-ebbb6e8c9d1edb065374e10cfb7d8322"><title>BUGS</title>
