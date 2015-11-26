@@ -14,7 +14,7 @@
 </refmeta>
 <refnamediv>
     <refname>dracut</refname>
-    <refpurpose>low-level tool for generating an initramfs image</refpurpose>
+    <refpurpose>low-level tool for generating an initramfs/initrd image</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
 <simpara><emphasis role="strong">dracut</emphasis> [<emphasis>OPTION&#8230;</emphasis>] [<emphasis>&lt;image&gt;</emphasis> [<emphasis>&lt;kernel version&gt;</emphasis>]]</simpara>
@@ -31,6 +31,7 @@ filesystem, mounting the root filesystem and booting into the real system.</simp
 <simpara>At boot time, the kernel unpacks that archive into RAM disk, mounts and uses it
 as initial root file system. All finding of the root device happens in this
 early userspace.</simpara>
+<simpara>Initramfs images are also called "initrd".</simpara>
 <simpara>For a complete list of kernel command line options see <emphasis role="strong">dracut.cmdline</emphasis>(7).</simpara>
 <simpara>If you are dropped to an emergency shell, while booting your initramfs,
 the file <emphasis>/run/initramfs/rdsosreport.txt</emphasis> is created, which can be saved to a
@@ -561,39 +562,6 @@ initramfs.</simpara>
 </varlistentry>
 <varlistentry>
 <term>
-<emphasis role="strong">-m, --modules</emphasis> <emphasis>&lt;list of dracut modules&gt;</emphasis>
-</term>
-<listitem>
-<simpara>
-    specify a space-separated list of dracut modules to call when building the
-    initramfs. Modules are located in <emphasis>/usr/lib/dracut/modules.d</emphasis>. This
-    parameter can be specified multiple times.
-</simpara>
-<note>
-<simpara>If [LIST] has multiple arguments, then you have to put these in quotes. For
-example:</simpara>
-<screen># dracut --modules "module1 module2"  ...</screen>
-</note>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
-<emphasis role="strong">-o, --omit</emphasis> <emphasis>&lt;list of dracut modules&gt;</emphasis>
-</term>
-<listitem>
-<simpara>
-    omit a space-separated list of dracut modules. This parameter can be
-    specified multiple times.
-</simpara>
-<note>
-<simpara>If [LIST] has multiple arguments, then you have to put these in quotes. For
-example:</simpara>
-<screen># dracut --omit "module1 module2"  ...</screen>
-</note>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term>
 <emphasis role="strong">-a, --add</emphasis> <emphasis>&lt;list of dracut modules&gt;</emphasis>
 </term>
 <listitem>
@@ -622,6 +590,41 @@ example:</simpara>
 <simpara>If [LIST] has multiple arguments, then you have to put these in quotes. For
 example:</simpara>
 <screen># dracut --force-add "module1 module2"  ...</screen>
+</note>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-o, --omit</emphasis> <emphasis>&lt;list of dracut modules&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    omit a space-separated list of dracut modules. This parameter can be
+    specified multiple times.
+</simpara>
+<note>
+<simpara>If [LIST] has multiple arguments, then you have to put these in quotes. For
+example:</simpara>
+<screen># dracut --omit "module1 module2"  ...</screen>
+</note>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-m, --modules</emphasis> <emphasis>&lt;list of dracut modules&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+    specify a space-separated list of dracut modules to call when building the
+    initramfs. Modules are located in <emphasis>/usr/lib/dracut/modules.d</emphasis>. This
+    parameter can be specified multiple times.
+    This option forces dracut to only include the specified dracut modules.
+    In most cases the "--add" option is what you want to use.
+</simpara>
+<note>
+<simpara>If [LIST] has multiple arguments, then you have to put these in quotes. For
+example:</simpara>
+<screen># dracut --modules "module1 module2"  ...</screen>
 </note>
 </listitem>
 </varlistentry>

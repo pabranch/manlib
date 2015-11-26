@@ -4,17 +4,54 @@
     <refentrytitle>BN_copy.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>BN_copy, BN_dup</refname>
+    <refname>BN_copy, BN_dup, BN_with_flags</refname>
 <refpurpose>copy BIGNUMs</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/bn.h&gt;</synopsis>
 <synopsis>BIGNUM *BN_copy(BIGNUM *to, const BIGNUM *from);</synopsis>
 <synopsis>BIGNUM *BN_dup(const BIGNUM *from);</synopsis>
+<synopsis>void BN_with_flags(BIGNUM *dest, const BIGNUM *b, int flags);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-93cf57103f84387dcd9e826c28fc723d"><title>DESCRIPTION</title>
     <para>
       BN_copy() copies <emphasis role="bold">from</emphasis> to <emphasis role="bold">to</emphasis>. BN_dup() creates a new <emphasis role="bold">BIGNUM</emphasis> containing the value <emphasis role="bold">from</emphasis>.
+    </para>
+    <para>
+      BN_with_flags creates a <emphasis role="bold">temporary</emphasis>
+      shallow copy of <emphasis role="bold">b</emphasis> in <emphasis role="bold">dest</emphasis>. It places significant restrictions on
+      the copied data. Applications that do no adhere to these restrictions
+      may encounter unexpected side effects or crashes. For that reason use
+      of this function is discouraged. Any flags provided in <emphasis role="bold">flags</emphasis> will be set in <emphasis role="bold">dest</emphasis> in addition to any flags already set in
+      <emphasis role="bold">b</emphasis>. For example this might commonly
+      be used to create a temporary copy of a BIGNUM with the <emphasis role="bold">BN_FLG_CONSTTIME</emphasis> flag set for constant time
+      operations. The temporary copy in <emphasis role="bold">dest</emphasis> will share some internal state with
+      <emphasis role="bold">b</emphasis>. For this reason the following
+      restrictions apply to the use of <emphasis role="bold">dest</emphasis>:
+    </para>
+    <para>
+      <itemizedlist>
+        <listitem>
+          <para>
+	    <emphasis role="bold">dest</emphasis> should be a newly
+	    allocated BIGNUM obtained via a call to BN_new(). It should not
+	    have been used for other purposes or initialised in any way.
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+	    <emphasis role="bold">dest</emphasis> must only be used in
+	    "read-only" operations, i.e. typically those functions where
+	    the relevant parameter is declared "const".
+          </para>
+        </listitem>
+        <listitem>
+          <para>
+	    <emphasis role="bold">dest</emphasis> must be used and freed
+	    before any further subsequent use of <emphasis role="bold">b</emphasis>
+          </para>
+        </listitem>
+      </itemizedlist>
     </para>
   </refsection>
   <refsection xml:id="ID-e7a95d3d62ba31aa1d8cdf9aa8f35bd9"><title>RETURN VALUES</title>
