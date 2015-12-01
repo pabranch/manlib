@@ -4,7 +4,7 @@
     <refentrytitle>BN_new.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>BN_new, BN_init, BN_clear, BN_free, BN_clear_free</refname>
+    <refname>BN_new, BN_clear, BN_free, BN_clear_free</refname>
 <refpurpose>allocate and free BIGNUMs</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
@@ -40,24 +40,6 @@
       BN_clear(), BN_free() and BN_clear_free() have no return values.
     </para>
   </refsection>
-  <refsection xml:id="ID-dddc13ab19d848d6f4e55a33f0fd6f1c"><title>REMOVED FUNCTIONALITY</title>
-    <screen>void BN_init(BIGNUM *);</screen>
-    <para>
-      BN_init() is no longer available as of OpenSSL 1.1.0. It was used to
-      initialize an existing uninitialized <emphasis role="bold">BIGNUM</emphasis>. Typically this would be done as
-      follows:
-    </para>
-    <screen>BIGNUM a;
-BN_init(&amp;a);</screen>
-    <para>
-      Applications should replace use of BN_init with BN_new instead:
-    </para>
-    <screen>BIGNUM *a;
-a = BN_new();
-if(!a) /* Handle error */
-...
-BN_free(a);</screen>
-  </refsection>
   <refsection xml:id="ID-4d7530a116e02ef28e918eac83ccf0ad"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>bn</refentrytitle>
@@ -68,7 +50,7 @@ BN_free(a);</screen>
   </refsection>
   <refsection xml:id="ID-dc076b4b8f18c7723a242312ab91e10f"><title>HISTORY</title>
     <para>
-      BN_init() was removed in OpenSSL 1.1.0.
+      BN_init() was removed in OpenSSL 1.1.0; use BN_new() instead.
     </para>
   </refsection>
 </refentry>
