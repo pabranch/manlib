@@ -131,6 +131,11 @@ If the symbol is never referenced, then it is never resolved.
 (Lazy binding is performed only for function references;
 references to variables are always immediately bound when
 the shared object is loaded.)
+Since glibc 2.1.1,
+.\" commit 12b5b6b7f78ea111e89bbf638294a5413c791072
+this flag is overridden by the effect of the
+.B LD_BIND_NOW
+environment variable.
 .TP
 .B RTLD_NOW
 If this value is specified, or the environment variable
@@ -358,7 +363,7 @@ The
 .BR RTLD_NOLOAD ,
 .BR RTLD_NODELETE ,
 and
-.BR RTLD_DEEP_BIND
+.BR RTLD_DEEPBIND
 flags are GNU extensions;
 the first two of these flags are also present on Solaris.
 .SH NOTES
@@ -396,7 +401,7 @@ The
 function also can be used to provide better isolation than the
 .BR RTLD_LOCAL
 flag.
-In particular, shared objects laoded with
+In particular, shared objects loaded with
 .BR RTLD_LOCAL
 may be promoted to
 .BR RTLD_GLOBAL
