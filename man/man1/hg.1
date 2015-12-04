@@ -148,7 +148,13 @@ undo an add before that, see \%\fBhg forget\fP\:.
 .sp
 If no names are given, add all files to the repository.
 .sp
-An example showing how new (unknown) files are added
+Examples:
+.INDENT 0.0
+.INDENT 3.5
+.INDENT 0.0
+.IP \(bu 2
+.
+New (unknown) files are added
 automatically by \%\fBhg add\fP\::
 .sp
 .nf
@@ -163,6 +169,26 @@ $ hg status
 A foo.c
 .ft P
 .fi
+.IP \(bu 2
+.
+Specific files to be added can be specified:
+.sp
+.nf
+.ft C
+$ ls
+bar.c  foo.c
+$ hg status
+? bar.c
+? foo.c
+$ hg add bar.c
+$ hg status
+A bar.c
+? foo.c
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
 .sp
 Returns 0 if all files are successfully added.
 .sp
@@ -213,6 +239,60 @@ can be expensive. After using this option, \%\fBhg status \-C\fP\: can be
 used to check which files were identified as moved or renamed. If
 not specified, \-s/\-\-similarity defaults to 100 and only renames of
 identical files are detected.
+.sp
+Examples:
+.INDENT 0.0
+.INDENT 3.5
+.INDENT 0.0
+.IP \(bu 2
+.
+A number of files (bar.c and foo.c) are new,
+while foobar.c has been removed (without using \%\fBhg remove\fP\:)
+from the repository:
+.sp
+.nf
+.ft C
+$ ls
+bar.c foo.c
+$ hg status
+! foobar.c
+? bar.c
+? foo.c
+$ hg addremove
+adding bar.c
+adding foo.c
+removing foobar.c
+$ hg status
+A bar.c
+A foo.c
+R foobar.c
+.ft P
+.fi
+.IP \(bu 2
+.
+A file foobar.c was moved to foo.c without using \%\fBhg rename\fP\:.
+Afterwards, it was edited slightly:
+.sp
+.nf
+.ft C
+$ ls
+foo.c
+$ hg status
+! foobar.c
+? foo.c
+$ hg addremove \-\-similarity 90
+removing foobar.c
+adding foo.c
+recording removal of foobar.c as rename to foo.c (94% similar)
+$ hg status \-C
+A foo.c
+  foobar.c
+R foobar.c
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
 .sp
 Returns 0 if all files are successfully added.
 .sp
@@ -469,6 +549,40 @@ changes and the merged result is left uncommitted.
 backout cannot be used to fix either an unwanted or
 incorrect merge.
 .RE
+.sp
+Examples:
+.INDENT 0.0
+.IP \(bu 2
+.
+Reverse the effect of the parent of the working directory.
+This backout will be committed immediately:
+.sp
+.nf
+.ft C
+hg backout \-r .
+.ft P
+.fi
+.IP \(bu 2
+.
+Reverse the effect of previous bad revision 23:
+.sp
+.nf
+.ft C
+hg backout \-r 23
+hg commit \-m "Backout revision 23"
+.ft P
+.fi
+.IP \(bu 2
+.
+Reverse the effect of previous bad revision 23 and
+commit the backout immediately:
+.sp
+.nf
+.ft C
+hg backout \-r 23 \-\-commit
+.ft P
+.fi
+.UNINDENT
 .sp
 By default, the pending changeset will have one parent,
 maintaining a linear history. With \-\-merge, the pending
@@ -2289,6 +2403,9 @@ hg id \-r tip http://selenic.com/hg/
 .fi
 .UNINDENT
 .sp
+See \%\fBhg log\fP\: for generating more information about specific revisions,
+including full hash identifiers.
+.sp
 Returns 0 if successful.
 .sp
 Options:
@@ -2884,6 +3001,15 @@ all revision numbers that match a keyword:
 .nf
 .ft C
 hg log \-k bug \-\-template "{rev}\en"
+.ft P
+.fi
+.IP \(bu 2
+.
+the full hash identifier of the working directory parent:
+.sp
+.nf
+.ft C
+hg log \-r . \-\-template "{node}\en"
 .ft P
 .fi
 .IP \(bu 2
@@ -10812,6 +10938,86 @@ instead of \-\-outgoing to specify edit target revision exactly in
 such ambiguous situation. See \%\fBhg help revsets\fP\: for detail about
 selecting revisions.
 .sp
+Examples:
+.INDENT 0.0
+.INDENT 3.5
+.INDENT 0.0
+.IP \(bu 2
+.
+A number of changes have been made.
+Revision 3 is no longer needed.
+.sp
+Start history editing from revision 3:
+.sp
+.nf
+.ft C
+hg histedit \-r 3
+.ft P
+.fi
+.sp
+An editor opens, containing the list of revisions,
+with specific actions specified:
+.sp
+.nf
+.ft C
+pick 5339bf82f0ca 3 Zworgle the foobar
+pick 8ef592ce7cc4 4 Bedazzle the zerlog
+pick 0a9639fcda9d 5 Morgify the cromulancy
+.ft P
+.fi
+.sp
+Additional information about the possible actions
+to take appears below the list of revisions.
+.sp
+To remove revision 3 from the history,
+its action (at the beginning of the relevant line)
+is changed to \(aqdrop\(aq:
+.sp
+.nf
+.ft C
+drop 5339bf82f0ca 3 Zworgle the foobar
+pick 8ef592ce7cc4 4 Bedazzle the zerlog
+pick 0a9639fcda9d 5 Morgify the cromulancy
+.ft P
+.fi
+.IP \(bu 2
+.
+A number of changes have been made.
+Revision 2 and 4 need to be swapped.
+.sp
+Start history editing from revision 2:
+.sp
+.nf
+.ft C
+hg histedit \-r 2
+.ft P
+.fi
+.sp
+An editor opens, containing the list of revisions,
+with specific actions specified:
+.sp
+.nf
+.ft C
+pick 252a1af424ad 2 Blorb a morgwazzle
+pick 5339bf82f0ca 3 Zworgle the foobar
+pick 8ef592ce7cc4 4 Bedazzle the zerlog
+.ft P
+.fi
+.sp
+To swap revision 2 and 4, its lines are swapped
+in the editor:
+.sp
+.nf
+.ft C
+pick 8ef592ce7cc4 4 Bedazzle the zerlog
+pick 5339bf82f0ca 3 Zworgle the foobar
+pick 252a1af424ad 2 Blorb a morgwazzle
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.sp
 Returns 0 on success, 1 if user intervention is required (not only
 for intentional "edit" command, but also for resolving unexpected
 conflicts).
@@ -12677,9 +12883,17 @@ attend\-cat = false
 To ignore global commands like \%\fBhg version\fP\: or \%\fBhg help\fP\:, you have
 to specify them in your user configuration file.
 .sp
-The \-\-pager=... option can also be used to control when the pager is
-used. Use a boolean value like yes, no, on, off, or use auto for
-normal behavior.
+To control whether the pager is used at all for an individual command,
+you can use \-\-pager=<value>:
+.sp
+.nf
+.ft C
+\- use as needed: \(gaauto\(ga.
+\- require the pager: \(gayes\(ga or \(gaon\(ga.
+\- suppress the pager: \(gano\(ga or \(gaoff\(ga (any unrecognized value
+will also work).
+.ft P
+.fi
 .SS patchbomb
 .sp
 command to send changesets as (a series of) patch emails
@@ -12962,12 +13176,6 @@ do not verify server certificate (ignoring web.cacerts config)
 .UNINDENT
 .sp
 [+] marked option can be specified multiple times
-.SS progress
-.sp
-show progress bars for some actions (DEPRECATED)
-.sp
-This extension has been merged into core, you can remove it from your config.
-See hg help config.progress for configuration options.
 .SS purge
 .sp
 command to delete untracked files from the working directory
