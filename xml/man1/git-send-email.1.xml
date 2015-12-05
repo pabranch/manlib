@@ -14,7 +14,8 @@
   <refpurpose>Send a collection of patches as emails</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<literallayout><emphasis>git send-email</emphasis> [options] &lt;file|directory|rev-list options&gt;&#8230;</literallayout>
+<literallayout><emphasis>git send-email</emphasis> [options] &lt;file|directory|rev-list options&gt;&#8230;
+<emphasis>git send-email</emphasis> --dump-aliases</literallayout>
 <simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
@@ -715,6 +716,24 @@ default to <emphasis>--validate</emphasis>.</simpara>
 <listitem>
 <simpara>
         Send emails even if safety checks would prevent it.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+<refsect2 id="_information">
+<title>Information</title>
+<variablelist>
+<varlistentry>
+<term>
+--dump-aliases
+</term>
+<listitem>
+<simpara>
+        Instead of the normal operation, dump the shorthand alias names from
+        the configured alias file(s), one per line in alphabetical order. Note,
+        this only includes the alias name and not its expanded email addresses.
+        See <emphasis>sendemail.aliasesfile</emphasis> for more information about aliases.
 </simpara>
 </listitem>
 </varlistentry>
