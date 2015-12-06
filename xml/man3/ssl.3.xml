@@ -725,47 +725,6 @@
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term>long <emphasis role="bold">SSL_CTX_set_tmp_rsa</emphasis>(SSL_CTX *ctx, RSA *rsa);</term>
-            <listitem>
-              <para/>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>SSL_CTX_set_tmp_rsa_callback</term>
-            <listitem>
-              <para>
-		<literal role="code">long &lt;emphasis
-		role="bold"&gt;SSL_CTX_set_tmp_rsa_callback&lt;/emphasis&gt;(SSL_CTX
-		*&lt;emphasis role="bold"&gt;ctx&lt;/emphasis&gt;, RSA *(*&lt;emphasis
-		role="bold"&gt;cb&lt;/emphasis&gt;)(SSL *&lt;emphasis
-		role="bold"&gt;ssl&lt;/emphasis&gt;, int &lt;emphasis
-		role="bold"&gt;export&lt;/emphasis&gt;, int &lt;emphasis
-		role="bold"&gt;keylength&lt;/emphasis&gt;));</literal>
-              </para>
-              <para>
-		Sets the callback which will be called when a temporary
-		private key is required. The <emphasis role="bold"><literal role="code">export</literal></emphasis> flag
-		will be set if the reason for needing a temp key is that an
-		export ciphersuite is in use, in which case, <emphasis role="bold"><literal role="code">keylength</literal></emphasis> will
-		contain the required keylength in bits. Generate a key of
-		appropriate size (using ???) and return it.
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>SSL_set_tmp_rsa_callback</term>
-            <listitem>
-              <para>
-		long <emphasis role="bold">SSL_set_tmp_rsa_callback</emphasis>(SSL *ssl,
-		RSA *(*cb)(SSL *ssl, int export, int keylength));
-              </para>
-              <para>
-		The same as <emphasis role="bold">SSL_CTX_set_tmp_rsa_callback</emphasis>, except
-		it operates on an SSL session instead of a context.
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
             <term>void <emphasis role="bold">SSL_CTX_set_verify</emphasis>(SSL_CTX *ctx, int mode, int (*cb);(void))</term>
             <listitem>
               <para/>
@@ -1767,8 +1726,6 @@
       <refentrytitle>SSL_CTX_set_ssl_version</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>SSL_CTX_set_timeout</refentrytitle>
-      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
-      <refentrytitle>SSL_CTX_set_tmp_rsa_callback</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>SSL_CTX_set_tmp_dh_callback</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>

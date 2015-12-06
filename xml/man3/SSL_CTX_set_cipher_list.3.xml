@@ -47,13 +47,8 @@ int SSL_set_cipher_list(SSL *ssl, const char *str);</synopsis>
     </para>
     <para>
       A RSA cipher can only be chosen, when a RSA certificate is available.
-      RSA export ciphers with a keylength of 512 bits for the RSA key
-      require a temporary 512 bit RSA key, as typically the supplied key
-      has a length of 1024 bit (see <citerefentry>
-      <refentrytitle>SSL_CTX_set_tmp_rsa_callback</refentrytitle>
-      <manvolnum>3</manvolnum> </citerefentry>). RSA ciphers using DHE need
-      a certificate and key and additional DH-parameters (see
-      <citerefentry>
+      RSA ciphers using DHE need a certificate and key and additional
+      DH-parameters (see <citerefentry>
       <refentrytitle>SSL_CTX_set_tmp_dh_callback</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>).
     </para>
@@ -85,8 +80,6 @@ int SSL_set_cipher_list(SSL *ssl, const char *str);</synopsis>
       <refentrytitle>SSL_get_ciphers</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>SSL_CTX_use_certificate</refentrytitle>
-      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
-      <refentrytitle>SSL_CTX_set_tmp_rsa_callback</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>SSL_CTX_set_tmp_dh_callback</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
