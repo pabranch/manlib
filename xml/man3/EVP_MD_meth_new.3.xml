@@ -1,0 +1,201 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>EVP_MD_meth_new.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>EVP_MD_meth_new, EVP_MD_meth_free, EVP_MD_meth_set_input_blocksize,
+EVP_MD_meth_set_result_size, EVP_MD_meth_set_app_datasize,
+EVP_MD_meth_set_flags, EVP_MD_meth_set_init, EVP_MD_meth_set_update,
+EVP_MD_meth_set_final, EVP_MD_meth_set_copy, EVP_MD_meth_set_cleanup,
+EVP_MD_meth_set_ctrl, EVP_MD_meth_get_input_blocksize,
+EVP_MD_meth_get_result_size, EVP_MD_meth_get_app_datasize,
+EVP_MD_meth_get_flags, EVP_MD_meth_get_init, EVP_MD_meth_get_update,
+EVP_MD_meth_get_final, EVP_MD_meth_get_copy, EVP_MD_meth_get_cleanup,
+EVP_MD_meth_get_ctrl, EVP_MD_meth_get_pkey_types,
+EVP_MD_meth_get_sign, EVP_MD_meth_get_verify</refname>
+<refpurpose>Routines to build up
+EVP_MD methods</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis>#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis>EVP_MD *EVP_MD_create_method(int md_type, int pkey_type);
+EVP_MD *EVP_MD_meth_dup(const EVP_MD *md);
+void EVP_MD_destroy_method(EVP_MD *md);</synopsis>
+<synopsis>int EVP_MD_meth_set_input_blocksize(EVP_MD *md, int blocksize);
+int EVP_MD_meth_set_result_size(EVP_MD *md, int resultsize);
+int EVP_MD_meth_set_app_datasize(EVP_MD *md, int datasize);
+int EVP_MD_meth_set_flags(EVP_MD *md, unsigned long flags);
+int EVP_MD_meth_set_init(EVP_MD *md, int (*init)(EVP_MD_CTX *ctx));
+int EVP_MD_meth_set_update(EVP_MD *md, int (*update)(EVP_MD_CTX *ctx,
+                                                     const void *data,
+                                                     size_t count));
+int EVP_MD_meth_set_final(EVP_MD *md, int (*final)(EVP_MD_CTX *ctx,
+                                                   unsigned char *md));
+int EVP_MD_meth_set_copy(EVP_MD *md, int (*copy)(EVP_MD_CTX *to,
+                                                 const EVP_MD_CTX *from));
+int EVP_MD_meth_set_cleanup(EVP_MD *md, int (*cleanup)(EVP_MD_CTX *ctx));
+int EVP_MD_meth_set_ctrl(EVP_MD *md, int (*ctrl)(EVP_MD_CTX *ctx, int cmd,
+                                                 int p1, void *p2));</synopsis>
+<synopsis>int EVP_MD_meth_get_input_blocksize(const EVP_MD *md);
+int EVP_MD_meth_get_result_size(const EVP_MD *md);
+int EVP_MD_meth_get_app_datasize(const EVP_MD *md);
+unsigned long EVP_MD_meth_get_flags(const EVP_MD *md);
+int (*EVP_MD_meth_get_init(const EVP_MD *md))(EVP_MD_CTX *ctx);
+int (*EVP_MD_meth_get_update(const EVP_MD *md))(EVP_MD_CTX *ctx,
+                                                const void *data,
+                                                size_t count);
+int (*EVP_MD_meth_get_final(const EVP_MD *md))(EVP_MD_CTX *ctx,
+                                               unsigned char *md);
+int (*EVP_MD_meth_get_copy(const EVP_MD *md))(EVP_MD_CTX *to,
+                                              const EVP_MD_CTX *from);
+int (*EVP_MD_meth_get_cleanup(const EVP_MD *md))(EVP_MD_CTX *ctx);
+int (*EVP_MD_meth_get_ctrl(const EVP_MD *md))(EVP_MD_CTX *ctx, int cmd,
+                                              int p1, void *p2);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="ID-acc3fb6b87cbff2033f39e9fb410177c"><title>DESCRIPTION</title>
+    <para>
+      The <emphasis role="bold">EVP_MD</emphasis> type is a structure for
+      digest method implementation. It can also have associated
+      public/private key signing and verifying routines.
+    </para>
+    <para>
+      EVP_MD_meth_new() creates a new <emphasis role="bold">EVP_MD</emphasis> structure.
+    </para>
+    <para>
+      EVP_MD_meth_dup() creates a copy of <emphasis role="bold">md</emphasis>.
+    </para>
+    <para>
+      EVP_MD_meth_free() destroys a <emphasis role="bold">EVP_MD</emphasis>
+      structure.
+    </para>
+    <para>
+      EVP_MD_meth_set_input_blocksize() sets the internal input block size
+      for the method <emphasis role="bold">md</emphasis> to <emphasis role="bold">blocksize</emphasis> bytes.
+    </para>
+    <para>
+      EVP_MD_meth_set_result_size() sets the size of the result that the
+      digest method in <emphasis role="bold">md</emphasis> is expected to
+      produce to <emphasis role="bold">resultsize</emphasis> bytes.
+    </para>
+    <para>
+      The digest method may have its own private data, which OpenSSL will
+      allocate for it.	EVP_MD_meth_set_app_datasize() should be used to
+      set the size for it to <emphasis role="bold">datasize</emphasis>.
+    </para>
+    <para>
+      EVP_MD_meth_set_flags() sets the flags to describe optional
+      behaviours in the particular <emphasis role="bold">md</emphasis>. 
+      Several flags can be or'd together.  The available flags are:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term>EVP_MD_FLAG_ONESHOT</term>
+          <listitem>
+            <para>
+	      This digest method can only handles one block of input.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>EVP_MD_FLAG_DIGALGID_NULL</term>
+          <listitem>
+            <para>
+	      When setting up a DigestAlgorithmIdentifier, this flag will
+	      have the parameter set to NULL by default.  Use this for
+	      PKCS#1.  <emphasis role="italic">Note: if combined with
+	      EVP_MD_FLAG_DIGALGID_ABSENT, the latter will
+	      override.</emphasis>
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>EVP_MD_FLAG_DIGALGID_ABSENT</term>
+          <listitem>
+            <para>
+	      When setting up a DigestAlgorithmIdentifier, this flag will
+	      have the parameter be left absent by default.  <emphasis role="italic">Note: if combined with
+	      EVP_MD_FLAG_DIGALGID_NULL, the latter will be
+	      overriden.</emphasis>
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>EVP_MD_FLAG_DIGALGID_CUSTOM</term>
+          <listitem>
+            <para>
+	      Custom DigestAlgorithmIdentifier handling via ctrl, with
+	      <emphasis role="bold">EVP_MD_FLAG_DIGALGID_ABSENT</emphasis>
+	      as default.  <emphasis role="italic">Note: if combined with
+	      EVP_MD_FLAG_DIGALGID_NULL, the latter will be
+	      overriden.</emphasis> Currently unused.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+    <para>
+      EVP_MD_meth_set_init() sets the digest init function for <emphasis role="bold">md</emphasis>. The digest init function is called by
+      EVP_DigestInit(), EVP_DigestInit_ex(), EVP_SignInit,
+      EVP_SignInit_ex(), EVP_VerifyInit() and EVP_VerifyInit_ex().
+    </para>
+    <para>
+      EVP_MD_meth_set_update() sets the digest update function for
+      <emphasis role="bold">md</emphasis>. The digest update function is
+      called by EVP_DigestUpdate(), EVP_SignUpdate().
+    </para>
+    <para>
+      EVP_MD_meth_set_final() sets the digest final function for <emphasis role="bold">md</emphasis>. The digest final function is called by
+      EVP_DigestFinal(), EVP_DigestFinal_ex(), EVP_SignFinal() and
+      EVP_VerifyFinal().
+    </para>
+    <para>
+      EVP_MD_meth_set_copy() sets the function for <emphasis role="bold">md</emphasis> to do extra computations after the method's
+      private data structure has been copied from one <emphasis role="bold">EVP_MD_CTX</emphasis> to another.  If all that's needed
+      is to copy the data, there is no need for this copy function. Note
+      that the copy function is passed two <emphasis role="bold">EVP_MD_CTX
+      *</emphasis>, the private data structure is then available with
+      EVP_MD_CTX_md_data(). This copy function is called by
+      EVP_MD_CTX_copy() and EVP_MD_CTX_copy_ex().
+    </para>
+    <para>
+      EVP_MD_meth_set_cleanup() sets the function for <emphasis role="bold">md</emphasis> to do extra cleanup before the method's
+      privata data structure is cleaned out and freed. Note that the
+      cleanup function is passed a <emphasis role="bold">EVP_MD_CTX
+      *</emphasis>, the private data structure is then available with
+      EVP_MD_CTX_md_data(). This cleanup function is called by
+      EVP_MD_CTX_reset() and EVP_MD_CTX_free().
+    </para>
+    <para>
+      EVP_MD_meth_set_ctrl() sets the control function for <emphasis role="bold">md</emphasis>.
+    </para>
+    <screen></screen>
+    <para>
+      EVP_MD_meth_get_input_blocksize(), EVP_MD_meth_get_result_size(),
+      EVP_MD_meth_get_app_datasize(), EVP_MD_meth_get_flags(),
+      EVP_MD_meth_get_init(), EVP_MD_meth_get_update(),
+      EVP_MD_meth_get_final(), EVP_MD_meth_get_copy(),
+      EVP_MD_meth_get_cleanup() and EVP_MD_meth_get_ctrl() are all used to
+      retrieve the method data given with the EVP_MD_meth_set_*() functions
+      above.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-05905128552ca4b8f354743374109d02"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>EVP_DigestInit</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>EVP_SignInit</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>EVP_VerifyInit</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
+    </para>
+  </refsection>
+  <refsection xml:id="ID-354bf65b7f2f53462aff7b19ce7c0968"><title>HISTORY</title>
+    <para>
+      The <emphasis role="bold">EVP_MD</emphasis> structure was openly
+      available in OpenSSL before version 1.1.	The functions described
+      here were added in OpenSSL version 1.1.
+    </para>
+  </refsection>
+</refentry>

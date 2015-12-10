@@ -23,8 +23,7 @@ int EVP_SignFinal(EVP_MD_CTX *ctx,unsigned char *sig,unsigned int *s, EVP_PKEY *
     </para>
     <para>
       EVP_SignInit_ex() sets up signing context <emphasis role="bold">ctx</emphasis> to use digest <emphasis role="bold">type</emphasis> from ENGINE <emphasis role="bold">impl</emphasis>. <emphasis role="bold">ctx</emphasis>
-      must be initialized with EVP_MD_CTX_init() before calling this
-      function.
+      must be created with EVP_MD_CTX_new() before calling this function.
     </para>
     <para>
       EVP_SignUpdate() hashes <emphasis role="bold">cnt</emphasis> bytes of

@@ -21,9 +21,9 @@ int EVP_DigestSignFinal(EVP_MD_CTX *ctx, unsigned char *sig, size_t *siglen);</s
     </para>
     <para>
       EVP_DigestSignInit() sets up signing context <emphasis role="bold">ctx</emphasis> to use digest <emphasis role="bold">type</emphasis> from ENGINE <emphasis role="bold">impl</emphasis> and private key <emphasis role="bold">pkey</emphasis>. <emphasis role="bold">ctx</emphasis>
-      must be initialized with EVP_MD_CTX_init() before calling this
-      function. If <emphasis role="bold">pctx</emphasis> is not NULL the
-      EVP_PKEY_CTX of the signing operation will be written to <emphasis role="bold">*pctx</emphasis>: this can be used to set alternative
+      must be created with EVP_MD_CTX_new() before calling this function.
+      If <emphasis role="bold">pctx</emphasis> is not NULL the EVP_PKEY_CTX
+      of the signing operation will be written to <emphasis role="bold">*pctx</emphasis>: this can be used to set alternative
       signing options.
     </para>
     <para>

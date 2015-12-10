@@ -21,11 +21,10 @@ int EVP_DigestVerifyFinal(EVP_MD_CTX *ctx, const unsigned char *sig, size_t sigl
     </para>
     <para>
       EVP_DigestVerifyInit() sets up verification context <emphasis role="bold">ctx</emphasis> to use digest <emphasis role="bold">type</emphasis> from ENGINE <emphasis role="bold">impl</emphasis> and public key <emphasis role="bold">pkey</emphasis>. <emphasis role="bold">ctx</emphasis>
-      must be initialized with EVP_MD_CTX_init() before calling this
-      function. If <emphasis role="bold">pctx</emphasis> is not NULL the
-      EVP_PKEY_CTX of the verification operation will be written to
-      <emphasis role="bold">*pctx</emphasis>: this can be used to set
-      alternative verification options.
+      must be created with EVP_MD_CTX_new() before calling this function.
+      If <emphasis role="bold">pctx</emphasis> is not NULL the EVP_PKEY_CTX
+      of the verification operation will be written to <emphasis role="bold">*pctx</emphasis>: this can be used to set alternative
+      verification options.
     </para>
     <para>
       EVP_DigestVerifyUpdate() hashes <emphasis role="bold">cnt</emphasis>

@@ -4,7 +4,7 @@
     <refentrytitle>hmac.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>HMAC, HMAC_CTX_init, HMAC_Init, HMAC_Init_ex, HMAC_Update, HMAC_Final, HMAC_CTX_cleanup</refname>
+    <refname>HMAC, HMAC_CTX_new, HMAC_CTX_reset, HMAC_CTX_free, HMAC_Init, HMAC_Init_ex, HMAC_Update, HMAC_Final</refname>
 <refpurpose>HMAC message authentication code</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
@@ -12,14 +12,15 @@
 <synopsis>unsigned char *HMAC(const EVP_MD *evp_md, const void *key,
               int key_len, const unsigned char *d, int n,
               unsigned char *md, unsigned int *md_len);</synopsis>
-<synopsis>void HMAC_CTX_init(HMAC_CTX *ctx);</synopsis>
+<synopsis>HMAC_CTX *HMAC_CTX_new(void);
+int HMAC_CTX_reset(HMAC_CTX *ctx);</synopsis>
 <synopsis>int HMAC_Init(HMAC_CTX *ctx, const void *key, int key_len,
               const EVP_MD *md);
 int HMAC_Init_ex(HMAC_CTX *ctx, const void *key, int key_len,
                   const EVP_MD *md, ENGINE *impl);
 int HMAC_Update(HMAC_CTX *ctx, const unsigned char *data, int len);
 int HMAC_Final(HMAC_CTX *ctx, unsigned char *md, unsigned int *len);</synopsis>
-<synopsis>void HMAC_CTX_cleanup(HMAC_CTX *ctx);</synopsis>
+<synopsis>void HMAC_CTX_free(HMAC_CTX *ctx);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-f0febdb80bc013d096d9f4834d0e6275"><title>DESCRIPTION</title>
     <para>
@@ -44,11 +45,17 @@ int HMAC_Final(HMAC_CTX *ctx, unsigned char *md, unsigned int *len);</synopsis>
       EVP_ripemd160() etc.
     </para>
     <para>
-      HMAC_CTX_init() initialises a <emphasis role="bold">HMAC_CTX</emphasis> before first use. It must be called.
+      HMAC_CTX_new() creates a new HMAC_CTX in heap memory.
     </para>
     <para>
-      HMAC_CTX_cleanup() erases the key and other data from the <emphasis role="bold">HMAC_CTX</emphasis> and releases any associated
-      resources. It must be called when an <emphasis role="bold">HMAC_CTX</emphasis> is no longer required.
+      HMAC_CTX_reset() zeroes an existing <emphasis role="bold">HMAC_CTX</emphasis> and associated resources, making it
+      suitable for new computations as if it was newly created with
+      HMAC_CTX_new().
+    </para>
+    <para>
+      HMAC_CTX_free() erases the key and other data from the <emphasis role="bold">HMAC_CTX</emphasis>, releases any associated resources
+      and finally frees the <emphasis role="bold">HMAC_CTX</emphasis>
+      itself.
     </para>
     <para>
       The following functions may be used if the message is not completely
@@ -62,12 +69,11 @@ int HMAC_Final(HMAC_CTX *ctx, unsigned char *md, unsigned int *len);</synopsis>
     <para>
       HMAC_Init_ex() initializes or reuses a <emphasis role="bold">HMAC_CTX</emphasis> structure to use the function
       <emphasis role="bold">evp_md</emphasis> and key <emphasis role="bold">key</emphasis>. Either can be NULL, in which case the
-      existing one will be reused. HMAC_CTX_init() must have been called
-      before the first use of an <emphasis role="bold">HMAC_CTX</emphasis>
-      in this function. <emphasis role="bold">N.B. HMAC_Init() had this
-      undocumented behaviour in previous versions of OpenSSL - failure to
-      switch to HMAC_Init_ex() in programs that expect it will cause them
-      to stop working</emphasis>.
+      existing one will be reused. <emphasis role="bold">ctx</emphasis>
+      must have been created with HMAC_CTX_new() before the first use of an
+      <emphasis role="bold">HMAC_CTX</emphasis> in this function. <emphasis role="bold">N.B. HMAC_Init() had this undocumented behaviour in
+      previous versions of OpenSSL - failure to switch to HMAC_Init_ex() in
+      programs that expect it will cause them to stop working</emphasis>.
     </para>
     <para>
       HMAC_Update() can be called repeatedly with chunks of the message to
@@ -85,11 +91,14 @@ int HMAC_Final(HMAC_CTX *ctx, unsigned char *md, unsigned int *len);</synopsis>
       if an error occurred.
     </para>
     <para>
-      HMAC_Init_ex(), HMAC_Update() and HMAC_Final() return 1 for success
-      or 0 if an error occurred.
+      HMAC_CTX_new() returns a pointer to a new <emphasis role="bold">HMAC_CTX</emphasis> on success or <emphasis role="bold">NULL</emphasis> if an error occurred.
     </para>
     <para>
-      HMAC_CTX_init() and HMAC_CTX_cleanup() do not return values.
+      HMAC_CTX_reset(), HMAC_Init_ex(), HMAC_Update() and HMAC_Final()
+      return 1 for success or 0 if an error occurred.
+    </para>
+    <para>
+      HMAC_CTX_free() do not return values.
     </para>
   </refsection>
   <refsection xml:id="ID-b485b56fcf7e01f73849dacc5edc3915"><title>CONFORMING TO</title>
@@ -106,6 +115,16 @@ int HMAC_Final(HMAC_CTX *ctx, unsigned char *md, unsigned int *len);</synopsis>
     </para>
   </refsection>
   <refsection xml:id="ID-de38b7c1502e9586388383cbfc185c42"><title>HISTORY</title>
+    <para>
+      HMAC_CTX_init() was replaced with HMAC_CTX_reset() in OpenSSL
+      versions 1.1.
+    </para>
+    <para>
+      HMAC_CTX_cleanup() existed in OpenSSL versions before 1.1.
+    </para>
+    <para>
+      HMAC_CTX_new() and HMAC_CTX_free() are new in OpenSSL version 1.1.
+    </para>
     <para>
       HMAC_Init_ex(), HMAC_Update() and HMAC_Final() did not return values
       in versions of OpenSSL before 1.0.0.
