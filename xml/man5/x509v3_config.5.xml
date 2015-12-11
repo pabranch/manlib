@@ -481,6 +481,23 @@ nameConstraints=excluded;email:.com
 
 </screen>
     </refsection>
+    <refsection xml:id="ID-142f70efbc3bea07676793be7654626d"><title>TLS Feature (aka Must Staple)</title>
+      <para>
+	This is a multi-valued extension consisting of a list of TLS
+	extension identifiers. Each identifier may be a number (0..65535)
+	or a supported name. When a TLS client sends a listed extension,
+	the TLS server is expected to include that extension in its reply.
+      </para>
+      <para>
+	The supported names are: <emphasis role="bold">status_request</emphasis> and <emphasis role="bold">status_request_v2</emphasis>.
+      </para>
+      <para>
+	Example:
+      </para>
+      <screen>tlsfeature = status_request
+
+</screen>
+    </refsection>
   </refsection>
   <refsection xml:id="ID-61860cbe32a38638ab2ad7c7feb918c7"><title>DEPRECATED EXTENSIONS</title>
     <para>
