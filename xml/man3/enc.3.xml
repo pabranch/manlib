@@ -24,7 +24,7 @@
 [<emphasis role="bold">-salt</emphasis>]
 [<emphasis role="bold">-nosalt</emphasis>]
 [<emphasis role="bold">-z</emphasis>]
-[<emphasis role="bold">-md</emphasis>]
+[<emphasis role="bold">-md digest</emphasis>]
 [<emphasis role="bold">-p</emphasis>]
 [<emphasis role="bold">-P</emphasis>]
 [<emphasis role="bold">-bufsize number</emphasis>]
@@ -154,6 +154,15 @@
 	      <emphasis role="bold">filename</emphasis>. This is for
 	      compatibility with previous versions of OpenSSL. Superseded
 	      by the <emphasis role="bold">-pass</emphasis> argument.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-md digest</emphasis></term>
+          <listitem>
+            <para>
+	      Use the specified digest to create the key from the
+	      passphrase. The default algorithm is sha-256.
             </para>
           </listitem>
         </varlistentry>
@@ -463,6 +472,11 @@ aes-[128|192|256]-ofb  128/192/256 bit AES in OFB mode</screen>
       fixed number of algorithms with certain parameters. So if, for
       example, you want to use RC2 with a 76 bit key or RC4 with an 84 bit
       key you can't use this program.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-f958c0f05e434c6ded5796be06ee80aa"><title>HISTORY</title>
+    <para>
+      The default digest was chaned from MD5 to SHA256 in Openssl 1.1.
     </para>
   </refsection>
 </refentry>

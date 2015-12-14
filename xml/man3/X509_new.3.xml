@@ -4,13 +4,14 @@
     <refentrytitle>X509_new.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>X509_new, X509_free</refname>
+    <refname>X509_new, X509_free, X509_up_ref</refname>
 <refpurpose>X509 certificate ASN1 allocation functions</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/x509.h&gt;</synopsis>
 <synopsis>X509 *X509_new(void);
-void X509_free(X509 *a);</synopsis>
+void X509_free(X509 *a);
+void X509_up_ref(X509 *a);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-430bde2bcb8ccee4ac69a0da9379dcce"><title>DESCRIPTION</title>
     <para>
@@ -18,11 +19,23 @@ void X509_free(X509 *a);</synopsis>
       structure, which represents an X509 certificate.
     </para>
     <para>
-      X509_new() allocates and initializes a X509 structure.
+      X509_new() allocates and initializes a X509 structure with reference
+      count <emphasis role="bold">1</emphasis>.
     </para>
     <para>
-      X509_free() frees up the <emphasis role="bold">X509</emphasis>
-      structure <emphasis role="bold">a</emphasis>. If <emphasis role="bold">a</emphasis> is NULL nothing is done.
+      X509_free() decrements the reference count of <emphasis role="bold">X509</emphasis> structure <emphasis role="bold">a</emphasis> and frees it up if the reference count is
+      zero. If <emphasis role="bold">a</emphasis> is NULL nothing is done.
+    </para>
+    <para>
+      X509_up_ref() increments the reference count of <emphasis role="bold">a</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-49e7c6f428fdd50fb17b11a4ec7b082f"><title>NOTES</title>
+    <para>
+      The function X509_up_ref() if useful if a certificate structure is
+      being used by several different operations each of which will free it
+      up after use: this avoids the need to duplicate the entire
+      certificate structure.
     </para>
   </refsection>
   <refsection xml:id="ID-bd288423f1b9754617999bedbc8b3171"><title>RETURN VALUES</title>
@@ -34,7 +47,7 @@ void X509_free(X509 *a);</synopsis>
       allocated structure.
     </para>
     <para>
-      X509_free() returns no value.
+      X509_free() and X509_up_ref() do not return a value.
     </para>
   </refsection>
   <refsection xml:id="ID-c73872d8426b9d97be0560672a7eba28"><title>SEE ALSO</title>

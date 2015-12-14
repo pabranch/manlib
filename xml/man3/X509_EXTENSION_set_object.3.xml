@@ -1,0 +1,110 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>X509_EXTENSION_set_object.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>X509_EXTENSION_set_object, X509_EXTENSION_set_critical,
+X509_EXTENSION_set_data, X509_EXTENSION_create_by_NID,
+X509_EXTENSION_create_by_OBJ, X509_EXTENSION_get_object,
+X509_EXTENSION_get_critical, X509_EXTENSION_get_data</refname>
+<refpurpose>extension utility
+functions.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis>int X509_EXTENSION_set_object(X509_EXTENSION *ex, ASN1_OBJECT *obj);
+int X509_EXTENSION_set_critical(X509_EXTENSION *ex, int crit);
+int X509_EXTENSION_set_data(X509_EXTENSION *ex, ASN1_OCTET_STRING *data);</synopsis>
+<synopsis>X509_EXTENSION *X509_EXTENSION_create_by_NID(X509_EXTENSION **ex,
+                                             int nid, int crit,
+                                             ASN1_OCTET_STRING *data);
+X509_EXTENSION *X509_EXTENSION_create_by_OBJ(X509_EXTENSION **ex,
+                                             ASN1_OBJECT *obj, int crit,
+                                             ASN1_OCTET_STRING *data);</synopsis>
+<synopsis>ASN1_OBJECT *X509_EXTENSION_get_object(X509_EXTENSION *ex);
+int X509_EXTENSION_get_critical(X509_EXTENSION *ex);
+ASN1_OCTET_STRING *X509_EXTENSION_get_data(X509_EXTENSION *ne);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="ID-5cc4597b50ed750e0d58caa664efe026"><title>DESCRIPTION</title>
+    <para>
+      X509_EXTENSION_set_object() sets the extension type of <emphasis role="bold">ex</emphasis> to <emphasis role="bold">obj</emphasis>.
+      The <emphasis role="bold">obj</emphasis> pointer is duplicated
+      internally so <emphasis role="bold">obj</emphasis> should be freed up
+      after use.
+    </para>
+    <para>
+      X509_EXTENSION_set_critical() sets the criticality of <emphasis role="bold">ex</emphasis> to <emphasis role="bold">crit</emphasis>.
+      If <emphasis role="bold">crit</emphasis> is zero the extension in
+      non-critical otherwise it is critical.
+    </para>
+    <para>
+      X509_EXTENSION_set_data() sets the data in extension <emphasis role="bold">ex</emphasis> to <emphasis role="bold">data</emphasis>.
+      The <emphasis role="bold">data</emphasis> pointer is duplicated
+      internally.
+    </para>
+    <para>
+      X509_EXTENSION_create_by_NID() creates an extension of type <emphasis role="bold">nid</emphasis>, criticality <emphasis role="bold">crit</emphasis> using data <emphasis role="bold">data</emphasis>. The created extension is returned and
+      written to <emphasis role="bold">*ex</emphasis> reusing or allocating
+      a new extension if necessary so <emphasis role="bold">*ex</emphasis>
+      should either be <emphasis role="bold">NULL</emphasis> or a valid
+      <emphasis role="bold">X509_EXTENSION</emphasis> structure it must
+      <emphasis role="bold">not</emphasis> be an uninitialised pointer.
+    </para>
+    <para>
+      X509_EXTENSION_create_by_OBJ() is identical to
+      X509_EXTENSION_create_by_NID() except it creates and extension using
+      <emphasis role="bold">obj</emphasis> instead of a NID.
+    </para>
+    <para>
+      X509_EXTENSION_get_object() returns the extension type of <emphasis role="bold">ex</emphasis> as an <emphasis role="bold">ASN1_OBJECT</emphasis> pointer. The returned pointer is
+      an internal value which must not be freed up.
+    </para>
+    <para>
+      X509_EXTENSION_get_critical() returns the criticality of extension
+      <emphasis role="bold">ex</emphasis> it returns <emphasis role="bold">1</emphasis> for critical and <emphasis role="bold">0</emphasis> for non-critical.
+    </para>
+    <para>
+      X509_EXTENSION_get_data() returns the data of extension <emphasis role="bold">ex</emphasis>. The returned pointer is an internal value
+      which must not be freed up.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-cdb3886c86d8424062d61b444e5cf5c4"><title>NOTES</title>
+    <para>
+      These functions manipulate the contents of an extension directly.
+      Most applications will want to parse or encode and add an extension:
+      they should use the extension encode and decode functions instead
+      such as X509_add1_ext_i2d() and X509_get_ext_d2i().
+    </para>
+    <para>
+      The <emphasis role="bold">data</emphasis> associated with an
+      extension is the extension encoding in an <emphasis role="bold">ASN1_OCTET_STRING</emphasis> structure.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-d8955c4f8ad9231538d9233ab23dab83"><title>RETURN VALUES</title>
+    <para>
+      X509_EXTENSION_set_object() X509_EXTENSION_set_critical() and
+      X509_EXTENSION_set_data() return <emphasis role="bold">1</emphasis>
+      for success and <emphasis role="bold">0</emphasis> for failure.
+    </para>
+    <para>
+      X509_EXTENSION_create_by_NID() and X509_EXTENSION_create_by_OBJ()
+      return an <emphasis role="bold">X509_EXTENSION</emphasis> pointer or
+      <emphasis role="bold">NULL</emphasis> if an error occurs.
+    </para>
+    <para>
+      X509_EXTENSION_get_object() returns an <emphasis role="bold">ASN1_OBJECT</emphasis> pointer.
+    </para>
+    <para>
+      X509_EXTENSION_get_critical() returns <emphasis role="bold">0</emphasis> for non-critical and <emphasis role="bold">1</emphasis> for critical.
+    </para>
+    <para>
+      X509_EXTENSION_get_data() returns an <emphasis role="bold">ASN1_OCTET_STRING</emphasis> pointer.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-211fbcab42df3c8d65ac7070b122a59f"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>X509V3_get_d2i</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
+    </para>
+  </refsection>
+</refentry>

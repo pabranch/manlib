@@ -320,6 +320,8 @@ sync
 </simpara>
 <simpara>"git submodule sync" synchronizes all submodules while
 "git submodule sync -- A" synchronizes submodule "A" only.</simpara>
+<simpara>If <literal>--recursive</literal> is specified, this command will recurse into the
+registered submodules, and sync any nested submodules within.</simpara>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -566,7 +568,7 @@ for <citerefentry>
 </term>
 <listitem>
 <simpara>
-        This option is only valid for foreach, update and status commands.
+        This option is only valid for foreach, update, status and sync commands.
         Traverse submodules recursively. The operation is performed not
         only in the submodules of the current repo, but also
         in any nested submodules inside those submodules (and so on).

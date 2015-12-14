@@ -4,12 +4,12 @@
     <refentrytitle>dgst.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>dgst, sha, sha1, mdc2, ripemd160, sha224, sha256, sha384, sha512, md2, md4, md5, dss1</refname>
+    <refname>dgst, sha, sha1, mdc2, ripemd160, sha224, sha256, sha384, sha512, md4, md5</refname>
 <refpurpose>message digests</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis><emphasis role="bold">openssl</emphasis> <emphasis role="bold">dgst</emphasis> 
-[<emphasis role="bold">-sha|-sha1|-mdc2|-ripemd160|-sha224|-sha256|-sha384|-sha512|-md2|-md4|-md5|-dss1</emphasis>]
+[<emphasis role="bold">-sha|-sha1|-mdc2|-ripemd160|-sha224|-sha256|-sha384|-sha512|-md4|-md5</emphasis>]
 [<emphasis role="bold">-c</emphasis>]
 [<emphasis role="bold">-d</emphasis>]
 [<emphasis role="bold">-hex</emphasis>]
@@ -36,6 +36,13 @@
       The digest functions output the message digest of a supplied file or
       files in hexadecimal.  The digest functions also generate and verify
       digital signatures using message digests.
+    </para>
+    <para>
+      The generic name, <emphasis role="bold">dgst</emphasis>, may be used
+      with an option specifying the algorithm to be used. The default
+      digest is <emphasis role="italic">sha256</emphasis>. The digest name
+      may also be used as the command name. To see the list of supported
+      algorithms, use the &lt;Ilist --digest-commands&gt; command.
     </para>
   </refsection>
   <refsection xml:id="ID-10a2f53e0ba4b29c3915dd0d56257211"><title>OPTIONS</title>
@@ -333,6 +340,10 @@
       program to transform the hex signature into a binary signature prior
       to verification.
     </para>
-    <screen></screen>
+  </refsection>
+  <refsection xml:id="ID-05095b6e386c895692cd4bb94b777110"><title>HISTORY</title>
+    <para>
+      The default digest was chaned from MD5 to SHA256 in Openssl 1.1.
+    </para>
   </refsection>
 </refentry>
