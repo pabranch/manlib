@@ -1612,17 +1612,20 @@ You may want to use rd.iscsi.firmware.</simpara></warning>
 <variablelist>
 <varlistentry>
 <term>
-<emphasis role="strong">root=</emphasis>??? <emphasis role="strong">netroot=</emphasis>nbd:<emphasis>&lt;server&gt;</emphasis>:<emphasis>&lt;port&gt;</emphasis>[:<emphasis>&lt;fstype&gt;</emphasis>[:<emphasis>&lt;mountopts&gt;</emphasis>[:<emphasis>&lt;nbdopts&gt;</emphasis>]]]
+<emphasis role="strong">root=</emphasis>??? <emphasis role="strong">netroot=</emphasis>nbd:<emphasis>&lt;server&gt;</emphasis>:<emphasis>&lt;port/exportname&gt;</emphasis>[:<emphasis>&lt;fstype&gt;</emphasis>[:<emphasis>&lt;mountopts&gt;</emphasis>[:<emphasis>&lt;nbdopts&gt;</emphasis>]]]
 </term>
 <listitem>
 <simpara>
-    mount nbd share from &lt;server&gt;
+    mount nbd share from &lt;server&gt;.
 </simpara>
+<simpara>NOTE:
+    If "exportname" instead of "port" is given the standard port is used.
+    Newer versions of nbd are only supported with "exportname".</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
 <term>
-<emphasis role="strong">root=dhcp</emphasis> with <emphasis role="strong">dhcp</emphasis> <emphasis role="strong">root-path=</emphasis>nbd:<emphasis>&lt;server&gt;</emphasis>:<emphasis>&lt;port&gt;</emphasis>[:<emphasis>&lt;fstype&gt;</emphasis>[:<emphasis>&lt;mountopts&gt;</emphasis>[:<emphasis>&lt;nbdopts&gt;</emphasis>]]]
+<emphasis role="strong">root=dhcp</emphasis> with <emphasis role="strong">dhcp</emphasis> <emphasis role="strong">root-path=</emphasis>nbd:<emphasis>&lt;server&gt;</emphasis>:<emphasis>&lt;port/exportname&gt;</emphasis>[:<emphasis>&lt;fstype&gt;</emphasis>[:<emphasis>&lt;mountopts&gt;</emphasis>[:<emphasis>&lt;nbdopts&gt;</emphasis>]]]
 </term>
 <listitem>
 <simpara>
@@ -1630,6 +1633,9 @@ You may want to use rd.iscsi.firmware.</simpara></warning>
     options can be specified. This syntax is only usable in cases where you are
     directly mounting the volume as the rootfs.
 </simpara>
+<simpara>NOTE:
+    If "exportname" instead of "port" is given the standard port is used.
+    Newer versions of nbd are only supported with "exportname".</simpara>
 </listitem>
 </varlistentry>
 </variablelist>

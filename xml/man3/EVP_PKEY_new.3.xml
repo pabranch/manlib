@@ -4,23 +4,28 @@
     <refentrytitle>EVP_PKEY_new.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>EVP_PKEY_new, EVP_PKEY_free</refname>
+    <refname>EVP_PKEY_new, EVP_PKEY_up_ref, EVP_PKEY_free</refname>
 <refpurpose>private key allocation functions.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/evp.h&gt;</synopsis>
 <synopsis>EVP_PKEY *EVP_PKEY_new(void);
+void EVP_PKEY_up_ref(EVP_PKEY *key);
 void EVP_PKEY_free(EVP_PKEY *key);</synopsis>
 <synopsis/>
   </refsynopsisdiv>
   <refsection xml:id="ID-41ffdf8066f3af50a937474a65c7bcb8"><title>DESCRIPTION</title>
     <para>
       The EVP_PKEY_new() function allocates an empty <emphasis role="bold">EVP_PKEY</emphasis> structure which is used by OpenSSL to
-      store private keys.
+      store private keys. The reference count is set to <emphasis role="bold">1</emphasis>.
     </para>
     <para>
-      EVP_PKEY_free() frees up the private key <emphasis role="bold">key</emphasis>. If <emphasis role="bold">key</emphasis>
-      is NULL, nothing is done.
+      EVP_PKEY_up_ref() increments the reference count of <emphasis role="bold">key</emphasis>.
+    </para>
+    <para>
+      EVP_PKEY_free() decrements the reference count of <emphasis role="bold">key</emphasis> and, if the reference count is zero, frees
+      it up. If <emphasis role="bold">key</emphasis> is NULL, nothing is
+      done.
     </para>
   </refsection>
   <refsection xml:id="ID-046cd2e5389e65301bf052411a2f86f1"><title>NOTES</title>
@@ -38,10 +43,10 @@ void EVP_PKEY_free(EVP_PKEY *key);</synopsis>
   </refsection>
   <refsection xml:id="ID-c7cc73db3817ebd0e52c16100cbe4fb1"><title>RETURN VALUES</title>
     <para>
-      EVP_PKEY_new() returns either the newly allocated <emphasis role="bold">EVP_PKEY</emphasis> structure of <emphasis role="bold">NULL</emphasis> if an error occurred.
+      EVP_PKEY_new() returns either the newly allocated <emphasis role="bold">EVP_PKEY</emphasis> structure or <emphasis role="bold">NULL</emphasis> if an error occurred.
     </para>
     <para>
-      EVP_PKEY_free() does not return a value.
+      EVP_PKEY_up_ref() and EVP_PKEY_free() do not return a value.
     </para>
   </refsection>
   <refsection xml:id="ID-68841d66901afa0f057e9252a7c62c40"><title>SEE ALSO</title>
@@ -52,7 +57,10 @@ void EVP_PKEY_free(EVP_PKEY *key);</synopsis>
   </refsection>
   <refsection xml:id="ID-0a30daefac064c2c5eb1219d3d8ffd85"><title>HISTORY</title>
     <para>
-      TBA
+      EVP_PKEY_new() and EVP_PKEY_free() exist in all versions of OpenSSL.
+    </para>
+    <para>
+      EVP_PKEY_up_ref() was first added to OpenSSL 1.1.0.
     </para>
   </refsection>
 </refentry>

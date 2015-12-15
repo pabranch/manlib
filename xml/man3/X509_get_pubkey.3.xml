@@ -4,7 +4,7 @@
     <refentrytitle>X509_get_pubkey.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>X509_get_pubkey, X509_set_pubkey, X509_get_X509_PUBKEY,
+    <refname>X509_get_pubkey, X509_get0_pubkey, X509_set_pubkey, X509_get_X509_PUBKEY,
 X509_REQ_get_pubkey, X509_REQ_set_pubkey, X509_REQ_get_X509_PUBKEY</refname>
 <refpurpose>get or
 set certificate or certificate request public key.</refpurpose>
@@ -12,6 +12,7 @@ set certificate or certificate request public key.</refpurpose>
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/x509.h&gt;</synopsis>
 <synopsis>EVP_PKEY *X509_get_pubkey(X509 *x);
+EVP_PKEY *X509_get0_pubkey(X509 *x);
 int X509_set_pubkey(X509 *x, EVP_PKEY *pkey);
 X509_PUBKEY *X509_get_X509_PUBKEY(X509 *x);</synopsis>
 <synopsis>EVP_PKEY *X509_REQ_get_pubkey(X509_REQ *req);
@@ -24,7 +25,10 @@ X509_PUBKEY *X509_REQ_get_X509_PUBKEY(X509_REQ *x);</synopsis>
       <emphasis role="bold">x</emphasis>. If successful it returns the
       public key as an <emphasis role="bold">EVP_PKEY</emphasis> pointer
       with its reference count incremented: this means the returned key
-      must be freed up after use.
+      must be freed up after use. X509_get0_pubkey() is similar except it
+      does <emphasis role="bold">not</emphasis> increment the reference
+      count of the returned <emphasis role="bold">EVP_PKEY</emphasis> so it
+      must not be freed up after use.
     </para>
     <para>
       X509_get_X509_PUBKEY() returns an internal pointer to the <emphasis role="bold">X509_PUBKEY</emphasis> structure which encodes the
@@ -51,8 +55,9 @@ X509_PUBKEY *X509_REQ_get_X509_PUBKEY(X509_REQ *x);</synopsis>
   </refsection>
   <refsection xml:id="ID-1850f4c4cda7849f2a225f2d5e4b326a"><title>RETURN VALUES</title>
     <para>
-      X509_get_pubkey(), X509_get_X509_PUBKEY(), X509_REQ_get_pubkey() and
-      X509_REQ_get_X509_PUBKEY() return a public key or <emphasis role="bold">NULL</emphasis> if an error occurred.
+      X509_get_pubkey(), X509_get0_pubkey(), X509_get_X509_PUBKEY(),
+      X509_REQ_get_pubkey() and X509_REQ_get_X509_PUBKEY() return a public
+      key or <emphasis role="bold">NULL</emphasis> if an error occurred.
     </para>
     <para>
       X509_set_pubkey() and X509_REQ_set_pubkey() rerturn 1 for success and
