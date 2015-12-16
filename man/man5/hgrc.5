@@ -1447,40 +1447,58 @@ trying to apply a patch.
 .UNINDENT
 .SS \fBpaths\fP
 .sp
-Assigns symbolic names to repositories. The left side is the
-symbolic name, and the right gives the directory or URL that is the
-location of the repository. Default paths can be declared by setting
-the following entries.
-.INDENT 0.0
-.TP
-.B \fBdefault\fP
+Assigns symbolic names and behavior to repositories.
 .sp
-Directory or URL to use when pulling if no source is specified.
-(default: repository from which the current repository was cloned)
-.TP
-.B \fBdefault\-push\fP
-.sp
-Optional. Directory or URL to use when pushing if no destination
-is specified.
-.UNINDENT
-.sp
-Custom paths can be defined by assigning the path to a name that later can be
-used from the command line. Example:
+Options are symbolic names defining the URL or directory that is the
+location of the repository. Example:
 .sp
 .nf
 .ft C
 [paths]
-my_path = http://example.com/path
+my_server = https://example.com/my_repo
+local_path = /home/me/repo
 .ft P
 .fi
 .sp
-To push to the path defined in \fBmy_path\fP run the command:
+These symbolic names can be used from the command line. To pull
+from \fBmy_server\fP: \%\fBhg pull my_server\fP\:. To push to \fBlocal_path\fP:
+\%\fBhg push local_path\fP\:.
+.sp
+Options containing colons (\fB:\fP) denote sub\-options that can influence
+behavior for that specific path. Example:
 .sp
 .nf
 .ft C
-hg push my_path
+[paths]
+my_server = https://example.com/my_path
+my_server:pushurl = ssh://example.com/my_path
 .ft P
 .fi
+.sp
+The following sub\-options can be defined:
+.INDENT 0.0
+.TP
+.B \fBpushurl\fP
+.sp
+The URL to use for push operations. If not defined, the location
+defined by the path\(aqs main entry is used.
+.UNINDENT
+.sp
+The following special named paths exist:
+.INDENT 0.0
+.TP
+.B \fBdefault\fP
+.sp
+The URL or directory to use when no source or remote is specified.
+.sp
+\%\fBhg clone\fP\: will automatically define this path to the location the
+repository was cloned from.
+.TP
+.B \fBdefault\-push\fP
+.sp
+(deprecated) The URL or directory for the default \%\fBhg push\fP\: location.
+\fBdefault:pushurl\fP should be used instead.
+.UNINDENT
 .SS \fBphases\fP
 .sp
 Specifies default handling of phases. See \%\fBhg help phases\fP\: for more
@@ -1677,6 +1695,26 @@ present. (default: False)
 .sp
 Instruct HTTP clients not to send request headers longer than this
 many bytes. (default: 1024)
+.TP
+.B \fBbundle1\fP
+.sp
+Whether to allow clients to push and pull using the legacy bundle1
+exchange format. (default: True)
+.TP
+.B \fBbundle1.push\fP
+.sp
+Whether to allow clients to push using the legacy bundle1 exchange
+format. (default: True)
+.TP
+.B \fBbundle1.pull\fP
+.sp
+Whether to allow clients to pull using the legacy bundle1 exchange
+format. (default: True)
+.sp
+Large repositories using the \fIgeneraldelta\fP storage format should
+consider setting this option because converting \fIgeneraldelta\fP
+repositories to the exchange format required by the bundle1 data
+format can consume a lot of CPU.
 .UNINDENT
 .SS \fBsmtp\fP
 .sp
@@ -1832,6 +1870,11 @@ The editor to use during a commit. (default: \fB$EDITOR\fP or \fBvi\fP)
 .sp
 Encoding to try if it\(aqs not possible to decode the changelog using
 UTF\-8. (default: ISO\-8859\-1)
+.TP
+.B \fBgraphnodetemplate\fP
+.sp
+The template used to print changeset nodes in an ASCII revision graph.
+(default: \fB{graphnode}\fP)
 .TP
 .B \fBignore\fP
 .sp

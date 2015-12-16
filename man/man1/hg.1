@@ -1332,7 +1332,7 @@ the clone will include an empty working directory (only a repository)
 .TP
 .BI \-u,  \-\-updaterev \ <REV>
 .
-revision, tag or branch to check out
+revision, tag, or branch to check out
 .TP
 .BI \-r,  \-\-rev \ <REV[+]>
 .
@@ -1410,6 +1410,37 @@ or changesets that have children.
 See \%\fBhg help dates\fP\: for a list of formats valid for \-d/\-\-date.
 .sp
 Returns 0 on success, 1 if nothing changed.
+.sp
+Examples:
+.INDENT 0.0
+.IP \(bu 2
+.
+commit all files ending in .py:
+.sp
+.nf
+.ft C
+hg commit \-\-include "set:**.py"
+.ft P
+.fi
+.IP \(bu 2
+.
+commit all non\-binary files:
+.sp
+.nf
+.ft C
+hg commit \-\-exclude "set:binary()"
+.ft P
+.fi
+.IP \(bu 2
+.
+amend the current commit and set the date to now:
+.sp
+.nf
+.ft C
+hg commit \-\-amend \-\-date now
+.ft P
+.fi
+.UNINDENT
 .sp
 Options:
 .INDENT 0.0
@@ -3405,6 +3436,17 @@ given via \-r/\-\-rev, the parent of that revision will be printed.
 If a file argument is given, the revision in which the file was
 last changed (before the working directory revision or the
 argument to \-\-rev if given) is printed.
+.sp
+This command is equivalent to:
+.sp
+.nf
+.ft C
+hg log \-r "parents()" or
+hg log \-r "parents(REV)" or
+hg log \-r "max(file(FILE))" or
+hg log \-r "max(::REV and file(FILE))"
+.ft P
+.fi
 .sp
 See \%\fBhg summary\fP\: and \%\fBhg help revsets\fP\: for related information.
 .sp
@@ -7764,6 +7806,11 @@ List of strings. Files modified by this changeset.
 List of strings. All files modified, added, or removed by this
 changeset.
 .TP
+.B graphnode
+.
+String. The character representing the changeset node in
+an ASCII revision graph
+.TP
 .B latesttag
 .
 List of strings. The global tags on the most recent globally
@@ -9236,7 +9283,7 @@ such as once per day).
 .IP \(bu 2
 .
 A file server that clients have network access to and that Python knows
-how to talk to through its normal URL handling facility (typically a
+how to talk to through its normal URL handling facility (typically an
 HTTP server).
 .IP \(bu 2
 .
@@ -10911,6 +10958,17 @@ configuration file:
 linelen = 120      # truncate rule lines at 120 characters
 .ft P
 .fi
+.sp
+\fBhg histedit\fP attempts to automatically choose an appropriate base
+revision to use. To change which base revision is used, define a
+revset in your configuration file:
+.sp
+.nf
+.ft C
+[histedit]
+defaultrev = only(.) & draft()
+.ft P
+.fi
 .SS Commands
 .SS histedit
 .sp
@@ -10918,12 +10976,18 @@ interactively edit changeset history:
 .sp
 .nf
 .ft C
-hg histedit ANCESTOR | \-\-outgoing [URL]
+hg histedit [ANCESTOR] | \-\-outgoing [URL]
 .ft P
 .fi
 .sp
-This command edits changesets between ANCESTOR and the parent of
+This command edits changesets between an ANCESTOR and the parent of
 the working directory.
+.sp
+The value from the "histedit.defaultrev" config option is used as a
+revset to select the base revision when ANCESTOR is not specified.
+The first revision returned by the revset is used. By default, this
+selects the editable history that is unique to the ancestry of the
+working directory.
 .sp
 With \-\-outgoing, this edits changesets not found in the
 destination repository. If URL of the destination is omitted, the
