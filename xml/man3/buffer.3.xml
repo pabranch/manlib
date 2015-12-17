@@ -9,7 +9,6 @@
 character array structure</refpurpose>
   </refnamediv>
   <para>
-    BUF_strdup, BUF_strndup, BUF_memdup, BUF_strlcpy, BUF_strlcat -
     standard C library equivalents
   </para>
   <refsynopsisdiv>
@@ -19,12 +18,6 @@ character array structure</refpurpose>
 <synopsis>BUF_MEM *BUF_MEM_new_ex(unsigned long flags);</synopsis>
 <synopsis>void   BUF_MEM_free(BUF_MEM *a);</synopsis>
 <synopsis>int    BUF_MEM_grow(BUF_MEM *str, int len);</synopsis>
-<synopsis>char *BUF_strdup(const char *str);</synopsis>
-<synopsis>char *BUF_strndup(const char *str, size_t siz);</synopsis>
-<synopsis>void *BUF_memdup(const void *data, size_t siz);</synopsis>
-<synopsis>size_t BUF_strlcpy(char *dst, const char *src, size_t size);</synopsis>
-<synopsis>size_t BUF_strlcat(char *dst, const char *src, size_t size);</synopsis>
-<synopsis>size_t BUF_strnlen(const char *str, size_t maxlen);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-f6097c5d2df595835e7c09f25fa131b8"><title>DESCRIPTION</title>
     <para>
@@ -50,21 +43,6 @@ character array structure</refpurpose>
       BUF_MEM_grow() changes the size of an already existing buffer to
       <emphasis role="bold">len</emphasis>. Any data already in the buffer
       is preserved if it increases in size.
-    </para>
-    <para>
-      BUF_strdup(), BUF_strndup(), BUF_memdup(), BUF_strlcpy(),
-      BUF_strlcat() and BUF_strnlen are equivalents of the standard C
-      library functions. The dup() functions use OPENSSL_malloc()
-      underneath and so should be used in preference to the standard
-      library for memory leak checking or replacing the malloc() function.
-    </para>
-    <para>
-      Memory allocated from these functions should be freed up using the
-      OPENSSL_free() function.
-    </para>
-    <para>
-      BUF_strndup makes the explicit guarantee that it will never read past
-      the first <emphasis role="bold">siz</emphasis> bytes of <emphasis role="bold">str</emphasis>.
     </para>
   </refsection>
   <refsection xml:id="ID-742b9485aa57c1072bd7b02a7dafe863"><title>RETURN VALUES</title>

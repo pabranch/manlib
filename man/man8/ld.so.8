@@ -200,8 +200,7 @@ A nonzero value may have been set by a Linux Security Module.
 .SS Environment variables
 Among the more important environment variables are the following:
 .TP
-.B LD_ASSUME_KERNEL
-(glibc since 2.2.3)
+.BR LD_ASSUME_KERNEL " (glibc since 2.2.3)"
 Each shared object can inform the dynamic linker of the minimum kernel ABI
 version that it requires.
 (This requirement is encoded in an ELF note section that is viewable via
@@ -273,7 +272,7 @@ only if the set-user-ID mode bit is enabled on the shared object file.
 .TP
 .B LD_TRACE_LOADED_OBJECTS
 (ELF only)
-If set to a nonempty string, causes the program to list its dynamic
+If set (to any value), causes the program to list its dynamic
 dependencies, as if run by
 .BR ldd (1),
 instead of running normally.
@@ -322,7 +321,8 @@ in the chapter
 .TP
 .B LD_BIND_NOT
 (glibc since 2.1.95)
-Do not update the GOT (global offset table) and PLT (procedure linkage table)
+If this environment variable is set to a nonempty string,
+do not update the GOT (global offset table) and PLT (procedure linkage table)
 after resolving a symbol.
 .TP
 .B LD_DEBUG
@@ -351,7 +351,8 @@ is ignored in secure-execution mode.
 .TP
 .B LD_DYNAMIC_WEAK
 (glibc since 2.1.91)
-Allow weak symbols to be overridden (reverting to old glibc behavior).
+If this environment variable is defined (with any value),
+allow weak symbols to be overridden (reverting to old glibc behavior).
 .\" See weak handling
 .\"     https://www.sourceware.org/ml/libc-hacker/2000-06/msg00029.html
 .\"     To: GNU libc hacker <libc-hacker at sourceware dot cygnus dot com>
@@ -425,14 +426,17 @@ is always used.
 .TP
 .B LD_SHOW_AUXV
 (glibc since 2.1)
-Show auxiliary array passed up from the kernel.
+If this environment variable is defined (with any value),
+show the auxiliary array passed up from the kernel (see also
+.BR getauxval (3)).
 Since glibc 2.3.5,
 .B LD_SHOW_AUXV
 is ignored in secure-execution mode.
 .TP
 .B LD_TRACE_PRELINKING
 (glibc since 2.4)
-Trace prelinking of the object whose name is assigned to
+If this environment variable is defined (with any value),
+trace prelinking of the object whose name is assigned to
 this environment variable.
 (Use
 .BR ldd (1)
@@ -471,6 +475,25 @@ environment variable has been set.
 .B LD_WARN
 (ELF only)(glibc since 2.1.3)
 If set to a nonempty string, warn about unresolved symbols.
+.TP
+.B LD_PREFER_MAP_32BIT_EXEC
+(x86-64 only)(glibc since 2.23)
+According to the Intel Silvermont software optimization guide, for 64-bit
+applications, branch prediction performance can be negatively impacted
+when the target of a branch is more than 4GB away from the branch.
+If this environment variable is set (to any value),
+.BR ld.so
+will first try to map executable pages using the
+.BR mmap (2)
+.BR MAP_32BIT
+flag, and fall back to mapping without that flag if that attempt fails.
+NB: MAP_32BIT will map to the low 2GB (not 4GB) of the address space.
+Because
+.B MAP_32BIT
+reduces the address range available for address space layout
+randomization (ASLR),
+.B LD_PREFER_MAP_32BIT_EXEC
+is always disabled in secure-execution mode.
 .TP
 .B LDD_ARGV0
 (libc5)
