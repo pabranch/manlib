@@ -146,7 +146,8 @@ repository.
 The files will be added to the repository at the next commit. To
 undo an add before that, see \%\fBhg forget\fP\:.
 .sp
-If no names are given, add all files to the repository.
+If no names are given, add all files to the repository (except
+files matching \fB.hgignore\fP).
 .sp
 Examples:
 .INDENT 0.0
@@ -226,9 +227,9 @@ hg addremove [OPTION]... [FILE]...
 Add all new files and remove all missing files from the
 repository.
 .sp
-New files are ignored if they match any of the patterns in
-\fB.hgignore\fP. As with add, these changes take effect at the next
-commit.
+Unless names are given, new files are ignored if they match any of
+the patterns in \fB.hgignore\fP. As with add, these changes take
+effect at the next commit.
 .sp
 Use the \-s/\-\-similarity option to detect renamed files. This
 option takes a percentage between 0 (disabled) and 100 (files must
@@ -332,7 +333,7 @@ hg annotate [\-r REV] [\-f] [\-a] [\-u] [\-d] [\-n] [\-c] [\-l] FILE...
 .fi
 .sp
 List changes in files, showing the revision id responsible for
-each line
+each line.
 .sp
 This command is useful for discovering when a change was made and
 by whom.
@@ -433,7 +434,7 @@ By default, the revision used is the parent of the working
 directory; use \-r/\-\-rev to specify a different revision.
 .sp
 The archive type is automatically detected based on file
-extension (or override using \-t/\-\-type).
+extension (to override, use \-t/\-\-type).
 .sp
 Examples:
 .INDENT 0.0
@@ -962,7 +963,7 @@ change.
 .sp
 Use the command \%\fBhg update\fP\: to switch to an existing branch. Use
 \%\fBhg commit \-\-close\-branch\fP\: to mark this branch head as closed.
-When all heads of the branch are closed, the branch will be
+When all heads of a branch are closed, the branch will be
 considered closed.
 .sp
 Returns 0 on success.
@@ -1021,19 +1022,20 @@ hg bundle [\-f] [\-t TYPE] [\-a] [\-r REV]... [\-\-base REV]... FILE [DEST]
 .ft P
 .fi
 .sp
-Generate a compressed changegroup file collecting changesets not
-known to be in another repository.
+Generate a changegroup file collecting changesets to be added
+to a repository.
 .sp
-If you omit the destination repository, then hg assumes the
-destination will have all the nodes you specify with \-\-base
-parameters. To create a bundle containing all changesets, use
-\-a/\-\-all (or \-\-base null).
+To create a bundle containing all changesets, use \-a/\-\-all
+(or \-\-base null). Otherwise, hg assumes the destination will have
+all the nodes you specify with \-\-base parameters. Otherwise, hg
+will assume the repository has all the nodes in destination, or
+default\-push/default if no destination is specified.
 .sp
 You can change bundle format with the \-t/\-\-type option. You can
 specify a compression, a bundle version or both using a dash
 (comp\-version). The available compression methods are: none, bzip2,
 and gzip (by default, bundles are compressed using bzip2). The
-available format are: v1, v2 (default to most suitable).
+available formats are: v1, v2 (default to most suitable).
 .sp
 The bundle file can then be transferred using conventional means
 and applied to another repository with the unbundle or pull
@@ -4532,6 +4534,7 @@ hg tags
 .sp
 This lists both regular and local tags. When the \-v/\-\-verbose
 switch is used, a third column "local" is printed for local tags.
+When the \-q/\-\-quiet switch is used, only the tag name is printed.
 .sp
 Returns 0 on success.
 .sp
@@ -9453,7 +9456,7 @@ Whether the clone bundles feature is enabled on clients. Defaults to true.
 .
 List of "key=value" properties the client prefers in bundles. Downloaded
 bundle manifests will be sorted by the preferences in this list. e.g.
-the value "BUNDLESPEC=gzip\-v1, BUNDLESPEC=bzip2=v1" will prefer a gzipped
+the value "BUNDLESPEC=gzip\-v1, BUNDLESPEC=bzip2\-v1" will prefer a gzipped
 version 1 bundle type then bzip2 version 1 bundle type.
 .sp
 If not defined, the order in the manifest will be used and the first
@@ -10964,6 +10967,7 @@ If you run \fBhg histedit \-\-outgoing\fP on the clone then it is the same
 as running \fBhg histedit 836302820282\fP. If you need plan to push to a
 repository that Mercurial does not detect to be related to the source
 repo, you can add a \fB\-\-force\fP option.
+.SS Config
 .sp
 Histedit rule lines are truncated to 80 characters by default. You
 can customize this behavior by setting a different length in your
@@ -10986,6 +10990,17 @@ revset in your configuration file:
 defaultrev = only(.) & draft()
 .ft P
 .fi
+.sp
+By default each edited revision needs to be present in histedit commands.
+To remove revision you need to use \fBdrop\fP operation. You can configure
+the drop to be implicit for missing commits by adding:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+[histedit]
+dropmissing = True
+.UNINDENT
+.UNINDENT
 .SS Commands
 .SS histedit
 .sp
