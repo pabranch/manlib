@@ -5767,6 +5767,27 @@ push.gpgSign
 </varlistentry>
 <varlistentry>
 <term>
+push.recurseSubmodules
+</term>
+<listitem>
+<simpara>
+        Make sure all submodule commits used by the revisions to be pushed
+        are available on a remote-tracking branch. If the value is <emphasis>check</emphasis>
+        then Git will verify that all submodule commits that changed in the
+        revisions to be pushed are available on at least one remote of the
+        submodule. If any commits are missing, the push will be aborted and
+        exit with non-zero status. If the value is <emphasis>on-demand</emphasis> then all
+        submodules that changed in the revisions to be pushed will be
+        pushed. If on-demand was not able to push all necessary revisions
+        it will also be aborted and exit with non-zero status. If the value
+        is <emphasis>no</emphasis> then default behavior of ignoring submodules when pushing
+        is retained. You may override this configuration at time of push by
+        specifying <emphasis>--recurse-submodules=check|on-demand|no</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 rebase.stat
 </term>
 <listitem>

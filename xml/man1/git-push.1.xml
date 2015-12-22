@@ -426,19 +426,25 @@ origin +master</literal> to force a push to the <literal>master</literal> branch
 </varlistentry>
 <varlistentry>
 <term>
---recurse-submodules=check|on-demand
+--no-recurse-submodules
+</term>
+<term>
+--recurse-submodules=check|on-demand|no
 </term>
 <listitem>
 <simpara>
-        Make sure all submodule commits used by the revisions to be
-        pushed are available on a remote-tracking branch. If <emphasis>check</emphasis> is
-        used Git will verify that all submodule commits that changed in
-        the revisions to be pushed are available on at least one remote
-        of the submodule. If any commits are missing the push will be
-        aborted and exit with non-zero status. If <emphasis>on-demand</emphasis> is used
-        all submodules that changed in the revisions to be pushed will
-        be pushed. If on-demand was not able to push all necessary
-        revisions it will also be aborted and exit with non-zero status.
+        May be used to make sure all submodule commits used by the
+        revisions to be pushed are available on a remote-tracking branch.
+        If <emphasis>check</emphasis> is used Git will verify that all submodule commits that
+        changed in the revisions to be pushed are available on at least one
+        remote of the submodule. If any commits are missing the push will
+        be aborted and exit with non-zero status. If <emphasis>on-demand</emphasis> is used
+        all submodules that changed in the revisions to be pushed will be
+        pushed. If on-demand was not able to push all necessary revisions
+        it will also be aborted and exit with non-zero status. A value of
+        <emphasis>no</emphasis> or using <emphasis>--no-recurse-submodules</emphasis> can be used to override the
+        push.recurseSubmodules configuration variable when no submodule
+        recursion is required.
 </simpara>
 </listitem>
 </varlistentry>

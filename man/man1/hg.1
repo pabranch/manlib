@@ -13393,50 +13393,39 @@ history (the source) onto another (the destination). This can be
 useful for linearizing \fIlocal\fP changes relative to a master
 development tree.
 .sp
-You should not rebase changesets that have already been shared
-with others. Doing so will force everybody else to perform the
-same rebase or they will end up with duplicated changesets after
-pulling in your rebased changesets.
-.sp
-In its default configuration, Mercurial will prevent you from
-rebasing published changes. See \%\fBhg help phases\fP\: for details.
+Published commits cannot be rebased (see \%\fBhg help phases\fP\:).
+To copy commits, see \%\fBhg help graft\fP\:.
 .sp
 If you don\(aqt specify a destination changeset (\fB\-d/\-\-dest\fP),
 rebase uses the current branch tip as the destination. (The
 destination changeset is not modified by rebasing, but new
 changesets are added as its descendants.)
 .sp
-You can specify which changesets to rebase in two ways: as a
-"source" changeset or as a "base" changeset. Both are shorthand
-for a topologically related set of changesets (the "source
-branch"). If you specify source (\fB\-s/\-\-source\fP), rebase will
-rebase that changeset and all of its descendants onto dest. If you
-specify base (\fB\-b/\-\-base\fP), rebase will select ancestors of base
-back to but not including the common ancestor with dest. Thus,
-\fB\-b\fP is less precise but more convenient than \fB\-s\fP: you can
-specify any changeset in the source branch, and rebase will select
-the whole branch. If you specify neither \fB\-s\fP nor \fB\-b\fP, rebase
-uses the parent of the working directory as the base.
+There are three ways to select changesets:
 .sp
-For advanced usage, a third way is available through the \fB\-\-rev\fP
-option. It allows you to specify an arbitrary set of changesets to
-rebase. Descendants of revs you specify with this option are not
-automatically included in the rebase.
+.nf
+.ft C
+1. Explicitly select them using \(ga\(ga\-\-rev\(ga\(ga.
+
+2. Use \(ga\(ga\-\-source\(ga\(ga to select a root changeset and include all of its
+descendants.
+
+3. Use \(ga\(ga\-\-base\(ga\(ga to select a changeset; rebase will find ancestors
+and their descendants which are not also ancestors of the destination.
+.ft P
+.fi
 .sp
-By default, rebase recreates the changesets in the source branch
-as descendants of dest and then destroys the originals. Use
-\fB\-\-keep\fP to preserve the original source changesets. Some
-changesets in the source branch (e.g. merges from the destination
-branch) may be dropped if they no longer contribute any change.
+Rebase will destroy original changesets unless you use \fB\-\-keep\fP.
+It will also move your bookmarks (even if you do).
 .sp
-One result of the rules for selecting the destination changeset
-and source branch is that, unlike \fBmerge\fP, rebase will do
-nothing if you are at the branch tip of a named branch
-with two heads. You need to explicitly specify source and/or
-destination (or \fBupdate\fP to the other head, if it\(aqs the head of
-the intended source branch).
+Some changesets may be dropped if they do not contribute changes
+(e.g. merges from the destination branch).
 .sp
-If a rebase is interrupted to manually resolve a merge, it can be
+Unlike \fBmerge\fP, rebase will do nothing if you are at the branch tip of
+a named branch with two heads. You will need to explicitly specify source
+and/or destination.
+.sp
+If a rebase is interrupted to manually resolve a conflict, it can be
 continued with \-\-continue/\-c or aborted with \-\-abort/\-a.
 .sp
 Examples:
