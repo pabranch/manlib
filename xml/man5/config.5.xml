@@ -243,9 +243,41 @@ default_algorithms = ALL</screen>
 
 [evp_settings]
 
-fips_mode = on
+fips_mode = on</screen>
+    </refsection>
+    <refsection xml:id="ID-47c5c1141f37cd121842b609c6a4902a"><title>SSL CONFIGURATION MODULE</title>
+      <para>
+	This module has the name <emphasis role="bold">ssl_conf</emphasis>
+	which points to a section containing SSL configurations.
+      </para>
+      <para>
+	Each line in the SSL configuration section contains the name of the
+	configuration and the section containing it.
+      </para>
+      <para>
+	Each configuration section consists of command value pairs for
+	<emphasis role="bold">SSL_CONF</emphasis>. Each pair will be passed
+	to a <emphasis role="bold">SSL_CTX</emphasis> or <emphasis role="bold">SSL</emphasis> structure if it calls SSL_CTX_config()
+	or SSL_config() with the appropriate configuration name.
+      </para>
+      <para>
+	Note: any characters before an initial dot in the configuration
+	section are ignored so the same command can be used multiple times.
+      </para>
+      <para>
+	For example:
+      </para>
+      <screen>ssl_conf = ssl_sect
 
-</screen>
+[ssl_sect]
+
+server = server_section
+
+[server_section]
+
+RSA.Certificate = server-rsa.pem
+ECDSA.Certificate = server-ecdsa.pem
+Ciphers = ALL:!RC4</screen>
     </refsection>
   </refsection>
   <refsection xml:id="ID-1fdc56627441823196e5195b60fa2c84"><title>NOTES</title>

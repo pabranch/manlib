@@ -547,7 +547,7 @@ is committed automatically. Otherwise, hg needs to merge the
 changes and the merged result is left uncommitted.
 .IP Note
 .
-backout cannot be used to fix either an unwanted or
+\%\fBhg backout\fP\: cannot be used to fix either an unwanted or
 incorrect merge.
 .RE
 .sp
@@ -1195,9 +1195,12 @@ To pull only a subset of changesets, specify one or more revisions
 identifiers with \-r/\-\-rev or branches with \-b/\-\-branch. The
 resulting clone will contain only the specified changesets and
 their ancestors. These options (or \(aqclone src#rev dest\(aq) imply
-\-\-pull, even for local source repositories. Note that specifying a
-tag will include the tagged changeset but not the changeset
-containing the tag.
+\-\-pull, even for local source repositories.
+.IP Note
+.
+Specifying a tag will include the tagged changeset but not the
+changeset containing the tag.
+.RE
 .sp
 If the source repository has a bookmark called \(aq@\(aq set, that
 revision will be checked out in the new repository by default.
@@ -1626,7 +1629,7 @@ Show differences between revisions for the specified files.
 Differences between files are shown using the unified diff format.
 .IP Note
 .
-diff may generate unexpected results for merges, as it will
+\%\fBhg diff\fP\: may generate unexpected results for merges, as it will
 default to comparing against the working directory\(aqs first
 parent changeset if no revisions are specified.
 .RE
@@ -1791,7 +1794,7 @@ branch name (if non\-default), changeset hash, parent(s) and commit
 comment.
 .IP Note
 .
-export may generate unexpected diff output for merge
+\%\fBhg export\fP\: may generate unexpected diff output for merge
 changesets, as it will compare the merge changeset against its
 first parent only.
 .RE
@@ -2531,9 +2534,12 @@ written to a <target\-file>.rej file. Conflicts can then be resolved
 by hand before \%\fBhg commit \-\-amend\fP\: is run to update the created
 changeset. This flag exists to let people import patches that
 partially apply without losing the associated metadata (author,
-date, description, ...). Note that when none of the hunk applies
-cleanly, \%\fBhg import \-\-partial\fP\: will create an empty changeset,
-importing only the patch metadata.
+date, description, ...).
+.IP Note
+.
+When no hunks apply cleanly, \%\fBhg import \-\-partial\fP\: will create
+an empty changeset, importing only the patch metadata.
+.RE
 .sp
 With \-s/\-\-similarity, hg will attempt to discover renames and
 copies in the patch in the same way as \%\fBhg addremove\fP\:.
@@ -2970,14 +2976,14 @@ and \(aq+\(aq represents a fork where the changeset from the lines below is a
 parent of the \(aqo\(aq merge on the same line.
 .IP Note
 .
-log \-p/\-\-patch may generate unexpected diff output for merge
+\%\fBhg log \-\-patch\fP\: may generate unexpected diff output for merge
 changesets, as it will only compare the merge changeset against
 its first parent. Also, only files different from BOTH parents
 will appear in files:.
 .RE
 .IP Note
 .
-for performance reasons, log FILE may omit duplicate changes
+For performance reasons, \%\fBhg log FILE\fP\: may omit duplicate changes
 made on branches and will not show removals or mode changes. To
 see all such changes, use the \-\-removed switch.
 .RE
@@ -3258,7 +3264,7 @@ head revision, and the current branch contains exactly one other
 head, the other head is merged with by default. Otherwise, an
 explicit revision with which to merge with must be provided.
 .sp
-\%\fBhg resolve\fP\: must be used to resolve unresolved files.
+See \%\fBhg help resolve\fP\: for information on handling file conflicts.
 .sp
 To undo an uncommitted merge, use \%\fBhg update \-\-clean .\fP\: which
 will check out a clean copy of the original merge parent, losing
@@ -3497,10 +3503,13 @@ as fallbacks if no location is specified on the command\-line.
 When \fBdefault\-push\fP is set, it will be used for push and
 \fBdefault\fP will be used for pull; otherwise \fBdefault\fP is used
 as the fallback for both.  When cloning a repository, the clone
-source is written as \fBdefault\fP in \fB.hg/hgrc\fP.  Note that
+source is written as \fBdefault\fP in \fB.hg/hgrc\fP.
+.IP Note
+.
 \fBdefault\fP and \fBdefault\-push\fP apply to all inbound (e.g.
-\%\fBhg incoming\fP\:) and outbound (e.g. \%\fBhg outgoing\fP\:, \%\fBhg email\fP\: and
-\%\fBhg bundle\fP\:) operations.
+\%\fBhg incoming\fP\:) and outbound (e.g. \%\fBhg outgoing\fP\:, \%\fBhg email\fP\:
+and \%\fBhg bundle\fP\:) operations.
+.RE
 .sp
 See \%\fBhg help urls\fP\: for more information.
 .sp
@@ -3810,9 +3819,11 @@ R
 T}
 _
 .TE
-.sp
-Note that remove never deletes files in Added [A] state from the
-working directory, not even if option \-\-force is specified.
+.IP Note
+.
+\%\fBhg remove\fP\: never deletes files in Added [A] state from the
+working directory, not even if \fB\-\-force\fP is specified.
+.RE
 .sp
 Returns 0 on success, 1 if any warnings encountered.
 .sp
@@ -3944,10 +3955,12 @@ default is to mark all resolved files.
 \%\fBhg resolve \-l\fP\:: list files which had or still have conflicts.
 In the printed list, \fBU\fP = unresolved and \fBR\fP = resolved.
 .UNINDENT
-.sp
-Note that Mercurial will not let you commit files with unresolved
-merge conflicts. You must use \%\fBhg resolve \-m ...\fP\: before you can
+.IP Note
+.
+Mercurial will not let you commit files with unresolved merge
+conflicts. You must use \%\fBhg resolve \-m ...\fP\: before you can
 commit after a conflicting merge.
+.RE
 .sp
 Returns 0 on success, 1 if any files fail a resolve attempt.
 .sp
@@ -4272,7 +4285,7 @@ Option \-q/\-\-quiet hides untracked (unknown and ignored) files
 unless explicitly requested with \-u/\-\-unknown or \-i/\-\-ignored.
 .IP Note
 .
-status may appear to disagree with diff if permissions have
+\%\fBhg status\fP\: may appear to disagree with diff if permissions have
 changed or a merge has occurred. The standard diff format does
 not report permission changes and diff only reports changes
 relative to one merge parent.

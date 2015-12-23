@@ -1,0 +1,97 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_config.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_config, SSL_config</refname>
+<refpurpose>configure SSL_CTX or SSL structure.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_CTX_config(SSL_CTX *ctx, const char *name);
+int SSL_config(SSL *s, const char *name);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="ID-7f4d45482b3c6876ea06f4c7a2a025b7"><title>DESCRIPTION</title>
+    <para>
+      The functions SSL_CTX_config() and SSL_config() configure an
+      <emphasis role="bold">SSL_CTX</emphasis> or <emphasis role="bold">SSL</emphasis> structure using the configuration
+      <emphasis role="bold">name</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-f0d7a58f85fe2a62397f3a95acb23243"><title>NOTES</title>
+    <para>
+      By calling SSL_CTX_config() or SSL_config() an application can
+      perform many complex tasks based on the contents of the configuration
+      file: greatly simplifying application configuration code. A degree of
+      future proofing can also be achieved: an application can support
+      configuration features in newer versions of OpenSSL automatically.
+    </para>
+    <para>
+      A configuration file must have been previously loaded, for example
+      using CONF_modules_load_file(). See <citerefentry>
+      <refentrytitle>config</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry> for details of the configuration file syntax.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-cb3da398e1a07fa73b568fcbcfc294b6"><title>RETURN VALUES</title>
+    <para>
+      SSL_CTX_config() and SSL_config() return 1 for success or 0 if an
+      error occurred.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-5962e20bcc9dbc08d56d3ea34179efbf"><title>EXAMPLE</title>
+    <para>
+      If the file "config.cnf" contains the following:
+    </para>
+    <screen>testapp = test_sect
+
+[test_sect]
+# list of confuration modules
+
+ssl_conf = ssl_sect
+
+[ssl_sect]
+
+server = server_section
+
+[server_section]
+
+RSA.Certificate = server-rsa.pem
+ECDSA.Certificate = server-ecdsa.pem
+Ciphers = ALL:!RC4</screen>
+    <para>
+      An application could call:
+    </para>
+    <screen>if (CONF_modules_load_file("config.cnf", "testapp", 0) &lt;= 0) {
+     fprintf(stderr, "Error processing config file\n");
+     goto err;
+}
+
+ctx = SSL_CTX_new(TLS_server_method());
+
+if (SSL_CTX_config(ctx, "server") == 0) {
+    fprintf(stderr, "Error configuring server.\n");
+    goto err;
+}</screen>
+    <para>
+      In this example two certificates and the cipher list are configured
+      without the need for any additional application code.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-a863b2a1ae67de47ecc6fec668413565"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>config</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CONF_cmd</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>CONF_modules_load_file</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
+    </para>
+  </refsection>
+  <refsection xml:id="ID-80720752005f86df83d87f69df02ade9"><title>HISTORY</title>
+    <para>
+      SSL_CTX_config() and SSL_config() were first added to OpenSSL 1.1.0
+    </para>
+  </refsection>
+</refentry>
