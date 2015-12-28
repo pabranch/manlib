@@ -62,15 +62,13 @@ software or the original packager.
 .TP
 .BI Uploaders: " fullname-email"
 Lists all the names and email addresses of co-maintainers of the package, in
-the same format as the Maintainer field. Multiple co-maintainers should be
-separated by a comma.
+the same format as the \fBMaintainer\fP field.
+Multiple co-maintainers should be separated by a comma.
 
 .TP
 .BI Standards\-Version: " version-string"
-This documents the most recent version of the standards (which consists of the
-Debian Policy Manual and referenced texts from the
-.B debian\-policy
-package) this package complies to.
+This documents the most recent version of the distribution policy standards
+this package complies with.
 
 .TP
 .BI Homepage: " url"
@@ -127,14 +125,12 @@ Sets the importance of this package in relation to the system as a whole.
 Common priorities are \fBrequired\fP, \fBstandard\fP, \fBoptional\fP,
 \fBextra\fP, etc.
 
-In Debian, the
+The
 .B Section
 and
 .B Priority
-fields have a defined set of accepted values based on the Policy Manual.
-A list of these values can be obtained from the latest version of the
-.B debian\-policy
-package.
+fields usually have a defined set of accepted values based on the specific
+distribution policy.
 
 .TP
 .BI Build\-Depends: " package-list"
@@ -278,6 +274,21 @@ architecture wildcards in that list (see
 for more information about them).
 
 .TP
+.BR Build\-Profiles: " \fIrestriction-formula\fP"
+This field specifies the conditions for which this binary package does or
+does not build.
+To express that condition, the same restriction formula syntax from the
+\fBBuild\-Depends\fP field is used.
+
+If a binary package paragraph does not contain this field, then it implicitly
+means that it builds with all build profiles (including none at all).
+
+In other words, if a binary package paragraph is annotated with a non-empty
+\fBBuild\-Profiles\fP field, then this binary package is generated if and
+only if the condition expressed by the conjunctive normal form expression
+evaluates to true.
+
+.TP
 .BR Package\-Type: " \fBdeb\fP|\fBudeb\fP"
 This field defines the type of the package.
 \fBudeb\fP is for size-constrained packages used by the debian installer.
@@ -333,9 +344,7 @@ package.
 These fields declare relationships between packages. They are discussed in
 the
 .BR deb\-control (5)
-manpage and in the
-.B debian\-policy
-package.
+manpage.
 
 .SH USER-DEFINED FIELDS
 It is allowed to add additional user-defined fields to the control file. The

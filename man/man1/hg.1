@@ -6628,6 +6628,16 @@ Once changesets become public, extensions like mq and rebase will
 refuse to operate on them to prevent creating duplicate changesets.
 Phases can also be manually manipulated with the \%\fBhg phase\fP\: command
 if needed. See \%\fBhg help \-v phase\fP\: for examples.
+.sp
+To make yours commits secret by default, put this in your
+configuration file:
+.sp
+.nf
+.ft C
+[phases]
+new\-commit = secret
+.ft P
+.fi
 .SS Phases and servers
 .sp
 Normally, all servers are \fBpublishing\fP by default. This means:

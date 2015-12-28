@@ -177,7 +177,7 @@ once each where necessary. Use of this option may leave packages in the
 improper \fBtriggers\-awaited\fP and \fBtriggers\-pending\fP states. This
 can be fixed later by running: \fBdpkg \-\-configure \-\-pending\fP.
 .TP
-\fB\-r\fP, \fB\-\-remove\fP \fP\fIpackage\fP...|\fB\-a\fP|\fB\-\-pending\fP
+\fB\-r\fP, \fB\-\-remove\fP \fIpackage\fP...|\fB\-a\fP|\fB\-\-pending\fP
 Remove an installed package. This removes everything except conffiles,
 which may avoid having to reconfigure the package if it is reinstalled
 later (conffiles are configuration files that are listed in the
@@ -199,7 +199,7 @@ Removing of a package consists of the following steps:
 .br
 
 .TP
-\fB\-P\fP, \fB\-\-purge \fP\fIpackage\fP...|\fB\-a\fP|\fB\-\-pending\fP
+\fB\-P\fP, \fB\-\-purge\fP \fIpackage\fP...|\fB\-a\fP|\fB\-\-pending\fP
 Purge an installed or already removed package. This removes everything,
 including conffiles.
 If \fB\-a\fP or \fB\-\-pending\fP is given instead of a package name,
@@ -245,6 +245,13 @@ option, which by default uses the \fBrpm\fP format, but that might
 change in the future, and as such, programs parsing this command
 output should be explicit about the format they expect.
 .TP
+.BR \-C ", " \-\-audit " [\fIpackage-name\fP...]
+Performs database sanity and consistency checks for \fIpackage-name\fP
+or all packages if omitted (per package checks since dpkg 1.17.10).
+For example, searches for packages that have been installed only partially
+on your system or that have missing, wrong or obsolete control data or
+files. \fBdpkg\fP will suggest what to do with them to get them fixed.
+.TP
 .BR \-\-update\-avail " [\fIPackages-file\fP]"
 .TQ
 .BR \-\-merge\-avail " [\fIPackages-file\fP]"
@@ -253,8 +260,8 @@ available. With action \fB\-\-merge\-avail\fP, old information is
 combined with information from \fIPackages-file\fP. With action
 \fB\-\-update\-avail\fP, old information is replaced with the information
 in the \fIPackages-file\fP. The \fIPackages-file\fP distributed with
-Debian is simply named \fIPackages\fP. If the \fIPackages-file\fP
-argument is missing or named \fB-\fP then it will be read from
+Debian is simply named \(Fo\fIPackages\fP\(Fc. If the \fIPackages-file\fP
+argument is missing or named \(Fo\fB\-\fP\(Fc then it will be read from
 standard input (since dpkg 1.17.7). \fBdpkg\fP keeps its record of
 available packages in \fI/var/lib/dpkg/available\fP.
 
@@ -276,13 +283,6 @@ uninstalled unavailable packages (since dpkg 1.15.4).
 .B \-\-clear\-avail
 Erase the existing information about what packages are available.
 .TP
-.BR \-C ", " \-\-audit " [\fIpackage-name\fP...]
-Performs database sanity and consistency checks for \fIpackage-name\fP
-or all packages if omitted (per package checks since dpkg 1.17.10).
-For example, searches for packages that have been installed only partially
-on your system or that have missing, wrong or obsolete control data or
-files. \fBdpkg\fP will suggest what to do with them to get them fixed.
-.TP
 \fB\-\-get\-selections\fP [\fIpackage-name-pattern\fP...]
 Get list of package selections, and write it to stdout. Without a pattern,
 non-installed packages (i.e. those which have been previously purged) will
@@ -292,7 +292,7 @@ not be shown.
 Set package selections using file read from stdin. This file should be
 in the format \(lq\fIpackage\fP \fIstate\fP\(rq, where state is one of
 \fBinstall\fP, \fBhold\fP, \fBdeinstall\fP or \fBpurge\fP. Blank lines
-and comment lines beginning with \(oq#\(cq are also permitted.
+and comment lines beginning with \(oq\fB#\fP\(cq are also permitted.
 
 The \fIavailable\fP file needs to be up-to-date for this command to be
 useful, otherwise unknown packages will be ignored with a warning. See
@@ -370,8 +370,8 @@ Supports versioned \fBProvides\fP (since dpkg 1.17.11).
 .TP
 .B \-\-compare\-versions \fIver1 op ver2\fP
 Compare version numbers, where \fIop\fP is a binary operator. \fBdpkg\fP
-returns success (zero result) if the specified condition is satisfied,
-and failure (nonzero result) otherwise. There are
+returns true (\fB0\fP) if the specified condition is satisfied,
+and false (\fB1\fP) otherwise. There are
 two groups of operators, which differ in how they treat an empty
 \fIver1\fP or \fIver2\fP. These treat an empty version as earlier than any
 version: \fBlt le eq ne ge gt\fP. These treat an empty version as later
@@ -449,7 +449,7 @@ configuration file \fI/etc/dpkg/dpkg.cfg\fP or fragment files (with names
 matching this shell pattern \(aq[0-9a-zA-Z_-]*\(aq) on the configuration
 directory \fI/etc/dpkg/dpkg.cfg.d/\fP. Each line in the configuration
 file is either an option (exactly the same as the command line option but
-without leading hyphens) or a comment (if it starts with a \fB#\fR).
+without leading hyphens) or a comment (if it starts with a \(oq\fB#\fP\(cq).
 .br
 .TP
 \fB\-\-abort\-after=\fP\fInumber\fP
@@ -630,7 +630,7 @@ end up with undesirable results. (e.g. \fBdpkg \-\-purge foo
 Recursively handle all regular files matching pattern \fB*.deb\fP
 found at specified directories and all of its subdirectories. This can
 be used with \fB\-i\fP, \fB\-A\fP, \fB\-\-install\fP, \fB\-\-unpack\fP and
-\fB\-\-avail\fP actions.
+\fB\-\-record\-avail\fP actions.
 .TP
 \fB\-G\fP
 Don't install a package if a newer version of the same package is already
@@ -639,18 +639,18 @@ installed. This is an alias of \fB\-\-refuse\-downgrade\fP.
 .BI \-\-admindir= dir
 Change default administrative directory, which contains many files that
 give information about status of installed or uninstalled packages, etc.
-(Defaults to \fI/var/lib/dpkg\fP)
+(Defaults to \(Fo\fI/var/lib/dpkg\fP\(Fc)
 .TP
 .BI \-\-instdir= dir
 Change default installation directory which refers to the directory where
 packages are to be installed. \fBinstdir\fP is also the directory passed
 to \fBchroot\fP(2) before running package's installation scripts, which
 means that the scripts see \fBinstdir\fP as a root directory.
-(Defaults to \fI/\fP)
+(Defaults to \(Fo\fI/\fP\(Fc)
 .TP
 .BI \-\-root= dir
-Changing \fBroot\fP changes \fBinstdir\fP to \fIdir\fP and \fBadmindir\fP
-to \fIdir\fP\fB/var/lib/dpkg\fP.
+Changing \fBroot\fP changes \fBinstdir\fP to \(Fo\fIdir\fP\(Fc and
+\fBadmindir\fP to \(Fo\fIdir\fP\fB/var/lib/dpkg\fP\(Fc.
 .TP
 \fB\-O\fP, \fB\-\-selected\-only\fP
 Only process the packages that are selected for installation. The
@@ -792,6 +792,20 @@ may leave packages in the improper \fBtriggers\-awaited\fP and
 \fB\-\-triggers\fP
 Cancels a previous \fB\-\-no\-triggers\fP (since dpkg 1.14.17).
 .
+.SH EXIT STATUS
+.TP
+.B 0
+The requested action was successfully performed.
+Or a check or assertion command returned true.
+.TP
+.B 1
+A check or assertion command returned false.
+.TP
+.B 2
+Fatal or unrecoverable error due to invalid command-line usage, or
+interactions with the system, such as accesses to the database,
+memory allocations, etc.
+.
 .SH ENVIRONMENT
 .SS External environment
 .TP
@@ -816,7 +830,8 @@ The program \fBdpkg\fP will execute when starting a new interactive shell.
 .TP
 .B COLUMNS
 Sets the number of columns \fBdpkg\fP should use when displaying formatted
-text. Currently only used by \-l.
+text.
+Currently only used by \fB\-\-list\fP.
 .SS Internal environment
 .TP
 .B DPKG_SHELL_REASON

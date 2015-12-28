@@ -239,10 +239,8 @@ at easing package management and administration, it is only instrumental
 in doing so and can not be assumed to be a sufficient substitute for
 administrator skill and understanding. The user is required to
 be familiar with the concepts underlying the Debian packaging system.
-In case of doubt, consult the \fBdpkg\fP(1) manpage and the Debian
-Policy manual, contained in the
-.B debian\-policy
-package.
+In case of doubt, consult the \fBdpkg\fP(1) manpage and the distribution
+policy.
 .sp
 Unless \fBdselect\fP is run in expert
 or immediate mode, a help screen is first displayed when choosing this
@@ -447,6 +445,16 @@ This is somewhat similar to using the unhold command on all packages,
 but provides a more obvious panic button in cases where the user
 pressed \fBenter\fP by accident.
 .sp
+.
+.SH EXIT STATUS
+.TP
+.B 0
+The requested command was successfully performed.
+.TP
+.B 2
+Fatal or unrecoverable error due to invalid command-line usage, or
+interactions with the system, such as accesses to the database,
+memory allocations, etc.
 .
 .SH ENVIRONMENT
 .TP

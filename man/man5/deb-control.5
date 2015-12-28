@@ -80,14 +80,17 @@ Sets the importance of this package in relation to the system as a whole.
 Common priorities are \fBrequired\fP, \fBstandard\fP, \fBoptional\fP,
 \fBextra\fP, etc.
 .LP
-In Debian, the
+The
 .B Section
 and
 .B Priority
-fields have a defined set of accepted values based on the Policy Manual.
-A list of these values can be obtained from the latest version of the
-.B debian\-policy
-package.
+fields usually have a defined set of accepted values based on the specific
+distribution policy.
+.
+.TP
+.BR Installed\-Size: " size"
+The approximate total size of the package's installed files, in KiB units.
+.
 .TP
 .BR Essential: " \fByes\fP|\fBno\fP"
 This field is usually only needed when the answer is \fByes\fP. It denotes
@@ -108,8 +111,8 @@ Common architectures are \fBamd64\fP, \fBarmel\fP, \fBi386\fP, \fBpowerpc\fP,
 etc.
 Note that the
 .B all
-option is meant for packages that are architecture independent. Some examples
-of this are shell and Perl scripts, and documentation.
+value is meant for packages that are architecture independent.
+Some examples of this are shell and Perl scripts, and documentation.
 .TP
 .BI Origin: " name"
 The name of the distribution this package is originating from.
@@ -141,10 +144,13 @@ qualifying the package name with \fB:any\fP, but has no effect otherwise.
 The value \fBno\fP is the default when the field is omitted, in which case
 adding the field with an explicit \fBno\fP value is generally not needed.
 .TP
-.BI Source: " source-name"
-The name of the source package that this binary package came from, if
+.BR Source: " \fIsource-name\fP [\fB(\fP\fIsource-version\fP\fB)\fP]"
+The name of the source package that this binary package came from, if it is
 different than the name of the package itself.
-
+If the source version differs from the binary version, then the
+\fIsource-name\fP will be followed by a \fIsource-version\fP in parenthesis.
+This can happen for example on a binary-only non-maintainer upload, or when
+setting a different binary version via \(Fo\fBdpkg\-gencontrol \-v\fP\(Fc.
 .TP
 .BI Subarchitecture: " value"
 .TQ
@@ -297,6 +303,11 @@ version relationships.  Note that the archive maintenance software is likely to
 refuse to accept an upload which declares a
 .B Built\-Using
 relationship which cannot be satisfied within the archive.
+.
+.TP
+.BI Built\-For\-Profiles: " profile-list"
+This field specifies a whitespace separated list of build profiles that this
+binary packages was built with.
 .
 .SH EXAMPLE
 .\" .RS
