@@ -505,6 +505,70 @@ l l l l.
 0x000089E3	SIOCNRRTCTL	const int *
 .TE
 
+// <include/uapi/linux/wireless.h>
+.br
+// This API is deprecated.
+.br
+// It is being replaced by nl80211 and cfg80211.
+See
+.br
+//
+.I https://wireless.wiki.kernel.org/en/developers/documentation/nl80211
+.TS
+l l l.
+x00008b00	SIOCSIWCOMMIT	struct iwreq *
+x00008b01	SIOCGIWNAME	struct iwreq *
+x00008b02	SIOCSIWNWID	struct iwreq *
+x00008b03	SIOCGIWNWID	struct iwreq *
+x00008b04	SIOCSIWFREQ	struct iwreq *
+x00008b05	SIOCGIWFREQ	struct iwreq *
+x00008b06	SIOCSIWMODE	struct iwreq *
+x00008b07	SIOCGIWMODE	struct iwreq *
+x00008b08	SIOCSIWSENS	struct iwreq *
+x00008b09	SIOCGIWSENS	struct iwreq *
+x00008b0a	SIOCSIWRANGE	struct iwreq *
+x00008b0b	SIOCGIWRANGE	struct iwreq *
+x00008b0c	SIOCSIWPRIV	struct iwreq *
+x00008b0d	SIOCGIWPRIV	struct iwreq *
+x00008b0e	SIOCSIWSTATS	struct iwreq *
+x00008b0f	SIOCGIWSTATS	struct iwreq *
+x00008b10	SIOCSIWSPY	struct iwreq *
+x00008b11	SIOCGIWSPY	struct iwreq *
+x00008b12	SIOCSIWTHRSPY	struct iwreq *
+x00008b13	SIOCGIWTHRSPY	struct iwreq *
+x00008b14	SIOCSIWAP	struct iwreq *
+x00008b15	SIOCGIWAP	struct iwreq *
+x00008b17	SIOCGIWAPLIST	struct iwreq *
+x00008b18	SIOCSIWSCAN	struct iwreq *
+x00008b19	SIOCGIWSCAN	struct iwreq *
+x00008b1a	SIOCSIWESSID	struct iwreq *
+x00008b1b	SIOCGIWESSID	struct iwreq *
+x00008b1c	SIOCSIWNICKN	struct iwreq *
+x00008b1d	SIOCGIWNICKN	struct iwreq *
+x00008b20	SIOCSIWRATE	struct iwreq *
+x00008b21	SIOCGIWRATE	struct iwreq *
+x00008b22	SIOCSIWRTS	struct iwreq *
+x00008b23	SIOCGIWRTS	struct iwreq *
+x00008b24	SIOCSIWFRAG	struct iwreq *
+x00008b25	SIOCGIWFRAG	struct iwreq *
+x00008b26	SIOCSIWTXPOW	struct iwreq *
+x00008b27	SIOCGIWTXPOW	struct iwreq *
+x00008b28	SIOCSIWRETRY	struct iwreq *
+x00008b29	SIOCGIWRETRY	struct iwreq *
+x00008b2a	SIOCSIWENCODE	struct iwreq *
+x00008b2b	SIOCGIWENCODE	struct iwreq *
+x00008b2c	SIOCSIWPOWER	struct iwreq *
+x00008b2d	SIOCGIWPOWER	struct iwreq *
+x00008b30	SIOCSIWGENIE	struct iwreq *
+x00008b31	SIOCGIWGENIE	struct iwreq *
+x00008b16	SIOCSIWMLME	struct iwreq *
+x00008b32	SIOCSIWAUTH	struct iwreq *
+x00008b33	SIOCGIWAUTH	struct iwreq *
+x00008b34	SIOCSIWENCODEEXT	struct iwreq *
+x00008b35	SIOCGIWENCODEEXT	struct iwreq *
+x00008b36	SIOCSIWPMKSA	struct iwreq *
+.TE
+
 // <include/linux/sbpcd.h>
 .TS
 l l l.
@@ -540,7 +604,9 @@ l l l.
 0x80027501	SMB_IOC_GETMOUNTUID	uid_t *
 .TE
 
-// <include/linux/sockios.h>
+// <include/uapi/linux/sockios.h> see
+.BR netdevice (7)
+
 .TS
 l l l l.
 0x0000890B	SIOCADDRT	const struct rtentry *	// MORE
@@ -973,4 +1039,5 @@ l l l.
 .TE
 .SH SEE ALSO
 .BR ioctl (2),
-.BR ioctl_fat (2)
+.BR ioctl_fat (2),
+.BR netdevice (7)

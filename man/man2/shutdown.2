@@ -37,7 +37,7 @@
 .\" Modified Tue Oct 22 22:04:51 1996 by Eric S. Raymond <esr@thyrsus.com>
 .\" Modified 1998 by Andi Kleen
 .\"
-.TH SHUTDOWN 2 2015-08-08 "Linux" "Linux Programmer's Manual"
+.TH SHUTDOWN 2 2015-12-28 "Linux" "Linux Programmer's Manual"
 .SH NAME
 shutdown \- shut down part of a full-duplex connection
 .SH SYNOPSIS
@@ -86,8 +86,9 @@ An invalid value was specified in
 The specified socket is not connected.
 .TP
 .B ENOTSOCK
+The file descriptor
 .I sockfd
-is a file, not a socket.
+does not refer to a socket.
 .SH CONFORMING TO
 POSIX.1-2001, POSIX.1-2008, 4.4BSD
 .RB ( shutdown ()

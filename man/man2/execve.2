@@ -34,7 +34,7 @@
 .\" 2007-09-14 Ollie Wild <aaw@google.com>, mtk
 .\"     Add text describing limits on command-line arguments + environment
 .\"
-.TH EXECVE 2 2015-08-08 "Linux" "Linux Programmer's Manual"
+.TH EXECVE 2 2015-12-28 "Linux" "Linux Programmer's Manual"
 .SH NAME
 execve \- execute program
 .SH SYNOPSIS
@@ -426,14 +426,14 @@ Too many symbolic links were encountered in resolving
 or the name of a script or ELF interpreter.
 .TP
 .B EMFILE
-The process has the maximum number of files open.
+The per-process limit on the number of open file descriptors has been reached.
 .TP
 .B ENAMETOOLONG
 .I filename
 is too long.
 .TP
 .B ENFILE
-The system limit on the total number of open files has been reached.
+The system-wide limit on the total number of open files has been reached.
 .TP
 .B ENOENT
 The file

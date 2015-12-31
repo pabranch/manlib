@@ -27,7 +27,7 @@
 .\"     Lewine's _POSIX Programmer's Guide_ (O'Reilly & Associates, 1991)
 .\"     386BSD man pages
 .\" Modified Sat Jul 24 19:29:54 1993 by Rik Faith (faith@cs.unc.edu)
-.TH GETGRENT 3  2015-08-08 "" "Linux Programmer's Manual"
+.TH GETGRENT 3  2015-12-28 "" "Linux Programmer's Manual"
 .SH NAME
 getgrent, setgrent, endgrent \- get group file entry
 .SH SYNOPSIS
@@ -141,10 +141,10 @@ A signal was caught.
 I/O error.
 .TP
 .B EMFILE
-The calling process already has too many open files.
+The per-process limit on the number of open file descriptors has been reached.
 .TP
 .B ENFILE
-Too many open files in the system.
+The system-wide limit on the total number of open files has been reached.
 .TP
 .\" not in POSIX
 .B ENOENT

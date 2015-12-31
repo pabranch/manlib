@@ -30,7 +30,7 @@
 .\" Modified Sat Jul 24 19:22:14 1993 by Rik Faith (faith@cs.unc.edu)
 .\" Modified Mon May 27 21:37:47 1996 by Martin Schulze (joey@linux.de)
 .\"
-.TH GETPWENT 3  2015-08-08 "GNU" "Linux Programmer's Manual"
+.TH GETPWENT 3  2015-12-28 "GNU" "Linux Programmer's Manual"
 .SH NAME
 getpwent, setpwent, endpwent \- get password file entry
 .SH SYNOPSIS
@@ -131,12 +131,10 @@ A signal was caught.
 I/O error.
 .TP
 .B EMFILE
-The maximum number
-.RB ( OPEN_MAX )
-of files was open already in the calling process.
+The per-process limit on the number of open file descriptors has been reached.
 .TP
 .B ENFILE
-The maximum number of files was open already in the system.
+The system-wide limit on the total number of open files has been reached.
 .TP
 .B ENOMEM
 .\" not in POSIX

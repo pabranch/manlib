@@ -34,7 +34,7 @@
 .\" Modified 2003-11-15 by aeb
 .\" 2008-11-07, mtk, Added an example program for getpwnam_r().
 .\"
-.TH GETPWNAM 3  2015-08-08 "GNU" "Linux Programmer's Manual"
+.TH GETPWNAM 3  2015-12-28 "GNU" "Linux Programmer's Manual"
 .SH NAME
 getpwnam, getpwnam_r, getpwuid, getpwuid_r \- get password file entry
 .SH SYNOPSIS
@@ -194,12 +194,10 @@ A signal was caught.
 I/O error.
 .TP
 .B EMFILE
-The maximum number
-.RB ( OPEN_MAX )
-of files was open already in the calling process.
+The per-process limit on the number of open file descriptors has been reached.
 .TP
 .B ENFILE
-The maximum number of files was open already in the system.
+The system-wide limit on the total number of open files has been reached.
 .TP
 .B ENOMEM
 .\" not in POSIX

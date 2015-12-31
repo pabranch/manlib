@@ -19,7 +19,7 @@
 .\" FIXME Do we need to add some text regarding Torvald Riegel's 2015-01-24 mail
 .\"       at http://thread.gmane.org/gmane.linux.kernel/1703405/focus=1873242
 .\"
-.TH FUTEX 2 2014-05-21 "Linux" "Linux Programmer's Manual"
+.TH FUTEX 2 2015-12-28 "Linux" "Linux Programmer's Manual"
 .SH NAME
 futex \- fast user-space locking
 .SH SYNOPSIS
@@ -88,7 +88,7 @@ on the same futex word.
 .\"     Totally ordered with respect futex operations refers to semantics
 .\"     of the ACQUIRE/RELEASE operations and how they impact ordering of
 .\"     memory reads and writes. The kernel futex operations are protected
-.\"     by spinlocks, which ensure that that all operations are serialized
+.\"     by spinlocks, which ensure that all operations are serialized
 .\"     with respect to one another.
 .\"
 .\"     This is a lot to attempt to define in this document. Perhaps a
@@ -125,11 +125,11 @@ wait operation.
 This
 .BR futex ()
 operation will block if and only if the lock is still acquired
-(i.e., the value in the futex word still matches the "acquiired state").
+(i.e., the value in the futex word still matches the "acquired state").
 When releasing the lock, a thread has to first reset the
 lock state to not acquired and then execute a futex
 operation that wakes threads blocked on the lock flag used as a futex word
-(this can be be further optimized to avoid unnecessary wake-ups).
+(this can be further optimized to avoid unnecessary wake-ups).
 See
 .BR futex (7)
 for more detail on how to use futexes.
@@ -274,7 +274,7 @@ architecture).
 This load, the comparison with the expected value, and
 starting to sleep are performed atomically
 .\" FIXME: Torvald, I think we may need to add some explanation of
-.\"        "totally odered" here.
+.\"        "totally ordered" here.
 and totally ordered
 with respect to other futex operations on the same futex word.
 If the thread starts to sleep,
@@ -712,7 +712,7 @@ argument is ignored.
 This operation is the same as
 .BR FUTEX_WAKE
 except that the
-.I val3 
+.I val3
 argument is used to provide a 32-bit bit mask to the kernel.
 This bit mask is used to select which waiters should be woken up.
 The selection is done by a bit-wise AND of the "wake" bit mask
@@ -744,7 +744,7 @@ including those that are not interested in being woken up
 .\"     in glibc. However, the pthreads library no longer uses the
 .\"     same locking algorithm, and these extensions are not used
 .\"     without the bitset parameter being all ones.
-.\" 
+.\"
 .\" The page goes on to note that the FUTEX_WAIT_BITSET operation
 .\" is nevertheless used (with a bit mask of all ones) in order to
 .\" obtain the absolute timeout functionality that is useful
@@ -898,7 +898,9 @@ This in turn requires that the user-space value is updated accordingly.
 To indicate that this is required, the kernel sets the
 .B FUTEX_OWNER_DIED
 bit in the futex word along with the thread ID of the new owner.
-User space is then responsible for cleaning up the stale state left over by
+User space can detect this situation via the presence of the
+.B FUTEX_OWNER_DIED
+bit and is then responsible for cleaning up the stale state left over by
 the dead owner.
 .\" tglx (July 2015):
 .\"     The FUTEX_OWNER_DIED bit can also be set on uncontended futexes, where
@@ -1059,8 +1061,10 @@ This operation tries to acquire the lock at
 It is invoked when a user-space atomic acquire did not
 succeed because the futex word was not 0.
 
-The acquisition of the lock might succeed if performed by the
-kernel in cases where the futex word contains stale state
+Because the kernel has access to more state information than user space,
+acquisition of the lock might succeed if performed by the
+kernel in cases where the futex word
+(i.e., the state information accessible to use-space) contains stale state
 .RB ( FUTEX_WAITERS
 and/or
 .BR FUTEX_OWNER_DIED ).
@@ -1077,6 +1081,9 @@ but the kernel can fix this up and acquire the futex.
 .\"	Therefore, the next locker has to go into the kernel,
 .\"	so that the kernel has a chance to clean up. (CMXCH on zero
 .\"	in user space would fail, so kernel has to clean up.)
+.\" Darren Hart (Oct 2015):
+.\"     The trylock in the kernel has more state, so it can independently
+.\"     verify the  flags that userspace must trust implicitly.
 
 The
 .IR uaddr2 ,
@@ -1548,7 +1555,7 @@ The kernel could not allocate memory to hold state information.
 .TP
 .B ENFILE
 .RB ( FUTEX_FD )
-The system limit on the total number of open files has been reached.
+The system-wide limit on the total number of open files has been reached.
 .TP
 .B ENOSYS
 Invalid operation specified in
@@ -1631,7 +1638,7 @@ Glibc does not provide a wrapper for this system call; call it using
 .BR syscall (2).
 
 Several higher-level programming abstractions are implemented via futexes,
-including POSIX semaphores and 
+including POSIX semaphores and
 various POSIX threads synchronization mechanisms
 (mutexes, condition variables, read-write locks, and barriers).
 .\" TODO FIXME(Torvald) Above, we cite this section and claim it contains

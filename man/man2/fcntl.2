@@ -62,7 +62,7 @@
 .\" 2014-07-08, David Herrmann <dh.herrmann@gmail.com>
 .\"     Document F_ADD_SEALS and F_GET_SEALS
 .\"
-.TH FCNTL 2 2015-05-07 "Linux" "Linux Programmer's Manual"
+.TH FCNTL 2 2015-12-28 "Linux" "Linux Programmer's Manual"
 .SH NAME
 fcntl \- manipulate file descriptor
 .SH SYNOPSIS
@@ -937,7 +937,7 @@ set etc.) to determine which file descriptors are available for I/O.
 
 Note that the file descriptor provided in
 .I si_fd
-is the one that that was specified during the
+is the one that was specified during the
 .BR F_SETSIG
 operation.
 This can lead to an unusual corner case.
@@ -1629,7 +1629,8 @@ was not specified as zero.
 .I cmd
 is
 .BR F_DUPFD
-and the process already has the maximum number of file descriptors open.
+and the per-process limit on the number of open file descriptors
+has been reached.
 .TP
 .B ENOLCK
 Too many segment locks open, lock table is full, or a remote locking
