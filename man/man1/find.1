@@ -911,10 +911,14 @@ handle sparse files
 differently.  The `b' suffix always denotes 512-byte blocks and never
 1 Kilobyte blocks, which is different to the behaviour of
 .BR \-ls .
-The + and - prefixes signify greater than and less than, as usual,
-but bear in mind that the size is rounded up to the next unit (so a
-1-byte file is not matched by
-.BR "-size -1M" ).
+.IP
+The + and - prefixes signify greater than and less than, as usual.
+Bear in mind that the size is rounded up to the next unit. Therefore
+.BR "\-size \-1M"
+is not equivalent to
+.BR "\-size \-1048576c".
+The former only matches empty files, the latter matches files from 1 to
+1,048,575 bytes.
 .IP \-true
 Always true.
 
@@ -1301,14 +1305,15 @@ time, 12-hour (hh:mm:ss [AP]M)
 .IP S
 Second (00.00 .. 61.00).  There is a fractional part.
 .IP T
-time, 24-hour (hh:mm:ss)
+time, 24-hour (hh:mm:ss.xxxxxxxxxx)
 .IP +
 Date and time, separated by `+', for example
 `2004\-04\-28+22:22:05.0'.  This is a GNU extension.  The time is
 given in the current timezone (which may be affected by setting the TZ
 environment variable).  The seconds field includes a fractional part.
 .IP X
-locale's time representation (H:M:S)
+locale's time representation (H:M:S).  The seconds field includes a
+fractional part.
 .IP Z
 time zone (e.g., EDT), or nothing if no time zone is determinable
 .PP
