@@ -42,7 +42,7 @@ a setting into your environment.
 .sp
 See \%\fBhg help config.syntax\fP\: and \%\fBhg help config.files\fP\:
 for information about how and where to override things.
-.SH FORMAT
+.SH STRUCTURE
 .sp
 The configuration files use a simple ini\-file format. A configuration
 file consists of sections, led by a \fB[section]\fP header and followed
@@ -915,36 +915,44 @@ myfeature = ~/.hgext/myfeature.py
 Enable or disable the "generaldelta" repository format which improves
 repository compression by allowing "revlog" to store delta against arbitrary
 revision instead of the previous stored one. This provides significant
-improvement for repositories with branches. Enabled by default. Disabling
-this option ensures that the on\-disk format of newly created repository will
-be compatible with Mercurial before version 1.9.
-.TP
-.B \fBusestore\fP
+improvement for repositories with branches.
 .sp
-Enable or disable the "store" repository format which improves
-compatibility with systems that fold case or otherwise mangle
-filenames. Enabled by default. Disabling this option will allow
-you to store longer filenames in some situations at the expense of
-compatibility and ensures that the on\-disk format of newly created
-repositories will be compatible with Mercurial before version 0.9.4.
-.TP
-.B \fBusefncache\fP
+Repositories with this on\-disk format require Mercurial version 1.9.
 .sp
-Enable or disable the "fncache" repository format which enhances
-the "store" repository format (which has to be enabled to use
-fncache) to allow longer filenames and avoids using Windows
-reserved names, e.g. "nul". Enabled by default. Disabling this
-option ensures that the on\-disk format of newly created
-repositories will be compatible with Mercurial before version 1.1.
+Enabled by default.
 .TP
 .B \fBdotencode\fP
 .sp
 Enable or disable the "dotencode" repository format which enhances
 the "fncache" repository format (which has to be enabled to use
 dotencode) to avoid issues with filenames starting with ._ on
-Mac OS X and spaces on Windows. Enabled by default. Disabling this
-option ensures that the on\-disk format of newly created
-repositories will be compatible with Mercurial before version 1.7.
+Mac OS X and spaces on Windows.
+.sp
+Repositories with this on\-disk format require Mercurial version 1.7.
+.sp
+Enabled by default.
+.TP
+.B \fBusefncache\fP
+.sp
+Enable or disable the "fncache" repository format which enhances
+the "store" repository format (which has to be enabled to use
+fncache) to allow longer filenames and avoids using Windows
+reserved names, e.g. "nul".
+.sp
+Repositories with this on\-disk format require Mercurial version 1.1.
+.sp
+Enabled by default.
+.TP
+.B \fBusestore\fP
+.sp
+Enable or disable the "store" repository format which improves
+compatibility with systems that fold case or otherwise mangle
+filenames. Disabling this option will allow you to store longer filenames
+in some situations at the expense of compatibility.
+.sp
+Repositories with this on\-disk format require Mercurial version 0.9.4.
+.sp
+Enabled by default.
 .UNINDENT
 .SS \fBgraph\fP
 .sp
