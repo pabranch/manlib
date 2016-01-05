@@ -1,0 +1,59 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_set_min_proto_version.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_set_min_proto_version, SSL_CTX_set_max_proto_version,
+SSL_set_min_proto_version, SSL_set_max_proto_version</refname>
+<refpurpose>Set minimum
+and maximum supported protocol version</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_CTX_set_min_proto_version(SSL_CTX *ctx, int version);
+int SSL_CTX_set_max_proto_version(SSL_CTX *ctx, int version);
+int SSL_set_min_proto_version(SSL *ssl, int version);
+int SSL_set_max_proto_version(SSL *ssl, int version);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="ID-793f7080bddc57ae62845607141bb07f"><title>DESCRIPTION</title>
+    <para>
+      The functions set the minimum and maximum supported portocol versions
+      for the <emphasis role="bold">ctx</emphasis> or <emphasis role="bold">ssl</emphasis>. This works in combination with the
+      options set via SSL_CTX_set_options() that also make it possible to
+      disable specific protocol versions. Use these functions instead of
+      disabling specific protocol versions.
+    </para>
+    <para>
+      Setting the minimum or maximum version to 0, will enable protocol
+      versions down to the lowest version, or up to the highest version
+      supported by the library, respectively.
+    </para>
+    <para>
+      Currently supported versions are <emphasis role="bold">SSL3_VERSION</emphasis>, <emphasis role="bold">TLS1_VERSION</emphasis>, <emphasis role="bold">TLS1_1_VERSION</emphasis>, <emphasis role="bold">TLS1_2_VERSION</emphasis> for TLS and <emphasis role="bold">DTLS1_VERSION</emphasis>, <emphasis role="bold">DTLS1_2_VERSION</emphasis> for DTLS.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-73f2bcdbde4330d1ee6b6f5340872614"><title>RETURN VALUES</title>
+    <para>
+      Both functions return 1 on success and 0 on failure.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-67ff777afe991d08bd755352848b613a"><title>NOTES</title>
+    <para>
+      All these functions are implemented using macros.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-34c4f0fee9bdbe88f90d3ef5fb27f406"><title>HISTORY</title>
+    <para>
+      The functions were added in OpenSSL 1.1.0
+    </para>
+  </refsection>
+  <refsection xml:id="ID-16463edb8396d61e14df4e9333c0de3f"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>SSL_CTX_set_options</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CONF_cmd</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>
+    </para>
+  </refsection>
+</refentry>

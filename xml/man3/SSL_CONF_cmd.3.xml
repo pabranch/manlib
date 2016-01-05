@@ -168,11 +168,25 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term><emphasis role="bold">-min_protocol</emphasis>, <emphasis role="bold">-max_protocol</emphasis></term>
+          <listitem>
+            <para>
+	      Sets the minimum and maximum supported protocol. Currently
+	      supported protocol values are <emphasis role="bold">SSLv3</emphasis>, <emphasis role="bold">TLSv1</emphasis>, <emphasis role="bold">TLSv1.1</emphasis>, <emphasis role="bold">TLSv1.2</emphasis> for TLS and <emphasis role="bold">DTLSv1</emphasis>, <emphasis role="bold">DTLSv1.2</emphasis> for DTLS. If the either bound
+	      is not specified then only the other bound applies, if
+	      specified. To restrict the supported protocol versions use
+	      these commands rather than the deprecated alternative
+	      commands below.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term><emphasis role="bold">-no_ssl3</emphasis>, <emphasis role="bold">-no_tls1</emphasis>, <emphasis role="bold">-no_tls1_1</emphasis>, <emphasis role="bold">-no_tls1_2</emphasis></term>
           <listitem>
             <para>
 	      Disables protocol support for SSLv3, TLS 1.0, TLS 1.1 or TLS
-	      1.2 by setting the corresponding options <emphasis role="bold">SSL_OP_NO_SSL3</emphasis>, <emphasis role="bold">SSL_OP_NO_TLS1</emphasis>, <emphasis role="bold">SSL_OP_NO_TLS1_1</emphasis> and <emphasis role="bold">SSL_OP_NO_TLS1_2</emphasis> respectively.
+	      1.2 by setting the corresponding options <emphasis role="bold">SSL_OP_NO_SSL3</emphasis>, <emphasis role="bold">SSL_OP_NO_TLS1</emphasis>, <emphasis role="bold">SSL_OP_NO_TLS1_1</emphasis> and <emphasis role="bold">SSL_OP_NO_TLS1_2</emphasis> respectively. These
+	      options are deprecated, instead use <emphasis role="bold">-min_protocol</emphasis> and <emphasis role="bold">-max_protocol</emphasis>.
             </para>
           </listitem>
         </varlistentry>
@@ -424,19 +438,59 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term><emphasis role="bold">MinProtocol</emphasis></term>
+          <listitem>
+            <para>
+	      This sets the minimum supported SSL, TLS or DTLS version.
+            </para>
+            <para>
+	      Currently supported protocol values are <emphasis role="bold">SSLv3</emphasis>, <emphasis role="bold">TLSv1</emphasis>, <emphasis role="bold">TLSv1.1</emphasis>, <emphasis role="bold">TLSv1.2</emphasis>, <emphasis role="bold">DTLSv1</emphasis> and <emphasis role="bold">DTLSv1.2</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">MaxProtocol</emphasis></term>
+          <listitem>
+            <para>
+	      This sets the maximum supported SSL, TLS or DTLS version.
+            </para>
+            <para>
+	      Currently supported protocol values are <emphasis role="bold">SSLv3</emphasis>, <emphasis role="bold">TLSv1</emphasis>, <emphasis role="bold">TLSv1.1</emphasis>, <emphasis role="bold">TLSv1.2</emphasis>, <emphasis role="bold">DTLSv1</emphasis> and <emphasis role="bold">DTLSv1.2</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term><emphasis role="bold">Protocol</emphasis></term>
           <listitem>
             <para>
-	      The supported versions of the SSL or TLS protocol.
+	      This can be used to enable or disable certain versions of the
+	      SSL, TLS or DTLS protocol.
             </para>
             <para>
 	      The <emphasis role="bold">value</emphasis> argument is a
 	      comma separated list of supported protocols to enable or
-	      disable. If an protocol is preceded by <emphasis role="bold">-</emphasis> that version is disabled. All
-	      versions are enabled by default, though applications may
-	      choose to explicitly disable some. Currently supported
-	      protocol values are <emphasis role="bold">SSLv3</emphasis>,
-	      <emphasis role="bold">TLSv1</emphasis>, <emphasis role="bold">TLSv1.1</emphasis> and <emphasis role="bold">TLSv1.2</emphasis>. The special value <emphasis role="bold">ALL</emphasis> refers to all supported versions.
+	      disable. If a protocol is preceded by <emphasis role="bold">-</emphasis> that version is disabled.
+            </para>
+            <para>
+	      All protocol versions are enabled by default. You need to
+	      disable at least one protocol version for this setting have
+	      any effect. Only enabling some protocol versions does not
+	      disable the other protocol versions.
+            </para>
+            <para>
+	      Currently supported protocol values are <emphasis role="bold">SSLv3</emphasis>, <emphasis role="bold">TLSv1</emphasis>, <emphasis role="bold">TLSv1.1</emphasis>, <emphasis role="bold">TLSv1.2</emphasis>, <emphasis role="bold">DTLSv1</emphasis> and <emphasis role="bold">DTLSv1.2</emphasis>. The special value <emphasis role="bold">ALL</emphasis> refers to all supported versions.
+            </para>
+            <para>
+	      This can't enable protocols that are disabled using <emphasis role="bold">MinProtocol</emphasis> or <emphasis role="bold">MaxProtocol</emphasis>, but can disable protocols
+	      that are still allowed by them.
+            </para>
+            <para>
+	      The <emphasis role="bold">Protocol</emphasis> command is
+	      fragile and deprecated; do not use it. Use <emphasis role="bold">MinProtocol</emphasis> and <emphasis role="bold">MaxProtocol</emphasis> instead. If you do use
+	      <emphasis role="bold">Protocol</emphasis>, make sure that the
+	      resulting range of enabled protocols has no "holes", e.g. if
+	      TLS 1.0 and TLS 1.2 are both enabled, make sure to also leave
+	      TLS 1.1 enabled.
             </para>
           </listitem>
         </varlistentry>
@@ -663,11 +717,31 @@ SSL_CONF_cmd(ctx, "Protocol", "-SSLv3");</screen>
     </para>
     <screen>SSL_CONF_cmd(ctx, "SignatureAlgorithms", "ECDSA+SHA256:RSA+SHA256:DSA+SHA256");</screen>
     <para>
-      Enable all protocols except SSLv3:
+      There are various ways to select the supported procotols.
+    </para>
+    <para>
+      This set the minimum protocol version to TLSv1, and so disables
+      SSLv3. This is the recommended way to disable protocols.
+    </para>
+    <screen>SSL_CONF_cmd(ctx, "MinProtocol", "TLSv1");</screen>
+    <para>
+      The following also disables SSLv3:
+    </para>
+    <screen>SSL_CONF_cmd(ctx, "Protocol", "-SSLv3");</screen>
+    <para>
+      The following will first enable all protocols, and then disable
+      SSLv3. If no protocol versions were disabled before this has the same
+      effect as "-SSLv3", but if some versions were disables this will
+      re-enable them before disabling SSLv3.
     </para>
     <screen>SSL_CONF_cmd(ctx, "Protocol", "ALL,-SSLv3");</screen>
     <para>
       Only enable TLSv1.2:
+    </para>
+    <screen>SSL_CONF_cmd(ctx, "MinProtocol", "TLSv1.2");
+SSL_CONF_cmd(ctx, "MaxProtocol", "TLSv1.2");</screen>
+    <para>
+      This also only enables TLSv1.2:
     </para>
     <screen>SSL_CONF_cmd(ctx, "Protocol", "-ALL,TLSv1.2");</screen>
     <para>
@@ -728,13 +802,15 @@ SSL_CONF_cmd(ctx, "Protocol", "-SSLv3");</screen>
     </para>
     <para>
       <emphasis role="bold">SSL_OP_NO_SSL2</emphasis> doesn't have effect
-      anymore since 1.1.0 but the define is kept for backward
-      compatibility.
+      since 1.1.0, but the macro is retained for backwards compatibility.
     </para>
     <para>
       <emphasis role="bold">SSL_CONF_TYPE_NONE</emphasis> was first added
       to OpenSSL 1.1.0. In earlier versions of OpenSSL passing a command
       which didn't take an argument would return <emphasis role="bold">SSL_CONF_TYPE_UNKNOWN</emphasis>.
+    </para>
+    <para>
+      <emphasis role="bold">MinProtocol</emphasis> and <emphasis role="bold">MaxProtocol</emphasis> where added in OpenSSL 1.1.0.
     </para>
   </refsection>
 </refentry>
