@@ -7,7 +7,7 @@
 <refentrytitle>btrfs-send</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.18-36-g0173148</refmiscinfo>
+<refmiscinfo class="version">v4.3.1</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -80,6 +80,18 @@ Use this snapshot as a clone source for an incremental send (multiple allowed).
 <simpara>
 Output is normally written to stdout. To write to a file, use this option.
 An alternative would be to use pipes.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--no-data
+</term>
+<listitem>
+<simpara>
+Send in NO_FILE_DATA mode. The output stream does not contain any file
+data and thus cannot be used to transfer changes. This mode is faster and
+useful to show the differences in metadata.
 </simpara>
 </listitem>
 </varlistentry>

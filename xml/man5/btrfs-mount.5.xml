@@ -7,7 +7,7 @@
 <refentrytitle>btrfs-mount</refentrytitle>
 <manvolnum>5</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.18-36-g0173148</refmiscinfo>
+<refmiscinfo class="version">v4.3.1</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -40,8 +40,12 @@ Other generic mount options are available,and are described in the
 <term>
 <emphasis role="strong">autodefrag</emphasis>
 </term>
+<term>
+<emphasis role="strong">noautodefrag</emphasis>
+</term>
 <listitem>
 <simpara>
+        (since: 3.0, default: off)<?asciidoc-br?>
         Disable/enable auto defragmentation.
         Auto defragmentation detects small random writes into files and queue
         them up for the defrag process.  Works best for small files;
@@ -51,10 +55,17 @@ Other generic mount options are available,and are described in the
 </varlistentry>
 <varlistentry>
 <term>
-<emphasis role="strong">check_int</emphasis>|<emphasis role="strong">check_int_data</emphasis>|<emphasis role="strong">check_int_print_mask=<emphasis>value</emphasis></emphasis>
+<emphasis role="strong">check_int</emphasis>
+</term>
+<term>
+<emphasis role="strong">check_int_data</emphasis>
+</term>
+<term>
+<emphasis role="strong">check_int_print_mask=<emphasis>value</emphasis></emphasis>
 </term>
 <listitem>
 <simpara>
+        (since: 3.0, default: off)<?asciidoc-br?>
         These debugging options control the behavior of the integrity checking
         module (the BTRFS_FS_CHECK_INTEGRITY config option required).<?asciidoc-br?>
        <?asciidoc-br?>
@@ -80,7 +91,8 @@ Other generic mount options are available,and are described in the
 </term>
 <listitem>
 <simpara>
-        Set the interval of periodic commit, 30 seconds by default. Higher
+        (since: 3.12, default: 30)<?asciidoc-br?>
+        Set the interval of periodic commit. Higher
         values defer data being synced to permanent storage with obvious
         consequences when the system crashes. The upper bound is not forced,
         but a warning is printed if it&#8217;s more than 300 seconds (5 minutes).
@@ -89,15 +101,25 @@ Other generic mount options are available,and are described in the
 </varlistentry>
 <varlistentry>
 <term>
-<emphasis role="strong">compress</emphasis>|<emphasis role="strong">compress=<emphasis>type</emphasis></emphasis>|<emphasis role="strong">compress-force</emphasis>|<emphasis role="strong">compress-force=<emphasis>type</emphasis></emphasis>
+<emphasis role="strong">compress</emphasis>
+</term>
+<term>
+<emphasis role="strong">compress=<emphasis>type</emphasis></emphasis>
+</term>
+<term>
+<emphasis role="strong">compress-force</emphasis>
+</term>
+<term>
+<emphasis role="strong">compress-force=<emphasis>type</emphasis></emphasis>
 </term>
 <listitem>
 <simpara>
-        Control BTRFS file data compression.  Type may be specified as "zlib"
-        "lzo" or "no" (for no compression, used for remounting).  If no type
-        is specified, zlib is used.  If compress-force is specified,
+        (default: off)<?asciidoc-br?>
+        Control BTRFS file data compression.  Type may be specified as <emphasis>zlib</emphasis>,
+        <emphasis>lzo</emphasis> or <emphasis>no</emphasis> (for no compression, used for remounting).  If no type
+        is specified, <emphasis>zlib</emphasis> is used.  If compress-force is specified,
         all files will be compressed, whether or not they compress well.
-        If compression is enabled, nodatacow and nodatasum are disabled.
+        NOTE: If compression is enabled, <emphasis>nodatacow</emphasis> and <emphasis>nodatasum</emphasis> are disabled.
 </simpara>
 </listitem>
 </varlistentry>
@@ -107,6 +129,7 @@ Other generic mount options are available,and are described in the
 </term>
 <listitem>
 <simpara>
+        (default: off)<?asciidoc-br?>
         Allow mounts to continue with missing devices.  A read-write mount may
         fail with too many devices missing, for example if a stripe member
         is completely missing.
@@ -129,8 +152,12 @@ Other generic mount options are available,and are described in the
 <term>
 <emphasis role="strong">discard</emphasis>
 </term>
+<term>
+<emphasis role="strong">nodiscard</emphasis>
+</term>
 <listitem>
 <simpara>
+        (default: off)<?asciidoc-br?>
         Disable/enable discard mount option.
         Discard issues frequent commands to let the block device reclaim space
         freed by the filesystem.
@@ -147,6 +174,7 @@ Other generic mount options are available,and are described in the
 </term>
 <listitem>
 <simpara>
+        (default: off)<?asciidoc-br?>
         Disable/enable debugging option to be more verbose in some ENOSPC conditions.
 </simpara>
 </listitem>
@@ -157,8 +185,9 @@ Other generic mount options are available,and are described in the
 </term>
 <listitem>
 <simpara>
+        (since: 3.4, default: bug)<?asciidoc-br?>
         Action to take when encountering a fatal error.<?asciidoc-br?>
-                "bug" - BUG() on a fatal error.  This is the default.<?asciidoc-br?>
+                "bug" - BUG() on a fatal error.<?asciidoc-br?>
                 "panic" - panic() on a fatal error.
 </simpara>
 </listitem>
@@ -167,8 +196,12 @@ Other generic mount options are available,and are described in the
 <term>
 <emphasis role="strong">flushoncommit</emphasis>
 </term>
+<term>
+<emphasis role="strong">noflushoncommit</emphasis>
+</term>
 <listitem>
 <simpara>
+        (default: on)<?asciidoc-br?>
         The <literal>flushoncommit</literal> mount option forces any data dirtied by a write in a
         prior transaction to commit as part of the current commit.  This makes
         the committed state a fully consistent view of the file system from the
@@ -182,8 +215,12 @@ Other generic mount options are available,and are described in the
 <term>
 <emphasis role="strong">inode_cache</emphasis>
 </term>
+<term>
+<emphasis role="strong">noinode_cache</emphasis>
+</term>
 <listitem>
 <simpara>
+        (since: 3.0, default: off)<?asciidoc-br?>
         Enable free inode number caching.   Defaults to off due to an overflow
         problem when the free space crcs don&#8217;t fit inside a single page.
 </simpara>
@@ -195,6 +232,7 @@ Other generic mount options are available,and are described in the
 </term>
 <listitem>
 <simpara>
+        (default: min(8192, page size) )
         Specify the maximum amount of space, in bytes, that can be inlined in
         a metadata B-tree leaf.  The value is specified in bytes, optionally
         with a K, M, or G suffix, case insensitive.  In practice, this value
@@ -216,10 +254,14 @@ Other generic mount options are available,and are described in the
 </varlistentry>
 <varlistentry>
 <term>
+<emphasis role="strong">acl</emphasis>
+</term>
+<term>
 <emphasis role="strong">noacl</emphasis>
 </term>
 <listitem>
 <simpara>
+        (default: on)<?asciidoc-br?>
         Enable/disable support for Posix Access Control Lists (ACLs).  See the
         <literal>acl</literal>(5) manual page for more information about ACLs.
 </simpara>
@@ -227,10 +269,14 @@ Other generic mount options are available,and are described in the
 </varlistentry>
 <varlistentry>
 <term>
+<emphasis role="strong">barrier</emphasis>
+</term>
+<term>
 <emphasis role="strong">nobarrier</emphasis>
 </term>
 <listitem>
 <simpara>
+        (default: on)<?asciidoc-br?>
         ensure that certain IOs make it through the device cache and are on
         persistent storage. If disabled on a device with a volatile
         (non-battery-backed) write-back cache, nobarrier option will lead to
@@ -240,10 +286,14 @@ Other generic mount options are available,and are described in the
 </varlistentry>
 <varlistentry>
 <term>
+<emphasis role="strong">datacow</emphasis>
+</term>
+<term>
 <emphasis role="strong">nodatacow</emphasis>
 </term>
 <listitem>
 <simpara>
+        (default: on)<?asciidoc-br?>
         Enable/disable data copy-on-write for newly created files.
         Nodatacow implies nodatasum, and disables all compression.
 </simpara>
@@ -251,10 +301,14 @@ Other generic mount options are available,and are described in the
 </varlistentry>
 <varlistentry>
 <term>
+<emphasis role="strong">datasum</emphasis>
+</term>
+<term>
 <emphasis role="strong">nodatasum</emphasis>
 </term>
 <listitem>
 <simpara>
+        (default: on)<?asciidoc-br?>
         Enable/disable data checksumming for newly created files.
         Datasum implies datacow.
 </simpara>
@@ -262,10 +316,14 @@ Other generic mount options are available,and are described in the
 </varlistentry>
 <varlistentry>
 <term>
+<emphasis role="strong">treelog</emphasis>
+</term>
+<term>
 <emphasis role="strong">notreelog</emphasis>
 </term>
 <listitem>
 <simpara>
+        (default: on)<?asciidoc-br?>
         Enable/disable the tree logging used for fsync and O_SYNC writes.
 </simpara>
 </listitem>
@@ -276,6 +334,7 @@ Other generic mount options are available,and are described in the
 </term>
 <listitem>
 <simpara>
+        (since: 3.2, default: off)<?asciidoc-br?>
         Enable autorecovery attempts if a bad tree root is found at mount time.
         Currently this scans a list of several previous tree roots and tries to
         use the first readable.
@@ -288,6 +347,7 @@ Other generic mount options are available,and are described in the
 </term>
 <listitem>
 <simpara>
+        (since: 3.12, default: off)<?asciidoc-br?>
         Force check and rebuild procedure of the UUID tree. This should not
         normally be needed.
 </simpara>
@@ -299,6 +359,7 @@ Other generic mount options are available,and are described in the
 </term>
 <listitem>
 <simpara>
+        (since: 3.3, default: off)<?asciidoc-br?>
         Skip automatic resume of interrupted balance operation after mount.
         May be resumed with "btrfs balance resume."
 </simpara>
@@ -310,6 +371,7 @@ Other generic mount options are available,and are described in the
 </term>
 <listitem>
 <simpara>
+        (since: 3.2)<?asciidoc-br?>
         Disable freespace cache loading without clearing the cache.
 </simpara>
 </listitem>
@@ -327,7 +389,13 @@ Other generic mount options are available,and are described in the
 </varlistentry>
 <varlistentry>
 <term>
-<emphasis role="strong">ssd</emphasis>|<emphasis role="strong">nossd</emphasis>|<emphasis role="strong">ssd_spread</emphasis>
+<emphasis role="strong">ssd</emphasis>
+</term>
+<term>
+<emphasis role="strong">nossd</emphasis>
+</term>
+<term>
+<emphasis role="strong">ssd_spread</emphasis>
 </term>
 <listitem>
 <simpara>
@@ -367,10 +435,11 @@ Other generic mount options are available,and are described in the
 </varlistentry>
 <varlistentry>
 <term>
-<emphasis role="strong">subvolrootid=<emphasis>objectid</emphasis> (deprecated)</emphasis>
+<emphasis role="strong">subvolrootid=<emphasis>objectid</emphasis></emphasis>
 </term>
 <listitem>
 <simpara>
+        (deprecated)<?asciidoc-br?>
         Mount subvolume specified by <emphasis>objectid</emphasis> rather than the root subvolume.
         This allows mounting of subvolumes which are not in the root of the mounted
         filesystem.
@@ -395,6 +464,7 @@ Other generic mount options are available,and are described in the
 </term>
 <listitem>
 <simpara>
+        (default: off)<?asciidoc-br?>
         Allow subvolumes to be deleted by a non-root user. Use with caution.
 </simpara>
 </listitem>

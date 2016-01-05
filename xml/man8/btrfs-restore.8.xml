@@ -7,12 +7,12 @@
 <refentrytitle>btrfs-restore</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.18-36-g0173148</refmiscinfo>
+<refmiscinfo class="version">v4.3.1</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
   <refname>btrfs-restore</refname>
-  <refpurpose>try to restore files from a damaged btrfs filesystem(unmounted)</refpurpose>
+  <refpurpose>try to restore files from a damaged btrfs filesystem image</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
 <simpara><emphasis role="strong">btrfs restore</emphasis> [options] <emphasis>&lt;device&gt;</emphasis> <emphasis>&lt;path&gt;</emphasis> | -l <emphasis>&lt;device&gt;</emphasis></simpara>
@@ -32,7 +32,7 @@ not salvaged with default option:<?asciidoc-br?>
 <variablelist>
 <varlistentry>
 <term>
--s
+-s|--snapshots
 </term>
 <listitem>
 <simpara>
@@ -42,7 +42,7 @@ get snapshots, btrfs restore skips snapshots in default.
 </varlistentry>
 <varlistentry>
 <term>
--x
+-x|--xattr
 </term>
 <listitem>
 <simpara>
@@ -52,7 +52,27 @@ get extended attributes.
 </varlistentry>
 <varlistentry>
 <term>
--v
+-m|--metadata
+</term>
+<listitem>
+<simpara>
+restore owner, mode and times.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-S|--symlinks
+</term>
+<listitem>
+<simpara>
+restore symbolic links as well as normal files.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-v|--verbose
 </term>
 <listitem>
 <simpara>
@@ -62,7 +82,7 @@ verbose.
 </varlistentry>
 <varlistentry>
 <term>
--i
+-i|--ignore-errors
 </term>
 <listitem>
 <simpara>
@@ -72,7 +92,7 @@ ignore errors.
 </varlistentry>
 <varlistentry>
 <term>
--o
+-o|--overwrite
 </term>
 <listitem>
 <simpara>
@@ -102,7 +122,7 @@ only restore files that are under specified root whose root bytenr is <emphasis>
 </varlistentry>
 <varlistentry>
 <term>
--u <emphasis>&lt;mirror&gt;</emphasis>
+-u|--super <emphasis>&lt;mirror&gt;</emphasis>
 </term>
 <listitem>
 <simpara>
@@ -112,7 +132,7 @@ use given superblock mirror identified by <emphasis>&lt;mirror&gt;</emphasis>, i
 </varlistentry>
 <varlistentry>
 <term>
--r <emphasis>&lt;rootid&gt;</emphasis>
+-r|--root <emphasis>&lt;rootid&gt;</emphasis>
 </term>
 <listitem>
 <simpara>
@@ -132,7 +152,7 @@ find dir.
 </varlistentry>
 <varlistentry>
 <term>
--l
+-l|--list-roots
 </term>
 <listitem>
 <simpara>
@@ -167,7 +187,7 @@ restore only filenames matching regex, you have to use following syntax (possibl
 </term>
 <listitem>
 <simpara>
-ignore case (--path-regrex only).
+ignore case (--path-regex only).
 </simpara>
 </listitem>
 </varlistentry>

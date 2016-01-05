@@ -7,7 +7,7 @@
 <refentrytitle>btrfs-device</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.18.2</refmiscinfo>
+<refmiscinfo class="version">v4.3.1</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -81,11 +81,11 @@ Device add/remove/replace
 </term>
 <listitem>
 <simpara>
-Device can be added/removed using <literal>btrfs-replace</literal>(8) subcommand and replaced
+Device can be added/removed using <literal>btrfs-device</literal>(8) subcommand and replaced
 using <literal>btrfs-replace</literal>(8).
 </simpara>
 <simpara>When device is removed or replaced, btrfs will do the chunk rebuild if needed.</simpara>
-<simpara>See <literal>btrfs-replace</literal>(8) and this man page for more details.</simpara>
+<simpara>See <literal>btrfs-replace</literal>(8) man page for more details on device replace.</simpara>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -129,11 +129,21 @@ force overwrite of existing filesystem on the given disk(s)
 </varlistentry>
 <varlistentry>
 <term>
-<emphasis role="strong">delete</emphasis> <emphasis>&lt;dev&gt;</emphasis> [<emphasis>&lt;dev&gt;</emphasis>&#8230;] <emphasis>&lt;path&gt;</emphasis>
+<emphasis role="strong">remove</emphasis> <emphasis>&lt;dev&gt;</emphasis> [<emphasis>&lt;dev&gt;</emphasis>&#8230;] <emphasis>&lt;path&gt;</emphasis>
 </term>
 <listitem>
 <simpara>
 Remove device(s) from a filesystem identified by <emphasis>&lt;path&gt;</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">delete</emphasis> <emphasis>&lt;dev&gt;</emphasis> [<emphasis>&lt;dev&gt;</emphasis>&#8230;] <emphasis>&lt;path&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Alias of remove kept for backwards compatability
 </simpara>
 </listitem>
 </varlistentry>
@@ -168,7 +178,7 @@ scanned.</simpara>
 </term>
 <listitem>
 <simpara>
-Read and print the device IO stats for all devices of the filesystem
+Read and print the device IO stats for all mounted devices of the filesystem
 identified by <emphasis>&lt;path&gt;</emphasis> or for a single <emphasis>&lt;device&gt;</emphasis>.
 </simpara>
 <simpara><literal>Options</literal></simpara>

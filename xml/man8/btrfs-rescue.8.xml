@@ -4,10 +4,10 @@
 <?asciidoc-numbered?>
 <refentry>
 <refmeta>
-<refentrytitle>btrfs-check</refentrytitle>
+<refentrytitle>btrfs-rescue</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.18-36-g0173148</refmiscinfo>
+<refmiscinfo class="version">v4.3.1</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -104,7 +104,39 @@ verbose mode.
 </variablelist>
 </listitem>
 </varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">zero-log</emphasis> <emphasis>&lt;device&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+clear the filesystem log tree
+</simpara>
+</listitem>
+</varlistentry>
 </variablelist>
+<simpara>This command will clear the filesystem log tree. This may fix a specific
+set of problem when the filesystem mount fails due to the log replay. See below
+for sample stacktraces that may show up in system log.</simpara>
+<simpara>The common case where this happens has been fixed a long time ago,
+so it is unlikely that you will see this particular problem, but the utility is
+kept around.</simpara>
+<note><simpara>clearing the log may lead to loss of changes that were made since the
+last transaction commit. This may be up to 30 seconds (default commit period)
+or less if the commit was implied by other filesystem activity.</simpara></note>
+<simpara>One can determine whether <emphasis role="strong">zero-log</emphasis> is needed according to the kernel
+backtrace:</simpara>
+<screen>? replay_one_dir_item+0xb5/0xb5 [btrfs]
+? walk_log_tree+0x9c/0x19d [btrfs]
+? btrfs_read_fs_root_no_radix+0x169/0x1a1 [btrfs]
+? btrfs_recover_log_trees+0x195/0x29c [btrfs]
+? replay_one_dir_item+0xb5/0xb5 [btrfs]
+? btree_read_extent_buffer_pages+0x76/0xbc [btrfs]
+? open_ctree+0xff6/0x132c [btrfs]</screen>
+<simpara>If the errors are like above, then <emphasis role="strong">zero-log</emphasis> should be used to clear
+the log and the filesystem may be mounted normally again. The keywords to look
+for are <emphasis>open_ctree</emphasis> which says that it&#8217;s during mount and function names
+that contain <emphasis>replay</emphasis>, <emphasis>recover</emphasis> or <emphasis>log_tree</emphasis>.</simpara>
 </refsect1>
 <refsect1 id="_exit_status">
 <title>EXIT STATUS</title>

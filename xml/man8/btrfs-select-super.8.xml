@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>btrfs-select-super</refentrytitle>
+<manvolnum>8</manvolnum>
+<refmiscinfo class="source">Btrfs</refmiscinfo>
+<refmiscinfo class="version">v4.3.1</refmiscinfo>
+<refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>btrfs-select-super</refname>
+  <refpurpose>overwrite superblock with a backup</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara><emphasis role="strong">btrfs-select-super</emphasis> -s number dev</simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara><emphasis role="strong">btrfs-select-super</emphasis> destructively overwrites all copies of the superblock
+with a specified copy.  This helps with certain cases of damage, especially
+when barriers were disabled during a power failure.  You can find a valid
+copy of the superblock with <emphasis role="strong">btrfs check -s</emphasis>.</simpara>
+<simpara>The filesystem specified by <literal>dev</literal> must not be mounted.</simpara>
+</refsect1>
+<refsect1 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+-s|--super <emphasis>&lt;superblock&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+use <emphasis>&lt;superblock&gt;</emphasis>th superblock copy, valid values are 0 up to 2 if the
+respective superblock offset is within the filesystem
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><literal>btrfsck check</literal>(8)</simpara>
+</refsect1>
+</refentry>

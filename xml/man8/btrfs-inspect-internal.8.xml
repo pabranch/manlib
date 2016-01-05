@@ -7,31 +7,36 @@
 <refentrytitle>btrfs-inspect-internal</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.18-36-g0173148</refmiscinfo>
+<refmiscinfo class="version">v4.3.1</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
   <refname>btrfs-inspect-internal</refname>
-  <refpurpose>resolve different btrfs items for debug purpose</refpurpose>
+  <refpurpose>query various internal information</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
 <simpara><emphasis role="strong">btrfs inspect-internal</emphasis> <emphasis>&lt;subcommand&gt;</emphasis> <emphasis>&lt;args&gt;</emphasis></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
-<simpara><emphasis role="strong">btrfs inspect-internal</emphasis> is used to resolve different items for debug purpose.</simpara>
+<simpara>This command group provides an interface to query internal information. The
+functionality ranges from a simple UI to an ioctl or a more complex query that
+assembles the result from several internal structures. The latter usually
+requires calls to privileged ioctls.</simpara>
 </refsect1>
 <refsect1 id="_subcommand">
 <title>SUBCOMMAND</title>
 <variablelist>
 <varlistentry>
 <term>
-<emphasis role="strong">inode-resolve</emphasis> [-v] <emphasis>&lt;inode&gt;</emphasis> <emphasis>&lt;path&gt;</emphasis>
+<emphasis role="strong">inode-resolve</emphasis> [-v] <emphasis>&lt;ino&gt;</emphasis> <emphasis>&lt;path&gt;</emphasis>
 </term>
 <listitem>
 <simpara>
-Resolves an <emphasis>&lt;inode&gt;</emphasis> in subvolume <emphasis>&lt;path&gt;</emphasis> to all filesystem paths.
+(needs root privileges)
 </simpara>
+<simpara>resolve paths to all files with given inode number <emphasis>ino</emphasis> in a given subvolume
+at <emphasis>path</emphasis>, ie. all hardlinks</simpara>
 <simpara><literal>Options</literal></simpara>
 <variablelist>
 <varlistentry>
@@ -40,7 +45,7 @@ Resolves an <emphasis>&lt;inode&gt;</emphasis> in subvolume <emphasis>&lt;path&g
 </term>
 <listitem>
 <simpara>
-verbose mode. print count of returned paths and ioctl() return value
+verbose mode, print count of returned paths and ioctl() return value
 </simpara>
 </listitem>
 </varlistentry>
@@ -53,10 +58,9 @@ verbose mode. print count of returned paths and ioctl() return value
 </term>
 <listitem>
 <simpara>
-Resolves a <emphasis>&lt;logical&gt;</emphasis> address in the filesystem mounted at <emphasis>&lt;path&gt;</emphasis> to all inodes.
+(needs root privileges)
 </simpara>
-<simpara>By default, each inode is then resolved to a file system path (similar to the
-inode-resolve subcommand).</simpara>
+<simpara>resolve paths to all files at given <emphasis>logical</emphasis> address in the linear filesystem space</simpara>
 <simpara><literal>Options</literal></simpara>
 <variablelist>
 <varlistentry>
@@ -75,7 +79,7 @@ skip the path resolving and print the inodes instead
 </term>
 <listitem>
 <simpara>
-verbose mode. print count of returned paths and all ioctl() return values
+verbose mode, print count of returned paths and all ioctl() return values
 </simpara>
 </listitem>
 </varlistentry>
@@ -85,10 +89,33 @@ verbose mode. print count of returned paths and all ioctl() return values
 </term>
 <listitem>
 <simpara>
-set inode container&#8217;s size.
+set internal buffer for storing the file names to <emphasis>bufsize</emphasis>, default is 4096, maximum 64k
 </simpara>
-<simpara>This is used to increase inode container&#8217;s size in case it is
-not enough to read all the resolved results. The max value one can set is 64k.</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">min-dev-size</emphasis> [options] <emphasis>&lt;path&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+(needs root privileges)
+</simpara>
+<simpara>return the minimum size the device can be shrunk to, without performing any
+resize operation, this may be useful before executing the actual resize operation</simpara>
+<simpara><literal>Options</literal></simpara>
+<variablelist>
+<varlistentry>
+<term>
+--id <emphasis>&lt;id&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+specify the device <emphasis>id</emphasis> to query, default is 1 if this option is not used
+</simpara>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -100,10 +127,11 @@ not enough to read all the resolved results. The max value one can set is 64k.</
 </term>
 <listitem>
 <simpara>
-For a given file or directory, return the containing tree root id. For a
-subvolume return it&#8217;s own tree id.
+for a given file or directory, return the containing tree root id, for a
+subvolume itself return it&#8217;s own tree id (ie. subvol id)
 </simpara>
-<simpara>The result is undefined for the so-called empty subvolumes (identified by inode number 2).</simpara>
+<note><simpara>The result is undefined for the so-called empty subvolumes (identified by
+inode number 2), but such subvolume does not contain any files anyway</simpara></note>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -112,8 +140,9 @@ subvolume return it&#8217;s own tree id.
 </term>
 <listitem>
 <simpara>
-Get file system paths for the given subvolume ID.
+(needs root privileges)
 </simpara>
+<simpara>resolve the absolute path of a the subvolume id <emphasis>subvolid</emphasis></simpara>
 </listitem>
 </varlistentry>
 </variablelist>

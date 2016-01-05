@@ -7,7 +7,7 @@
 <refentrytitle>btrfs-qgroup</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.18.2</refmiscinfo>
+<refmiscinfo class="version">v4.3.1</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -19,21 +19,24 @@
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
-<simpara><emphasis role="strong">btrfs qgroup</emphasis> is used to control quota group(qgroup) of a btrfs filesystem.</simpara>
-<note><simpara>To use qgroup, it needs to enable quota first using <emphasis role="strong">btrfs quota</emphasis>
+<simpara><emphasis role="strong">btrfs qgroup</emphasis> is used to control quota group (qgroup) of a btrfs filesystem.</simpara>
+<note><simpara>To use qgroup you need to enable quota first using <emphasis role="strong">btrfs quota enable</emphasis>
 command.</simpara></note>
 <warning><simpara>Qgroup is not stable yet and will impact performance in current mainline
-kernel(v3.14 so far).</simpara></warning>
+kernel (v3.14 so far).</simpara></warning>
 </refsect1>
 <refsect1 id="_qgroup">
 <title>QGROUP</title>
-<simpara>Quota group or qgroup in btrfs has its hierarchy like subvolume.
-One subvolume/snapshot can reach its quota limits if it consumes all the quota
-assigned to it or any of the parent qgroup(s).</simpara>
-<simpara>Also for snapshot, it consumes no quota initially since all its data
-shares with its parent, so only modification in snapshot consumes quota.</simpara>
-<simpara>Every subvolume/snapshot will have its own qgroup with id <emphasis>0/<emphasis>&lt;subvolume id&gt;</emphasis></emphasis>
-upon creating, but can be later destroyed by <emphasis role="strong">btrfs qgroup destroy</emphasis> command.</simpara>
+<simpara>Quota groups or qgroup in btrfs make a tree hierarchy, the leaf qgroups are
+attached to subvolumes. The size limits are set per qgroup and apply when any
+limit is reached in tree that contains a given subvolume.</simpara>
+<simpara>The limit sare separated between shared and exclusive and reflect the extent
+ownership. For example a fresh snapshot shares almost all the blocks with the
+original subvolume, new writes to either subvolume will raise towards the
+exclusive limit.</simpara>
+<simpara>The qgroup identifiers conform to <emphasis>level/id</emphasis> where level 0 is reserved to the
+qgroups associated with subvolumes. Such qgroups are created automatically.</simpara>
+<simpara>The qgroup hierarchy is built by commands <emphasis role="strong">create</emphasis> and <emphasis role="strong">assign</emphasis>.</simpara>
 <note><simpara>If the qgroup of a subvolume is destroyed, quota about the subvolume
 will not be functional until qgroup <emphasis>0/<emphasis>&lt;subvolume id&gt;</emphasis></emphasis> is created again.</simpara></note>
 </refsect1>
@@ -42,13 +45,37 @@ will not be functional until qgroup <emphasis>0/<emphasis>&lt;subvolume id&gt;</
 <variablelist>
 <varlistentry>
 <term>
-<emphasis role="strong">assign</emphasis> <emphasis>&lt;src&gt;</emphasis> <emphasis>&lt;dst&gt;</emphasis> <emphasis>&lt;path&gt;</emphasis>
+<emphasis role="strong">assign</emphasis> [options] <emphasis>&lt;src&gt;</emphasis> <emphasis>&lt;dst&gt;</emphasis> <emphasis>&lt;path&gt;</emphasis>
 </term>
 <listitem>
 <simpara>
 Assign qgroup <emphasis>&lt;src&gt;</emphasis> as the child qgroup of <emphasis>&lt;dst&gt;</emphasis> in the btrfs filesystem
 identified by <emphasis>&lt;path&gt;</emphasis>.
 </simpara>
+<simpara><literal>Options</literal></simpara>
+<variablelist>
+<varlistentry>
+<term>
+--rescan
+</term>
+<listitem>
+<simpara>
+Automatically schedule quota rescan if the new qgroup assignment leads to
+quota inconsistency.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--no-rescan
+</term>
+<listitem>
+<simpara>
+Explicitly ask not to do a rescan.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
 </listitem>
 </varlistentry>
 <varlistentry>

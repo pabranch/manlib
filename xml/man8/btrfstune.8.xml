@@ -7,33 +7,37 @@
 <refentrytitle>btrfstune</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.18.2</refmiscinfo>
+<refmiscinfo class="version">v4.3.1</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
   <refname>btrfstune</refname>
-  <refpurpose>tune various btrfs filesystem parameters</refpurpose>
+  <refpurpose>tune various filesystem parameters</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
 <simpara><emphasis role="strong">btrfstune</emphasis> [options] <emphasis>&lt;dev&gt;</emphasis> [<emphasis>&lt;dev&gt;</emphasis>&#8230;]</simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
-<simpara><emphasis role="strong">btrfstune</emphasis> is used to tune various btrfs filesystem parameters,you can
-enable/disable some extended features for btrfs.</simpara>
+<simpara><emphasis role="strong">btrfstune</emphasis> can be used to enable, disable or set various filesystem
+parameters. The filesystem must be unmounted.</simpara>
+<simpara>The common usecase is to enable features that were not enabled at mkfs time.
+Please make sure that you have kernel support for the features.  You can find a
+complete list of features and kernel version of their introduction at
+<ulink url="https://btrfs.wiki.kernel.org/index.php/Changelog#By_feature">https://btrfs.wiki.kernel.org/index.php/Changelog#By_feature</ulink> .</simpara>
 </refsect1>
 <refsect1 id="_options">
 <title>OPTIONS</title>
 <variablelist>
 <varlistentry>
 <term>
--S <emphasis>&lt;value&gt;</emphasis>
+-S <emphasis>&lt;0|1&gt;</emphasis>
 </term>
 <listitem>
 <simpara>
-Updates the seeding value.
-A positive value will enable seeding, zero will disable seeding, negtive is not allowed.
-Enable seeding forces a fs readonly so that you can use it to build other filesystems.
+Enable seeding on a given device. Value 1 will enable seeding, 0 will disable it.<?asciidoc-br?>
+A seeding filesystem is forced to be mounted read-only. A new device can be added
+to the filesystem and will capture all writes keeping the seeding device intact.
 </simpara>
 </listitem>
 </varlistentry>
@@ -43,7 +47,8 @@ Enable seeding forces a fs readonly so that you can use it to build other filesy
 </term>
 <listitem>
 <simpara>
-Enable extended inode refs.
+Enable extended inode refs (hardlink limit per file in a directory is 65536),
+enabled by mkfs feature <emphasis>extref</emphasis>. Since kernel 3.7.
 </simpara>
 </listitem>
 </varlistentry>
@@ -53,7 +58,19 @@ Enable extended inode refs.
 </term>
 <listitem>
 <simpara>
-Enable skinny metadata extent refs.
+Enable skinny metadata extent refs (more efficient representation of extents),
+enabled by mkfs feature <emphasis>skinny-metadata</emphasis>. Since kernel 3.10.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-n
+</term>
+<listitem>
+<simpara>
+Enable no-holes feature (more efficient representation of file holes), enabled
+by mkfs feature <emphasis>no-holes</emphasis>. Since kernel 3.14.
 </simpara>
 </listitem>
 </varlistentry>
@@ -63,22 +80,57 @@ Enable skinny metadata extent refs.
 </term>
 <listitem>
 <simpara>
-Allow dangerous changes, e.g. clear the seeding flag. Make sure that you are
-aware of the dangers.
+Allow dangerous changes, e.g. clear the seeding flag or change fsid. Make sure
+that you are aware of the dangers.
 </simpara>
 </listitem>
 </varlistentry>
+<varlistentry>
+<term>
+-u
+</term>
+<listitem>
+<simpara>
+Change fsid to a randomly generated UUID or continue previous fsid change
+operation in case it was interrupted.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-U <emphasis>&lt;UUID&gt;</emphasis>
+</term>
+<listitem>
+<simpara>
+Change fsid to <emphasis>UUID</emphasis>.
+</simpara>
+<simpara>The <emphasis>UUID</emphasis> should be a 36 bytes string in <literal>printf</literal>(3) format
+<emphasis>"%08x-%04x-%04x-%04x-%012x"</emphasis>.
+If there is a previous unfinished fsid change, it will continue only if the
+<emphasis>UUID</emphasis> matches the unfinished one or if you use the option <emphasis>-u</emphasis>.</simpara>
+</listitem>
+</varlistentry>
 </variablelist>
-<simpara>When mounting the new device, btrfs will check whether the seeding flag is set
-when try to open seeding device.  If the user clears the seeding flag of the
-seeding device, the new device will not be mountable. Even setting the seeding
-flag back will not fix this problem, because the generation will be changed at
-that time. Clear the seeding flag may damage the new filesystem.</simpara>
+<warning><simpara>Cancelling or interrupting a UUID change operation will make the
+filesystem temporarily unmountable.  To fix it, rerun <emphasis>btrfstune -u</emphasis> to restore
+the UUID and let it complete.</simpara></warning>
+<warning><simpara>Clearing the seeding flag on a device may be dangerous.
+If a previously-seeding device is changed, all filesystems that used that
+device will become unmountable. Setting the seeding flag back will not fix
+that.<?asciidoc-br?>
+A valid usecase is <emphasis>seeding device as a base image</emphasis>. Clear the seeding
+flag, update the filesystem and make it seeding again, provided that it&#8217;s ok
+to throw away all filesystems built on top of the previous base.</simpara></warning>
 </refsect1>
 <refsect1 id="_exit_status">
 <title>EXIT STATUS</title>
-<simpara><emphasis role="strong">btrfstune</emphasis> will return 0 if no error happened.
-If any problems happened, 1 will be returned.</simpara>
+<simpara><emphasis role="strong">btrfstune</emphasis> returns 0 if no error happened, 1 otherwise.</simpara>
+</refsect1>
+<refsect1 id="_compatibility_note">
+<title>COMPATIBILITY NOTE</title>
+<simpara>This tool exists for historical reasons but is still in use today.  The
+functionality is about to be merged to the main tool someday and <emphasis role="strong">btrfstune</emphasis>
+will become deprecated and removed afterwards.</simpara>
 </refsect1>
 <refsect1 id="_see_also">
 <title>SEE ALSO</title>

@@ -7,21 +7,57 @@
 <refentrytitle>btrfs-balance</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.18-36-g0173148</refmiscinfo>
+<refmiscinfo class="version">v4.3.1</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
   <refname>btrfs-balance</refname>
-  <refpurpose>balance btrfs filesystem</refpurpose>
+  <refpurpose>balance block groups on a btrfs filesystem</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
 <simpara><emphasis role="strong">btrfs balance</emphasis> <emphasis>&lt;subcommand&gt;</emphasis> <emphasis>&lt;args&gt;</emphasis></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
-<simpara><emphasis role="strong">btrfs balance</emphasis> is used to balance chunks in a btrfs filesystem across
-multiple or even single device.</simpara>
-<simpara>See <literal>btrfs-device</literal>(8) for more details about the effect on device management.</simpara>
+<simpara>The primary purpose of the balance feature is to spread block groups accross
+all devices so they match constraints defined by the respective profiles. See
+<literal>mkfs.btrfs</literal>(8) section <emphasis>PROFILES</emphasis> for more details.
+The scope of the balancing process can be further tuned by use of filters that
+can select the block groups to process. Balance works only on a mounted
+filesystem.</simpara>
+<simpara>The balance operation is cancellable by the user. The on-disk state of the
+filesystem is always consistent so an unexpected interruption (eg. system crash,
+reboot) does not corrupt the filesystem. The progress of the balance operation
+is temporarily stored and will be resumed upon mount, unless the mount option
+<emphasis>skip_balance</emphasis> is specified.</simpara>
+<warning><simpara>running balance without filters will take a lot of time as it basically
+rewrites the entire filesystem and needs to update all block pointers.</simpara></warning>
+<simpara>The filters can be used to perform following actions:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+convert block group profiles (filter <emphasis>convert</emphasis>)
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+make block group usage more compact  (filter <emphasis>usage</emphasis>)
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+perform actions only on a given device (filters <emphasis>devid</emphasis>, <emphasis>drange</emphasis>)
+</simpara>
+</listitem>
+</itemizedlist>
+<simpara>The filters can be applied to a combination of block group types (data,
+metadata, system). Note that changing <emphasis>system</emphasis> needs the force option.</simpara>
+<note><simpara>the balance operation needs enough work space, ie. space that is
+completely unused in the filesystem, otherwise this may lead to ENOSPC reports.
+See the section <emphasis>ENOSPC</emphasis> for more details.</simpara></note>
+</refsect1>
+<refsect1 id="_compatibility">
+<title>COMPATIBILITY</title>
 <note><simpara>The balance subcommand also exists under the <emphasis role="strong">filesystem</emphasis> namespace. This
 still works for backward compatibility but is deprecated and should not be
 used anymore.</simpara></note>
@@ -38,7 +74,7 @@ command instead.</simpara></note>
 </term>
 <listitem>
 <simpara>
-Cancel running or paused balance.
+cancel running or paused balance
 </simpara>
 </listitem>
 </varlistentry>
@@ -48,7 +84,8 @@ Cancel running or paused balance.
 </term>
 <listitem>
 <simpara>
-Pause running balance.
+pause running balance operation, this will store the state of the balance
+progress and used filters to the filesystem
 </simpara>
 </listitem>
 </varlistentry>
@@ -58,7 +95,7 @@ Pause running balance.
 </term>
 <listitem>
 <simpara>
-Resume interrupted balance.
+resume interrupted balance
 </simpara>
 </listitem>
 </varlistentry>
@@ -68,14 +105,9 @@ Resume interrupted balance.
 </term>
 <listitem>
 <simpara>
-Balance chunks across the devices <emphasis role="strong">online</emphasis>.
+start the balance operation according to the specified filters, no filters
+will rewrite the entire filesystem. The process runs in the foreground.
 </simpara>
-<simpara>Balance and/or convert (change allocation profile of) chunks that
-passed all filters in a comma-separated list of filters for a
-particular chunk type.
-If filter list is not given balance all chunks of that type.
-In case none of the -d, -m or -s options is
-given balance all chunks in a filesystem.</simpara>
 <simpara><literal>Options</literal></simpara>
 <variablelist>
 <varlistentry>
@@ -84,7 +116,7 @@ given balance all chunks in a filesystem.</simpara>
 </term>
 <listitem>
 <simpara>
-act on data chunks. See <literal>FILTERS</literal> section for details about <emphasis>&lt;filters&gt;</emphasis>.
+act on data block groups, see <literal>FILTERS</literal> section for details about <emphasis>filters</emphasis>
 </simpara>
 </listitem>
 </varlistentry>
@@ -94,7 +126,7 @@ act on data chunks. See <literal>FILTERS</literal> section for details about <em
 </term>
 <listitem>
 <simpara>
-act on metadata chunks. See <literal>FILTERS</literal> section for details about <emphasis>&lt;filters&gt;</emphasis>.
+act on metadata chunks, see <literal>FILTERS</literal> section for details about <emphasis>filters</emphasis>
 </simpara>
 </listitem>
 </varlistentry>
@@ -104,7 +136,7 @@ act on metadata chunks. See <literal>FILTERS</literal> section for details about
 </term>
 <listitem>
 <simpara>
-act on system chunks (only under -f). See <literal>FILTERS</literal> section for details about <emphasis>&lt;filters&gt;</emphasis>.
+act on system chunks (requires <emphasis>-f</emphasis>), see <literal>FILTERS</literal> section for details about <emphasis>filters</emphasis>.
 </simpara>
 </listitem>
 </varlistentry>
@@ -114,7 +146,7 @@ act on system chunks (only under -f). See <literal>FILTERS</literal> section for
 </term>
 <listitem>
 <simpara>
-be verbose
+be verbose and print balance filter arguments
 </simpara>
 </listitem>
 </varlistentry>
@@ -124,7 +156,7 @@ be verbose
 </term>
 <listitem>
 <simpara>
-force reducing of metadata integrity
+force reducing of metadata integrity, eg. when going from <emphasis>raid1</emphasis> to <emphasis>single</emphasis>
 </simpara>
 </listitem>
 </varlistentry>
@@ -148,86 +180,75 @@ Show status of running or paused balance.
 <title>FILTERS</title>
 <simpara>From kernel 3.3 onwards, btrfs balance can limit its action to a subset of the
 full filesystem, and can be used to change the replication configuration (e.g.
-moving data from single to RAID-1). This functionality is accessed through the
+moving data from single to RAID1). This functionality is accessed through the
 <emphasis>-d</emphasis>, <emphasis>-m</emphasis> or <emphasis>-s</emphasis> options to btrfs balance start, which filter on data,
 metadata and system blocks respectively.</simpara>
-<variablelist>
-<varlistentry>
-<term>
-A filter has the following stucture: 
-</term>
-<listitem>
-<simpara>
-<emphasis>type</emphasis>[=<emphasis>params</emphasis>][,<emphasis>type</emphasis>=&#8230;]
-</simpara>
-</listitem>
-</varlistentry>
-</variablelist>
+<simpara>A filter has the following stucture: <emphasis>type</emphasis>[=<emphasis>params</emphasis>][,<emphasis>type</emphasis>=&#8230;]</simpara>
 <simpara>The available types are:</simpara>
 <variablelist>
 <varlistentry>
 <term>
-<emphasis role="strong">profiles</emphasis>
+<emphasis role="strong">profiles=<emphasis>&lt;profiles&gt;</emphasis></emphasis>
 </term>
 <listitem>
 <simpara>
-Balances only block groups with the given replication profiles. Parameters
-are a list of profile names separated by |.
+Balances only block groups with the given profiles. Parameters
+are a list of profile names separated by "<emphasis>|</emphasis>" (pipe).
 </simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
 <term>
-<emphasis role="strong">usage</emphasis>
+<emphasis role="strong">usage=<emphasis>&lt;percent&gt;</emphasis></emphasis>
 </term>
 <listitem>
 <simpara>
 Balances only block groups with usage under the given percentage. The
 value of 0 is allowed and will clean up completely unused block groups, this
-should not require any new space allocated. You may want to use usage=0 in
+should not require any new space allocated. You may want to use <emphasis>usage=0</emphasis> in
 case balance is returnin ENOSPC and your filesystem is not too full.
 </simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
 <term>
-<emphasis role="strong">devid</emphasis>
+<emphasis role="strong">devid=<emphasis>&lt;id&gt;</emphasis></emphasis>
 </term>
 <listitem>
 <simpara>
 Balances only block groups which have at least one chunk on the given
-device (by btrfs device ID&#8201;&#8212;&#8201;use btrfs fi show to list device IDs)
+device. To list devices with ids use <emphasis>btrfs fi show</emphasis>.
 </simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
 <term>
-<emphasis role="strong">drange</emphasis>
+<emphasis role="strong">drange=<emphasis>&lt;range&gt;</emphasis></emphasis>
 </term>
 <listitem>
 <simpara>
 Balances only block groups which overlap with the given byte range on any
-device. (Use in conjunction with "devid" to filter on a specific device). The
-parameter is a range specified as <emphasis>&lt;start..end&gt;</emphasis>.
+device.(Use in conjunction with <emphasis>devid</emphasis> to filter on a specific device. The
+parameter is a range specified as <emphasis>start..end</emphasis>.
 </simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
 <term>
-<emphasis role="strong">vrange</emphasis>
+<emphasis role="strong">vrange=<emphasis>&lt;range&gt;</emphasis></emphasis>
 </term>
 <listitem>
 <simpara>
 Balances only block groups which overlap with the given byte range in the
 filesystem&#8217;s internal virtual address space. This is the address space that
 most reports from btrfs in the kernel log use. The parameter is a range
-specified as <emphasis>&lt;start..end&gt;</emphasis>.
+specified as <emphasis>start..end</emphasis>.
 </simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
 <term>
-<emphasis role="strong">convert</emphasis>
+<emphasis role="strong">convert=<emphasis>&lt;profile&gt;</emphasis></emphasis>
 </term>
 <listitem>
 <simpara>
@@ -238,12 +259,12 @@ parameters.
 </varlistentry>
 <varlistentry>
 <term>
-<emphasis role="strong">limit</emphasis>
+<emphasis role="strong">limit=<emphasis>&lt;number&gt;</emphasis></emphasis>
 </term>
 <listitem>
 <simpara>
-Process only given number of chunks, after all filters apply. This can be used
-to specifically target a chunk in connection with other filters (drange,
+Process only given number of chunks, after all filters are applied. This can be
+used to specifically target a chunk in connection with other filters (drange,
 vrange) or just simply limit the amount of work done by a single balance run.
 </simpara>
 </listitem>
@@ -256,17 +277,42 @@ vrange) or just simply limit the amount of work done by a single balance run.
 <simpara>
 Takes no parameters. Only has meaning when converting between profiles.
 When doing convert from one profile to another and soft mode is on,
-restriper won&#8217;t touch chunks that already have the target profile. This is
-useful if e.g. half of the FS was converted earlier.
+chunks that alread yave the target profile are left untouched
+ This is useful if e.g. half of the filesystem was converted earlier.
 </simpara>
-<simpara>The soft mode switch is (like every other filter) per-type. This means
-that we can convert for example meta chunks the "hard" way while converting
-data chunks selectively with soft switch.</simpara>
+<simpara>The soft mode switch is (like every other filter) per-type.
+For example, this means that we can convert metadata chunks the "hard" way
+while converting data chunks selectively with soft switch.</simpara>
 </listitem>
 </varlistentry>
 </variablelist>
 <simpara>Profile names, used in profiles and convert are one of: <emphasis>raid0</emphasis>, <emphasis>raid1</emphasis>,
-<emphasis>raid10</emphasis>, <emphasis>raid5</emphasis>, <emphasis>raid6</emphasis>, <emphasis>dup</emphasis>, <emphasis>single</emphasis>.</simpara>
+<emphasis>raid10</emphasis>, <emphasis>raid5</emphasis>, <emphasis>raid6</emphasis>, <emphasis>dup</emphasis>, <emphasis>single</emphasis>. The mixed data/metadata profiles
+can be converted in the same bay, but it&#8217;s conversion between mixed and non-mixed
+is not implemented.</simpara>
+</refsect1>
+<refsect1 id="_enospc">
+<title>ENOSPC</title>
+<simpara>The way balance operates, it usually needs to temporarily create a new block
+group and move the old data there. For that it needs work space, otherwise
+it fails for ENOSPC reasons.
+This is not the same ENOSPC as if the free space is exhausted. This refers to
+the space on the level of block groups.</simpara>
+<simpara>The free work space can be calculated from the output of the <emphasis>btrfs filesystem show</emphasis>
+command:</simpara>
+<literallayout class="monospaced">Label: 'BTRFS'  uuid: 8a9d72cd-ead3-469d-b371-9c7203276265
+        Total devices 2 FS bytes used 77.03GiB
+        devid    1 size 53.90GiB used 51.90GiB path /dev/sdc2
+        devid    2 size 53.90GiB used 51.90GiB path /dev/sde1</literallayout>
+<simpara><emphasis>size</emphasis> - <emphasis>used</emphasis> = <emphasis>free work space</emphasis><?asciidoc-br?>
+<emphasis>53.90GiB</emphasis> - <emphasis>51.90GiB</emphasis> = <emphasis>2.00GiB</emphasis></simpara>
+<simpara>An example of a filter that does not require workspace is <emphasis>usage=0</emphasis>. This will
+scan through all unused block groups of a given type and will reclaim the
+space. Ater that it might be possible to run other filters.</simpara>
+<simpara><emphasis role="strong">CONVERSIONS ON MULTIPLE DEVICES</emphasis></simpara>
+<simpara>Conversion to profiles based on striping (RAID0, RAID5/6) require the work
+space on each device. An interrupted balance may leave partially filled block
+groups that might consume the work space.</simpara>
 </refsect1>
 <refsect1 id="_exit_status">
 <title>EXIT STATUS</title>

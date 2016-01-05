@@ -7,7 +7,7 @@
 <refentrytitle>btrfs-filesystem</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.18.2</refmiscinfo>
+<refmiscinfo class="version">v4.3.1</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -141,9 +141,10 @@ Defragment file data and/or directory metadata <emphasis role="strong">online</e
 <simpara>If <emphasis>-r</emphasis> is passed, files in dir will be defragmented recursively.
 The start position and the number of bytes to defragment can be specified by
 start and len using <emphasis>-s</emphasis> and <emphasis>-l</emphasis> options below.
-Any extent bigger than threshold given by <emphasis>-t</emphasis> option, will be considered
-already defragged.
-Use 0 to take the kernel default.
+Extents bigger than value given by <emphasis>-t</emphasis> will be skipped, otherwise this value
+is used as a target extent size, but is only advisory and may not be reached
+if the free space is too fragmented.
+Use 0 to take the kernel default, which is 256kB but may change in the future.
 You can also turn on compression in defragment operations.</simpara>
 <simpara><literal>Options</literal></simpara>
 <variablelist>
@@ -159,11 +160,13 @@ be verbose
 </varlistentry>
 <varlistentry>
 <term>
--c
+-c[<emphasis>&lt;algo&gt;</emphasis>]
 </term>
 <listitem>
 <simpara>
-compress file contents while defragmenting
+compress file contents while defragmenting. Optional argument selects the compression
+algorithm, <emphasis>zlib</emphasis> (default) or <emphasis>lzo</emphasis>. Currently it&#8217;s not possible to select no
+compression.
 </simpara>
 </listitem>
 </varlistentry>
@@ -173,7 +176,7 @@ compress file contents while defragmenting
 </term>
 <listitem>
 <simpara>
-defragment files recursively
+defragment files recursively in given directories
 </simpara>
 </listitem>
 </varlistentry>
@@ -183,7 +186,9 @@ defragment files recursively
 </term>
 <listitem>
 <simpara>
-flush filesystem after defragmenting
+flush data for each file before going to the next file. This will limit the amount
+of dirty data to current file, otherwise the amount cumulates from several files
+and may increase system load.
 </simpara>
 </listitem>
 </varlistentry>
@@ -213,7 +218,7 @@ defragment only up to <emphasis>&lt;len&gt;</emphasis> bytes
 </term>
 <listitem>
 <simpara>
-defragment only files at least <emphasis>&lt;size&gt;</emphasis> bytes big
+target extent size, do not touch extents bigger than <emphasis>&lt;size&gt;</emphasis>
 </simpara>
 <simpara>For <emphasis>&lt;start&gt;</emphasis>, <emphasis>&lt;len&gt;</emphasis>, <emphasis>&lt;size&gt;</emphasis> it is possible to append
 units designator: 'K', 'M', 'G', 'T', 'P', or 'E', which represent
@@ -247,9 +252,13 @@ If a newlabel optional argument is passed, the label is changed.</simpara>
 </term>
 <listitem>
 <simpara>
-Resize a filesystem identified by <emphasis>&lt;path&gt;</emphasis> for the underlying device
-devid <emphasis role="strong">online</emphasis>.<?asciidoc-br?>
-The devid can be found with <emphasis role="strong">btrfs filesystem show</emphasis> and
+Resize a mounted filesystem identified by directory <emphasis>&lt;path&gt;</emphasis>. A particular device
+can be resized by specifying a <emphasis>&lt;devid&gt;</emphasis>.
+</simpara>
+<simpara>If <emphasis>&lt;path&gt;</emphasis> is a file containing a btrfs image then resize does not work as
+expected and does not resize the image. This would resize the underlying
+filesystem instead.</simpara>
+<simpara>The devid can be found with <emphasis role="strong">btrfs filesystem show</emphasis> and
 defaults to 1 if not specified.
 The <emphasis>&lt;size&gt;</emphasis> parameter specifies the new size of the filesystem.
 If the prefix + or - is present the size is increased or decreased
@@ -257,8 +266,7 @@ by the quantity <emphasis>&lt;size&gt;</emphasis>.
 If no units are specified, the unit of the <emphasis>&lt;size&gt;</emphasis> parameter defaults to
 bytes. Optionally, the size parameter may be suffixed by one of the following
 units designators: 'K', 'M', 'G', 'T', 'P', or 'E', which represent
-KiB, MiB, GiB, TiB, PiB, or EiB, respectively. Case does not matter.
-</simpara>
+KiB, MiB, GiB, TiB, PiB, or EiB, respectively. Case does not matter.</simpara>
 <simpara>If 'max' is passed, the filesystem will occupy all available space on the
 device devid.</simpara>
 <simpara>The resize command does not manipulate the size of underlying
@@ -272,18 +280,118 @@ the same starting disk cylinder as before.</simpara>
 </varlistentry>
 <varlistentry>
 <term>
-<emphasis role="strong">show</emphasis> [--mounted|--all-devices|<emphasis>&lt;path&gt;</emphasis>|<emphasis>&lt;uuid&gt;</emphasis>|<emphasis>&lt;device&gt;</emphasis>|<emphasis>&lt;label&gt;</emphasis>]
+<emphasis role="strong">show</emphasis> [options] [<emphasis>&lt;path&gt;</emphasis>|<emphasis>&lt;uuid&gt;</emphasis>|<emphasis>&lt;device&gt;</emphasis>|<emphasis>&lt;label&gt;</emphasis>]
 </term>
 <listitem>
 <simpara>
 Show the btrfs filesystem with some additional info.
 </simpara>
 <simpara>If no option nor <emphasis>&lt;path&gt;</emphasis>|<emphasis>&lt;uuid&gt;</emphasis>|<emphasis>&lt;device&gt;</emphasis>|<emphasis>&lt;label&gt;</emphasis> is passed, btrfs shows
-information of all the btrfs filesystem both mounted and unmounted.
-If <emphasis>--mounted</emphasis> is passed, it would probe btrfs kernel to list mounted btrfs
-filesystem(s);
-If <emphasis>--all-devices</emphasis> is passed, all the devices under /dev are scanned;
-otherwise the devices list is extracted from the /proc/partitions file.</simpara>
+information of all the btrfs filesystem both mounted and unmounted.</simpara>
+<simpara><literal>Options</literal></simpara>
+<variablelist>
+<varlistentry>
+<term>
+-m|--mounted
+</term>
+<listitem>
+<simpara>
+probe btrfs kernel to list mounted btrfs filesystems(s)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-d|--all-devices
+</term>
+<listitem>
+<simpara>
+scan all devices under /dev, otherwise the devices list is extracted from the
+/proc/partitions file.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--raw
+</term>
+<listitem>
+<simpara>
+raw numbers in bytes, without the <emphasis>B</emphasis> suffix
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--human-readable
+</term>
+<listitem>
+<simpara>
+print human friendly numbers, base 1024, this is the default
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--iec
+</term>
+<listitem>
+<simpara>
+select the 1024 base for the following options, according to the IEC standard
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--si
+</term>
+<listitem>
+<simpara>
+select the 1000 base for the following options, according to the SI standard
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--kbytes
+</term>
+<listitem>
+<simpara>
+show sizes in KiB, or kB with --si
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--mbytes
+</term>
+<listitem>
+<simpara>
+show sizes in MiB, or MB with --si
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--gbytes
+</term>
+<listitem>
+<simpara>
+show sizes in GiB, or GB with --si
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--tbytes
+</term>
+<listitem>
+<simpara>
+show sizes in TiB, or TB with --si
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
 </listitem>
 </varlistentry>
 <varlistentry>

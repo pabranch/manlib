@@ -7,7 +7,7 @@
 <refentrytitle>btrfs-subvolume</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.18-36-g0173148</refmiscinfo>
+<refmiscinfo class="version">v4.3.1</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -45,7 +45,7 @@ files/directories/subvolumes inside it, but nothing in parent subvolumes.
 </listitem>
 </orderedlist>
 <simpara>Also every btrfs filesystem has a default subvolume as its initially top-level
-subvolume, whose subvolume id is 5(FS_TREE).</simpara>
+subvolume, whose subvolume id is 5. (0 is also acceptable as an alias.)</simpara>
 <simpara>A btrfs snapshot is much like a subvolume, but shares its data(and metadata)
 with other subvolume/snapshot. Due to the capabilities of COW, modifications
 inside a snapshot will only show in a snapshot but not in its source subvolume.</simpara>
@@ -356,9 +356,9 @@ If <emphasis>-r</emphasis> is given, the snapshot will be readonly.</simpara>
 <listitem>
 <simpara>
 Wait until given subvolume(s) are completely removed from the filesystem
-after deletion. If no subvolume id is given, wait until all ongoing deletion
-requests are complete. This may take long if new deleted subvolumes appear
-during the sleep interval.
+after deletion. If no subvolume id is given, wait until all current  deletion
+requests are completed, but do not wait for subvolumes deleted meanwhile.
+The status of subvolume ids is checked periodically.
 </simpara>
 <simpara><literal>Options</literal></simpara>
 <variablelist>
@@ -379,7 +379,7 @@ sleep N seconds between checks (default: 1)
 </refsect1>
 <refsect1 id="_exit_status">
 <title>EXIT STATUS</title>
-<simpara><emphasis role="strong">btrfs subvolume</emphasis> returns a zero exit status if it succeeds. Non zero is
+<simpara><emphasis role="strong">btrfs subvolume</emphasis> returns a zero exit status if it succeeds. A non-zero value is
 returned in case of failure.</simpara>
 </refsect1>
 <refsect1 id="_availability">

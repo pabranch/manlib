@@ -7,7 +7,7 @@
 <refentrytitle>btrfs-receive</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v3.18-36-g0173148</refmiscinfo>
+<refmiscinfo class="version">v4.3.1</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -15,7 +15,7 @@
   <refpurpose>receive subvolumes from stdin/file.</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<simpara><emphasis role="strong">btrfs receive</emphasis> [-ve] [-f <emphasis>&lt;infile&gt;</emphasis>] [--max-errors <emphasis>&lt;N&gt;</emphasis>] <emphasis>&lt;mount&gt;</emphasis></simpara>
+<simpara><emphasis role="strong">btrfs receive</emphasis> [options] <emphasis>&lt;mount&gt;</emphasis></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
@@ -68,6 +68,16 @@ Use this option to specify a file to use instead.
 </varlistentry>
 <varlistentry>
 <term>
+-C|--chroot
+</term>
+<listitem>
+<simpara>
+Confine the process to <emphasis>&lt;mount&gt;</emphasis> using chroot.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 -e
 </term>
 <listitem>
@@ -87,6 +97,19 @@ or on EOF.
 Terminate as soon as N errors happened while processing commands from the send
 stream. Default value is 1. A value of 0 means no limit.
 </simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-m
+</term>
+<listitem>
+<simpara>
+The root mount point of the destination fs.
+</simpara>
+<simpara>By default the mountpoint is searched in /proc/self/mounts.
+If you do not have /proc, eg. in a chroot environment, use this option to tell
+us where this filesystem is mounted.</simpara>
 </listitem>
 </varlistentry>
 </variablelist>
