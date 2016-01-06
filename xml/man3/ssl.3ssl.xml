@@ -1024,7 +1024,32 @@
           <varlistentry>
             <term>SSL *<emphasis role="bold">SSL_dup</emphasis>(SSL *ssl);</term>
             <listitem>
-              <para/>
+              <para>
+		SSL_dup() allows applications to configure an SSL handle
+		for use in multiple SSL connections, and then duplicate it
+		prior to initiating each connection with the duplicated
+		handle. Use of SSL_dup() avoids the need to repeat the
+		configuration of the handles for each connection. This is
+		used internally by <citerefentry>
+		<refentrytitle>BIO_s_accept</refentrytitle>
+		<manvolnum>3</manvolnum> </citerefentry> to construct
+		per-connection SSL handles after <citerefentry>
+		<refentrytitle>accept</refentrytitle>
+		<manvolnum>2</manvolnum> </citerefentry>.
+              </para>
+              <para>
+		For SSL_dup() to work, the connection MUST be in its
+		initial state and MUST NOT have not yet have started the
+		SSL handshake. For connections that are not in their
+		initial state SSL_dup() just increments an internal
+		reference count and returns the <emphasis role="italic">same</emphasis> handle. It may be possible to
+		use <citerefentry> <refentrytitle>SSL_clear</refentrytitle>
+		<manvolnum>3</manvolnum> </citerefentry> to recycle an SSL
+		handle that is not in its initial state for re-use, but
+		this is best avoided. Instead, save and restore the
+		session, if desired, and construct a fresh handle for each
+		connection.
+              </para>
             </listitem>
           </varlistentry>
           <varlistentry>
