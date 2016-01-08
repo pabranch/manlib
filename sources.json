@@ -27,6 +27,13 @@ rsync --checksum sources/abrt/doc/*.5 man/man5/;"
 rsync --checksum sources/acct/*.8 man/man8/"
   },
 
+  "ark": {
+    "type": "git",
+    "url": "git://anongit.kde.org/ark",
+    "sparse": "doc/",
+    "cmd": "sed 's/&\\([^ ]*\\);/\\1/g' sources/ark/doc/man-ark.1.docbook | xsltproc utils/db4-upgrade.xsl - > xml/man1/ark.1.xml"
+  },
+
   "asciidoc": {
     "type": "git",
     "url": "https://github.com/asciidoc/asciidoc.git",
