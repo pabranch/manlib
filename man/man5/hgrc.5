@@ -1281,6 +1281,20 @@ Optional. User name to authenticate with at the proxy server.
 Optional. Always use the proxy, even for localhost and any entries
 in \fBhttp_proxy.no\fP. (default: False)
 .UNINDENT
+.SS \fBmerge\fP
+.sp
+This section specifies behavior during merges and updates.
+.INDENT 0.0
+.TP
+.B \fBcheckunknown\fP
+.sp
+Controls behavior when an unknown file on disk has the same name as a tracked
+file in the changeset being merged or updated to, and has different
+contents. Options are \fBabort\fP, \fBwarn\fP and \fBignore\fP. With \fBabort\fP,
+abort on such files. With \fBwarn\fP, warn on such files and back them up as
+.orig. With \fBignore\fP, don\(aqt print a warning and back them up as
+.orig. (default: \fBabort\fP)
+.UNINDENT
 .SS \fBmerge\-patterns\fP
 .sp
 This section specifies merge tools to associate with particular file
@@ -1643,12 +1657,12 @@ Time in seconds between refreshes of the progress bar. (default: 0.1)
 Format of the progress bar.
 .sp
 Valid entries for the format field are \fBtopic\fP, \fBbar\fP, \fBnumber\fP,
-\fBunit\fP, \fBestimate\fP, speed, and item. item defaults to the last 20
-characters of the item, but this can be changed by adding either \fB\-<num>\fP
-which would take the last num characters, or \fB+<num>\fP for the first num
-characters.
+\fBunit\fP, \fBestimate\fP, \fBspeed\fP, and \fBitem\fP. \fBitem\fP defaults to the
+last 20 characters of the item, but this can be changed by adding either
+\fB\-<num>\fP which would take the last num characters, or \fB+<num>\fP for the
+first num characters.
 .sp
-(default: Topic bar number estimate)
+(default: topic bar number estimate)
 .TP
 .B \fBwidth\fP
 .sp
@@ -1709,15 +1723,30 @@ many bytes. (default: 1024)
 Whether to allow clients to push and pull using the legacy bundle1
 exchange format. (default: True)
 .TP
+.B \fBbundle1gd\fP
+.sp
+Like \fBbundle1\fP but only used if the repository is using the
+\fIgeneraldelta\fP storage format. (default: True)
+.TP
 .B \fBbundle1.push\fP
 .sp
 Whether to allow clients to push using the legacy bundle1 exchange
 format. (default: True)
 .TP
+.B \fBbundle1gd.push\fP
+.sp
+Like \fBbundle1.push\fP but only used if the repository is using the
+\fIgeneraldelta\fP storage format. (default: True)
+.TP
 .B \fBbundle1.pull\fP
 .sp
 Whether to allow clients to pull using the legacy bundle1 exchange
 format. (default: True)
+.TP
+.B \fBbundle1gd.pull\fP
+.sp
+Like \fBbundle1.pull\fP but only used if the repository is using the
+\fIgeneraldelta\fP storage format. (default: True)
 .sp
 Large repositories using the \fIgeneraldelta\fP storage format should
 consider setting this option because converting \fIgeneraldelta\fP

@@ -179,7 +179,7 @@ flag in
 for reasons why this may be useful.
 .SH RETURN VALUE
 On success,
-these system calls return a nonnegative integer that is a descriptor
+these system calls return a nonnegative integer that is a file descriptor
 for the accepted socket.
 On error, \-1 is returned, and
 .I errno
@@ -223,7 +223,8 @@ and do not require these constants to have the same value,
 so a portable application should check for both possibilities.
 .TP
 .B EBADF
-The descriptor is invalid.
+.I sockfd
+is not an open file descriptor.
 .TP
 .B ECONNABORTED
 A connection has been aborted.
