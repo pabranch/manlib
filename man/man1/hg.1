@@ -13081,6 +13081,17 @@ that the patchbomb extension can automatically send patchbombs
 directly from the commandline. See the [email] and [smtp] sections in
 hgrc(5) for details.
 .sp
+By default, \%\fBhg email\fP\: will prompt for a \fBTo\fP or \fBCC\fP header if
+you do not supply one via configuration or the command line.  You can
+override this to never prompt by configuring an empty value:
+.sp
+.nf
+.ft C
+[email]
+cc =
+.ft P
+.fi
+.sp
 You can control the default inclusion of an introduction message with the
 \fBpatchbomb.intro\fP configuration option. The configuration is always
 overwritten by command line flags like \-\-intro and \-\-desc:
