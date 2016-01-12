@@ -51,7 +51,7 @@ int CRYPTO_set_mem_functions(
 #define CRYPTO_MEM_CHECK_ON
 #define CRYPTO_MEM_CHECK_DISABLE
 #define CRYPTO_MEM_CHECK_ENABLE</synopsis>
-<synopsis>int CRYPTO_mem_ctrl(int flags);</synopsis>
+<synopsis>int CRYPTO_mem_ctrl(int mode);</synopsis>
 <synopsis>int OPENSSL_mem_debug_push(const char *info)
 int OPENSLS_mem_debug_pop)(void)</synopsis>
 <synopsis>int CRYPTO_mem_debug_push(const char *info, const char *file, int line);</synopsis>
@@ -113,12 +113,11 @@ void CRYPTO_mem_leaks(FILE *fp);</synopsis>
       normally called at startup, but can be called at any time.
     </para>
     <para>
-      Finer-grain control of the tracking can be done with
-      CRYPTO_mem_ctrl(). The most common case is to enable tracking, which
-      is done by using the <emphasis role="bold">CRYPTO_MEM_CHECK_ON</emphasis> constant; it can be turned
-      off by using the <emphasis role="bold">CRYPTO_MEM_CHECK_OFF</emphasis> value.  The disable and
-      enable values are most commonly used within OpenSSL to termporarily
-      suspend and restore tracking of library internals.
+      CRYPTO_mem_ctrl() provides fine-grained control of memory leak
+      tracking. To enable tracking call CRYPTO_mem_ctrl() with a <emphasis role="bold">mode</emphasis> argument of the <emphasis role="bold">CRYPTO_MEM_CHECK_ON</emphasis>. To disable tracking call
+      CRYPTO_mem_ctrl() with a <emphasis role="bold">mode</emphasis>
+      argument of the <emphasis role="bold">CRYPTO_MEM_CHECK_OFF</emphasis>. The <emphasis role="bold">CRYPTO_MEM_CHECK_DISABLE</emphasis> and <emphasis role="bold">CRYPTO_MEM_CHECK_ENABLE</emphasis> modes are used
+      internally within OpenSSL to temporarily suspend and resume tracking.
     </para>
     <para>
       While checking memory, it can be useful to store additional context
@@ -133,16 +132,19 @@ void CRYPTO_mem_leaks(FILE *fp);</synopsis>
       At the end of the program, calling CRYPTO_mem_leaks() or
       CRYPTO_mem_leaks_fp() will report all "leaked" memory, writing it to
       the specified BIO <emphasis role="bold">b</emphasis> or FILE
-      <emphasis role="bold">fp</emphasis>. Depending on how OpenSSL is
-      built, it may then abort if there are any unfree'd allocations, for
-      debugging.
+      <emphasis role="bold">fp</emphasis>. These functions return 1 if
+      there are no leaks, 0 if there are leaks and -1 if an error occurred.
     </para>
   </refsection>
   <refsection xml:id="ID-bd68802ebbdc8902870cff439938810d"><title>RETURN VALUES</title>
     <para>
       OPENSSL_malloc_init(), OPENSSL_free(), OPENSSL_clear_free()
-      CRYPTO_free(), CRYPTO_clear_free(), CRYPTO_get_mem_functions(), and
-      CRYPTO_mem_leaks() return no value.
+      CRYPTO_free(), CRYPTO_clear_free() and CRYPTO_get_mem_functions()
+      return no value.
+    </para>
+    <para>
+      CRYPTO_mem_leaks() and CRYPTO_mem_leaks_fp() return 1 if there are no
+      leaks, 0 if there are leaks and -1 if an error occurred.
     </para>
     <para>
       OPENSSL_malloc(), OPENSSL_zalloc(), OPENSSL_realloc(),
@@ -157,7 +159,7 @@ void CRYPTO_mem_leaks(FILE *fp);</synopsis>
       already happened).
     </para>
     <para>
-      CRYPTO_mem_ctrl() return the previous value of the flag.
+      CRYPTO_mem_ctrl() returns the previous value of the mode.
     </para>
     <para>
       OPENSSL_mem_debug_push() and OPENSSL_mem_debug_pop() return 1 on
