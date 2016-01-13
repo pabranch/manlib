@@ -28,6 +28,7 @@
            [--break] [--heading] [-p | --show-function]
            [-A &lt;post-context&gt;] [-B &lt;pre-context&gt;] [-C &lt;context&gt;]
            [-W | --function-context]
+           [--threads &lt;num&gt;]
            [-f &lt;file&gt;] [-e] &lt;pattern&gt;
            [--and|--or|--not|(|)|-e &lt;pattern&gt;&#8230;]
            [ [--[no-]exclude-standard] [--cached | --no-index | --untracked] | &lt;tree&gt;&#8230;]
@@ -76,6 +77,17 @@ grep.extendedRegexp
         If set to true, enable <emphasis>--extended-regexp</emphasis> option by default. This
         option is ignored when the <emphasis>grep.patternType</emphasis> option is set to a value
         other than <emphasis>default</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+grep.threads
+</term>
+<listitem>
+<simpara>
+        Number of grep worker threads to use.  If unset (or set to 0),
+        8 threads are used by default (for now).
 </simpara>
 </listitem>
 </varlistentry>
@@ -535,6 +547,17 @@ grep.fullName
         function name up to the one before the next function name,
         effectively showing the whole function in which the match was
         found.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--threads &lt;num&gt;
+</term>
+<listitem>
+<simpara>
+        Number of grep worker threads to use.
+        See <literal>grep.threads</literal> in <emphasis>CONFIGURATION</emphasis> for more information.
 </simpara>
 </listitem>
 </varlistentry>

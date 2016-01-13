@@ -16,7 +16,8 @@
 <refsynopsisdiv id="_synopsis">
 <literallayout><emphasis>git blame</emphasis> [-c] [-b] [-l] [--root] [-t] [-f] [-n] [-s] [-e] [-p] [-w] [--incremental]
             [-L &lt;range&gt;] [-S &lt;revs-file&gt;] [-M] [-C] [-C] [-C] [--since=&lt;date&gt;]
-            [--abbrev=&lt;n&gt;] [&lt;rev&gt; | --contents &lt;file&gt; | --reverse &lt;rev&gt;] [--] &lt;file&gt;</literallayout>
+            [--progress] [--abbrev=&lt;n&gt;] [&lt;rev&gt; | --contents &lt;file&gt; | --reverse &lt;rev&gt;]
+            [--] &lt;file&gt;</literallayout>
 <simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
@@ -253,6 +254,20 @@ file.</simpara>
         of the --date option at <citerefentry>
 <refentrytitle>git-log</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--[no-]progress
+</term>
+<listitem>
+<simpara>
+        Progress status is reported on the standard error stream
+        by default when it is attached to a terminal. This flag
+        enables progress reporting even if not attached to a
+        terminal. Can&#8217;t use <literal>--progress</literal> together with <literal>--porcelain</literal>
+        or <literal>--incremental</literal>.
 </simpara>
 </listitem>
 </varlistentry>

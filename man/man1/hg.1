@@ -9156,6 +9156,17 @@ be printed. If a file argument is given, revision in which the
 file was last changed (after the working directory revision or the
 argument to \-\-rev if given) is printed.
 .sp
+Please use \%\fBhg log\fP\: instead:
+.sp
+.nf
+.ft C
+hg children => hg log \-r \(aqchildren()\(aq
+hg children \-r REV => hg log \-r \(aqchildren(REV)\(aq
+.ft P
+.fi
+.sp
+See \%\fBhg help log\fP\: and \%\fBhg help revsets.children\fP\:.
+.sp
 Options:
 .INDENT 0.0
 .TP
@@ -10606,7 +10617,7 @@ list signed changesets
 command to view revision graphs from a shell (DEPRECATED)
 .sp
 The functionality of this extension has been include in core Mercurial
-since version 2.3.
+since version 2.3. Please use \%\fBhg log \-G ...\fP\: instead.
 .sp
 This extension adds a \-\-graph option to the incoming, outgoing and log
 commands. When this options is given, an ASCII representation of the
@@ -10627,6 +10638,8 @@ ASCII characters.
 .sp
 Nodes printed as an @ character are parents of the working
 directory.
+.sp
+This is an alias to \%\fBhg log \-G\fP\:.
 .sp
 Options:
 .INDENT 0.0
@@ -11047,22 +11060,57 @@ interactively edit changeset history:
 .sp
 .nf
 .ft C
-hg histedit [ANCESTOR] | \-\-outgoing [URL]
+hg histedit [OPTIONS] ([ANCESTOR] | \-\-outgoing [URL])
 .ft P
 .fi
 .sp
-This command edits changesets between an ANCESTOR and the parent of
-the working directory.
+This command lets you edit a linear series of changesets (up to
+and including the working directory, which should be clean).
+You can:
 .sp
-The value from the "histedit.defaultrev" config option is used as a
-revset to select the base revision when ANCESTOR is not specified.
-The first revision returned by the revset is used. By default, this
-selects the editable history that is unique to the ancestry of the
-working directory.
+.nf
+.ft C
+\- \(gapick\(ga to [re]order a changeset
+.ft P
+.fi
+.INDENT 0.0
+.IP \(bu 2
+.
+\fIdrop\fP to omit changeset
+.IP \(bu 2
+.
+\fImess\fP to reword the changeset commit message
+.IP \(bu 2
+.
+\fIfold\fP to combine it with the preceding changeset
+.IP \(bu 2
+.
+\fIroll\fP like fold, but discarding this commit\(aqs description
+.IP \(bu 2
+.
+\fIedit\fP to edit this changeset
+.UNINDENT
 .sp
-With \-\-outgoing, this edits changesets not found in the
-destination repository. If URL of the destination is omitted, the
-\(aqdefault\-push\(aq (or \(aqdefault\(aq) path will be used.
+There are a number of ways to select the root changset:
+.sp
+.nf
+.ft C
+\- Specify ANCESTOR directly
+.ft P
+.fi
+.INDENT 0.0
+.IP \(bu 2
+.
+Use \-\-outgoing \-\- it will be the first linear changeset not
+included in destination. (See :hg:"help default\-push")
+.IP \(bu 2
+.
+Otherwise, the value from the "histedit.defaultrev" config option
+is used as a revset to select the base revision when ANCESTOR is not
+specified. The first revision returned by the revset is used. By
+default, this selects the editable history that is unique to the
+ancestry of the working directory.
+.UNINDENT
 .sp
 If you use \-\-outgoing, this command will abort if there are ambiguous
 outgoing revisions. For example, if there are multiple branches
