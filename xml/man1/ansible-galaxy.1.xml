@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry lang="en">
+<refentryinfo>
+    <title>ansible-galaxy(1)</title>
+</refentryinfo>
+<refmeta>
+<refentrytitle>ansible-galaxy</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">Ansible</refmiscinfo>
+<refmiscinfo class="manual">System administration commands</refmiscinfo>
+<refmiscinfo class="version"></refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>ansible-galaxy</refname>
+    <refpurpose>manage roles using galaxy.ansible.com</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara>ansible-galaxy [delete|import|info|init|install|list|login|remove|search|setup] [--help] [options] &#8230;</simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara><emphasis role="strong">Ansible Galaxy</emphasis> is a shared repository for Ansible roles.
+The ansible-galaxy command can be used to manage these roles,
+or for creating a skeleton framework for roles you&#8217;d like to upload to Galaxy.</simpara>
+</refsect1>
+<refsect1 id="_common_options">
+<title>COMMON OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">-h</emphasis>, <emphasis role="strong">--help</emphasis>
+</term>
+<listitem>
+<simpara>
+Show a help message related to the given sub-command.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_install">
+<title>INSTALL</title>
+<simpara>The <emphasis role="strong">install</emphasis> sub-command is used to install roles.</simpara>
+<refsect2 id="_usage">
+<title>USAGE</title>
+<simpara>$ ansible-galaxy install [options] [-r FILE | role_name(s)[,version] | tar_file(s)]</simpara>
+<simpara>Roles can be installed in several different ways:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+A username.rolename[,version] - this will install a single role. The Galaxy
+  API will be contacted to provide the information about the role, and the
+  corresponding .tar.gz will be downloaded from <emphasis role="strong">github.com</emphasis>. If the version
+  is omitted, the most recent version available will be installed.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+A file name, using <emphasis role="strong">-r</emphasis> - this will install multiple roles listed one per
+  line. The format of each line is the same as above: username.rolename[,version]
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+A .tar.gz of a valid role you&#8217;ve downloaded directly from <emphasis role="strong">github.com</emphasis>. This
+  is mainly useful when the system running Ansible does not have access to
+  the Galaxy API, for instance when behind a firewall or proxy.
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect2>
+<refsect2 id="_options">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">-f</emphasis>, <emphasis role="strong">--force</emphasis>
+</term>
+<listitem>
+<simpara>
+Force overwriting an existing role.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-i</emphasis>, <emphasis role="strong">--ignore-errors</emphasis>
+</term>
+<listitem>
+<simpara>
+Ignore errors and continue with the next specified role.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-n</emphasis>, <emphasis role="strong">--no-deps</emphasis>
+</term>
+<listitem>
+<simpara>
+Don&#8217;t download roles listed as dependencies.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-p</emphasis> <emphasis>ROLES_PATH</emphasis>, <emphasis role="strong">--roles-path=</emphasis><emphasis>ROLES_PATH</emphasis>
+</term>
+<listitem>
+<simpara>
+The path to the directory containing your roles. The default is the <emphasis role="strong">roles_path</emphasis>
+configured in your <emphasis role="strong">ansible.cfg</emphasis> file (/etc/ansible/roles if not configured)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-r</emphasis> <emphasis>ROLE_FILE</emphasis>, <emphasis role="strong">--role-file=</emphasis><emphasis>ROLE_FILE</emphasis>
+</term>
+<listitem>
+<simpara>
+A file containing a list of roles to be imported, as specified above. This
+option cannot be used if a rolename or .tar.gz have been specified.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+</refsect1>
+<refsect1 id="_remove">
+<title>REMOVE</title>
+<simpara>The <emphasis role="strong">remove</emphasis> sub-command is used to remove one or more roles.</simpara>
+<refsect2 id="_usage_2">
+<title>USAGE</title>
+<simpara>$ ansible-galaxy remove role1 role2 &#8230;</simpara>
+</refsect2>
+<refsect2 id="_options_2">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">-p</emphasis> <emphasis>ROLES_PATH</emphasis>, <emphasis role="strong">--roles-path=</emphasis><emphasis>ROLES_PATH</emphasis>
+</term>
+<listitem>
+<simpara>
+The path to the directory containing your roles. The default is the <emphasis role="strong">roles_path</emphasis>
+configured in your <emphasis role="strong">ansible.cfg</emphasis> file (/etc/ansible/roles if not configured)
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+</refsect1>
+<refsect1 id="_init">
+<title>INIT</title>
+<simpara>The <emphasis role="strong">init</emphasis> command is used to create an empty role suitable for uploading
+to <ulink url="https://galaxy.ansible.com">https://galaxy.ansible.com</ulink> (or for roles in general).</simpara>
+<refsect2 id="_usage_3">
+<title>USAGE</title>
+<simpara>$ ansible-galaxy init [options] role_name</simpara>
+</refsect2>
+<refsect2 id="_options_3">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">-f</emphasis>, <emphasis role="strong">--force</emphasis>
+</term>
+<listitem>
+<simpara>
+Force overwriting an existing role.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-p</emphasis> <emphasis>INIT_PATH</emphasis>, <emphasis role="strong">--init-path=</emphasis><emphasis>INIT_PATH</emphasis>
+</term>
+<listitem>
+<simpara>
+The path in which the skeleton role will be created.The default is the current
+working directory.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--offline</emphasis>
+</term>
+<listitem>
+<simpara>
+Don&#8217;t query the galaxy API when creating roles
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+</refsect1>
+<refsect1 id="_list">
+<title>LIST</title>
+<simpara>The <emphasis role="strong">list</emphasis> sub-command is used to show what roles are currently instaled.
+You can specify a role name, and if installed only that role will be shown.</simpara>
+<refsect2 id="_usage_4">
+<title>USAGE</title>
+<simpara>$ ansible-galaxy list [role_name]</simpara>
+</refsect2>
+<refsect2 id="_options_4">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">-p</emphasis> <emphasis>ROLES_PATH</emphasis>, <emphasis role="strong">--roles-path=</emphasis><emphasis>ROLES_PATH</emphasis>
+</term>
+<listitem>
+<simpara>
+The path to the directory containing your roles. The default is the <emphasis role="strong">roles_path</emphasis>
+configured in your <emphasis role="strong">ansible.cfg</emphasis> file (/etc/ansible/roles if not configured)
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+</refsect1>
+<refsect1 id="_search">
+<title>SEARCH</title>
+<simpara>The <emphasis role="strong">search</emphasis> sub-command returns a filtered list of roles found on the remote
+server.</simpara>
+<refsect2 id="_usage_5">
+<title>USAGE</title>
+<simpara>$ ansible-galaxy search [options] [searchterm1 searchterm2]</simpara>
+</refsect2>
+<refsect2 id="_options_5">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">--galaxy-tags</emphasis>
+</term>
+<listitem>
+<simpara>
+Provide a comma separated list of Galaxy Tags on which to filter.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--platforms</emphasis>
+</term>
+<listitem>
+<simpara>
+Provide a comma separated list of Platforms on which to filter.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--author</emphasis>
+</term>
+<listitem>
+<simpara>
+Specify the username of a Galaxy contributor on which to filter.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-c</emphasis>, <emphasis role="strong">--ignore-certs</emphasis>
+</term>
+<listitem>
+<simpara>
+Ignore TLS certificate errors.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-s</emphasis>, <emphasis role="strong">--server</emphasis>
+</term>
+<listitem>
+<simpara>
+Override the default server <ulink url="https://galaxy.ansible.com">https://galaxy.ansible.com</ulink>.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+</refsect1>
+<refsect1 id="_info">
+<title>INFO</title>
+<simpara>The <emphasis role="strong">info</emphasis> sub-command shows detailed information for a specific role.
+Details returned about the role included information from the local copy
+as well as information from galaxy.ansible.com.</simpara>
+<refsect2 id="_usage_6">
+<title>USAGE</title>
+<simpara>$ ansible-galaxy info [options] role_name[, version]</simpara>
+</refsect2>
+<refsect2 id="_options_6">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">-p</emphasis> <emphasis>ROLES_PATH</emphasis>, <emphasis role="strong">--roles-path=</emphasis><emphasis>ROLES_PATH</emphasis>
+</term>
+<listitem>
+<simpara>
+The path to the directory containing your roles. The default is the <emphasis role="strong">roles_path</emphasis>
+configured in your <emphasis role="strong">ansible.cfg</emphasis> file (/etc/ansible/roles if not configured)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-c</emphasis>, <emphasis role="strong">--ignore-certs</emphasis>
+</term>
+<listitem>
+<simpara>
+Ignore TLS certificate errors.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-s</emphasis>, <emphasis role="strong">--server</emphasis>
+</term>
+<listitem>
+<simpara>
+Override the default server <ulink url="https://galaxy.ansible.com">https://galaxy.ansible.com</ulink>.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+</refsect1>
+<refsect1 id="_login">
+<title>LOGIN</title>
+<simpara>The <emphasis role="strong">login</emphasis> sub-command is used to authenticate with galaxy.ansible.com.
+Authentication is required to use the import, delete and setup commands.
+It will authenticate the user, retrieve a token from Galaxy, and store it
+in the user&#8217;s home directory.</simpara>
+<refsect2 id="_usage_7">
+<title>USAGE</title>
+<simpara>$ ansible-galaxy login [options]</simpara>
+<simpara>The <emphasis role="strong">login</emphasis> sub-command prompts for a <emphasis role="strong">GitHub</emphasis> username and password. It does
+NOT send your password to Galaxy. It actually authenticates with GitHub and
+creates a personal access token. It then sends the personal access token to
+Galaxy, which in turn verifies that you are you and returns a Galaxy access
+token. After authentication completes the <emphasis role="strong">GitHub</emphasis> personal access token is
+destroyed.</simpara>
+<simpara>If you do not wish to use your GitHub password, or if you have two-factor
+authentication enabled with GitHub, use the <emphasis role="strong">--github-token</emphasis> option to pass a
+personal access token that you create. Log into GitHub, go to Settings and
+click on Personal Access Token to create a token.</simpara>
+</refsect2>
+<refsect2 id="_options_7">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">-c</emphasis>, <emphasis role="strong">--ignore-certs</emphasis>
+</term>
+<listitem>
+<simpara>
+Ignore TLS certificate errors.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-s</emphasis>, <emphasis role="strong">--server</emphasis>
+</term>
+<listitem>
+<simpara>
+Override the default server <ulink url="https://galaxy.ansible.com">https://galaxy.ansible.com</ulink>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--github-token</emphasis>
+</term>
+<listitem>
+<simpara>
+Authenticate using a <emphasis role="strong">GitHub</emphasis> personal access token rather than a password.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+</refsect1>
+<refsect1 id="_import">
+<title>IMPORT</title>
+<simpara>Import a role from <emphasis role="strong">GitHub</emphasis> to galaxy.ansible.com. Requires the user first
+authenticate with galaxy.ansible.com using the <emphasis role="strong">login</emphasis> subcommand.</simpara>
+<refsect2 id="_usage_8">
+<title>USAGE</title>
+<simpara>$ ansible-galaxy import [options] github_user github_repo</simpara>
+</refsect2>
+<refsect2 id="_options_8">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">-c</emphasis>, <emphasis role="strong">--ignore-certs</emphasis>
+</term>
+<listitem>
+<simpara>
+Ignore TLS certificate errors.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-s</emphasis>, <emphasis role="strong">--server</emphasis>
+</term>
+<listitem>
+<simpara>
+Override the default server <ulink url="https://galaxy.ansible.com">https://galaxy.ansible.com</ulink>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--branch</emphasis>
+</term>
+<listitem>
+<simpara>
+Provide a specific branch to import. When a branch is not specified the
+branch found in meta/main.yml is used. If no branch is specified in
+meta/main.yml, the repo&#8217;s default branch (usually master) is used.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+</refsect1>
+<refsect1 id="_delete">
+<title>DELETE</title>
+<simpara>The <emphasis role="strong">delete</emphasis> sub-command will delete a role from galaxy.ansible.com. Requires
+the user first authenticate with galaxy.ansible.com using the <emphasis role="strong">login</emphasis> subcommand.</simpara>
+<refsect2 id="_usage_9">
+<title>USAGE</title>
+<simpara>$ ansible-galaxy delete [options] github_user github_repo</simpara>
+</refsect2>
+<refsect2 id="_options_9">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">-c</emphasis>, <emphasis role="strong">--ignore-certs</emphasis>
+</term>
+<listitem>
+<simpara>
+Ignore TLS certificate errors.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-s</emphasis>, <emphasis role="strong">--server</emphasis>
+</term>
+<listitem>
+<simpara>
+Override the default server <ulink url="https://galaxy.ansible.com">https://galaxy.ansible.com</ulink>.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+</refsect1>
+<refsect1 id="_setup">
+<title>SETUP</title>
+<simpara>The <emphasis role="strong">setup</emphasis> sub-command creates an integration point for <emphasis role="strong">Travis CI</emphasis>, enabling
+galaxy.ansible.com to receive notifications from <emphasis role="strong">Travis</emphasis> on build completion.
+Requires the user first authenticate with galaxy.ansible.com using the <emphasis role="strong">login</emphasis>
+subcommand.</simpara>
+<refsect2 id="_usage_10">
+<title>USAGE</title>
+<simpara>$ ansible-galaxy setup [options] source github_user github_repo secret</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+Use <emphasis role="strong">travis</emphasis> as the source value. In the future additional source values may
+  be added.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+Provide your <emphasis role="strong">Travis</emphasis> user token as the secret. The token is not stored by
+  galaxy.ansible.com. A hash is created using github_user, github_repo
+  and your token. The hash value is what actually gets stored.
+</simpara>
+</listitem>
+</itemizedlist>
+</refsect2>
+<refsect2 id="_options_10">
+<title>OPTIONS</title>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">-c</emphasis>, <emphasis role="strong">--ignore-certs</emphasis>
+</term>
+<listitem>
+<simpara>
+Ignore TLS certificate errors.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-s</emphasis>, <emphasis role="strong">--server</emphasis>
+</term>
+<listitem>
+<simpara>
+Override the default server <ulink url="https://galaxy.ansible.com">https://galaxy.ansible.com</ulink>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--list
+</term>
+<listitem>
+<simpara>
+Show your configured integrations. Provids the ID of each integration
+which can be used with the remove option.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--remove
+</term>
+<listitem>
+<simpara>
+Remove a specific integration. Provide the ID of the integration to
+be removed.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect2>
+</refsect1>
+<refsect1 id="_author">
+<title>AUTHOR</title>
+<simpara>Ansible was originally written by Michael DeHaan. See the AUTHORS file
+for a complete list of contributors.</simpara>
+</refsect1>
+<refsect1 id="_copyright">
+<title>COPYRIGHT</title>
+<simpara>Copyright © 2014, Michael DeHaan</simpara>
+<simpara>Ansible is released under the terms of the GPLv3 License.</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><emphasis role="strong">ansible</emphasis>(1), <emphasis role="strong">ansible-pull</emphasis>(1), <emphasis role="strong">ansible-doc</emphasis>(1), <emphasis role="strong">ansible-playbook</emphasis>(1), <emphasis role="strong">ansible-vault</emphasis>(1)</simpara>
+<simpara>Extensive documentation is available in the documentation site:
+<ulink url="http://docs.ansible.com">http://docs.ansible.com</ulink>. IRC and mailing list info can be found
+in file CONTRIBUTING.md, available in: <ulink url="https://github.com/ansible/ansible">https://github.com/ansible/ansible</ulink></simpara>
+</refsect1>
+</refentry>

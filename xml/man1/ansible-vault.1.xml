@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry lang="en">
+<refentryinfo>
+    <title>ansible-vault(1)</title>
+</refentryinfo>
+<refmeta>
+<refentrytitle>ansible-vault</refentrytitle>
+<manvolnum>1</manvolnum>
+<refmiscinfo class="source">Ansible</refmiscinfo>
+<refmiscinfo class="manual">System administration commands</refmiscinfo>
+<refmiscinfo class="version"></refmiscinfo>
+</refmeta>
+<refnamediv>
+    <refname>ansible-vault</refname>
+    <refpurpose>manage encrypted ansible vars files (YAML).</refpurpose>
+</refnamediv>
+<refsynopsisdiv id="_synopsis">
+<simpara>ansible-vault [create|decrypt|edit|encrypt|rekey] [--help] [options] file_name</simpara>
+</refsynopsisdiv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara><emphasis role="strong">ansible-vault</emphasis> can encrypt any structured data file used by Ansible.
+This can include <emphasis role="strong">group_vars/</emphasis> or <emphasis role="strong">host_vars/</emphasis> inventory variables,
+variables loaded by <emphasis role="strong">include_vars</emphasis> or <emphasis role="strong">vars_files</emphasis>, or variable files
+passed on the ansible-playbook command line with <emphasis role="strong">-e @file.yml</emphasis> or <emphasis role="strong">-e @file.json</emphasis>.
+Role variables and defaults are also included!</simpara>
+<simpara>Because Ansible tasks, handlers, and so on are also data, these can also be encrypted with vault.
+If you’d like to not betray what variables you are even using, you can go as far to keep an individual task file entirely encrypted.</simpara>
+<simpara>The password used with vault currently must be the same for all files you wish to use together at the same time.</simpara>
+</refsect1>
+<refsect1 id="_common_options">
+<title>COMMON OPTIONS</title>
+<simpara>The following options are available to all sub-commands:</simpara>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">--vault-password-file=</emphasis><emphasis>FILE</emphasis>
+</term>
+<listitem>
+<simpara>
+A file containing the vault password to be used during the encryption/decryption
+steps. Be sure to keep this file secured if it is used. If the file is executable,
+it will be run and its standard output will be used as the password.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">--new-vault-password-file=</emphasis><emphasis>FILE</emphasis>
+</term>
+<listitem>
+<simpara>
+A file containing the new vault password to be used when rekeying a
+file. Be sure to keep this file secured if it is used. If the file
+is executable, it will be run and its standard output will be used as
+the password.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-h</emphasis>, <emphasis role="strong">--help</emphasis>
+</term>
+<listitem>
+<simpara>
+Show a help message related to the given sub-command.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+<simpara>If <emphasis>--valut-password-file</emphasis> is not supplied ansib-vault will automatically prompt for passwords as required.</simpara>
+</refsect1>
+<refsect1 id="_create">
+<title>CREATE</title>
+<simpara><emphasis role="strong">$ ansible-vault create [options] FILE</emphasis></simpara>
+<simpara>The <emphasis role="strong">create</emphasis> sub-command is used to initialize a new encrypted file.</simpara>
+<simpara>After providing a password, the tool will launch whatever editor you have defined
+with $EDITOR, and defaults to vim. Once you are done with the editor session, the
+file will be saved as encrypted data.</simpara>
+<simpara>The default cipher is AES (which is shared-secret based).</simpara>
+</refsect1>
+<refsect1 id="_edit">
+<title>EDIT</title>
+<simpara><emphasis role="strong">$ ansible-vault edit [options] FILE</emphasis></simpara>
+<simpara>The <emphasis role="strong">edit</emphasis> sub-command is used to modify a file which was previously encrypted using ansible-vault.</simpara>
+<simpara>This command will decrypt the file to a temporary file and allow you to edit the file,
+saving it back when done and removing the temporary file.</simpara>
+</refsect1>
+<refsect1 id="_rekey">
+<title>REKEY</title>
+<simpara><emphasis role="strong">$ ansible-vault rekey [options] FILE_1 [FILE_2, &#8230;, FILE_N]</emphasis></simpara>
+<simpara>The <emphasis role="strong">rekey</emphasis> command is used to change the password on a vault-encrypted files.
+This command can update multiple files at once.</simpara>
+</refsect1>
+<refsect1 id="_encrypt">
+<title>ENCRYPT</title>
+<simpara><emphasis role="strong">$ ansible-vault encrypt [options] FILE_1 [FILE_2, &#8230;, FILE_N]</emphasis></simpara>
+<simpara>The <emphasis role="strong">encrypt</emphasis> sub-command is used to encrypt pre-existing data files.
+As with the <emphasis role="strong">rekey</emphasis> command, you can specify multiple files in one command.</simpara>
+<simpara>The <emphasis role="strong">encrypt</emphasis> command accepts an <emphasis role="strong">--output FILENAME</emphasis> option to determine where
+encrypted output is stored. With this option, input is read from the (at most one)
+filename given on the command line; if no input file is given, input is read from stdin.
+Either the input or the output file may be given as <emphasis>-</emphasis> for stdin and stdout respectively.
+If neither input nor output file is given, the command acts as a filter,
+reading plaintext from stdin and writing it to stdout.</simpara>
+<simpara>Thus any of the following invocations can be used:</simpara>
+<simpara><emphasis role="strong">$ ansible-vault encrypt</emphasis></simpara>
+<simpara><emphasis role="strong">$ ansible-vault encrypt --output OUTFILE</emphasis></simpara>
+<simpara><emphasis role="strong">$ ansible-vault encrypt INFILE --output OUTFILE</emphasis></simpara>
+<simpara><emphasis role="strong">$ echo secret|ansible-vault encrypt --output OUTFILE</emphasis></simpara>
+<simpara>Reading from stdin and writing only encrypted output is a good way to prevent
+sensitive data from ever hitting disk (either interactively or from a script).</simpara>
+</refsect1>
+<refsect1 id="_decrypt">
+<title>DECRYPT</title>
+<simpara><emphasis role="strong">$ ansible-vault decrypt [options] FILE_1 [FILE_2, &#8230;, FILE_N]</emphasis></simpara>
+<simpara>The <emphasis role="strong">decrypt</emphasis> sub-command is used to remove all encryption from data files.
+The files will be stored as plain-text YAML once again, so be sure that you do not run this
+command on data files with active passwords or other sensitive data.
+In most cases, users will want to use the <emphasis role="strong">edit</emphasis> sub-command to modify the files securely.</simpara>
+<simpara>As with <emphasis role="strong">encrypt</emphasis>, the <emphasis role="strong">decrypt</emphasis> subcommand also accepts the <emphasis role="strong">--output FILENAME</emphasis>
+option to specify where plaintext output is stored, and stdin/stdout is handled
+as described above.</simpara>
+</refsect1>
+<refsect1 id="_author">
+<title>AUTHOR</title>
+<simpara>Ansible was originally written by Michael DeHaan. See the AUTHORS file
+for a complete list of contributors.</simpara>
+</refsect1>
+<refsect1 id="_copyright">
+<title>COPYRIGHT</title>
+<simpara>Copyright © 2014, Michael DeHaan</simpara>
+<simpara>Ansible is released under the terms of the GPLv3 License.</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><emphasis role="strong">ansible</emphasis>(1), <emphasis role="strong">ansible-pull</emphasis>(1), <emphasis role="strong">ansible-doc</emphasis>(1), <emphasis role="strong">ansible-playbook</emphasis>(1), <emphasis role="strong">ansible-galaxy</emphasis>(1)</simpara>
+<simpara>Extensive documentation is available in the documentation site:
+<ulink url="http://docs.ansible.com">http://docs.ansible.com</ulink>. IRC and mailing list info can be found
+in file CONTRIBUTING.md, available in: <ulink url="https://github.com/ansible/ansible">https://github.com/ansible/ansible</ulink></simpara>
+</refsect1>
+</refentry>
