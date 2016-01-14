@@ -4,7 +4,7 @@
     <refentrytitle>EC_KEY_new.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>EC_KEY_new, EC_KEY_get_flags, EC_KEY_set_flags, EC_KEY_clear_flags, EC_KEY_new_by_curve_name, EC_KEY_free, EC_KEY_copy, EC_KEY_dup, EC_KEY_up_ref, EC_KEY_get0_group, EC_KEY_set_group, EC_KEY_get0_private_key, EC_KEY_set_private_key, EC_KEY_get0_public_key, EC_KEY_set_public_key, EC_KEY_get_enc_flags, EC_KEY_set_enc_flags, EC_KEY_get_conv_form, EC_KEY_set_conv_form, EC_KEY_get_key_method_data, EC_KEY_insert_key_method_data, EC_KEY_set_asn1_flag, EC_KEY_precompute_mult, EC_KEY_generate_key, EC_KEY_check_key, EC_KEY_set_public_key_affine_coordinates</refname>
+    <refname>EC_KEY_new, EC_KEY_get_flags, EC_KEY_set_flags, EC_KEY_clear_flags, EC_KEY_new_by_curve_name, EC_KEY_free, EC_KEY_copy, EC_KEY_dup, EC_KEY_up_ref, EC_KEY_get0_group, EC_KEY_set_group, EC_KEY_get0_private_key, EC_KEY_set_private_key, EC_KEY_get0_public_key, EC_KEY_set_public_key, EC_KEY_get_enc_flags, EC_KEY_set_enc_flags, EC_KEY_get_conv_form, EC_KEY_set_conv_form, EC_KEY_set_asn1_flag, EC_KEY_precompute_mult, EC_KEY_generate_key, EC_KEY_check_key, EC_KEY_set_public_key_affine_coordinates</refname>
 <refpurpose>Functions for creating, destroying and manipulating <emphasis role="bold">EC_KEY</emphasis> objects.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
@@ -27,50 +27,48 @@ const EC_POINT *EC_KEY_get0_public_key(const EC_KEY *key);
 int EC_KEY_set_public_key(EC_KEY *key, const EC_POINT *pub);
 point_conversion_form_t EC_KEY_get_conv_form(const EC_KEY *key);
 void EC_KEY_set_conv_form(EC_KEY *eckey, point_conversion_form_t cform);
-void *EC_KEY_get_key_method_data(EC_KEY *key, 
-       void *(*dup_func)(void *), void (*free_func)(void *), void (*clear_free_func)(void *));
-void EC_KEY_insert_key_method_data(EC_KEY *key, void *data,
-       void *(*dup_func)(void *), void (*free_func)(void *), void (*clear_free_func)(void *));
 void EC_KEY_set_asn1_flag(EC_KEY *eckey, int asn1_flag);
 int EC_KEY_precompute_mult(EC_KEY *key, BN_CTX *ctx);
 int EC_KEY_generate_key(EC_KEY *key);
 int EC_KEY_check_key(const EC_KEY *key);
-int EC_KEY_set_public_key_affine_coordinates(EC_KEY *key, BIGNUM *x, BIGNUM *y);</synopsis>
+int EC_KEY_set_public_key_affine_coordinates(EC_KEY *key, BIGNUM *x, BIGNUM *y);
+const EC_KEY_METHOD *EC_KEY_get_method(const EC_KEY *key);
+int EC_KEY_set_method(EC_KEY *key, const EC_KEY_METHOD *meth);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-a2ac6fb7e1d469eb58c431b33f9684c6"><title>DESCRIPTION</title>
     <para>
       An EC_KEY represents a public key and (optionally) an associated
       private key. A new EC_KEY (with no associated curve) can be
-      constructed by calling EC_KEY_new. The reference count for the newly
-      created EC_KEY is initially set to 1. A curve can be associated with
-      the EC_KEY by calling EC_KEY_set_group.
+      constructed by calling EC_KEY_new(). The reference count for the
+      newly created EC_KEY is initially set to 1. A curve can be associated
+      with the EC_KEY by calling EC_KEY_set_group().
     </para>
     <para>
       Alternatively a new EC_KEY can be constructed by calling
-      EC_KEY_new_by_curve_name and supplying the nid of the associated
+      EC_KEY_new_by_curve_name() and supplying the nid of the associated
       curve. Refer to <citerefentry>
       <refentrytitle>EC_GROUP_new</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry> for a description of curve names. This function
-      simply wraps calls to EC_KEY_new and EC_GROUP_new_by_curve_name.
+      simply wraps calls to EC_KEY_new() and EC_GROUP_new_by_curve_name().
     </para>
     <para>
-      Calling EC_KEY_free decrements the reference count for the EC_KEY
+      Calling EC_KEY_free() decrements the reference count for the EC_KEY
       object, and if it has dropped to zero then frees the memory
       associated with it. If <emphasis role="bold">key</emphasis> is NULL
       nothing is done.
     </para>
     <para>
-      EC_KEY_copy copies the contents of the EC_KEY in <emphasis role="bold">src</emphasis> into <emphasis role="bold">dest</emphasis>.
+      EC_KEY_copy() copies the contents of the EC_KEY in <emphasis role="bold">src</emphasis> into <emphasis role="bold">dest</emphasis>.
     </para>
     <para>
-      EC_KEY_dup creates a new EC_KEY object and copies <emphasis role="bold">ec_key</emphasis> into it.
+      EC_KEY_dup() creates a new EC_KEY object and copies <emphasis role="bold">ec_key</emphasis> into it.
     </para>
     <para>
-      EC_KEY_up_ref increments the reference count associated with the
+      EC_KEY_up_ref() increments the reference count associated with the
       EC_KEY object.
     </para>
     <para>
-      EC_KEY_generate_key generates a new public and private key for the
+      EC_KEY_generate_key() generates a new public and private key for the
       supplied <emphasis role="bold">eckey</emphasis> object. <emphasis role="bold">eckey</emphasis> must have an EC_GROUP object associated
       with it before calling this function. The private key is a random
       integer (0 &lt; priv_key &lt; order, where order is the order of the
@@ -79,11 +77,11 @@ int EC_KEY_set_public_key_affine_coordinates(EC_KEY *key, BIGNUM *x, BIGNUM *y);
       key.
     </para>
     <para>
-      EC_KEY_check_key performs various sanity checks on the EC_KEY object
-      to confirm that it is valid.
+      EC_KEY_check_key() performs various sanity checks on the EC_KEY
+      object to confirm that it is valid.
     </para>
     <para>
-      EC_KEY_set_public_key_affine_coordinates sets the public key for
+      EC_KEY_set_public_key_affine_coordinates() sets the public key for
       <emphasis role="bold">key</emphasis> based on its affine
       co-ordinates, i.e. it constructs an EC_POINT object based on the
       supplied <emphasis role="bold">x</emphasis> and <emphasis role="bold">y</emphasis> values and sets the public key to be this
@@ -91,33 +89,21 @@ int EC_KEY_set_public_key_affine_coordinates(EC_KEY *key, BIGNUM *x, BIGNUM *y);
       confirm that it is valid.
     </para>
     <para>
-      The functions EC_KEY_get0_group, EC_KEY_set_group,
-      EC_KEY_get0_private_key, EC_KEY_set_private_key,
-      EC_KEY_get0_public_key, and EC_KEY_set_public_key get and set the
+      The functions EC_KEY_get0_group(), EC_KEY_set_group(),
+      EC_KEY_get0_private_key(), EC_KEY_set_private_key(),
+      EC_KEY_get0_public_key(), and EC_KEY_set_public_key() get and set the
       EC_GROUP object, the private key and the EC_POINT public key for the
       <emphasis role="bold">key</emphasis> respectively.
     </para>
     <para>
-      The functions EC_KEY_get_conv_form and EC_KEY_set_conv_form get and
-      set the point_conversion_form for the <emphasis role="bold">key</emphasis>. For a description of
+      The functions EC_KEY_get_conv_form() and EC_KEY_set_conv_form() get
+      and set the point_conversion_form for the <emphasis role="bold">key</emphasis>. For a description of
       point_conversion_forms please refer to <citerefentry>
       <refentrytitle>EC_POINT_new</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>.
     </para>
     <para>
-      EC_KEY_insert_key_method_data and EC_KEY_get_key_method_data enable
-      the caller to associate arbitrary additional data specific to the
-      elliptic curve scheme being used with the EC_KEY object. This data is
-      treated as a "black box" by the ec library. The data to be stored by
-      EC_KEY_insert_key_method_data is provided in the <emphasis role="bold">data</emphasis> parameter, which must have associated
-      functions for duplicating, freeing and "clear_freeing" the data item.
-      If a subsequent EC_KEY_get_key_method_data call is issued, the
-      functions for duplicating, freeing and "clear_freeing" the data item
-      must be provided again, and they must be the same as they were when
-      the data item was inserted.
-    </para>
-    <para>
-      EC_KEY_set_flags sets the flags in the <emphasis role="bold">flags</emphasis> parameter on the EC_KEY object. Any
+      EC_KEY_set_flags() sets the flags in the <emphasis role="bold">flags</emphasis> parameter on the EC_KEY object. Any
       flags that are already set are left set. The currently defined
       standard flags are EC_FLAG_NON_FIPS_ALLOW and EC_FLAG_FIPS_CHECKED.
       In addition there is the flag EC_FLAG_COFACTOR_ECDH which is specific
@@ -127,13 +113,13 @@ int EC_KEY_set_public_key_affine_coordinates(EC_KEY *key, BIGNUM *x, BIGNUM *y);
       parameter. All other flags are left in their existing state.
     </para>
     <para>
-      EC_KEY_set_asn1_flag sets the asn1_flag on the underlying EC_GROUP
+      EC_KEY_set_asn1_flag() sets the asn1_flag on the underlying EC_GROUP
       object (if set). Refer to <citerefentry>
       <refentrytitle>EC_GROUP_copy</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry> for further information on the asn1_flag.
     </para>
     <para>
-      EC_KEY_precompute_mult stores multiples of the underlying EC_GROUP
+      EC_KEY_precompute_mult() stores multiples of the underlying EC_GROUP
       generator for faster point multiplication. See also <citerefentry>
       <refentrytitle>EC_POINT_add</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>.
@@ -142,32 +128,34 @@ int EC_KEY_set_public_key_affine_coordinates(EC_KEY *key, BIGNUM *x, BIGNUM *y);
   </refsection>
   <refsection xml:id="ID-8feff9d03037074a737cb848404d0a29"><title>RETURN VALUES</title>
     <para>
-      EC_KEY_new, EC_KEY_new_by_curve_name and EC_KEY_dup return a pointer
-      to the newly created EC_KEY object, or NULL on error.
+      EC_KEY_new(), EC_KEY_new_by_curve_name() and EC_KEY_dup() return a
+      pointer to the newly created EC_KEY object, or NULL on error.
     </para>
     <para>
-      EC_KEY_get_flags returns the flags associated with the EC_KEY object
-      as an integer.
+      EC_KEY_get_flags() returns the flags associated with the EC_KEY
+      object as an integer.
     </para>
     <para>
-      EC_KEY_copy returns a pointer to the destination key, or NULL on
+      EC_KEY_copy() returns a pointer to the destination key, or NULL on
       error.
     </para>
     <para>
-      EC_KEY_up_ref, EC_KEY_set_group, EC_KEY_set_private_key,
-      EC_KEY_set_public_key, EC_KEY_precompute_mult, EC_KEY_generate_key,
-      EC_KEY_check_key and EC_KEY_set_public_key_affine_coordinates return
-      1 on success or 0 on error.
+      EC_KEY_up_ref(), EC_KEY_set_group(), EC_KEY_set_private_key(),
+      EC_KEY_set_public_key(), EC_KEY_precompute_mult(),
+      EC_KEY_generate_key(), EC_KEY_check_key() and
+      EC_KEY_set_public_key_affine_coordinates() return 1 on success or 0
+      on error.
     </para>
     <para>
-      EC_KEY_get0_group returns the EC_GROUP associated with the EC_KEY.
+      EC_KEY_get0_group() returns the EC_GROUP associated with the EC_KEY.
     </para>
     <para>
-      EC_KEY_get0_private_key returns the private key associated with the
+      EC_KEY_get0_private_key() returns the private key associated with the
       EC_KEY.
     </para>
     <para>
-      EC_KEY_get_conv_form return the point_conversion_form for the EC_KEY.
+      EC_KEY_get_conv_form() return the point_conversion_form for the
+      EC_KEY.
     </para>
     <screen></screen>
   </refsection>

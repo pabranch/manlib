@@ -3526,6 +3526,14 @@ and \%\fBhg bundle\fP\:) operations.
 See \%\fBhg help urls\fP\: for more information.
 .sp
 Returns 0 on success.
+.sp
+Options:
+.INDENT 0.0
+.TP
+.BI \-T,  \-\-template \ <TEMPLATE>
+.
+display with template (EXPERIMENTAL)
+.UNINDENT
 .SS phase
 .sp
 set or show the current phase name:
@@ -5109,7 +5117,7 @@ command to display statistics about repository history
 .TP
 .B clonebundles
 .
-advertise pre\-generated bundles to seed clones (experimental)
+advertise pre\-generated bundles to seed clones
 .TP
 .B color
 .
@@ -9288,7 +9296,7 @@ exclude names matching the given patterns
 [+] marked option can be specified multiple times
 .SS clonebundles
 .sp
-advertise pre\-generated bundles to seed clones (experimental)
+advertise pre\-generated bundles to seed clones
 .sp
 "clonebundles" is a server\-side extension used to advertise the existence
 of pre\-generated, externally hosted bundle files to clients that are
@@ -9478,40 +9486,6 @@ message informing them how to bypass the clone bundles facility when a failure
 occurs. So server operators should prepare for some people to follow these
 instructions when a failure occurs, thus driving more load to the original
 Mercurial server when the bundle hosting service fails.
-.sp
-The following config options influence the behavior of the clone bundles
-feature:
-.INDENT 0.0
-.TP
-.B ui.clonebundleadvertise
-.
-Whether the server advertises the existence of the clone bundles feature
-to compatible clients that aren\(aqt using it.
-.sp
-When this is enabled (the default), a server will send a message to
-compatible clients performing a traditional clone informing them of the
-available clone bundles feature. Compatible clients are those that support
-bundle2 and are advertising support for the clone bundles feature.
-.TP
-.B ui.clonebundlefallback
-.
-Whether to automatically fall back to a traditional clone in case of
-clone bundles failure. Defaults to false for reasons described above.
-.TP
-.B experimental.clonebundles
-.
-Whether the clone bundles feature is enabled on clients. Defaults to true.
-.TP
-.B experimental.clonebundleprefers
-.
-List of "key=value" properties the client prefers in bundles. Downloaded
-bundle manifests will be sorted by the preferences in this list. e.g.
-the value "BUNDLESPEC=gzip\-v1, BUNDLESPEC=bzip2\-v1" will prefer a gzipped
-version 1 bundle type then bzip2 version 1 bundle type.
-.sp
-If not defined, the order in the manifest will be used and the first
-available bundle will be downloaded.
-.UNINDENT
 .SS color
 .sp
 colorize output from some commands
