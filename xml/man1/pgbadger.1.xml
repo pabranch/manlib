@@ -132,8 +132,10 @@ use - as filename. Note that input from stdin will not work with csvlog.</synops
 --enable-checksum      : used to add a md5 sum under each query report.
 --journalctl command   : command to use to replace PostgreSQL logfile by
                          a call to journalctl. Basically it might be:
-                            journalctl -u postgresql-9.5</synopsis>
-<synopsis/>
+                            journalctl -u postgresql-9.5
+--pid-dir dirpath      : set the path of the directory where the pid file
+                         will be written to be able to run two pgbadger at
+                         the same time.</synopsis>
 <synopsis>pgBadger is able to parse a remote log file using a passwordless ssh connection.
 Use the -r or --remote-host to set the host ip address or hostname. There's also
 some additional options to fully control the ssh connection.</synopsis>

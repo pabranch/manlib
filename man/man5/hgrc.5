@@ -62,10 +62,15 @@ The above entries will be referred to as \fBui.username\fP and
 .sp
 Mercurial reads configuration data from several files, if they exist.
 These files do not exist by default and you will have to create the
-appropriate configuration files yourself: global configuration like
-the username setting is typically put into
-\fB%USERPROFILE%\emercurial.ini\fP or \fB$HOME/.hgrc\fP and local
-configuration is put into the per\-repository \fB<repo>/.hg/hgrc\fP file.
+appropriate configuration files yourself:
+.sp
+Local configuration is put into the per\-repository \fB<repo>/.hg/hgrc\fP file.
+.sp
+Global configuration like the username setting is typically put into:
+.sp
+\fB%USERPROFILE%\emercurial.ini\fP
+.sp
+\fB$HOME/.hgrc\fP
 .sp
 The names of these files depend on the system on which Mercurial is
 installed. \fB*.rc\fP files from a single directory are read in
@@ -162,23 +167,27 @@ On Plan9, the following files are consulted:
 Per\-repository configuration options only apply in a
 particular repository. This file is not version\-controlled, and
 will not get transferred during a "clone" operation. Options in
-this file override options in all other configuration files. On
-Plan 9 and Unix, most of this file will be ignored if it doesn\(aqt
+this file override options in all other configuration files.
+.sp
+On Plan 9 and Unix, most of this file will be ignored if it doesn\(aqt
 belong to a trusted user or to a trusted group. See
 \%\fBhg help config.trusted\fP\: for more details.
 .sp
-Per\-user configuration file(s) are for the user running Mercurial. On
-Windows 9x, \fB%HOME%\fP is replaced by \fB%APPDATA%\fP. Options in these
-files apply to all Mercurial commands executed by this user in any
-directory. Options in these files override per\-system and per\-installation
-options.
+Per\-user configuration file(s) are for the user running Mercurial.
+.sp
+On Windows 9x, \fB%HOME%\fP is replaced by \fB%APPDATA%\fP. Options in
+these files apply to all Mercurial commands executed by this user in
+any directory. Options in these files override per\-system and
+per\-installation options.
 .sp
 Per\-installation configuration files are searched for in the
 directory where Mercurial is installed. \fB<install\-root>\fP is the
-parent directory of the \fBhg\fP executable (or symlink) being run. For
-example, if installed in \fB/shared/tools/bin/hg\fP, Mercurial will look
-in \fB/shared/tools/etc/mercurial/hgrc\fP. Options in these files apply
-to all Mercurial commands executed by any user in any directory.
+parent directory of the \fBhg\fP executable (or symlink) being run.
+.sp
+For example, if installed in \fB/shared/tools/bin/hg\fP, Mercurial
+will look in \fB/shared/tools/etc/mercurial/hgrc\fP. Options in these
+files apply to all Mercurial commands executed by any user in any
+directory.
 .sp
 Per\-installation configuration files are for the system on
 which Mercurial is running. Options in these files apply to all
@@ -1358,8 +1367,11 @@ The priority in which to evaluate this tool.
 .TP
 .B \fBexecutable\fP
 .sp
-Either just the name of the executable or its pathname.  On Windows,
-the path can use environment variables with ${ProgramFiles} syntax.
+Either just the name of the executable or its pathname.
+.sp
+On Windows, the path can use environment variables with ${ProgramFiles}
+syntax.
+.sp
 (default: the tool name)
 .TP
 .B \fBargs\fP
@@ -1420,6 +1432,8 @@ Attempt to fix up EOL changes caused by the merge tool.
 .B \fBgui\fP
 .sp
 This tool requires a graphical interface to run. (default: False)
+.UNINDENT
+.INDENT 0.0
 .TP
 .B \fBregkey\fP
 .sp
@@ -2037,27 +2051,50 @@ will use the \fBpatch\fP program with its 2\-way merge option.
 .sp
 Check for portable filenames. Can be \fBwarn\fP, \fBignore\fP or \fBabort\fP.
 (default: \fBwarn\fP)
-If set to \fBwarn\fP (or \fBtrue\fP), a warning message is printed on POSIX
-platforms, if a file with a non\-portable filename is added (e.g. a file
-with a name that can\(aqt be created on Windows because it contains reserved
-parts like \fBAUX\fP, reserved characters like \fB:\fP, or would cause a case
-collision with an existing file).
-If set to \fBignore\fP (or \fBfalse\fP), no warning is printed.
-If set to \fBabort\fP, the command is aborted.
+.INDENT 7.0
+.TP
+.B \fBwarn\fP
+.sp
+Print a warning message on POSIX platforms, if a file with a non\-portable
+filename is added (e.g. a file with a name that can\(aqt be created on
+Windows because it contains reserved parts like \fBAUX\fP, reserved
+characters like \fB:\fP, or would cause a case collision with an existing
+file).
+.TP
+.B \fBignore\fP
+.sp
+Don\(aqt print a warning.
+.TP
+.B \fBabort\fP
+.sp
+The command is aborted.
+.TP
+.B \fBtrue\fP
+.sp
+Alias for \fBwarn\fP.
+.TP
+.B \fBfalse\fP
+.sp
+Alias for \fBignore\fP.
+.UNINDENT
+.sp
 On Windows, this configuration option is ignored and the command aborted.
 .TP
 .B \fBquiet\fP
 .sp
-Reduce the amount of output printed. (default: False)
+Reduce the amount of output printed.
+(default: False)
 .TP
 .B \fBremotecmd\fP
 .sp
-Remote command to use for clone/push/pull operations. (default: \fBhg\fP)
+Remote command to use for clone/push/pull operations.
+(default: \fBhg\fP)
 .TP
 .B \fBreport_untrusted\fP
 .sp
 Warn if a \fB.hg/hgrc\fP file is ignored due to not being owned by a
-trusted user or group. (default: True)
+trusted user or group.
+(default: True)
 .TP
 .B \fBslash\fP
 .sp
