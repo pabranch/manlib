@@ -29,10 +29,10 @@ int SSL_get0_dane_tlsa(SSL *s, uint8_t *usage, uint8_t *selector,
     </para>
     <para>
       SSL_CTX_dane_enable() must be called first to initialize the shared
-      state required for DANE support.	Individual connections associated
+      state required for DANE support. Individual connections associated
       with the context can then enable per-connection DANE support as
-      appropriate.  DANE authentication is implemented in the
-      <citerefentry> <refentrytitle>X509_verify_cert</refentrytitle>
+      appropriate. DANE authentication is implemented in the <citerefentry>
+      <refentrytitle>X509_verify_cert</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry> function, and applications
       that override <citerefentry>
       <refentrytitle>X509_verify_cert</refentrytitle>
@@ -43,7 +43,7 @@ int SSL_get0_dane_tlsa(SSL *s, uint8_t *usage, uint8_t *selector,
     </para>
     <para>
       SSL_CTX_dane_mtype_set() may then be called zero or more times to to
-      adjust the supported digest algorithms.  This must be done before any
+      adjust the supported digest algorithms. This must be done before any
       SSL handles are created for the context.
     </para>
     <para>
@@ -51,11 +51,11 @@ int SSL_get0_dane_tlsa(SSL *s, uint8_t *usage, uint8_t *selector,
       TLSA matching type and the <emphasis role="bold">md</emphasis>
       argument specifies the associated digest algorithm handle. The
       <emphasis role="bold">ord</emphasis> argument specifies a strength
-      ordinal.	Algorithms with a larger strength ordinal are considered
-      more secure.  Strength ordinals are used to implement RFC7671 digest
+      ordinal. Algorithms with a larger strength ordinal are considered
+      more secure. Strength ordinals are used to implement RFC7671 digest
       algorithm agility. Specifying a <emphasis role="bold">NULL</emphasis>
       digest algorithm for a matching type disables support for that
-      matching type.  Matching type Full(0) cannot be modified or disabled.
+      matching type. Matching type Full(0) cannot be modified or disabled.
     </para>
     <para>
       By default, matching type <literal role="code">SHA2-256(1)</literal> (see RFC7218 for
@@ -67,16 +67,17 @@ int SSL_get0_dane_tlsa(SSL *s, uint8_t *usage, uint8_t *selector,
       with a strength ordinal of <literal role="code">2</literal>.
     </para>
     <para>
-      SSL_dane_enable() may be called before the SSL handshake is initiated
-      with <citerefentry> <refentrytitle>SSL_connect</refentrytitle>
-      <manvolnum>3</manvolnum> </citerefentry> to enable DANE for that
+      SSL_dane_enable() must be called before the SSL handshake is
+      initiated with <citerefentry>
+      <refentrytitle>SSL_connect</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry> if (and only if) you want to enable DANE for that
       connection. (The connection must be associated with a DANE-enabled
       SSL context). The <emphasis role="bold">basedomain</emphasis>
       argument specifies the RFC7671 TLSA base domain, which will be the
-      primary peer reference identifier for certificate name checks. 
+      primary peer reference identifier for certificate name checks.
       Additional server names can be specified via <citerefentry>
       <refentrytitle>SSL_add1_host</refentrytitle> <manvolnum>3</manvolnum>
-      </citerefentry>.	The <emphasis role="bold">basedomain</emphasis> is
+      </citerefentry>. The <emphasis role="bold">basedomain</emphasis> is
       used as the default SNI hint if none has yet been specified via
       <citerefentry>
       <refentrytitle>SSL_set_tlsext_host_name</refentrytitle>
@@ -86,7 +87,7 @@ int SSL_get0_dane_tlsa(SSL *s, uint8_t *usage, uint8_t *selector,
       SSL_dane_tlsa_add() may then be called one or more times, to load
       each of the TLSA records that apply to the remote TLS peer. (This too
       must be done prior to the beginning of the SSL handshake). The
-      arguments specify the fields of the TLSA record.	The <emphasis role="bold">data</emphasis> field is provided in binary (wire RDATA)
+      arguments specify the fields of the TLSA record. The <emphasis role="bold">data</emphasis> field is provided in binary (wire RDATA)
       form, not the hexadecimal ASCII presentation form, with an explicit
       length passed via <emphasis role="bold">dlen</emphasis>. A return
       value of 0 indicates that "unusable" TLSA records (with invalid or
@@ -103,7 +104,7 @@ int SSL_get0_dane_tlsa(SSL *s, uint8_t *usage, uint8_t *selector,
     <para>
       SSL_get0_dane_authority() can be used to get more detailed
       information about the matched DANE trust-anchor after successful
-      connection completion.  The return value is negative if DANE
+      connection completion. The return value is negative if DANE
       verification failed (or was not enabled), 0 if an EE TLSA record
       directly matched the leaf certificate, or a positive number
       indicating the depth at which a TA record matched an issuer
@@ -113,8 +114,8 @@ int SSL_get0_dane_tlsa(SSL *s, uint8_t *usage, uint8_t *selector,
       If the <emphasis role="bold">mcert</emphasis> argument is not
       <emphasis role="bold">NULL</emphasis> and a TLSA record matched a
       chain certificate, a pointer to the matching certificate is returned
-      via <emphasis role="bold">mcert</emphasis>.  The returned address is
-      a short-term internal reference to the certificate and must not be
+      via <emphasis role="bold">mcert</emphasis>. The returned address is a
+      short-term internal reference to the certificate and must not be
       freed by the application. Applications that want to retain access to
       the certificate can call <citerefentry>
       <refentrytitle>X509_up_ref</refentrytitle> <manvolnum>3</manvolnum>
@@ -126,9 +127,9 @@ int SSL_get0_dane_tlsa(SSL *s, uint8_t *usage, uint8_t *selector,
       If no TLSA records directly matched any elements of the certificate
       chain, but a DANE-TA(2) SPKI(1) Full(0) record provided the public
       key that signed an element of the chain, then that key is returned
-      via <emphasis role="bold">mspki</emphasis> argument (if not NULL). 
-      In this case the return value is the depth of the top-most element of
-      the validated certificate chain.	As with <emphasis role="bold">mcert</emphasis> this is a short-term internal reference,
+      via <emphasis role="bold">mspki</emphasis> argument (if not NULL). In
+      this case the return value is the depth of the top-most element of
+      the validated certificate chain. As with <emphasis role="bold">mcert</emphasis> this is a short-term internal reference,
       and <citerefentry> <refentrytitle>EVP_PKEY_up_ref</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry> and <citerefentry>
       <refentrytitle>EVP_PKEY_free</refentrytitle> <manvolnum>3</manvolnum>
@@ -137,18 +138,18 @@ int SSL_get0_dane_tlsa(SSL *s, uint8_t *usage, uint8_t *selector,
     </para>
     <para>
       SSL_get0_dane_tlsa() can be used to retrieve the fields of the TLSA
-      record that matched the peer certificate chain.  The return value
+      record that matched the peer certificate chain. The return value
       indicates the match depth or failure to match just as with
-      SSL_get0_dane_authority().  When the return value is non-negative,
-      the storage pointed to by the <emphasis role="bold">usage</emphasis>,
+      SSL_get0_dane_authority(). When the return value is non-negative, the
+      storage pointed to by the <emphasis role="bold">usage</emphasis>,
       <emphasis role="bold">selector</emphasis>, <emphasis role="bold">mtype</emphasis> and <emphasis role="bold">data</emphasis> parameters is updated to the
-      corresponding TLSA record fields.  The <emphasis role="bold">data</emphasis> field is in binary wire form, and is
+      corresponding TLSA record fields. The <emphasis role="bold">data</emphasis> field is in binary wire form, and is
       therefore not NUL-terminated, its length is returned via the
       <emphasis role="bold">dlen</emphasis> parameter. If any of these
-      parameters is NULL, the corresponding field is not returned.  The
+      parameters is NULL, the corresponding field is not returned. The
       <emphasis role="bold">data</emphasis> parameter is set to a
       short-term internal-copy of the associated data field and must not be
-      freed by the application.  Applications that need long-term access to
+      freed by the application. Applications that need long-term access to
       this field need to copy the content.
     </para>
   </refsection>
@@ -156,10 +157,10 @@ int SSL_get0_dane_tlsa(SSL *s, uint8_t *usage, uint8_t *selector,
     <para>
       The functions SSL_CTX_dane_enable(), SSL_CTX_dane_mtype_set(),
       SSL_dane_enable() and SSL_dane_tlsa_add() return a positive value on
-      success.	Negative return values indicate resource problems (out of
+      success. Negative return values indicate resource problems (out of
       memory, etc.) in the SSL library, while a return value of <emphasis role="bold">0</emphasis> indicates incorrect usage or invalid input,
       such as an unsupported TLSA record certificate usage, selector or
-      matching type.  Invalid input also includes malformed data, either a
+      matching type. Invalid input also includes malformed data, either a
       digest length that does not match the digest algorithm, or a <literal role="code">Full(0)</literal> (binary ASN.1 DER form)
       certificate or a public key that fails to parse.
     </para>
@@ -175,11 +176,11 @@ int SSL_get0_dane_tlsa(SSL *s, uint8_t *usage, uint8_t *selector,
   <refsection xml:id="ID-e65e618aae2c5e817b60ed6d4c0b6e02"><title>EXAMPLE</title>
     <para>
       Suppose "smtp.example.com" is the MX host of the domain
-      "example.com", and has DNSSEC-validated TLSA records.  The calls
-      below will perform DANE authentication and arrange to match either
-      the MX hostname or the destination domain name in the SMTP server
-      certificate.  Wildcards are supported, but must match the entire
-      label.  The actual name matched in the certificate (which might be a
+      "example.com", and has DNSSEC-validated TLSA records. The calls below
+      will perform DANE authentication and arrange to match either the MX
+      hostname or the destination domain name in the SMTP server
+      certificate. Wildcards are supported, but must match the entire
+      label. The actual name matched in the certificate (which might be a
       wildcard) is retrieved, and must be copied by the application if it
       is to be retained beyond the lifetime of the SSL connection.
     </para>
@@ -248,9 +249,9 @@ if (SSL_get_verify_result(ssl) == X509_V_OK) {
   const char *peername = SSL_get0_peername(ssl);
   EVP_PKEY *mspki = NULL;
 
-  int depth = SSL_get0_dane_authority(s, NULL, &amp;mspki);
+  int depth = SSL_get0_dane_authority(ssl, NULL, &amp;mspki);
   if (depth &gt;= 0) {
-      (void) SSL_get0_dane_tlsa(s, &amp;usage, &amp;selector, &amp;mtype, NULL, NULL);
+      (void) SSL_get0_dane_tlsa(ssl, &amp;usage, &amp;selector, &amp;mtype, NULL, NULL);
       printf("DANE TLSA %d %d %d %s at depth %d\n", usage, selector, mtype,
              (mspki != NULL) ? "TA public key verified certificate" :
              depth ? "matched TA certificate" : "matched EE certificate",
@@ -273,7 +274,7 @@ if (SSL_get_verify_result(ssl) == X509_V_OK) {
     <para>
       It is expected that the majority of clients employing DANE TLS will
       be doing "opportunistic DANE TLS" in the sense of RFC7672 and
-      RFC7435.	That is, they will use DANE authentication when
+      RFC7435. That is, they will use DANE authentication when
       DNSSEC-validated TLSA records are published for a given peer, and
       otherwise will use unauthenticated TLS or even cleartext.
     </para>
@@ -281,7 +282,7 @@ if (SSL_get_verify_result(ssl) == X509_V_OK) {
       Such applications should generally treat any TLSA records published
       by the peer with usages PKIX-TA(0) and PKIX-EE(1) as "unusable", and
       should not include them among the TLSA records used to authenticate
-      peer connections.  In addition, some TLSA records with supported
+      peer connections. In addition, some TLSA records with supported
       usages may be "unusable" as a result of invalid or unsupported
       parameters.
     </para>
