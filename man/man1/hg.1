@@ -543,11 +543,11 @@ hg backout [OPTION]... [\-r] REV
 .fi
 .sp
 Prepare a new changeset with the effect of REV undone in the
-current working directory.
+current working directory. If no conflicts were encountered,
+it will be committed immediately.
 .sp
 If REV is the parent of the working directory, then this new changeset
-is committed automatically. Otherwise, hg needs to merge the
-changes and the merged result is left uncommitted.
+is committed automatically (unless \-\-no\-commit is specified).
 .IP Note
 .
 \%\fBhg backout\fP\: cannot be used to fix either an unwanted or
@@ -573,17 +573,17 @@ Reverse the effect of previous bad revision 23:
 .nf
 .ft C
 hg backout \-r 23
-hg commit \-m "Backout revision 23"
 .ft P
 .fi
 .IP \(bu 2
 .
 Reverse the effect of previous bad revision 23 and
-commit the backout immediately:
+leave changes uncommitted:
 .sp
 .nf
 .ft C
-hg backout \-r 23 \-\-commit
+hg backout \-r 23 \-\-no\-commit
+hg commit \-m "Backout revision 23"
 .ft P
 .fi
 .UNINDENT
@@ -615,7 +615,11 @@ merge with old dirstate parent after backout
 .TP
 .B \-\-commit
 .
-commit if no conflicts were encountered
+commit if no conflicts were encountered (DEPRECATED)
+.TP
+.B \-\-no\-commit
+.
+do not commit
 .TP
 .BI \-\-parent \ <REV>
 .
@@ -1267,6 +1271,14 @@ the tipmost head of the default branch
 .
 tip
 .UNINDENT
+.sp
+When cloning from servers that support it, Mercurial may fetch
+pre\-generated data from a server\-advertised URL. When this is done,
+hooks operating on incoming changesets and changegroups may fire twice,
+once for the bundle fetched from the URL and another for any additional
+data not fetched from this URL. In addition, if an error occurs, the
+repository may be rolled back to a partial clone. This behavior may
+change in future releases. See \%\fBhg help \-e clonebundles\fP\: for more.
 .sp
 Examples:
 .INDENT 0.0
@@ -2091,7 +2103,7 @@ copy changes from other branches onto the current branch:
 .sp
 .nf
 .ft C
-hg graft [OPTION]... [\-r] REV...
+hg graft [OPTION]... [\-r REV]... REV...
 .ft P
 .fi
 .sp
@@ -7893,6 +7905,11 @@ tagged ancestor of this changeset.
 .
 Integer. Longest path to the latest tag.
 .TP
+.B namespaces
+.
+Dict of lists. Names attached to this changeset per
+namespace.
+.TP
 .B node
 .
 String. The changeset identification hash, as a 40 hexadecimal
@@ -9147,6 +9164,35 @@ censor file from specified revision
 .
 replacement tombstone data
 .UNINDENT
+.SS chgserver
+.sp
+command server extension for cHg (EXPERIMENTAL)
+.INDENT 0.0
+.TP
+.B \(aqS\(aq channel (read/write)
+.
+propagate ui.system() request to client
+.TP
+.B \(aqattachio\(aq command
+.
+attach client\(aqs stdio passed by sendmsg()
+.TP
+.B \(aqchdir\(aq command
+.
+change current directory
+.TP
+.B \(aqgetpager\(aq command
+.
+checks if pager is enabled and which pager should be executed
+.TP
+.B \(aqsetenv\(aq command
+.
+replace os.environ completely
+.TP
+.B \(aqSIGHUP\(aq signal
+.
+reload configuration files
+.UNINDENT
 .SS children
 .sp
 command to display child changesets (DEPRECATED)
@@ -9393,11 +9439,6 @@ However, \fIstreaming clone bundles\fP don\(aqt have this guarantee. \fBServer
 operators need to be aware that newer versions of Mercurial may produce
 streaming clone bundles incompatible with older Mercurial versions.\fP
 .sp
-The list of requirements printed by \%\fBhg debugcreatestreamclonebundle\fP\: should
-be specified in the \fBrequirements\fP parameter of the \fIbundle specification
-string\fP for the \fBBUNDLESPEC\fP manifest property described below. e.g.
-\fBBUNDLESPEC=none\-packed1;requirements%3Drevlogv1\fP.
-.sp
 A server operator is responsible for creating a \fB.hg/clonebundles.manifest\fP
 file containing the list of available bundle files suitable for seeding
 clones. If this file does not exist, the repository will not advertise the
@@ -9438,6 +9479,10 @@ The values are parsed in strict mode, which means they must be of the
 "<compression>\-<type>" form. See
 mercurial.exchange.parsebundlespec() for more details.
 .sp
+\%\fBhg debugbundle \-\-spec\fP\: can be used to print the bundle specification
+string for a bundle file. The output of this command can be used verbatim
+for the value of \fBBUNDLESPEC\fP (it is already escaped).
+.sp
 Clients will automatically filter out specifications that are unknown or
 unsupported so they won\(aqt attempt to download something that likely won\(aqt
 apply.
@@ -9447,7 +9492,8 @@ clients will still sniff the bundle type from the header of downloaded
 files.
 .sp
 \fBUse of this key is highly recommended\fP, as it allows clients to
-easily skip unsupported bundles.
+easily skip unsupported bundles. If this key is not defined, an old
+client may attempt to apply a bundle that it is incapable of reading.
 .TP
 .B REQUIRESNI
 .
@@ -13990,6 +14036,10 @@ Options:
 .B \-A,  \-\-addremove
 .
 mark new/missing files as added/removed before shelving
+.TP
+.B \-u,  \-\-unknown
+.
+Store unknown files in the shelve
 .TP
 .B \-\-cleanup
 .

@@ -139,6 +139,8 @@ The registry key \fBHKEY_LOCAL_MACHINE\eSOFTWARE\eWow6432Node\eMercurial\fP
 is used when running 32\-bit Python on 64\-bit Windows.
 .RE
 .sp
+On Windows 9x, \fB%HOME%\fP is replaced by \fB%APPDATA%\fP.
+.sp
 On Plan9, the following files are consulted:
 .INDENT 0.0
 .IP \(bu 2
@@ -173,12 +175,10 @@ On Plan 9 and Unix, most of this file will be ignored if it doesn\(aqt
 belong to a trusted user or to a trusted group. See
 \%\fBhg help config.trusted\fP\: for more details.
 .sp
-Per\-user configuration file(s) are for the user running Mercurial.
-.sp
-On Windows 9x, \fB%HOME%\fP is replaced by \fB%APPDATA%\fP. Options in
-these files apply to all Mercurial commands executed by this user in
-any directory. Options in these files override per\-system and
-per\-installation options.
+Per\-user configuration file(s) are for the user running Mercurial.  Options
+in these files apply to all Mercurial commands executed by this user in any
+directory. Options in these files override per\-system and per\-installation
+options.
 .sp
 Per\-installation configuration files are searched for in the
 directory where Mercurial is installed. \fB<install\-root>\fP is the
@@ -2503,6 +2503,34 @@ helps performance.
 Number of CPUs to use for parallel operations. A zero or
 negative value is treated as \fBuse the default\fP.
 (default: 4 or the number of CPUs on the system, whichever is larger)
+.TP
+.B \fBbackgroundclose\fP
+.sp
+Whether to enable closing file handles on background threads during certain
+operations. Some platforms aren\(aqt very efficient at closing file
+handles that have been written or appened to. By performing file closing
+on background threads, file write rate can increase substantially.
+(default: true on Windows, false elsewhere)
+.TP
+.B \fBbackgroundcloseminfilecount\fP
+.sp
+Minimum number of files required to trigger background file closing.
+Operations not writing this many files won\(aqt start background close
+threads.
+(default: 2048)
+.TP
+.B \fBbackgroundclosemaxqueue\fP
+.sp
+The maximum number of opened file handles waiting to be closed in the
+background. This option only has an effect if \fBbackgroundclose\fP is
+enabled.
+(default: 384)
+.TP
+.B \fBbackgroundclosethreadcount\fP
+.sp
+Number of threads to process background file closes. Only relevant if
+\fBbackgroundclose\fP is enabled.
+(default: 4)
 .UNINDENT
 .SH AUTHOR
 .sp

@@ -22,6 +22,7 @@ int OCSP_single_get0_status(OCSP_SINGLERESP *single, int *reason,
                             ASN1_GENERALIZEDTIME **revtime,
                             ASN1_GENERALIZEDTIME **thisupd,
                             ASN1_GENERALIZEDTIME **nextupd);</synopsis>
+<synopsis>ASN1_GENERALIZEDTIME *OCSP_resp_get0_produced_at(OCSP_BASICRESP* single);</synopsis>
 <synopsis>int OCSP_check_validity(ASN1_GENERALIZEDTIME *thisupd,
                         ASN1_GENERALIZEDTIME *nextupd,
                         long sec, long maxsec);</synopsis>
@@ -54,6 +55,10 @@ int OCSP_single_get0_status(OCSP_SINGLERESP *single, int *reason,
     </para>
     <para>
       OCSP_single_get0_status() extracts the fields of <emphasis role="bold">single</emphasis> in <emphasis role="bold">*reason</emphasis>, <emphasis role="bold">*revtime</emphasis>, <emphasis role="bold">*thisupd</emphasis> and <emphasis role="bold">*nextupd</emphasis>.
+    </para>
+    <para>
+      OCSP_resp_get0_produced_at() extracts the <emphasis role="bold">producedAt</emphasis> field from the single response
+      <emphasis role="bold">bs</emphasis>.
     </para>
     <para>
       OCSP_check_validity() checks the validity of <emphasis role="bold">thisupd</emphasis> and <emphasis role="bold">nextupd</emphasis> values which will be typically
