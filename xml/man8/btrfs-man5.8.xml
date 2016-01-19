@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<refentry>
+<refmeta>
+<refentrytitle>btrfs-man5</refentrytitle>
+<manvolnum>5</manvolnum>
+<refmiscinfo class="source">Btrfs</refmiscinfo>
+<refmiscinfo class="version">v4.4</refmiscinfo>
+<refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
+</refmeta>
+<refnamediv>
+  <refname>btrfs-man5</refname>
+  <refpurpose>topics about the BTRFS filesystem (mount options, supported file attributes and other)</refpurpose>
+</refnamediv>
+<refsect1 id="_description">
+<title>DESCRIPTION</title>
+<simpara>This document describes topics related to BTRFS that are not specific to the
+tools.  Currently covers:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>
+mount options
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+file attributes
+</simpara>
+</listitem>
+</orderedlist>
+</refsect1>
+<refsect1 id="_mount_options">
+<title>MOUNT OPTIONS</title>
+<simpara>This section describes mount options specific to BTRFS.  For the generic mount
+options please refer to <literal>mount</literal>(8) manpage. The options are sorted alphabetically
+(discarding the <emphasis>no</emphasis> prefix).</simpara>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">acl</emphasis>
+</term>
+<term>
+<emphasis role="strong">noacl</emphasis>
+</term>
+<listitem>
+<simpara>
+(default: on)
+</simpara>
+<simpara>Enable/disable support for Posix Access Control Lists (ACLs).  See the
+<literal>acl</literal>(5) manual page for more information about ACLs.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">alloc_start=<emphasis>bytes</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+(default: 1M, minimum: 1M)
+</simpara>
+<simpara>Debugging option to force all block allocations above a certain
+byte threshold on each block device.  The value is specified in
+bytes, optionally with a K, M, or G suffix (case insensitive).</simpara>
+<simpara>This option was used for testing and has not practial use, it&#8217;s slated to be
+removed in the future.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">autodefrag</emphasis>
+</term>
+<term>
+<emphasis role="strong">noautodefrag</emphasis>
+</term>
+<listitem>
+<simpara>
+(since: 3.0, default: off)
+</simpara>
+<simpara>Enable automatic file defragmentation.
+When enabled, small random writes into files (in a range of tens of kilobytes,
+currently it&#8217;s 64K) are detected and queued up for the defragmentation process.
+Not well suited for large database workloads.</simpara>
+<simpara>The read latency may increase due to reading the adjacent blocks that make up the
+range for defragmentation, successive write will merge the blocks in the new
+location.</simpara>
+<warning><simpara>Defragmenting with Linux kernel versions &lt; 3.9 or ≥ 3.14-rc2 as
+well as with Linux stable kernel versions ≥ 3.10.31, ≥ 3.12.12 or
+≥ 3.13.4 will break up the ref-links of CoW data (for example files
+copied with <literal>cp --reflink</literal>, snapshots or de-duplicated data).
+This may cause considerable increase of space usage depending on the
+broken up ref-links.</simpara></warning>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">barrier</emphasis>
+</term>
+<term>
+<emphasis role="strong">nobarrier</emphasis>
+</term>
+<listitem>
+<simpara>
+(default: on)
+</simpara>
+<simpara>Ensure that all IO write operations make it through the device cache and are stored
+permanently when the filesystem is at it&#8217;s consistency checkpoint. This
+typically means that a flush command is sent to the device that will
+synchronize all pending data and ordinary metadata blocks, then writes the
+superblock and issues another flush.</simpara>
+<simpara>The write flushes incur a slight hit and also prevent the IO block
+scheduler to reorder requests in more effective way. Disabling barriers gets
+rid of that penalty but will most certainly lead to a corrupted filesystem in
+case of a crash or power loss. The ordinary metadata blocks could be yet
+unwrittent at the time the new superblock is stored permanently, expecting that
+the block pointers to metadata were stored permanently before.</simpara>
+<simpara>On a device with a volatile battery-backed write-back cache, the <emphasis>nobarrier</emphasis>
+option will not lead to filesystem corruption as the pending blocks are
+supposed to make it to the permanent storage.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">check_int</emphasis>
+</term>
+<term>
+<emphasis role="strong">check_int_data</emphasis>
+</term>
+<term>
+<emphasis role="strong">check_int_print_mask=<emphasis>value</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+(since: 3.0, default: off)
+</simpara>
+<simpara>These debugging options control the behavior of the integrity checking
+module (the BTRFS_FS_CHECK_INTEGRITY config option required).<?asciidoc-br?></simpara>
+<simpara><literal>check_int</literal> enables the integrity checker module, which examines all
+block write requests to ensure on-disk consistency, at a large
+memory and CPU cost.<?asciidoc-br?></simpara>
+<simpara><literal>check_int_data</literal> includes extent data in the integrity checks, and
+implies the check_int option.<?asciidoc-br?></simpara>
+<simpara><literal>check_int_print_mask</literal> takes a bitmask of BTRFSIC_PRINT_MASK_* values
+as defined in <emphasis>fs/btrfs/check-integrity.c</emphasis>, to control the integrity
+checker module behavior.<?asciidoc-br?></simpara>
+<simpara>See comments at the top of <emphasis>fs/btrfs/check-integrity.c</emphasis>
+for more info.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">clear_cache</emphasis>
+</term>
+<listitem>
+<simpara>
+Force clearing and rebuilding of the disk space cache if something
+has gone wrong. See also: <emphasis>space_cache</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">commit=<emphasis>seconds</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+(since: 3.12, default: 30)
+</simpara>
+<simpara>Set the interval of periodic commit. Higher
+values defer data being synced to permanent storage with obvious
+consequences when the system crashes. The upper bound is not forced,
+but a warning is printed if it&#8217;s more than 300 seconds (5 minutes).</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">compress</emphasis>
+</term>
+<term>
+<emphasis role="strong">compress=<emphasis>type</emphasis></emphasis>
+</term>
+<term>
+<emphasis role="strong">compress-force</emphasis>
+</term>
+<term>
+<emphasis role="strong">compress-force=<emphasis>type</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+(default: off)
+</simpara>
+<simpara>Control BTRFS file data compression.  Type may be specified as <emphasis>zlib</emphasis>,
+<emphasis>lzo</emphasis> or <emphasis>no</emphasis> (for no compression, used for remounting).  If no type
+is specified, <emphasis>zlib</emphasis> is used.  If compress-force is specified,
+all files will be compressed, whether or not they compress well.</simpara>
+<note><simpara>If compression is enabled, <emphasis>nodatacow</emphasis> and <emphasis>nodatasum</emphasis> are disabled.</simpara></note>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">datacow</emphasis>
+</term>
+<term>
+<emphasis role="strong">nodatacow</emphasis>
+</term>
+<listitem>
+<simpara>
+(default: on)
+</simpara>
+<simpara>Enable data copy-on-write for newly created files.
+<emphasis>Nodatacow</emphasis> implies <emphasis>nodatasum</emphasis>, and disables <emphasis>compression</emphasis>. All files created
+under <emphasis>nodatacow</emphasis> are also set the NOCOW file attribute (see <literal>chattr</literal>(1)).</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">datasum</emphasis>
+</term>
+<term>
+<emphasis role="strong">nodatasum</emphasis>
+</term>
+<listitem>
+<simpara>
+(default: on)
+</simpara>
+<simpara>Enable data checksumming for newly created files.
+<emphasis>Datasum</emphasis> implies <emphasis>datacow</emphasis>, ie. the normal mode of operation. All files created
+under <emphasis>nodatasum</emphasis> inherit the "no checksums" property, however there&#8217;s no
+corresponding file attribute (see <literal>chattr</literal>(1)).</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">degraded</emphasis>
+</term>
+<listitem>
+<simpara>
+(default: off)
+</simpara>
+<simpara>Allow mounts with less devices than the raid profile constraints
+require.  A read-write mount (or remount) may fail with too many devices
+missing, for example if a stripe member is completely missing from RAID0.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">device=<emphasis>devicepath</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+Specify a path to a device that will be scanned for BTRFS filesystem during
+mount. This is usually done automatically by a device manager (like udev) or
+using the <emphasis role="strong">btrfs device scan</emphasis> command (eg. run from the initial ramdisk). In
+cases where this is not possible the <emphasis>device</emphasis> mount option can help.
+</simpara>
+<note><simpara>booting eg. a RAID1 system may fail even if all filesystem&#8217;s <emphasis>device</emphasis>
+paths are provided as the actual device nodes may not be discovered by the
+system at that point.</simpara></note>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">discard</emphasis>
+</term>
+<term>
+<emphasis role="strong">nodiscard</emphasis>
+</term>
+<listitem>
+<simpara>
+(default: off)
+</simpara>
+<simpara>Enable discarding of freed file blocks using TRIM operation.  This is useful
+for SSD devices, thinly provisioned LUNs or virtual machine images where the
+backing device understands the operation. Depending on support of the
+underlying device, the operation may severly hurt performance in case the TRIM
+operation is synchronous (eg. with SATA devices up to revision 3.0).</simpara>
+<simpara>If discarding is not necessary to be done at the block freeing time, there&#8217;s
+<emphasis role="strong">fstrim</emphasis> tool that lets the filesystem discard all free blocks in a batch,
+possibly not much interfering with other operations.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">enospc_debug</emphasis>
+</term>
+<term>
+<emphasis role="strong">noenospc_debug</emphasis>
+</term>
+<listitem>
+<simpara>
+(default: off)
+</simpara>
+<simpara>Enable verbose output for some ENOSPC conditions. It&#8217;s safe to use but can
+be noisy if the system hits reaches near-full state.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">fatal_errors=<emphasis>action</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+(since: 3.4, default: bug)
+</simpara>
+<simpara>Action to take when encountering a fatal error.</simpara>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">bug</emphasis>
+</term>
+<listitem>
+<simpara>
+<emphasis>BUG()</emphasis> on a fatal error, the system will stay in the crashed state and may be
+still partially usable, but reboot is required for full operation
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">panic</emphasis>
+</term>
+<listitem>
+<simpara>
+<emphasis>panic()</emphasis> on a fatal error, depending on other system configuration, this may
+be followed by a reboot. Please refer to the documentation of kernel boot
+parameters, eg. <emphasis>panic</emphasis>, <emphasis>oops</emphasis> or <emphasis>crashkernel</emphasis>.
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">flushoncommit</emphasis>
+</term>
+<term>
+<emphasis role="strong">noflushoncommit</emphasis>
+</term>
+<listitem>
+<simpara>
+(default: on)
+</simpara>
+<simpara>This option forces any data dirtied by a write in a prior transaction to commit
+as part of the current commit.  This makes the committed state a fully
+consistent view of the file system from the application&#8217;s perspective (i.e., it
+includes all completed file system operations).  This was previously the
+behavior only when a snapshot was created.</simpara>
+<simpara>Disabling flushing may improve performance but is not crash-safe.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">fragment=<emphasis>type</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+(depends on compile-time option BTRFS_DEBUG, since: 4.4, default: off)
+</simpara>
+<simpara>A debugging helper to intentionally fragment given <emphasis>type</emphasis> of block groups. The
+type can be <emphasis>data</emphasis>, <emphasis>metadata</emphasis> or <emphasis>all</emphasis>. This mount option should not be used
+outside of debugging environments and is not recognized if the kernel config
+option <emphasis>BTRFS_DEBUG</emphasis> is not enabled.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">inode_cache</emphasis>
+</term>
+<term>
+<emphasis role="strong">noinode_cache</emphasis>
+</term>
+<listitem>
+<simpara>
+(since: 3.0, default: off)
+</simpara>
+<simpara>Enable free inode number caching. Not recommended to use unless files on your
+filesystem get assigned inode numbers that are approaching 2<superscript>64</superscript>. Normally, new
+files in each subvolume get assigned incrementally (plus one from the last
+time) and are not reused. The mount option turns on caching of the existing
+inode numbers and reuse of inode numbers of deleted files.</simpara>
+<simpara>This option may slow down your system at first run, or after mounting without
+the option.</simpara>
+<note><simpara>Defaults to off due to a potential overflow problem when the free space
+checksums don&#8217;t fit inside a single page.</simpara></note>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">max_inline=<emphasis>bytes</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+(default: min(8192, page size) )
+</simpara>
+<simpara>Specify the maximum amount of space, in bytes, that can be inlined in
+a metadata B-tree leaf.  The value is specified in bytes, optionally
+with a K suffix (case insensitive).  In practice, this value
+is limited by the filesystem block size (named <emphasis>sectorsize</emphasis> at mkfs time),
+and memory page size of the system. In case of sectorsize limit, there&#8217;s
+some space unavailable due to leaf headers.  For example, a 4k sectorsize, max
+inline data is ~3900 bytes.</simpara>
+<simpara>Inlining can be completely turned off specifying 0. This will increase data
+block slack if file sizes are much smaller than block size but will reduce
+metadata consumption in return.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">metadata_ratio=<emphasis>value</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+(default: 0, internal logic)
+</simpara>
+<simpara>Specifies that 1 metadata chunk should be allocated after every <emphasis>value</emphasis> data
+chunks. Default behaviour depends on internal logic, some percent of unused
+metadata space is attempted to be maintained but is not always possible if
+there&#8217;s not space left for chunk allocation. The option could be useful to
+override the internal logic in favor of the metadata allocation if the expected
+workload is supposed to be metadata intense (snapshots, reflinks, xattrs,
+inlined files).</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">recovery</emphasis>
+</term>
+<listitem>
+<simpara>
+(since: 3.2, default: off)
+</simpara>
+<simpara>Enable autorecovery attempts if a bad tree root is found at mount time.
+Currently this scans a backup list of several previous tree roots and tries to
+use the first readable. This can be used with read-only mounts as well.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">rescan_uuid_tree</emphasis>
+</term>
+<listitem>
+<simpara>
+(since: 3.12, default: off)
+</simpara>
+<simpara>Force check and rebuild procedure of the UUID tree. This should not
+normally be needed.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">skip_balance</emphasis>
+</term>
+<listitem>
+<simpara>
+(since: 3.3, default: off)
+</simpara>
+<simpara>Skip automatic resume of interrupted balance operation after mount.
+May be resumed with <emphasis role="strong">btrfs balance resume</emphasis> or the paused state can be removed
+by <emphasis role="strong">btrfs balance cancel</emphasis>.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">space_cache</emphasis>
+</term>
+<term>
+<emphasis role="strong">nospace_cache</emphasis>
+</term>
+<listitem>
+<simpara>
+(<emphasis>nospace_cache</emphasis> since: 3.2, default: on)
+</simpara>
+<simpara>Disable freespace cache loading without clearing the cache and the free space
+cache will not be used during the mount. This affects performance as searching
+for new free blocks could take longer. On the other hand, managing the space
+cache consumes some resources.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">ssd</emphasis>
+</term>
+<term>
+<emphasis role="strong">nossd</emphasis>
+</term>
+<term>
+<emphasis role="strong">ssd_spread</emphasis>
+</term>
+<listitem>
+<simpara>
+(default: SSD autodetected)
+</simpara>
+<simpara>Options to control SSD allocation schemes.  By default, BTRFS will
+enable or disable SSD allocation heuristics depending on whether a
+rotational or nonrotational disk is in use.  The <emphasis>ssd</emphasis> and <emphasis>nossd</emphasis> options
+can override this autodetection.</simpara>
+<simpara>The <emphasis>ssd_spread</emphasis> mount option attempts to allocate into bigger and aligned
+chunks of unused space, and may perform better on low-end SSDs.  <emphasis>ssd_spread</emphasis>
+implies <emphasis>ssd</emphasis>, enabling all other SSD heuristics as well.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">subvol=<emphasis>path</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+Mount subvolume from <emphasis>path</emphasis> rather than the toplevel subvolume. The
+<emphasis>path</emphasis> is absolute (ie. starts at the toplevel subvolume).
+This mount option overrides the default subvolume set for the given filesystem.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">subvolid=<emphasis>subvolid</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+Mount subvolume specified by a <emphasis>subvolid</emphasis> number rather than the toplevel
+subvolume.  You can use <emphasis role="strong">btrfs subvolume list</emphasis> to see subvolume ID numbers.
+This mount option overrides the default subvolume set for the given filesystem.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">subvolrootid=<emphasis>objectid</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+(irrelevant since: 3.2, formally deprecated since: 3.10)
+</simpara>
+<simpara>A workaround option from times (pre 3.2) when it was not possible to mount a
+subvolume that did not reside directly under the toplevel subvolume.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">thread_pool=<emphasis>number</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+(default: min(NRCPUS + 2, 8) )
+</simpara>
+<simpara>The number of worker threads to allocate. NRCPUS is number of on-line CPUs
+detected at the time of mount. Small number leads to less parallelism in
+processing data and metadata, higher numbers could lead to a performance due to
+increased locking contention, cache-line bouncing or costly data transfers
+between local CPU memories.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">treelog</emphasis>
+</term>
+<term>
+<emphasis role="strong">notreelog</emphasis>
+</term>
+<listitem>
+<simpara>
+(default: on)
+</simpara>
+<simpara>Enable the tree logging used for <emphasis>fsync</emphasis> and <emphasis>O_SYNC</emphasis> writes. The tree log
+stores changes without the need of a full filesystem sync. The log operations
+are flushed at sync and transaction commit. If the system crashes between two
+such syncs, the pending tree log operations are replayed during mount.</simpara>
+<warning><simpara>currently, the tree log is replayed even with a read-only mount!</simpara></warning>
+<simpara>The tree log could contain new files/directories, these would not exist on
+a mounted filesystm if the log is not replayed.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">user_subvol_rm_allowed</emphasis>
+</term>
+<listitem>
+<simpara>
+(default: off)
+</simpara>
+<simpara>Allow subvolumes to be deleted by their respective owner. Otherwise, only the
+root user can do that.</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</refsect1>
+<refsect1 id="_file_attributes">
+<title>FILE ATTRIBUTES</title>
+<simpara>The btrfs filesystem supports setting the following file attributes using the
+<literal>chattr</literal>(1) utility:</simpara>
+<variablelist>
+<varlistentry>
+<term>
+<emphasis role="strong">a</emphasis>
+</term>
+<listitem>
+<simpara>
+<emphasis>append only</emphasis>, new writes are always written at the end of the file
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">A</emphasis>
+</term>
+<listitem>
+<simpara>
+<emphasis>no atime updates</emphasis>
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">c</emphasis>
+</term>
+<listitem>
+<simpara>
+<emphasis>compress data</emphasis>, all data written after this attribute is set will be compressed.
+Please note that compression is also affected by the mount options or the parent
+directory attributes.
+</simpara>
+<simpara>When set on a directory, all newly created files will inherit this attribute.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">C</emphasis>
+</term>
+<listitem>
+<simpara>
+<emphasis>no copy-on-write</emphasis>, file modifications are done in-place
+</simpara>
+<simpara>When set on a directory, all newly created files will inherit this attribute.</simpara>
+<note><simpara>due to implementation limitations, this flag can be set/unset only on
+empty files.</simpara></note>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">d</emphasis>
+</term>
+<listitem>
+<simpara>
+<emphasis>no dump</emphasis>, makes sense with 3rd party tools like <literal>dump</literal>(8), on BTRFS the
+attribute can be set/unset on no other special handling is done
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">D</emphasis>
+</term>
+<listitem>
+<simpara>
+<emphasis>synchronous directory updates</emphasis>, for more details search <literal>open</literal>(2) for <emphasis>O_SYNC</emphasis>
+and <emphasis>O_DSYNC</emphasis>
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">i</emphasis>
+</term>
+<listitem>
+<simpara>
+<emphasis>immutable</emphasis>, no file data and metadata changes allowed even to the root user as
+long as this attribute is set (obviously the exception is unsetting the attribute)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">S</emphasis>
+</term>
+<listitem>
+<simpara>
+<emphasis>synchronous updates</emphasis>, for more details search <literal>open</literal>(2) for <emphasis>O_SYNC</emphasis> and
+<emphasis>O_DSYNC</emphasis>
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">X</emphasis>
+</term>
+<listitem>
+<simpara>
+<emphasis>no compression</emphasis>, permanently turn off compression on the given file, other
+compression mount options will not affect that
+</simpara>
+<simpara>When set on a directory, all newly created files will inherit this attribute.</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+<simpara>No other attributes are supported.  For the complete list please refer to the
+<literal>chattr</literal>(1) manual page.</simpara>
+</refsect1>
+<refsect1 id="_see_also">
+<title>SEE ALSO</title>
+<simpara><literal>acl</literal>(5),
+<literal>btrfs</literal>(8),
+<literal>chattr</literal>(1),
+<literal>fstrim</literal>(8),
+<literal>mkfs.btrfs</literal>(8),
+<literal>mount</literal>(8)</simpara>
+</refsect1>
+</refentry>

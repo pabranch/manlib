@@ -7,7 +7,7 @@
 <refentrytitle>mkfs.btrfs</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v4.3.1</refmiscinfo>
+<refmiscinfo class="version">v4.4</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -77,8 +77,9 @@ mkfs.btrfs uses the entire device space for the filesystem.
 <listitem>
 <simpara>
 Specify the profile for the data block groups.  Valid values are <emphasis>raid0</emphasis>,
-<emphasis>raid1</emphasis>, <emphasis>raid5</emphasis>, <emphasis>raid6</emphasis>, <emphasis>raid10</emphasis> or <emphasis>single</emphasis>, (case does not matter).
+<emphasis>raid1</emphasis>, <emphasis>raid5</emphasis>, <emphasis>raid6</emphasis>, <emphasis>raid10</emphasis> or <emphasis>single</emphasis> or dup (case does not matter).
 </simpara>
+<simpara>See <emphasis>DUP PROFILES ON A SINGLE DEVICE</emphasis> for more.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -93,13 +94,11 @@ Valid values are <emphasis>raid0</emphasis>, <emphasis>raid1</emphasis>, <emphas
 </simpara>
 <simpara>A single device filesystem will default to <emphasis>DUP</emphasis>, unless a SSD is detected. Then
 it will default to <emphasis>single</emphasis>. The detection is based on the value of
-<literal>/sys/block/DEV/queue/rotational</literal>, where <emphasis>DEV</emphasis> is the short name of the device.
-This is because SSDs can remap the blocks internally to a single copy thus
-deduplicating them which negates the purpose of increased metadata redunancy
-and just wastes space.</simpara>
+<literal>/sys/block/DEV/queue/rotational</literal>, where <emphasis>DEV</emphasis> is the short name of the device.</simpara>
 <simpara>Note that the rotational status can be arbitrarily set by the underlying block
 device driver and may not reflect the true status (network block device, memory-backed
 SCSI devices etc). Use the options <emphasis>--data/--metadata</emphasis> to avoid confusion.</simpara>
+<simpara>See <emphasis>DUP PROFILES ON A SINGLE DEVICE</emphasis> for more details.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -446,59 +445,96 @@ rowsep="1" colsep="1"
 <?dbhtml table-width="60%"?>
 <?dbfo table-width="60%"?>
 <?dblatex table-width="60%"?>
-<tgroup cols="4">
-<colspec colname="col_1" colwidth="64*"/>
-<colspec colname="col_2" colwidth="64*"/>
-<colspec colname="col_3" colwidth="64*"/>
-<colspec colname="col_4" colwidth="64*"/>
-<thead>
-<row>
-<entry align="left" valign="top"> Profile </entry>
-<entry align="left" valign="top"> Redundancy          </entry>
-<entry align="left" valign="top"> Striping   </entry>
-<entry align="left" valign="top"> Min/max devices</entry>
-</row>
-</thead>
+<tgroup cols="5">
+<colspec colname="col_1" colwidth="51*"/>
+<colspec colname="col_2" colwidth="51*"/>
+<colspec colname="col_3" colwidth="51*"/>
+<colspec colname="col_4" colwidth="51*"/>
+<colspec colname="col_5" colwidth="51*"/>
 <tbody>
 <row>
-<entry align="left" valign="top"><simpara>single</simpara></entry>
-<entry align="left" valign="top"><simpara>1 copy</simpara></entry>
-<entry align="left" valign="top"><simpara>n/a</simpara></entry>
-<entry align="left" valign="top"><simpara>1/any</simpara></entry>
+<entry align="center" valign="top" morerows="1"><simpara><emphasis role="strong">Profile</emphasis></simpara></entry>
+<entry align="center" valign="middle" namest="col_2" nameend="col_4"><simpara><emphasis role="strong">Redundancy</emphasis></simpara></entry>
+<entry align="center" valign="top" morerows="1"><simpara><emphasis role="strong">Min/max devices</emphasis></simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>DUP</simpara></entry>
-<entry align="left" valign="top"><simpara>2 copies / 1 device</simpara></entry>
-<entry align="left" valign="top"><simpara>n/a</simpara></entry>
-<entry align="left" valign="top"><simpara>1/1</simpara></entry>
+<entry align="center" valign="middle"><simpara><emphasis role="strong">Copies</emphasis></simpara></entry>
+<entry align="center" valign="middle"><simpara><emphasis role="strong">Parity</emphasis></simpara></entry>
+<entry align="center" valign="top"><simpara><emphasis role="strong">Striping</emphasis></simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>RAID0</simpara></entry>
-<entry align="left" valign="top"><simpara>n/a</simpara></entry>
-<entry align="left" valign="top"><simpara>1 to N</simpara></entry>
-<entry align="left" valign="top"><simpara>2/any</simpara></entry>
+<entry align="center" valign="top"><simpara>single</simpara></entry>
+<entry align="center" valign="top"><simpara>1</simpara></entry>
+<entry align="center" valign="top"><simpara></simpara></entry>
+<entry align="center" valign="top"><simpara></simpara></entry>
+<entry align="center" valign="top"><simpara>1/any</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>RAID10</simpara></entry>
-<entry align="left" valign="top"><simpara>2 copies</simpara></entry>
-<entry align="left" valign="top"><simpara>1 to N</simpara></entry>
-<entry align="left" valign="top"><simpara>4/any</simpara></entry>
+<entry align="center" valign="top"><simpara>DUP</simpara></entry>
+<entry align="center" valign="top"><simpara>2 / 1 device</simpara></entry>
+<entry align="center" valign="top"><simpara></simpara></entry>
+<entry align="center" valign="top"><simpara></simpara></entry>
+<entry align="center" valign="top"><simpara>1/1 <superscript>(see note)</superscript></simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>RAID5</simpara></entry>
-<entry align="left" valign="top"><simpara>2 copies</simpara></entry>
-<entry align="left" valign="top"><simpara>3 to N - 1</simpara></entry>
-<entry align="left" valign="top"><simpara>2/any</simpara></entry>
+<entry align="center" valign="top"><simpara>RAID0</simpara></entry>
+<entry align="center" valign="top"><simpara></simpara></entry>
+<entry align="center" valign="top"><simpara></simpara></entry>
+<entry align="center" valign="top"><simpara>1 to N</simpara></entry>
+<entry align="center" valign="top"><simpara>2/any</simpara></entry>
 </row>
 <row>
-<entry align="left" valign="top"><simpara>RAID6</simpara></entry>
-<entry align="left" valign="top"><simpara>3 copies</simpara></entry>
-<entry align="left" valign="top"><simpara>3 to N - 2</simpara></entry>
-<entry align="left" valign="top"><simpara>3/any</simpara></entry>
+<entry align="center" valign="top"><simpara>RAID1</simpara></entry>
+<entry align="center" valign="top"><simpara>2</simpara></entry>
+<entry align="center" valign="top"><simpara></simpara></entry>
+<entry align="center" valign="top"><simpara></simpara></entry>
+<entry align="center" valign="top"><simpara>2/any</simpara></entry>
+</row>
+<row>
+<entry align="center" valign="top"><simpara>RAID10</simpara></entry>
+<entry align="center" valign="top"><simpara>2</simpara></entry>
+<entry align="center" valign="top"><simpara></simpara></entry>
+<entry align="center" valign="top"><simpara>1 to N</simpara></entry>
+<entry align="center" valign="top"><simpara>4/any</simpara></entry>
+</row>
+<row>
+<entry align="center" valign="top"><simpara>RAID5</simpara></entry>
+<entry align="center" valign="top"><simpara>1</simpara></entry>
+<entry align="center" valign="top"><simpara>1</simpara></entry>
+<entry align="center" valign="top"><simpara>2 to N - 1</simpara></entry>
+<entry align="center" valign="top"><simpara>2/any</simpara></entry>
+</row>
+<row>
+<entry align="center" valign="top"><simpara>RAID6</simpara></entry>
+<entry align="center" valign="top"><simpara>1</simpara></entry>
+<entry align="center" valign="top"><simpara>2</simpara></entry>
+<entry align="center" valign="top"><simpara>3 to N - 2</simpara></entry>
+<entry align="center" valign="top"><simpara>3/any</simpara></entry>
 </row>
 </tbody>
 </tgroup>
 </informaltable>
+<simpara><emphasis>Note:</emphasis> DUP may exist on more than 1 device if it starts on a single device and
+another one is added, but <emphasis role="strong">mkfs.btrfs</emphasis> will not let you create DUP on multiple
+devices.</simpara>
+</refsect1>
+<refsect1 id="_dup_profiles_on_a_single_device">
+<title>DUP PROFILES ON A SINGLE DEVICE</title>
+<simpara>The mkfs utility will let the user create a filesystem with profiles that write
+the logical blocks to 2 physical locations. Whether there are really 2
+physical copies highly depends on the underlying device type.</simpara>
+<simpara>For example, a SSD drive can remap the blocks internally to a single copy thus
+deduplicating them. This negates the purpose of increased redunancy and just
+wastes space.</simpara>
+<simpara>The duplicated data/metadata may still be useful to statistically improve the
+chances on a device that might perform some internal optimizations. The actual
+details are not usually disclosed by vendors. As another example, the widely
+used USB flash or SD cards use a translation layer. The data lifetime may
+be affected by frequent plugging. The memory cells could get damaged, hopefully
+not destroying both copies of particular data.</simpara>
+<simpara>The traditional rotational hard drives usually fail at the sector level.</simpara>
+<simpara>In any case, a device that starts to misbehave and repairs from the DUP copy
+should be replaced! <emphasis role="strong">DUP is not backup</emphasis>.</simpara>
 </refsect1>
 <refsect1 id="_known_issues">
 <title>KNOWN ISSUES</title>

@@ -7,7 +7,7 @@
 <refentrytitle>btrfs-balance</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v4.3.1</refmiscinfo>
+<refmiscinfo class="version">v4.4</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -58,9 +58,9 @@ See the section <emphasis>ENOSPC</emphasis> for more details.</simpara></note>
 </refsect1>
 <refsect1 id="_compatibility">
 <title>COMPATIBILITY</title>
-<note><simpara>The balance subcommand also exists under the <emphasis role="strong">filesystem</emphasis> namespace. This
-still works for backward compatibility but is deprecated and should not be
-used anymore.</simpara></note>
+<note><simpara>The balance subcommand also exists under the <emphasis role="strong">btrfs filesystem</emphasis>
+namespace. This still works for backward compatibility but is deprecated and
+should not be used anymore.</simpara></note>
 <note><simpara>A short syntax <emphasis role="strong">btrfs balance <emphasis>&lt;path&gt;</emphasis></emphasis> works due to backward compatibility
 but is deprecated and should not be used anymore. Use <emphasis role="strong">btrfs balance start</emphasis>
 command instead.</simpara></note>
@@ -201,13 +201,20 @@ are a list of profile names separated by "<emphasis>|</emphasis>" (pipe).
 <term>
 <emphasis role="strong">usage=<emphasis>&lt;percent&gt;</emphasis></emphasis>
 </term>
+<term>
+<emphasis role="strong">usage=<emphasis>&lt;range&gt;</emphasis></emphasis>
+</term>
 <listitem>
 <simpara>
 Balances only block groups with usage under the given percentage. The
 value of 0 is allowed and will clean up completely unused block groups, this
-should not require any new space allocated. You may want to use <emphasis>usage=0</emphasis> in
-case balance is returnin ENOSPC and your filesystem is not too full.
+should not require any new work space allocated. You may want to use <emphasis>usage=0</emphasis>
+in case balance is returnin ENOSPC and your filesystem is not too full.
 </simpara>
+<simpara>The argument may be a single value or a range. The single value <emphasis>N</emphasis> means <emphasis>at
+most N percent used</emphasis>, equivalent to <emphasis>..N</emphasis> range syntax. Kernels prior to 4.4
+accept only the single value format.
+The minimum range boundary is inclusive, maximum is exclusive.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -217,7 +224,7 @@ case balance is returnin ENOSPC and your filesystem is not too full.
 <listitem>
 <simpara>
 Balances only block groups which have at least one chunk on the given
-device. To list devices with ids use <emphasis>btrfs fi show</emphasis>.
+device. To list devices with ids use <emphasis role="strong">btrfs fi show</emphasis>.
 </simpara>
 </listitem>
 </varlistentry>
@@ -227,8 +234,8 @@ device. To list devices with ids use <emphasis>btrfs fi show</emphasis>.
 </term>
 <listitem>
 <simpara>
-Balances only block groups which overlap with the given byte range on any
-device.(Use in conjunction with <emphasis>devid</emphasis> to filter on a specific device. The
+Balance only block groups which overlap with the given byte range on any
+device. Use in conjunction with <emphasis>devid</emphasis> to filter on a specific device. The
 parameter is a range specified as <emphasis>start..end</emphasis>.
 </simpara>
 </listitem>
@@ -239,7 +246,7 @@ parameter is a range specified as <emphasis>start..end</emphasis>.
 </term>
 <listitem>
 <simpara>
-Balances only block groups which overlap with the given byte range in the
+Balance only block groups which overlap with the given byte range in the
 filesystem&#8217;s internal virtual address space. This is the address space that
 most reports from btrfs in the kernel log use. The parameter is a range
 specified as <emphasis>start..end</emphasis>.
@@ -255,17 +262,38 @@ specified as <emphasis>start..end</emphasis>.
 Convert each selected block group to the given profile name identified by
 parameters.
 </simpara>
+<note><simpara>starting with kernel 4.5, the <emphasis>data</emphasis> chunks can be converted to/from the
+<emphasis>DUP</emphasis> profile on a single device.</simpara></note>
 </listitem>
 </varlistentry>
 <varlistentry>
 <term>
 <emphasis role="strong">limit=<emphasis>&lt;number&gt;</emphasis></emphasis>
 </term>
+<term>
+<emphasis role="strong">limit=<emphasis>&lt;range&gt;</emphasis></emphasis>
+</term>
 <listitem>
 <simpara>
 Process only given number of chunks, after all filters are applied. This can be
-used to specifically target a chunk in connection with other filters (drange,
-vrange) or just simply limit the amount of work done by a single balance run.
+used to specifically target a chunk in connection with other filters (<emphasis>drange</emphasis>,
+<emphasis>vrange</emphasis>) or just simply limit the amount of work done by a single balance run.
+</simpara>
+<simpara>The argument may be a single value or a range. The single value <emphasis>N</emphasis> means <emphasis>at
+most N chunks</emphasis>, equivalent to <emphasis>..N</emphasis> range syntax. Kernels prior to 4.4 accept
+only the single value format.  The range minimum and maximum are inclusive.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">stripes=<emphasis>&lt;range&gt;</emphasis></emphasis>
+</term>
+<listitem>
+<simpara>
+Balance only block groups which have the given number of stripes. The parameter
+is a range specified as <emphasis>start..end</emphasis>. Makes sense fo block group profiles that
+utilize striping, ie. RAID0/10/5/6.  The range minimum and maximum are
+inclusive.
 </simpara>
 </listitem>
 </varlistentry>
@@ -277,8 +305,9 @@ vrange) or just simply limit the amount of work done by a single balance run.
 <simpara>
 Takes no parameters. Only has meaning when converting between profiles.
 When doing convert from one profile to another and soft mode is on,
-chunks that alread yave the target profile are left untouched
- This is useful if e.g. half of the filesystem was converted earlier.
+chunks that already have the target profile are left untouched.
+This is useful e.g. when half of the filesystem was converted earlier but got
+cancelled.
 </simpara>
 <simpara>The soft mode switch is (like every other filter) per-type.
 For example, this means that we can convert metadata chunks the "hard" way
@@ -286,10 +315,11 @@ while converting data chunks selectively with soft switch.</simpara>
 </listitem>
 </varlistentry>
 </variablelist>
-<simpara>Profile names, used in profiles and convert are one of: <emphasis>raid0</emphasis>, <emphasis>raid1</emphasis>,
+<simpara>Profile names, used in <emphasis>profiles</emphasis> and <emphasis>convert</emphasis> are one of: <emphasis>raid0</emphasis>, <emphasis>raid1</emphasis>,
 <emphasis>raid10</emphasis>, <emphasis>raid5</emphasis>, <emphasis>raid6</emphasis>, <emphasis>dup</emphasis>, <emphasis>single</emphasis>. The mixed data/metadata profiles
-can be converted in the same bay, but it&#8217;s conversion between mixed and non-mixed
-is not implemented.</simpara>
+can be converted in the same way, but it&#8217;s conversion between mixed and non-mixed
+is not implemented. For the constraints of the profiles please refer to <literal>mkfs.btrfs</literal>(8),
+section <emphasis>PROFILES</emphasis>.</simpara>
 </refsect1>
 <refsect1 id="_enospc">
 <title>ENOSPC</title>
@@ -298,12 +328,12 @@ group and move the old data there. For that it needs work space, otherwise
 it fails for ENOSPC reasons.
 This is not the same ENOSPC as if the free space is exhausted. This refers to
 the space on the level of block groups.</simpara>
-<simpara>The free work space can be calculated from the output of the <emphasis>btrfs filesystem show</emphasis>
+<simpara>The free work space can be calculated from the output of the <emphasis role="strong">btrfs filesystem show</emphasis>
 command:</simpara>
-<literallayout class="monospaced">Label: 'BTRFS'  uuid: 8a9d72cd-ead3-469d-b371-9c7203276265
-        Total devices 2 FS bytes used 77.03GiB
-        devid    1 size 53.90GiB used 51.90GiB path /dev/sdc2
-        devid    2 size 53.90GiB used 51.90GiB path /dev/sde1</literallayout>
+<screen>   Label: 'BTRFS'  uuid: 8a9d72cd-ead3-469d-b371-9c7203276265
+           Total devices 2 FS bytes used 77.03GiB
+           devid    1 size 53.90GiB used 51.90GiB path /dev/sdc2
+           devid    2 size 53.90GiB used 51.90GiB path /dev/sde1</screen>
 <simpara><emphasis>size</emphasis> - <emphasis>used</emphasis> = <emphasis>free work space</emphasis><?asciidoc-br?>
 <emphasis>53.90GiB</emphasis> - <emphasis>51.90GiB</emphasis> = <emphasis>2.00GiB</emphasis></simpara>
 <simpara>An example of a filter that does not require workspace is <emphasis>usage=0</emphasis>. This will

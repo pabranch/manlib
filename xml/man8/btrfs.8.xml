@@ -7,7 +7,7 @@
 <refentrytitle>btrfs</refentrytitle>
 <manvolnum>8</manvolnum>
 <refmiscinfo class="source">Btrfs</refmiscinfo>
-<refmiscinfo class="version">v4.3.1</refmiscinfo>
+<refmiscinfo class="version">v4.4</refmiscinfo>
 <refmiscinfo class="manual">Btrfs Manual</refmiscinfo>
 </refmeta>
 <refnamediv>
@@ -19,19 +19,23 @@
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
-<simpara><emphasis role="strong">btrfs</emphasis> is used to control the filesystem and the files and directories stored.
-It is the tool to create or destroy a snapshot or a subvolume for the
-filesystem, to defrag a file or a directory, flush the data to the disk,
-to resize the filesystem, to scan the device.</simpara>
-<simpara>It is possible to abbreviate the commands unless the commands are ambiguous.
-For example: it is possible to run <emphasis role="strong">btrfs sub snaps</emphasis> instead of
+<simpara>The <emphasis role="strong">btrfs</emphasis> utility is a toolbox for managing btrfs filesystems.  There are
+command groups to work with subvolumes, devices, for whole filesystem or other
+specific actions. See section <emphasis role="strong">COMMANDS</emphasis>.</simpara>
+</refsect1>
+<refsect1 id="_command_sytnax">
+<title>COMMAND SYTNAX</title>
+<simpara>Any command name can be shortened as far as it stays unambiguous,
+however it is recommended to use full command names in scripts.
+All command groups have their manual page named <emphasis role="strong">btrfs-<emphasis>&lt;group&gt;</emphasis></emphasis>.</simpara>
+<simpara>For example: it is possible to run <emphasis role="strong">btrfs sub snaps</emphasis> instead of
 <emphasis role="strong">btrfs subvolume snapshot</emphasis>.
 But <emphasis role="strong">btrfs file s</emphasis> is not allowed, because <emphasis role="strong">file s</emphasis> may be interpreted
 both as <emphasis role="strong">filesystem show</emphasis> and as <emphasis role="strong">filesystem sync</emphasis>.</simpara>
-<simpara>If a command is terminated by <emphasis>--help</emphasis>, the detailed help is showed.
-If the passed command matches more commands,
-detailed help of all the matched commands is showed. For example
-<emphasis role="strong">btrfs dev --help</emphasis> shows the help of all <emphasis role="strong">device</emphasis>* commands.</simpara>
+<simpara>If the command name is ambiguous, the list of conflicting options is
+printed.</simpara>
+<simpara>For an overview of a given command use <emphasis>btrfs command --help</emphasis>
+or <emphasis>btrfs [command&#8230;] --help --full</emphasis> to print all available options.</simpara>
 </refsect1>
 <refsect1 id="_commands">
 <title>COMMANDS</title>
