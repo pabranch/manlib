@@ -137,7 +137,9 @@ use - as filename. Note that input from stdin will not work with csvlog.</synops
                             journalctl -u postgresql-9.5
 --pid-dir dirpath      : set the path of the directory where the pid file
                          will be written to be able to run two pgbadger at
-                         the same time.</synopsis>
+                         the same time.
+--rebuild              : used to rebuild all html reports in incremental
+                         output directories where there is binary data files.</synopsis>
 <synopsis>pgBadger is able to parse a remote log file using a passwordless ssh connection.
 Use the -r or --remote-host to set the host ip address or hostname. There's also
 some additional options to fully control the ssh connection.</synopsis>
@@ -159,17 +161,17 @@ pgbadger -b "2012-06-25 10:56:11" -e "2012-06-25 10:59:11"
                /var/log/postgresql.log
 cat /var/log/postgres.log | pgbadger -
 # Log prefix with stderr log output
-perl pgbadger --prefix '%t [%p]: [%l-1] user=%u,db=%d,client=%h' 
+pgbadger --prefix '%t [%p]: [%l-1] user=%u,db=%d,client=%h' 
                 /pglog/postgresql-2012-08-21*
-perl pgbadger --prefix '%m %u@%d %p %r %a : ' /pglog/postgresql.log
+pgbadger --prefix '%m %u@%d %p %r %a : ' /pglog/postgresql.log
 # Log line prefix with syslog log output
-perl pgbadger --prefix 'user=%u,db=%d,client=%h,appname=%a' 
+pgbadger --prefix 'user=%u,db=%d,client=%h,appname=%a' 
                 /pglog/postgresql-2012-08-21*
 # Use my 8 CPUs to parse my 10GB file faster, much faster
-perl pgbadger -j 8 /pglog/postgresql-9.1-main.log</synopsis>
+pgbadger -j 8 /pglog/postgresql-9.1-main.log</synopsis>
 <synopsis/>
 <synopsis>Generate Tsung sessions XML file with select queries only:</synopsis>
-<synopsis>perl pgbadger -S -o sessions.tsung --prefix '%t [%p]: [%l-1] user=%u,db=%d ' /pglog/postgresql-9.1.log</synopsis>
+<synopsis>pgbadger -S -o sessions.tsung --prefix '%t [%p]: [%l-1] user=%u,db=%d ' /pglog/postgresql-9.1.log</synopsis>
 <synopsis>Reporting errors every week by cron job:</synopsis>
 <synopsis>30 23 * * 1 /usr/bin/pgbadger -q -w /var/log/postgresql.log -o /var/reports/pg_errors.html</synopsis>
 <synopsis>Generate report every week using incremental behavior:</synopsis>
@@ -191,11 +193,16 @@ use pgbadger as follow to exclude these period from the report:</synopsis>
 the list of slowest queries. You can also use --exclude-appname "pg_dump" to
 solve this problem in a simpler way.</synopsis>
 <synopsis>You can also parse journalctl output just as if it was a log file:</synopsis>
-<synopsis>perl pgbadger --journalctl 'journalctl -u postgresql-9.5'</synopsis>
+<synopsis>pgbadger --journalctl 'journalctl -u postgresql-9.5'</synopsis>
 <synopsis>or worst, call it from a remote host:</synopsis>
-<synopsis>perl pgbadger -r 192.168.1.159 --journalctl 'journalctl -u postgresql-9.5'</synopsis>
+<synopsis>pgbadger -r 192.168.1.159 --journalctl 'journalctl -u postgresql-9.5'</synopsis>
 <synopsis>you don't need to specify any log file at command line, but if you have others
 PostgreSQL log files to parse, you can add them as usual.</synopsis>
+<synopsis>To rebuild all incremantal html reports after, proceed as follow:</synopsis>
+<synopsis>rm /path/to/reports/*.js
+rm /path/to/reports/*.css
+pgbadger -X -I -O /path/to/reports/ --rebuild</synopsis>
+<synopsis>it will also update all ressources file (JS and CSS).</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-4b7a80c06b9eeef41ea39770e544411e"><title>DESCRIPTION</title>
     <para>
