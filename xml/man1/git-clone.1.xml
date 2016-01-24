@@ -329,7 +329,9 @@ objects from the source repository into a pack in the cloned repository.</simpar
 <listitem>
 <simpara>
         Create a <emphasis>shallow</emphasis> clone with a history truncated to the
-        specified number of revisions.
+        specified number of commits. Implies <literal>--single-branch</literal> unless
+        <literal>--no-single-branch</literal> is given to fetch the histories near the
+        tips of all branches.
 </simpara>
 </listitem>
 </varlistentry>
@@ -341,10 +343,7 @@ objects from the source repository into a pack in the cloned repository.</simpar
 <simpara>
         Clone only the history leading to the tip of a single branch,
         either specified by the <literal>--branch</literal> option or the primary
-        branch remote&#8217;s <literal>HEAD</literal> points at. When creating a shallow
-        clone with the <literal>--depth</literal> option, this is the default, unless
-        <literal>--no-single-branch</literal> is given to fetch the histories near the
-        tips of all branches.
+        branch remote&#8217;s <literal>HEAD</literal> points at.
         Further fetches into the resulting repository will only update the
         remote-tracking branch for the branch this option was used for the
         initial cloning.  If the HEAD at the remote did not point at any

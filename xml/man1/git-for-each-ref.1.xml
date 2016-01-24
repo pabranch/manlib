@@ -281,6 +281,10 @@ align
 <simpara>In addition to the above, for commit and tag objects, the header
 field names (<literal>tree</literal>, <literal>parent</literal>, <literal>object</literal>, <literal>type</literal>, and <literal>tag</literal>) can
 be used to specify the value in the header field.</simpara>
+<simpara>For commit and tag objects, the special <literal>creatordate</literal> and <literal>creator</literal>
+fields will correspond to the appropriate date or name-email-date tuple
+from the <literal>committer</literal> or <literal>tagger</literal> fields depending on the object type.
+These are intended for working on a mix of annotated and lightweight tags.</simpara>
 <simpara>Fields that have name-email-date tuple as its value (<literal>author</literal>,
 <literal>committer</literal>, and <literal>tagger</literal>) can be suffixed with <literal>name</literal>, <literal>email</literal>,
 and <literal>date</literal> to extract the named component.</simpara>
@@ -290,8 +294,8 @@ of all lines of the commit message up to the first blank line.  The next
 line is <emphasis>contents:body</emphasis>, where body is all of the lines after the first
 blank line.  The optional GPG signature is <literal>contents:signature</literal>.  The
 first <literal>N</literal> lines of the message is obtained using <literal>contents:lines=N</literal>.</simpara>
-<simpara>For sorting purposes, fields with numeric values sort in numeric
-order (<literal>objectsize</literal>, <literal>authordate</literal>, <literal>committerdate</literal>, <literal>taggerdate</literal>).
+<simpara>For sorting purposes, fields with numeric values sort in numeric order
+(<literal>objectsize</literal>, <literal>authordate</literal>, <literal>committerdate</literal>, <literal>creatordate</literal>, <literal>taggerdate</literal>).
 All other fields are used to sort in their byte-value order.</simpara>
 <simpara>There is also an option to sort by versions, this can be done by using
 the fieldname <literal>version:refname</literal> or its alias <literal>v:refname</literal>.</simpara>

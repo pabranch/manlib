@@ -19,6 +19,7 @@
 [<emphasis role="bold">-crl_download</emphasis>]
 [<emphasis role="bold">-crl_check</emphasis>]
 [<emphasis role="bold">-crl_check_all</emphasis>]
+[<emphasis role="bold">-engine id</emphasis>]
 [<emphasis role="bold">-explicit_policy</emphasis>]
 [<emphasis role="bold">-extended_crl</emphasis>]
 [<emphasis role="bold">-help</emphasis>]
@@ -64,8 +65,9 @@
           <term><emphasis role="bold">-CAfile file</emphasis></term>
           <listitem>
             <para>
-	      A file of trusted certificates. The file should contain
-	      multiple certificates in PEM format concatenated together.
+	      A <emphasis role="bold">file</emphasis> of trusted
+	      certificates. The file should contain one or more
+	      certificates in PEM format.
             </para>
           </listitem>
         </varlistentry>
@@ -125,7 +127,11 @@
           <term><emphasis role="bold">-CRLfile file</emphasis></term>
           <listitem>
             <para>
-	      File containing one or more CRL's (in PEM format) to load.
+	      The <emphasis role="bold">file</emphasis> should contain one
+	      or more CRLs in PEM format. This option can be specified more
+	      than once to include CRLs from multiple <emphasis role="bold">files</emphasis>. If you want to enable an
+	      <emphasis role="bold">engine</emphasis> via the <emphasis role="bold">-engine</emphasis> option, that option has to be
+	      specified before this one.
             </para>
           </listitem>
         </varlistentry>
@@ -154,6 +160,21 @@
 	      Checks the validity of <emphasis role="bold">all</emphasis>
 	      certificates in the chain by attempting to look up valid
 	      CRLs.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-engine id</emphasis></term>
+          <listitem>
+            <para>
+	      Specifying an engine <emphasis role="bold">id</emphasis> will
+	      cause <citerefentry> <refentrytitle>verify</refentrytitle>
+	      <manvolnum>1</manvolnum> </citerefentry> to attempt to load
+	      the specified engine. The engine will then be set as the
+	      default for all its supported algorithms. If you want to load
+	      certificates or CRLs that require engine support via any of
+	      the <emphasis role="bold">-trusted</emphasis>, <emphasis role="bold">-untrusted</emphasis> or <emphasis role="bold">-CRLfile</emphasis> options, the <emphasis role="bold">-engine</emphasis> option must be specified
+	      before those options.
             </para>
           </listitem>
         </varlistentry>
@@ -226,8 +247,10 @@
           <term><emphasis role="bold">-partial_chain</emphasis></term>
           <listitem>
             <para>
-	      Allow partial certificate chain if at least one certificate
-	      is in trusted store.
+	      Allow verification to succeed even if a <emphasis role="italic">complete</emphasis> chain cannot be built to a
+	      self-signed trust-anchor, provided it is possible to
+	      construct a chain to a trusted certificate that might not be
+	      self-signed.
             </para>
           </listitem>
         </varlistentry>
@@ -286,10 +309,11 @@
           <term><emphasis role="bold">-trusted_first</emphasis></term>
           <listitem>
             <para>
-	      Use certificates in CA file or CA directory before
-	      certificates in untrusted file when building the trust chain
-	      to verify certificates. This is mainly useful in environments
-	      with Bridge CA or Cross-Certified CAs.
+	      When constructing the certificate chain, use the trusted
+	      certificates specified via <emphasis role="bold">-CAfile</emphasis>, <emphasis role="bold">-CApath</emphasis> or <emphasis role="bold">-trusted</emphasis> before any certificates
+	      specified via <emphasis role="bold">-untrusted</emphasis>.
+	      This can be useful in environments with Bridge or
+	      Cross-Certified CAs.
             </para>
           </listitem>
         </varlistentry>
@@ -311,8 +335,15 @@
           <term><emphasis role="bold">-untrusted file</emphasis></term>
           <listitem>
             <para>
-	      A file of untrusted certificates. The file should contain one
-	      or more certificates in PEM format.
+	      A <emphasis role="bold">file</emphasis> of additional
+	      untrusted certificates (intermediate issuer CAs) used to
+	      constuct a certificate chain from the subject certificate to
+	      a trust-anchor. The <emphasis role="bold">file</emphasis>
+	      should contain one or more certificates in PEM format. This
+	      option can be specified more than once to include untrusted
+	      certiificates from multiple <emphasis role="bold">files</emphasis>. If you want to enable an
+	      <emphasis role="bold">engine</emphasis> via the <emphasis role="bold">-engine</emphasis> option, that option has to be
+	      specified before this one.
             </para>
           </listitem>
         </varlistentry>
@@ -320,11 +351,18 @@
           <term><emphasis role="bold">-trusted file</emphasis></term>
           <listitem>
             <para>
-	      A file of trusted certificates. The file contain one or more
+	      A <emphasis role="bold">file</emphasis> of trusted
+	      certificates, which must be self-signed, unless the <emphasis role="bold">-partial_chain</emphasis> option is specified.
+	      The <emphasis role="bold">file</emphasis> contain one or more
 	      certificates in PEM format. With this option, no additional
 	      (e.g., default) certificate lists are consulted. That is, the
-	      only trusted issuers are those listed in <emphasis role="bold">file</emphasis>. This option cannot be used with
-	      the <emphasis role="bold">-CAfile</emphasis> or <emphasis role="bold">-CApath</emphasis> options.
+	      only trust-anchors are those listed in <emphasis role="bold">file</emphasis>. This option can be specified
+	      more than once to include trusted certificates from multiple
+	      <emphasis role="bold">files</emphasis>. This option implies
+	      the <emphasis role="bold">-no-CAfile</emphasis> and <emphasis role="bold">-no-CApath</emphasis> options. This option cannot
+	      be used in combination with either of the <emphasis role="bold">-CAfile</emphasis> or <emphasis role="bold">-CApath</emphasis> options. If you want to enable
+	      an <emphasis role="bold">engine</emphasis> via the <emphasis role="bold">-engine</emphasis> option, that option has to be
+	      specified before this one.
             </para>
           </listitem>
         </varlistentry>
@@ -386,9 +424,13 @@
           <term><emphasis role="bold">-verify_name name</emphasis></term>
           <listitem>
             <para>
-	      Use default verification options like trust model and
-	      required certificate policies identified by <emphasis role="bold">name</emphasis>. Supported usages include:
-	      default, pkcs7, smime_sign, ssl_client, ssl_server.
+	      Use default verification policies like trust model and
+	      required certificate policies identified by <emphasis role="bold">name</emphasis>. Supported policy names include:
+	      <emphasis role="bold">default</emphasis>, <emphasis role="bold">pkcs7</emphasis>, <emphasis role="bold">smime_sign</emphasis>, <emphasis role="bold">ssl_client</emphasis>, <emphasis role="bold">ssl_server</emphasis>. This checks not only the
+	      purpose of the leaf certificate, but also the trust settings
+	      of the trusted CAs. When in doubt, use this option rather
+	      than <emphasis role="bold">-purpose</emphasis>. The <emphasis role="bold">-verify_name</emphasis> option more closely
+	      matches how certificates are checked in e.g. SSL and S/MIME.
             </para>
           </listitem>
         </varlistentry>
@@ -521,9 +563,9 @@ error 24 at 1 depth lookup:invalid CA certificate</screen>
       number is presented.
     </para>
     <para>
-      An exhaustive list of the error codes and messages is shown below,
-      this also includes the name of the error code as defined in the
-      header file x509_vfy.h Some of the error codes are defined but never
+      An partial list of the error codes and messages is shown below, this
+      also includes the name of the error code as defined in the header
+      file x509_vfy.h Some of the error codes are defined but never
       returned: these are described as "unused".
     </para>
     <para>
