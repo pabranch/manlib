@@ -43,12 +43,12 @@ There is no glibc wrapper for this system call; see NOTES.
 .SH DESCRIPTION
 The
 .BR _llseek ()
-function repositions the offset of the open file associated
+function repositions the offset of the open file description associated
 with the file descriptor
 .I fd
 to
 .I (offset_high<<32) | offset_low
-bytes relative to the beginning of the file, the current position in the file,
+bytes relative to the beginning of the file, the current file offset,
 or the end of the file, depending on whether
 .I whence
 is
@@ -93,4 +93,5 @@ However, you probably want to use the
 wrapper function instead.
 .SH SEE ALSO
 .BR lseek (2),
+.BR open (2),
 .BR lseek64 (3)
