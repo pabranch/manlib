@@ -4,9 +4,9 @@
     <refentrytitle>SSL_CTX_new.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>SSL_CTX_new, SSLv3_method, SSLv3_server_method, SSLv3_client_method,
-TLSv1_method, TLSv1_server_method, TLSv1_client_method, TLSv1_1_method,
-TLSv1_1_server_method, TLSv1_1_client_method, TLS_method,
+    <refname>SSL_CTX_new, SSL_CTX_up_ref, SSLv3_method, SSLv3_server_method,
+SSLv3_client_method, TLSv1_method, TLSv1_server_method, TLSv1_client_method,
+TLSv1_1_method, TLSv1_1_server_method, TLSv1_1_client_method, TLS_method,
 TLS_server_method, TLS_client_method, SSLv23_method, SSLv23_server_method,
 SSLv23_client_method, DTLS_method, DTLS_server_method, DTLS_client_method,
 DTLSv1_method, DTLSv1_server_method, DTLSv1_client_method,
@@ -16,7 +16,8 @@ functions</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis>SSL_CTX *SSL_CTX_new(const SSL_METHOD *method);</synopsis>
+<synopsis>SSL_CTX *SSL_CTX_new(const SSL_METHOD *method);
+void SSL_CTX_up_ref(SSL_CTX *ctx);</synopsis>
 <synopsis>const SSL_METHOD *TLS_method(void);
 const SSL_METHOD *TLS_server_method(void);
 const SSL_METHOD *TLS_client_method(void);</synopsis>
@@ -51,6 +52,12 @@ const SSL_METHOD *DTLSv1_2_client_method(void);</synopsis>
     <para>
       SSL_CTX_new() creates a new <emphasis role="bold">SSL_CTX</emphasis>
       object as framework to establish TLS/SSL or DTLS enabled connections.
+      An <emphasis role="bold">SSL_CTX</emphasis> object is reference
+      counted. Creating an <emphasis role="bold">SSL_CTX</emphasis> object
+      for the first time increments the reference count. Freeing it (using
+      SSL_CTX_free) decrements it. When the reference count drops to zero,
+      any memory or resources allocated to the <emphasis role="bold">SSL_CTX</emphasis> object are freed. SSL_CTX_up_ref()
+      increments the reference count for an existing <emphasis role="bold">SSL_CTX</emphasis> structure.
     </para>
   </refsection>
   <refsection xml:id="ID-58eeecd4fb86c7f869b40b7c21afe9b9"><title>NOTES</title>

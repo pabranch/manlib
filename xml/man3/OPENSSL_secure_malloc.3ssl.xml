@@ -4,8 +4,11 @@
     <refentrytitle>OPENSSL_secure_malloc.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>CRYPTO_secure_malloc_init, CRYPTO_secure_malloc_done, OPENSSL_secure_malloc,
-OPENSSL_secure_free, OPENSSL_secure_allocated</refname>
+    <refname>CRYPTO_secure_malloc_init, CRYPTO_secure_malloc_initialized,
+CRYPTO_secure_malloc_done, OPENSSL_secure_malloc, CRYPTO_secure_malloc,
+OPENSSL_secure_zalloc, CRYPTO_secure_zalloc, OPENSSL_secure_free,
+CRYPTO_secure_free, OPENSSL_secure_actual_size, OPENSSL_secure_allocated,
+CYRPTO_secure_malloc_used</refname>
 <refpurpose>secure heap storage</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
@@ -15,6 +18,8 @@ OPENSSL_secure_free, OPENSSL_secure_allocated</refname>
 <synopsis>void CRYPTO_secure_malloc_done();</synopsis>
 <synopsis>void *OPENSSL_secure_malloc(int num);
 void *CRYPTO_secure_malloc(int num, const char *file, int line);</synopsis>
+<synopsis>void *OPENSSL_secure_zalloc(int num);
+void *CRYPTO_secure_zalloc(int num, const char *file, int line);</synopsis>
 <synopsis>void OPENSSL_secure_free(void* ptr);
 void CRYPTO_secure_free(void *ptr);</synopsis>
 <synopsis>size_t OPENSSL_secure_actual_size(const void *ptr);
@@ -37,74 +42,74 @@ int OPENSSL_secure_allocated(const void *ptr);</synopsis>
       intermediate values and computations there.
     </para>
     <para>
-      <emphasis role="bold">CRYPTO_secure_malloc_init</emphasis> creates
-      the secure heap, with the specified <literal role="code">size</literal> in bytes. The <literal role="code">minsize</literal> parameter is the minimum
-      size to allocate from the heap. Both <literal role="code">size</literal> and <literal role="code">minsize</literal> must be a power of two.  It
-      is an error to call this after any <emphasis role="bold">OPENSSL_secure_malloc</emphasis> calls have been made.
+      CRYPTO_secure_malloc_init() creates the secure heap, with the
+      specified <literal role="code">size</literal> in bytes.
+      The <literal role="code">minsize</literal> parameter is
+      the minimum size to allocate from the heap. Both <literal role="code">size</literal> and <literal role="code">minsize</literal> must be a power of two.  It
+      is an error to call this after any OPENSSL_secure_malloc() calls have
+      been made.
     </para>
     <para>
-      <emphasis role="bold">CRYPTO_secure_malloc_initialized</emphasis>
-      indicates whether or not the secure heap as been initialized and is
-      available.
+      CRYPTO_secure_malloc_initialized() indicates whether or not the
+      secure heap as been initialized and is available.
     </para>
     <para>
-      <emphasis role="bold">CRYPTO_secure_malloc_done</emphasis> releases
-      the heap and makes the memory unavailable to the process. It can take
-      noticeably long to complete.
+      CRYPTO_secure_malloc_done() releases the heap and makes the memory
+      unavailable to the process. It can take noticeably long to complete.
     </para>
     <para>
-      <emphasis role="bold">OPENSSL_secure_malloc</emphasis> allocates
-      <literal role="code">num</literal> bytes from the heap.
-      If <emphasis role="bold">CRYPTO_secure_malloc_init</emphasis> is not
-      called, this is equivalent to calling <emphasis role="bold">OPENSSL_malloc</emphasis>. It is a macro that expands to
-      <emphasis role="bold">CRYPTO_secure_malloc</emphasis> and adds the
-      <emphasis role="bold">__FILE__</emphasis> and <emphasis role="bold">__LINE__</emphasis> parameters.
+      OPENSSL_secure_malloc() allocates <literal role="code">num</literal> bytes from the heap. If
+      CRYPTO_secure_malloc_init() is not called, this is equivalent to
+      calling OPENSSL_malloc(). It is a macro that expands to
+      CRYPTO_secure_malloc() and adds the <literal role="code">__FILE__</literal> and <literal role="code">__LINE__</literal> parameters.
     </para>
     <para>
-      <emphasis role="bold">OPENSSL_secure_free</emphasis> releases the
-      memory at <literal role="code">ptr</literal> back to the
-      heap. It must be called with a value previously obtained from
-      <emphasis role="bold">OPENSSL_secure_malloc</emphasis>. If <emphasis role="bold">CRYPTO_secure_malloc_init</emphasis> is not called, this
-      is equivalent to calling <emphasis role="bold">OPENSSL_free</emphasis>. It exists for consistency with
-      <emphasis role="bold">OPENSSL_secure_malloc</emphasis> , and is a
-      macro that expands to <emphasis role="bold">CRYPTO_secure_free</emphasis>.
+      OPENSSL_secure_zalloc() and CRYPTO_secure_zalloc() are like
+      OPENSSL_secure_malloc() and CRYPTO_secure_malloc(), respectively,
+      except that they call memset() to zero the memory before returning.
     </para>
     <para>
-      <emphasis role="bold">OPENSSL_secure_allocated</emphasis> tells
-      whether or not a pointer is within the secure heap. <emphasis role="bold">OPENSSL_secure_actual_size</emphasis> tells the actual
-      size allocated to the pointer; implementations may allocate more
-      space than initially requested, in order to "round up" and reduce
-      secure heap fragmentation.
+      OPENSSL_secure_free() releases the memory at <literal role="code">ptr</literal> back to the heap. It must be
+      called with a value previously obtained from OPENSSL_secure_malloc().
+      If CRYPTO_secure_malloc_init() is not called, this is equivalent to
+      calling OPENSSL_free(). It exists for consistency with
+      OPENSSL_secure_malloc() , and is a macro that expands to
+      CRYPTO_secure_free().
     </para>
     <para>
-      <emphasis role="bold">CRYPTO_secure_malloc_used</emphasis> returns
-      the number of bytes allocated in the secure heap.
+      OPENSSL_secure_allocated() tells whether or not a pointer is within
+      the secure heap. OPENSSL_secure_actual_size() tells the actual size
+      allocated to the pointer; implementations may allocate more space
+      than initially requested, in order to "round up" and reduce secure
+      heap fragmentation.
+    </para>
+    <para>
+      CRYPTO_secure_malloc_used() returns the number of bytes allocated in
+      the secure heap.
     </para>
   </refsection>
   <refsection xml:id="ID-0153c790d92aff7a0a4b48502b4e8ba1"><title>RETURN VALUES</title>
     <para>
-      <emphasis role="bold">CRYPTO_secure_malloc_init</emphasis> returns 0
-      on failure, 1 if successful, and 2 if successful but the heap could
-      not be protected by memory mapping.
+      CRYPTO_secure_malloc_init() returns 0 on failure, 1 if successful,
+      and 2 if successful but the heap could not be protected by memory
+      mapping.
     </para>
     <para>
-      <emphasis role="bold">CRYPTO_secure_malloc_initialized</emphasis>
-      returns 1 if the secure heap is available (that is, if <emphasis role="bold">CRYPTO_secure_malloc_init</emphasis> has been called, but
-      <emphasis role="bold">CRYPTO_secure_malloc_done</emphasis> has not)
-      or 0 if not.
+      CRYPTO_secure_malloc_initialized() returns 1 if the secure heap is
+      available (that is, if CRYPTO_secure_malloc_init() has been called,
+      but CRYPTO_secure_malloc_done() has not) or 0 if not.
     </para>
     <para>
-      <emphasis role="bold">OPENSSL_secure_malloc</emphasis> returns a
-      pointer into the secure heap of the requested size, or <literal role="code">NULL</literal> if memory could not be
+      OPENSSL_secure_malloc() and OPENSSL_secure_zalloc() return a pointer
+      into the secure heap of the requested size, or <literal role="code">NULL</literal> if memory could not be
       allocated.
     </para>
     <para>
-      <emphasis role="bold">CRYPTO_secure_allocated</emphasis> returns 1 if
-      the pointer is in the the secure heap, or 0 if not.
+      CRYPTO_secure_allocated() returns 1 if the pointer is in the the
+      secure heap, or 0 if not.
     </para>
     <para>
-      <emphasis role="bold">CRYPTO_secure_malloc_done</emphasis> and
-      <emphasis role="bold">OPENSSL_secure_free</emphasis> return no
+      CRYPTO_secure_malloc_done() and OPENSSL_secure_free() return no
       values.
     </para>
   </refsection>

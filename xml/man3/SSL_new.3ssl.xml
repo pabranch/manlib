@@ -4,12 +4,13 @@
     <refentrytitle>SSL_new.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>SSL_new</refname>
+    <refname>SSL_new, SSL_up_ref</refname>
 <refpurpose>create a new SSL structure for a connection</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis>SSL *SSL_new(SSL_CTX *ctx);</synopsis>
+<synopsis>SSL *SSL_new(SSL_CTX *ctx);
+void SSL_up_ref(SSL *s);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-12cae628e744f1664d34731d4689fb7b"><title>DESCRIPTION</title>
     <para>
@@ -17,7 +18,13 @@
       structure which is needed to hold the data for a TLS/SSL connection.
       The new structure inherits the settings of the underlying context
       <emphasis role="bold">ctx</emphasis>: connection method, options,
-      verification settings, timeout settings.
+      verification settings, timeout settings. An <emphasis role="bold">SSL</emphasis> structure is reference counted. Creating
+      an <emphasis role="bold">SSL</emphasis> structure for the first time
+      increments the reference count. Freeing it (using SSL_free)
+      decrements it. When the reference count drops to zero, any memory or
+      resources allocated to the <emphasis role="bold">SSL</emphasis>
+      structure are freed. SSL_up_ref() increments the reference count for
+      an existing <emphasis role="bold">SSL</emphasis> structure.
     </para>
   </refsection>
   <refsection xml:id="ID-19ccbbb853c34f5dc332aef5f05d5c3c"><title>RETURN VALUES</title>

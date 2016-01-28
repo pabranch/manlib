@@ -26,7 +26,7 @@ int X509_load_cert_crl_file(X509_LOOKUP *ctx, const char *file, int type);</syno
       provided by OpenSSL library.
     </para>
     <para>
-      Users of the library typically do not need to create instanses of
+      Users of the library typically do not need to create instances of
       these methods manually, they would be created automatically by
       <citerefentry>
       <refentrytitle>X509_STORE_load_locations</refentrytitle>
@@ -71,63 +71,71 @@ int X509_load_cert_crl_file(X509_LOOKUP *ctx, const char *file, int type);</syno
     </para>
     <refsection xml:id="ID-d82437cedbcdc2e783c48a6b783641fb"><title>FILE METHOD</title>
       <para>
-	<emphasis role="bold">X509_LOOKUP_file</emphasis> method loads
-	entire set of certificates and CRLs into memory immediately when
-	file name is passed to it.
+	The <emphasis role="bold">X509_LOOKUP_file</emphasis> method loads
+	all the certificates or CRLs present in a file into memory at the
+	time the file is added as a lookup source.
       </para>
       <para>
 	File format is ASCII text which contains concatenated PEM
 	certificates and CRLs.
       </para>
       <para>
-	This method should be used by applications which work with limited
+	This method should be used by applications which work with a small
 	set of CAs.
       </para>
-      <screen></screen>
     </refsection>
     <refsection xml:id="ID-6353468d341322a7b4e95cd200afcc83"><title>HASHED DIR METHOD</title>
       <para>
-	<emphasis role="bold">X509_LOOKUP_hash_dir</emphasis> is more
-	sophisticated method, which loads certificates and CRLs on demand,
-	but caches them in the memory once they are loaded. However, since
-	OpenSSL 1.0.0beta1 it checks for newer CRLs upon each lookup, so if
-	newer CRL would appear in the directory, it would be loaded.
+	<emphasis role="bold">X509_LOOKUP_hash_dir</emphasis> is a more
+	advanced method, which loads certificates and CRLs on demand, and
+	caches them in memory once they are loaded. As of OpenSSL 1.0.0, it
+	also checks for newer CRLs upon each lookup, so that newer CRLs are
+	as soon as they appear in the directory.
       </para>
       <para>
-	Directory should contain each certificate and CRL in the separate
-	file in the PEM format, with file name derived from certificate
-	subject (or CRL issuer) hash, as returned by <citerefentry>
+	The directory should contain one certificate or CRL per file in PEM
+	format, with a file name of the form <emphasis role="italic">hash</emphasis>.<emphasis role="italic">N</emphasis>
+	for a certificate, or <emphasis role="italic">hash</emphasis>.<emphasis role="bold">r</emphasis><emphasis role="italic">N</emphasis> for a
+	CRL. The <emphasis role="italic">hash</emphasis> is the value
+	returned by the <citerefentry>
 	<refentrytitle>X509_NAME_hash</refentrytitle>
-	<manvolnum>3</manvolnum> </citerefentry> function of with option
-	<emphasis role="bold">-hash</emphasis> of <citerefentry>
-	<refentrytitle>x509</refentrytitle> <manvolnum>1</manvolnum>
-	</citerefentry> or <citerefentry>
+	<manvolnum>3</manvolnum> </citerefentry> function applied to the
+	subject name for certificates or issuer name for CRLs. The hash can
+	also be obtained via the <emphasis role="bold">-hash</emphasis>
+	option of the <citerefentry> <refentrytitle>x509</refentrytitle>
+	<manvolnum>1</manvolnum> </citerefentry> or <citerefentry>
 	<refentrytitle>crl</refentrytitle> <manvolnum>1</manvolnum>
-	</citerefentry> command.
+	</citerefentry> commands.
       </para>
       <para>
-	This hash value is appended by suffix .<emphasis role="italic">N</emphasis> for certificates and <emphasis role="bold">.r</emphasis><emphasis role="italic">N</emphasis> for
-	CRLs where <emphasis role="italic">N</emphasis> is sequentual
-	number among certificates with same hash value, so it is possible
-	to have in the store several certificates with same subject or
-	several CRLs with same issuer (and, for example, different validity
-	period).
+	The .<emphasis role="italic">N</emphasis> or .<emphasis role="bold">r</emphasis><emphasis role="italic">N</emphasis> suffix
+	is a sequence number that starts at zero, and is incremented
+	consecutively for each certificate or CRL with the same <emphasis role="italic">hash</emphasis> value. Gaps in the sequence numbers
+	are not supported, it is assumed that there are no more objects
+	with the same hash beyond the first missing number in the sequence.
+      </para>
+      <para>
+	Sequence numbers make it possible for the directory to contain
+	multiple certificates with same subject name hash value. For
+	example, it is possible to have in the store several certificates
+	with same subject or several CRLs with same issuer (and, for
+	example, different validity period).
       </para>
       <para>
 	When checking for new CRLs once one CRL for given hash value is
 	loaded, hash_dir lookup method checks only for certificates with
-	sequentual number greater than one of already cached CRL.
+	sequence number greater than that of the already cached CRL.
       </para>
       <para>
-	Note that hash algorithm used for subject hashing is changed in
-	OpenSSL 1.0, so all certificate stores have to be rehashed upon
-	transitopn from 0.9.8 to 1.0.0.
+	Note that the hash algorithm used for subject name hashing changed
+	in OpenSSL 1.0.0, and all certificate stores have to be rehashed
+	when moving from OpenSSL 0.9.8 to 1.0.0.
       </para>
       <para>
-	OpenSSL includes utility <citerefentry>
+	OpenSSL includes a <citerefentry>
 	<refentrytitle>c_rehash</refentrytitle> <manvolnum>1</manvolnum>
-	</citerefentry> which creates symlinks with correct hashed names
-	for all files with .pem suffix in the given directory.
+	</citerefentry> utility which creates symlinks with correct hashed
+	names for all files with .pem suffix in a given directory.
       </para>
     </refsection>
   </refsection>
