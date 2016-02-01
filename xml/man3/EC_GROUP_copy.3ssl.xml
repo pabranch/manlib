@@ -16,7 +16,10 @@ EC_GROUP *EC_GROUP_dup(const EC_GROUP *src);</synopsis>
 <synopsis>int EC_GROUP_set_generator(EC_GROUP *group, const EC_POINT *generator, const BIGNUM *order, const BIGNUM *cofactor);
 const EC_POINT *EC_GROUP_get0_generator(const EC_GROUP *group);</synopsis>
 <synopsis>int EC_GROUP_get_order(const EC_GROUP *group, BIGNUM *order, BN_CTX *ctx);
-int EC_GROUP_get_cofactor(const EC_GROUP *group, BIGNUM *cofactor, BN_CTX *ctx);</synopsis>
+const BIGNUM *EC_GROUP_get0_order(const EC_GROUP *group);
+const BIGNUM *EC_GROUP_order_bits(const EC_GROUP *group);
+int EC_GROUP_get_cofactor(const EC_GROUP *group, BIGNUM *cofactor, BN_CTX *ctx);
+const BIGNUM *EC_GROUP_get0_cofactor(const EC_GROUP *group);</synopsis>
 <synopsis>void EC_GROUP_set_curve_name(EC_GROUP *group, int nid);
 int EC_GROUP_get_curve_name(const EC_GROUP *group);</synopsis>
 <synopsis>void EC_GROUP_set_asn1_flag(EC_GROUP *group, int flag);
@@ -221,6 +224,12 @@ int EC_GROUP_get_pentanomial_basis(const EC_GROUP *, unsigned int *k1,
       ASN1 flag, point_conversion_form and degree for the specified curve
       respectively. If there is no curve name associated with a curve then
       EC_GROUP_get_curve_name will return 0.
+    </para>
+    <para>
+      EC_GROUP_get0_order() returns an internal pointer to the group order.
+      EC_GROUP_get_order_bits() returns the number of bits in the group
+      order. EC_GROUP_get0_cofactor() returns an internal pointer to the
+      group cofactor.
     </para>
     <para>
       EC_GROUP_get0_seed returns a pointer to the seed that was used to

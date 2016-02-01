@@ -248,12 +248,24 @@ int X509_VERIFY_PARAM_set1_ip_asc(X509_VERIFY_PARAM *param, const char *ipasc);<
       assuming they are hard errors.
     </para>
     <para>
+      If <emphasis role="bold">X509_V_FLAG_TRUSTED_FIRST</emphasis> is set,
+      when constructing the certificate chain, <citerefentry>
+      <refentrytitle>X509_verify_cert</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry> will search the trust store
+      for issuer certificates before searching the provided untrusted
+      certificates. As of OpenSSL 1.1.0 this option is on by default and
+      cannot be disabled.
+    </para>
+    <para>
       The <emphasis role="bold">X509_V_FLAG_NO_ALT_CHAINS</emphasis> flag
-      suppresses checking for alternative chains. By default, when building
-      a certificate chain, if the first certificate chain found is not
-      trusted, then OpenSSL will continue to check to see if an alternative
-      chain can be found that is trusted. With this flag set the behaviour
-      will match that of OpenSSL versions prior to 1.1.0.
+      suppresses checking for alternative chains. By default, unless
+      <emphasis role="bold">X509_V_FLAG_TRUSTED_FIRST</emphasis> is set,
+      when building a certificate chain, if the first certificate chain
+      found is not trusted, then OpenSSL will attempt to replace untrusted
+      certificates supplied by the peer with certificates from the trust
+      store to see if an alternative chain can be found that is trusted. As
+      of OpenSSL 1.1.0, with <emphasis role="bold">X509_V_FLAG_TRUSTED_FIRST</emphasis> always set, this
+      option has no effect.
     </para>
     <para>
       The <emphasis role="bold">X509_V_FLAG_NO_CHECK_TIME</emphasis> flag

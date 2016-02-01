@@ -16,7 +16,7 @@ BIO_METHOD *   BIO_s_secmem(void);</synopsis>
 long BIO_get_mem_data(BIO *b, char **pp)
 BIO_set_mem_buf(BIO *b,BUF_MEM *bm,int c)
 BIO_get_mem_ptr(BIO *b,BUF_MEM **pp)</synopsis>
-<synopsis>BIO *BIO_new_mem_buf(void *buf, int len);</synopsis>
+<synopsis>BIO *BIO_new_mem_buf(const void *buf, int len);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-8981ea0d32c47b0b0b0363d3d7b7ea97"><title>DESCRIPTION</title>
     <para>
@@ -79,7 +79,7 @@ BIO_get_mem_ptr(BIO *b,BUF_MEM **pp)</synopsis>
     <para>
       BIO_new_mem_buf() creates a memory BIO using <emphasis role="bold">len</emphasis> bytes of data at <emphasis role="bold">buf</emphasis>, if <emphasis role="bold">len</emphasis>
       is -1 then the <emphasis role="bold">buf</emphasis> is assumed to be
-      null terminated and its length is determined by <emphasis role="bold">strlen</emphasis>. The BIO is set to a read only state
+      nul terminated and its length is determined by <emphasis role="bold">strlen</emphasis>. The BIO is set to a read only state
       and as a result cannot be written to. This is useful when some data
       needs to be made available from a static area of memory in the form
       of a BIO. The supplied data is read directly from the supplied

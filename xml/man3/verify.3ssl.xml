@@ -313,7 +313,8 @@
 	      certificates specified via <emphasis role="bold">-CAfile</emphasis>, <emphasis role="bold">-CApath</emphasis> or <emphasis role="bold">-trusted</emphasis> before any certificates
 	      specified via <emphasis role="bold">-untrusted</emphasis>.
 	      This can be useful in environments with Bridge or
-	      Cross-Certified CAs.
+	      Cross-Certified CAs. As of OpenSSL 1.1.0 this option is on by
+	      default and cannot be disabled.
             </para>
           </listitem>
         </varlistentry>
@@ -321,13 +322,13 @@
           <term><emphasis role="bold">-no_alt_chains</emphasis></term>
           <listitem>
             <para>
-	      When building a certificate chain, if the first certificate
-	      chain found is not trusted, then OpenSSL will continue to
-	      check to see if an alternative chain can be found that is
-	      trusted. With this option that behaviour is suppressed so
-	      that only the first chain found is ever used. Using this
-	      option will force the behaviour to match that of OpenSSL
-	      versions prior to 1.1.0.
+	      By default, unless <emphasis role="bold">-trusted_first</emphasis> is specified, when
+	      building a certificate chain, if the first certificate chain
+	      found is not trusted, then OpenSSL will attempt to replace
+	      untrusted issuer certificates with certificates from the
+	      trust store to see if an alternative chain can be found that
+	      is trusted. As of OpenSSL 1.1.0, with <emphasis role="bold">-trusted_first</emphasis> always on, this option
+	      has no effect.
             </para>
           </listitem>
         </varlistentry>
@@ -425,12 +426,16 @@
           <listitem>
             <para>
 	      Use default verification policies like trust model and
-	      required certificate policies identified by <emphasis role="bold">name</emphasis>. Supported policy names include:
-	      <emphasis role="bold">default</emphasis>, <emphasis role="bold">pkcs7</emphasis>, <emphasis role="bold">smime_sign</emphasis>, <emphasis role="bold">ssl_client</emphasis>, <emphasis role="bold">ssl_server</emphasis>. This checks not only the
-	      purpose of the leaf certificate, but also the trust settings
-	      of the trusted CAs. When in doubt, use this option rather
-	      than <emphasis role="bold">-purpose</emphasis>. The <emphasis role="bold">-verify_name</emphasis> option more closely
-	      matches how certificates are checked in e.g. SSL and S/MIME.
+	      required certificate policies identified by <emphasis role="bold">name</emphasis>. The trust model determines which
+	      auxiliary trust or reject OIDs are applicable to verifying
+	      the given certificate chain. See the <emphasis role="bold">-addtrust</emphasis> and <emphasis role="bold">-addreject</emphasis> options of the
+	      <citerefentry> <refentrytitle>x509</refentrytitle>
+	      <manvolnum>1</manvolnum> </citerefentry> command-line
+	      utility. Supported policy names include: <emphasis role="bold">default</emphasis>, <emphasis role="bold">pkcs7</emphasis>, <emphasis role="bold">smime_sign</emphasis>, <emphasis role="bold">ssl_client</emphasis>, <emphasis role="bold">ssl_server</emphasis>. These mimics the
+	      combinations of purpose and trust settings used in SSL, CMS
+	      and S/MIME. As of OpenSSL 1.1.0, the trust model is inferred
+	      from the purpose when not specified, so the <emphasis role="bold">-verify_name</emphasis> options are functionally
+	      equivalent to the corresponding <emphasis role="bold">-purpose</emphasis> settings.
             </para>
           </listitem>
         </varlistentry>
