@@ -11072,13 +11072,13 @@ defaultrev = only(.) & draft()
 By default each edited revision needs to be present in histedit commands.
 To remove revision you need to use \fBdrop\fP operation. You can configure
 the drop to be implicit for missing commits by adding:
-.INDENT 0.0
-.INDENT 3.5
 .sp
+.nf
+.ft C
 [histedit]
 dropmissing = True
-.UNINDENT
-.UNINDENT
+.ft P
+.fi
 .SS Commands
 .SS histedit
 .sp
@@ -11093,13 +11093,10 @@ hg histedit [OPTIONS] ([ANCESTOR] | \-\-outgoing [URL])
 This command lets you edit a linear series of changesets (up to
 and including the working directory, which should be clean).
 You can:
-.sp
-.nf
-.ft C
-\- \(gapick\(ga to [re]order a changeset
-.ft P
-.fi
 .INDENT 0.0
+.IP \(bu 2
+.
+\fIpick\fP to [re]order a changeset
 .IP \(bu 2
 .
 \fIdrop\fP to omit changeset
@@ -11118,17 +11115,14 @@ You can:
 .UNINDENT
 .sp
 There are a number of ways to select the root changset:
-.sp
-.nf
-.ft C
-\- Specify ANCESTOR directly
-.ft P
-.fi
 .INDENT 0.0
 .IP \(bu 2
 .
+Specify ANCESTOR directly
+.IP \(bu 2
+.
 Use \-\-outgoing \-\- it will be the first linear changeset not
-included in destination. (See :hg:"help default\-push")
+included in destination. (See \%\fBhg help config.default\-push\fP\:)
 .IP \(bu 2
 .
 Otherwise, the value from the "histedit.defaultrev" config option
@@ -13526,21 +13520,27 @@ destination changeset is not modified by rebasing, but new
 changesets are added as its descendants.)
 .sp
 Here are the ways to select changesets:
-.sp
-.nf
-.ft C
-1. Explicitly select them using \(ga\(ga\-\-rev\(ga\(ga.
-
-2. Use \(ga\(ga\-\-source\(ga\(ga to select a root changeset and include all of its
+.INDENT 0.0
+.INDENT 3.5
+.INDENT 0.0
+.IP 1. 3
+.
+Explicitly select them using \fB\-\-rev\fP.
+.IP 2. 3
+.
+Use \fB\-\-source\fP to select a root changeset and include all of its
 descendants.
-
-3. Use \(ga\(ga\-\-base\(ga\(ga to select a changeset; rebase will find ancestors
+.IP 3. 3
+.
+Use \fB\-\-base\fP to select a changeset; rebase will find ancestors
 and their descendants which are not also ancestors of the destination.
-
-4. If you do not specify any of \(ga\(ga\-\-rev\(ga\(ga, \(ga\(gasource\(ga\(ga, or \(ga\(ga\-\-base\(ga\(ga,
-rebase will use \(ga\(ga\-\-base .\(ga\(ga as above.
-.ft P
-.fi
+.IP 4. 3
+.
+If you do not specify any of \fB\-\-rev\fP, \fBsource\fP, or \fB\-\-base\fP,
+rebase will use \fB\-\-base .\fP as above.
+.UNINDENT
+.UNINDENT
+.UNINDENT
 .sp
 Rebase will destroy original changesets unless you use \fB\-\-keep\fP.
 It will also move your bookmarks (even if you do).

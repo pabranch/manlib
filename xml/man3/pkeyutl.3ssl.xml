@@ -224,7 +224,21 @@
       Unless otherwise mentioned all algorithms support the <emphasis role="bold">digest:alg</emphasis> option which specifies the digest
       in use for sign, verify and verifyrecover operations. The value
       <emphasis role="bold">alg</emphasis> should represent a digest name
-      as used in the EVP_get_digestbyname() function for example <emphasis role="bold">sha1</emphasis>.
+      as used in the EVP_get_digestbyname() function for example <emphasis role="bold">sha1</emphasis>. This value is used only for
+      sanity-checking the lengths of data passed in to the <emphasis role="bold">pkeyutl</emphasis> and for creating the structures that
+      make up the signature (e.g. <emphasis role="bold">DigestInfo</emphasis> in RSASSA PKCS#1 v1.5 signatures).
+      In case of RSA, ECDSA and DSA signatures, this utility will not
+      perform hashing on input data but rather use the data directly as
+      input of signature algorithm. Depending on key type, signature type
+      and mode of padding, the maximum acceptable lengths of input data
+      differ. In general, with RSA the signed data can't be longer than the
+      key modulus, in case of ECDSA and DSA the data shouldn't be longer
+      than field size, otherwise it will be silently truncated to field
+      size.
+    </para>
+    <para>
+      In other words, if the value of digest is <emphasis role="bold">sha1</emphasis> the input should be 20 bytes long binary
+      encoding of SHA-1 hash function output.
     </para>
   </refsection>
   <refsection xml:id="ID-e9e63ca4806d39aefb3ca0395bcdc01a"><title>RSA ALGORITHM</title>
