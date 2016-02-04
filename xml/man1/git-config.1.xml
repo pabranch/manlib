@@ -4327,10 +4327,63 @@ http.proxy
 <listitem>
 <simpara>
         Override the HTTP proxy, normally configured using the <emphasis>http_proxy</emphasis>,
-        <emphasis>https_proxy</emphasis>, and <emphasis>all_proxy</emphasis> environment variables (see
-        <literal>curl(1)</literal>).  This can be overridden on a per-remote basis; see
-        remote.&lt;name&gt;.proxy
+        <emphasis>https_proxy</emphasis>, and <emphasis>all_proxy</emphasis> environment variables (see <literal>curl(1)</literal>). In
+        addition to the syntax understood by curl, it is possible to specify a
+        proxy string with a user name but no password, in which case git will
+        attempt to acquire one in the same way it does for other credentials. See
+        <citerefentry>
+<refentrytitle>gitcredentials</refentrytitle><manvolnum>7</manvolnum>
+</citerefentry> for more information. The syntax thus is
+        <emphasis>[protocol://][user[:password]@]proxyhost[:port]</emphasis>. This can be overridden
+        on a per-remote basis; see remote.&lt;name&gt;.proxy
 </simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+http.proxyAuthMethod
+</term>
+<listitem>
+<simpara>
+        Set the method with which to authenticate against the HTTP proxy. This
+        only takes effect if the configured proxy string contains a user name part
+        (i.e. is of the form <emphasis>user@host</emphasis> or <emphasis>user@host:port</emphasis>). This can be
+        overridden on a per-remote basis; see <literal>remote.&lt;name&gt;.proxyAuthMethod</literal>.
+        Both can be overridden by the <emphasis>GIT_HTTP_PROXY_AUTHMETHOD</emphasis> environment
+        variable.  Possible values are:
+</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+<literal>anyauth</literal> - Automatically pick a suitable authentication method. It is
+  assumed that the proxy answers an unauthenticated request with a 407
+  status code and one or more Proxy-authenticate headers with supported
+  authentication methods. This is the default.
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>basic</literal> - HTTP Basic authentication
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>digest</literal> - HTTP Digest authentication; this prevents the password from being
+  transmitted to the proxy in clear text
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>negotiate</literal> - GSS-Negotiate authentication (compare the --negotiate option
+  of <literal>curl(1)</literal>)
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+<literal>ntlm</literal> - NTLM authentication (compare the --ntlm option of <literal>curl(1)</literal>)
+</simpara>
+</listitem>
+</itemizedlist>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -6153,6 +6206,18 @@ remote.&lt;name&gt;.proxy
         For remotes that require curl (http, https and ftp), the URL to
         the proxy to use for that remote.  Set to the empty string to
         disable proxying for that remote.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+remote.&lt;name&gt;.proxyAuthMethod
+</term>
+<listitem>
+<simpara>
+        For remotes that require curl (http, https and ftp), the method to use for
+        authenticating against the proxy in use (probably set in
+        <literal>remote.&lt;name&gt;.proxy</literal>). See <literal>http.proxyAuthMethod</literal>.
 </simpara>
 </listitem>
 </varlistentry>

@@ -1,0 +1,136 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>BIO_connect.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>BIO_socket, BIO_connect, BIO_listen, BIO_accept_ex, BIO_closesocket</refname>
+<refpurpose>BIO
+socket communication setup routines</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis>#include &lt;openssl/bio.h&gt;</synopsis>
+<synopsis>int BIO_socket(int domain, int socktype, int protocol, int options);
+int BIO_connect(int sock, const BIO_ADDR *addr, int options);
+int BIO_listen(int sock, const BIO_ADDR *addr, int options);
+int BIO_accept_ex(int accept_sock, BIO_ADDR *peer, int options);
+int BIO_closesocket(int sock);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="ID-1846edc8400de86a38f343e12af12186"><title>DESCRIPTION</title>
+    <para>
+      BIO_socket() creates a socket in the domain <emphasis role="bold">domain</emphasis>, of type <emphasis role="bold">socktype</emphasis> and <emphasis role="bold">protocol</emphasis>.	Socket <emphasis role="bold">options</emphasis> are currently unused, but is present
+      for future use.
+    </para>
+    <para>
+      BIO_connect() connects <emphasis role="bold">sock</emphasis> to the
+      address and service given by <emphasis role="bold">addr</emphasis>. 
+      Connection <emphasis role="bold">options</emphasis> may be zero or
+      any combination of <emphasis role="bold">BIO_SOCK_KEEPALIVE</emphasis>, <emphasis role="bold">BIO_SOCK_NONBLOCK</emphasis> and <emphasis role="bold">BIO_SOCK_NODELAY</emphasis>. The flags are described in
+      <link linkend="ID-adfd8430b86cfaa93b72082a91d75ac8"><quote>FLAGS</quote></link>
+      below.
+    </para>
+    <para>
+      BIO_listen() has <emphasis role="bold">sock</emphasis> start
+      listening on the address and service given by <emphasis role="bold">addr</emphasis>.  Connection <emphasis role="bold">options</emphasis> may be zero or any combination of
+      <emphasis role="bold">BIO_SOCK_KEEPALIVE</emphasis>, <emphasis role="bold">BIO_SOCK_NONBLOCK</emphasis>, <emphasis role="bold">BIO_SOCK_NODELAY</emphasis>, <emphasis role="bold">BIO_SOCK_REUSEADDR</emphasis> and <emphasis role="bold">BIO_SOCK_V6_ONLY</emphasis>. The flags are described in
+      <link linkend="ID-adfd8430b86cfaa93b72082a91d75ac8"><quote>FLAGS</quote></link>
+      below.
+    </para>
+    <para>
+      BIO_accept_ex() waits for an incoming connections on the given socket
+      <emphasis role="bold">accept_sock</emphasis>.  When it gets a
+      connection, the address and port of the peer gets stored in <emphasis role="bold">peer</emphasis> if that one is non-NULL. Accept <emphasis role="bold">options</emphasis> may be zero or <emphasis role="bold">BIO_SOCK_NONBLOCK</emphasis>, and is applied on the
+      accepted socket.	The flags are described in <link linkend="ID-adfd8430b86cfaa93b72082a91d75ac8"><quote>FLAGS</quote></link>
+      below.
+    </para>
+    <para>
+      BIO_closesocket() closes <emphasis role="bold">sock</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-adfd8430b86cfaa93b72082a91d75ac8"><title>FLAGS</title>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term>BIO_SOCK_KEEPALIVE</term>
+          <listitem>
+            <para>
+	      Enables regular sending of keep-alive messages.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>BIO_SOCK_NONBLOCK</term>
+          <listitem>
+            <para>
+	      Sets the socket to non-blocking mode.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>BIO_SOCK_NODELAY</term>
+          <listitem>
+            <para>
+	      Corresponds to <emphasis role="bold">TCP_NODELAY</emphasis>,
+	      and disables the Nagle algorithm.  With this set, any data
+	      will be sent as soon as possible instead of being buffered
+	      until there's enough for the socket to send out in one go.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>BIO_SOCK_REUSEADDR</term>
+          <listitem>
+            <para>
+	      Try to reuse the address and port combination for a recently
+	      closed port.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>BIO_SOCK_V6_ONLY</term>
+          <listitem>
+            <para>
+	      When creating an IPv6 socket, make it only listen for IPv6
+	      addresses and not IPv4 addresses mapped to IPv6.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+    <para>
+      These flags are bit flags, so they are to be combined with the
+      <literal role="code">|</literal> operator, for example:
+    </para>
+    <screen>BIO_connect(sock, addr, BIO_SOCK_KEEPALIVE | BIO_SOCK_NONBLOCK);</screen>
+  </refsection>
+  <refsection xml:id="ID-a0c5ed5e58c4de4dba0df750d260fe56"><title>RETURN VALUES</title>
+    <para>
+      BIO_socket() returns the socket number on success or <emphasis role="bold">INVALID_SOCKET</emphasis> (-1) on error.  When an error
+      has occured, the OpenSSL error stack will hold the error data and
+      errno has the system error.
+    </para>
+    <para>
+      BIO_connect() and BIO_listen() return 1 on success or 0 on error.
+      When an error has occured, the OpenSSL error stack will hold the
+      error data and errno has the system error.
+    </para>
+    <para>
+      BIO_accept_ex() returns the accepted socket on success or <emphasis role="bold">INVALID_SOCKET</emphasis> (-1) on error.  When an error
+      has occured, the OpenSSL error stack will hold the error data and
+      errno has the system error.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-79b717697257349add1e739e46b69d73"><title>HISTORY</title>
+    <para>
+      BIO_gethostname(), BIO_get_port(), BIO_get_host_ip(),
+      BIO_get_accept_socket() and BIO_accept() are deprecated since OpenSSL
+      1.1.  Use the functions described above instead.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-e9b29ef8b7b94a229c5897dbd8313c61"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>BIO_ADDR</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
+    </para>
+  </refsection>
+</refentry>

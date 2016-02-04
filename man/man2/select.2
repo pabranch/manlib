@@ -386,6 +386,23 @@ Moreover, POSIX requires
 .I fd
 to be a valid file descriptor.
 
+On some other UNIX systems,
+.\" Darwin, according to a report by Jeremy Sequoia, relayed by Josh Triplett
+.BR select ()
+can fail with the error
+.B EAGAIN
+if the system fails to allocate kernel-internal resources, rather than
+.B ENOMEM
+as Linux does.
+POSIX specifies this error for
+.BR poll (2),
+but not for
+.BR select ().
+Portable programs may wish to check for
+.B EAGAIN
+and loop, just as with
+.BR EINTR .
+
 Concerning the types involved, the classical situation is that
 the two fields of a
 .I timeval
@@ -599,10 +616,12 @@ main(void)
     int retval;
 
     /* Watch stdin (fd 0) to see when it has input. */
+
     FD_ZERO(&rfds);
     FD_SET(0, &rfds);
 
     /* Wait up to five seconds. */
+
     tv.tv_sec = 5;
     tv.tv_usec = 0;
 

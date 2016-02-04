@@ -199,11 +199,11 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><emphasis role="bold">-no_comp</emphasis></term>
+          <term><emphasis role="bold">-comp</emphasis></term>
           <listitem>
             <para>
-	      Disables support for SSL/TLS compression, same as setting
-	      <emphasis role="bold">SSL_OP_NO_COMPRESS</emphasis>.
+	      Enables support for SSL/TLS compression, same as clearing
+	      <emphasis role="bold">SSL_OP_NO_COMPRESSION</emphasis>.
             </para>
           </listitem>
         </varlistentry>
@@ -750,6 +750,10 @@ SSL_CONF_cmd(ctx, "MaxProtocol", "TLSv1.2");</screen>
       Disable TLS session tickets:
     </para>
     <screen>SSL_CONF_cmd(ctx, "Options", "-SessionTicket");</screen>
+    <para>
+      Enable compression:
+    </para>
+    <screen>SSL_CONF_cmd(ctx, "Options", "Compression");</screen>
     <para>
       Set supported curves to P-256, P-384:
     </para>

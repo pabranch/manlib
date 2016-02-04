@@ -14,8 +14,9 @@
   <refpurpose>List references in a remote repository</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<literallayout><emphasis>git ls-remote</emphasis> [--heads] [--tags]  [--upload-pack=&lt;exec&gt;]
-              [--exit-code] &lt;repository&gt; [&lt;refs&gt;&#8230;]</literallayout>
+<literallayout><emphasis>git ls-remote</emphasis> [--heads] [--tags] [--refs] [--upload-pack=&lt;exec&gt;]
+              [-q | --quiet] [--exit-code] [--get-url]
+              [--symref] [&lt;repository&gt; [&lt;refs&gt;&#8230;]]</literallayout>
 <simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
@@ -45,6 +46,29 @@ commit IDs.</simpara>
         These options are <emphasis>not</emphasis> mutually exclusive; when given
         both, references stored in refs/heads and refs/tags are
         displayed.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--refs
+</term>
+<listitem>
+<simpara>
+        Do not show peeled tags or pseudorefs like HEAD in the output.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-q
+</term>
+<term>
+--quiet
+</term>
+<listitem>
+<simpara>
+        Do not print remote URL to stderr.
 </simpara>
 </listitem>
 </varlistentry>
@@ -85,6 +109,19 @@ commit IDs.</simpara>
 <refentrytitle>git-config</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry>) and
         exit without talking to the remote.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--symref
+</term>
+<listitem>
+<simpara>
+        In addition to the object pointed by it, show the underlying
+        ref pointed by it when showing a symbolic ref.  Currently,
+        upload-pack only shows the symref HEAD, so it will be the only
+        one shown by ls-remote.
 </simpara>
 </listitem>
 </varlistentry>

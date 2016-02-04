@@ -1,0 +1,69 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>BIO_parse_hostserv.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>BIO_parse_hostserv</refname>
+<refpurpose>utility routines to parse a standard host and service
+string</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis>#include &lt;openssl/bio.h&gt;</synopsis>
+<synopsis>enum BIO_hostserv_priorities {
+    BIO_PARSE_PRIO_HOST, BIO_PARSE_PRIO_SERV
+};
+int BIO_parse_hostserv(const char *hostserv, char **host, char **service,
+                       enum BIO_hostserv_priorities hostserv_prio);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="ID-483b75a24d0a0138f174e9101d0ea724"><title>DESCRIPTION</title>
+    <para>
+      BIO_parse_hostserv() will parse the information given in <emphasis role="bold">hostserv</emphasis>, create strings with the host name
+      and service name and give those back via <emphasis role="bold">host</emphasis> and <emphasis role="bold">service</emphasis>.  Those will need to be freed after
+      they are used.  <emphasis role="bold">hostserv_prio</emphasis> helps
+      determine if <emphasis role="bold">hostserv</emphasis> shall be
+      interpreted primarly as a host name or a service name in ambiguous
+      cases.
+    </para>
+    <para>
+      The syntax the BIO_parse_hostserv() recognises is:
+    </para>
+    <screen>host + ':' + service
+host + ':' + '*'
+host + ':'
+       ':' + service
+'*'  + ':' + service
+host
+service</screen>
+    <para>
+      The host part can be a name or an IP address.  If it's a IPv6
+      address, it MUST be enclosed in brackets, such as '[::1]'.
+    </para>
+    <para>
+      The service part can  be a service name or its port number.
+    </para>
+    <para>
+      The returned values will depend on the given <emphasis role="bold">hostserv</emphasis> string and <emphasis role="bold">hostserv_prio</emphasis>, as follows:
+    </para>
+    <screen>host + ':' + service  =&gt; *host = "host", *service = "service"
+host + ':' + '*'      =&gt; *host = "host", *service = NULL
+host + ':'            =&gt; *host = "host", *service = NULL
+       ':' + service  =&gt; *host = NULL, *service = "service"
+ '*' + ':' + service  =&gt; *host = NULL, *service = "service"
+
+in case no ':' is present in the string, the result depends on
+hostserv_prio, as follows:
+
+when hostserv_prio == BIO_PARSE_PRIO_HOST
+host                 =&gt; *host = "host", *service untouched
+
+when hostserv_prio == BIO_PARSE_PRIO_SERV
+service              =&gt; *host untouched, *service = "service"</screen>
+  </refsection>
+  <refsection xml:id="ID-ac533b129ab4f95101ae6dd3304369ec"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>BIO_ADDRINFO</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
+    </para>
+  </refsection>
+</refentry>
