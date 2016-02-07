@@ -9,7 +9,7 @@
   </refnamediv>
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis>int DTLSv1_listen(SSL *ssl, struct sockaddr *peer);</synopsis>
+<synopsis>int DTLSv1_listen(SSL *ssl, BIO_ADDR *peer);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-76b7e3447291b899e18e1fe442944622"><title>DESCRIPTION</title>
     <para>
@@ -52,14 +52,13 @@
       When a ClientHello is received that contains a cookie that has been
       verified, then DTLSv1_listen() will return with the <emphasis role="bold">ssl</emphasis> parameter updated into a state where the
       handshake can be continued by a call to (for example) SSL_accept().
-      Additionally the <emphasis role="bold">struct sockaddr</emphasis>
-      location pointed to by <emphasis role="bold">peer</emphasis> will be
-      filled in with details of the peer that sent the ClientHello. It is
-      the calling code's responsibility to ensure that the <emphasis role="bold">peer</emphasis> location is sufficiently large to
-      accommodate the addressing scheme in use. For example this might be
-      done by allocating space for a struct sockaddr_storage and casting
-      the pointer to it to a struct sockaddr * for the call to
-      DTLSv1_listen(). Typically user code is expected to "connect" the
+      Additionally the <emphasis role="bold">BIO_ADDR</emphasis> pointed to
+      by <emphasis role="bold">peer</emphasis> will be filled in with
+      details of the peer that sent the ClientHello. If the underlying BIO
+      is unable to obtain the <emphasis role="bold">BIO_ADDR</emphasis> of
+      the peer (for example because the BIO does not support this), then
+      <emphasis role="bold">*peer</emphasis> will be cleared and the family
+      set to AF_UNSPEC. Typically user code is expected to "connect" the
       underlying socket to the peer and continue the handshake in a
       connected state.
     </para>
@@ -117,7 +116,8 @@
   </refsection>
   <refsection xml:id="ID-0285ea7c3e4123d8a027c999df05f746"><title>HISTORY</title>
     <para>
-      DTLSv1_listen() return codes were clarified in OpenSSL 1.1.0.
+      DTLSv1_listen() return codes were clarified in OpenSSL 1.1.0. The
+      type of "peer" also changed in OpenSSL 1.1.0.
     </para>
   </refsection>
 </refentry>

@@ -9,7 +9,11 @@
   </refnamediv>
   <refsynopsisdiv>
 <synopsis><emphasis role="bold">openssl speed</emphasis>
+[<emphasis role="bold">-help</emphasis>]
 [<emphasis role="bold">-engine id</emphasis>]
+[<emphasis role="bold">-elapsed</emphasis>]
+[<emphasis role="bold">-evp algo</emphasis>]
+[<emphasis role="bold">-decrypt</emphasis>]
 [<emphasis role="bold">md2</emphasis>]
 [<emphasis role="bold">mdc2</emphasis>]
 [<emphasis role="bold">md5</emphasis>]
@@ -46,6 +50,14 @@
     <para>
       <variablelist>
         <varlistentry>
+          <term><emphasis role="bold">-help</emphasis></term>
+          <listitem>
+            <para>
+	      Print out a usage message.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term><emphasis role="bold">-engine id</emphasis></term>
           <listitem>
             <para>
@@ -53,6 +65,33 @@
 	      functional reference to the specified engine, thus
 	      initialising it if needed. The engine will then be set as the
 	      default for all available algorithms.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-elapsed</emphasis></term>
+          <listitem>
+            <para>
+	      Measure time in real time instead of CPU time. It can be
+	      useful when testing speed of hardware engines.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-evp algo</emphasis></term>
+          <listitem>
+            <para>
+	      Use the specified cipher or message digest algorithm via the
+	      EVP interface.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-decrypt</emphasis></term>
+          <listitem>
+            <para>
+	      Time the decryption instead of encryption. Affects only the
+	      EVP testing.
             </para>
           </listitem>
         </varlistentry>

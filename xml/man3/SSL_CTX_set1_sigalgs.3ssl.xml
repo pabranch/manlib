@@ -96,14 +96,14 @@ long SSL_set1_client_sigalgs_list(SSL *ssl, const char *str);</synopsis>
   </refsection>
   <refsection xml:id="ID-df0741f7ad57c30dc1ce86e890f7240d"><title>EXAMPLES</title>
     <para>
-      Set supported signature algoritms to SHA256 with ECDSA and SHA256
+      Set supported signature algorithms to SHA256 with ECDSA and SHA256
       with RSA using an array:
     </para>
     <screen>const int slist[] = {NID_sha256, EVP_PKEY_EC, NID_sha256, EVP_PKEY_RSA};
 
 SSL_CTX_set1_sigalgs(ctx, slist, 4);</screen>
     <para>
-      Set supported signature algoritms to SHA256 with ECDSA and SHA256
+      Set supported signature algorithms to SHA256 with ECDSA and SHA256
       with RSA using a string:
     </para>
     <screen>SSL_CTX_set1_sigalgs_list(ctx, "ECDSA+SHA256:RSA+SHA256");</screen>

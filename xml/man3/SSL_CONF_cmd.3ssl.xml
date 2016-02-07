@@ -203,7 +203,19 @@ int SSL_CONF_finish(SSL_CONF_CTX *cctx);</synopsis>
           <listitem>
             <para>
 	      Enables support for SSL/TLS compression, same as clearing
-	      <emphasis role="bold">SSL_OP_NO_COMPRESSION</emphasis>.
+	      <emphasis role="bold">SSL_OP_NO_COMPRESSION</emphasis>. This
+	      command was introduced in OpenSSL 1.1.0. As of OpenSSL 1.1.0,
+	      compression is off by default.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-no_comp</emphasis></term>
+          <listitem>
+            <para>
+	      Disables support for SSL/TLS compression, same as setting
+	      <emphasis role="bold">SSL_OP_NO_COMPRESSION</emphasis>. As of
+	      OpenSSL 1.1.0, compression is off by default.
             </para>
           </listitem>
         </varlistentry>

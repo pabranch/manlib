@@ -9,6 +9,7 @@
   </refnamediv>
   <refsynopsisdiv>
 <synopsis><emphasis role="bold">openssl</emphasis> <emphasis role="bold">s_server</emphasis>
+[<emphasis role="bold">-help</emphasis>]
 [<emphasis role="bold">-accept port</emphasis>]
 [<emphasis role="bold">-naccept count</emphasis>]
 [<emphasis role="bold">-context id</emphasis>]
@@ -78,6 +79,8 @@
 [<emphasis role="bold">-no_tls1</emphasis>]
 [<emphasis role="bold">-no_dhe</emphasis>]
 [<emphasis role="bold">-bugs</emphasis>]
+[<emphasis role="bold">-comp</emphasis>]
+[<emphasis role="bold">-no_comp</emphasis>]
 [<emphasis role="bold">-brief</emphasis>]
 [<emphasis role="bold">-www</emphasis>]
 [<emphasis role="bold">-WWW</emphasis>]
@@ -109,6 +112,14 @@
     </para>
     <para>
       <variablelist>
+        <varlistentry>
+          <term><emphasis role="bold">-help</emphasis></term>
+          <listitem>
+            <para>
+	      Print out a usage message.
+            </para>
+          </listitem>
+        </varlistentry>
         <varlistentry>
           <term><emphasis role="bold">-accept port</emphasis></term>
           <listitem>
@@ -489,6 +500,25 @@
             <para>
 	      there are several known bug in SSL and TLS implementations.
 	      Adding this option enables various workarounds.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-comp</emphasis></term>
+          <listitem>
+            <para>
+	      Enable negotiation of TLS compression. This option was
+	      introduced in OpenSSL 1.1.0. TLS compression is not
+	      recommended and is off by default as of OpenSSL 1.1.0.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-no_comp</emphasis></term>
+          <listitem>
+            <para>
+	      Disable negotiation of TLS compression. TLS compression is
+	      not recommended and is off by default as of OpenSSL 1.1.0.
             </para>
           </listitem>
         </varlistentry>

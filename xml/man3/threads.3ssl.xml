@@ -81,14 +81,15 @@ void CRYPTO_set_dynlock_destroy_callback(void (*dyn_destroy_function)
       currently-executing thread's identifier into <emphasis role="bold">id</emphasis>. The implementation of this callback should
       not fill in <emphasis role="bold">id</emphasis> directly, but should
       use CRYPTO_THREADID_set_numeric() if thread IDs are numeric, or
-      CRYPTO_THREADID_set_pointer() if they are pointer-based. If the
-      application does not register such a callback using
-      CRYPTO_THREADID_set_callback(), then a default implementation is used
-      - on Windows and BeOS this uses the system's default thread
-      identifying APIs, and on all other platforms it uses the address of
-      <emphasis role="bold">errno</emphasis>. The latter is satisfactory
-      for thread-safety if and only if the platform has a thread-local
-      error number facility.
+      CRYPTO_THREADID_set_pointer() if they are pointer-based. The
+      <emphasis role="bold">id</emphasis> must be unique for the duration
+      of the execution of the program. If the application does not register
+      such a callback using CRYPTO_THREADID_set_callback(), then a default
+      implementation is used - on Windows this uses the system's default
+      thread identifying APIs, and on all other platforms it uses the
+      address of <emphasis role="bold">errno</emphasis>. The latter is
+      satisfactory for thread-safety if and only if the platform has a
+      thread-local error number facility.
     </para>
     <para>
       Once threadid_func() is registered, or if the built-in default
