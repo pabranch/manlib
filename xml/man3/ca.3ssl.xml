@@ -51,6 +51,7 @@
 [<emphasis role="bold">-engine id</emphasis>]
 [<emphasis role="bold">-subj arg</emphasis>]
 [<emphasis role="bold">-utf8</emphasis>]
+[<emphasis role="bold">-create_serial</emphasis>]
 [<emphasis role="bold">-multivalue-rdn</emphasis>]</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-feb9cf4c4d64cc780b878a6d46e546af"><title>DESCRIPTION</title>
@@ -67,6 +68,23 @@
   <refsection xml:id="ID-5456bd7d9402534db68cf45906f3ff32"><title>CA OPTIONS</title>
     <para>
       <variablelist>
+        <varlistentry>
+          <term><emphasis role="bold">-help</emphasis></term>
+          <listitem>
+            <para>
+	      Print out a usage message.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-verbose</emphasis></term>
+          <listitem>
+            <para>
+	      this prints extra details about the operations being
+	      performed.
+            </para>
+          </listitem>
+        </varlistentry>
         <varlistentry>
           <term><emphasis role="bold">-config filename</emphasis></term>
           <listitem>
@@ -207,23 +225,6 @@
 	      section in <citerefentry>
 	      <refentrytitle>openssl</refentrytitle>
 	      <manvolnum>1</manvolnum> </citerefentry>.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><emphasis role="bold">-help</emphasis></term>
-          <listitem>
-            <para>
-	      Print out a usage message.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><emphasis role="bold">-verbose</emphasis></term>
-          <listitem>
-            <para>
-	      this prints extra details about the operations being
-	      performed.
             </para>
           </listitem>
         </varlistentry>
@@ -395,6 +396,16 @@
 	      that the field values, whether prompted from a terminal or
 	      obtained from a configuration file, must be valid UTF8
 	      strings.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-create_serial</emphasis></term>
+          <listitem>
+            <para>
+	      if reading serial from the text file as specified in the
+	      configuration fails, specifying this option creates a new
+	      random serial to be used as next serial number.
             </para>
           </listitem>
         </varlistentry>

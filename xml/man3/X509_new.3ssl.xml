@@ -11,7 +11,8 @@
 <synopsis>#include &lt;openssl/x509.h&gt;</synopsis>
 <synopsis>X509 *X509_new(void);
 void X509_free(X509 *a);
-void X509_up_ref(X509 *a);</synopsis>
+void X509_up_ref(X509 *a);
+STACK_OF(X509) *X509_chain_up_ref(STACK_OF(X509) *x);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-430bde2bcb8ccee4ac69a0da9379dcce"><title>DESCRIPTION</title>
     <para>
@@ -29,6 +30,11 @@ void X509_up_ref(X509 *a);</synopsis>
     <para>
       X509_up_ref() increments the reference count of <emphasis role="bold">a</emphasis>.
     </para>
+    <para>
+      X509_chain_up_ref() increases the reference count of all certificates
+      in chain <emphasis role="bold">x</emphasis> and returns a copy of the
+      stack.
+    </para>
   </refsection>
   <refsection xml:id="ID-49e7c6f428fdd50fb17b11a4ec7b082f"><title>NOTES</title>
     <para>
@@ -36,6 +42,12 @@ void X509_up_ref(X509 *a);</synopsis>
       being used by several different operations each of which will free it
       up after use: this avoids the need to duplicate the entire
       certificate structure.
+    </para>
+    <para>
+      The function X509_chain_up_ref() doesn't just up the reference count
+      of each certificate it also returns a copy of the stack, using
+      sk_X509_dup(), but it serves a similar purpose: the returned chain
+      persists after the original has been freed.
     </para>
   </refsection>
   <refsection xml:id="ID-bd288423f1b9754617999bedbc8b3171"><title>RETURN VALUES</title>
@@ -48,6 +60,9 @@ void X509_up_ref(X509 *a);</synopsis>
     </para>
     <para>
       X509_free() and X509_up_ref() do not return a value.
+    </para>
+    <para>
+      X509_chain_up_ref() returns a copy of the stack or <emphasis role="bold">NULL</emphasis> if an error occurred.
     </para>
   </refsection>
   <refsection xml:id="ID-c73872d8426b9d97be0560672a7eba28"><title>SEE ALSO</title>

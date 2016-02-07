@@ -4,23 +4,38 @@
     <refentrytitle>SSL_get_peer_cert_chain.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>SSL_get_peer_cert_chain</refname>
-<refpurpose>get the X509 certificate chain of the peer</refpurpose>
+    <refname>SSL_get_peer_cert_chain, SSL_get0_verified_chain</refname>
+<refpurpose>get the X509 certificate
+chain of the peer</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis>STACK_OF(X509) *SSL_get_peer_cert_chain(const SSL *ssl);</synopsis>
+<synopsis>STACK_OF(X509) *SSL_get_peer_cert_chain(const SSL *ssl);
+STACK_OF(X509) *SSL_get0_verified_chain(const SSL *ssl);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-3ab22f264eecb169937f76227af91c85"><title>DESCRIPTION</title>
     <para>
       SSL_get_peer_cert_chain() returns a pointer to STACK_OF(X509)
-      certificates forming the certificate chain of the peer. If called on
-      the client side, the stack also contains the peer's certificate; if
-      called on the server side, the peer's certificate must be obtained
-      separately using <citerefentry>
+      certificates forming the certificate chain sent by the peer. If
+      called on the client side, the stack also contains the peer's
+      certificate; if called on the server side, the peer's certificate
+      must be obtained separately using <citerefentry>
       <refentrytitle>SSL_get_peer_certificate</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>. If the peer did not present
       a certificate, NULL is returned.
+    </para>
+    <para>
+      NB: SSL_get_peer_chain() returns the peer chain as sent by the peer:
+      it only consists of certificates the peer has sent (in the order the
+      peer has sent them) it is <emphasis role="bold">not</emphasis> a
+      verified chain.
+    </para>
+    <para>
+      SSL_get0_verified_chain() returns the <emphasis role="bold">verified</emphasis> certificate chain of the peer
+      including the peer's end entity certificate. It must be called after
+      a session has been successfully established. If peer verification was
+      not successful (as indicated by SSL_get_verify_result() not returning
+      X509_V_OK) the chain may be incomplete or invalid.
     </para>
   </refsection>
   <refsection xml:id="ID-ef3fbeabd89cb4eb2e216aaad57c0be1"><title>NOTES</title>
@@ -29,9 +44,12 @@
       a session, in which case a NULL pointer is returned.
     </para>
     <para>
-      The reference count of the STACK_OF(X509) object is not incremented.
-      If the corresponding session is freed, the pointer must not be used
-      any longer.
+      The reference count of each certificate in the returned
+      STACK_OF(X509) object is not incremented and the returned stack may
+      be invalidated by renegotiation. If applications wish to use any
+      certificates in the returned chain indefinitely they must increase
+      the reference counts using X509_up_ref() or obtain a copy of the
+      whole chain with X509_chain_up_ref().
     </para>
   </refsection>
   <refsection xml:id="ID-4fdc3e1dc97e13ae93475b6694f455d7"><title>RETURN VALUES</title>
@@ -67,6 +85,10 @@
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>SSL_get_peer_certificate</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_up_ref</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>X509_chain_up_ref</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
