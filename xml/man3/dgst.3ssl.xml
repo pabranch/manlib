@@ -8,9 +8,9 @@
 <refpurpose>message digests</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
-<synopsis><emphasis role="bold">openssl</emphasis> <emphasis role="bold">dgst</emphasis> 
+<synopsis><emphasis role="bold">openssl</emphasis> <emphasis role="bold">dgst</emphasis>
 [<emphasis role="bold">-help</emphasis>]
-[<emphasis role="bold">-sha|-sha1|-mdc2|-ripemd160|-sha224|-sha256|-sha384|-sha512|-md4|-md5</emphasis>]
+[<emphasis role="bold">-<emphasis role="italic">digest</emphasis></emphasis>]
 [<emphasis role="bold">-c</emphasis>]
 [<emphasis role="bold">-d</emphasis>]
 [<emphasis role="bold">-hex</emphasis>]
@@ -25,6 +25,8 @@
 [<emphasis role="bold">-signature filename</emphasis>]
 [<emphasis role="bold">-hmac key</emphasis>]
 [<emphasis role="bold">-fips-fingerprint</emphasis>]
+[<emphasis role="bold">-engine id</emphasis>]
+[<emphasis role="bold">-engine_impl</emphasis>]
 [<emphasis role="bold">file...</emphasis>]</synopsis>
 <synopsis><emphasis role="bold">openssl</emphasis>
 [<emphasis role="italic">digest</emphasis>]
@@ -39,9 +41,10 @@
     <para>
       The generic name, <emphasis role="bold">dgst</emphasis>, may be used
       with an option specifying the algorithm to be used. The default
-      digest is <emphasis role="italic">sha256</emphasis>. The digest name
-      may also be used as the command name. To see the list of supported
-      algorithms, use the &lt;Ilist --digest-commands&gt; command.
+      digest is <emphasis role="italic">sha256</emphasis>. A supported
+      <emphasis role="italic">digest</emphasis> name may also be used as
+      the command name. To see the list of supported algorithms, use the
+      <emphasis role="italic">list --digest-commands</emphasis> command.
     </para>
   </refsection>
   <refsection xml:id="ID-10a2f53e0ba4b29c3915dd0d56257211"><title>OPTIONS</title>
@@ -52,6 +55,15 @@
           <listitem>
             <para>
 	      Print out a usage message.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-<emphasis role="italic">digest</emphasis></emphasis></term>
+          <listitem>
+            <para>
+	      Specifies name of a supported digest to be used. To see the
+	      list of supported digests, use the command <emphasis role="italic">list --digest-commands</emphasis>.
             </para>
           </listitem>
         </varlistentry>
@@ -123,17 +135,6 @@
             <para>
 	      Specifies the key format to sign digest with. The DER, PEM,
 	      P12, and ENGINE formats are supported.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><emphasis role="bold">-engine id</emphasis></term>
-          <listitem>
-            <para>
-	      Use engine <emphasis role="bold">id</emphasis> for operations
-	      (including private key storage). This engine is not used as
-	      source for digest algorithms, unless it is also specified in
-	      the configuration file.
             </para>
           </listitem>
         </varlistentry>
@@ -266,6 +267,26 @@
             <para>
 	      compute HMAC using a specific key for certain OpenSSL-FIPS
 	      operations.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-engine id</emphasis></term>
+          <listitem>
+            <para>
+	      Use engine <emphasis role="bold">id</emphasis> for operations
+	      (including private key storage). This engine is not used as
+	      source for digest algorithms, unless it is also specified in
+	      the configuration file or <emphasis role="bold">-engine_impl</emphasis> is also specified.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-engine_impl</emphasis></term>
+          <listitem>
+            <para>
+	      When used with the <emphasis role="bold">-engine</emphasis>
+	      option, it specifies to also use engine <emphasis role="bold">id</emphasis> for digest operations.
             </para>
           </listitem>
         </varlistentry>

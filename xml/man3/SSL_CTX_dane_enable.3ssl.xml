@@ -108,7 +108,13 @@ int SSL_get0_dane_tlsa(SSL *s, uint8_t *usage, uint8_t *selector,
       verification failed (or was not enabled), 0 if an EE TLSA record
       directly matched the leaf certificate, or a positive number
       indicating the depth at which a TA record matched an issuer
-      certificate.
+      certificate. The complete verified chain can be retrieved via
+      <citerefentry> <refentrytitle>SSL_get0_verified_chain</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>. The return value is an
+      index into this verified chain, rather than the list of certificates
+      sent by the peer as returned by <citerefentry>
+      <refentrytitle>SSL_get_peer_cert_chain</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>.
     </para>
     <para>
       If the <emphasis role="bold">mcert</emphasis> argument is not
@@ -243,9 +249,27 @@ if (num_usable == 0) {
   SSL_set_verify(ssl, SSL_VERIFY_NONE, cb);
 }
 
+/*
+ * Load any saved session for resumption, making sure that the previous
+ * session applied the same security and authentication requirements that
+ * would be expected of a fresh connection.
+ */
+
 /* Perform SSL_connect() handshake and handle errors here */
 
-if (SSL_get_verify_result(ssl) == X509_V_OK) {
+if (SSL_session_resumed(ssl)) {
+    if (SSL_get_verify_result(ssl) == X509_V_OK) {
+      /*
+       * Resumed session was originally verified, this connection is
+       * authenticated.
+       */
+    } else {
+      /*
+       * Resumed session was not originally verified, this connection is not
+       * authenticated.
+       */
+    }
+} else if (SSL_get_verify_result(ssl) == X509_V_OK) {
   const char *peername = SSL_get0_peername(ssl);
   EVP_PKEY *mspki = NULL;
 
@@ -312,18 +336,24 @@ if (SSL_get_verify_result(ssl) == X509_V_OK) {
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>SSL_CTX_set_cert_verify_callback</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
-      <refentrytitle>X509_verify_cert</refentrytitle>
+      <refentrytitle>SSL_get0_verified_chain</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_get_peer_cert_chain</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_get_verify_result</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>SSL_connect</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>, <citerefentry>
       <refentrytitle>SSL_get0_peername</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
-      <refentrytitle>EVP_get_digestbyname</refentrytitle>
+      <refentrytitle>X509_verify_cert</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>X509_up_ref</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>, <citerefentry>
       <refentrytitle>X509_free</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>, <citerefentry>
+      <refentrytitle>EVP_get_digestbyname</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>EVP_PKEY_up_ref</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>EVP_PKEY_free</refentrytitle> <manvolnum>3</manvolnum>

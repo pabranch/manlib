@@ -30,7 +30,8 @@
 [<emphasis role="bold">-pkeyopt opt:value</emphasis>]
 [<emphasis role="bold">-hexdump</emphasis>]
 [<emphasis role="bold">-asn1parse</emphasis>]
-[<emphasis role="bold">-engine id</emphasis>]</synopsis>
+[<emphasis role="bold">-engine id</emphasis>]
+[<emphasis role="bold">-engine_impl</emphasis>]</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-bd5bdd9a190b60630e698ec29abf5547"><title>DESCRIPTION</title>
     <para>
@@ -68,6 +69,14 @@
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term><emphasis role="bold">-sigfile file</emphasis></term>
+          <listitem>
+            <para>
+	      Signature file, required for <emphasis role="bold">verify</emphasis> operations only
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term><emphasis role="bold">-inkey file</emphasis></term>
           <listitem>
             <para>
@@ -79,7 +88,7 @@
           <term><emphasis role="bold">-keyform PEM|DER|ENGINE</emphasis></term>
           <listitem>
             <para>
-	      the key format PEM, DER or ENGINE.
+	      the key format PEM, DER or ENGINE. Default is PEM.
             </para>
           </listitem>
         </varlistentry>
@@ -110,20 +119,8 @@
           <term><emphasis role="bold">-peerform PEM|DER|ENGINE</emphasis></term>
           <listitem>
             <para>
-	      the peer key format PEM, DER or ENGINE.
+	      the peer key format PEM, DER or ENGINE. Default is PEM.
             </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><emphasis role="bold">-engine id</emphasis></term>
-          <listitem>
-            <para>
-	      specifying an engine (by its unique <emphasis role="bold">id</emphasis> string) will cause <emphasis role="bold">pkeyutl</emphasis> to attempt to obtain a
-	      functional reference to the specified engine, thus
-	      initialising it if needed. The engine will then be set as the
-	      default for all available algorithms.
-            </para>
-            <screen></screen>
           </listitem>
         </varlistentry>
         <varlistentry>
@@ -203,6 +200,15 @@
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term><emphasis role="bold">-pkeyopt opt:value</emphasis></term>
+          <listitem>
+            <para>
+	      Public key options specified as opt:value. See NOTES below
+	      for more details.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term><emphasis role="bold">-hexdump</emphasis></term>
           <listitem>
             <para>
@@ -218,6 +224,27 @@
 	      the <emphasis role="bold">-verifyrecover</emphasis> option
 	      when an ASN1 structure is signed.
             </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-engine id</emphasis></term>
+          <listitem>
+            <para>
+	      specifying an engine (by its unique <emphasis role="bold">id</emphasis> string) will cause <emphasis role="bold">pkeyutl</emphasis> to attempt to obtain a
+	      functional reference to the specified engine, thus
+	      initialising it if needed. The engine will then be set as the
+	      default for all available algorithms.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-engine_impl</emphasis></term>
+          <listitem>
+            <para>
+	      When used with the <emphasis role="bold">-engine</emphasis>
+	      option, it specifies to also use engine <emphasis role="bold">id</emphasis> for crypto operations.
+            </para>
+            <screen></screen>
           </listitem>
         </varlistentry>
       </variablelist>

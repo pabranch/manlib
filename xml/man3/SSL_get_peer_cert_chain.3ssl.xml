@@ -40,8 +40,9 @@ STACK_OF(X509) *SSL_get0_verified_chain(const SSL *ssl);</synopsis>
   </refsection>
   <refsection xml:id="ID-ef3fbeabd89cb4eb2e216aaad57c0be1"><title>NOTES</title>
     <para>
-      The peer certificate chain is not necessarily available after reusing
-      a session, in which case a NULL pointer is returned.
+      If the session is resumed peers do not send certificates so a NULL
+      pointer is returned by these functions. Applications can call
+      SSL_session_reused() to determine whether a session is resumed.
     </para>
     <para>
       The reference count of each certificate in the returned
