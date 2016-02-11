@@ -157,9 +157,7 @@ const EVP_MD *EVP_get_digestbyobj(const ASN1_OBJECT *o);</synopsis>
     <para>
       EVP_get_digestbyname(), EVP_get_digestbynid() and
       EVP_get_digestbyobj() return an <emphasis role="bold">EVP_MD</emphasis> structure when passed a digest name, a
-      digest NID or an ASN1_OBJECT structure respectively. The digest table
-      must be initialized using, for example, OpenSSL_add_all_digests() for
-      these functions to work.
+      digest NID or an ASN1_OBJECT structure respectively.
     </para>
   </refsection>
   <refsection xml:id="ID-591dcf0dc0c7a9d77e3f69025687e5c8"><title>RETURN VALUES</title>
@@ -240,8 +238,6 @@ char mess1[] = "Test Message\n";
 char mess2[] = "Hello World\n";
 unsigned char md_value[EVP_MAX_MD_SIZE];
 int md_len, i;
-
-OpenSSL_add_all_digests();
 
 if(!argv[1]) {
        printf("Usage: mdtest digestname\n");

@@ -23,7 +23,7 @@
              [--[no-]skip-worktree]
              [--ignore-submodules]
              [--[no-]split-index]
-             [--[no-|force-]untracked-cache]
+             [--[no-|test-|force-]untracked-cache]
              [--really-refresh] [--unresolve] [--again | -g]
              [--info-only] [--index-info]
              [-z] [--stdin] [--index-version &lt;n&gt;]
@@ -353,11 +353,32 @@ may not support it yet.</simpara>
 </term>
 <listitem>
 <simpara>
-        Enable or disable untracked cache extension. This could speed
-        up for commands that involve determining untracked files such
-        as <literal>git status</literal>. The underlying operating system and file
-        system must change <literal>st_mtime</literal> field of a directory if files
-        are added or deleted in that directory.
+        Enable or disable untracked cache feature. Please use
+        <literal>--test-untracked-cache</literal> before enabling it.
+</simpara>
+<simpara>These options take effect whatever the value of the <literal>core.untrackedCache</literal>
+configuration variable (see <citerefentry>
+<refentrytitle>git-config</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>). But a warning is
+emitted when the change goes against the configured value, as the
+configured value will take effect next time the index is read and this
+will remove the intended effect of the option.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--test-untracked-cache
+</term>
+<listitem>
+<simpara>
+        Only perform tests on the working directory to make sure
+        untracked cache can be used. You have to manually enable
+        untracked cache using <literal>--untracked-cache</literal> or
+        <literal>--force-untracked-cache</literal> or the <literal>core.untrackedCache</literal>
+        configuration variable afterwards if you really want to use
+        it. If a test fails the exit code is 1 and a message
+        explains what is not working as needed, otherwise the exit
+        code is 0 and OK is printed.
 </simpara>
 </listitem>
 </varlistentry>
@@ -367,10 +388,10 @@ may not support it yet.</simpara>
 </term>
 <listitem>
 <simpara>
-        For safety, <literal>--untracked-cache</literal> performs tests on the working
-        directory to make sure untracked cache can be used. These
-        tests can take a few seconds. <literal>--force-untracked-cache</literal> can be
-        used to skip the tests.
+        Same as <literal>--untracked-cache</literal>. Provided for backwards
+        compatibility with older versions of Git where
+        <literal>--untracked-cache</literal> used to imply <literal>--test-untracked-cache</literal> but
+        this option would enable the extension unconditionally.
 </simpara>
 </listitem>
 </varlistentry>
@@ -596,6 +617,35 @@ working directory version matches index version)</simpara>
 different from assume-unchanged bit&#8217;s. Skip-worktree also takes
 precedence over assume-unchanged bit when both are set.</simpara>
 </refsect1>
+<refsect1 id="_untracked_cache">
+<title>Untracked cache</title>
+<simpara>This cache is meant to speed up commands that involve determining
+untracked files such as <literal>git status</literal>.</simpara>
+<simpara>This feature works by recording the mtime of the working tree
+directories and then omitting reading directories and stat calls
+against files in those directories whose mtime hasn&#8217;t changed. For
+this to work the underlying operating system and file system must
+change the <literal>st_mtime</literal> field of directories if files in the directory
+are added, modified or deleted.</simpara>
+<simpara>You can test whether the filesystem supports that with the
+<literal>--test-untracked-cache</literal> option. The <literal>--untracked-cache</literal> option used
+to implicitly perform that test in older versions of Git, but that&#8217;s
+no longer the case.</simpara>
+<simpara>If you want to enable (or disable) this feature, it is easier to use
+the <literal>core.untrackedCache</literal> configuration variable (see
+<citerefentry>
+<refentrytitle>git-config</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>) than using the <literal>--untracked-cache</literal> option to
+<literal>git update-index</literal> in each repository, especially if you want to do so
+across all repositories you use, because you can set the configuration
+variable to <literal>true</literal> (or <literal>false</literal>) in your <literal>$HOME/.gitconfig</literal> just once
+and have it affect all repositories you touch.</simpara>
+<simpara>When the <literal>core.untrackedCache</literal> configuration variable is changed, the
+untracked cache is added to or removed from the index the next time a
+command reads the index; while when <literal>--[no-|force-]untracked-cache</literal>
+are used, the untracked cache is immediately added to or removed from
+the index.</simpara>
+</refsect1>
 <refsect1 id="_configuration">
 <title>Configuration</title>
 <simpara>The command honors <literal>core.filemode</literal> configuration variable.  If
@@ -619,6 +669,11 @@ from symbolic link to regular file.</simpara>
 It can be useful when the inode change time is regularly modified by
 something outside Git (file system crawlers and backup systems use
 ctime for marking files processed) (see <citerefentry>
+<refentrytitle>git-config</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>).</simpara>
+<simpara>The untracked cache extension can be enabled by the
+<literal>core.untrackedCache</literal> configuration variable (see
+<citerefentry>
 <refentrytitle>git-config</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry>).</simpara>
 </refsect1>

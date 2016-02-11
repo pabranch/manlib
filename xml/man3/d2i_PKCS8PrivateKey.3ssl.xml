@@ -42,14 +42,6 @@ EVP_PKEY *d2i_PKCS8PrivateKey_fp(FILE *fp, EVP_PKEY **x, pem_password_cb *cb, vo
   </refsection>
   <refsection xml:id="ID-3de57a01192b4e63b03ef58ccf8e1e7c"><title>NOTES</title>
     <para>
-      Before using these functions <citerefentry>
-      <refentrytitle>OpenSSL_add_all_algorithms</refentrytitle>
-      <manvolnum>3</manvolnum> </citerefentry> should be called to
-      initialize the internal algorithm lookup tables otherwise errors
-      about unknown algorithms will occur if an attempt is made to decrypt
-      a private key.
-    </para>
-    <para>
       These functions are currently the only way to store encrypted private
       keys using DER format.
     </para>

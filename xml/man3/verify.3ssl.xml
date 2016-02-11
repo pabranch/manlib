@@ -26,7 +26,6 @@
 [<emphasis role="bold">-ignore_critical</emphasis>]
 [<emphasis role="bold">-inhibit_any</emphasis>]
 [<emphasis role="bold">-inhibit_map</emphasis>]
-[<emphasis role="bold">-issuer_checks</emphasis>]
 [<emphasis role="bold">-partial_chain</emphasis>]
 [<emphasis role="bold">-policy arg</emphasis>]
 [<emphasis role="bold">-policy_check</emphasis>]
@@ -50,7 +49,6 @@
 [<emphasis role="bold">-show_chain</emphasis>]
 [<emphasis role="bold">-</emphasis>]
 [certificates]</synopsis>
-<synopsis/>
   </refsynopsisdiv>
   <refsection xml:id="ID-3d7d5012f07404e4c87fbea17c99d5f9"><title>DESCRIPTION</title>
     <para>
@@ -227,19 +225,6 @@
           <listitem>
             <para>
 	      Set policy variable inhibit-policy-mapping (see RFC5280).
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><emphasis role="bold">-issuer_checks</emphasis></term>
-          <listitem>
-            <para>
-	      Print out diagnostics relating to searches for the issuer
-	      certificate of the current certificate. This shows why each
-	      candidate issuer certificate was rejected. The presence of
-	      rejection messages does not itself imply that anything is
-	      wrong; during the normal verification process, several
-	      rejections may take place.
             </para>
           </listitem>
         </varlistentry>
@@ -584,6 +569,14 @@ error 24 at 1 depth lookup:invalid CA certificate</screen>
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term><emphasis role="bold">1 X509_V_ERR_UNSPECIFIED: unspecified certificate verification error</emphasis></term>
+          <listitem>
+            <para>
+	      unspecified error, should not happen.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term><emphasis role="bold">2 X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT: unable to get issuer certificate</emphasis></term>
           <listitem>
             <para>
@@ -824,9 +817,9 @@ error 24 at 1 depth lookup:invalid CA certificate</screen>
           <term><emphasis role="bold">29 X509_V_ERR_SUBJECT_ISSUER_MISMATCH: subject issuer mismatch</emphasis></term>
           <listitem>
             <para>
-	      the current candidate issuer certificate was rejected because
-	      its subject name did not match the issuer name of the current
-	      certificate. Only displayed when the <emphasis role="bold">-issuer_checks</emphasis> option is set.
+	      Not used as of OpenSSL 1.1.0 as a result of the deprecation
+	      of the <emphasis role="bold">-issuer_checks</emphasis>
+	      option.
             </para>
           </listitem>
         </varlistentry>
@@ -834,11 +827,9 @@ error 24 at 1 depth lookup:invalid CA certificate</screen>
           <term><emphasis role="bold">30 X509_V_ERR_AKID_SKID_MISMATCH: authority and subject key identifier mismatch</emphasis></term>
           <listitem>
             <para>
-	      the current candidate issuer certificate was rejected because
-	      its subject key identifier was present and did not match the
-	      authority key identifier current certificate. Only displayed
-	      when the <emphasis role="bold">-issuer_checks</emphasis>
-	      option is set.
+	      Not used as of OpenSSL 1.1.0 as a result of the deprecation
+	      of the <emphasis role="bold">-issuer_checks</emphasis>
+	      option.
             </para>
           </listitem>
         </varlistentry>
@@ -846,19 +837,155 @@ error 24 at 1 depth lookup:invalid CA certificate</screen>
           <term><emphasis role="bold">31 X509_V_ERR_AKID_ISSUER_SERIAL_MISMATCH: authority and issuer serial number mismatch</emphasis></term>
           <listitem>
             <para>
-	      the current candidate issuer certificate was rejected because
-	      its issuer name and serial number was present and did not
-	      match the authority key identifier of the current
-	      certificate. Only displayed when the <emphasis role="bold">-issuer_checks</emphasis> option is set.
+	      Not used as of OpenSSL 1.1.0 as a result of the deprecation
+	      of the <emphasis role="bold">-issuer_checks</emphasis>
+	      option.
             </para>
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><emphasis role="bold">32 X509_V_ERR_KEYUSAGE_NO_CERTSIGN:key usage does not include certificate signing</emphasis></term>
+          <term><emphasis role="bold">32 X509_V_ERR_KEYUSAGE_NO_CERTSIGN: key usage does not include certificate signing</emphasis></term>
           <listitem>
             <para>
-	      the current candidate issuer certificate was rejected because
-	      its keyUsage extension does not permit certificate signing.
+	      Not used as of OpenSSL 1.1.0 as a result of the deprecation
+	      of the <emphasis role="bold">-issuer_checks</emphasis>
+	      option.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">33 X509_V_ERR_UNABLE_TO_GET_CRL_ISSUER: unable to get CRL issuer certificate</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">34 X509_V_ERR_UNHANDLED_CRITICAL_EXTENSION: unhandled critical extension</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">35 X509_V_ERR_KEYUSAGE_NO_CRL_SIGN: key usage does not include CRL signing</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">36 X509_V_ERR_UNHANDLED_CRITICAL_CRL_EXTENSION: unhandled critical CRL extension</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">37 X509_V_ERR_INVALID_NON_CA: invalid non-CA certificate has CA markings</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">38 X509_V_ERR_PROXY_PATH_LENGTH_EXCEEDED: proxy path length constraint exceeded</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">39 X509_V_ERR_KEYUSAGE_NO_DIGITAL_SIGNATURE: key usage does not include digital signature</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">40 X509_V_ERR_PROXY_CERTIFICATES_NOT_ALLOWED: proxy certificates not allowed, please set the appropriate flag</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">41 X509_V_ERR_INVALID_EXTENSION: invalid or inconsistent certificate extension</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">42 X509_V_ERR_INVALID_POLICY_EXTENSION: invalid or inconsistent certificate policy extension</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">43 X509_V_ERR_NO_EXPLICIT_POLICY: no explicit policy</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">44 X509_V_ERR_DIFFERENT_CRL_SCOPE: Different CRL scope</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">45 X509_V_ERR_UNSUPPORTED_EXTENSION_FEATURE: Unsupported extension feature</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">46 X509_V_ERR_UNNESTED_RESOURCE: RFC 3779 resource not subset of parent's resources</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">47 X509_V_ERR_PERMITTED_VIOLATION: permitted subtree violation</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">48 X509_V_ERR_EXCLUDED_VIOLATION: excluded subtree violation</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">49 X509_V_ERR_SUBTREE_MINMAX: name constraints minimum and maximum not supported</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
             </para>
           </listitem>
         </varlistentry>
@@ -867,6 +994,129 @@ error 24 at 1 depth lookup:invalid CA certificate</screen>
           <listitem>
             <para>
 	      an application specific error. Unused.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">51 X509_V_ERR_UNSUPPORTED_CONSTRAINT_TYPE: unsupported name constraint type</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">52 X509_V_ERR_UNSUPPORTED_CONSTRAINT_SYNTAX: unsupported or invalid name constraint syntax</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">53 X509_V_ERR_UNSUPPORTED_NAME_SYNTAX: unsupported or invalid name syntax</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">54 X509_V_ERR_CRL_PATH_VALIDATION_ERROR: CRL path validation error</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">55 X509_V_ERR_PATH_LOOP: Path Loop</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">56 X509_V_ERR_SUITE_B_INVALID_VERSION: Suite B: certificate version invalid</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">57 X509_V_ERR_SUITE_B_INVALID_ALGORITHM: Suite B: invalid public key algorithm</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">58 X509_V_ERR_SUITE_B_INVALID_CURVE: Suite B: invalid ECC curve</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">59 X509_V_ERR_SUITE_B_INVALID_SIGNATURE_ALGORITHM: Suite B: invalid signature algorithm</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">60 X509_V_ERR_SUITE_B_LOS_NOT_ALLOWED: Suite B: curve not allowed for this LOS</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">61 X509_V_ERR_SUITE_B_CANNOT_SIGN_P_384_WITH_P_256: Suite B: cannot sign P-384 with P-256</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">62 X509_V_ERR_HOSTNAME_MISMATCH: Hostname mismatch</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">63 X509_V_ERR_EMAIL_MISMATCH: Email address mismatch</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">64 X509_V_ERR_IP_ADDRESS_MISMATCH: IP address mismatch</emphasis></term>
+          <listitem>
+            <para>
+	      TBA
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">65 X509_V_ERR_DANE_NO_MATCH: No matching DANE TLSA records</emphasis></term>
+          <listitem>
+            <para>
+	      DANE TLSA authentication is enabled, but no TLSA records
+	      matched the certificate chain. This error is only possible in
+	      <citerefentry> <refentrytitle>s_client</refentrytitle>
+	      <manvolnum>1</manvolnum> </citerefentry>.
             </para>
           </listitem>
         </varlistentry>
@@ -903,7 +1153,12 @@ error 24 at 1 depth lookup:invalid CA certificate</screen>
   </refsection>
   <refsection xml:id="ID-d921e1cf6cc48357e2f61c30bb56cce7"><title>HISTORY</title>
     <para>
-      The -show_chain option was first added to OpenSSL 1.1.0.
+      The <emphasis role="bold">-show_chain</emphasis> option was first
+      added to OpenSSL 1.1.0.
+    </para>
+    <para>
+      The <emphasis role="bold">-issuer_checks</emphasis> option is
+      deprecated as of OpenSSL 1.1.0 and is silently ignored.
     </para>
   </refsection>
 </refentry>
