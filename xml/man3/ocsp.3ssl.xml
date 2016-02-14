@@ -182,8 +182,8 @@
             <para>
 	      Add an OCSP nonce extension to a request or disable OCSP
 	      nonce addition. Normally if an OCSP request is input using
-	      the <emphasis role="bold">respin</emphasis> option no nonce
-	      is added: using the <emphasis role="bold">nonce</emphasis>
+	      the <emphasis role="bold">reqin</emphasis> option no nonce is
+	      added: using the <emphasis role="bold">nonce</emphasis>
 	      option will force addition of a nonce. If an OCSP request is
 	      being created (using <emphasis role="bold">cert</emphasis>
 	      and <emphasis role="bold">serial</emphasis> options) a nonce
@@ -235,7 +235,9 @@
             <para>
 	      if the <emphasis role="bold">host</emphasis> option is
 	      present then the OCSP request is sent to the host <emphasis role="bold">hostname</emphasis> on port <emphasis role="bold">port</emphasis>. <emphasis role="bold">path</emphasis> specifies the HTTP path name to
-	      use or "/" by default.
+	      use or "/" by default.  This is equivalent to specifying
+	      <emphasis role="bold">-url</emphasis> with scheme http:// and
+	      the given hostname, port, and pathname.
             </para>
           </listitem>
         </varlistentry>
@@ -461,7 +463,7 @@
 	      is in responder mode, otherwise it is in client mode. The
 	      request(s) the responder processes can be either specified on
 	      the command line (using <emphasis role="bold">issuer</emphasis> and <emphasis role="bold">serial</emphasis> options), supplied in a file
-	      (using the <emphasis role="bold">respin</emphasis> option) or
+	      (using the <emphasis role="bold">reqin</emphasis> option) or
 	      via external OCSP clients (if <emphasis role="bold">port</emphasis> or <emphasis role="bold">url</emphasis> is specified).
             </para>
             <para>
@@ -633,7 +635,7 @@
     </para>
     <para>
       It is possible to run the <emphasis role="bold">ocsp</emphasis>
-      application in responder mode via a CGI script using the <emphasis role="bold">respin</emphasis> and <emphasis role="bold">respout</emphasis> options.
+      application in responder mode via a CGI script using the <emphasis role="bold">reqin</emphasis> and <emphasis role="bold">respout</emphasis> options.
     </para>
   </refsection>
   <refsection xml:id="ID-55962eede92b8cdf655fe0644079ece4"><title>EXAMPLES</title>
@@ -643,14 +645,15 @@
     <screen>openssl ocsp -issuer issuer.pem -cert c1.pem -cert c2.pem -reqout req.der</screen>
     <para>
       Send a query to an OCSP responder with URL http://ocsp.myhost.com/
-      save the response to a file and print it out in text form
+      save the response to a file, print it out in text form, and verify
+      the response:
     </para>
     <screen>openssl ocsp -issuer issuer.pem -cert c1.pem -cert c2.pem \
     -url http://ocsp.myhost.com/ -resp_text -respout resp.der</screen>
     <para>
       Read in an OCSP response and print out text form:
     </para>
-    <screen>openssl ocsp -respin resp.der -text</screen>
+    <screen>openssl ocsp -respin resp.der -text -noverify</screen>
     <para>
       OCSP server on port 8888 using a standard <emphasis role="bold">ca</emphasis> configuration, and a separate responder
       certificate. All requests and responses are printed to a file.
@@ -663,13 +666,13 @@
     <screen>openssl ocsp -index demoCA/index.txt -port 8888 -rsigner rcert.pem -CA demoCA/cacert.pem
     -nrequest 1</screen>
     <para>
-      Query status information using internally generated request:
+      Query status information using an internally generated request:
     </para>
     <screen>openssl ocsp -index demoCA/index.txt -rsigner rcert.pem -CA demoCA/cacert.pem
     -issuer demoCA/cacert.pem -serial 1</screen>
     <para>
-      Query status information using request read from a file, write
-      response to a second file.
+      Query status information using request read from a file, and write
+      the response to a second file.
     </para>
     <screen>openssl ocsp -index demoCA/index.txt -rsigner rcert.pem -CA demoCA/cacert.pem
     -reqin req.der -respout resp.der</screen>
