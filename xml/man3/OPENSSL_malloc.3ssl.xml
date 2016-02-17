@@ -33,19 +33,19 @@ void OPENSSL_cleanse(void *ptr, size_t len);</synopsis>
 <synopsis>void *CRYPTO_malloc(size_t num, const char *file, int line)
 void *CRYPTO_zalloc(size_t num, const char *file, int line)
 void *CRYPTO_realloc(void *p, size_t num, const char *file, int line)
-void CRYPTO_free(void *str)
+void CRYPTO_free(void *str, const char *, int)
 char *CRYPTO_strdup(const char *p, const char *file, int line)
 char *CRYPTO_strndup(const char *p, size_t num, const char *file, int line)
 void *CRYPTO_clear_realloc(void *p, size_t old_len, size_t num, const char *file, int line)
-void CRYPTO_clear_free(void *str, size_t num)</synopsis>
+void CRYPTO_clear_free(void *str, size_t num, const char *, int)</synopsis>
 <synopsis>void CRYPTO_get_mem_functions(
         void *(**m)(size_t, const char *, int),
         void *(**r)(void *, size_t, const char *, int),
-        void (**f)(void *))
+        void (**f)(void *, const char *, int))
 int CRYPTO_set_mem_functions(
         void *(*m)(size_t, const char *, int),
         void *(*r)(void *, size_t, const char *, int),
-        void (*f)(void *))</synopsis>
+        void (*f)(void *, const char *, int))</synopsis>
 <synopsis>int CRYPTO_set_mem_debug(int onoff)</synopsis>
 <synopsis>#define CRYPTO_MEM_CHECK_OFF
 #define CRYPTO_MEM_CHECK_ON
@@ -95,14 +95,13 @@ void CRYPTO_mem_leaks(FILE *fp);</synopsis>
     </para>
     <para>
       If no allocations have been done, it is possible to "swap out" the
-      default implementations and replace them with alternate versions, or
-      wrappers that do some additional housekeeping and then defer to the
-      OpenSSL implementation. The CRYPTO_get_mem_functions() function fills
-      in the function pointers for with the current functions (normally,
-      and by default, CRYPTO_malloc(), CRYPTO_realloc(), and
-      CRYPTO_free()). The CRYPTO_set_mem_functions() specifies a different
-      set of functions. If any of <emphasis role="bold">m</emphasis>,
-      <emphasis role="bold">r</emphasis>, or <emphasis role="bold">f</emphasis> are NULL, then the function is not changed.
+      default implementations for OPENSSL_malloc(), OPENSSL_realloc and
+      OPENSSL_free() and replace them with alternate versions (hooks).
+      CRYPTO_get_mem_functions() function fills in the given arguments with
+      the function pointers for the current implementations. With
+      CRYPTO_set_mem_functions(), you can specify a different set of
+      functions. If any of <emphasis role="bold">m</emphasis>, <emphasis role="bold">r</emphasis>, or <emphasis role="bold">f</emphasis> are
+      NULL, then the function is not changed.
     </para>
     <para>
       The default implementation can include some debugging capability (if
@@ -164,6 +163,15 @@ void CRYPTO_mem_leaks(FILE *fp);</synopsis>
     <para>
       OPENSSL_mem_debug_push() and OPENSSL_mem_debug_pop() return 1 on
       success or 0 on failure.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-8c2493b9a692f11710796ce196c5cc94"><title>NOTES</title>
+    <para>
+      While it's permitted to swap out only a few and not all the functions
+      with CRYPTO_set_mem_functions(), it's recommended to swap them all
+      out at once.  <emphasis role="italic">This applies specially if
+      OpenSSL was built with the configuration option</emphasis> <literal role="code">crypto-mdebug</literal> <emphasis role="italic">enabled.  In case, swapping out only, say, the malloc()
+      implementation is outright dangerous.</emphasis>
     </para>
   </refsection>
 </refentry>

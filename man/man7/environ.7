@@ -53,6 +53,11 @@ feature test macro is defined.)
 This array of strings is made available to the process by the
 .BR exec (3)
 call that started the process.
+When a child process is created via
+.BR fork (2),
+it inherits a
+.I copy
+of its parent's environment.
 
 By convention the strings in
 .I environ
@@ -124,14 +129,38 @@ The user's preferred utility to edit text files.
 .\" The user's preferred utility to browse URLs. Sequence of colon-separated
 .\" browser commands. See http://www.catb.org/~esr/BROWSER/ .
 .PP
-Further names may be placed in the environment by the
+Names may be placed in the shell's environment by the
 .I export
-command and "name=value" in
+command in
 .BR sh (1),
 or by the
 .I setenv
 command if you use
 .BR csh (1).
+
+The initial environment of the shell is populated in various ways,
+such as definitions from
+.IR /etc/environment
+that are processed by
+.BR pam_env (8)
+for all users at login time (on systems that employ
+.BR pam (8)).
+In addition, various shell initialization scripts, such as the system-wide
+.IR /etc/profile
+script and per-user initializations script may include commands
+that add variables to the shell's environment;
+see the manual page of your preferred shell for details.
+
+Bourne-style shells support the syntax
+
+    NAME=value command
+
+to create an environment variable definition only in the scope
+of the process that executes
+.IR command .
+Multiple variable definitions, separated by white space, may precede
+.IR command .
+
 Arguments may also be placed in the
 environment at the point of an
 .BR exec (3).
@@ -204,8 +233,6 @@ tell applications about the window size, possibly overriding the actual size.
 may specify the desired printer to use.
 See
 .BR lpr (1).
-.LP
-Etc.
 .SH BUGS
 Clearly there is a security risk here.
 Many a system command has been
@@ -256,6 +283,7 @@ should consider renaming their option to
 .BR clearenv (3),
 .BR exec (3),
 .BR getenv (3),
+.BR pam_env (3),
 .BR putenv (3),
 .BR setenv (3),
 .BR unsetenv (3),
