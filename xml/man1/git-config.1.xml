@@ -5608,7 +5608,7 @@ pack.indexVersion
         larger than 2 GB.
 </simpara>
 <simpara>If you have an old Git that does not understand the version 2 <literal>*.idx</literal> file,
-cloning or fetching over a non native protocol (e.g. "http" and "rsync")
+cloning or fetching over a non native protocol (e.g. "http")
 that will copy both <literal>*.pack</literal> file and corresponding <literal>*.idx</literal> file from the
 other side may give you a repository that cannot be accessed with your
 older version of Git. If the <literal>*.pack</literal> file is smaller than 2 GB, however,
@@ -7107,6 +7107,23 @@ user.name
         environment variables.  See <citerefentry>
 <refentrytitle>git-commit-tree</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+user.useConfigOnly
+</term>
+<listitem>
+<simpara>
+        Instruct Git to avoid trying to guess defaults for <emphasis>user.email</emphasis>
+        and <emphasis>user.name</emphasis>, and instead retrieve the values only from the
+        configuration. For example, if you have multiple email addresses
+        and would like to use a different one for each repository, then
+        with this configuration option set to <literal>true</literal> in the global config
+        along with a name, Git will prompt you to set up an email before
+        making new commits in a newly cloned repository.
+        Defaults to <literal>false</literal>.
 </simpara>
 </listitem>
 </varlistentry>
