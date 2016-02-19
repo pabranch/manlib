@@ -188,6 +188,31 @@ all of the "trace-cmd" tasks:</literallayout>
 <variablelist>
 <varlistentry>
 <term>
+<emphasis role="strong">-I</emphasis>
+</term>
+<listitem>
+<simpara>
+    Do not print events where the HARDIRQ latency flag is set.
+    This will filter out most events that are from interrupt context.
+    Note, it may not filter out function traced functions that are
+    in interrupt context but were called before the kernel "in interrupt"
+    flag was set.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+<emphasis role="strong">-S</emphasis>
+</term>
+<listitem>
+<simpara>
+    Do not print events where the SOFTIRQ latency flag is set.
+    This will filter out most events that are from soft interrupt context.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 <emphasis role="strong">-v</emphasis>
 </term>
 <listitem>
