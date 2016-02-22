@@ -139,7 +139,8 @@ use - as filename. Note that input from stdin will not work with csvlog.</synops
                          will be written to be able to run two pgbadger at
                          the same time.
 --rebuild              : used to rebuild all html reports in incremental
-                         output directories where there is binary data files.</synopsis>
+                         output directories where there is binary data files.
+--pgbouncer-only       : only show pgbouncer related menu in the header.</synopsis>
 <synopsis>pgBadger is able to parse a remote log file using a passwordless ssh connection.
 Use the -r or --remote-host to set the host ip address or hostname. There's also
 some additional options to fully control the ssh connection.</synopsis>
@@ -291,6 +292,24 @@ Queries per user and total duration per user.</screen>
       All charts are zoomable and can be saved as PNG images. SQL queries
       reported are highlighted and beautified automatically.
     </para>
+    <para>
+      pgBadger is also able to parse pgbouncer log files and to create the
+      following reports:
+    </para>
+    <screen>Request Throughput
+Bytes I/O Throughput
+Queries Average duration
+Simultaneous sessions
+Histogram of sessions times
+Sessions per database
+Sessions per user
+Sessions per host
+Established connections
+Connections per database
+Connections per user
+Connections per host
+Most used reserved pools
+Most Frequent Errors/Events</screen>
     <para>
       You can also have incremental reports with one report per day and a
       cumulative report per week. Two multiprocess modes are available to

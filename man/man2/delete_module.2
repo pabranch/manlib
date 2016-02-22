@@ -31,7 +31,7 @@ delete_module \- unload a kernel module
 .fi
 
 .IR Note :
-No declaration of this function is provided in glibc headers; see NOTES.
+No declaration of this system call is provided in glibc headers; see NOTES.
 .SH DESCRIPTION
 The
 .BR delete_module ()
@@ -176,10 +176,11 @@ is Linux-specific.
 The
 .BR delete_module ()
 system call is not supported by glibc.
-No declaration is provided in glibc headers, but,
-through a quirk of history, glibc does export an ABI for this system call.
+No declaration is provided in glibc headers, but, through a quirk of history,
+glibc versions before 2.23 did export an ABI for this system call.
 Therefore, in order to employ this system call,
-it is sufficient to manually declare the interface in your code;
+it is (before glibc 2.23) sufficient to
+manually declare the interface in your code;
 alternatively, you can invoke the system call using
 .BR syscall (2).
 
