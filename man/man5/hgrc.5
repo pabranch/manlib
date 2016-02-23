@@ -1060,7 +1060,7 @@ the local repository. The ID of the newly arrived changeset is in
 .sp
 Run after sending changes from local repository to another. ID of
 first changeset sent is in \fB$HG_NODE\fP. Source of operation is in
-\fB$HG_SOURCE\fP; Also see \%\fBhg help config.preoutgoing\fP\: hook.
+\fB$HG_SOURCE\fP; Also see \%\fBhg help config.hooks.preoutgoing\fP\: hook.
 .TP
 .B \fBpost\-<command>\fP
 .sp
@@ -1152,12 +1152,12 @@ changes will set \fBHG_BOOKMARK_MOVED\fP and \fBHG_PHASES_MOVED\fP to \fB1\fP, e
 .sp
 Run after any repository transaction has been committed. At this
 point, the transaction can no longer be rolled back. The hook will run
-after the lock is released. See \%\fBhg help config.pretxnclose\fP\: docs for
+after the lock is released. See \%\fBhg help config.hooks.pretxnclose\fP\: docs for
 details about available variables.
 .TP
 .B \fBtxnabort\fP
 .sp
-Run when a transaction is aborted. See \%\fBhg help config.pretxnclose\fP\:
+Run when a transaction is aborted. See \%\fBhg help config.hooks.pretxnclose\fP\:
 docs for details about available variables.
 .TP
 .B \fBpretxnchangegroup\fP
@@ -1293,6 +1293,27 @@ Optional. User name to authenticate with at the proxy server.
 .sp
 Optional. Always use the proxy, even for localhost and any entries
 in \fBhttp_proxy.no\fP. (default: False)
+.UNINDENT
+.SS \fBmerge\fP
+.sp
+This section specifies behavior during merges and updates.
+.INDENT 0.0
+.TP
+.B \fBcheckignored\fP
+.sp
+Controls behavior when an ignored file on disk has the same name as a tracked
+file in the changeset being merged or updated to, and has different
+contents. Options are \fBabort\fP, \fBwarn\fP and \fBignore\fP. With \fBabort\fP,
+abort on such files. With \fBwarn\fP, warn on such files and back them up as
+.orig. With \fBignore\fP, don\(aqt print a warning and back them up as
+.orig. (default: \fBabort\fP)
+.TP
+.B \fBcheckunknown\fP
+.sp
+Controls behavior when an unknown file that isn\(aqt ignored has the same name
+as a tracked file in the changeset being merged or updated to, and has
+different contents. Similar to \fBmerge.checkignored\fP, except for files that
+are not ignored. (default: \fBabort\fP)
 .UNINDENT
 .SS \fBmerge\-patterns\fP
 .sp
