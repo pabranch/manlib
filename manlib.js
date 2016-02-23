@@ -5,6 +5,7 @@ var fs = require('fs');
 var program = require('commander');
 var exec = require('child_process').exec;
 var ftp = require('ftp-get');
+var url = require('url');
 
 var sourcesFile = './sources.json';
 var sources;
@@ -13,12 +14,10 @@ program
   .version('0.0.1')
   .option('-s, --sources [file]', 'Use the specified sources file (default is ' + sourcesFile + ')');
 
-var baseDir = process.cwd();
-
 program
   .command('list')
   .description('list sources')
-  .action(function (env) {
+  .action(function () {
     loadSources();
     for (var source in sources) {
       console.log(source);
@@ -28,7 +27,7 @@ program
 program
   .command('info [source]')
   .description('show info on all sources, or just the specified source')
-  .action(function(source) {
+  .action(function (source) {
     loadSources();
     if (source) {
       if (!sources[source]) {
@@ -46,7 +45,7 @@ program
 program
   .command('setup [source]')
   .description('setup all sources, or just the specified source')
-  .action(function(source) {
+  .action(function (source) {
     loadSources();
     if (source) {
       if (!sources[source]) {
@@ -64,7 +63,7 @@ program
 program
   .command('extract [source]')
   .description('extract man pages from all sources, or from the specified source')
-  .action(function(source) {
+  .action(function (source) {
     loadSources();
 
     var i, newDir;
@@ -101,7 +100,7 @@ program
 program
   .command('update [source]')
   .description('update all sources, or just the specified source')
-  .action(function(source) {
+  .action(function (source) {
     loadSources();
 
     if (source) {
@@ -111,9 +110,20 @@ program
         update(source, sources[source], true);
       }
     } else {
-      for (var sourceName in sources) {
-        update(sourceName, sources[sourceName]);
-      }
+      var timeouts = {};
+      Object.keys(sources).forEach(function (sourceName) {
+        var
+          sourceDetails = sources[sourceName],
+          host          = url.parse(sourceDetails.url).host;
+        if (timeouts.hasOwnProperty(host)) {
+          timeouts.host += 1000;
+        } else {
+          timeouts.host = 0;
+        }
+        setTimeout(function () {
+          update(sourceName, sourceDetails);
+        }, timeouts.host);
+      });
     }
   });
 
@@ -135,51 +145,52 @@ function loadSources () {
 
 }
 
-function info (sourceName, sourceDets, specified) {
+function info (sourceName, sourceDets) {
   console.log(sourceName);
   console.log('Type: ' + sourceDets.type);
   console.log('URL: ' + sourceDets.url);
   console.log('Command: ' + sourceDets.cmd);
 }
 
-function extract (sourceName, sourceDets, specified) {
+function extract (sourceName, sourceDets) {
 
-  if  (!sourceDets.cmd) {
+  if (!sourceDets.cmd) {
     console.log('No command to extract man pages for: ' + sourceName);
     return;
   }
 
   exec(sourceDets.cmd, {maxBuffer: 5000 * 1024},
-    function (error, stdout, stderr) {
+    function (error) {
       if (error !== null) {
         console.log(sourceDets.cmd + ' - error: ' + error);
       }
       /*if (stderr !== null) {
-        console.log(sourceDets.cmd + ' - stderr: ' + stderr);
-      }*/
+       console.log(sourceDets.cmd + ' - stderr: ' + stderr);
+       }*/
     }
   );
 
 }
 
-function update (sourceName, sourceDets, specified) {
+function update (sourceName, sourceDets) {
 
   function doUp (repoCmd, repoCmdOpts) {
     exec(repoCmd, repoCmdOpts,
-      function (error, stdout, stderr) {
+      function (error) {
         if (error !== null) {
           console.log(repoCmd + (repoCmdOpts.cwd ? ' in ' + repoCmdOpts.cwd : '') + ' - error: ' + error);
+          console.log('Source: ' + sourceDets.url);
         }
       }
     );
   }
 
   var destDir = 'sources/' + sourceName;
-  switch(sourceDets.type) {
+  switch (sourceDets.type) {
     case 'git':
       if (sourceDets.tag) {
         exec('git fetch --tags; git describe --tags `git rev-list --tags --max-count=1`', {cwd: destDir},
-          function (error, stdout, stderr) {
+          function (error, stdout) {
             var latestTag = stdout.trim();
             if (latestTag !== sourceDets.tag) {
               console.log(sourceName + ' is on tag ' + sourceDets.tag + ', consider checking for a newer tag to use. Latest remote tag: ' + latestTag);
@@ -219,7 +230,7 @@ function setup (sourceName, sourceDets, specified) {
     return;
   }
 
-  switch(sourceDets.type) {
+  switch (sourceDets.type) {
     case 'git':
       setupGIT(sourceName, sourceDets);
       break;
@@ -250,13 +261,13 @@ function setupGIT (sourceName, sourceDets) {
 
   if (sourceDets.sparse) {
     exec('git init; git remote add -f origin ' + sourceDets.url + '; git config core.sparseCheckout true', {cwd: destDir},
-      function (error, stdout, stderr) {
+      function (error) {
         if (error !== null) {
           console.log('git init; git remote add -f origin ' + sourceDets.url + '; git config core.sparseCheckout true - error: ' + error);
         } else {
           fs.writeFileSync(destDir + '/.git/info/sparse-checkout', sourceDets.sparse);
           exec('git checkout master', {cwd: destDir},
-            function (error, stdout, stderr) {
+            function (error) {
               if (error !== null) {
                 console.log('git checkout master - error: ' + error);
               }
@@ -270,22 +281,22 @@ function setupGIT (sourceName, sourceDets) {
 
   } else {
     exec('git clone ' + sourceDets.url + ' ' + destDir,
-      function (error, stdout, stderr) {
+      function (error) {
         if (error !== null) {
           console.log('git clone ' + sourceDets.url + ' ' + destDir + ' - error: ' + error);
         } else {
           if (sourceDets.tag) {
             var coTagCmd = 'git checkout ' + sourceDets.tag;
             exec(coTagCmd, {cwd: destDir},
-            function (error, stdout, stderr) {
-              if (error !== null) {
-                console.log(coTagCmd + ' - error: ' + error);
-              }
-            });
+              function (error) {
+                if (error !== null) {
+                  console.log(coTagCmd + ' - error: ' + error);
+                }
+              });
           }
         }
 
-    });
+      });
   }
 
 }
@@ -293,40 +304,40 @@ function setupGIT (sourceName, sourceDets) {
 function setupSVN (sourceName, sourceDets) {
   var destDir = 'sources/' + sourceName;
   exec('svn -q co ' + sourceDets.url + ' ' + destDir,
-    function (error, stdout, stderr) {
+    function (error) {
       if (error !== null) {
         console.log('svn co ' + sourceDets.url + ' ' + destDir + ' - error: ' + error);
       }
-  });
+    });
 }
 
 function setupCVS (sourceName, sourceDets) {
   exec('cvs -z3 ' + sourceDets.url + ' checkout -P ' + sourceName, {cwd: 'sources'},
-    function (error, stdout, stderr) {
+    function (error) {
       if (error !== null) {
         console.log('cvs -z3 ' + sourceDets.url + ' checkout -P ' + sourceName + ' - error: ' + error);
       }
-  });
+    });
 }
 
 function setupHG (sourceName, sourceDets) {
   var destDir = 'sources/' + sourceName;
   exec('hg clone ' + sourceDets.url + ' ' + destDir,
-    function (error, stdout, stderr) {
+    function (error) {
       if (error !== null) {
         console.log('hg clone ' + sourceDets.url + ' ' + destDir + ' - error: ' + error);
       }
-  });
+    });
 }
 
 function setupBZR (sourceName, sourceDets) {
   var destDir = 'sources/' + sourceName;
   exec('bzr branch ' + sourceDets.url + ' ' + destDir,
-    function (error, stdout, stderr) {
+    function (error) {
       if (error !== null) {
         console.log('bzr branch ' + sourceDets.url + ' ' + destDir + ' - error: ' + error);
       }
-  });
+    });
 }
 
 function setupTarball (sourceName, sourceDets) {
@@ -334,13 +345,13 @@ function setupTarball (sourceName, sourceDets) {
 
   if (sourceDets.url.indexOf('ftp') === 0) {
     var tmpFile = '/tmp/' + sourceName + '.tar.gz';
-    ftp.get(sourceDets.url, tmpFile, function (error, result) {
+    ftp.get(sourceDets.url, tmpFile, function (error) {
       if (error) {
         console.error(error);
       } else {
         fs.mkdirSync(destDir);
         var extractTarballCmd = 'tar xf ' + tmpFile + ' -C ' + destDir;
-        exec(extractTarballCmd, function (error, stdout, stderr) {
+        exec(extractTarballCmd, function (error) {
           if (error !== null) {
             console.log(extractTarballCmd + ' - error: ' + error);
           }
