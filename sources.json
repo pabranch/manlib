@@ -543,9 +543,9 @@ rsync --checksum sources/quota/*.8 man/man8/"
     "type": "git",
     "url": "https://github.com/SELinuxProject/selinux.git",
     "sparse": "libsemanage/man/*\nlibselinux/man/*\nlibsepol/man/*\npolicycoreutils/mcstrans/man/*\npolicycoreutils/man/*",
-    "cmd": "find sources/selinux/ -name '*[a-z].3' -exec rsync --checksum {} man/man3/ \\;;
-find sources/selinux/ -name '*.5' -exec rsync --checksum {} man/man5/ \\;;
-find sources/selinux/ -name '*.8' -exec rsync --checksum {} man/man8/ \\;"
+    "cmd": "find sources/selinux/* -name '*[a-z].3' -exec rsync --checksum {} man/man3/ \\;;
+find sources/selinux/* -name '*.5' -exec rsync --checksum {} man/man5/ \\;;
+find sources/selinux/* -name '*.8' -exec rsync --checksum {} man/man8/ \\;"
   },
 
   "selinux-refpolicy": {
