@@ -76,6 +76,8 @@
 [<emphasis role="bold">-async</emphasis>]
 [<emphasis role="bold">-no_ssl3</emphasis>]
 [<emphasis role="bold">-no_tls1</emphasis>]
+[<emphasis role="bold">-no_tls1_1</emphasis>]
+[<emphasis role="bold">-no_tls1_2</emphasis>]
 [<emphasis role="bold">-no_dhe</emphasis>]
 [<emphasis role="bold">-bugs</emphasis>]
 [<emphasis role="bold">-comp</emphasis>]
@@ -123,7 +125,7 @@
           <term><emphasis role="bold">-accept port</emphasis></term>
           <listitem>
             <para>
-	      the TCP port to listen on for connections. If not specified
+	      The TCP port to listen on for connections. If not specified
 	      4433 is used.
             </para>
           </listitem>
@@ -140,7 +142,7 @@
           <term><emphasis role="bold">-context id</emphasis></term>
           <listitem>
             <para>
-	      sets the SSL context id. It can be given any string value. If
+	      Sets the SSL context id. It can be given any string value. If
 	      this option is not present a default value will be used.
             </para>
           </listitem>
@@ -187,7 +189,7 @@
           <term><emphasis role="bold">-pass arg</emphasis></term>
           <listitem>
             <para>
-	      the private key password source. For more information about
+	      The private key password source. For more information about
 	      the format of <emphasis role="bold">arg</emphasis> see the
 	      <emphasis role="bold">PASS PHRASE ARGUMENTS</emphasis>
 	      section in <citerefentry>
@@ -200,7 +202,7 @@
           <term><emphasis role="bold">-dcert filename</emphasis>, <emphasis role="bold">-dkey keyname</emphasis></term>
           <listitem>
             <para>
-	      specify an additional certificate and private key, these
+	      Specify an additional certificate and private key, these
 	      behave in the same manner as the <emphasis role="bold">-cert</emphasis> and <emphasis role="bold">-key</emphasis> options except there is no
 	      default if they are not specified (no additional certificate
 	      and key is used). As noted above some cipher suites require a
@@ -216,7 +218,7 @@
           <term><emphasis role="bold">-dcertform format</emphasis>, <emphasis role="bold">-dkeyform format</emphasis>, <emphasis role="bold">-dpass arg</emphasis></term>
           <listitem>
             <para>
-	      additional certificate and private key format and passphrase
+	      Additional certificate and private key format and passphrase
 	      respectively.
             </para>
           </listitem>
@@ -225,7 +227,7 @@
           <term><emphasis role="bold">-nocert</emphasis></term>
           <listitem>
             <para>
-	      if this option is set then no certificate is used. This
+	      If this option is set then no certificate is used. This
 	      restricts the cipher suites available to the anonymous ones
 	      (currently just anonymous DH).
             </para>
@@ -235,11 +237,11 @@
           <term><emphasis role="bold">-dhparam filename</emphasis></term>
           <listitem>
             <para>
-	      the DH parameter file to use. The ephemeral DH cipher suites
+	      The DH parameter file to use. The ephemeral DH cipher suites
 	      generate keys using a set of DH parameters. If not specified
 	      then an attempt is made to load the parameters from the
 	      server certificate file. If this fails then a static set of
-	      parameters hard coded into the s_server program will be used.
+	      parameters hard coded into the <emphasis role="bold">s_server</emphasis> program will be used.
             </para>
           </listitem>
         </varlistentry>
@@ -247,7 +249,7 @@
           <term><emphasis role="bold">-no_dhe</emphasis></term>
           <listitem>
             <para>
-	      if this option is set then no DH parameters will be loaded
+	      If this option is set then no DH parameters will be loaded
 	      effectively disabling the ephemeral DH cipher suites.
             </para>
           </listitem>
@@ -353,7 +355,7 @@
           <term><emphasis role="bold">-state</emphasis></term>
           <listitem>
             <para>
-	      prints out the SSL session states.
+	      Prints the SSL session states.
             </para>
           </listitem>
         </varlistentry>
@@ -361,7 +363,7 @@
           <term><emphasis role="bold">-debug</emphasis></term>
           <listitem>
             <para>
-	      print extensive debugging information including a hex dump of
+	      Print extensive debugging information including a hex dump of
 	      all traffic.
             </para>
           </listitem>
@@ -370,7 +372,7 @@
           <term><emphasis role="bold">-msg</emphasis></term>
           <listitem>
             <para>
-	      show all protocol messages with hex dump.
+	      Show all protocol messages with hex dump.
             </para>
           </listitem>
         </varlistentry>
@@ -378,7 +380,7 @@
           <term><emphasis role="bold">-trace</emphasis></term>
           <listitem>
             <para>
-	      show verbose trace output of protocol messages. OpenSSL needs
+	      Show verbose trace output of protocol messages. OpenSSL needs
 	      to be compiled with <emphasis role="bold">enable-ssl-trace</emphasis> for this option to
 	      work.
             </para>
@@ -388,7 +390,7 @@
           <term><emphasis role="bold">-msgfile</emphasis></term>
           <listitem>
             <para>
-	      file to send output of <emphasis role="bold">-msg</emphasis>
+	      File to send output of <emphasis role="bold">-msg</emphasis>
 	      or <emphasis role="bold">-trace</emphasis> to, default
 	      standard output.
             </para>
@@ -398,7 +400,7 @@
           <term><emphasis role="bold">-nbio_test</emphasis></term>
           <listitem>
             <para>
-	      tests non blocking I/O
+	      Tests non blocking I/O
             </para>
           </listitem>
         </varlistentry>
@@ -406,7 +408,7 @@
           <term><emphasis role="bold">-nbio</emphasis></term>
           <listitem>
             <para>
-	      turns on non blocking I/O
+	      Turns on non blocking I/O
             </para>
           </listitem>
         </varlistentry>
@@ -414,7 +416,7 @@
           <term><emphasis role="bold">-crlf</emphasis></term>
           <listitem>
             <para>
-	      this option translated a line feed from the terminal into
+	      This option translated a line feed from the terminal into
 	      CR+LF.
             </para>
           </listitem>
@@ -423,7 +425,7 @@
           <term><emphasis role="bold">-quiet</emphasis></term>
           <listitem>
             <para>
-	      inhibit printing of session and certificate information.
+	      Inhibit printing of session and certificate information.
             </para>
           </listitem>
         </varlistentry>
@@ -446,13 +448,14 @@
           </listitem>
         </varlistentry>
         <varlistentry>
-          <term><emphasis role="bold">-ssl3</emphasis>, <emphasis role="bold">-tls1</emphasis>, <emphasis role="bold">-no_ssl3</emphasis>, <emphasis role="bold">-no_tls1</emphasis></term>
+          <term><emphasis role="bold">-ssl2</emphasis>, <emphasis role="bold">-ssl3</emphasis>, <emphasis role="bold">-tls1</emphasis>, <emphasis role="bold">-tls1_1</emphasis>, <emphasis role="bold">-tls1_2</emphasis>, <emphasis role="bold">-no_ssl2</emphasis>, <emphasis role="bold">-no_ssl3</emphasis>, <emphasis role="bold">-no_tls1</emphasis>, <emphasis role="bold">-no_tls1_1</emphasis>, <emphasis role="bold">-no_tls1_2</emphasis></term>
           <listitem>
             <para>
-	      these options disable the use of certain SSL or TLS
-	      protocols. By default the initial handshake uses a method
-	      which should be compatible with all servers and permit them
-	      to use SSL v3 or TLS as appropriate.
+	      These options require or disable the use of the specified SSL
+	      or TLS protocols. By default <emphasis role="bold">s_server</emphasis> will negotiate the highest
+	      mutually supported protocol version. When a specific TLS
+	      version is required, only that version will be accepted from
+	      the client.
             </para>
           </listitem>
         </varlistentry>
@@ -460,11 +463,10 @@
           <term><emphasis role="bold">-dtls</emphasis>, <emphasis role="bold">-dtls1</emphasis>, <emphasis role="bold">-dtls1_2</emphasis></term>
           <listitem>
             <para>
-	      these options make s_server use DTLS protocols instead of
-	      TLS. With <emphasis role="bold">-dtls</emphasis> s_server
-	      will negotiate any supported DTLS protcol version, whilst
-	      <emphasis role="bold">-dtls1</emphasis> and <emphasis role="bold">-dtls1_2</emphasis> will only support DTLS1.0 and
-	      DTLS1.2 respectively.
+	      These options make <emphasis role="bold">s_server</emphasis>
+	      use DTLS protocols instead of TLS. With <emphasis role="bold">-dtls</emphasis>, <emphasis role="bold">s_server</emphasis> will negotiate any supported
+	      DTLS protcol version, whilst <emphasis role="bold">-dtls1</emphasis> and <emphasis role="bold">-dtls1_2</emphasis> will only support DTLSv1.0
+	      and DTLSv1.2 respectively.
             </para>
           </listitem>
         </varlistentry>
@@ -472,14 +474,14 @@
           <term><emphasis role="bold">-listen</emphasis></term>
           <listitem>
             <para>
-	      this option can only be used in conjunction with one of the
-	      DTLS options above. With this option s_server will listen on
-	      a UDP port for incoming connections. Any ClientHellos that
-	      arrive will be checked to see if they have a cookie in them
-	      or not. Any without a cookie will be responded to with a
+	      This option can only be used in conjunction with one of the
+	      DTLS options above. With this option <emphasis role="bold">s_server</emphasis> will listen on a UDP port for
+	      incoming connections. Any ClientHellos that arrive will be
+	      checked to see if they have a cookie in them or not. Any
+	      without a cookie will be responded to with a
 	      HelloVerifyRequest. If a ClientHello with a cookie is
-	      received then s_server will connect to that peer and complete
-	      the handshake.
+	      received then <emphasis role="bold">s_server</emphasis> will
+	      connect to that peer and complete the handshake.
             </para>
           </listitem>
         </varlistentry>
@@ -487,7 +489,7 @@
           <term><emphasis role="bold">-async</emphasis></term>
           <listitem>
             <para>
-	      switch on asynchronous mode. Cryptographic operations will be
+	      Switch on asynchronous mode. Cryptographic operations will be
 	      performed asynchronously. This will only have an effect if an
 	      asynchronous capable engine is also used via the <emphasis role="bold">-engine</emphasis> option. For test purposes the
 	      dummy async engine (dasync) can be used (if available).
@@ -498,7 +500,7 @@
           <term><emphasis role="bold">-bugs</emphasis></term>
           <listitem>
             <para>
-	      there are several known bug in SSL and TLS implementations.
+	      There are several known bug in SSL and TLS implementations.
 	      Adding this option enables various workarounds.
             </para>
           </listitem>
@@ -526,8 +528,8 @@
           <term><emphasis role="bold">-brief</emphasis></term>
           <listitem>
             <para>
-	      only provide a brief summary of connection parameters instead
-	      of the normal verbose output.
+	      Provide a brief summary of connection parameters instead of
+	      the normal verbose output.
             </para>
           </listitem>
         </varlistentry>
@@ -535,7 +537,7 @@
           <term><emphasis role="bold">-cipher cipherlist</emphasis></term>
           <listitem>
             <para>
-	      this allows the cipher list used by the server to be
+	      This allows the cipher list used by the server to be
 	      modified.  When the client sends a list of supported ciphers
 	      the first client cipher also included in the server list is
 	      used. Because the client specifies the preference order, the
@@ -547,7 +549,7 @@
           <term><emphasis role="bold">-serverpref</emphasis></term>
           <listitem>
             <para>
-	      use the server's cipher preferences, rather than the client's
+	      Use the server's cipher preferences, rather than the client's
 	      preferences.
             </para>
           </listitem>
@@ -556,7 +558,7 @@
           <term><emphasis role="bold">-tlsextdebug</emphasis></term>
           <listitem>
             <para>
-	      print out a hex dump of any TLS extensions received from the
+	      Print a hex dump of any TLS extensions received from the
 	      server.
             </para>
           </listitem>
@@ -565,7 +567,7 @@
           <term><emphasis role="bold">-no_ticket</emphasis></term>
           <listitem>
             <para>
-	      disable RFC4507bis session ticket support.
+	      Disable RFC4507bis session ticket support.
             </para>
           </listitem>
         </varlistentry>
@@ -573,10 +575,10 @@
           <term><emphasis role="bold">-www</emphasis></term>
           <listitem>
             <para>
-	      sends a status message back to the client when it connects.
-	      This includes lots of information about the ciphers used and
-	      various session parameters. The output is in HTML format so
-	      this option will normally be used with a web browser.
+	      Sends a status message back to the client when it connects.
+	      This includes information about the ciphers used and various
+	      session parameters. The output is in HTML format so this
+	      option will normally be used with a web browser.
             </para>
           </listitem>
         </varlistentry>
@@ -584,7 +586,7 @@
           <term><emphasis role="bold">-WWW</emphasis></term>
           <listitem>
             <para>
-	      emulates a simple web server. Pages will be resolved relative
+	      Emulates a simple web server. Pages will be resolved relative
 	      to the current directory, for example if the URL
 	      https://myhost/page.html is requested the file ./page.html
 	      will be loaded.
@@ -595,7 +597,7 @@
           <term><emphasis role="bold">-HTTP</emphasis></term>
           <listitem>
             <para>
-	      emulates a simple web server. Pages will be resolved relative
+	      Emulates a simple web server. Pages will be resolved relative
 	      to the current directory, for example if the URL
 	      https://myhost/page.html is requested the file ./page.html
 	      will be loaded. The files loaded are assumed to contain a
@@ -608,7 +610,7 @@
           <term><emphasis role="bold">-rev</emphasis></term>
           <listitem>
             <para>
-	      simple test server which just reverses the text received from
+	      Simple test server which just reverses the text received from
 	      the client and sends it back to the server. Also sets
 	      <emphasis role="bold">-brief</emphasis>.
             </para>
@@ -618,7 +620,7 @@
           <term><emphasis role="bold">-engine id</emphasis></term>
           <listitem>
             <para>
-	      specifying an engine (by its unique <emphasis role="bold">id</emphasis> string) will cause <emphasis role="bold">s_server</emphasis> to attempt to obtain a
+	      Specifying an engine (by its unique <emphasis role="bold">id</emphasis> string) will cause <emphasis role="bold">s_server</emphasis> to attempt to obtain a
 	      functional reference to the specified engine, thus
 	      initialising it if needed. The engine will then be set as the
 	      default for all available algorithms.
@@ -629,7 +631,7 @@
           <term><emphasis role="bold">-id_prefix arg</emphasis></term>
           <listitem>
             <para>
-	      generate SSL/TLS session IDs prefixed by <emphasis role="bold">arg</emphasis>. This is mostly useful for testing
+	      Generate SSL/TLS session IDs prefixed by <emphasis role="bold">arg</emphasis>. This is mostly useful for testing
 	      any SSL/TLS code (eg. proxies) that wish to deal with
 	      multiple servers, when each of which might be generating a
 	      unique range of session IDs (eg. with a certain prefix).
@@ -640,7 +642,7 @@
           <term><emphasis role="bold">-rand file(s)</emphasis></term>
           <listitem>
             <para>
-	      a file or files containing random data used to seed the
+	      A file or files containing random data used to seed the
 	      random number generator, or an EGD socket (see <citerefentry>
 	      <refentrytitle>RAND_egd</refentrytitle>
 	      <manvolnum>3</manvolnum> </citerefentry>). Multiple files can
@@ -655,7 +657,7 @@
           <term><emphasis role="bold">-serverinfo file</emphasis></term>
           <listitem>
             <para>
-	      a file containing one or more blocks of PEM data.  Each PEM
+	      A file containing one or more blocks of PEM data.  Each PEM
 	      block must encode a TLS ServerHello extension (2 bytes type,
 	      2 bytes length, followed by "length" bytes of extension
 	      data).  If the client sends an empty TLS ClientHello
@@ -668,7 +670,8 @@
           <term><emphasis role="bold">-no_resumption_on_reneg</emphasis></term>
           <listitem>
             <para>
-	      set SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION flag.
+	      Set the <emphasis role="bold">SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION</emphasis>
+	      option.
             </para>
           </listitem>
         </varlistentry>
@@ -676,7 +679,7 @@
           <term><emphasis role="bold">-status</emphasis></term>
           <listitem>
             <para>
-	      enables certificate status request support (aka OCSP
+	      Enables certificate status request support (aka OCSP
 	      stapling).
             </para>
           </listitem>
@@ -685,7 +688,7 @@
           <term><emphasis role="bold">-status_verbose</emphasis></term>
           <listitem>
             <para>
-	      enables certificate status request support (aka OCSP
+	      Enables certificate status request support (aka OCSP
 	      stapling) and gives a verbose printout of the OCSP response.
             </para>
           </listitem>
@@ -694,7 +697,7 @@
           <term><emphasis role="bold">-status_timeout nsec</emphasis></term>
           <listitem>
             <para>
-	      sets the timeout for OCSP response to <emphasis role="bold">nsec</emphasis> seconds.
+	      Sets the timeout for OCSP response to <emphasis role="bold">nsec</emphasis> seconds.
             </para>
           </listitem>
         </varlistentry>
@@ -702,7 +705,7 @@
           <term><emphasis role="bold">-status_url url</emphasis></term>
           <listitem>
             <para>
-	      sets a fallback responder URL to use if no responder URL is
+	      Sets a fallback responder URL to use if no responder URL is
 	      present in the server certificate. Without this option an
 	      error is returned if the server certificate does not contain
 	      a responder address.
@@ -713,7 +716,7 @@
           <term><emphasis role="bold">-nextprotoneg protocols</emphasis></term>
           <listitem>
             <para>
-	      enable Next Protocol Negotiation TLS extension and provide a
+	      Enable Next Protocol Negotiation TLS extension and provide a
 	      comma-separated list of supported protocol names. The list
 	      should contain most wanted protocols first. Protocol names
 	      are printable ASCII strings, for example "http/1.1" or
@@ -819,9 +822,9 @@
   <refsection xml:id="ID-70f920ab3980d7d4f275d95505413326"><title>BUGS</title>
     <para>
       Because this program has a lot of options and also because some of
-      the techniques used are rather old, the C source of s_server is
-      rather hard to read and not a model of how things should be done. A
-      typical SSL server program would be much simpler.
+      the techniques used are rather old, the C source of <emphasis role="bold">s_server</emphasis> is rather hard to read and not a
+      model of how things should be done. A typical SSL server program
+      would be much simpler.
     </para>
     <para>
       The output of common ciphers is wrong: it just gives the list of

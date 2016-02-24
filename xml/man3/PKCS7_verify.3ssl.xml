@@ -9,6 +9,7 @@
   </refnamediv>
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/pkcs7.h&gt;</synopsis>
+<synopsis>#define PKCS7_NO_DUAL_CONTENT</synopsis>
 <synopsis>int PKCS7_verify(PKCS7 *p7, STACK_OF(X509) *certs, X509_STORE *store, BIO *indata, BIO *out, int flags);</synopsis>
 <synopsis>STACK_OF(X509) *PKCS7_get0_signers(PKCS7 *p7, STACK_OF(X509) *certs, int flags);</synopsis>
   </refsynopsisdiv>
@@ -38,7 +39,10 @@
     </para>
     <para>
       Initially some sanity checks are performed on <emphasis role="bold">p7</emphasis>. The type of <emphasis role="bold">p7</emphasis> must be signedData. There must be at least
-      one signature on the data and if the content is detached <emphasis role="bold">indata</emphasis> cannot be <emphasis role="bold">NULL</emphasis>.
+      one signature on the data and if the content is detached <emphasis role="bold">indata</emphasis> cannot be <emphasis role="bold">NULL</emphasis>.  If the content is not detached and
+      <emphasis role="bold">indata</emphasis> is not <emphasis role="bold">NULL</emphasis>, then the structure has both embedded and
+      external content. To treat this as an error, use the flag <emphasis role="bold">PKCS7_NO_DUAL_CONTENT</emphasis>. The default behavior
+      allows this, for compatibility with older versions of OpenSSL.
     </para>
     <para>
       An attempt is made to locate all the signer's certificates, first

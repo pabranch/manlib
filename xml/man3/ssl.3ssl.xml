@@ -181,47 +181,85 @@
       <para>
         <variablelist>
           <varlistentry>
-            <term>const SSL_METHOD *<emphasis role="bold">SSLv3_client_method</emphasis>(void);</term>
+            <term>const SSL_METHOD *<emphasis role="bold">TLS_method</emphasis>(void);</term>
             <listitem>
               <para>
-		Constructor for the SSLv3 SSL_METHOD structure for a
-		dedicated client.
+		Constructor for the <emphasis role="italic">version-flexible</emphasis> SSL_METHOD
+		structure for clients, servers or both. See <citerefentry>
+		<refentrytitle>SSL_CTX_new</refentrytitle>
+		<manvolnum>3</manvolnum> </citerefentry> for details.
               </para>
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term>const SSL_METHOD *<emphasis role="bold">SSLv3_server_method</emphasis>(void);</term>
+            <term>const SSL_METHOD *<emphasis role="bold">TLS_client_method</emphasis>(void);</term>
             <listitem>
               <para>
-		Constructor for the SSLv3 SSL_METHOD structure for a
-		dedicated server.
+		Constructor for the <emphasis role="italic">version-flexible</emphasis> SSL_METHOD
+		structure for clients.
               </para>
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term>const SSL_METHOD *<emphasis role="bold">SSLv3_method</emphasis>(void);</term>
+            <term>const SSL_METHOD *<emphasis role="bold">TLS_server_method</emphasis>(void);</term>
             <listitem>
               <para>
-		Constructor for the SSLv3 SSL_METHOD structure for combined
-		client and server.
+		Constructor for the <emphasis role="italic">version-flexible</emphasis> SSL_METHOD
+		structure for servers.
               </para>
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term>const SSL_METHOD *<emphasis role="bold">TLSv1_client_method</emphasis>(void);</term>
+            <term>const SSL_METHOD *<emphasis role="bold">TLSv1_2_method</emphasis>(void);</term>
             <listitem>
               <para>
-		Constructor for the TLSv1 SSL_METHOD structure for a
-		dedicated client.
+		Constructor for the TLSv1.2 SSL_METHOD structure for
+		clients, servers or both.
               </para>
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term>const SSL_METHOD *<emphasis role="bold">TLSv1_server_method</emphasis>(void);</term>
+            <term>const SSL_METHOD *<emphasis role="bold">TLSv1_2_client_method</emphasis>(void);</term>
             <listitem>
               <para>
-		Constructor for the TLSv1 SSL_METHOD structure for a
-		dedicated server.
+		Constructor for the TLSv1.2 SSL_METHOD structure for
+		clients.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>const SSL_METHOD *<emphasis role="bold">TLSv1_2_server_method</emphasis>(void);</term>
+            <listitem>
+              <para>
+		Constructor for the TLSv1.2 SSL_METHOD structure for
+		servers.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>const SSL_METHOD *<emphasis role="bold">TLSv1_1_method</emphasis>(void);</term>
+            <listitem>
+              <para>
+		Constructor for the TLSv1.1 SSL_METHOD structure for
+		clients, servers or both.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>const SSL_METHOD *<emphasis role="bold">TLSv1_1_client_method</emphasis>(void);</term>
+            <listitem>
+              <para>
+		Constructor for the TLSv1.1 SSL_METHOD structure for
+		clients.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>const SSL_METHOD *<emphasis role="bold">TLSv1_1_server_method</emphasis>(void);</term>
+            <listitem>
+              <para>
+		Constructor for the TLSv1.1 SSL_METHOD structure for
+		servers.
               </para>
             </listitem>
           </varlistentry>
@@ -229,8 +267,49 @@
             <term>const SSL_METHOD *<emphasis role="bold">TLSv1_method</emphasis>(void);</term>
             <listitem>
               <para>
-		Constructor for the TLSv1 SSL_METHOD structure for combined
-		client and server.
+		Constructor for the TLSv1 SSL_METHOD structure for clients,
+		servers or both.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>const SSL_METHOD *<emphasis role="bold">TLSv1_client_method</emphasis>(void);</term>
+            <listitem>
+              <para>
+		Constructor for the TLSv1 SSL_METHOD structure for clients.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>const SSL_METHOD *<emphasis role="bold">TLSv1_server_method</emphasis>(void);</term>
+            <listitem>
+              <para>
+		Constructor for the TLSv1 SSL_METHOD structure for servers.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>const SSL_METHOD *<emphasis role="bold">SSLv3_method</emphasis>(void);</term>
+            <listitem>
+              <para>
+		Constructor for the SSLv3 SSL_METHOD structure for clients,
+		servers or both.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>const SSL_METHOD *<emphasis role="bold">SSLv3_client_method</emphasis>(void);</term>
+            <listitem>
+              <para>
+		Constructor for the SSLv3 SSL_METHOD structure for clients.
+              </para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>const SSL_METHOD *<emphasis role="bold">SSLv3_server_method</emphasis>(void);</term>
+            <listitem>
+              <para>
+		Constructor for the SSLv3 SSL_METHOD structure for servers.
               </para>
             </listitem>
           </varlistentry>
