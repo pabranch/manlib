@@ -3705,7 +3705,8 @@ will be pushed to the remote repository.
 .sp
 If \-B/\-\-bookmark is used, the specified bookmarked revision, its
 ancestors, and the bookmark will be pushed to the remote
-repository.
+repository. Specifying \fB.\fP is equivalent to specifying the active
+bookmark\(aqs name.
 .sp
 Please see \%\fBhg help urls\fP\: for important details about \fBssh://\fP
 URLs. If DESTINATION is omitted, a default path will be used.
@@ -4242,7 +4243,7 @@ name of access log file to write to
 .
 run server in background
 .TP
-.BI \-\-daemon\-pipefds \ <FILE>
+.BI \-\-daemon\-postexec \ <VALUE>
 .
 used internally by daemon mode
 .TP
@@ -5003,6 +5004,10 @@ Preserve internationalization.
 .B \fBrevsetalias\fP
 .sp
 Don\(aqt remove revset aliases.
+.TP
+.B \fBprogress\fP
+.sp
+Don\(aqt hide progress output.
 .UNINDENT
 .sp
 Setting HGPLAINEXCEPT to anything (even an empty string) will
@@ -8138,6 +8143,10 @@ Any text. Escapes all "special" characters. For example,
 .
 Any text. Returns a short representation of a user name or email
 address.
+.TP
+.B utf8
+.
+Any text. Converts from the local character encoding to UTF\-8.
 .UNINDENT
 .sp
 Note that a filter is nothing more than a function call, i.e.
@@ -8250,15 +8259,16 @@ Return the nth word from a string.
 .UNINDENT
 .sp
 Also, for any expression that returns a list, there is a list operator:
-.INDENT 0.0
-.IP \(bu 2
-.
-expr % "{template}"
-.UNINDENT
 .sp
-As seen in the above example, "{template}" is interpreted as a template.
-To prevent it from being interpreted, you can use an escape character "{"
-or a raw string prefix, "r\(aq...\(aq".
+.nf
+.ft C
+expr % "{template}"
+.ft P
+.fi
+.sp
+As seen in the above example, \fB{template}\fP is interpreted as a template.
+To prevent it from being interpreted, you can use an escape character \fB\e{\fP
+or a raw string prefix, \fBr\(aq...\(aq\fP.
 .sp
 Some sample command line templates:
 .INDENT 0.0
@@ -8712,6 +8722,16 @@ lake = !@hobbit
 /misty/mountains/cave/ring = !gollum
 .ft P
 .fi
+.SS automv
+.sp
+Check for unrecorded moves at commit time (EXPERIMENTAL)
+.sp
+This extension checks at commit/amend time if any of the committed files
+comes from an unrecorded mv.
+.sp
+The threshold at which a file is considered a move can be set with the
+\fBautomv.similarity\fP config option. This option takes a percentage between 0
+(disabled) and 100 (files must be identical), the default is 95.
 .SS blackbox
 .sp
 log repository events to a blackbox for debugging
@@ -13514,10 +13534,13 @@ development tree.
 Published commits cannot be rebased (see \%\fBhg help phases\fP\:).
 To copy commits, see \%\fBhg help graft\fP\:.
 .sp
-If you don\(aqt specify a destination changeset (\fB\-d/\-\-dest\fP),
-rebase uses the current branch tip as the destination. (The
-destination changeset is not modified by rebasing, but new
-changesets are added as its descendants.)
+If you don\(aqt specify a destination changeset (\fB\-d/\-\-dest\fP), rebase
+will use the same logic as \%\fBhg merge\fP\: to pick a destination.  if
+the current branch contains exactly one other head, the other head
+is merged with by default.  Otherwise, an explicit revision with
+which to merge with must be provided.  (destination changeset is not
+modified by rebasing, but new changesets are added as its
+descendants.)
 .sp
 Here are the ways to select changesets:
 .INDENT 0.0
