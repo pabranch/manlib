@@ -42,6 +42,12 @@ and if it is not found, honors <literal>push.default</literal> configuration to 
 what to push (See <citerefentry>
 <refentrytitle>git-config</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry> for the meaning of <literal>push.default</literal>).</simpara>
+<simpara>When neither the command-line nor the configuration specify what to
+push, the default behavior is used, which corresponds to the <literal>simple</literal>
+value for <literal>push.default</literal>: the current branch is pushed to the
+corresponding upstream branch, but as a safety measure, the push is
+aborted if the upstream branch does not have the same name as the
+local one.</simpara>
 </refsect1>
 <refsect1 id="_options_anchor_id_options_xreflabel_options">
 <title>OPTIONS<anchor id="OPTIONS" xreflabel="[OPTIONS]"/></title>

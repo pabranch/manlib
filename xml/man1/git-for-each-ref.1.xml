@@ -270,14 +270,18 @@ align
 <listitem>
 <simpara>
         Left-, middle-, or right-align the content between
-        %(align:&#8230;) and %(end). The "align:" is followed by <literal>&lt;width&gt;</literal>
-        and <literal>&lt;position&gt;</literal> in any order separated by a comma, where the
-        <literal>&lt;position&gt;</literal> is either left, right or middle, default being
-        left and <literal>&lt;width&gt;</literal> is the total length of the content with
-        alignment. If the contents length is more than the width then
-        no alignment is performed. If used with <emphasis>--quote</emphasis> everything
-        in between %(align:&#8230;) and %(end) is quoted, but if nested
-        then only the topmost level performs quoting.
+        %(align:&#8230;) and %(end). The "align:" is followed by
+        <literal>width=&lt;width&gt;</literal> and <literal>position=&lt;position&gt;</literal> in any order
+        separated by a comma, where the <literal>&lt;position&gt;</literal> is either left,
+        right or middle, default being left and <literal>&lt;width&gt;</literal> is the total
+        length of the content with alignment. For brevity, the
+        "width=" and/or "position=" prefixes may be omitted, and bare
+        &lt;width&gt; and &lt;position&gt; used instead.  For instance,
+        <literal>%(align:&lt;width&gt;,&lt;position&gt;)</literal>. If the contents length is more
+        than the width then no alignment is performed. If used with
+        <emphasis>--quote</emphasis> everything in between %(align:&#8230;) and %(end) is
+        quoted, but if nested then only the topmost level performs
+        quoting.
 </simpara>
 </listitem>
 </varlistentry>

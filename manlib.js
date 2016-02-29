@@ -116,7 +116,7 @@ program
           sourceDetails = sources[sourceName],
           host          = url.parse(sourceDetails.url).host;
         if (timeouts.hasOwnProperty(host)) {
-          timeouts.host += 1000;
+          timeouts.host += 2000;
         } else {
           timeouts.host = 0;
         }
