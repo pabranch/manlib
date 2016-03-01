@@ -8738,12 +8738,17 @@ log repository events to a blackbox for debugging
 .sp
 Logs event information to .hg/blackbox.log to help debug and diagnose problems.
 The events that get logged can be configured via the blackbox.track config key.
+.sp
+If you want to record whether the repository is dirty (a \fI+\fP sign, as you\(aqd
+get when using \%\fBhg id\fP\:), you can set the blackbox.dirty config key.
+.sp
 Examples:
 .sp
 .nf
 .ft C
 [blackbox]
 track = *
+dirty = True
 
 [blackbox]
 track = command, commandfinish, commandexception, exthook, pythonhook
