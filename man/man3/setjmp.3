@@ -46,9 +46,8 @@ Feature Test Macro Requirements for glibc (see
 .BR setjmp ():
     see NOTES.
 .br
-.BR sigsetjmp (),
-.BR siglongjmp ():
-    _POSIX_C_SOURCE\ >=\ 1 || _XOPEN_SOURCE || _POSIX_C_SOURCE
+.BR sigsetjmp ():
+_POSIX_C_SOURCE
 .SH DESCRIPTION
 The functions described on this page are used for performing "nonlocal gotos":
 transferring execution from one function to a predetermined location
@@ -182,7 +181,7 @@ feature test macro is defined and none of
 .BR _POSIX_SOURCE ,
 .BR _POSIX_C_SOURCE ,
 .BR _XOPEN_SOURCE ,
-.BR _XOPEN_SOURCE_EXTENDED ,
+.\" .BR _XOPEN_SOURCE_EXTENDED ,
 .BR _GNU_SOURCE ,
 or
 .B _SVID_SOURCE

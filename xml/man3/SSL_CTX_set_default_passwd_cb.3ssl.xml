@@ -5,16 +5,22 @@
   </refmeta>
   <refnamediv>
     <refname>SSL_CTX_set_default_passwd_cb, SSL_CTX_set_default_passwd_cb_userdata,
-SSL_set_default_passwd_cb, SSL_set_default_passwd_cb_userdata</refname>
-<refpurpose>set passwd
-callback for encrypted PEM file handling</refpurpose>
+SSL_CTX_get_default_passwd_cb, SSL_CTX_get_default_passwd_cb_userdata,
+SSL_set_default_passwd_cb, SSL_set_default_passwd_cb_userdata,
+SSL_get_default_passwd_cb, SSL_get_default_passwd_cb_userdata</refname>
+<refpurpose>set or
+get passwd callback for encrypted PEM file handling</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
 <synopsis>void SSL_CTX_set_default_passwd_cb(SSL_CTX *ctx, pem_password_cb *cb);
 void SSL_CTX_set_default_passwd_cb_userdata(SSL_CTX *ctx, void *u);
-void SSL_set_default_passwd_cb(SSL *s, pem_password_cb *cb);
-void SSL_set_default_passwd_cb_userdata(SSL *s, void *u);</synopsis>
+pem_password_cb *SSL_CTX_get_default_passwd_cb(SSL_CTX *ctx);
+void *SSL_CTX_get_default_passwd_cb_userdata(SSL_CTX *ctx);</synopsis>
+<synopsis>void SSL_set_default_passwd_cb(SSL *s, pem_password_cb *cb);
+void SSL_set_default_passwd_cb_userdata(SSL *s, void *u);
+pem_password_cb *SSL_get_default_passwd_cb(SSL *s);
+void *SSL_get_default_passwd_cb_userdata(SSL *s);</synopsis>
 <synopsis>int pem_passwd_cb(char *buf, int size, int rwflag, void *userdata);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-c5e162abc2a314af19662718cb392cfe"><title>DESCRIPTION</title>
@@ -27,7 +33,18 @@ void SSL_set_default_passwd_cb_userdata(SSL *s, void *u);</synopsis>
       password callback on invocation.
     </para>
     <para>
-      SSL_set_default_passwd_cb() and SSL_set_default_passwd_cb_userdata()
+      SSL_CTX_get_default_passwd_cb() returns a function pointer to the
+      password callback currently set in <emphasis role="bold">ctx</emphasis>. If no callback was explicitly set, the
+      NULL pointer is returned.
+    </para>
+    <para>
+      SSL_CTX_get_default_passwd_cb_userdata() returns a pointer to
+      <emphasis role="bold">userdata</emphasis> currently set in <emphasis role="bold">ctx</emphasis>. If no userdata was explicitly set, the
+      NULL pointer is returned.
+    </para>
+    <para>
+      SSL_set_default_passwd_cb(), SSL_set_default_passwd_cb_userdata(),
+      SSL_get_default_passwd_cb() and SSL_get_default_passwd_cb_userdata()
       perform the same function as their SSL_CTX counterparts, but using an
       SSL object.
     </para>
@@ -83,6 +100,14 @@ void SSL_set_default_passwd_cb_userdata(SSL *s, void *u);</synopsis>
  buf[size - 1] = '\0';
  return(strlen(buf));
 }</screen>
+  </refsection>
+  <refsection xml:id="ID-80999e3448ace6693cbab91f93b39a78"><title>HISTORY</title>
+    <para>
+      SSL_CTX_get_default_passwd_cb(),
+      SSL_CTX_get_default_passwd_cb_userdata(), SSL_set_default_passwd_cb()
+      and SSL_set_default_passwd_cb_userdata() were first added to OpenSSL
+      1.1.0
+    </para>
   </refsection>
   <refsection xml:id="ID-1e384cf6f1b2ecc8ccb68979fad48e5b"><title>SEE ALSO</title>
     <para>

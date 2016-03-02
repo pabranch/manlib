@@ -6,23 +6,10 @@ ip-link \- network device configuration
 .ad l
 .in +8
 .ti -8
-.B ip
-.RI "[ " OPTIONS " ]"
-.B link
+.B ip link
 .RI  " { " COMMAND " | "
 .BR help " }"
 .sp
-
-.ti -8
-.IR OPTIONS " := { "
-\fB\-V\fR[\fIersion\fR] |
-\fB\-h\fR[\fIuman-readable\fR] |
-\fB\-s\fR[\fItatistics\fR] |
-\fB\-r\fR[\fIesolve\fR] |
-\fB\-f\fR[\fIamily\fR] {
-.BR inet " | " inet6 " | " ipx " | " dnet " | " link " } | "
-\fB\-o\fR[\fIneline\fR] |
-\fB\-br\fR[\fIief\fR] }
 
 .ti -8
 .BI "ip link add"
@@ -49,7 +36,7 @@ ip-link \- network device configuration
 .RB "[ " numrxqueues
 .IR QUEUE_COUNT " ]"
 .br
-.BR type " TYPE"
+.BI type " TYPE"
 .RI "[ " ARGS " ]"
 
 .ti -8
@@ -92,78 +79,89 @@ ip-link \- network device configuration
 .BR "ip link set " {
 .IR DEVICE " | "
 .BI "group " GROUP
-.RB "} { " up " | " down " | " arp " { " on " | " off " } |"
+.RB "} [ { " up " | " down " } ]"
 .br
-.BR promisc " { " on " | " off " } |"
+.RB "[ " arp " { " on " | " off " } ]"
 .br
-.BR allmulticast " { " on " | " off " } |"
+.RB "[ " dynamic " { " on " | " off " } ]"
 .br
-.BR dynamic " { " on " | " off " } |"
+.RB "[ " multicast " { " on " | " off " } ]"
 .br
-.BR multicast " { " on " | " off " } |"
+.RB "[ " allmulticast " { " on " | " off " } ]"
 .br
-.BR protodown " { " on " | " off " } |"
+.RB "[ " promisc " { " on " | " off " } ]"
 .br
-.B  txqueuelen
-.IR PACKETS " |"
+.RB "[ " protodown " { " on " | " off " } ]"
 .br
-.B  name
-.IR NEWNAME " |"
+.RB "[ " trailers " { " on " | " off " } ]"
 .br
-.B  address
-.IR LLADDR " |"
-.B  broadcast
-.IR LLADDR " |"
+.RB "[ " txqueuelen
+.IR PACKETS " ]"
 .br
-.B  mtu
-.IR MTU " |"
+.RB "[ " name
+.IR NEWNAME " ]"
 .br
-.B  netns
-.IR PID " |"
+.RB "[ " address
+.IR LLADDR " ]"
 .br
-.B  netns
-.IR NETNSNAME " |"
+.RB "[ " broadcast
+.IR LLADDR " ]"
 .br
-.B alias
-.IR NAME  " |"
+.RB "[ " mtu
+.IR MTU " ]"
 .br
-.B vf
+.RB "[ " netns " {"
+.IR PID " | " NETNSNAME " } ]"
+.br
+.RB "[ " link-netnsid
+.IR ID " ]"
+.br
+.RB "[ " alias
+.IR NAME  " ]"
+.br
+.RB "[ " vf
 .IR NUM " ["
 .B  mac
-.IR LLADDR " ] ["
-.B vlan
+.IR LLADDR " ]"
+.br
+.in +9
+.RB "[ " vlan
 .IR VLANID " [ "
 .B qos
-.IR VLAN-QOS " ] ] ["
-.B rate
-.IR TXRATE " ] ["
-.B max_tx_rate
-.IR TXRATE " ] ["
-.B min_tx_rate
-.IR TXRATE " ] ["
-.B spoofchk { on | off } ] [
-.B state { auto | enable | disable}
-] |
+.IR VLAN-QOS " ] ]"
 .br
-.B master
-.IR DEVICE " |"
+.RB "[ " rate
+.IR TXRATE " ]"
 .br
-.B nomaster " |"
+.RB "[ " max_tx_rate
+.IR TXRATE " ]"
 .br
-.B addrgenmode { eui64 | none | stable_secret | random }
+.RB "[ " min_tx_rate
+.IR TXRATE " ]"
 .br
-.B link-netnsid ID
-.BR " }"
+.RB "[ " spoofchk " { " on " | " off " } ]"
+.br
+.RB "[ " state " { " auto " | " enable " | " disable " } ]"
+.br
+.RB "[ " trust " { " on " | " off " } ] ]"
+.br
+.in -9
+.RB "[ " master
+.IR DEVICE " ]"
+.br
+.RB "[ " nomaster " ]"
+.br
+.RB "[ " addrgenmode " { " eui64 " | " none " | " stable_secret " | " random " } ]"
 
 
 .ti -8
 .B ip link show
 .RI "[ " DEVICE " | "
 .B group
-.IR GROUP " | "
-.BR up " | "
+.IR GROUP " ] ["
+.BR up " ] ["
 .B master
-.IR DEVICE " | "
+.IR DEVICE " ] ["
 .B type
 .IR TYPE " ]"
 
@@ -1019,6 +1017,10 @@ parameter must be specified.
 reflection of the PF link state, enable lets the VF to communicate with other VFs on
 this host even if the PF link state is down, disable causes the HW to drop any packets
 sent by the VF.
+.sp
+.BI trust " on|off"
+- trust the specified VF user. This enables that VF user can set a specific feature
+which may impact security and/or performance. (e.g. VF multicast promiscuous mode)
 .in -8
 
 .TP

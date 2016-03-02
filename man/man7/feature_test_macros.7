@@ -122,10 +122,76 @@ This format is employed in cases where only a single
 feature test macro can be used to expose the function
 declaration, and that macro is not defined by default.
 .SS Feature test macros understood by glibc
-The following paragraphs explain how feature test macros are handled
+The paragraphs below explain how feature test macros are handled
 in Linux glibc 2.\fIx\fP,
 .I x
 > 0.
+
+First, though a summary of a few details for the impatient:
+.IP * 3
+The macros that you most likely need to use in modern source code are
+.BR _POSIX_C_SOURCE
+(for definitions from various versions of POSIX.1),
+.BR _XOPEN_SOURCE
+(fof definitions from various versions of SUS),
+.BR _GNU_SOURCE
+(for GNU and/or Linux specific stuff), and
+.BR _DEFAULT_SOURCE
+(to get definitions that would normally be provided by default).
+.IP *
+Certain macros are defined with default values.
+Thus, although one or more macros may be indicated as being 
+required in the SYNOPSIS of a man page,
+it may not be necessary to define them explicitly.
+Full details of the defaults are given later in this man page.
+.IP *
+Defining
+.BR _XOPEN_SOURCE
+with a value of 600 or greater produces the same effects as defining
+.BR _POSIX_C_SOURCE
+with a value of 200112L or greater.
+Where one sees
+.RS
+.nf
+
+    _POSIX_C_SOURCE >= 200112L
+
+.fi
+.RE
+.IP
+in the feature test macro requirements in the SYNOPSIS of a man page,
+it is implicit that the following has the same effect:
+.RS
+.nf
+
+    _XOPEN_SOURCE >= 600
+
+.fi
+.RE
+.IP *
+Defining
+.BR _XOPEN_SOURCE
+with a value of 700 or greater produces the same effects as defining
+.BR _POSIX_C_SOURCE
+with a value of 200809L or greater.
+Where one sees
+.RS
+.nf
+
+    _POSIX_C_SOURCE >= 200809L
+
+.fi
+.RE
+.IP
+in the feature test macro requirements in the SYNOPSIS of a man page,
+it is implicit that the following has the same effect:
+.RS
+.nf
+
+    _XOPEN_SOURCE >= 700
+
+.fi
+.RE
 .\" The details in glibc 2.0 are simpler, but combining a
 .\" a description of them with the details in later glibc versions
 .\" would make for a complicated description.
@@ -161,9 +227,11 @@ definitions for POSIX.1c (threads).
 .IP \(bu
 (Since glibc 2.3.3)
 The value 200112L or greater additionally exposes definitions corresponding
-to the POSIX.1-2001 base specification (excluding the XSI extension)
-and also causes C95 (since glibc 2.12) and
-C99 (since glibc 2.10) features to be exposed.
+to the POSIX.1-2001 base specification (excluding the XSI extension).
+This value also causes C95 (since glibc 2.12) and
+C99 (since glibc 2.10) features to be exposed
+(in other words, the equivalent of defining
+.BR _ISOC99_SOURCE ).
 .IP \(bu
 (Since glibc 2.10)
 The value 200809L or greater additionally exposes definitions corresponding
@@ -174,6 +242,10 @@ to the POSIX.1-2008 base specification (excluding the XSI extension).
 Defining this obsolete macro with any value is equivalent to defining
 .B _POSIX_C_SOURCE
 with the value 1.
+
+Since this macro is obsolete,
+its usage is generally not documented when discussing
+feature test macro requirements in the man pages.
 .TP
 .B _XOPEN_SOURCE
 Defining this macro causes header files to expose definitions as follows:
@@ -233,15 +305,32 @@ is defined with the value 200112L.
 is defined with the value 200809L.
 .RE
 .RE
+.IP
+In addition, defining
+.BR _XOPEN_SOURCE
+with a value of 500 or greater produces the same effects as defining
+.BR _XOPEN_SOURCE_EXTENDED .
 .TP
 .B _XOPEN_SOURCE_EXTENDED
-If this macro is defined, and
+If this macro is defined,
+.I and
 .B _XOPEN_SOURCE
 is defined, then expose definitions corresponding to the XPG4v2
 (SUSv1) UNIX extensions (UNIX 95).
-This macro is also implicitly defined if
+Defining
 .B _XOPEN_SOURCE
-is defined with a value of 500 or more.
+with a value of 500 or more also produces the same effect as defining
+.BR _XOPEN_SOURCE_EXTENDED .
+Use of
+.BR _XOPEN_SOURCE_EXTENDED
+in new source code should be avoided.
+
+Since defining
+.B _XOPEN_SOURCE
+with a value of 500 or more has the same effect as defining
+.BR _XOPEN_SOURCE_EXTENDED ,
+the latter (obsolete) feature test macro is generally not described in the
+SYNOPSIS in man pages.
 .TP
 .BR _ISOC99_SOURCE " (since glibc 2.1.3)"
 Exposes declarations consistent with the ISO C99 standard.
@@ -256,11 +345,19 @@ Defining
 .B _ISOC99_SOURCE
 also exposes ISO C (1990) Amendment 1 ("C95") definitions.
 (The primary change in C95 was support for international character sets.)
+
+Invoking the C compiler with the option
+.IR \-std=c99
+produces the same effects as defining this macro.
 .TP
 .BR _ISOC11_SOURCE " (since glibc 2.16)"
 Exposes declarations consistent with the ISO C11 standard.
 Defining this macro also enables C99 and C95 features (like
 .BR _ISOC99_SOURCE ).
+
+Invoking the C compiler with the option
+.IR \-std=c11
+produces the same effects as defining this macro.
 .TP
 .B _LARGEFILE64_SOURCE
 Expose definitions for the alternative API specified by the
@@ -381,8 +478,8 @@ Defining
 without defining other individual macros
 or invoking the compiler in one of its "standard" modes has no effect.
 
-The "default" definitions comprise those required by POSIX.1-2008
-as well as various definitions derived from BSD and System V.
+The "default" definitions comprise those required by POSIX.1-2008 and ISO C99,
+as well as various definitions originally derived from BSD and System V.
 On glibc 2.19 and earlier, these defaults were approximately equivalent
 to explicitly defining the following:
 
@@ -601,9 +698,9 @@ POSIX.1 specifies
 .BR _POSIX_SOURCE ,
 and
 .BR _XOPEN_SOURCE .
-.B _XOPEN_SOURCE_EXTENDED
-was specified by XPG4v2 (aka SUSv1).
 
+.B _XOPEN_SOURCE_EXTENDED
+was specified by XPG4v2 (aka SUSv1), but is not present in SUSv2 and later.
 .B _FILE_OFFSET_BITS
 is not specified by any standard,
 but is employed on some other implementations.

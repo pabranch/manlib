@@ -48,15 +48,15 @@ Feature Test Macro Requirements for glibc (see
 .sp
 .ad l
 .BR strtok_r ():
-_SVID_SOURCE || _BSD_SOURCE || _POSIX_C_SOURCE\ >=\ 1 ||
-_XOPEN_SOURCE || _POSIX_SOURCE
+_POSIX_C_SOURCE
+    || /* Glibc versions <= 2.19: */ _BSD_SOURCE || _SVID_SOURCE
 .ad b
 .SH DESCRIPTION
 The
 .BR strtok ()
 function breaks a string into a sequence of zero or more nonempty tokens.
 On the first call to
-.BR strtok ()
+.BR strtok (),
 the string to be parsed should be
 specified in
 .IR str .

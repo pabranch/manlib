@@ -65,10 +65,10 @@ Feature Test Macro Requirements for glibc (see
 .PD 0
 .ad l
 .RS 4
-_BSD_SOURCE || _XOPEN_SOURCE\ >=\ 500 ||
-_XOPEN_SOURCE\ &&\ _XOPEN_SOURCE_EXTENDED
-.br
-|| /* Since glibc 2.12: */ _POSIX_C_SOURCE\ >=\ 200809L
+/* Since glibc 2.12: */ _POSIX_C_SOURCE\ >=\ 200809L
+    || _XOPEN_SOURCE\ >=\ 500
+.\"    || _XOPEN_SOURCE\ &&\ _XOPEN_SOURCE_EXTENDED
+    || /* Glibc versions <= 2.19: */ _BSD_SOURCE
 .RE
 .sp
 .BR fchownat ():
@@ -77,7 +77,7 @@ _XOPEN_SOURCE\ &&\ _XOPEN_SOURCE_EXTENDED
 .RS 4
 .TP 4
 Since glibc 2.10:
-_XOPEN_SOURCE\ >=\ 700 || _POSIX_C_SOURCE\ >=\ 200809L
+_POSIX_C_SOURCE\ >=\ 200809L
 .TP
 Before glibc 2.10:
 _ATFILE_SOURCE
