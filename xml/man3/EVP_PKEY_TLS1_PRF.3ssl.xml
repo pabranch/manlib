@@ -39,6 +39,18 @@ int EVP_PKEY_CTX_add1_tls1_prf_seed(EVP_PKEY_CTX *pctx, seed, seedlen)
       to the existing value.
     </para>
   </refsection>
+  <refsection xml:id="ID-56c022acbeaeb0ea99562ba764249af9"><title>STRING CTRLS</title>
+    <para>
+      The TLS PRF also supports string based control operations using
+      <citerefentry> <refentrytitle>EVP_PKEY_CTX_ctrl_str</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>. The <emphasis role="bold">type</emphasis> parameter "md" uses the supplied
+      <emphasis role="bold">value</emphasis> as the name of the digest
+      algorithm to use. The <emphasis role="bold">type</emphasis>
+      parameters "secret" and "seed" use the supplied <emphasis role="bold">value</emphasis> parameter as a secret or seed value. The
+      names "hexsecret" and "hexseed" are similar except they take a hex
+      string which is converted to binary.
+    </para>
+  </refsection>
   <refsection xml:id="ID-e55d4177e82bc40331e06aa7cd75fc6e"><title>NOTES</title>
     <para>
       All these functions are implemented as macros.
@@ -96,8 +108,10 @@ if (EVP_PKEY_derive(pctx, out, &amp;outlen) &lt;= 0)
     <para>
       <citerefentry> <refentrytitle>EVP_PKEY_CTX_new</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>EVP_PKEY_CTX_ctrl_str</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>EVP_PKEY_derive</refentrytitle>
-      <manvolnum>3</manvolnum> </citerefentry>,
+      <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
 </refentry>

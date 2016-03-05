@@ -1,0 +1,72 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_set_ct_validation_callback.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_set_ct_validation_callback, SSL_CTX_set_ct_validation_callback,
+SSL_get_ct_validation_callback, SSL_CTX_get_ct_validation_callback</refname>
+<refpurpose>control Certificate Transparency policy</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_set_ct_validation_callback(SSL *s, ct_validation_cb callback, void *arg);
+int SSL_CTX_set_ct_validation_callback(SSL_CTX *ctx, ct_validation_cb callback, void *arg);
+ct_validation_cb SSL_get_ct_validation_callback(const SSL *s);
+ct_validation_cb SSL_CTX_get_ct_validation_callback(const SSL_CTX *ctx);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="ID-82fda6a3b73afd28f2b6f56d11329a08"><title>DESCRIPTION</title>
+    <para>
+      SSL_set_ct_validation_callback() and
+      SSL_CTX_set_ct_validation_callback() set the function that is called
+      when Certificate Transparency validation needs to occur. It is the
+      responsibility of this function to examine the signed certificate
+      timestamps (SCTs) that are passed to it and determine whether they
+      are sufficient to allow the connection to continue. If they are, the
+      function must return 1, otherwise it must return 0.
+    </para>
+    <para>
+      An arbitrary piece of user data, <emphasis role="bold">arg</emphasis>, can be passed in when setting the
+      callback. This will be passed to the callback whenever it is invoked.
+      Ownership of this userdata remains with the caller.
+    </para>
+    <para>
+      If no callback is set, SCTs will not be requested and Certificate
+      Transparency validation will not occur.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-df305bc208ce94f4519a579bd7a90ad9"><title>NOTES</title>
+    <para>
+      If a callback is set, OCSP stapling will be enabled. This is because
+      one possible source of SCTs is the OCSP response from a server.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-394631a6719ba0c141681aed18a1142a"><title>RESTRICTIONS</title>
+    <para>
+      Certificate Transparency validation cannot be enabled and so a
+      callback cannot be set if a custom client extension handler has been
+      registered to handle SCT extensions (<emphasis role="bold">TLSEXT_TYPE_signed_certificate_timestamp</emphasis>).
+    </para>
+  </refsection>
+  <refsection xml:id="ID-bad6f8fc2f0bd1f798981eb682868275"><title>RETURN VALUES</title>
+    <para>
+      SSL_CTX_set_ct_validation_callback() and
+      SSL_set_ct_validation_callback() return 1 if the <emphasis role="bold">callback</emphasis> is successfully set. They return 0 if
+      an error occurs, e.g. a custom client extension handler has been
+      setup to handle SCTs.
+    </para>
+    <para>
+      SSL_CTX_get_ct_validation_callback() and
+      SSL_get_ct_validation_callback() return the current callback, or NULL
+      if no callback is set.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-ebd0e4a347e091630963e9a5d92ed206"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>ssl</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ct_validation_cb</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
+    </para>
+  </refsection>
+</refentry>

@@ -1,0 +1,46 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_get0_peer_scts.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_get0_peer_scts</refname>
+<refpurpose>get SCTs received</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>const STACK_OF(SCT) *SSL_get0_peer_scts(SSL *s);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="ID-49dcbc8aca4999f8ee490e16756ac8d3"><title>DESCRIPTION</title>
+    <para>
+      SSL_get0_peer_scts() returns the signed certificate timestamps (SCTs)
+      that have been received. If this is the first time that this function
+      has been called for a given <emphasis role="bold">SSL</emphasis>
+      instance, it will examine the TLS extensions, OCSP response and the
+      peer's certificate for SCTs. Future calls will return the same SCTs.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-96426967ae1fc5e1b258e76c2a7b679d"><title>RESTRICTIONS</title>
+    <para>
+      If no Certificate Transparency validation callback has been set
+      (using <emphasis role="bold">SSL_CTX_set_ct_validation_callback</emphasis> or
+      <emphasis role="bold">SSL_set_ct_validation_callback</emphasis>),
+      this function is not guarantee to return all of the SCTs that the
+      peer is capable of sending.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-5d275182a401e252b3c18de5b5f42b1e"><title>RETURN VALUES</title>
+    <para>
+      SSL_get0_peer_scts() returns a list of SCTs found, or NULL if an
+      error occurs.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-3206158b621206bd54adfe3b754b2344"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>ssl</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_ct_validation_callback</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
+    </para>
+  </refsection>
+</refentry>

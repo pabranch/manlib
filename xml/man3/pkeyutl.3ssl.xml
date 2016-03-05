@@ -27,6 +27,8 @@
 [<emphasis role="bold">-encrypt</emphasis>]
 [<emphasis role="bold">-decrypt</emphasis>]
 [<emphasis role="bold">-derive</emphasis>]
+[<emphasis role="bold">-kdf algorithm</emphasis>]
+[<emphasis role="bold">-kdflen length</emphasis>]
 [<emphasis role="bold">-pkeyopt opt:value</emphasis>]
 [<emphasis role="bold">-hexdump</emphasis>]
 [<emphasis role="bold">-asn1parse</emphasis>]
@@ -200,6 +202,31 @@
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term><emphasis role="bold">-kdf algorithm</emphasis></term>
+          <listitem>
+            <para>
+	      Use key derivation function <emphasis role="bold">algorithm</emphasis>.  The supported algorithms
+	      are at present <emphasis role="bold">TLS1-PRF</emphasis> and
+	      <emphasis role="bold">HKDF</emphasis>. Note: additional
+	      paramers and the KDF output length will normally have to be
+	      set for this to work.  See <citerefentry>
+	      <refentrytitle>EVP_PKEY_HKDF</refentrytitle>
+	      <manvolnum>3</manvolnum> </citerefentry> and <citerefentry>
+	      <refentrytitle>EVP_PKEY_TLS1_PRF</refentrytitle>
+	      <manvolnum>3</manvolnum> </citerefentry> for the supported
+	      string parameters of each algorithm.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-kdflen length</emphasis></term>
+          <listitem>
+            <para>
+	      Set the output length for KDF.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term><emphasis role="bold">-pkeyopt opt:value</emphasis></term>
           <listitem>
             <para>
@@ -244,7 +271,6 @@
 	      When used with the <emphasis role="bold">-engine</emphasis>
 	      option, it specifies to also use engine <emphasis role="bold">id</emphasis> for crypto operations.
             </para>
-            <screen></screen>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -375,6 +401,12 @@
       Derive a shared secret value:
     </para>
     <screen>openssl pkeyutl -derive -inkey key.pem -peerkey pubkey.pem -out secret</screen>
+    <para>
+      Hexdump 48 bytes of TLS1 PRF using digest <emphasis role="bold">SHA256</emphasis> and shared secret and seed consisting
+      of the single byte 0xFF.
+    </para>
+    <screen>openssl pkeyutl -kdf TLS1-PRF -kdflen 48 -pkeyopt md:SHA256 \
+   -pkeyopt hexsecret:ff -pkeyopt hexseed:ff -hexdump</screen>
   </refsection>
   <refsection xml:id="ID-63501e09b12ddd92b55147f481f68edd"><title>SEE ALSO</title>
     <para>
@@ -387,7 +419,11 @@
       </citerefentry>, <citerefentry> <refentrytitle>rsa</refentrytitle>
       <manvolnum>1</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>genrsa</refentrytitle> <manvolnum>1</manvolnum>
-      </citerefentry>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>EVP_PKEY_HKDF</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>EVP_PKEY_TLS1_PRF</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>
 </refentry>

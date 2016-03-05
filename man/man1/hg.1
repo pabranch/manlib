@@ -992,7 +992,7 @@ list repository named branches:
 .sp
 .nf
 .ft C
-hg branches [\-ac]
+hg branches [\-c]
 .ft P
 .fi
 .sp
@@ -3273,7 +3273,7 @@ merge another revision into working directory:
 .sp
 .nf
 .ft C
-hg merge [\-P] [\-f] [[\-r] REV]
+hg merge [\-P] [[\-r] REV]
 .ft P
 .fi
 .sp
@@ -8739,16 +8739,17 @@ log repository events to a blackbox for debugging
 Logs event information to .hg/blackbox.log to help debug and diagnose problems.
 The events that get logged can be configured via the blackbox.track config key.
 .sp
-If you want to record whether the repository is dirty (a \fI+\fP sign, as you\(aqd
-get when using \%\fBhg id\fP\:), you can set the blackbox.dirty config key.
-.sp
 Examples:
 .sp
 .nf
 .ft C
 [blackbox]
 track = *
+# dirty is *EXPENSIVE* (slow);
+# each log entry indicates \(ga+\(ga if the repository is dirty, like :hg:\(gaid\(ga.
 dirty = True
+# record the source of log messages
+logsource = True
 
 [blackbox]
 track = command, commandfinish, commandexception, exthook, pythonhook
@@ -9214,10 +9215,23 @@ checks if pager is enabled and which pager should be executed
 .
 replace os.environ completely
 .TP
+.B \(aqsetumask\(aq command
+.
+set umask
+.TP
 .B \(aqSIGHUP\(aq signal
 .
 reload configuration files
 .UNINDENT
+.SS Config
+.sp
+.nf
+.ft C
+[chgserver]
+idletimeout = 3600 # seconds, after which an idle server will exit
+skiphash = False   # whether to skip config or env change checks
+.ft P
+.fi
 .SS children
 .sp
 command to display child changesets (DEPRECATED)
@@ -14201,7 +14215,7 @@ strip changesets and all their descendants from the repository:
 .sp
 .nf
 .ft C
-hg strip [\-k] [\-f] [\-n] [\-B bookmark] [\-r] REV...
+hg strip [\-k] [\-f] [\-B bookmark] [\-r] REV...
 .ft P
 .fi
 .sp

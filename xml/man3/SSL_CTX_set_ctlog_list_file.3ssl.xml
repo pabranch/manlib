@@ -1,0 +1,69 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_set_ctlog_list_file.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_set_default_ctlog_list_file, SSL_CTX_set_ctlog_list_file</refname>
+<refpurpose>load a Certificate Transparency log list from a file</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_CTX_set_default_ctlog_list_file(SSL_CTX *ctx);
+int SSL_CTX_set_ctlog_list_file(SSL_CTX *ctx, const char *path);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="ID-7e38a48c92b713349afc9b43e266270f"><title>DESCRIPTION</title>
+    <para>
+      SSL_CTX_set_default_ctlog_list_file() loads a list of Certificate
+      Transparency (CT) logs from the default file location,
+      "ct_log_list.cnf", found in the directory where OpenSSL is installed.
+    </para>
+    <para>
+      SSL_CTX_set_ctlog_list_file() loads a list of CT logs from a given
+      path.
+    </para>
+    <para>
+      The expected format of the log list file is:
+    </para>
+    <screen>enabled_logs=foo,bar
+
+[foo]
+description = Log 1
+key = &lt;base64-encoded public key here&gt;
+
+[bar]
+description = Log 2
+key = &lt;base64-encoded public key here&gt;</screen>
+  </refsection>
+  <refsection xml:id="ID-ab82f63bf8c46bd7c11f007f5ddae1ff"><title>NOTES</title>
+    <para>
+      These functions will not clear the existing CT log list - it will be
+      appended to.
+    </para>
+    <para>
+      SSL_CTX_set_default_ctlog_list_file() will not report errors if it
+      fails for any reason. Use SSL_CTX_set_ctlog_list_file() if you want
+      errors to be reported.
+    </para>
+    <para>
+      If an error occurs whilst parsing a particular log entry in the file,
+      that log entry will be skipped.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-e3763f807482668266788327251b0afc"><title>RETURN VALUES</title>
+    <para>
+      SSL_CTX_set_default_ctlog_list_file() and
+      SSL_CTX_set_ctlog_list_file() return 1 if the log list is
+      successfully loaded, and 0 if an error occurs. In the case of an
+      error, the log list may have been partially loaded.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-28412489768d2a2b4441f10ebef9e127"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>ssl</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ct_validation_cb</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
+    </para>
+  </refsection>
+</refentry>
