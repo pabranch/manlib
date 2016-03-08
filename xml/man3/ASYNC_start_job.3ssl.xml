@@ -6,9 +6,8 @@
   <refnamediv>
     <refname>ASYNC_init_thread, ASYNC_cleanup_thread, ASYNC_start_job, ASYNC_pause_job,
 ASYNC_in_job, ASYNC_get_wait_fd, ASYNC_set_wait_fd, ASYNC_clear_wait_fd,
-ASYNC_get_current_job, ASYNC_block_pause, ASYNC_unblock_pause</refname>
-<refpurpose>asynchronous job
-management functions</refpurpose>
+ASYNC_get_current_job, ASYNC_block_pause, ASYNC_unblock_pause, ASYNC_is_capable</refname>
+<refpurpose>asynchronous job management functions</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/async.h&gt;</synopsis>
@@ -21,6 +20,7 @@ int ASYNC_pause_job(void);</synopsis>
 ASYNC_WAIT_CTX *ASYNC_get_wait_ctx(ASYNC_JOB *job);
 void ASYNC_block_pause(void);
 void ASYNC_unblock_pause(void);</synopsis>
+<synopsis>int ASYNC_is_capable(void);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-76d38805cb9e4f37d19ed5efb6c6f2ef"><title>DESCRIPTION</title>
     <para>
@@ -182,6 +182,11 @@ void ASYNC_unblock_pause(void);</synopsis>
       aquiring the lock and ASYNC_unblock_pause() immediately before
       releasing it then this situation cannot occur.
     </para>
+    <para>
+      Some platforms cannot support async operations. The
+      ASYNC_is_capable() function can be used to detect whether the current
+      platform is async capable or not.
+    </para>
   </refsection>
   <refsection xml:id="ID-5b81ed1eeaec45d15e5803917b43a2c2"><title>RETURN VALUES</title>
     <para>
@@ -203,6 +208,10 @@ void ASYNC_unblock_pause(void);</synopsis>
     <para>
       ASYNC_get_wait_ctx() returns a pointer to the ASYNC_WAIT_CTX for the
       job.
+    </para>
+    <para>
+      ASYNC_is_capable() returns 1 if the current platform is async capable
+      or 0 otherwise.
     </para>
   </refsection>
   <refsection xml:id="ID-8dc79891f5a8247cfc0f1d8b6c19e83d"><title>EXAMPLE</title>
@@ -352,10 +361,10 @@ Finishing</screen>
   </refsection>
   <refsection xml:id="ID-abb59d852112ced2abc124a74e0e0b38"><title>HISTORY</title>
     <para>
-      ASYNC_init, ASYNC_init_thread, ASYNC_cleanup, ASYNC_cleanup_thread,
-      ASYNC_start_job, ASYNC_pause_job, ASYNC_get_wait_fd,
-      ASYNC_get_current_job, ASYNC_wake, ASYNC_clear_wake were first added
-      to OpenSSL 1.1.0.
+      ASYNC_init_thread, ASYNC_cleanup_thread, ASYNC_start_job,
+      ASYNC_pause_job, ASYNC_get_current_job, ASYNC_get_wait_ctx(),
+      ASYNC_block_pause(), ASYNC_unblock_pause() and ASYNC_is_capable()
+      were first added to OpenSSL 1.1.0.
     </para>
   </refsection>
 </refentry>

@@ -403,7 +403,7 @@
     <screen>openssl pkeyutl -derive -inkey key.pem -peerkey pubkey.pem -out secret</screen>
     <para>
       Hexdump 48 bytes of TLS1 PRF using digest <emphasis role="bold">SHA256</emphasis> and shared secret and seed consisting
-      of the single byte 0xFF.
+      of the single byte 0xFF:
     </para>
     <screen>openssl pkeyutl -kdf TLS1-PRF -kdflen 48 -pkeyopt md:SHA256 \
    -pkeyopt hexsecret:ff -pkeyopt hexseed:ff -hexdump</screen>

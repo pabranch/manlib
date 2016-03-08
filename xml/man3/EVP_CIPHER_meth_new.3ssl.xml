@@ -243,7 +243,7 @@ int (*EVP_CIPHER_meth_get_ctrl(const EVP_CIPHER *cipher))(EVP_CIPHER_CTX *,
 	      been copied. The destination <emphasis role="bold">EVP_CIPHER_CTX</emphasis> is passed to the
 	      control with the <emphasis role="bold">ptr</emphasis>
 	      parameter. The implementation specific data block is reached
-	      with EVP_CIPHER_CTX_cipher_data().
+	      with EVP_CIPHER_CTX_get_cipher_data().
             </para>
           </listitem>
         </varlistentry>
@@ -277,6 +277,10 @@ int (*EVP_CIPHER_meth_get_ctrl(const EVP_CIPHER *cipher))(EVP_CIPHER_CTX *,
       This indicates that this is a AEAD cipher implementation.
     </para>
     <para>
+      EVP_CIPHER_meth_set_impl_ctx_size() sets the size of the EVP_CIPHER's
+      implementation context so that it can be automatically allocated.
+    </para>
+    <para>
       EVP_CIPHER_meth_set_init() sets the cipher init function for
       <emphasis role="bold">cipher</emphasis>. The cipher init function is
       called by EVP_CipherInit(), EVP_CipherInit_ex(), EVP_EncryptInit(),
@@ -294,7 +298,7 @@ int (*EVP_CIPHER_meth_get_ctrl(const EVP_CIPHER *cipher))(EVP_CIPHER_CTX *,
       privata data structure is cleaned out and freed. Note that the
       cleanup function is passed a <emphasis role="bold">EVP_CIPHER_CTX
       *</emphasis>, the private data structure is then available with
-      EVP_CIPHER_CTX_cipher_data(). This cleanup function is called by
+      EVP_CIPHER_CTX_get_cipher_data(). This cleanup function is called by
       EVP_CIPHER_CTX_reset() and EVP_CIPHER_CTX_free().
     </para>
     <para>

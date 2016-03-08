@@ -45,7 +45,10 @@ void SSL_set_read_ahead(SSL *s, int yes);</synopsis>
     <para>
       These functions have no impact when used with DTLS. The return values
       for SSL_CTX_get_read_head() and SSL_get_read_ahead() are undefined
-      for DTLS.
+      for DTLS. Setting <emphasis role="bold">read_ahead</emphasis> can
+      impact the behaviour of the SSL_pending() function (see
+      <citerefentry> <refentrytitle>SSL_pending()</refentrytitle>
+      </citerefentry>).
     </para>
   </refsection>
   <refsection xml:id="ID-036f6a72846cd5a462411269cbfbe142"><title>RETURN VALUES</title>
@@ -57,7 +60,9 @@ void SSL_set_read_ahead(SSL *s, int yes);</synopsis>
   <refsection xml:id="ID-678f8f78253aecf71812d62041ee9308"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
-      <manvolnum>3</manvolnum> </citerefentry>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_pending</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>
     </para>
   </refsection>
 </refentry>

@@ -4,41 +4,63 @@
     <refentrytitle>SSL_pending.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>SSL_pending</refname>
-<refpurpose>obtain number of readable bytes buffered in an SSL object</refpurpose>
+    <refname>SSL_pending, SSL_has_pending</refname>
+<refpurpose>check for readable bytes buffered in an
+SSL object</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis>int SSL_pending(const SSL *ssl);</synopsis>
+<synopsis>int SSL_pending(const SSL *ssl);
+int SSL_has_pending(const SSL *s);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-b44820724afbf8d5ee0e27728c02d7ff"><title>DESCRIPTION</title>
     <para>
-      SSL_pending() returns the number of bytes which are available inside
-      <emphasis role="bold">ssl</emphasis> for immediate read.
+      Data is received in whole blocks known as records from the peer. A
+      whole record is processed (e.g. decrypted) in one go and is buffered
+      by OpenSSL until it is read by the application via a call to
+      <citerefentry> <refentrytitle>SSL_read</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>.
     </para>
-  </refsection>
-  <refsection xml:id="ID-7dca332ef12682112cb1f8c504dec251"><title>NOTES</title>
     <para>
-      Data are received in blocks from the peer. Therefore data can be
-      buffered inside <emphasis role="bold">ssl</emphasis> and are ready
-      for immediate retrieval with <citerefentry>
-      <refentrytitle>SSL_read</refentrytitle> <manvolnum>3</manvolnum>
-      </citerefentry>.
+      SSL_pending() returns the number of bytes which have been processed,
+      buffered and are available inside <emphasis role="bold">ssl</emphasis> for immediate read.
+    </para>
+    <para>
+      If the <emphasis role="bold">SSL</emphasis> object's <emphasis role="italic">read_ahead</emphasis> flag is set (see <citerefentry>
+      <refentrytitle>SSL_CTX_set_read_ahead</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>), additional protocol bytes
+      (beyond the current record) may have been read containing more
+      TLS/SSL records. This also applies to DTLS and pipelining (see
+      <citerefentry>
+      <refentrytitle>SSL_CTX_set_split_send_fragment</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>). These additional bytes
+      will be buffered by OpenSSL but will remain unprocessed until they
+      are needed. As these bytes are still in an unprocessed state
+      SSL_pending() will ignore them. Therefore it is possible for no more
+      bytes to be readable from the underlying BIO (because OpenSSL has
+      already read them) and for SSL_pending() to return 0, even though
+      readable application data bytes are available (because the data is in
+      unprocessed buffered records).
+    </para>
+    <para>
+      SSL_has_pending() returns 1 if <emphasis role="bold">s</emphasis> has
+      buffered data (whether processed or unprocessed) and 0 otherwise.
+      Note that it is possible for SSL_has_pending() to return 1, and then
+      a subsequent call to SSL_read() to return no data because the
+      unprocessed buffered data when processed yielded no application data
+      (for example this can happen during renegotiation). It is also
+      possible in this scenario for SSL_has_pending() to continue to return
+      1 even after an SSL_read() call because the buffered and unprocessed
+      data is not yet processable (e.g. because OpenSSL has only received a
+      partial record so far).
     </para>
   </refsection>
   <refsection xml:id="ID-af2a4aedd3a33d66b085503c13f66b04"><title>RETURN VALUES</title>
     <para>
-      The number of bytes pending is returned.
-    </para>
-  </refsection>
-  <refsection xml:id="ID-058d3e9c3fd8389624d4a8f209edfc44"><title>BUGS</title>
-    <para>
-      SSL_pending() takes into account only bytes from the TLS/SSL record
-      that is currently being processed (if any).  If the <emphasis role="bold">SSL</emphasis> object's <emphasis role="italic">read_ahead</emphasis> flag is set (see <citerefentry>
-      <refentrytitle>SSL_CTX_set_read_ahead</refentrytitle>
-      <manvolnum>3</manvolnum> </citerefentry>), additional protocol bytes
-      may have been read containing more TLS/SSL records; these are ignored
-      by SSL_pending().
+      SSL_pending() returns the number of buffered and processed
+      application data bytes that are pending and are available for
+      immediate read. SSL_has_pending() returns 1 if there is buffered
+      record data in the SSL object and 0 otherwise.
     </para>
   </refsection>
   <refsection xml:id="ID-f5564e9f3c3c9f5f66fd1ee54af045c0"><title>SEE ALSO</title>
@@ -47,8 +69,15 @@
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>SSL_CTX_set_read_ahead</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_split_send_fragment</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>ssl</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
+    </para>
+  </refsection>
+  <refsection xml:id="ID-64d8207664a573286190a22dc7bc714e"><title>HISTORY</title>
+    <para>
+      The SSL_has_pending() function was added in OpenSSL 1.1.0.
     </para>
   </refsection>
 </refentry>

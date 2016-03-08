@@ -1,5 +1,5 @@
 .\" Copyright (c) 1995 Michael Chastain (mec@shell.portal.com), 15 April 1995.
-.\" and Copyright (C) 2014 Michael Kerrisk <mtk.manpages@gmail.com>
+.\" and Copyright (C) 2014, 2016 Michael Kerrisk <mtk.manpages@gmail.com>
 .\"
 .\" %%%LICENSE_START(GPLv2+_DOC_FULL)
 .\" This is free documentation; you can redistribute it and/or
@@ -28,12 +28,14 @@
 .\"
 .TH ADJTIMEX 2 2014-12-31 "Linux" "Linux Programmer's Manual"
 .SH NAME
-adjtimex \- tune kernel clock
+adjtimex, ntp_adjtime \- tune kernel clock
 .SH SYNOPSIS
 .nf
 .B #include <sys/timex.h>
 
 .BI "int adjtimex(struct timex *" "buf" );
+
+.BI "int ntp_adjtime(struct timex *" buf );
 .fi
 .SH DESCRIPTION
 Linux uses David L. Mills' clock adjustment algorithm (see RFC\ 5905).
@@ -42,8 +44,8 @@ The system call
 reads and optionally sets adjustment parameters for this algorithm.
 It takes a pointer to a
 .I timex
-structure, updates kernel parameters from field values,
-and returns the same structure with current kernel values.
+structure, updates kernel parameters from (selected) field values,
+and returns the same structure updated with the current kernel values.
 This structure is declared as follows:
 .PP
 .in +4n
@@ -51,33 +53,40 @@ This structure is declared as follows:
 struct timex {
     int  modes;      /* Mode selector */
     long offset;     /* Time offset; nanoseconds, if STA_NANO
-                        status flag is set, otherwise microseconds */
-    long freq;       /* Frequency offset, in units of 2^-16 ppm
-                        (parts per million, see NOTES below) */
+                        status flag is set, otherwise
+                        microseconds */
+    long freq;       /* Frequency offset; see NOTES for units */
     long maxerror;   /* Maximum error (microseconds) */
     long esterror;   /* Estimated error (microseconds) */
     int  status;     /* Clock command/status */
     long constant;   /* PLL (phase-locked loop) time constant */
-    long precision;  /* Clock precision (microseconds, read-only) */
-    long tolerance;  /* Clock frequency tolerance (ppm, read-only) */
+    long precision;  /* Clock precision
+                        (microseconds, read-only) */
+    long tolerance;  /* Clock frequency tolerance (read-only);
+                        see NOTES for units */
     struct timeval time;
                      /* Current time (read-only, except for
                         ADJ_SETOFFSET); upon return, time.tv_usec
                         contains nanoseconds, if STA_NANO status
                         flag is set, otherwise microseconds */
     long tick;       /* Microseconds between clock ticks */
-    long ppsfreq;    /* PPS (pulse per second) frequency (in units
-                        of 2^-16 ppm\-\-see NOTES, read-only) */
+    long ppsfreq;    /* PPS (pulse per second) frequency
+                        (read-only); see NOTES for units */
     long jitter;     /* PPS jitter (read-only); nanoseconds, if
                         STA_NANO status flag is set, otherwise
                         microseconds */
-    int  shift;      /* PPS interval duration (seconds, read-only) */
-    long stabil;     /* PPS stability (2^-16 ppm\-\-see NOTES,
-                        read-only) */
-    long jitcnt;     /* PPS jitter limit exceeded (read-only) */
-    long calcnt;     /* PPS calibration intervals (read-only) */
-    long errcnt;     /* PPS calibration errors (read-only) */
-    long stbcnt;     /* PPS stability limit exceeded (read-only) */
+    int  shift;      /* PPS interval duration
+                        (seconds, read-only) */
+    long stabil;     /* PPS stability (read-only);
+                        see NOTES for units */
+    long jitcnt;     /* PPS count of jitter limit exceeded
+                        events (read-only) */
+    long calcnt;     /* PPS count of calibration intervals
+                        (read-only) */
+    long errcnt;     /* PPS count of calibration errors
+                        (read-only) */
+    long stbcnt;     /* PPS count of stability limit exceeded
+                        events (read-only) */
     int tai;         /* TAI offset, as set by previous ADJ_TAI
                         operation (seconds, read-only,
                         since Linux 2.6.26) */
@@ -89,6 +98,10 @@ struct timex {
 The
 .I modes
 field determines which parameters, if any, to set.
+(As described later in this page,
+the constants used for
+.BR ntp_adjtime ()
+are equivalent but differently named.)
 It is a bit mask containing a
 .RI bitwise- or
 combination of zero or more of the following bits:
@@ -261,7 +274,7 @@ Leap-second insertion will occur each day, so long as this flag remains set.
 .\"
 .TP
 .BR STA_DEL " (read-write)"
-Delete a leap second at the last second of the day.
+Delete a leap second at the last second of the UTC day.
 .\" John Stultz:
 .\"     Similarly the progression here is:
 .\"        23:59:57 + TIME_DEL
@@ -330,19 +343,50 @@ Clock source (0 = A, 1 = B); currently unused.
 Attempts to set read-only
 .I status
 bits are silently ignored.
+.\"
+.SS ntp_adjtime ()
+The
+.BR ntp_adjtime ()
+library function
+(described in the NTP "Kernel Application Program API", KAPI)
+is a more portable interface for performing the same task as
+.BR adjtimex ().
+Other than the following points, it is identical to
+.BR adjtime ():
+.IP * 3
+The constants used in
+.I modes
+are prefixed with "MOD_" rather than "ADJ_", and have the same suffixes (thus,
+.BR MOD_OFFSET ,
+.BR MOD_FREQUENCY ,
+and so on), other than the exceptions noted in the following points.
+.IP *
+.BR MOD_CLKA
+is the synonym for
+.BR ADJ_OFFSET_SINGLESHOT .
+.IP *
+.BR MOD_CLKB
+is the synonym for
+.BR ADJ_TICK .
+.IP *
+The is no synonym for
+.BR ADJ_OFFSET_SS_READ ,
+which is not described in the KAPI.
 .SH RETURN VALUE
 On success,
 .BR adjtimex ()
-returns the clock state; that is, one of the following values:
+and
+.BR ntp_adjtime ()
+return the clock state; that is, one of the following values:
 .TP 12
 .BR TIME_OK
-Clock synchronized.
+Clock synchronized, no leap second adjustment pending.
 .TP
 .BR TIME_INS
 Indicates that a leap second will be added at the end of the UTC day.
 .TP
 .BR TIME_DEL
-Indicates that a leap second will be deleted at the end of the day.
+Indicates that a leap second will be deleted at the end of the UTC day.
 .TP
 .BR TIME_OOP
 Insertion of a leap second is in progress.
@@ -400,9 +444,7 @@ Note that starting with Linux 3.4,
 the call operates asynchronously and the return value usually will
 not reflect a state change caused by the call itself.
 .PP
-On failure,
-.BR adjtimex ()
-returns \-1 and sets
+On failure, these calls return \-1 and set
 .IR errno .
 .SH ERRORS
 .TP
@@ -462,26 +504,38 @@ This is the case for both input values (in the case of
 .IR freq )
 and output values.
 
-The leap-second processing triggered vy
+The leap-second processing triggered by
 .B STA_INS
 and
 .B STA_DEL
 is done by the kernel in timer context
 Thus, it will take one tick into the second
 for the leap second to be inserted or deleted.
+.SH ATTRIBUTES
+For an explanation of the terms used in this section, see
+.BR attributes (7).
+.TS
+allbox;
+lb lb lb
+l l l.
+Interface	Attribute	Value
+T{
+.BR ntp_adjtime ()
+T}	Thread safety	MT-Safe
+.TE
 .SH CONFORMING TO
+Neither of these interfaces is described in POSIX.1
+
 .BR adjtimex ()
 is Linux-specific and should not be used in programs
 intended to be portable.
-See
-.BR adjtime (3)
-for a more portable, but less flexible,
-method of adjusting the system clock.
+
+The preferred API for the NTP daemon is
+.BR ntp_adjtime (3).
 .SH SEE ALSO
 .BR settimeofday (2),
 .BR adjtime (3),
-.\" .BR ntp_adjtime (3),
-.\" .BR ntp_gettime (3),
+.BR ntp_gettime (3),
 .BR capabilities (7),
 .BR time (7),
 .BR adjtimex (8)

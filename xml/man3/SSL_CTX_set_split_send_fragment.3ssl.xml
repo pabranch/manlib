@@ -1,0 +1,161 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_set_split_send_fragment.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_set_max_send_fragment, SSL_set_max_send_fragment,
+SSL_CTX_set_split_send_fragment, SSL_set_split_send_fragment,
+SSL_CTX_set_max_pipelines, SSL_set_max_pipelines,
+SSL_CTX_set_default_read_buffer_len, SSL_set_default_read_buffer_len</refname>
+<refpurpose>Control
+fragment sizes and pipelining operations</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis># define SSL_CTX_set_max_send_fragment(ctx,m) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_MAX_SEND_FRAGMENT,m,NULL)
+# define SSL_set_max_send_fragment(ssl,m) \
+        SSL_ctrl(ssl,SSL_CTRL_SET_MAX_SEND_FRAGMENT,m,NULL)
+# define SSL_CTX_set_max_pipelines(ctx,m) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_MAX_PIPELINES,m,NULL)
+# define SSL_set_max_pipelines(ssl,m) \
+        SSL_ctrl(ssl,SSL_CTRL_SET_MAX_PIPELINES,m,NULL)
+# define SSL_CTX_set_split_send_fragment(ctx,m) \
+        SSL_CTX_ctrl(ctx,SSL_CTRL_SET_SPLIT_SEND_FRAGMENT,m,NULL)
+# define SSL_set_split_send_fragment(ssl,m) \
+        SSL_ctrl(ssl,SSL_CTRL_SET_SPLIT_SEND_FRAGMENT,m,NULL)</synopsis>
+<synopsis>void SSL_CTX_set_default_read_buffer_len(SSL_CTX *ctx, size_t len);
+void SSL_set_default_read_buffer_len(SSL *s, size_t len);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="ID-cfb26a1883035e72329bc760dcadc04d"><title>DESCRIPTION</title>
+    <para>
+      Some engines are able to process multiple simultaneous crypto
+      operations. This capability could be utilised to parallelise the
+      processing of a single connection. For example a single write can be
+      split into multiple records and each one encrypted independently and
+      in parallel. Note: this will only work in TLS1.1+. There is no
+      support in SSLv3, TLSv1.0 or DTLS (any version). This capability is
+      known as "pipelining" within OpenSSL.
+    </para>
+    <para>
+      In order to benefit from the pipelining capability. You need to have
+      an engine that provides ciphers that support this. The OpenSSL
+      "dasync" engine provides AES128-SHA based ciphers that have this
+      capability. However these are for development and test purposes only.
+    </para>
+    <para>
+      SSL_CTX_set_max_send_fragment() and SSL_set_max_send_fragment() set
+      the <emphasis role="bold">max_send_fragment</emphasis> parameter for
+      SSL_CTX and SSL objects respectively. This value restricts the amount
+      of plaintext bytes that will be sent in any one SSL/TLS record. By
+      default its value is SSL3_RT_MAX_PLAIN_LENGTH (16384). These
+      functions will only accept a value in the range 512 -
+      SSL3_RT_MAX_PLAIN_LENGTH.
+    </para>
+    <para>
+      SSL_CTX_set_max_pipelines() and SSL_set_max_pipelines() set the
+      maximum number of pipelines that will be used at any one time. This
+      value applies to both "read" pipelining and "write" pipelining. By
+      default only one pipeline will be used (i.e. normal non-parallel
+      operation). The number of pipelines set must be in the range 1 -
+      SSL_MAX_PIPELINES (32). Setting this to a value &gt; 1 will also
+      automatically turn on "read_ahead" (see <citerefentry>
+      <refentrytitle>SSL_CTX_set_read_ahead</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>). This is explained further
+      below. OpenSSL will only every use more than one pipeline if a
+      ciphersuite is negotiated that uses a pipeline capable cipher
+      provided by an engine.
+    </para>
+    <para>
+      Pipelining operates slighly differently for reading encrypted data
+      compared to writing encrypted data. SSL_CTX_set_split_send_fragment()
+      and SSL_set_split_send_fragment() define how data is split up into
+      pipelines when writing encrypted data. The number of pipelines used
+      will be determined by the amount of data provided to the SSL_write()
+      call divided by <emphasis role="bold">split_send_fragment</emphasis>.
+    </para>
+    <para>
+      For example if <emphasis role="bold">split_send_fragment</emphasis>
+      is set to 2000 and <emphasis role="bold">max_pipelines</emphasis> is
+      4 then:
+    </para>
+    <para>
+      SSL_write called with 0-2000 bytes == 1 pipeline used
+    </para>
+    <para>
+      SSL_write called with 2001-4000 bytes == 2 pipelines used
+    </para>
+    <para>
+      SSL_write called with 4001-6000 bytes == 3 pipelines used
+    </para>
+    <para>
+      SSL_write called with 6001+ bytes == 4 pipelines used
+    </para>
+    <para>
+      <emphasis role="bold">split_send_fragment</emphasis> must always be
+      less than or equal to <emphasis role="bold">max_send_fragment</emphasis>. By default it is set to be
+      equal to <emphasis role="bold">max_send_fragment</emphasis>. This
+      will mean that the same number of records will always be created as
+      would have been created in the non-parallel case, although the data
+      will be apportioned differently. In the parallel case data will be
+      spread equally between the pipelines.
+    </para>
+    <para>
+      Read pipelining is controlled in a slightly different way than with
+      write pipelining. While reading we are constrained by the number of
+      records that the peer (and the network) can provide to us in one go.
+      The more records we can get in one go the more opportunity we have to
+      parallelise the processing. As noted above when setting <emphasis role="bold">max_pipelines</emphasis> to a value greater than one,
+      <emphasis role="bold">read_ahead</emphasis> is automatically set. The
+      <emphasis role="bold">read_ahead</emphasis> parameter causes OpenSSL
+      to attempt to read as much data into the read buffer as the network
+      can provide and will fit into the buffer. Without this set data is
+      read into the read buffer one record at a time. The more data that
+      can be read, the more opportunity there is for parallelising the
+      processing at the cost of increased memory overhead per connection.
+      Setting <emphasis role="bold">read_ahead</emphasis> can impact the
+      behaviour of the SSL_pending() function (see <citerefentry>
+      <refentrytitle>SSL_pending</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>).
+    </para>
+    <para>
+      The SSL_CTX_set_default_read_buffer_len() and
+      SSL_set_default_read_buffer_len() functions control the size of the
+      read buffer that will be used. The <emphasis role="bold">len</emphasis> parameter sets the size of the buffer. The
+      value will only be used if it is greater than the default that would
+      have been used anyway. The normal default value depends on a number
+      of factors but it will be at least SSL3_RT_MAX_PLAIN_LENGTH +
+      SSL3_RT_MAX_ENCRYPTED_OVERHEAD (16704) bytes.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-2210e349e95d03f05f42e3cf415c85a6"><title>RETURN VALUES</title>
+    <para>
+      All non-void functions return 1 on success and 0 on failure.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-265c2e83211872ac5de721756cdcbfe3"><title>NOTES</title>
+    <para>
+      With the exception of SSL_CTX_set_default_read_buffer_len() and
+      SSL_set_default_read_buffer_len() all these functions are implemented
+      using macros.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-2340e466006176eebcd8a1a99c3e3116"><title>HISTORY</title>
+    <para>
+      The SSL_CTX_set_max_pipelines(), SSL_set_max_pipelines(),
+      SSL_CTX_set_split_send_fragment(), SSL_set_split_send_fragment(),
+      SSL_CTX_set_default_read_buffer_len() and 
+      SSL_set_default_read_buffer_len() functions were added in OpenSSL
+      1.1.0.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-73e6f5137841258ea9fc9c856d08ed53"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>SSL_CTX_set_read_ahead</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_pending</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>
+    </para>
+  </refsection>
+</refentry>

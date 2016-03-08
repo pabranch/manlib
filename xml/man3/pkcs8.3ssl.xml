@@ -20,9 +20,6 @@
 [<emphasis role="bold">-iter count</emphasis>]
 [<emphasis role="bold">-noiter</emphasis>]
 [<emphasis role="bold">-nocrypt</emphasis>]
-[<emphasis role="bold">-nooct</emphasis>]
-[<emphasis role="bold">-embed</emphasis>]
-[<emphasis role="bold">-nsdb</emphasis>]
 [<emphasis role="bold">-v2 alg</emphasis>]
 [<emphasis role="bold">-v2prf alg</emphasis>]
 [<emphasis role="bold">-v1 alg</emphasis>]
@@ -155,40 +152,6 @@
 	      only be used when absolutely necessary. Certain software such
 	      as some versions of Java code signing software used
 	      unencrypted private keys.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><emphasis role="bold">-nooct</emphasis></term>
-          <listitem>
-            <para>
-	      This option generates RSA private keys in a broken format
-	      that some software uses. Specifically the private key should
-	      be enclosed in a OCTET STRING but some software just includes
-	      the structure itself without the surrounding OCTET STRING.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><emphasis role="bold">-embed</emphasis></term>
-          <listitem>
-            <para>
-	      This option generates DSA keys in a broken format. The DSA
-	      parameters are embedded inside the PrivateKey structure. In
-	      this form the OCTET STRING contains an ASN1 SEQUENCE
-	      consisting of two structures: a SEQUENCE containing the
-	      parameters and an ASN1 INTEGER containing the private key.
-            </para>
-          </listitem>
-        </varlistentry>
-        <varlistentry>
-          <term><emphasis role="bold">-nsdb</emphasis></term>
-          <listitem>
-            <para>
-	      This option generates DSA keys in a broken format compatible
-	      with Netscape private key databases. The PrivateKey contains
-	      a SEQUENCE consisting of the public and private keys
-	      respectively.
             </para>
           </listitem>
         </varlistentry>

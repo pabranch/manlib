@@ -76,6 +76,9 @@
 [<emphasis role="bold">-dtls1_2</emphasis>]
 [<emphasis role="bold">-fallback_scsv</emphasis>]
 [<emphasis role="bold">-async</emphasis>]
+[<emphasis role="bold">-split_send_frag</emphasis>]
+[<emphasis role="bold">-max_pipelines</emphasis>]
+[<emphasis role="bold">-read_buf</emphasis>]
 [<emphasis role="bold">-bugs</emphasis>]
 [<emphasis role="bold">-comp</emphasis>]
 [<emphasis role="bold">-no_comp</emphasis>]
@@ -515,6 +518,52 @@ DANE TLSA 2 1 1 ...ee12d2cc90180517616e8a18 matched TA certificate at depth 1
 	      performed asynchronously. This will only have an effect if an
 	      asynchronous capable engine is also used via the <emphasis role="bold">-engine</emphasis> option. For test purposes the
 	      dummy async engine (dasync) can be used (if available).
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-split_send_frag int</emphasis></term>
+          <listitem>
+            <para>
+	      The size used to split data for encrypt pipelines. If more
+	      data is written in one go than this value then it will be
+	      split into multiple pipelines, up to the maximum number of
+	      pipelines defined by max_pipelines. This only has an effect
+	      if a suitable ciphersuite has been negotiated, an engine that
+	      supports pipelining has been loaded, and max_pipelines is
+	      greater than 1. See <citerefentry>
+	      <refentrytitle>SSL_CTX_set_split_send_fragment</refentrytitle>
+	      <manvolnum>3</manvolnum> </citerefentry> for further
+	      information.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-max_pipelines int</emphasis></term>
+          <listitem>
+            <para>
+	      The maximum number of encrypt/decrypt pipelines to be used.
+	      This will only have an effect if an engine has been loaded
+	      that supports pipelining (e.g. the dasync engine) and a
+	      suiteable ciphersuite has been negotiated. The default value
+	      is 1. See <citerefentry>
+	      <refentrytitle>SSL_CTX_set_max_pipelines</refentrytitle>
+	      <manvolnum>3</manvolnum> </citerefentry> for further
+	      information.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-read_buf int</emphasis></term>
+          <listitem>
+            <para>
+	      The default read buffer size to be used for connections. This
+	      will only have an effect if the buffer size is larger than
+	      the size that would otherwise be used and pipelining is in
+	      use (see <citerefentry>
+	      <refentrytitle>SSL_CTX_set_default_read_buffer_len</refentrytitle>
+	      <manvolnum>3</manvolnum> </citerefentry> for further
+	      information).
             </para>
           </listitem>
         </varlistentry>
