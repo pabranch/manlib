@@ -14,7 +14,10 @@ int SSL_CIPHER_get_bits(const SSL_CIPHER *cipher, int *alg_bits);
 char *SSL_CIPHER_get_version(const SSL_CIPHER *cipher);
 char *SSL_CIPHER_description(const SSL_CIPHER *cipher, char *buf, int size);
 int SSL_CIPHER_get_cipher_nid(const SSL_CIPHER *c);
-int SSL_CIPHER_get_digest_nid(const SSL_CIPHER *c);</synopsis>
+int SSL_CIPHER_get_digest_nid(const SSL_CIPHER *c);
+int SSL_CIPHER_get_kx_nid(const SSL_CIPHER *c);
+int SSL_CIPHER_get_auth_nid(const SSL_CIPHER *c);
+int SSL_CIPHER_is_aead(const SSL_CIPHER *c);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-297f52d37c7901b4c78a50c535e67c89"><title>DESCRIPTION</title>
     <para>
@@ -38,6 +41,29 @@ int SSL_CIPHER_get_digest_nid(const SSL_CIPHER *c);</synopsis>
       SSL_CIPHER_get_digest_nid() returns the digest NID corresponding to
       the MAC used by <emphasis role="bold">c</emphasis>. If there is no
       digest (e.g. for AEAD ciphersuites) then <emphasis role="bold">NID_undef</emphasis> is returned.
+    </para>
+    <para>
+      SSL_CIPHER_get_kx_nid() returns the key exchange NID corresponding to
+      the method used by <emphasis role="bold">c</emphasis>. If there is no
+      key exchange, then <emphasis role="bold">NID_undef</emphasis> is
+      returned. Examples (not comprehensive):
+    </para>
+    <screen>NID_kx_rsa
+NID_kx_ecdhe
+NID_kx_dhe
+NID_kx_psk</screen>
+    <para>
+      SSL_CIPHER_get_auth_nid() returns the authentication NID
+      corresponding to the method used by <emphasis role="bold">c</emphasis>. If there is no authentication, then
+      <emphasis role="bold">NID_undef</emphasis> is returned. Examples (not
+      comprehensive):
+    </para>
+    <screen>NID_auth_rsa
+NID_auth_ecdsa
+NID_auth_psk</screen>
+    <para>
+      SSL_CIPHER_is_aead() returns 1 if the cipher <emphasis role="bold">c</emphasis> is AEAD (e.g. GCM or ChaCha20/Poly1305), and
+      0 if it is not AEAD.
     </para>
     <para>
       SSL_CIPHER_description() returns a textual description of the cipher

@@ -1,0 +1,163 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>SSL_CTX_set_alpn_select_cb.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>SSL_CTX_set_alpn_select_cb, SSL_CTX_set_alpn_protos, SSL_set_alpn_protos,
+SSL_get0_alpn_selected, SSL_select_next_proto</refname>
+<refpurpose>handle application layer
+protocol negotiation (ALPN)</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
+<synopsis>int SSL_CTX_set_alpn_protos(SSL_CTX *ctx, const unsigned char *protos,
+                            unsigned int protos_len);
+int SSL_set_alpn_protos(SSL *ssl, const unsigned char *protos,
+                        unsigned int protos_len);
+void SSL_CTX_set_alpn_select_cb(SSL_CTX *ctx,
+                                int (*cb) (SSL *ssl,
+                                           const unsigned char **out,
+                                           unsigned char *outlen,
+                                           const unsigned char *in,
+                                           unsigned int inlen,
+                                           void *arg), void *arg);
+int SSL_select_next_proto(unsigned char **out, unsigned char *outlen,
+                          const unsigned char *server,
+                          unsigned int server_len,
+                          const unsigned char *client,
+                          unsigned int client_len)
+void SSL_get0_alpn_selected(const SSL *ssl, const unsigned char **data,
+                            unsigned int *len);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="ID-dc8f2779f386d9572957c457ae518426"><title>DESCRIPTION</title>
+    <para>
+      SSL_CTX_set_alpn_protos() and SSL_set_alpn_protos() are used by the
+      client to set the list of protocols available to be negotiated. The
+      <emphasis role="bold">protos</emphasis> must be in protocol-list
+      format, described below. The length of <emphasis role="bold">protos</emphasis> is specified in <emphasis role="bold">protos_len</emphasis>.
+    </para>
+    <para>
+      SSL_CTX_set_alpn_select_cb() sets the application callback <emphasis role="bold">cb</emphasis> used by a server to select which protocol
+      to use for the incoming connection. When <emphasis role="bold">cb</emphasis> is NULL, no ALPN is not used. The <emphasis role="bold">arg</emphasis> value is pointer which is passed to the
+      application callback.
+    </para>
+    <para>
+      <emphasis role="bold">cb</emphasis> is the application defined
+      callback. The <emphasis role="bold">in</emphasis>, <emphasis role="bold">inlen</emphasis> parameters are a vector in protocol-list
+      format. The value of the <emphasis role="bold">out</emphasis>,
+      <emphasis role="bold">outlen</emphasis> vector should be set to the
+      value of a single protocol contained with in the <emphasis role="bold">in</emphasis>, <emphasis role="bold">inlen</emphasis>
+      vector. The <emphasis role="bold">arg</emphasis> parameter is the
+      pointer set via SSL_CTX_set_alpn_select_cb().
+    </para>
+    <para>
+      SSL_select_next_proto() is a helper function used to select
+      protocols. It implements the standard protocol selection. It is
+      expected that this function is called from the application callback
+      <emphasis role="bold">cb</emphasis>. The protocol data in <emphasis role="bold">server</emphasis>, <emphasis role="bold">server_len</emphasis> and <emphasis role="bold">client</emphasis>, <emphasis role="bold">client_len</emphasis> must be in protocol-list format
+      described below. The first item in the <emphasis role="bold">server</emphasis>, <emphasis role="bold">server_len</emphasis> list that matches an item in the
+      <emphasis role="bold">client</emphasis>, <emphasis role="bold">client_len</emphasis> list is selected, and returned in
+      <emphasis role="bold">out</emphasis>, <emphasis role="bold">outlen</emphasis>. The <emphasis role="bold">out</emphasis> value will point into either <emphasis role="bold">server</emphasis> or <emphasis role="bold">client</emphasis>, so it should be copied immediately. If
+      no match is found, the first item in <emphasis role="bold">client</emphasis>, <emphasis role="bold">client_len</emphasis> is returned in <emphasis role="bold">out</emphasis>, <emphasis role="bold">outlen</emphasis>.
+      This function can also be used in the NPN callback.
+    </para>
+    <para>
+      SSL_get0_alpn_selected() returns a pointer to the selected protocol
+      in <emphasis role="bold">data</emphasis> with length <emphasis role="bold">len</emphasis>. It is not NUL-terminated. <emphasis role="bold">data</emphasis> is set to NULL and <emphasis role="bold">len</emphasis> is set to 0 if no protocol has been
+      selected. <emphasis role="bold">data</emphasis> value must not be
+      freed.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-c1c28fc67655d6f0451f3cd135bcf345"><title>NOTES</title>
+    <para>
+      The protocol-lists must be in wire-format, which is defined as a
+      vector of non-empty, 8-bit length-prefixed, byte strings. The
+      length-prefix byte is not included in the length. Each string is
+      limited to 255 bytes. A byte-string length of 0 is invalid. A
+      truncated byte-string is invalid. The length of the vector is not in
+      the vector itself, but in a separate variable.
+    </para>
+    <para>
+      Example:
+    </para>
+    <screen>unsigned char vector[] = {
+    6, 's', 'p', 'd', 'y', '/', '1',
+    8, 'h', 't', 't', 'p', '/', '1', '.', '1'
+};
+unsigned int length = sizeof(vector);</screen>
+    <para>
+      The ALPN callback is executed after the servername callback; as that
+      servername callback may update the SSL_CTX, and subsequently, the
+      ALPN callback.
+    </para>
+    <para>
+      If there is no ALPN proposed in the ClientHello, the ALPN callback is
+      not invoked.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-2cd7f30efcda84a4c16d9b711021e1d7"><title>RETURN VALUES</title>
+    <para>
+      SSL_CTX_set_alpn_protos() and SSL_set_alpn_protos() return 0 on
+      success, and non-0 on failure. WARNING: these functions reverse the
+      return value convention.
+    </para>
+    <para>
+      SSL_select_next_proto() returns one of the following:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term>OPENSSL_NPN_NEGOTIATED</term>
+          <listitem>
+            <para>
+	      A match was found and is returned in <emphasis role="bold">out</emphasis>, <emphasis role="bold">outlen</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>OPENSSL_NPN_NO_OVERLAP</term>
+          <listitem>
+            <para>
+	      No match was found. The first item in <emphasis role="bold">client</emphasis>, <emphasis role="bold">client_len</emphasis> is returned in <emphasis role="bold">out</emphasis>, <emphasis role="bold">outlen</emphasis>.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+    <para>
+      The ALPN select callback <emphasis role="bold">cb</emphasis>, must
+      return one of the following:
+    </para>
+    <para>
+      <variablelist>
+        <varlistentry>
+          <term>SSL_TLSEXT_ERR_OK</term>
+          <listitem>
+            <para>
+	      ALPN protocol selected.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>SSL_TLSEXT_ERR_NOACK</term>
+          <listitem>
+            <para>
+	      ALPN protocol not selected.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+  </refsection>
+  <refsection xml:id="ID-e3cd297720120798b5d1a430ba1e47bc"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>ssl</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_tlsext_servername_callback</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_tlsext_servername_arg</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
+    </para>
+  </refsection>
+</refentry>

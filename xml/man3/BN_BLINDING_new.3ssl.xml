@@ -1,0 +1,139 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>BN_BLINDING_new.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>BN_BLINDING_new, BN_BLINDING_free, BN_BLINDING_update, BN_BLINDING_convert, 
+BN_BLINDING_invert, BN_BLINDING_convert_ex, BN_BLINDING_invert_ex, 
+BN_BLINDING_is_current_thread, BN_BLINDING_set_current_thread,
+BN_BLINDING_lock, BN_BLINDING_unlock, BN_BLINDING_get_flags,
+BN_BLINDING_set_flags, BN_BLINDING_create_param</refname>
+<refpurpose>blinding related BIGNUM functions.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis>#include &lt;openssl/bn.h&gt;</synopsis>
+<synopsis>BN_BLINDING *BN_BLINDING_new(const BIGNUM *A, const BIGNUM *Ai,
+       BIGNUM *mod);
+void BN_BLINDING_free(BN_BLINDING *b);
+int BN_BLINDING_update(BN_BLINDING *b,BN_CTX *ctx);
+int BN_BLINDING_convert(BIGNUM *n, BN_BLINDING *b, BN_CTX *ctx);
+int BN_BLINDING_invert(BIGNUM *n, BN_BLINDING *b, BN_CTX *ctx);
+int BN_BLINDING_convert_ex(BIGNUM *n, BIGNUM *r, BN_BLINDING *b,
+       BN_CTX *ctx);
+int BN_BLINDING_invert_ex(BIGNUM *n, const BIGNUM *r, BN_BLINDING *b,
+       BN_CTX *ctx);
+int BN_BLINDING_is_current_thread(BN_BLINDING *b);
+void BN_BLINDING_set_current_thread(BN_BLINDING *b);
+int BN_BLINDING_lock(BN_BLINDING *b);
+int BN_BLINDING_unlock(BN_BLINDING *b);
+unsigned long BN_BLINDING_get_flags(const BN_BLINDING *);
+void BN_BLINDING_set_flags(BN_BLINDING *, unsigned long);
+BN_BLINDING *BN_BLINDING_create_param(BN_BLINDING *b,
+       const BIGNUM *e, BIGNUM *m, BN_CTX *ctx,
+       int (*bn_mod_exp)(BIGNUM *r, const BIGNUM *a, const BIGNUM *p,
+                         const BIGNUM *m, BN_CTX *ctx, BN_MONT_CTX *m_ctx),
+       BN_MONT_CTX *m_ctx);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="ID-060e8022c5ae74ebf2a3abc8efe8e8c7"><title>DESCRIPTION</title>
+    <para>
+      BN_BLINDING_new() allocates a new <emphasis role="bold">BN_BLINDING</emphasis> structure and copies the <emphasis role="bold">A</emphasis> and <emphasis role="bold">Ai</emphasis>
+      values into the newly created <emphasis role="bold">BN_BLINDING</emphasis> object.
+    </para>
+    <para>
+      BN_BLINDING_free() frees the <emphasis role="bold">BN_BLINDING</emphasis> structure. If <emphasis role="bold">b</emphasis> is NULL, nothing is done.
+    </para>
+    <para>
+      BN_BLINDING_update() updates the <emphasis role="bold">BN_BLINDING</emphasis> parameters by squaring the
+      <emphasis role="bold">A</emphasis> and <emphasis role="bold">Ai</emphasis> or, after specific number of uses and if
+      the necessary parameters are set, by re-creating the blinding
+      parameters.
+    </para>
+    <para>
+      BN_BLINDING_convert_ex() multiplies <emphasis role="bold">n</emphasis> with the blinding factor <emphasis role="bold">A</emphasis>. If <emphasis role="bold">r</emphasis> is
+      not NULL a copy the inverse blinding factor <emphasis role="bold">Ai</emphasis> will be returned in <emphasis role="bold">r</emphasis> (this is useful if a <emphasis role="bold">RSA</emphasis> object is shared among several threads).
+      BN_BLINDING_invert_ex() multiplies <emphasis role="bold">n</emphasis>
+      with the inverse blinding factor <emphasis role="bold">Ai</emphasis>.
+      If <emphasis role="bold">r</emphasis> is not NULL it will be used as
+      the inverse blinding.
+    </para>
+    <para>
+      BN_BLINDING_convert() and BN_BLINDING_invert() are wrapper functions
+      for BN_BLINDING_convert_ex() and BN_BLINDING_invert_ex() with
+      <emphasis role="bold">r</emphasis> set to NULL.
+    </para>
+    <para>
+      BN_BLINDING_is_current_thread() returns whether the <emphasis role="bold">BN_BLINDING</emphasis> structure is owned by the current
+      thread. This is to help users provide proper locking if needed for
+      multi-threaded use.
+    </para>
+    <para>
+      BN_BLINDING_set_current_thread() sets the current thread as the owner
+      of the <emphasis role="bold">BN_BLINDING</emphasis> structure.
+    </para>
+    <para>
+      BN_BLINDING_lock() locks the <emphasis role="bold">BN_BLINDING</emphasis> structure.
+    </para>
+    <para>
+      BN_BLINDING_unlock() unlocks the <emphasis role="bold">BN_BLINDING</emphasis> structure.
+    </para>
+    <para>
+      BN_BLINDING_get_flags() returns the BN_BLINDING flags. Currently
+      there are two supported flags: <emphasis role="bold">BN_BLINDING_NO_UPDATE</emphasis> and <emphasis role="bold">BN_BLINDING_NO_RECREATE</emphasis>. <emphasis role="bold">BN_BLINDING_NO_UPDATE</emphasis> inhibits the automatic
+      update of the <emphasis role="bold">BN_BLINDING</emphasis> parameters
+      after each use and <emphasis role="bold">BN_BLINDING_NO_RECREATE</emphasis> inhibits the automatic
+      re-creation of the <emphasis role="bold">BN_BLINDING</emphasis>
+      parameters after a fixed number of uses (currently 32). In newly
+      allocated <emphasis role="bold">BN_BLINDING</emphasis> objects no
+      flags are set. BN_BLINDING_set_flags() sets the <emphasis role="bold">BN_BLINDING</emphasis> parameters flags.
+    </para>
+    <para>
+      BN_BLINDING_create_param() creates new <emphasis role="bold">BN_BLINDING</emphasis> parameters using the exponent
+      <emphasis role="bold">e</emphasis> and the modulus <emphasis role="bold">m</emphasis>. <emphasis role="bold">bn_mod_exp</emphasis>
+      and <emphasis role="bold">m_ctx</emphasis> can be used to pass
+      special functions for exponentiation (normally BN_mod_exp_mont() and
+      <emphasis role="bold">BN_MONT_CTX</emphasis>).
+    </para>
+  </refsection>
+  <refsection xml:id="ID-f3d9b766188b7424b5f6cdcce66f38bc"><title>RETURN VALUES</title>
+    <para>
+      BN_BLINDING_new() returns the newly allocated <emphasis role="bold">BN_BLINDING</emphasis> structure or NULL in case of an
+      error.
+    </para>
+    <para>
+      BN_BLINDING_update(), BN_BLINDING_convert(), BN_BLINDING_invert(),
+      BN_BLINDING_convert_ex() and BN_BLINDING_invert_ex() return 1 on
+      success and 0 if an error occurred.
+    </para>
+    <para>
+      BN_BLINDING_is_current_thread() returns 1 if the current thread owns
+      the <emphasis role="bold">BN_BLINDING</emphasis> object, 0 otherwise.
+    </para>
+    <para>
+      BN_BLINDING_set_current_thread() doesn't return anything.
+    </para>
+    <para>
+      BN_BLINDING_lock(), BN_BLINDING_unlock() return 1 if the operation
+      succeded or 0 on error.
+    </para>
+    <para>
+      BN_BLINDING_get_flags() returns the currently set <emphasis role="bold">BN_BLINDING</emphasis> flags (a <emphasis role="bold">unsigned long</emphasis> value).
+    </para>
+    <para>
+      BN_BLINDING_create_param() returns the newly created <emphasis role="bold">BN_BLINDING</emphasis> parameters or NULL on error.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-25950b53aea78fce2e92bc06ed402774"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>bn</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
+    </para>
+  </refsection>
+  <refsection xml:id="ID-a7a8439f7fa6b81dc72e23cc82923f00"><title>HISTORY</title>
+    <para>
+      BN_BLINDING_thread_id() was first introduced in OpenSSL 1.0.0, and it
+      deprecates BN_BLINDING_set_thread_id() and
+      BN_BLINDING_get_thread_id().
+    </para>
+  </refsection>
+</refentry>

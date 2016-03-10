@@ -29,24 +29,34 @@ const SSL_METHOD *SSLv3_method(void);
 const SSL_METHOD *SSLv3_server_method(void);
 const SSL_METHOD *SSLv3_client_method(void);
 #endif</synopsis>
-<synopsis>const SSL_METHOD *TLSv1_method(void);
+<synopsis>#ifndef OPENSSL_NO_TLS1_METHOD
+const SSL_METHOD *TLSv1_method(void);
 const SSL_METHOD *TLSv1_server_method(void);
-const SSL_METHOD *TLSv1_client_method(void);</synopsis>
-<synopsis>const SSL_METHOD *TLSv1_1_method(void);
+const SSL_METHOD *TLSv1_client_method(void);
+#endif</synopsis>
+<synopsis>#ifndef OPENSSL_NO_TLS1_1_METHOD
+const SSL_METHOD *TLSv1_1_method(void);
 const SSL_METHOD *TLSv1_1_server_method(void);
-const SSL_METHOD *TLSv1_1_client_method(void);</synopsis>
-<synopsis>const SSL_METHOD *TLSv1_2_method(void);
+const SSL_METHOD *TLSv1_1_client_method(void);
+#endif</synopsis>
+<synopsis>#ifndef OPENSSL_NO_TLS1_2_METHOD
+const SSL_METHOD *TLSv1_2_method(void);
 const SSL_METHOD *TLSv1_2_server_method(void);
-const SSL_METHOD *TLSv1_2_client_method(void);</synopsis>
+const SSL_METHOD *TLSv1_2_client_method(void);
+#endif</synopsis>
 <synopsis>const SSL_METHOD *DTLS_method(void);
 const SSL_METHOD *DTLS_server_method(void);
 const SSL_METHOD *DTLS_client_method(void);</synopsis>
-<synopsis>const SSL_METHOD *DTLSv1_method(void);
+<synopsis>#ifndef OPENSSL_NO_DTLS1_METHOD
+const SSL_METHOD *DTLSv1_method(void);
 const SSL_METHOD *DTLSv1_server_method(void);
-const SSL_METHOD *DTLSv1_client_method(void);</synopsis>
-<synopsis>const SSL_METHOD *DTLSv1_2_method(void);
+const SSL_METHOD *DTLSv1_client_method(void);
+#endif</synopsis>
+<synopsis>#ifndef OPENSSL_NO_DTLS1_2_METHOD
+const SSL_METHOD *DTLSv1_2_method(void);
 const SSL_METHOD *DTLSv1_2_server_method(void);
-const SSL_METHOD *DTLSv1_2_client_method(void);</synopsis>
+const SSL_METHOD *DTLSv1_2_client_method(void);
+#endif</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-17f25e7c09058367afb5bb56bb5d1717"><title>DESCRIPTION</title>
     <para>
@@ -78,8 +88,8 @@ const SSL_METHOD *DTLSv1_2_client_method(void);</synopsis>
 	      The actual protocol version used will be negotiated to the
 	      highest version mutually supported by the client and the
 	      server. The supported protocols are SSLv3, TLSv1, TLSv1.1 and
-	      TLSv1.2. Most applications should use these method, and avoid
-	      the version specific methods described below.
+	      TLSv1.2. Applications should use these methods, and avoid the
+	      version-specific methods described below.
             </para>
           </listitem>
         </varlistentry>
@@ -244,6 +254,9 @@ const SSL_METHOD *DTLSv1_2_client_method(void);</synopsis>
       SSLv23_method(), SSLv23_server_method() and SSLv23_client_method()
       were deprecated and the preferred TLS_method(), TLS_server_method()
       and TLS_client_method() functions were introduced in OpenSSL 1.1.0.
+    </para>
+    <para>
+      All version-specific methods were deprecated in OpenSSL 1.1.0.
     </para>
   </refsection>
   <refsection xml:id="ID-e545d521238a4a7c41bc03d0e5f9cb87"><title>SEE ALSO</title>

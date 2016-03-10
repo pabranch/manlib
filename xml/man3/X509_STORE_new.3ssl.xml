@@ -1,0 +1,47 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>X509_STORE_new.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>X509_STORE_new, X509_STORE_up_ref, X509_STORE_free</refname>
+<refpurpose>X509_STORE allocation and freeing functions</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis>#include &lt;openssl/x509_vfy.h&gt;</synopsis>
+<synopsis>X509_STORE *X509_STORE_new(void);
+void X509_STORE_free(X509_STORE *v);
+int X509_STORE_up_ref(X509_STORE *v);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="ID-1ea8f377a24046d44459a4caaf99b0f1"><title>DESCRIPTION</title>
+    <para>
+      The X509_STORE_new() function returns a new X509_STORE.
+    </para>
+    <para>
+      X509_STORE_up_ref() increments the reference count associated with
+      the X509_STORE object.
+    </para>
+    <para>
+      X509_STORE_free() frees up a single X509_STORE object.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-63ebaf46ab305973bd5d766f4a6a9a27"><title>RETURN VALUES</title>
+    <para>
+      X509_STORE_new() returns a newly created X509_STORE or NULL if the
+      call fails.
+    </para>
+    <para>
+      X509_STORE_up_ref() returns 1 for success and 0 for failure.
+    </para>
+    <para>
+      X509_STORE_free() does not return values.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-0ae648e4665c20af3e0294a0de17338e"><title>SEE ALSO</title>
+    <para>
+      <citerefentry>
+      <refentrytitle>X509_STORE_set_verify_cb_func</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
+    </para>
+  </refsection>
+</refentry>
