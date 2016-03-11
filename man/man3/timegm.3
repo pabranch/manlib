@@ -54,6 +54,13 @@ are the inverses of
 .BR localtime (3)
 and
 .BR gmtime (3).
+Both functions take a broken-down time and convert it to calendar time
+(seconds since the Epoch, 1970-01-01 00:00:00 +0000, UTC).
+The difference between the two functions is that
+.BR timelocal ()
+takes the local timezone into account when doing the conversion, while
+.BR timegm ()
+takes the input value to be Coordinated Universal Time (UTC).
 .SH ATTRIBUTES
 For an explanation of the terms used in this section, see
 .BR attributes (7).
@@ -70,51 +77,13 @@ T}	Thread safety	MT-Safe env locale
 .SH CONFORMING TO
 These functions are nonstandard GNU extensions
 that are also present on the BSDs.
-Avoid their use; see NOTES.
+Avoid their use.
 .SH NOTES
 The
 .BR timelocal ()
 function is equivalent to the POSIX standard function
 .BR mktime (3).
 There is no reason to ever use it.
-.LP
-For a portable version of
-.BR timegm (),
-set the
-.B TZ
-environment variable to UTC, call
-.BR mktime (3)
-and restore the value of
-.BR TZ .
-Something like
-
-.in +4n
-.nf
-#include <time.h>
-#include <stdlib.h>
-
-time_t
-my_timegm(struct tm *tm)
-{
-    time_t ret;
-    char *tz;
-
-    tz = getenv("TZ");
-    if (tz)
-        tz = strdup(tz);
-    setenv("TZ", "", 1);
-    tzset();
-    ret = mktime(tm);
-    if (tz) {
-        setenv("TZ", tz, 1);
-        free(tz);
-    } else
-        unsetenv("TZ");
-    tzset();
-    return ret;
-}
-.fi
-.in
 .SH SEE ALSO
 .BR gmtime (3),
 .BR localtime (3),

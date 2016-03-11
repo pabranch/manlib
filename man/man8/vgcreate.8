@@ -1,4 +1,4 @@
-.TH VGCREATE 8 "LVM TOOLS 2.02.146(2)-git (2016-03-04)" "Sistina Software UK" \" -*- nroff -*-
+.TH VGCREATE 8 "LVM TOOLS 2.02.147(2)-git (2016-03-11)" "Sistina Software UK" \" -*- nroff -*-
 .SH NAME
 vgcreate \(em create a volume group
 .SH SYNOPSIS
@@ -132,7 +132,8 @@ The 2.4 kernel has a limitation of 2TiB per block device.
 .B \-\-shared
 Create a shared VG using lvmlockd.  lvmlockd will select lock type sanlock
 or dlm depending on which lock manager is running.  This allows multiple
-hosts to share a VG on shared devices.  See
+hosts to share a VG on shared devices.  lvmlockd and a lock manager must
+be configured and running.  See
 .BR lvmlockd (8).
 
 .TP
