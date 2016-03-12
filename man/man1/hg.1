@@ -4243,7 +4243,7 @@ name of access log file to write to
 .
 run server in background
 .TP
-.BI \-\-daemon\-postexec \ <VALUE>
+.BI \-\-daemon\-postexec \ <VALUE[+]>
 .
 used internally by daemon mode
 .TP
@@ -4303,6 +4303,8 @@ use IPv6 in addition to IPv4
 .
 SSL certificate file
 .UNINDENT
+.sp
+[+] marked option can be specified multiple times
 .SS status
 .sp
 show changed files in the working directory:
@@ -9222,10 +9224,6 @@ set umask
 .B \(aqvalidate\(aq command
 .
 reload the config and check if the server is up to date
-.TP
-.B \(aqSIGHUP\(aq signal
-.
-reload configuration files
 .UNINDENT
 .SS Config
 .sp
@@ -10602,6 +10600,71 @@ do not verify server certificate (ignoring web.cacerts config)
 .UNINDENT
 .sp
 [+] marked option can be specified multiple times
+.SS fsmonitor
+.sp
+Faster status operations with the Watchman file monitor (EXPERIMENTAL)
+.sp
+Integrates the file\-watching program Watchman with Mercurial to produce faster
+status results.
+.sp
+On a particular Linux system, for a real\-world repository with over 400,000
+files hosted on ext4, vanilla \fIhg status\fP takes 1.3 seconds. On the same
+system, with fsmonitor it takes about 0.3 seconds.
+.sp
+fsmonitor requires no configuration \-\- it will tell Watchman about your
+repository as necessary. You\(aqll need to install Watchman from
+\%https://facebook.github.io/watchman/\: and make sure it is in your PATH.
+.sp
+The following configuration options exist:
+.sp
+.nf
+.ft C
+[fsmonitor]
+mode = {off, on, paranoid}
+.ft P
+.fi
+.sp
+When \fImode = off\fP, fsmonitor will disable itself (similar to not loading the
+extension at all). When \fImode = on\fP, fsmonitor will be enabled (the default).
+When \fImode = paranoid\fP, fsmonitor will query both Watchman and the filesystem,
+and ensure that the results are consistent.
+.sp
+.nf
+.ft C
+[fsmonitor]
+timeout = (float)
+.ft P
+.fi
+.sp
+A value, in seconds, that determines how long fsmonitor will wait for Watchman
+to return results. Defaults to \fI2.0\fP.
+.sp
+.nf
+.ft C
+[fsmonitor]
+blacklistusers = (list of userids)
+.ft P
+.fi
+.sp
+A list of usernames for which fsmonitor will disable itself altogether.
+.sp
+.nf
+.ft C
+[fsmonitor]
+walk_on_invalidate = (boolean)
+.ft P
+.fi
+.sp
+Whether or not to walk the whole repo ourselves when our cached state has been
+invalidated, for example when Watchman has been restarted or .hgignore rules
+have been changed. Walking the repo in that case can result in competing for
+I/O with Watchman. For large repos it is recommended to set this value to
+false. You may wish to set this to true if you have a very fast filesystem
+that can outpace the IPC overhead of getting the result data for the full repo
+from Watchman. Defaults to false.
+.sp
+fsmonitor is incompatible with the largefiles and eol extensions, and
+will disable itself if any of those are active.
 .SS gpg
 .sp
 commands to sign and verify changesets

@@ -10,19 +10,26 @@
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/x509.h&gt;</synopsis>
 <synopsis>X509_SIG *d2i_X509_SIG(X509_SIG **a, unsigned char **pp, long length);
-int i2d_X509_SIG(X509_SIG *a, unsigned char **pp);</synopsis>
+int i2d_X509_SIG(X509_SIG *a, unsigned char **pp);
+void X509_SIG_get0(X509_ALGOR **palg, ASN1_OCTET_STRING **pdigest,
+                   X509_SIG *sig);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-375c3bda13c24bac6cc4f2dac29e5904"><title>DESCRIPTION</title>
     <para>
-      These functions decode and encode an X509_SIG structure which is
-      equivalent to the <emphasis role="bold">DigestInfo</emphasis>
-      structure defined in PKCS#1 and PKCS#7.
+      The functions d2i_X509_SIG() and i2d_X509_SIG() decode and encode an
+      X509_SIG structure which is equivalent to the <emphasis role="bold">DigestInfo</emphasis> structure defined in PKCS#1 and
+      PKCS#7.
     </para>
     <para>
-      Otherwise these behave in a similar way to d2i_X509() and i2d_X509()
+      Otherwise they behave in a similar way to d2i_X509() and i2d_X509()
       described in the <citerefentry>
       <refentrytitle>d2i_X509</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry> manual page.
+    </para>
+    <para>
+      X509_SIG_get0() returns pointers to the algorithm identifier and
+      digest value in <emphasis role="bold">sig</emphasis>. These values
+      can then be examined or initialised.
     </para>
   </refsection>
   <refsection xml:id="ID-32e456e855106697dbf141038be024ef"><title>SEE ALSO</title>
