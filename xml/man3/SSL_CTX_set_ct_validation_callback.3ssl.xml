@@ -47,6 +47,14 @@ ct_validation_cb SSL_CTX_get_ct_validation_callback(const SSL_CTX *ctx);</synops
       callback cannot be set if a custom client extension handler has been
       registered to handle SCT extensions (<emphasis role="bold">TLSEXT_TYPE_signed_certificate_timestamp</emphasis>).
     </para>
+    <para>
+      If an SCT callback is enabled, a handshake may fail if the peer does
+      not provide a certificate, which can happen when using opportunistic
+      encryption with anonymous (<emphasis role="bold">aNULL</emphasis>)
+      cipher-suites enabled on both ends. SCTs should only be used when the
+      application requires an authenticated connection, and wishes to
+      perform additional validation on that identity.
+    </para>
   </refsection>
   <refsection xml:id="ID-bad6f8fc2f0bd1f798981eb682868275"><title>RETURN VALUES</title>
     <para>
