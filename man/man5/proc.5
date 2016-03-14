@@ -2665,6 +2665,10 @@ bits and the kernel binary code).
 The sum of
 .IR LowFree + HighFree .
 .TP
+.IR MemAvailable " %lu (since Linux 3.14)"
+An estimate of how much memory is available for starting new
+applications, without swapping.
+.TP
 .IR Buffers " %lu"
 Relatively temporary storage for raw disk blocks that
 shouldn't get tremendously large (20MB or so).
@@ -2849,6 +2853,14 @@ Largest contiguous block of vmalloc area which is free.
 .IR AnonHugePages " %lu (since Linux 2.6.38)"
 (\fBCONFIG_TRANSPARENT_HUGEPAGE\fP is required.)
 Non-file backed huge pages mapped into user-space page tables.
+.TP
+.IR CmaTotal " %lu (since Linux 3.1)"
+Total CMA (Contiguous Memory Allocator) pages.
+(\fBCONFIG_CMA\fP is required.)
+.TP
+.IR CmaFree " %lu (since Linux 3.1)"
+Free CMA (Contiguous Memory Allocator) pages.
+(\fBCONFIG_CMA\fP is required.)
 .TP
 .IR HugePages_Total " %lu"
 (\fBCONFIG_HUGETLB_PAGE\fP is required.)

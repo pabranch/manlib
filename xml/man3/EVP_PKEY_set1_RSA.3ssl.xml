@@ -8,7 +8,7 @@
 EVP_PKEY_get1_RSA, EVP_PKEY_get1_DSA, EVP_PKEY_get1_DH, EVP_PKEY_get1_EC_KEY,
 EVP_PKEY_get0_RSA, EVP_PKEY_get0_DSA, EVP_PKEY_get0_DH, EVP_PKEY_get0_EC_KEY,
 EVP_PKEY_assign_RSA, EVP_PKEY_assign_DSA, EVP_PKEY_assign_DH, EVP_PKEY_assign_EC_KEY,
-EVP_PKEY_type</refname>
+EVP_PKEY_type, EVP_PKEY_id, EVP_PKEY_base_id</refname>
 <refpurpose>EVP_PKEY assignment functions.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
@@ -29,7 +29,9 @@ EC_KEY *EVP_PKEY_get0_EC_KEY(EVP_PKEY *pkey);</synopsis>
 int EVP_PKEY_assign_DSA(EVP_PKEY *pkey,DSA *key);
 int EVP_PKEY_assign_DH(EVP_PKEY *pkey,DH *key);
 int EVP_PKEY_assign_EC_KEY(EVP_PKEY *pkey,EC_KEY *key);</synopsis>
-<synopsis>int EVP_PKEY_type(int type);</synopsis>
+<synopsis>int EVP_PKEY_id(const EVP_PKEY *pkey);
+int EVP_PKEY_base_id(const EVP_PKEY *pkey);
+int EVP_PKEY_type(int type);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-af752efae8d00b495674d1c073319d95"><title>DESCRIPTION</title>
     <para>
@@ -53,11 +55,20 @@ int EVP_PKEY_assign_EC_KEY(EVP_PKEY *pkey,EC_KEY *key);</synopsis>
       and EVP_PKEY_assign_EC_KEY() also set the referenced key to <emphasis role="bold">key</emphasis> however these use the supplied <emphasis role="bold">key</emphasis> internally and so <emphasis role="bold">key</emphasis> will be freed when the parent <emphasis role="bold">pkey</emphasis> is freed.
     </para>
     <para>
-      EVP_PKEY_type() returns the type of key corresponding to the value
-      <emphasis role="bold">type</emphasis>. The type of a key can be
-      obtained with EVP_PKEY_type(pkey-&gt;type). The return value will be
-      EVP_PKEY_RSA, EVP_PKEY_DSA, EVP_PKEY_DH or EVP_PKEY_EC for the
-      corresponding key types or NID_undef if the key type is unassigned.
+      EVP_PKEY_base_id() returns the type of <emphasis role="bold">pkey</emphasis>. For example an RSA key will return
+      <emphasis role="bold">EVP_PKEY_RSA</emphasis>.
+    </para>
+    <para>
+      EVP_PKEY_id() returns the actual OID associated with <emphasis role="bold">pkey</emphasis>. Historically keys using the same
+      algorithm could use different OIDs. For example an RSA key could use
+      the OIDs corresponding to the NIDs <emphasis role="bold">NID_rsaEncryption</emphasis> (equivalent to <emphasis role="bold">EVP_PKEY_RSA) or <emphasis role="bold">NID_rsa</emphasis>
+      (equivalent to <emphasis role="bold">EVP_PKEY_RSA2</emphasis>). The
+      use of alternative non-standard OIDs is now rare so <emphasis role="bold">EVP_PKEY_RSA2</emphasis> et al are not often seen in
+      practice.</emphasis>
+    </para>
+    <para>
+      EVP_PKEY_type() returns the underlying type of the NID <emphasis role="bold">type</emphasis>. For example EVP_PKEY_type(EVP_PKEY_RSA2)
+      will return <emphasis role="bold">EVP_PKEY_RSA</emphasis>.
     </para>
   </refsection>
   <refsection xml:id="ID-98576cefa0b0dbc644d893e000b74838"><title>NOTES</title>
@@ -70,6 +81,17 @@ int EVP_PKEY_assign_EC_KEY(EVP_PKEY *pkey,EC_KEY *key);</synopsis>
     <para>
       EVP_PKEY_assign_RSA(), EVP_PKEY_assign_DSA(), EVP_PKEY_assign_DH()
       and EVP_PKEY_assign_EC_KEY() are implemented as macros.
+    </para>
+    <para>
+      Most applications wishing to know a key type will simply call
+      EVP_PKEY_base_id() and will not care about the actual type: which
+      will be identical in almost all cases.
+    </para>
+    <para>
+      Previous versions of this document suggested using
+      EVP_PKEY_type(pkey-&gt;type) to determine the type of a key. Since
+      <emphasis role="bold">EVP_PKEY</emphasis> is now opaque this is no
+      longer possible: the equivalent is EVP_PKEY_base_id(pkey).
     </para>
   </refsection>
   <refsection xml:id="ID-02667d84bd96d5d2e486140e6a8fb371"><title>RETURN VALUES</title>
@@ -85,16 +107,16 @@ int EVP_PKEY_assign_EC_KEY(EVP_PKEY *pkey,EC_KEY *key);</synopsis>
       EVP_PKEY_assign_RSA(), EVP_PKEY_assign_DSA(), EVP_PKEY_assign_DH()
       and EVP_PKEY_assign_EC_KEY() return 1 for success and 0 for failure.
     </para>
+    <para>
+      EVP_PKEY_base_id(), EVP_PKEY_id() and EVP_PKEY_type() return a key
+      type or <emphasis role="bold">NID_undef</emphasis> (equivalently
+      <emphasis role="bold">EVP_PKEY_NONE</emphasis>) on error.
+    </para>
   </refsection>
   <refsection xml:id="ID-7b6a4073a82a97d90ad27a16470e425e"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>EVP_PKEY_new</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
-    </para>
-  </refsection>
-  <refsection xml:id="ID-2930645972607400cec7b7d9694b3c07"><title>HISTORY</title>
-    <para>
-      TBA
     </para>
   </refsection>
 </refentry>

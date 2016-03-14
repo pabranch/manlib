@@ -1,0 +1,80 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>X509_get_serialNumber.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>X509_get_serialNumber, X509_set_serialNumber</refname>
+<refpurpose>get or set certificate serial
+number.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis>#include &lt;openssl/x509.h&gt;</synopsis>
+<synopsis>ASN1_INTEGER *X509_get_serialNumber(X509 *x);
+int X509_set_serialNumber(X509 *x, ASN1_INTEGER *serial);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="ID-53c8cda65e46fed96744e12c8542132d"><title>DESCRIPTION</title>
+    <para>
+      X509_get_serialNumber() returns the serial number of certificate
+      <emphasis role="bold">x</emphasis> as an <emphasis role="bold">ASN1_INTEGER</emphasis> structure which can be examined
+      or initialised. The value returned is an internal pointer which
+      <emphasis role="bold">MUST NOT</emphasis> be freed up after the call.
+    </para>
+    <para>
+      X509_set_serialNumber() sets the serial number of certificate
+      <emphasis role="bold">x</emphasis> to <emphasis role="bold">serial</emphasis>. A copy of the serial number is used
+      internally so <emphasis role="bold">serial</emphasis> should be freed
+      up after use.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-d5db5bc37c3d74736422992f00bba855"><title>RETURN VALUES</title>
+    <para>
+      X509_get_serialNumber() returns an <emphasis role="bold">ASN1_INTEGER</emphasis> structure.
+    </para>
+    <para>
+      X509_set_serialNumber() returns 1 for success and 0 for failure.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-1562ff8575fc94f0a022882f09e21755"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>d2i_X509</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ERR_get_error</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>X509_CRL_get0_by_serial</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get0_signature</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_ext_d2i</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_extension_flags</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_pubkey</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_get_subject_name</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_NAME_add_entry_by_txt</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_NAME_ENTRY_get_object</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_NAME_get_index_by_NID</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_NAME_print_ex</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>X509_sign</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>X509V3_get_d2i</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_verify_cert</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
+    </para>
+  </refsection>
+  <refsection xml:id="ID-7782e3bf912c3861c8dd0d16388103e9"><title>HISTORY</title>
+    <para>
+      X509_get_serialNumber() and X509_set_serialNumber() are available in
+      all versions of OpenSSL.
+    </para>
+  </refsection>
+</refentry>
