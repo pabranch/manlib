@@ -10,13 +10,12 @@
   <refsynopsisdiv>
 <synopsis><emphasis role="bold">openssl</emphasis> <emphasis role="bold">ts</emphasis>
 <emphasis role="bold">-query</emphasis>
-[<emphasis role="bold">-help</emphasis>]
 [<emphasis role="bold">-rand</emphasis> file:file...]
 [<emphasis role="bold">-config</emphasis> configfile]
 [<emphasis role="bold">-data</emphasis> file_to_hash]
 [<emphasis role="bold">-digest</emphasis> digest_bytes]
 [<emphasis role="bold">-[digest]</emphasis>]
-[<emphasis role="bold">-policy</emphasis> object_id]
+[<emphasis role="bold">-tspolicy</emphasis> object_id]
 [<emphasis role="bold">-no_nonce</emphasis>]
 [<emphasis role="bold">-cert</emphasis>]
 [<emphasis role="bold">-in</emphasis> request.tsq]
@@ -32,7 +31,7 @@
 [<emphasis role="bold">-inkey</emphasis> private.pem]
 [<emphasis role="bold">-sha1|-sha224|-sha256|-sha384|-sha512</emphasis>]
 [<emphasis role="bold">-chain</emphasis> certs_file.pem]
-[<emphasis role="bold">-policy</emphasis> object_id]
+[<emphasis role="bold">-tspolicy</emphasis> object_id]
 [<emphasis role="bold">-in</emphasis> response.tsr]
 [<emphasis role="bold">-token_in</emphasis>]
 [<emphasis role="bold">-out</emphasis> response.tsr]
@@ -48,7 +47,37 @@
 [<emphasis role="bold">-token_in</emphasis>]
 [<emphasis role="bold">-CApath</emphasis> trusted_cert_path]
 [<emphasis role="bold">-CAfile</emphasis> trusted_certs.pem]
-[<emphasis role="bold">-untrusted</emphasis> cert_file.pem]</synopsis>
+[<emphasis role="bold">-untrusted</emphasis> cert_file.pem]
+[<emphasis role="italic">verify options</emphasis>]</synopsis>
+<synopsis><emphasis role="italic">verify options:</emphasis>
+[-attime timestamp]
+[-check_ss_sig]
+[-crl_check]
+[-crl_check_all]
+[-explicit_policy]
+[-extended_crl]
+[-ignore_critical]
+[-inhibit_any]
+[-inhibit_map]
+[-issuer_checks]
+[-no_alt_chains]
+[-no_check_time]
+[-partial_chain]
+[-policy arg]
+[-policy_check]
+[-policy_print]
+[-purpose purpose]
+[-suiteB_128]
+[-suiteB_128_only]
+[-suiteB_192]
+[-trusted_first]
+[-use_deltas]
+[-verify_depth num]
+[-verify_email email]
+[-verify_hostname hostname]
+[-verify_ip ip]
+[-verify_name name]
+[-x509_strict]</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-9133f4ed33609e54fe5d61ffa7b2660f"><title>DESCRIPTION</title>
     <para>
@@ -109,14 +138,6 @@
       <para>
         <variablelist>
           <varlistentry>
-            <term><emphasis role="bold">-help</emphasis></term>
-            <listitem>
-              <para>
-		Print out a usage message.
-              </para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
             <term><emphasis role="bold">-rand</emphasis> file:file...</term>
             <listitem>
               <para>
@@ -175,7 +196,7 @@
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term><emphasis role="bold">-policy</emphasis> object_id</term>
+            <term><emphasis role="bold">-tspolicy</emphasis> object_id</term>
             <listitem>
               <para>
 		The policy that the client expects the TSA to use for
@@ -343,7 +364,7 @@
             </listitem>
           </varlistentry>
           <varlistentry>
-            <term><emphasis role="bold">-policy</emphasis> object_id</term>
+            <term><emphasis role="bold">-tspolicy</emphasis> object_id</term>
             <listitem>
               <para>
 		The default policy to use for the response unless the
@@ -525,6 +546,26 @@
               </para>
             </listitem>
           </varlistentry>
+          <varlistentry>
+            <term><emphasis role="italic">verify options</emphasis></term>
+            <listitem>
+              <para>
+		The options [-attime timestamp], [-check_ss_sig],
+		[-crl_check], [-crl_check_all], [-explicit_policy],
+		[-extended_crl], [-ignore_critical], [-inhibit_any],
+		[-inhibit_map], [-issuer_checks], [-no_alt_chains],
+		[-no_check_time], [-partial_chain], [-policy arg],
+		[-policy_check], [-policy_print], [-purpose purpose],
+		[-suiteB_128], [-suiteB_128_only], [-suiteB_192],
+		[-trusted_first], [-use_deltas], [-verify_depth num],
+		[-verify_email email], [-verify_hostname hostname],
+		[-verify_ip ip], [-verify_name name], and [-x509_strict]
+		can be used to control timestamp verification. See
+		<citerefentry> <refentrytitle>verify</refentrytitle>
+		<manvolnum>1</manvolnum> </citerefentry>.
+              </para>
+            </listitem>
+          </varlistentry>
         </variablelist>
       </para>
     </refsection>
@@ -654,7 +695,7 @@
           <listitem>
             <para>
 	      The default policy to use when the request does not mandate
-	      any policy. The same as the <emphasis role="bold">-policy</emphasis> command line option.
+	      any policy. The same as the <emphasis role="bold">-tspolicy</emphasis> command line option.
 	      (Optional)
             </para>
           </listitem>
@@ -778,7 +819,7 @@
 	section of the config file):
       </para>
       <screen>openssl ts -query -data design2.txt -md5 \
-      -policy tsa_policy1 -cert -out design2.tsq</screen>
+      -tspolicy tsa_policy1 -cert -out design2.tsq</screen>
     </refsection>
     <refsection xml:id="ID-d99c6f5649fba8332804183715643bd5"><title>Time Stamp Response</title>
       <para>

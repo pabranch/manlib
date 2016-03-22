@@ -44,7 +44,7 @@
 .\" Modified 2003-08-21 by Andries Brouwer <aeb@cwi.nl>
 .\" 2011-09-18, mtk, Added SEEK_DATA + SEEK_HOLE
 .\"
-.TH LSEEK 2 2015-08-08 "Linux" "Linux Programmer's Manual"
+.TH LSEEK 2 2016-03-15 "Linux" "Linux Programmer's Manual"
 .SH NAME
 lseek \- reposition read/write file offset
 .SH SYNOPSIS
@@ -176,6 +176,13 @@ XFS (since Linux 3.5)
 ext4 (since Linux 3.8)
 .IP *
 tmpfs (since Linux 3.8)
+.IP *
+NFS (since Linux 3.18)
+.\" commit 1c6dcbe5ceff81c2cf8d929646af675cd59fe7c0
+.\" commit 24bab491220faa446d945624086d838af41d616c
+.IP *
+FUSE (since Linux 4.5)
+.\" commit 0b5da8db145bfd44266ac964a2636a0cf8d7c286
 .SH RETURN VALUE
 Upon successful completion,
 .BR lseek ()

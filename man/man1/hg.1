@@ -6367,6 +6367,10 @@ container for exchange of repository data
 .
 representation of revlog data
 .TP
+.B requirements
+.
+repository requirements
+.TP
 .B revlogs
 .
 revision storage mechanism
@@ -14136,6 +14140,12 @@ When no files are specified, "hg shelve" saves all not\-clean
 files. If specific files or directories are named, only changes to
 those files are shelved.
 .sp
+In bare shelve(when no files are specified, without interactive,
+include and exclude option), shelving remembers information if the
+working directory was on newly created branch, in other words working
+directory was on different branch than its first parent. In this
+situation unshelving restores branch information to the working directory.
+.sp
 Each shelved change has a name that makes it easier to find later.
 The name of a shelved change defaults to being based on the active
 bookmark, or if there is no active bookmark, the current named
@@ -14236,6 +14246,10 @@ will not be moved until you successfully complete the unshelve.)
 (Alternatively, you can use \fB\-\-abort\fP to abandon an unshelve
 that causes a conflict. This reverts the unshelved changes, and
 leaves the bundle in place.)
+.sp
+If bare shelved change(when no files are specified, without interactive,
+include and exclude option) was done on newly created branch it would
+restore branch information to the working directory.
 .sp
 After a successful unshelve, the shelved changes are stored in a
 backup directory. Only the N most recent backups are kept. N

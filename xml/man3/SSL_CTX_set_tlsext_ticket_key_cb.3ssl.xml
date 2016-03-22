@@ -61,18 +61,17 @@
     </para>
     <para>
       The <emphasis role="italic">iv</emphasis> length is the length of the
-      IV of the corresponding cipher. The maximum IV length is
-      <citerefentry> <refentrytitle>EVP_MAX_IV_LENGTH</refentrytitle>
-      </citerefentry> bytes defined in <emphasis role="bold">evp.h</emphasis>.
+      IV of the corresponding cipher. The maximum IV length is <emphasis role="bold">EVP_MAX_IV_LENGTH</emphasis> bytes defined in <emphasis role="bold">evp.h</emphasis>.
     </para>
     <para>
       The initialization vector <emphasis role="italic">iv</emphasis>
       should be a random value. The cipher context <emphasis role="italic">ctx</emphasis> should use the initialisation vector
       <emphasis role="italic">iv</emphasis>. The cipher context can be set
       using <citerefentry>
-      <refentrytitle>EVP_EncryptInit_ex</refentrytitle> </citerefentry>.
-      The hmac context can be set using <citerefentry>
-      <refentrytitle>HMAC_Init_ex</refentrytitle> </citerefentry>.
+      <refentrytitle>EVP_EncryptInit_ex</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>. The hmac context can be set
+      using <citerefentry> <refentrytitle>HMAC_Init_ex</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>.
     </para>
     <para>
       When the client presents a session ticket, the callback function with
@@ -82,9 +81,9 @@
       session ticket. The OpenSSL library expects that the <emphasis role="italic">name</emphasis> will be used to retrieve a
       cryptographic parameters and that the cryptographic context <emphasis role="italic">ctx</emphasis> will be set with the retrieved
       parameters and the initialization vector <emphasis role="italic">iv</emphasis>. using a function like <citerefentry>
-      <refentrytitle>EVP_DecryptInit_ex</refentrytitle> </citerefentry>.
-      The <emphasis role="italic">hctx</emphasis> needs to be set using
-      <citerefentry> <refentrytitle>HMAC_Init_ex</refentrytitle>
+      <refentrytitle>EVP_DecryptInit_ex</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>. The <emphasis role="italic">hctx</emphasis> needs to be set using <citerefentry>
+      <refentrytitle>HMAC_Init_ex</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>.
     </para>
     <para>

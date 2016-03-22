@@ -121,12 +121,12 @@ Trailing spaces are ignored unless they are quoted with backslash
 <simpara>
 An optional prefix "<literal>!</literal>" which negates the pattern; any
    matching file excluded by a previous pattern will become
-   included again.
+   included again. It is not possible to re-include a file if a parent
+   directory of that file is excluded. Git doesn&#8217;t list excluded
+   directories for performance reasons, so any patterns on contained
+   files have no effect, no matter where they are defined.
    Put a backslash ("<literal>\</literal>") in front of the first "<literal>!</literal>" for patterns
    that begin with a literal "<literal>!</literal>", for example, "<literal>\!important!.txt</literal>".
-   It is possible to re-include a file if a parent directory of that
-   file is excluded if certain conditions are met. See section NOTES
-   for detail.
 </simpara>
 </listitem>
 <listitem>
@@ -205,65 +205,6 @@ Other consecutive asterisks are considered invalid.
 not tracked by Git remain untracked.</simpara>
 <simpara>To stop tracking a file that is currently tracked, use
 <emphasis>git rm --cached</emphasis>.</simpara>
-<simpara>To re-include files or directories when their parent directory is
-excluded, the following conditions must be met:</simpara>
-<itemizedlist>
-<listitem>
-<simpara>
-The rules to exclude a directory and re-include a subset back must
-   be in the same .gitignore file.
-</simpara>
-</listitem>
-<listitem>
-<simpara>
-The directory part in the re-include rules must be literal (i.e. no
-   wildcards and has to start with a <literal>/</literal>).
-</simpara>
-</listitem>
-</itemizedlist>
-<simpara>A re-inclusion of a directory makes all files in the directory
-unignored.  For example, suppose you have files <literal>.gitignore</literal>,
-<literal>dir/file1</literal>, <literal>dir/file2</literal>, and <literal>dir/file3</literal>, and have the following in
-your <literal>.gitignore</literal>:</simpara>
-<literallayout class="monospaced"># .gitignore is not mentioned in .gitignore
-*
-!/dir
-# dir/file1 is not mentioned in .gitignore
-dir/file2
-!dir/file3</literallayout><simpara></simpara>
-<simpara>Then:</simpara>
-<itemizedlist>
-<listitem>
-<simpara>
-<literal>.gitignore</literal> gets ignored, because it matches the <literal>*</literal> at the top
-   level;
-</simpara>
-</listitem>
-<listitem>
-<simpara>
-<literal>dir/file1</literal> does not get ignored, because <literal>/dir</literal> marks everything
-   underneath <literal>dir/</literal> directory to be <emphasis>re-included</emphasis> unless otherwise
-   specified;
-</simpara>
-</listitem>
-<listitem>
-<simpara>
-<literal>dir/file2</literal> gets ignored, because <literal>dir/file2</literal> matches it.
-</simpara>
-</listitem>
-<listitem>
-<simpara>
-<literal>dir/file3</literal> does not get ignored, because <literal>!dir/file3</literal> matches it.
-   Note that the entry <literal>!dir/file3</literal> is redundant because everything
-   underneath <literal>dir/</literal> is marked to be <emphasis>re-included</emphasis> already.
-</simpara>
-</listitem>
-</itemizedlist>
-<simpara>Some earlier versions of Git treated <literal>!/dir</literal> above differently in
-that it did not cause the paths under it unignored (but merely told
-Git that patterns that begin with dir/ should not be ignored), but
-this has been corrected to be consistent with <literal>/dir</literal> that says "the
-directory <literal>dir/</literal> and everything below are ignored."</simpara>
 </refsect1>
 <refsect1 id="_examples">
 <title>EXAMPLES</title>

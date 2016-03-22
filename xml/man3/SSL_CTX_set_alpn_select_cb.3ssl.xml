@@ -4,8 +4,8 @@
     <refentrytitle>SSL_CTX_set_alpn_select_cb.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>SSL_CTX_set_alpn_select_cb, SSL_CTX_set_alpn_protos, SSL_set_alpn_protos,
-SSL_get0_alpn_selected, SSL_select_next_proto</refname>
+    <refname>SSL_CTX_set_alpn_protos, SSL_set_alpn_protos, SSL_CTX_set_alpn_select_cb,
+SSL_select_next_proto, SSL_get0_alpn_selected</refname>
 <refpurpose>handle application layer
 protocol negotiation (ALPN)</refpurpose>
   </refnamediv>
@@ -39,7 +39,7 @@ void SSL_get0_alpn_selected(const SSL *ssl, const unsigned char **data,
     </para>
     <para>
       SSL_CTX_set_alpn_select_cb() sets the application callback <emphasis role="bold">cb</emphasis> used by a server to select which protocol
-      to use for the incoming connection. When <emphasis role="bold">cb</emphasis> is NULL, no ALPN is not used. The <emphasis role="bold">arg</emphasis> value is pointer which is passed to the
+      to use for the incoming connection. When <emphasis role="bold">cb</emphasis> is NULL, ALPN is not used. The <emphasis role="bold">arg</emphasis> value is a pointer which is passed to the
       application callback.
     </para>
     <para>
@@ -47,7 +47,7 @@ void SSL_get0_alpn_selected(const SSL *ssl, const unsigned char **data,
       callback. The <emphasis role="bold">in</emphasis>, <emphasis role="bold">inlen</emphasis> parameters are a vector in protocol-list
       format. The value of the <emphasis role="bold">out</emphasis>,
       <emphasis role="bold">outlen</emphasis> vector should be set to the
-      value of a single protocol contained with in the <emphasis role="bold">in</emphasis>, <emphasis role="bold">inlen</emphasis>
+      value of a single protocol selected from the <emphasis role="bold">in</emphasis>, <emphasis role="bold">inlen</emphasis>
       vector. The <emphasis role="bold">arg</emphasis> parameter is the
       pointer set via SSL_CTX_set_alpn_select_cb().
     </para>
@@ -55,7 +55,7 @@ void SSL_get0_alpn_selected(const SSL *ssl, const unsigned char **data,
       SSL_select_next_proto() is a helper function used to select
       protocols. It implements the standard protocol selection. It is
       expected that this function is called from the application callback
-      <emphasis role="bold">cb</emphasis>. The protocol data in <emphasis role="bold">server</emphasis>, <emphasis role="bold">server_len</emphasis> and <emphasis role="bold">client</emphasis>, <emphasis role="bold">client_len</emphasis> must be in protocol-list format
+      <emphasis role="bold">cb</emphasis>. The protocol data in <emphasis role="bold">server</emphasis>, <emphasis role="bold">server_len</emphasis> and <emphasis role="bold">client</emphasis>, <emphasis role="bold">client_len</emphasis> must be in the protocol-list format
       described below. The first item in the <emphasis role="bold">server</emphasis>, <emphasis role="bold">server_len</emphasis> list that matches an item in the
       <emphasis role="bold">client</emphasis>, <emphasis role="bold">client_len</emphasis> list is selected, and returned in
       <emphasis role="bold">out</emphasis>, <emphasis role="bold">outlen</emphasis>. The <emphasis role="bold">out</emphasis> value will point into either <emphasis role="bold">server</emphasis> or <emphasis role="bold">client</emphasis>, so it should be copied immediately. If
@@ -65,8 +65,7 @@ void SSL_get0_alpn_selected(const SSL *ssl, const unsigned char **data,
     <para>
       SSL_get0_alpn_selected() returns a pointer to the selected protocol
       in <emphasis role="bold">data</emphasis> with length <emphasis role="bold">len</emphasis>. It is not NUL-terminated. <emphasis role="bold">data</emphasis> is set to NULL and <emphasis role="bold">len</emphasis> is set to 0 if no protocol has been
-      selected. <emphasis role="bold">data</emphasis> value must not be
-      freed.
+      selected. <emphasis role="bold">data</emphasis> must not be freed.
     </para>
   </refsection>
   <refsection xml:id="ID-c1c28fc67655d6f0451f3cd135bcf345"><title>NOTES</title>

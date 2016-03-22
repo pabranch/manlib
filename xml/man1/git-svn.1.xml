@@ -1669,6 +1669,8 @@ listed below are allowed:</simpara>
         url = http://server.org/svn
         fetch = trunk/project-a:refs/remotes/project-a/trunk
         branches = branches/*/project-a:refs/remotes/project-a/branches/*
+        branches = branches/release_*:refs/remotes/project-a/branches/release_*
+        branches = branches/re*se:refs/remotes/project-a/branches/*
         tags = tags/*/project-a:refs/remotes/project-a/tags/*</literallayout><simpara></simpara>
 <simpara>Keep in mind that the <emphasis>*</emphasis> (asterisk) wildcard of the local ref
 (right of the <emphasis>:</emphasis>) <emphasis role="strong">must</emphasis> be the farthest right path component;
@@ -1676,6 +1678,11 @@ however the remote wildcard may be anywhere as long as it&#8217;s an
 independent path component (surrounded by <emphasis>/</emphasis> or EOL).   This
 type of configuration is not automatically created by <emphasis>init</emphasis> and
 should be manually entered with a text-editor or using <emphasis>git config</emphasis>.</simpara>
+<simpara>Also note that only one asterisk is allowed per word. For example:</simpara>
+<literallayout class="monospaced">branches = branches/re*se:refs/remotes/project-a/branches/*</literallayout>
+<simpara>will match branches <emphasis>release</emphasis>, <emphasis>rese</emphasis>, <emphasis>re123se</emphasis>, however</simpara>
+<literallayout class="monospaced">branches = branches/re*s*e:refs/remotes/project-a/branches/*</literallayout>
+<simpara>will produce an error.</simpara>
 <simpara>It is also possible to fetch a subset of branches or tags by using a
 comma-separated list of names within braces. For example:</simpara>
 <literallayout class="monospaced">[svn-remote "huge-project"]
