@@ -1,0 +1,61 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0" xml:id="ostree">
+
+    <info>
+        
+        <productname>OSTree</productname>
+
+        <authorgroup>
+            <author><personname><firstname>Colin</firstname><surname>Walters</surname></personname><contrib>Developer</contrib><email>walters@verbum.org</email></author>
+        </authorgroup>
+    </info>
+
+    <refmeta>
+        <refentrytitle>ostree admin unlock</refentrytitle>
+        <manvolnum>1</manvolnum>
+    </refmeta>
+
+    <refnamediv>
+        <refname>ostree-admin-unlock</refname>
+        <refpurpose>Prepare the current deployment for hotfix or development</refpurpose>
+    </refnamediv>
+
+    <refsynopsisdiv>
+            <cmdsynopsis sepchar=" ">
+                <command>ostree admin unlock</command> <arg choice="opt" rep="repeat">OPTIONS</arg>
+            </cmdsynopsis>
+    </refsynopsisdiv>
+
+    <refsect1>
+        <title>Description</title>
+
+        <para>
+	  Remove the read-only bind mount on <literal>/usr</literal>
+	  and replace it with a writable overlay filesystem.  This
+	  default invocation of "unlock" is intended for
+	  development/testing purposes.  All changes in the overlay
+	  are lost on reboot.  However, this command also supports
+	  "hotfixes", see below.
+        </para>
+    </refsect1>
+
+    <refsect1>
+        <title>Options</title>
+
+        <variablelist>
+            <varlistentry>
+                <term><option>--hotfix</option></term>
+
+                <listitem><para>If this option is provided, the
+                current deployment will be cloned as a rollback
+                target.  This option is intended for things like
+                emergency security updates to userspace components
+                such as <literal>sshd</literal>.  The semantics here
+		differ from the default "development" unlock mode
+		in that reboots will retain any changes (which is what
+		you likely want for security hotfixes).
+                </para></listitem>
+            </varlistentry>
+        </variablelist>
+    </refsect1>
+</refentry>
