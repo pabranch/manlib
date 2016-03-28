@@ -196,6 +196,42 @@ a privileged user
 .RB ( CAP_SYS_ADMIN )
 can retrieve the quotas of any user.
 .TP
+.BR Q_GETNEXTQUOTA " (since Linux 4.6)"
+.\" commit 926132c0257a5a8d149a6a395cc3405e55420566
+This operation is the same as
+.BR Q_GETQUOTA ,
+but it returns quota information for the next ID greater than or equal to
+.IR id
+that has a quota set.
+
+The
+.I addr
+argument is a pointer to a
+.I nextdqblk
+structure whose fields are as for the
+.IR dqblk ,
+except for the addition of a
+.I dqb_id
+field that is used to return the ID for which
+quota information is being returned:
+
+.nf
+.in +4n
+struct nextdqblk {
+    uint64_t dqb_bhardlimit;
+    uint64_t dqb_bsoftlimit;
+    uint64_t dqb_curspace;
+    uint64_t dqb_ihardlimit;
+    uint64_t dqb_isoftlimit;
+    uint64_t dqb_curinodes;
+    uint64_t dqb_btime;
+    uint64_t dqb_itime;
+    uint32_t dqb_valid;
+    uint32_t dqb_id;
+};
+.in
+.fi
+.TP
 .B Q_SETQUOTA
 Set quota information for user or group
 .IR id ,
@@ -216,7 +252,7 @@ operations in the previous quota interfaces.
 This operation requires privilege
 .RB ( CAP_SYS_ADMIN ).
 .TP
-.B Q_GETINFO
+.BR Q_GETINFO " (since Linux 2.4.22)"
 Get information (like grace times) about quotafile.
 The
 .I addr
@@ -275,7 +311,7 @@ The
 .I id
 argument is ignored.
 .TP
-.B Q_SETINFO
+.BR Q_SETINFO " (since Linux 2.4.22)"
 Set information about quotafile.
 The
 .I addr
@@ -299,7 +335,7 @@ argument is ignored.
 This operation requires privilege
 .RB ( CAP_SYS_ADMIN ).
 .TP
-.B Q_GETFMT
+.BR Q_GETFMT " (since Linux 2.4.22)"
 Get quota format used on the specified filesystem.
 The
 .I addr
@@ -317,7 +353,7 @@ and
 .I id
 arguments are ignored.
 .TP
-.B Q_GETSTATS
+.BR Q_GETSTATS " (supported up to Linux 2.4.21)"
 Get statistics and other generic information about the quota subsystem.
 The
 .I addr
@@ -331,8 +367,8 @@ The
 and
 .I id
 arguments are ignored.
-This operation is obsolete and not supported by recent kernels.
-.\" Q_GETSTATS was removed in kernel 2.4.22.
+
+This operation is obsolete and was removed in Linux 2.4.22.
 Files in
 .I /proc/sys/fs/quota/
 carry the information instead.
@@ -386,6 +422,14 @@ a privileged user
 .RB ( CAP_SYS_ADMIN )
 may retrieve the quotas of any user.
 .TP
+.BR Q_XGETNEXTQUOTA " (since Linux 4.6)"
+.\" commit 8b37524962b9c54423374717786198f5c0820a28
+This operation is the same as
+.BR Q_XGETQUOTA ,
+but it returns quota information for the next ID greater than or equal to
+.IR id
+that has a quota set.
+.TP
 .B Q_XSETQLIM
 Set disk quota limits for user
 .IR id .
@@ -426,6 +470,24 @@ is returned, and
 is set to indicate the error.
 .SH ERRORS
 .TP
+.B EACCES
+.I cmd
+is
+.BR Q_QUOTAON ,
+and the quota file pointed to by
+.I addr
+exists, but is not a regular file or
+is not on the filesystem pointed to by
+.IR special .
+.TP
+.B EBUSY
+.I cmd
+is
+.BR Q_QUOTAON ,
+but another
+.B Q_QUOTAON
+had already been performed.
+.TP
 .B EFAULT
 .I addr
 or
@@ -437,6 +499,12 @@ is invalid.
 or
 .I type
 is invalid.
+.TP
+.B EINVAL
+.I cmd
+is
+.BR Q_QUOTAON ,
+but the specified quota file is corrupted.
 .TP
 .B ENOENT
 The file specified by
@@ -459,51 +527,31 @@ The caller lacked the required privilege
 .RB ( CAP_SYS_ADMIN )
 for the specified operation.
 .TP
-.B ESRCH
-No disk quota is found for the indicated user.
-Quotas have not been turned on for this filesystem.
-.LP
-If
+.B ERANGE
 .I cmd
 is
 .BR Q_SETQUOTA ,
-.BR quotactl ()
-may also set
-.I errno
-to:
+but the specified limits are out of the range allowed by the quota format.
 .TP
-.B ERANGE
-Specified limits are out of range allowed by quota format.
-.LP
-If
+.B ESRCH
+No disk quota is found for the indicated user.
+Quotas have not been turned on for this filesystem.
+.TP
+.B ESRCH
 .I cmd
 is
 .BR Q_QUOTAON ,
-.BR quotactl ()
-may also set
-.I errno
-to:
-.TP
-.B EACCES
-The quota file pointed to by
-.I addr
-exists, but is not a regular file; or,
-the quota file pointed to by
-.I addr
-exists, but is not on the filesystem pointed to by
-.IR special .
-.TP
-.B EBUSY
-.B Q_QUOTAON
-attempted, but another
-.B Q_QUOTAON
-had already been performed.
-.TP
-.B EINVAL
-The quota file is corrupted.
+but the specified quota format was not found.
 .TP
 .B ESRCH
-Specified quota format was not found.
+.I cmd
+is
+.B Q_GETNEXTQUOTA
+or
+.BR Q_XGETNEXTQUOTA ,
+but there is no ID greater than or equal to
+.IR id
+that has an active quota.
 .SH SEE ALSO
 .BR quota (1),
 .BR getrlimit (2),
