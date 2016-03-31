@@ -4,13 +4,14 @@
     <refentrytitle>BIO_push.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>BIO_push, BIO_pop</refname>
+    <refname>BIO_push, BIO_pop, BIO_set_next</refname>
 <refpurpose>add and remove BIOs from a chain.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/bio.h&gt;</synopsis>
-<synopsis>BIO *  BIO_push(BIO *b,BIO *append);
-BIO *  BIO_pop(BIO *b);</synopsis>
+<synopsis>BIO *BIO_push(BIO *b,BIO *append);
+BIO *BIO_pop(BIO *b);
+void BIO_set_next(BIO *b, BIO *next);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-57f2093ebf9cc849538c76ed27b95473"><title>DESCRIPTION</title>
     <para>
@@ -23,6 +24,12 @@ BIO *  BIO_pop(BIO *b);</synopsis>
       next BIO. The removed BIO then becomes a single BIO with no
       association with the original chain, it can thus be freed or attached
       to a different chain.
+    </para>
+    <para>
+      BIO_set_next() replaces the existing next BIO in a chain with the BIO
+      pointed to by <emphasis role="bold">next</emphasis>. The new chain
+      may include some of the same BIOs from the old chain or it may be
+      completely different.
     </para>
   </refsection>
   <refsection xml:id="ID-7984194b0c6a61facb2e9bdb8439ab03"><title>NOTES</title>
@@ -81,7 +88,12 @@ BIO_push(md1, md2);</screen>
   </refsection>
   <refsection xml:id="ID-e4224c6175c862c577f3ab4d1c95a977"><title>SEE ALSO</title>
     <para>
-      TBA
+      <citerefentry> <refentrytitle>bio</refentrytitle> </citerefentry>
+    </para>
+  </refsection>
+  <refsection xml:id="ID-2b2529adf22146bb8c7c9d9416259fd3"><title>HISTORY</title>
+    <para>
+      The BIO_set_next() function was added in OpenSSL version 1.1.0.
     </para>
   </refsection>
 </refentry>

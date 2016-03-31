@@ -24,16 +24,17 @@ int    BIO_puts(BIO *b, const char *buf);</synopsis>
       BIO_gets() performs the BIOs "gets" operation and places the data in
       <emphasis role="bold">buf</emphasis>. Usually this operation will
       attempt to read a line of data from the BIO of maximum length
-      <emphasis role="bold">len</emphasis>. There are exceptions to this
-      however, for example BIO_gets() on a digest BIO will calculate and
+      <emphasis role="bold">len-1</emphasis>. There are exceptions to this,
+      however; for example, BIO_gets() on a digest BIO will calculate and
       return the digest and other BIOs may not support BIO_gets() at all.
+      The returned string is always NUL-terminated.
     </para>
     <para>
       BIO_write() attempts to write <emphasis role="bold">len</emphasis>
       bytes from <emphasis role="bold">buf</emphasis> to BIO <emphasis role="bold">b</emphasis>.
     </para>
     <para>
-      BIO_puts() attempts to write a null terminated string <emphasis role="bold">buf</emphasis> to BIO <emphasis role="bold">b</emphasis>.
+      BIO_puts() attempts to write a NUL-terminated string <emphasis role="bold">buf</emphasis> to BIO <emphasis role="bold">b</emphasis>.
     </para>
   </refsection>
   <refsection xml:id="ID-8778c1a28395b3d911007c802379a6ea"><title>RETURN VALUES</title>
@@ -42,7 +43,8 @@ int    BIO_puts(BIO *b, const char *buf);</synopsis>
       read or written (if the return value is positive) or that no data was
       successfully read or written if the result is 0 or -1. If the return
       value is -2 then the operation is not implemented in the specific BIO
-      type.
+      type.  The trailing NUL is not included in the length returned by
+      BIO_gets().
     </para>
   </refsection>
   <refsection xml:id="ID-353835aa224902ff971b95ba8c265641"><title>NOTES</title>

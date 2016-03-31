@@ -1,0 +1,71 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>BIO_get_data.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>BIO_set_data, BIO_get_data, BIO_set_init, BIO_get_init, BIO_set_shutdown,
+BIO_get_shutdown</refname>
+<refpurpose>functions for managing BIO state information</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis>#include &lt;openssl/bio.h&gt;</synopsis>
+<synopsis>void BIO_set_data(BIO *a, void *ptr);
+void *BIO_get_data(BIO *a);
+void BIO_set_init(BIO *a, int init);
+int BIO_get_init(BIO *a);
+void BIO_set_shutdown(BIO *a, int shut);
+int BIO_get_shutdown(BIO *a);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="ID-46a69cad993b0d1f32f62e238be1eefa"><title>DESCRIPTION</title>
+    <para>
+      These functions are mainly useful when implementing a custom BIO.
+    </para>
+    <para>
+      The BIO_set_data() function associates the custom data pointed to by
+      <emphasis role="bold">ptr</emphasis> with the BIO. This data can
+      subsequently be retrieved via a call to BIO_get_data(). This can be
+      used by custom BIOs for storing implementation specific information.
+    </para>
+    <para>
+      The BIO_set_init() function sets the value of the BIO's "init" flag
+      to indicate whether initialisation has been completed for this BIO or
+      not. A non-zero value indicates that initialisation is complete,
+      whilst zero indicates that it is not. Often initialisation will
+      complete during initial construction of the BIO. For some BIOs
+      however, initialisation may not complete until after additional steps
+      have occurred (for example through calling custom ctrls). The
+      BIO_get_init() function returns the value of the "init" flag.
+    </para>
+    <para>
+      The BIO_set_shutdown() and BIO_get_shutdown() functions set and get
+      the state of this BIO's shutdown (i.e. BIO_CLOSE) flag. If set then
+      the underlying resource is also closed when the BIO is freed.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-814c7d45f9f3bfa79b2080c2b254c4b2"><title>RETURN VALUES</title>
+    <para>
+      BIO_get_data() returns a pointer to the implementation specific
+      custom data associated with this BIO, or NULL if none has been set.
+    </para>
+    <para>
+      BIO_get_init() returns the state of the BIO's init flag.
+    </para>
+    <para>
+      BIO_get_shutdown() returns the stat of the BIO's shutdown (i.e.
+      BIO_CLOSE) flag.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-fd29e8c187dbd7f00facd75b8cdafc8f"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>bio</refentrytitle> </citerefentry>,
+      <citerefentry> <refentrytitle>BIO_meth_new</refentrytitle>
+      </citerefentry>
+    </para>
+  </refsection>
+  <refsection xml:id="ID-45567c4e17902dc80037e0e2e9fd3fb5"><title>HISTORY</title>
+    <para>
+      The functions described here were added in OpenSSL version 1.1.0.
+    </para>
+  </refsection>
+</refentry>
