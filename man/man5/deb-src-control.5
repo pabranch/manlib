@@ -54,7 +54,7 @@ minus (-) signs, and periods (.). Package names must be at least two characters
 long and must start with an alphanumeric character.
 
 .TP
-.BR Maintainer: " \fIfullname-email\fP (required)"
+.BR Maintainer: " \fIfullname-email\fP (recommended)"
 Should be in the format \(FoJoe Bloggs <jbloggs@foo.com>\(Fc, and references the
 person who currently maintains the package, as opposed to the author of the
 software or the original packager.
@@ -315,7 +315,7 @@ package for more details about them.
 .TQ
 .BI Tag: " tag-list"
 .TQ
-.BR Description: " \fIshort-description\fP (required)"
+.BR Description: " \fIshort-description\fP (recommended)"
 These fields are described in the
 .BR deb\-control (5)
 manual page, as they are copied literally to the control file of the binary
@@ -351,7 +351,8 @@ It is allowed to add additional user-defined fields to the control file. The
 tools will ignore these fields. If you want the fields to be copied over to
 the output files, such as the binary packages, you need to use a custom naming
 scheme: the fields should start with a X, followed by one or more of the
-letters BCS and a hypen. If the letter B is used, the field will appear in the
+letters BCS and a hyphen.
+If the letter B is used, the field will appear in the
 control file in the binary package, see
 .BR deb\-control (5),
 for the letter S in the source package control file as constructed by
