@@ -58,7 +58,7 @@ configuration file by default, and options <emphasis>--system</emphasis>, <empha
 that location (you can say <emphasis>--local</emphasis> but that is the default).</simpara>
 <simpara>This command will fail with non-zero status upon error.  Some exit
 codes are:</simpara>
-<orderedlist numeration="arabic">
+<itemizedlist>
 <listitem>
 <simpara>
 The config file is invalid (ret=3),
@@ -94,7 +94,7 @@ you try to unset/set an option for which multiple lines match (ret=5), or
 you try to use an invalid regexp (ret=6).
 </simpara>
 </listitem>
-</orderedlist>
+</itemizedlist>
 <simpara>On success, the command returns the exit code 0.</simpara>
 </refsect1>
 <refsect1 id="_options">
@@ -141,8 +141,7 @@ you try to use an invalid regexp (ret=6).
 </term>
 <listitem>
 <simpara>
-        Like get, but does not fail if the number of values for the key
-        is not exactly one.
+        Like get, but returns all values for a multi-valued key.
 </simpara>
 </listitem>
 </varlistentry>
@@ -171,7 +170,7 @@ you try to use an invalid regexp (ret=6).
         given URL is returned (if no such key exists, the value for
         section.key is used as a fallback).  When given just the
         section as name, do so for all the keys in the section and
-        list them.
+        list them.  Returns error code 1 if no value is found.
 </simpara>
 </listitem>
 </varlistentry>
@@ -2688,10 +2687,11 @@ credential.helper
 <simpara>
         Specify an external helper to be called when a username or
         password credential is needed; the helper may consult external
-        storage to avoid prompting the user for the credentials. See
-        <citerefentry>
+        storage to avoid prompting the user for the credentials. Note
+        that multiple helpers may be defined. See <citerefentry>
 <refentrytitle>gitcredentials</refentrytitle><manvolnum>7</manvolnum>
-</citerefentry> for details.
+</citerefentry>
+        for details.
 </simpara>
 </listitem>
 </varlistentry>
@@ -3022,9 +3022,19 @@ diff.renames
 </term>
 <listitem>
 <simpara>
-        Tells Git to detect renames.  If set to any boolean value, it
-        will enable basic rename detection.  If set to "copies" or
-        "copy", it will detect copies, as well.
+        Whether and how Git detects renames.  If set to "false",
+        rename detection is disabled. If set to "true", basic rename
+        detection is enabled.  If set to "copies" or "copy", Git will
+        detect copies, as well.  Defaults to true.  Note that this
+        affects only <emphasis>git diff</emphasis> Porcelain like <citerefentry>
+<refentrytitle>git-diff</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> and
+        <citerefentry>
+<refentrytitle>git-log</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>, and not lower level commands such as
+        <citerefentry>
+<refentrytitle>git-diff-files</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>.
 </simpara>
 </listitem>
 </varlistentry>
@@ -4934,6 +4944,21 @@ interactive.singleKey
 </citerefentry>. Note that this
         setting is silently ignored if portable keystroke input
         is not available; requires the Perl module Term::ReadKey.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+interactive.diffFilter
+</term>
+<listitem>
+<simpara>
+        When an interactive command (such as <literal>git add --patch</literal>) shows
+        a colorized diff, git will pipe the diff through the shell
+        command defined by this configuration variable. The command may
+        mark up the diff further for human consumption, provided that it
+        retains a one-to-one correspondence with the lines in the
+        original diff. Defaults to disabled (no filtering).
 </simpara>
 </listitem>
 </varlistentry>

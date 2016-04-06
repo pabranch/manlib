@@ -44,9 +44,10 @@ BIO_get_mem_ptr(BIO *b,BUF_MEM **pp)</synopsis>
       underlying BUF_MEM structure is also freed.
     </para>
     <para>
-      Calling BIO_reset() on a read write memory BIO clears any data in it.
-      On a read only BIO it restores the BIO to its original state and the
-      read only data can be read again.
+      Calling BIO_reset() on a read write memory BIO clears any data in it
+      if the flag BIO_FLAGS_NONCLEAR_RST is not set. On a read only BIO or
+      if the flag BIO_FLAGS_NONCLEAR_RST is set it restores the BIO to its
+      original state and the data can be read again.
     </para>
     <para>
       BIO_eof() is true if no data is in the BIO.
@@ -108,14 +109,6 @@ BIO_get_mem_ptr(BIO *b,BUF_MEM **pp)</synopsis>
   <refsection xml:id="ID-e939a0526f7d03dbe8d336d275aa2ca2"><title>BUGS</title>
     <para>
       There should be an option to set the maximum size of a memory BIO.
-    </para>
-    <para>
-      There should be a way to "rewind" a read write BIO without destroying
-      its contents.
-    </para>
-    <para>
-      The copying operation should not occur after every small read of a
-      large BIO to improve efficiency.
     </para>
   </refsection>
   <refsection xml:id="ID-5f9fd039d842c8ce9b21a51ce98ccd9e"><title>EXAMPLE</title>

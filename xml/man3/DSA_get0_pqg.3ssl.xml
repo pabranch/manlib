@@ -1,0 +1,124 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>DSA_get0_pqg.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>DSA_get0_pqg, DSA_set0_pqg, DSA_get0_key, DSA_set0_key, DSA_clear_flags,
+DSA_test_flags, DSA_set_flags, DSA_get0_engine</refname>
+<refpurpose>Routines for getting and
+setting data in a DSA object</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis>#include &lt;openssl/dsa.h&gt;</synopsis>
+<synopsis>void DSA_get0_pqg(const DSA *d, BIGNUM **p, BIGNUM **q, BIGNUM **g);
+int DSA_set0_pqg(DSA *d, BIGNUM *p, BIGNUM *q, BIGNUM *g);
+void DSA_get0_key(const DSA *d, BIGNUM **pub_key, BIGNUM **priv_key);
+int DSA_set0_key(DSA *d, BIGNUM *pub_key, BIGNUM *priv_key);
+void DSA_clear_flags(DSA *d, int flags);
+int DSA_test_flags(const DSA *d, int flags);
+void DSA_set_flags(DSA *d, int flags);
+ENGINE *DSA_get0_engine(DSA *d);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="ID-231fad9247412aefc77a9ac891a760d9"><title>DESCRIPTION</title>
+    <para>
+      A DSA object contains the parameters <emphasis role="bold">p</emphasis>, <emphasis role="bold">q</emphasis> and
+      <emphasis role="bold">g</emphasis>. It also contains a public key
+      (<emphasis role="bold">pub_key</emphasis>) and (optionally) a private
+      key (<emphasis role="bold">priv_key</emphasis>).
+    </para>
+    <para>
+      The <emphasis role="bold">p</emphasis>, <emphasis role="bold">q</emphasis> and <emphasis role="bold">g</emphasis>
+      parameters can be obtained by calling DSA_get0_pqg(). If the
+      parameters have not yet been set then <emphasis role="bold">*p</emphasis>, <emphasis role="bold">*q</emphasis> and
+      <emphasis role="bold">*g</emphasis> will be set to NULL. Otherwise
+      they are set to pointers to their respective values. These point
+      directly to the internal representations of the values and therefore
+      should not be freed directly.
+    </para>
+    <para>
+      The <emphasis role="bold">p</emphasis>, <emphasis role="bold">q</emphasis> and <emphasis role="bold">g</emphasis>
+      values can be set by calling DSA_set0_pqg() and passing the new
+      values for <emphasis role="bold">p</emphasis>, <emphasis role="bold">q</emphasis> and <emphasis role="bold">g</emphasis> as
+      parameters to the function. Calling this function transfers the
+      memory management of the values to the DSA object, and therefore the
+      values that have been passed in should not be freed directly after
+      this function has been called.
+    </para>
+    <para>
+      To get the public and private key values use the DSA_get0_key()
+      function. A pointer to the public key will be stored in <emphasis role="bold">*pub_key</emphasis>, and a pointer to the private key
+      will be stored in <emphasis role="bold">*priv_key</emphasis>. Either
+      may be NULL if they have not been set yet, although if the private
+      key has been set then the public key must be. The values point to the
+      internal representation of the public key and private key values.
+      This memory should not be freed directly.
+    </para>
+    <para>
+      The public and private key values can be set using DSA_set0_key().
+      The public key must always be non-NULL. The private key may be NULL.
+      As for DSA_set0_pqg() this function transfers the memory management
+      of the key values to the DSA object, and therefore they should not be
+      freed directly after this function has been called.
+    </para>
+    <para>
+      DSA_set_flags() sets the flags in the <emphasis role="bold">flags</emphasis> parameter on the DSA object. Multiple
+      flags can be passed in one go (bitwise ORed together). Any flags that
+      are already set are left set. DSA_test_flags() tests to see whether
+      the flags passed in the <emphasis role="bold">flags</emphasis>
+      parameter are currently set in the DSA object. Multiple flags can be
+      tested in one go. All flags that are currently set are returned, or
+      zero if none of the flags are set. DSA_clear_flags() clears the
+      specified flags within the DSA object.
+    </para>
+    <para>
+      DSA_get0_engine() returns a handle to the ENGINE that has been set
+      for this DSA object, or NULL if no such ENGINE has been set.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-0726f4e35b0d2ed58d5c2aeda324ef68"><title>RETURN VALUES</title>
+    <para>
+      DSA_set0_pqg() and DSA_set0_key() return 1 on success or 0 on
+      failure.
+    </para>
+    <para>
+      DSA_test_flags() returns the current state of the flags in the DSA
+      object.
+    </para>
+    <para>
+      DSA_get0_engine() returns the ENGINE set for the DSA object or NULL
+      if no ENGINE has been set.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-f46314969382336d54972f5a8ef91a88"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>dsa</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>DSA_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>DSA_generate_parameters</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>DSA_generate_key</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>DSA_dup_DH</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>DSA_do_sign</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>DSA_set_method</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>DSA_SIG_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>DSA_sign</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>DSA_size</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>DSA_meth_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>
+    </para>
+  </refsection>
+  <refsection xml:id="ID-adb6a45ab45141fb17aef183783b35a2"><title>HISTORY</title>
+    <para>
+      The functions described here were added in OpenSSL version 1.1.0.
+    </para>
+  </refsection>
+</refentry>

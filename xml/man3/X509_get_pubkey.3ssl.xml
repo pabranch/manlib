@@ -5,9 +5,10 @@
   </refmeta>
   <refnamediv>
     <refname>X509_get_pubkey, X509_get0_pubkey, X509_set_pubkey, X509_get_X509_PUBKEY,
-X509_REQ_get_pubkey, X509_REQ_set_pubkey, X509_REQ_get_X509_PUBKEY</refname>
-<refpurpose>get or
-set certificate or certificate request public key.</refpurpose>
+X509_REQ_get_pubkey, X509_REQ_get0_pubkey, X509_REQ_set_pubkey, 
+X509_REQ_get_X509_PUBKEY</refname>
+<refpurpose>get or set certificate or certificate request 
+public key.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/x509.h&gt;</synopsis>
@@ -16,6 +17,7 @@ EVP_PKEY *X509_get0_pubkey(X509 *x);
 int X509_set_pubkey(X509 *x, EVP_PKEY *pkey);
 X509_PUBKEY *X509_get_X509_PUBKEY(X509 *x);</synopsis>
 <synopsis>EVP_PKEY *X509_REQ_get_pubkey(X509_REQ *req);
+EVP_PKEY *X509_REQ_get0_pubkey(X509_REQ *req);
 int X509_REQ_set_pubkey(X509_REQ *x, EVP_PKEY *pkey);
 X509_PUBKEY *X509_REQ_get_X509_PUBKEY(X509_REQ *x);</synopsis>
   </refsynopsisdiv>
@@ -40,8 +42,8 @@ X509_PUBKEY *X509_REQ_get_X509_PUBKEY(X509_REQ *x);</synopsis>
       <emphasis role="bold">x</emphasis> to <emphasis role="bold">pkey</emphasis>. The key <emphasis role="bold">pkey</emphasis> should be freed up after use.
     </para>
     <para>
-      X509_REQ_get_pubkey(), X509_REQ_set_pubkey() and
-      X509_REQ_get_X509_PUBKEY() are similar but operate on certificate
+      X509_REQ_get_pubkey(), X509_REQ_get0_pubkey(), X509_REQ_set_pubkey()
+      and X509_REQ_get_X509_PUBKEY() are similar but operate on certificate
       request <emphasis role="bold">req</emphasis>.
     </para>
   </refsection>
@@ -60,7 +62,7 @@ X509_PUBKEY *X509_REQ_get_X509_PUBKEY(X509_REQ *x);</synopsis>
       key or <emphasis role="bold">NULL</emphasis> if an error occurred.
     </para>
     <para>
-      X509_set_pubkey() and X509_REQ_set_pubkey() rerturn 1 for success and
+      X509_set_pubkey() and X509_REQ_set_pubkey() return 1 for success and
       0 for failure.
     </para>
   </refsection>

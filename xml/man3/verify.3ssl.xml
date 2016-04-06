@@ -40,6 +40,7 @@
 [<emphasis role="bold">-trusted file</emphasis>]
 [<emphasis role="bold">-use_deltas</emphasis>]
 [<emphasis role="bold">-verbose</emphasis>]
+[<emphasis role="bold">-auth_level level</emphasis>]
 [<emphasis role="bold">-verify_depth num</emphasis>]
 [<emphasis role="bold">-verify_email email</emphasis>]
 [<emphasis role="bold">-verify_hostname hostname</emphasis>]
@@ -363,10 +364,40 @@
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term><emphasis role="bold">-auth_level level</emphasis></term>
+          <listitem>
+            <para>
+	      Set the certificate chain authentication security level to
+	      <emphasis role="bold">level</emphasis>. The authentication
+	      security level determines the acceptable signature and public
+	      key strength when verifying certificate chains. For a
+	      certificate chain to validate, the public keys of all the
+	      certificates must meet the specified security <emphasis role="bold">level</emphasis>. The signature algorithm
+	      security level is enforced for all the certificates in the
+	      chain except for the chain's <emphasis role="italic">trust
+	      anchor</emphasis>, which is either directly trusted or
+	      validated by means other than its signature. See
+	      <citerefentry>
+	      <refentrytitle>SSL_CTX_set_security_level</refentrytitle>
+	      <manvolnum>3</manvolnum> </citerefentry> for the definitions
+	      of the available levels. The default security level is -1, or
+	      "not set". At security level 0 or lower all algorithms are
+	      acceptable. Security level 1 requires at least
+	      80-bit-equivalent security and is broadly interoperable,
+	      though it will, for example, reject MD5 signatures or RSA
+	      keys shorter than 1024 bits.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term><emphasis role="bold">-verify_depth num</emphasis></term>
           <listitem>
             <para>
-	      Limit the maximum depth of the certificate chain to <emphasis role="bold">num</emphasis> certificates.
+	      Limit the certificate chain to <emphasis role="bold">num</emphasis> intermediate CA certificates. A
+	      maximal depth chain can have up to <emphasis role="bold">num+2</emphasis> certificates, since neither the
+	      end-entity certificate nor the trust-anchor certificate count
+	      against the <emphasis role="bold">-verify_depth</emphasis>
+	      limit.
             </para>
           </listitem>
         </varlistentry>
