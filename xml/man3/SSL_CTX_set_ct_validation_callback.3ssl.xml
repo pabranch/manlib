@@ -4,41 +4,101 @@
     <refentrytitle>SSL_CTX_set_ct_validation_callback.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>SSL_set_ct_validation_callback, SSL_CTX_set_ct_validation_callback,
-SSL_get_ct_validation_callback, SSL_CTX_get_ct_validation_callback</refname>
+    <refname>SSL_ct_enable, SSL_CTX_ct_enable, SSL_ct_disable, SSL_CTX_ct_disable,
+SSL_set_ct_validation_callback, SSL_CTX_set_ct_validation_callback,
+SSL_ct_is_enabled, SSL_CTX_ct_is_enabled</refname>
 <refpurpose>control Certificate Transparency policy</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
-<synopsis>int SSL_set_ct_validation_callback(SSL *s, ct_validation_cb callback, void *arg);
-int SSL_CTX_set_ct_validation_callback(SSL_CTX *ctx, ct_validation_cb callback, void *arg);
-ct_validation_cb SSL_get_ct_validation_callback(const SSL *s);
-ct_validation_cb SSL_CTX_get_ct_validation_callback(const SSL_CTX *ctx);</synopsis>
+<synopsis>int SSL_ct_enable(SSL *s, int validation_mode);
+int SSL_CTX_ct_enable(SSL_CTX *ctx, int validation_mode);
+int SSL_set_ct_validation_callback(SSL *s, ssl_ct_validation_cb callback,
+                                   void *arg);
+int SSL_CTX_set_ct_validation_callback(SSL_CTX *ctx,
+                                       ssl_ct_validation_cb callback,
+                                       void *arg);
+void SSL_ct_disable(SSL *s);
+void SSL_CTX_ct_disable(SSL_CTX *ctx);
+int SSL_ct_is_enabled(const SSL *s);
+int SSL_CTX_ct_is_enabled(const SSL_CTX *ctx);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-82fda6a3b73afd28f2b6f56d11329a08"><title>DESCRIPTION</title>
     <para>
-      SSL_set_ct_validation_callback() and
-      SSL_CTX_set_ct_validation_callback() set the function that is called
-      when Certificate Transparency validation needs to occur. It is the
-      responsibility of this function to examine the signed certificate
-      timestamps (SCTs) that are passed to it and determine whether they
-      are sufficient to allow the connection to continue. If they are, the
-      function must return 1, otherwise it must return 0.
+      SSL_ct_enable() and SSL_CTX_ct_enable() enable the processing of
+      signed certificate timestamps (SCTs) either for a given SSL
+      connection or for all connections that share the given SSL context,
+      respectively. This is accomplished by setting a built-in CT
+      validation callback. The behaviour of the callback is determined by
+      the <emphasis role="bold">validation_mode</emphasis> argument, which
+      can be either of <emphasis role="bold">SSL_CT_VALIDATION_PERMISSIVE</emphasis> or <emphasis role="bold">SSL_CT_VALIDATION_STRICT</emphasis> as described below.
     </para>
     <para>
-      An arbitrary piece of user data, <emphasis role="bold">arg</emphasis>, can be passed in when setting the
+      If <emphasis role="bold">validation_mode</emphasis> is equal to
+      <emphasis role="bold">SSL_CT_VALIDATION_PERMISSIVE</emphasis>, then
+      the handshake continues regardless of the validation status of any
+      SCTs. The application can inspect the validation status of the SCTs
+      at handshake completion. Note that with session resumption there will
+      not be any SCTs presented during the handshake. Therefore, in
+      applications that delay SCT policy enforcement until after handshake
+      completion, SCT checks should only be performed when the session is
+      not reused. See <citerefentry>
+      <refentrytitle>SSL_session_reused</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>.
+    </para>
+    <para>
+      If <emphasis role="bold">validation_mode</emphasis> is equal to
+      <emphasis role="bold">SSL_CT_VALIDATION_STRICT</emphasis>, then in a
+      full TLS handshake with the verification mode set to <emphasis role="bold">SSL_VERIFY_PEER</emphasis>, if the peer presents no valid
+      SCTs the handshake will be aborted. See <citerefentry>
+      <refentrytitle>SSL_set_verify</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>.
+    </para>
+    <para>
+      SSL_set_ct_validation_callback() and
+      SSL_CTX_set_ct_validation_callback() register a custom callback that
+      may implement a different policy than either of the above. This
+      callback can examine the peer's SCTs and determine whether they are
+      sufficient to allow the connection to continue. The TLS handshake is
+      aborted if the verification mode is not <emphasis role="bold">SSL_VERIFY_NONE</emphasis> and the callback returns a
+      non-positive result.
+    </para>
+    <para>
+      An arbitrary callback context argument, <emphasis role="bold">arg</emphasis>, can be passed in when setting the
       callback. This will be passed to the callback whenever it is invoked.
-      Ownership of this userdata remains with the caller.
+      Ownership of this context remains with the caller.
     </para>
     <para>
       If no callback is set, SCTs will not be requested and Certificate
       Transparency validation will not occur.
     </para>
+    <para>
+      No callback will be invoked when the peer presents no certificate,
+      e.g. by employing an anonymous (aNULL) ciphersuite. In that case the
+      handshake continues as it would had no callback been requested.
+      Callbacks are also not invoked when the peer certificate chain is
+      invalid or validated via DANE-TA(2) or DANE-EE(3) TLSA records which
+      use a private X.509 PKI, or no X.509 PKI at all, respectively.
+      Clients that require SCTs are expected to not have enabled any aNULL
+      ciphers nor to have specified server verification via DANE-TA(2) or
+      DANE-EE(3) TLSA records.
+    </para>
+    <para>
+      SSL_ct_disable() and SSL_CTX_ct_disable() turn off CT processing,
+      whether enabled via the built-in or the custom callbacks, by setting
+      a NULL callback. These may be implemented as macros.
+    </para>
+    <para>
+      SSL_ct_is_enabled() and SSL_CTX_ct_is_enabled() return 1 if CT
+      processing is enabled via either SSL_ct_enable() or a non-null custom
+      callback, and 0 otherwise.
+    </para>
   </refsection>
   <refsection xml:id="ID-df305bc208ce94f4519a579bd7a90ad9"><title>NOTES</title>
     <para>
-      If a callback is set, OCSP stapling will be enabled. This is because
-      one possible source of SCTs is the OCSP response from a server.
+      When SCT processing is enabled, OCSP stapling will be enabled. This
+      is because one possible source of SCTs is the OCSP response from a
+      server.
     </para>
   </refsection>
   <refsection xml:id="ID-394631a6719ba0c141681aed18a1142a"><title>RESTRICTIONS</title>
@@ -47,33 +107,35 @@ ct_validation_cb SSL_CTX_get_ct_validation_callback(const SSL_CTX *ctx);</synops
       callback cannot be set if a custom client extension handler has been
       registered to handle SCT extensions (<emphasis role="bold">TLSEXT_TYPE_signed_certificate_timestamp</emphasis>).
     </para>
-    <para>
-      If an SCT callback is enabled, a handshake may fail if the peer does
-      not provide a certificate, which can happen when using opportunistic
-      encryption with anonymous (<emphasis role="bold">aNULL</emphasis>)
-      cipher-suites enabled on both ends. SCTs should only be used when the
-      application requires an authenticated connection, and wishes to
-      perform additional validation on that identity.
-    </para>
   </refsection>
   <refsection xml:id="ID-bad6f8fc2f0bd1f798981eb682868275"><title>RETURN VALUES</title>
     <para>
+      SSL_ct_enable(), SSL_CTX_ct_enable(),
       SSL_CTX_set_ct_validation_callback() and
       SSL_set_ct_validation_callback() return 1 if the <emphasis role="bold">callback</emphasis> is successfully set. They return 0 if
       an error occurs, e.g. a custom client extension handler has been
       setup to handle SCTs.
     </para>
     <para>
-      SSL_CTX_get_ct_validation_callback() and
-      SSL_get_ct_validation_callback() return the current callback, or NULL
-      if no callback is set.
+      SSL_ct_disable() and SSL_CTX_ct_disable() do not return a result.
+    </para>
+    <para>
+      SSL_CTX_ct_is_enabled() and SSL_ct_is_enabled() return a 1 if a
+      non-null CT validation callback is set, or 0 if no callback (or
+      equivalently a NULL callback) is set.
     </para>
   </refsection>
   <refsection xml:id="ID-ebd0e4a347e091630963e9a5d92ed206"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>ssl</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
-      <refentrytitle>ct_validation_cb</refentrytitle>
+      <refentrytitle>SSL_session_reused</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_set_verify</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>SSL_CTX_set_verify</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>ssl_ct_validation_cb</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>
     </para>
   </refsection>

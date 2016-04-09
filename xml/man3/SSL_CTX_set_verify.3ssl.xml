@@ -129,8 +129,8 @@ void SSL_set_verify_depth(SSL *s, int depth);</synopsis>
       </variablelist>
     </para>
     <para>
-      Exactly one of the <emphasis role="bold">mode</emphasis> flags
-      SSL_VERIFY_NONE and SSL_VERIFY_PEER must be set at any time.
+      If the <emphasis role="bold">mode</emphasis> is SSL_VERIFY_NONE none
+      of the other flags may be set.
     </para>
     <para>
       The actual verification procedure is performed either using the
@@ -199,20 +199,6 @@ void SSL_set_verify_depth(SSL *s, int depth);</synopsis>
       <emphasis role="bold">preverify_ok</emphasis>, so that any
       verification failure will lead to a termination of the TLS/SSL
       handshake with an alert message, if SSL_VERIFY_PEER is set.
-    </para>
-  </refsection>
-  <refsection xml:id="ID-b621738ec7c3871ecb4be56f76d27523"><title>BUGS</title>
-    <para>
-      In client mode, it is not checked whether the SSL_VERIFY_PEER flag is
-      set, but whether SSL_VERIFY_NONE is not set. This can lead to
-      unexpected behaviour, if the SSL_VERIFY_PEER and SSL_VERIFY_NONE are
-      not used as required (exactly one must be set at any time).
-    </para>
-    <para>
-      The certificate verification depth set with SSL[_CTX]_verify_depth()
-      stops the verification at a certain depth. The error message produced
-      will be that of an incomplete certificate chain and not
-      X509_V_ERR_CERT_CHAIN_TOO_LONG as may be expected.
     </para>
   </refsection>
   <refsection xml:id="ID-228736fd995106ea5f3ee3fa4f4ab980"><title>RETURN VALUES</title>

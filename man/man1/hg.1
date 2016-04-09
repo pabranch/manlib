@@ -2184,7 +2184,7 @@ show revisions sorted by date:
 .sp
 .nf
 .ft C
-hg log \-r \(aqsort(all(), date)\(aq
+hg log \-r "sort(all(), date)"
 .ft P
 .fi
 .UNINDENT
@@ -5215,10 +5215,6 @@ command to delete untracked files from the working directory
 .B rebase
 .
 command to move sets of revisions to a different ancestor
-.TP
-.B record
-.
-commands to interactively select changes for commit/qrefresh
 .TP
 .B relink
 .
@@ -9265,8 +9261,8 @@ Please use \%\fBhg log\fP\: instead:
 .sp
 .nf
 .ft C
-hg children => hg log \-r \(aqchildren()\(aq
-hg children \-r REV => hg log \-r \(aqchildren(REV)\(aq
+hg children => hg log \-r "children()"
+hg children \-r REV => hg log \-r "children(REV)"
 .ft P
 .fi
 .sp
@@ -11616,7 +11612,7 @@ To start a new repository or add new large binary files, just add
 .ft C
 $ dd if=/dev/urandom of=randomdata count=2000
 $ hg add \-\-large randomdata
-$ hg commit \-m \(aqadd randomdata as a largefile\(aq
+$ hg commit \-m "add randomdata as a largefile"
 .ft P
 .fi
 .sp
@@ -13811,7 +13807,10 @@ display with template
 [+] marked option can be specified multiple times
 .SS record
 .sp
-commands to interactively select changes for commit/qrefresh
+commands to interactively select changes for commit/qrefresh (DEPRECATED)
+.sp
+The feature provided by this extension has been moved into core Mercurial as
+\%\fBhg commit \-\-interactive\fP\:.
 .SS Commands
 .SS qrecord
 .sp

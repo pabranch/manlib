@@ -19,7 +19,7 @@
           [-o &lt;name&gt;] [-b &lt;name&gt;] [-u &lt;upload-pack&gt;] [--reference &lt;repository&gt;]
           [--dissociate] [--separate-git-dir &lt;git dir&gt;]
           [--depth &lt;depth&gt;] [--[no-]single-branch]
-          [--recursive | --recurse-submodules] [--] &lt;repository&gt;
+          [--recursive | --recurse-submodules] [--jobs &lt;n&gt;] [--] &lt;repository&gt;
           [&lt;directory&gt;]</literallayout>
 <simpara></simpara>
 </refsynopsisdiv>
@@ -380,6 +380,20 @@ objects from the source repository into a pack in the cloned repository.</simpar
         then make a filesystem-agnostic Git symbolic link to there.
         The result is Git repository can be separated from working
         tree.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+-j &lt;n&gt;
+</term>
+<term>
+--jobs &lt;n&gt;
+</term>
+<listitem>
+<simpara>
+        The number of submodules fetched at the same time.
+        Defaults to the <literal>submodule.fetchJobs</literal> option.
 </simpara>
 </listitem>
 </varlistentry>

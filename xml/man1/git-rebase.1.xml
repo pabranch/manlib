@@ -578,8 +578,6 @@ idea unless you know what you are doing (see BUGS below).</simpara>
         final history. &lt;cmd&gt; will be interpreted as one or more shell
         commands.
 </simpara>
-<simpara>This option can only be used with the <literal>--interactive</literal> option
-(see INTERACTIVE MODE below).</simpara>
 <simpara>You may execute several commands by either using one instance of <literal>--exec</literal>
 with several commands:</simpara>
 <literallayout class="monospaced">git rebase -i --exec "cmd1 &amp;&amp; cmd2 &amp;&amp; ..."</literallayout>
@@ -588,6 +586,8 @@ with several commands:</simpara>
 <simpara>If <literal>--autosquash</literal> is used, "exec" lines will not be appended for
 the intermediate commits, and will only appear at the end of each
 squash/fixup series.</simpara>
+<simpara>This uses the <literal>--interactive</literal> machinery internally, but it can be run
+without an explicit <literal>--interactive</literal>.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>

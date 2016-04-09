@@ -52,25 +52,15 @@ int RSA_verify_ASN1_OCTET_STRING(int dummy, unsigned char *m,
       defined in PKCS #1 v2.0 [RFC 2437].
     </para>
     <para>
-      The <emphasis role="bold">RSA</emphasis> structure consists of
-      several BIGNUM components. It can contain public as well as private
-      RSA keys:
+      The <emphasis role="bold">RSA</emphasis> structure consists of the
+      BIGNUM components <emphasis role="bold">n</emphasis>, <emphasis role="bold">e</emphasis>, <emphasis role="bold">d</emphasis>,
+      <emphasis role="bold">p</emphasis>, <emphasis role="bold">q</emphasis>, <emphasis role="bold">dmp1</emphasis>,
+      <emphasis role="bold">dmq1</emphasis> and <emphasis role="bold">iqmp</emphasis>, which represent public as well as
+      private RSA keys.
     </para>
-    <screen>struct
-       {
-       BIGNUM *n;              // public modulus
-       BIGNUM *e;              // public exponent
-       BIGNUM *d;              // private exponent
-       BIGNUM *p;              // secret prime factor
-       BIGNUM *q;              // secret prime factor
-       BIGNUM *dmp1;           // d mod (p-1)
-       BIGNUM *dmq1;           // d mod (q-1)
-       BIGNUM *iqmp;           // q^-1 mod p
-       // ...
-       };
-RSA</screen>
     <para>
-      In public keys, the private exponent and the related secret values
+      In public keys, the private exponent <emphasis role="bold">d</emphasis> and the related secret values <emphasis role="bold">p</emphasis>, <emphasis role="bold">q</emphasis>,
+      <emphasis role="bold">dmp1</emphasis>, <emphasis role="bold">dmq1</emphasis> and <emphasis role="bold">iqmp</emphasis>
       are <emphasis role="bold">NULL</emphasis>.
     </para>
     <para>
@@ -112,6 +102,8 @@ RSA</screen>
       </citerefentry>, <citerefentry>
       <refentrytitle>RSA_new</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>, <citerefentry>
+      <refentrytitle>RSA_set0_key</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry> <citerefentry>
       <refentrytitle>RSA_public_encrypt</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>RSA_sign</refentrytitle> <manvolnum>3</manvolnum>
