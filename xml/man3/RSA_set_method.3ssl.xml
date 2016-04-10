@@ -5,7 +5,7 @@
   </refmeta>
   <refnamediv>
     <refname>RSA_set_default_method, RSA_get_default_method, RSA_set_method,
-RSA_get_method, RSA_PKCS1_SSLeay, RSA_null_method, RSA_flags,
+RSA_get_method, RSA_PKCS1_OpenSSL, RSA_null_method, RSA_flags,
 RSA_new_method</refname>
 <refpurpose>select RSA method</refpurpose>
   </refnamediv>
@@ -15,7 +15,7 @@ RSA_new_method</refname>
 <synopsis>RSA_METHOD *RSA_get_default_method(void);</synopsis>
 <synopsis>int RSA_set_method(RSA *rsa, const RSA_METHOD *meth);</synopsis>
 <synopsis>RSA_METHOD *RSA_get_method(const RSA *rsa);</synopsis>
-<synopsis>RSA_METHOD *RSA_PKCS1_SSLeay(void);</synopsis>
+<synopsis>RSA_METHOD *RSA_PKCS1_OpenSSL(void);</synopsis>
 <synopsis>RSA_METHOD *RSA_null_method(void);</synopsis>
 <synopsis>int RSA_flags(const RSA *rsa);</synopsis>
 <synopsis>RSA *RSA_new_method(ENGINE *engine);</synopsis>
@@ -31,7 +31,7 @@ RSA_new_method</refname>
     </para>
     <para>
       Initially, the default RSA_METHOD is the OpenSSL internal
-      implementation, as returned by RSA_PKCS1_SSLeay().
+      implementation, as returned by RSA_PKCS1_OpenSSL().
     </para>
     <para>
       RSA_set_default_method() makes <emphasis role="bold">meth</emphasis>
@@ -144,8 +144,9 @@ char *app_data; /* ?? */
   </refsection>
   <refsection xml:id="ID-a0db8b49c5118522b1cac262c4137c55"><title>RETURN VALUES</title>
     <para>
-      RSA_PKCS1_SSLeay(), RSA_PKCS1_null_method(), RSA_get_default_method()
-      and RSA_get_method() return pointers to the respective RSA_METHODs.
+      RSA_PKCS1_OpenSSL(), RSA_PKCS1_null_method(),
+      RSA_get_default_method() and RSA_get_method() return pointers to the
+      respective RSA_METHODs.
     </para>
     <para>
       RSA_set_default_method() returns no value.

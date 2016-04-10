@@ -39,25 +39,18 @@ int    DHparams_print(BIO *bp, const DH *x);</synopsis>
     </para>
     <para>
       The <emphasis role="bold">DH</emphasis> structure consists of several
-      BIGNUM components.
+      BIGNUM components. The prime <emphasis role="bold">p</emphasis>, the
+      generate <emphasis role="bold">g</emphasis>, the Private key
+      <emphasis role="bold">priv_key</emphasis> and the public key
+      <emphasis role="bold">pub_key</emphasis>. Optionally there may also
+      be an additional parameter <emphasis role="bold">q</emphasis>.
     </para>
-    <screen>struct
-       {
-       BIGNUM *p;              // prime number (shared)
-       BIGNUM *g;              // generator of Z_p (shared)
-       BIGNUM *priv_key;       // private DH value x
-       BIGNUM *pub_key;        // public DH value g^x
-       // ...
-       };
-DH</screen>
     <para>
       Note that DH keys may use non-standard <emphasis role="bold">DH_METHOD</emphasis> implementations, either directly or
       by the use of <emphasis role="bold">ENGINE</emphasis> modules. In
       some cases (eg. an ENGINE providing support for hardware-embedded
       keys), these BIGNUM values will not be used by the implementation or
-      may be used for alternative data storage. For this reason,
-      applications should generally avoid using DH structure elements
-      directly and instead use API functions to query or modify keys.
+      may be used for alternative data storage.
     </para>
   </refsection>
   <refsection xml:id="ID-41dfe97163d9ed46c53b55b7ef797e46"><title>SEE ALSO</title>
@@ -82,6 +75,10 @@ DH</screen>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>DH_compute_key</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>DH_get0_pqg</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>DH_meth_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
       <refentrytitle>d2i_DHparams</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>, <citerefentry>
       <refentrytitle>RSA_print</refentrytitle> <manvolnum>3</manvolnum>

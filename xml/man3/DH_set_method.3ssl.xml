@@ -58,35 +58,11 @@ DH_set_method, DH_new_method, DH_OpenSSL</refname>
       default ENGINE for DH operations is used, and if no default ENGINE is
       set, the DH_METHOD controlled by DH_set_default_method() is used.
     </para>
-  </refsection>
-  <refsection xml:id="ID-de4fd0daa6123c5581004cbb0eebfbda"><title>THE DH_METHOD STRUCTURE</title>
-    <screen>typedef struct dh_meth_st
-{
-    /* name of the implementation */
-       const char *name;
-
-/* generate private and public DH values for key agreement */
-   int (*generate_key)(DH *dh);
-
-/* compute shared secret */
-   int (*compute_key)(unsigned char *key, BIGNUM *pub_key, DH *dh);
-
-/* compute r = a ^ p mod m (May be NULL for some implementations) */
-   int (*bn_mod_exp)(DH *dh, BIGNUM *r, BIGNUM *a, const BIGNUM *p,
-                           const BIGNUM *m, BN_CTX *ctx,
-                           BN_MONT_CTX *m_ctx);
-
-/* called at DH_new */
-   int (*init)(DH *dh);
-
-/* called at DH_free */
-   int (*finish)(DH *dh);
-
-int flags;
-
-char *app_data; /* ?? */
-
-} DH_METHOD;</screen>
+    <para>
+      A new DH_METHOD object may be constructed using DH_meth_new() (see
+      <citerefentry> <refentrytitle>DH_meth_new</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>).
+    </para>
   </refsection>
   <refsection xml:id="ID-a45cb364ac74d968a89659e9d8a6993e"><title>RETURN VALUES</title>
     <para>
@@ -114,6 +90,8 @@ char *app_data; /* ?? */
       <citerefentry> <refentrytitle>dh</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
       <refentrytitle>DH_new</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>DH_meth_new</refentrytitle> <manvolnum>3</manvolnum>
       </citerefentry>
     </para>
   </refsection>
