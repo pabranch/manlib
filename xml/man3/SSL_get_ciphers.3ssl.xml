@@ -4,12 +4,13 @@
     <refentrytitle>SSL_get_ciphers.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>SSL_get_ciphers, SSL_get_cipher_list</refname>
+    <refname>SSL_get_ciphers, SSL_CTX_get_ciphers, SSL_get_cipher_list</refname>
 <refpurpose>get list of available SSL_CIPHERs</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
 <synopsis>STACK_OF(SSL_CIPHER) *SSL_get_ciphers(const SSL *ssl);
+STACK_OF(SSL_CIPHER) *SSL_CTX_get_ciphers(const SSL_CTX *ctx);
 STACK_OF(SSL_CIPHER) *SSL_get1_supported_ciphers(SSL *s);
 STACK_OF(SSL_CIPHER) *SSL_get_client_ciphers(const SSL *ssl);
 const char *SSL_get_cipher_list(const SSL *ssl, int priority);</synopsis>
@@ -20,6 +21,10 @@ const char *SSL_get_cipher_list(const SSL *ssl, int priority);</synopsis>
       <emphasis role="bold">ssl</emphasis>, sorted by preference. If
       <emphasis role="bold">ssl</emphasis> is NULL or no ciphers are
       available, NULL is returned.
+    </para>
+    <para>
+      SSL_CTX_get_ciphers() returns the stack of available SSL_CIPHERs for
+      <emphasis role="bold">ctx</emphasis>.
     </para>
     <para>
       SSL_get1_supported_ciphers() returns the stack of enabled SSL_CIPHERs
@@ -51,8 +56,8 @@ const char *SSL_get_cipher_list(const SSL *ssl, int priority);</synopsis>
   <refsection xml:id="ID-8d2bfe6a9201a2d881cfb8b0ea91114f"><title>NOTES</title>
     <para>
       The details of the ciphers obtained by SSL_get_ciphers(),
-      SSL_get1_supported_ciphers() and SSL_get_client_ciphers() can be
-      obtained using the <citerefentry>
+      SSL_CTX_get_ciphers() SSL_get1_supported_ciphers() and
+      SSL_get_client_ciphers() can be obtained using the <citerefentry>
       <refentrytitle>SSL_CIPHER_get_name</refentrytitle>
       <manvolnum>3</manvolnum> </citerefentry> family of functions.
     </para>
@@ -61,11 +66,10 @@ const char *SSL_get_cipher_list(const SSL *ssl, int priority);</synopsis>
       list of available ciphers, until NULL is returned.
     </para>
     <para>
-      Note: SSL_get_ciphers() and SSL_get_client_ciphers() return a pointer
-      to an internal cipher stack, which will be freed later on when the
-      SSL or SSL_SESSION object is freed.  Therefore, the calling code
-      <emphasis role="bold">MUST NOT</emphasis> free the return value
-      itself.
+      Note: SSL_get_ciphers(), SSL_CTX_get_ciphers() and
+      SSL_get_client_ciphers() return a pointer to an internal cipher
+      stack, which will be freed later on when the SSL or SSL_SESSION
+      object is freed.	Therefore, the calling code <emphasis role="bold">MUST NOT</emphasis> free the return value itself.
     </para>
     <para>
       The stack returned by SSL_get1_supported_ciphers() should be freed
