@@ -5,9 +5,9 @@
   </refmeta>
   <refnamediv>
     <refname>d2i_DSAPublicKey, i2d_DSAPublicKey, d2i_DSAPrivateKey, i2d_DSAPrivateKey,
-d2i_DSA_PUBKEY, i2d_DSA_PUBKEY, d2i_DSAparams, i2d_DSAparams, d2i_DSA_SIG, i2d_DSA_SIG</refname>
-<refpurpose>DSA key encoding
-and parsing functions.</refpurpose>
+d2i_DSA_PUBKEY, i2d_DSA_PUBKEY, d2i_DSAparams, i2d_DSAparams,
+d2i_DSA_SIG, i2d_DSA_SIG</refname>
+<refpurpose>DSA key encoding and parsing functions.</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/dsa.h&gt;
@@ -16,6 +16,10 @@ and parsing functions.</refpurpose>
 <synopsis>int i2d_DSAPublicKey(const DSA *a, unsigned char **pp);</synopsis>
 <synopsis>DSA * d2i_DSA_PUBKEY(DSA **a, const unsigned char **pp, long length);</synopsis>
 <synopsis>int i2d_DSA_PUBKEY(const DSA *a, unsigned char **pp);</synopsis>
+<synopsis>DSA *d2i_DSA_PUBKEY_bio(BIO *bp, DSA **dsa);
+DSA *d2i_DSA_PUBKEY_fp(FILE *fp, DSA **dsa);</synopsis>
+<synopsis>int i2d_DSA_PUBKEY_bio(BIO *bp, DSA *dsa);
+int i2d_DSA_PUBKEY_fp(FILE *fp, DSA *dsa);</synopsis>
 <synopsis>DSA * d2i_DSAPrivateKey(DSA **a, const unsigned char **pp, long length);</synopsis>
 <synopsis>int i2d_DSAPrivateKey(const DSA *a, unsigned char **pp);</synopsis>
 <synopsis>DSA * d2i_DSAparams(DSA **a, const unsigned char **pp, long length);</synopsis>
@@ -31,6 +35,12 @@ and parsing functions.</refpurpose>
     <para>
       d2i_DSA_PUBKEY() and i2d_DSA_PUBKEY() decode and encode an DSA public
       key using a SubjectPublicKeyInfo (certificate public key) structure.
+    </para>
+    <para>
+      d2i_DSA_PUBKEY_bio(), d2i_DSA_PUBKEY_fp(), i2d_DSA_PUBKEY_bio() and
+      i2d_DSA_PUBKEY_fp() are similar to d2i_DSA_PUBKEY() and
+      i2d_DSA_PUBKEY() except they decode or encode using a <emphasis role="bold">BIO</emphasis> or <emphasis role="bold">FILE</emphasis>
+      pointer.
     </para>
     <para>
       d2i_DSAPrivateKey(), i2d_DSAPrivateKey() decode and encode the DSA
