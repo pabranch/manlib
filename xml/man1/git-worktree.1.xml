@@ -14,7 +14,7 @@
   <refpurpose>Manage multiple working trees</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<literallayout><emphasis>git worktree add</emphasis> [-f] [--detach] [-b &lt;new-branch&gt;] &lt;path&gt; [&lt;branch&gt;]
+<literallayout><emphasis>git worktree add</emphasis> [-f] [--detach] [--checkout] [-b &lt;new-branch&gt;] &lt;path&gt; [&lt;branch&gt;]
 <emphasis>git worktree prune</emphasis> [-n] [-v] [--expire &lt;expire&gt;]
 <emphasis>git worktree list</emphasis> [--porcelain]</literallayout>
 <simpara></simpara>
@@ -133,6 +133,21 @@ bare, the revision currently checked out, and the branch currently checked out
         With <literal>add</literal>, detach HEAD in the new working tree. See "DETACHED HEAD"
         in <citerefentry>
 <refentrytitle>git-checkout</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--[no-]checkout
+</term>
+<listitem>
+<simpara>
+        By default, <literal>add</literal> checks out <literal>&lt;branch&gt;</literal>, however, <literal>--no-checkout</literal> can
+        be used to suppress checkout in order to make customizations,
+        such as configuring sparse-checkout. See "Sparse checkout"
+        in <citerefentry>
+<refentrytitle>git-read-tree</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry>.
 </simpara>
 </listitem>

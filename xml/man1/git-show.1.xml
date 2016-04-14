@@ -129,6 +129,30 @@ people using 80-column terminals.</simpara>
 </varlistentry>
 <varlistentry>
 <term>
+--expand-tabs=&lt;n&gt;
+</term>
+<term>
+--expand-tabs
+</term>
+<term>
+--no-expand-tabs
+</term>
+<listitem>
+<simpara>
+        Perform a tab expansion (replace each tab with enough spaces
+        to fill to the next display column that is multiple of <emphasis>&lt;n&gt;</emphasis>)
+        in the log message before showing it in the output.
+        <literal>--expand-tabs</literal> is a short-hand for <literal>--expand-tabs=8</literal>, and
+        <literal>--no-expand-tabs</literal> is a short-hand for <literal>--expand-tabs=0</literal>,
+        which disables tab expansion.
+</simpara>
+<simpara>By default, tabs are expanded in pretty formats that indent the log
+message by 4 spaces (i.e.  <emphasis>medium</emphasis>, which is the default, <emphasis>full</emphasis>,
+and <emphasis>fuller</emphasis>).</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
 --notes[=&lt;treeish&gt;]
 </term>
 <listitem>
