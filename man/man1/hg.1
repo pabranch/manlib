@@ -3876,7 +3876,7 @@ record delete for missing files
 .TP
 .B \-f,  \-\-force
 .
-remove (and delete) file even if added or modified
+forget added files, delete modified files
 .TP
 .B \-S,  \-\-subrepos
 .
@@ -11794,6 +11794,37 @@ do not verify server certificate (ignoring web.cacerts config)
 .UNINDENT
 .sp
 [+] marked option can be specified multiple times
+.SS logtoprocess
+.sp
+Send ui.log() data to a subprocess (EXPERIMENTAL)
+.sp
+This extension lets you specify a shell command per ui.log() event,
+sending all remaining arguments to as environment variables to that command.
+.sp
+Each positional argument to the method results in a \fIMSG[N]\fP key in the
+environment, starting at 1 (so \fIMSG1\fP, \fIMSG2\fP, etc.). Each keyword argument
+is set as a \fIOPT_UPPERCASE_KEY\fP variable (so the key is uppercased, and
+prefixed with \fIOPT_\fP). The original event name is passed in the \fIEVENT\fP
+environment variable, and the process ID of mercurial is given in \fIHGPID\fP.
+.sp
+So given a call \fIui.log(\(aqfoo\(aq, \(aqbar\(aq, \(aqbaz\(aq, spam=\(aqeggs\(aq), a script configured
+for the \(gafoo\fP event can expect an environment with \fIMSG1=bar\fP, \fIMSG2=baz\fP, and
+\fIOPT_SPAM=eggs\fP.
+.sp
+Scripts are configured in the \fI[logtoprocess]\fP section, each key an event name.
+For example:
+.sp
+.nf
+.ft C
+[logtoprocess]
+commandexception = echo "$MSG2$MSG3" > /var/log/mercurial_exceptions.log
+.ft P
+.fi
+.sp
+would log the warning message and traceback of any failed command dispatch.
+.sp
+Scripts are run asychronously as detached daemon processes; mercurial will
+not ensure that they exit cleanly.
 .SS mq
 .sp
 manage a stack of patches
