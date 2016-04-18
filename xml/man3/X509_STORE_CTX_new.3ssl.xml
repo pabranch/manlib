@@ -4,7 +4,18 @@
     <refentrytitle>X509_STORE_CTX_new.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>X509_STORE_CTX_new, X509_STORE_CTX_cleanup, X509_STORE_CTX_free, X509_STORE_CTX_init, X509_STORE_CTX_trusted_stack, X509_STORE_CTX_set_cert, X509_STORE_CTX_set_chain, X509_STORE_CTX_set0_crls, X509_STORE_CTX_get0_param, X509_STORE_CTX_set0_param, X509_STORE_CTX_set_default</refname>
+    <refname>X509_STORE_CTX_new, X509_STORE_CTX_cleanup, X509_STORE_CTX_free,
+X509_STORE_CTX_init, X509_STORE_CTX_set0_trusted_stack, X509_STORE_CTX_set_cert,
+X509_STORE_CTX_set0_crls,
+X509_STORE_CTX_get0_chain, X509_STORE_CTX_set0_verified_chain,
+X509_STORE_CTX_get0_param, X509_STORE_CTX_set0_param,
+X509_STORE_CTX_get0_cert,
+X509_STORE_CTX_get0_untrusted, X509_STORE_CTX_set0_untrusted,
+X509_STORE_CTX_get_num_untrusted,
+X509_STORE_CTX_set_default,
+X509_STORE_CTX_get_verify_cb,
+X509_STORE_CTX_set_verify,
+X509_STORE_CTX_get_verify</refname>
 <refpurpose>X509_STORE_CTX initialisation</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
@@ -14,14 +25,22 @@ void X509_STORE_CTX_cleanup(X509_STORE_CTX *ctx);
 void X509_STORE_CTX_free(X509_STORE_CTX *ctx);</synopsis>
 <synopsis>int X509_STORE_CTX_init(X509_STORE_CTX *ctx, X509_STORE *store,
                         X509 *x509, STACK_OF(X509) *chain);</synopsis>
-<synopsis>void X509_STORE_CTX_trusted_stack(X509_STORE_CTX *ctx, STACK_OF(X509) *sk);</synopsis>
-<synopsis>void   X509_STORE_CTX_set_cert(X509_STORE_CTX *ctx,X509 *x);
-void   X509_STORE_CTX_set_chain(X509_STORE_CTX *ctx,STACK_OF(X509) *sk);
-void   X509_STORE_CTX_set0_crls(X509_STORE_CTX *ctx, STACK_OF(X509_CRL) *sk);</synopsis>
+<synopsis>void X509_STORE_CTX_set0_trusted_stack(X509_STORE_CTX *ctx, STACK_OF(X509) *sk);</synopsis>
+<synopsis>void X509_STORE_CTX_set_cert(X509_STORE_CTX *ctx,X509 *x);
+STACK_OF(X509) *X509_STORE_CTX_get0_chain(X609_STORE_CTX *ctx);
+void X509_STORE_CTX_set0_verified_chain(X509_STORE_CTX *ctx, STACK_OF(X509) *chain);
+void X509_STORE_CTX_set0_crls(X509_STORE_CTX *ctx, STACK_OF(X509_CRL) *sk);</synopsis>
 <synopsis>X509_VERIFY_PARAM *X509_STORE_CTX_get0_param(X509_STORE_CTX *ctx);
 void X509_STORE_CTX_set0_param(X509_STORE_CTX *ctx, X509_VERIFY_PARAM *param);
 int X509_STORE_CTX_set_default(X509_STORE_CTX *ctx, const char *name);</synopsis>
+<synopsis>X509 *X509_STORE_CTX_get0_cert(X509_STORE_CTX *ctx);
+STACK_OF(X509)* X509_STORE_CTX_get0_untrusted(X509_STORE_CTX *ctx);
+void X509_STORE_CTX_set0_untrusted(X509_STORE_CTX *ctx, STACK_OF(X509) *sk);</synopsis>
 <synopsis>int X509_STORE_CTX_get_num_untrusted(X509_STORE_CTX *ctx);</synopsis>
+<synopsis>typedef int (*X509_STORE_CTX_verify)(X509_STORE_CTX *);
+X509_STORE_CTX_verify X509_STORE_CTX_get_verify(X509_STORE_CTX *ctx);
+void X509_STORE_CTX_set_verify(X509_STORE_CTX *ctx, X509_STORE_CTX_verify verify);</synopsis>
+<synopsis/>
   </refsynopsisdiv>
   <refsection xml:id="ID-b42a72170bb54a9deb4c47b582954998"><title>DESCRIPTION</title>
     <para>
@@ -54,8 +73,8 @@ int X509_STORE_CTX_set_default(X509_STORE_CTX *ctx, const char *name);</synopsis
       <emphasis role="bold">NULL</emphasis>.
     </para>
     <para>
-      X509_STORE_CTX_trusted_stack() sets the set of trusted certificates
-      of <emphasis role="bold">ctx</emphasis> to <emphasis role="bold">sk</emphasis>. This is an alternative way of specifying
+      X509_STORE_CTX_set0_trusted_stack() sets the set of trusted
+      certificates of <emphasis role="bold">ctx</emphasis> to <emphasis role="bold">sk</emphasis>. This is an alternative way of specifying
       trusted certificates instead of using an <emphasis role="bold">X509_STORE</emphasis>.
     </para>
     <para>
@@ -63,8 +82,12 @@ int X509_STORE_CTX_set_default(X509_STORE_CTX *ctx, const char *name);</synopsis
       <emphasis role="bold">ctx</emphasis> to <emphasis role="bold">x</emphasis>.
     </para>
     <para>
-      X509_STORE_CTX_set_chain() sets the additional certificate chain used
-      by <emphasis role="bold">ctx</emphasis> to <emphasis role="bold">sk</emphasis>.
+      X509_STORE_CTX_set0_verified_chain() sets the validated chain used by
+      <emphasis role="bold">ctx</emphasis> to be <emphasis role="bold">chain</emphasis>. Ownership of the chain is transferred
+      to <emphasis role="bold">ctx</emphasis> and should not be free'd by
+      the caller. X509_STORE_CTX_get0_chain() returns a the internal
+      pointer used by the <emphasis role="bold">ctx</emphasis> that
+      contains the validated chain.
     </para>
     <para>
       X509_STORE_CTX_set0_crls() sets a set of CRLs to use to aid
@@ -75,8 +98,20 @@ int X509_STORE_CTX_set_default(X509_STORE_CTX *ctx, const char *name);</synopsis
       supplied as part of a protocol, for example in a PKCS#7 structure.
     </para>
     <para>
-      X509_VERIFY_PARAM *X509_STORE_CTX_get0_param() retrieves an internal
-      pointer to the verification parameters associated with <emphasis role="bold">ctx</emphasis>.
+      X509_STORE_CTX_get0_param() retrieves an internal pointer to the
+      verification parameters associated with <emphasis role="bold">ctx</emphasis>.
+    </para>
+    <para>
+      X509_STORE_CTX_get0_cert() retrieves an internal pointer to the
+      certificate being verified by the <emphasis role="bold">ctx</emphasis>.
+    </para>
+    <para>
+      X509_STORE_CTX_get0_untrusted() retrieves an internal pointer to the
+      stack of untrusted certifieds associated with <emphasis role="bold">ctx</emphasis>.
+    </para>
+    <para>
+      X509_STORE_CTX_set0_untrusted() sets the internal point to the stack
+      of unstrusted certificates associated with <emphasis role="bold">ctx</emphasis> to <emphasis role="bold">sk</emphasis>.
     </para>
     <para>
       X509_STORE_CTX_set0_param() sets the internal verification parameter
@@ -100,19 +135,7 @@ int X509_STORE_CTX_set_default(X509_STORE_CTX *ctx, const char *name);</synopsis
       The certificates and CRLs in a store are used internally and should
       <emphasis role="bold">not</emphasis> be freed up until after the
       associated <emphasis role="bold">X509_STORE_CTX</emphasis> is freed.
-      Legacy applications might implicitly use an <emphasis role="bold">X509_STORE_CTX</emphasis> like this:
     </para>
-    <screen>X509_STORE_CTX ctx;
-X509_STORE_CTX_init(&amp;ctx, store, cert, chain);</screen>
-    <para>
-      this is <emphasis role="bold">not</emphasis> recommended in new
-      applications they should instead do:
-    </para>
-    <screen>X509_STORE_CTX *ctx;
-ctx = X509_STORE_CTX_new();
-if (ctx == NULL)
-      /* Bad error */
-X509_STORE_CTX_init(ctx, store, cert, chain);</screen>
   </refsection>
   <refsection xml:id="ID-46960b7b2ca4fedcdf21c210e604e526"><title>BUGS</title>
     <para>
@@ -135,9 +158,9 @@ X509_STORE_CTX_init(ctx, store, cert, chain);</screen>
     </para>
     <para>
       X509_STORE_CTX_cleanup(), X509_STORE_CTX_free(),
-      X509_STORE_CTX_trusted_stack(), X509_STORE_CTX_set_cert(),
-      X509_STORE_CTX_set_chain(), X509_STORE_CTX_set0_crls() and
-      X509_STORE_CTX_set0_param() do not return values.
+      X509_STORE_CTX_set0_trusted_stack(), X509_STORE_CTX_set_cert(),
+      X509_STORE_CTX_set0_crls() and X509_STORE_CTX_set0_param() do not
+      return values.
     </para>
     <para>
       X509_STORE_CTX_set_default() returns 1 for success or 0 if an error

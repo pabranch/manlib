@@ -5008,6 +5008,10 @@ Preserve internationalization.
 .sp
 Don\(aqt remove revset aliases.
 .TP
+.B \fBtemplatealias\fP
+.sp
+Don\(aqt remove template aliases.
+.TP
 .B \fBprogress\fP
 .sp
 Don\(aqt hide progress output.
@@ -8272,6 +8276,32 @@ expr % "{template}"
 As seen in the above example, \fB{template}\fP is interpreted as a template.
 To prevent it from being interpreted, you can use an escape character \fB\e{\fP
 or a raw string prefix, \fBr\(aq...\(aq\fP.
+.sp
+New keywords and functions can be defined in the \fBtemplatealias\fP section of
+a Mercurial configuration file:
+.sp
+.nf
+.ft C
+<alias> = <definition>
+.ft P
+.fi
+.sp
+Arguments of the form \fIa1\fP, \fIa2\fP, etc. are substituted from the alias into
+the definition.
+.sp
+For example,
+.sp
+.nf
+.ft C
+[templatealias]
+r = rev
+rn = "{r}:{node|short}"
+leftpad(s, w) = pad(s, w, \(aq \(aq, True)
+.ft P
+.fi
+.sp
+defines two symbol aliases, \fBr\fP and \fBrn\fP, and a function alias
+\fBleftpad()\fP.
 .sp
 Some sample command line templates:
 .INDENT 0.0

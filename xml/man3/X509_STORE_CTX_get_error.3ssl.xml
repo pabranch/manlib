@@ -4,7 +4,10 @@
     <refentrytitle>X509_STORE_CTX_get_error.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>X509_STORE_CTX_get_error, X509_STORE_CTX_set_error, X509_STORE_CTX_get_error_depth, X509_STORE_CTX_get_current_cert, X509_STORE_CTX_get1_chain, X509_verify_cert_error_string</refname>
+    <refname>X509_STORE_CTX_get_error, X509_STORE_CTX_set_error,
+X509_STORE_CTX_get_error_depth, X509_STORE_CTX_get_current_cert,
+X509_STORE_CTX_get0_cert,
+X509_STORE_CTX_get1_chain, X509_verify_cert_error_string</refname>
 <refpurpose>get or set certificate verification status information</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
@@ -13,7 +16,8 @@
 <synopsis>int    X509_STORE_CTX_get_error(X509_STORE_CTX *ctx);
 void   X509_STORE_CTX_set_error(X509_STORE_CTX *ctx,int s);
 int    X509_STORE_CTX_get_error_depth(X509_STORE_CTX *ctx);
-X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
+X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);
+X509 * X509_STORE_CTX_get0_cert(X509_STORE_CTX *ctx);</synopsis>
 <synopsis>STACK_OF(X509) *X509_STORE_CTX_get1_chain(X509_STORE_CTX *ctx);</synopsis>
 <synopsis>const char *X509_verify_cert_error_string(long n);</synopsis>
   </refsynopsisdiv>
@@ -38,6 +42,10 @@ X509 * X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);</synopsis>
       occurred. If it is zero it occurred in the end entity certificate,
       one if it is the certificate which signed the end entity certificate
       and so on.
+    </para>
+    <para>
+      X509_STORE_CTX_get0_cert() returns the leaf certificate being
+      verified.
     </para>
     <para>
       X509_STORE_CTX_get_current_cert() returns the certificate in

@@ -4,13 +4,16 @@
     <refentrytitle>X509_STORE_CTX_set_verify_cb.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>X509_STORE_CTX_set_verify_cb</refname>
-<refpurpose>set verification callback</refpurpose>
+    <refname>X509_STORE_CTX_get_verify_cb,
+X509_STORE_CTX_set_verify_cb</refname>
+<refpurpose>get and set verification callback</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/x509_vfy.h&gt;</synopsis>
+<synopsis>typedef int (*X509_STORE_CTX_verify_cb)(int, X509_STORE_CTX *);</synopsis>
+<synopsis>X509_STORE_CTX_verify_cb X509_STORE_CTX_get_verify_cb(X509_STORE_CTX *ctx);</synopsis>
 <synopsis>void X509_STORE_CTX_set_verify_cb(X509_STORE_CTX *ctx,
-                               int (*verify_cb)(int ok, X509_STORE_CTX *ctx));</synopsis>
+                                  X509_STORE_CTX_verify_cb verify_cb);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-4a417828ec593b9c47567245e94eb924"><title>DESCRIPTION</title>
     <para>
@@ -41,6 +44,10 @@
       structure and receive additional information about the error, for
       example by calling X509_STORE_CTX_get_current_cert(). Additional
       application data can be passed to the callback via the <emphasis role="bold">ex_data</emphasis> mechanism.
+    </para>
+    <para>
+      X509_STORE_CTX_get_verify_cb() returns the value of the current
+      callback for the specific <emphasis role="bold">ctx</emphasis>.
     </para>
   </refsection>
   <refsection xml:id="ID-87c94f400bd64c61ba7d6ac3743f3882"><title>WARNING</title>

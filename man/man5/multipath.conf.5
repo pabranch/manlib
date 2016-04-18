@@ -193,7 +193,9 @@ Return a constant priority of \fI1\fR.
 Generate the path priority for EMC arrays.
 .TP
 .B alua
-Generate the path priority based on the SCSI-3 ALUA settings.
+Generate the path priority based on the SCSI-3 ALUA settings. This prioritizer
+accepts the optional prio_arg
+.I exclusive_pref_bit
 .TP
 .B ontap
 Generate the path priority for NetApp arrays.
@@ -219,13 +221,29 @@ Default value is \fBnone\fR.
 .RE
 .TP
 .B prio_args
-Arguments to pass to to the prio function.  Currently only used with
-.I weighted, which needs a value of the form
-.I "<hbtl|devname> <regex1> <prio1> <regex2> <prio2> ..."
+Arguments to pass to to the prio function. This only applies to certain
+prioritizers
+.RS
+.TP 12
+.B weighted
+Needs a value of the form
+.I "<hbtl|devname|wwn> <regex1> <prio1> <regex2> <prio2> ..."
 .I hbtl
 regex can be of SCSI H:B:T:L format  Ex: 1:0:.:. , *:0:0:.
 .I devname
 regex can be of device name format  Ex: sda , sd.e
+.I wwn
+regex can be of the form
+.I "host_wwnn:host_wwpn:target_wwnn:target_wwpn"
+these values can be looked up through sysfs or by running
+.I mulitpathd show paths format "%N:%R:%n:%r" Ex: 0x200100e08ba0aea0:0x210100e08ba0aea0:.*:.* , .*:.*:iqn.2009-10.com.redhat.msp.lab.ask-06:.*
+.TP
+.B alua
+If
+.I exclusive_pref_bit
+is set, paths with the TPGS pref bit set will always be in their own path
+group.
+.RE
 .TP
 .B features
 Specify any device-mapper features to be used. Syntax is
@@ -389,7 +407,7 @@ multipathd running, access to the paths cannot be restored, and the kernel
 cannot be told to stop queueing IO. Setting queue_without_daemon to
 .I no
 , avoids this problem. Default is
-.I yes
+.I no
 .TP
 .B bindings_file
 The full pathname of the binding file to be used when the user_friendly_names option is set. Defaults to
@@ -488,6 +506,14 @@ can be processed. This will result in errors like
 In these cases it is recommended to increase the CLI timeout to avoid
 those issues. The default is
 .I 1000
+.TP
+.B missing_uev_wait_timeout
+Controls how many seconds multipathd will wait, after a new multipath device
+is created, to receive a change event from udev for the device, before
+automatically enabling device reloads. Usually multipathd will delay reloads
+on a device until it receives a change uevent from the initial table load. The
+default is
+.I 30
 .
 .SH "blacklist section"
 The
