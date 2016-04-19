@@ -7310,7 +7310,7 @@ existing predicates or other aliases. An alias definition looks like:
 .fi
 .sp
 in the \fBrevsetalias\fP section of a Mercurial configuration file. Arguments
-of the form \fI$1\fP, \fI$2\fP, etc. are substituted from the alias into the
+of the form \fIa1\fP, \fIa2\fP, etc. are substituted from the alias into the
 definition.
 .sp
 For example,
@@ -7319,8 +7319,8 @@ For example,
 .ft C
 [revsetalias]
 h = heads()
-d($1) = sort($1, date)
-rs($1, $2) = reverse(sort($1, $2))
+d(s) = sort(s, date)
+rs(s, k) = reverse(sort(s, k))
 .ft P
 .fi
 .sp
@@ -7333,7 +7333,7 @@ one string. For example:
 .nf
 .ft C
 [revsetalias]
-issue($1) = grep(r\(aq\ebissue[ :]?\(aq ## $1 ## r\(aq\eb|\ebbug\e(\(aq ## $1 ## r\(aq\e)\(aq)
+issue(a1) = grep(r\(aq\ebissue[ :]?\(aq ## a1 ## r\(aq\eb|\ebbug\e(\(aq ## a1 ## r\(aq\e)\(aq)
 .ft P
 .fi
 .sp
@@ -7342,7 +7342,7 @@ in this case. This matches against all of "issue 1234", "issue:1234",
 "issue1234" and "bug(1234)".
 .sp
 All other prefix, infix and postfix operators have lower priority than
-\fB##\fP. For example, \fB$1 ## $2~2\fP is equivalent to \fB($1 ## $2)~2\fP.
+\fB##\fP. For example, \fBa1 ## a2~2\fP is equivalent to \fB(a1 ## a2)~2\fP.
 .sp
 Command line equivalents for \%\fBhg log\fP\::
 .sp
