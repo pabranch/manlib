@@ -91,15 +91,20 @@ int SSL_get0_dane_tlsa(SSL *s, uint8_t *usage, uint8_t *selector,
       form, not the hexadecimal ASCII presentation form, with an explicit
       length passed via <emphasis role="bold">dlen</emphasis>. A return
       value of 0 indicates that "unusable" TLSA records (with invalid or
-      unsupported parameters) were provided, a negative return value
-      indicates an internal error in processing the records. If DANE
-      authentication is enabled, but no TLSA records are added
-      successfully, authentication will fail, and the handshake may not
-      complete, depending on the <emphasis role="bold">mode</emphasis>
-      argument of <citerefentry>
-      <refentrytitle>SSL_set_verify</refentrytitle>
-      <manvolnum>3</manvolnum> </citerefentry> and any verification
-      callback.
+      unsupported parameters) were provided. A negative return value
+      indicates an internal error in processing the record.
+    </para>
+    <para>
+      The caller is expected to check the return value of each
+      SSL_dane_tlsa_add() call and take appropriate action if none are
+      usable or an internal error is encountered in processing some
+      records.
+    </para>
+    <para>
+      If no TLSA records are added successfully, DANE authentication is not
+      enabled, and authentication will be based on any configured
+      traditional trust-anchors; authentication success in this case does
+      not mean that the peer was DANE-authenticated.
     </para>
     <para>
       SSL_get0_dane_authority() can be used to get more detailed
@@ -192,6 +197,7 @@ int SSL_get0_dane_tlsa(SSL *s, uint8_t *usage, uint8_t *selector,
     </para>
     <screen>SSL_CTX *ctx;
 SSL *ssl;
+int (*verify_cb)(int ok, X509_STORE_CTX *sctx) = NULL;
 int num_usable = 0;
 const char *nexthop_domain = "example.com";
 const char *dane_tlsa_domain = "smtp.example.com";
@@ -218,11 +224,19 @@ for (... each TLSA record ...) {
 
 /* set usage, selector, mtype, data, len */
 
-/* Opportunistic DANE TLS clients treat usages 0, 1 as unusable. */
+/*
+ * Opportunistic DANE TLS clients support only DANE-TA(2) or DANE-EE(3).
+ * They treat all other certificate usages, and in particular PKIX-TA(0)
+ * and PKIX-EE(1), as unusable.
+ */
 switch (usage) {
+default:
 case 0:     /* PKIX-TA(0) */
 case 1:     /* PKIX-EE(1) */
     continue;
+case 2:     /* DANE-TA(2) */
+case 3:     /* DANE-EE(3) */
+    break;
 }
 
 ret = SSL_dane_tlsa_add(ssl, usage, selector, mtype, data, len);
@@ -237,16 +251,29 @@ ret = SSL_dane_tlsa_add(ssl, usage, selector, mtype, data, len);
 }
 
 /*
+ * At this point, the verification mode is still the default SSL_VERIFY_NONE.
  * Opportunistic DANE clients use unauthenticated TLS when all TLSA records
  * are unusable, so continue the handshake even if authentication fails.
  */
 if (num_usable == 0) {
-  int (*cb)(int ok, X509_STORE_CTX *sctx) = NULL;
+  /* Log all records unusable? */
 
-/* Log all records unusable? */
-/* Set cb to a non-NULL callback of your choice? */
+  /* Optionally set verify_cb to a suitable non-NULL callback. */
+  SSL_set_verify(ssl, SSL_VERIFY_NONE, verify_cb);
+} else {
+  /* At least one usable record.  We expect to verify the peer */
 
-  SSL_set_verify(ssl, SSL_VERIFY_NONE, cb);
+/* Optionally set verify_cb to a suitable non-NULL callback. */
+
+  /*
+   * Below we elect to fail the handshake when peer verification fails.
+   * Alternatively, use the permissive SSL_VERIFY_NONE verification mode,
+   * complete the handshake, check the verification status, and if not
+   * verified disconnect gracefully at the application layer, especially if
+   * application protocol supports informing the server that authentication
+   * failed.
+   */
+  SSL_set_verify(ssl, SSL_VERIFY_PEER, verify_cb);
 }
 
 /*
@@ -283,14 +310,14 @@ if (SSL_session_reused(ssl)) {
   }
   if (peername != NULL) {
     /* Name checks were in scope and matched the peername */
-    printf(bio, "Verified peername: %s\n", peername);
+    printf("Verified peername: %s\n", peername);
   }
 } else {
   /*
    * Not authenticated, presumably all TLSA rrs unusable, but possibly a
-   * callback suppressed connection termination despite presence of TLSA
-   * usable RRs none of which matched.  Do whatever is appropriate for
-   * unauthenticated connections.
+   * callback suppressed connection termination despite the presence of
+   * usable TLSA RRs none of which matched.  Do whatever is appropriate for
+   * fresh unauthenticated connections.
    */
 }</screen>
   </refsection>
