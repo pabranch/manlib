@@ -52,10 +52,14 @@ ENGINE *RSA_get0_engine(RSA *r);</synopsis>
       The <emphasis role="bold">n</emphasis>, <emphasis role="bold">e</emphasis> and <emphasis role="bold">d</emphasis>
       parameter values can be set by calling RSA_set0_key() and passing the
       new values for <emphasis role="bold">n</emphasis>, <emphasis role="bold">e</emphasis> and <emphasis role="bold">d</emphasis> as
-      parameters to the function. Calling this function transfers the
-      memory management of the values to the RSA object, and therefore the
-      values that have been passed in should not be freed by the caller
-      after this function has been called.
+      parameters to the function.  The values <emphasis role="bold">n</emphasis> and <emphasis role="bold">e</emphasis> must
+      be non-NULL the first time this function is called on a given RSA
+      object. The value <emphasis role="bold">d</emphasis> may be NULL. On
+      subsequent calls any of these values may be NULL which means the
+      corresponding RSA field is left untouched. Calling this function
+      transfers the memory management of the values to the RSA object, and
+      therefore the values that have been passed in should not be freed by
+      the caller after this function has been called.
     </para>
     <para>
       In a similar fashion, the <emphasis role="bold">p</emphasis> and
@@ -77,6 +81,16 @@ ENGINE *RSA_get0_engine(RSA *r);</synopsis>
     <para>
       RSA_get0_engine() returns a handle to the ENGINE that has been set
       for this RSA object, or NULL if no such ENGINE has been set.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-653b7924f2ca556ba7f6021a432f483f"><title>NOTES</title>
+    <para>
+      Values retrieved with RSA_get0_key() are owned by the RSA object used
+      in the call and may therefore <emphasis role="italic">not</emphasis>
+      be passed to RSA_set0_key().  If needed, duplicate the received value
+      using BN_dup() and pass the duplicate.  The same applies to
+      RSA_get0_factors() and RSA_set0_factors() as well as
+      RSA_get0_crt_params() and RSA_set0_crt_params().
     </para>
   </refsection>
   <refsection xml:id="ID-fe85278e9c2ffdef444520f64ee25d13"><title>RETURN VALUES</title>
