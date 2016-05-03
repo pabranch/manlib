@@ -1,0 +1,56 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>X509_STORE_get0_param.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>X509_STORE_get0_param, X509_STORE_set1_param,
+X509_STORE_get0_objects</refname>
+<refpurpose>X509_STORE setter and getter functions</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis>#include &lt;openssl/x509_vfy.h&gt;</synopsis>
+<synopsis>X509_VERIFY_PARAM *X509_STORE_get0_param(X509_STORE *ctx);
+int X509_STORE_set1_param(X509_STORE *ctx, X509_VERIFY_PARAM *pm);
+STACK_OF(X509_OBJECT) *X509_STORE_get0_objects(X509_STORE *ctx);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="ID-f274a7d95a4c7789f89aeeb47bb642d0"><title>DESCRIPTION</title>
+    <para>
+      X509_STORE_set1_param() sets the verification parameters to <emphasis role="bold">pm</emphasis> for <emphasis role="bold">ctx</emphasis>.
+    </para>
+    <para>
+      X509_STORE_get0_param() retrieves an internal pointer to the
+      verification parameters for <emphasis role="bold">ctx</emphasis>. The
+      returned pointer must not be freed by the calling application
+    </para>
+    <para>
+      X509_STORE_get0_objects() retrieve an internal pointer to the store's
+      X509 object cache. The cache contains <emphasis role="bold">X509</emphasis> and <emphasis role="bold">X509_CRL</emphasis> objects. The returned pointer must
+      not be freed by the calling application.
+    </para>
+    <screen></screen>
+  </refsection>
+  <refsection xml:id="ID-09bf5824e11913fc135cbf15b37c6c5e"><title>RETURN VALUES</title>
+    <para>
+      X509_STORE_get0_param() returns a pointer to an <emphasis role="bold">X509_VERIFY_PARAM</emphasis> structure.
+    </para>
+    <para>
+      X509_STORE_set1_param() returns 1 for success and 0 for failure.
+    </para>
+    <para>
+      X509_STORE_get0_objects() returns a pointer to a stack of <emphasis role="bold">X509_OBJECT</emphasis>.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-03dc63329b6e21e1a4efbc133c1de8b3"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>X509_STORE_new</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
+    </para>
+  </refsection>
+  <refsection xml:id="ID-034d353dc746e211703d3b244a36df6a"><title>HISTORY</title>
+    <para>
+      <emphasis role="bold">X509_STORE_get0_param</emphasis> and <emphasis role="bold">X509_STORE_get0_objects</emphasis> were added in OpenSSL
+      version 1.1.0.
+    </para>
+  </refsection>
+</refentry>

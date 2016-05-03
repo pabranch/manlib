@@ -15,16 +15,16 @@ CYRPTO_secure_malloc_used</refname>
 <synopsis>#include &lt;openssl/crypto.h&gt;</synopsis>
 <synopsis>int CRYPTO_secure_malloc_init(size_t size, int minsize);</synopsis>
 <synopsis>int CRYPTO_secure_malloc_initialized();</synopsis>
-<synopsis>void CRYPTO_secure_malloc_done();</synopsis>
-<synopsis>void *OPENSSL_secure_malloc(int num);
-void *CRYPTO_secure_malloc(int num, const char *file, int line);</synopsis>
-<synopsis>void *OPENSSL_secure_zalloc(int num);
-void *CRYPTO_secure_zalloc(int num, const char *file, int line);</synopsis>
+<synopsis>int CRYPTO_secure_malloc_done();</synopsis>
+<synopsis>void *OPENSSL_secure_malloc(size_t num);
+void *CRYPTO_secure_malloc(size_t num, const char *file, int line);</synopsis>
+<synopsis>void *OPENSSL_secure_zalloc(size_t num);
+void *CRYPTO_secure_zalloc(size_t num, const char *file, int line);</synopsis>
 <synopsis>void OPENSSL_secure_free(void* ptr);
 void CRYPTO_secure_free(void *ptr, const char *, int);</synopsis>
 <synopsis>size_t OPENSSL_secure_actual_size(const void *ptr);
 int OPENSSL_secure_allocated(const void *ptr);</synopsis>
-<synopsis>size_t CYRPTO_secure_malloc_used();</synopsis>
+<synopsis>size_t CYRPTO_secure_used();</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-4725b721946cbd593e69d7b8152ffb7a"><title>DESCRIPTION</title>
     <para>
@@ -45,9 +45,7 @@ int OPENSSL_secure_allocated(const void *ptr);</synopsis>
       CRYPTO_secure_malloc_init() creates the secure heap, with the
       specified <literal role="code">size</literal> in bytes.
       The <literal role="code">minsize</literal> parameter is
-      the minimum size to allocate from the heap. Both <literal role="code">size</literal> and <literal role="code">minsize</literal> must be a power of two.  It
-      is an error to call this after any OPENSSL_secure_malloc() calls have
-      been made.
+      the minimum size to allocate from the heap. Both <literal role="code">size</literal> and <literal role="code">minsize</literal> must be a power of two.
     </para>
     <para>
       CRYPTO_secure_malloc_initialized() indicates whether or not the
@@ -55,7 +53,8 @@ int OPENSSL_secure_allocated(const void *ptr);</synopsis>
     </para>
     <para>
       CRYPTO_secure_malloc_done() releases the heap and makes the memory
-      unavailable to the process. It can take noticeably long to complete.
+      unavailable to the process if all secure memory has been freed. It
+      can take noticeably long to complete.
     </para>
     <para>
       OPENSSL_secure_malloc() allocates <literal role="code">num</literal> bytes from the heap. If
@@ -84,8 +83,8 @@ int OPENSSL_secure_allocated(const void *ptr);</synopsis>
       heap fragmentation.
     </para>
     <para>
-      CRYPTO_secure_malloc_used() returns the number of bytes allocated in
-      the secure heap.
+      CRYPTO_secure_used() returns the number of bytes allocated in the
+      secure heap.
     </para>
   </refsection>
   <refsection xml:id="ID-0153c790d92aff7a0a4b48502b4e8ba1"><title>RETURN VALUES</title>
@@ -97,7 +96,8 @@ int OPENSSL_secure_allocated(const void *ptr);</synopsis>
     <para>
       CRYPTO_secure_malloc_initialized() returns 1 if the secure heap is
       available (that is, if CRYPTO_secure_malloc_init() has been called,
-      but CRYPTO_secure_malloc_done() has not) or 0 if not.
+      but CRYPTO_secure_malloc_done() has not been called or failed) or 0
+      if not.
     </para>
     <para>
       OPENSSL_secure_malloc() and OPENSSL_secure_zalloc() return a pointer
@@ -109,15 +109,11 @@ int OPENSSL_secure_allocated(const void *ptr);</synopsis>
       heap, or 0 if not.
     </para>
     <para>
-      CRYPTO_secure_malloc_done() and OPENSSL_secure_free() return no
-      values.
+      CRYPTO_secure_malloc_done() returns 1 if the secure memory area is
+      released, or 0 if not.
     </para>
-  </refsection>
-  <refsection xml:id="ID-cb800546e8fffecbfbe758f4f8eb3299"><title>BUGS</title>
     <para>
-      The size parameters should be <emphasis role="bold">size_t</emphasis>
-      not <emphasis role="bold">int</emphasis> and will be changed in a
-      future release.
+      OPENSSL_secure_free() returns no values.
     </para>
   </refsection>
   <refsection xml:id="ID-63465cfce5072170fc71216c7dd4d61e"><title>SEE ALSO</title>

@@ -363,7 +363,8 @@ This is not compatible with \fB\-fPIC\fP so care must be taken when
 building shared objects.
 
 Additionally, since PIE is implemented via a general register, some
-architectures (most notably i386) can see performance losses of up to
+register starved architectures (but not including i386 anymore since
+optimizations implemented in gcc >= 5) can see performance losses of up to
 15% in very text-segment-heavy application workloads; most workloads
 see less than 1%. Architectures with more general registers (e.g. amd64)
 do not see as high a worst-case penalty.
@@ -379,6 +380,16 @@ This setting (enabled by default) adds
 to \fBCPPFLAGS\fP.
 This will cause warnings when the \fB__TIME__\fP, \fB__DATE__\fP and
 \fB\%__TIMESTAMP__\fP macros are used.
+.
+.TP
+.B fixdebugpath
+This setting (disabled by default) adds
+.BI %\-fdebug\-path\-map= BUILDPATH =.
+to \fBCFLAGS\fP, \fBCXXFLAGS\fP, \fBOBJCFLAGS\fP, \fBOBJCXXFLAGS\fP,
+\fBGCJFLAGS\fP, \fBFFLAGS\fP and \fBFCFLAGS\fP where \fBBUILDPATH\fP is
+set to the top-level directory of the package being built.
+This has the effect of removing the build path from any generated debug
+symbols.
 .
 .SH ENVIRONMENT
 There are 2 sets of environment variables doing the same operations, the

@@ -6,18 +6,21 @@
   <refnamediv>
     <refname>X509_STORE_CTX_get_error, X509_STORE_CTX_set_error,
 X509_STORE_CTX_get_error_depth, X509_STORE_CTX_set_error_depth,
-X509_STORE_CTX_get_current_cert, X509_STORE_CTX_get0_cert,
-X509_STORE_CTX_get1_chain, X509_verify_cert_error_string</refname>
-<refpurpose>get or set certificate verification status information</refpurpose>
+X509_STORE_CTX_get_current_cert, X509_STORE_CTX_set_current_cert,
+X509_STORE_CTX_get0_cert, X509_STORE_CTX_get1_chain,
+X509_verify_cert_error_string</refname>
+<refpurpose>get or set certificate verification status
+information</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/x509.h&gt;
 #include &lt;openssl/x509_vfy.h&gt;</synopsis>
 <synopsis>int   X509_STORE_CTX_get_error(X509_STORE_CTX *ctx);
-void  X509_STORE_CTX_set_error(X509_STORE_CTX *ctx,int s);
+void  X509_STORE_CTX_set_error(X509_STORE_CTX *ctx, int s);
 int   X509_STORE_CTX_get_error_depth(X509_STORE_CTX *ctx);
 void  X509_STORE_CTX_set_error_depth(X509_STORE_CTX *ctx, int depth);
 X509 *X509_STORE_CTX_get_current_cert(X509_STORE_CTX *ctx);
+void  X509_STORE_CTX_set_current_cert(X509_STORE_CTX *ctx, X509 *x);
 X509 *X509_STORE_CTX_get0_cert(X509_STORE_CTX *ctx);</synopsis>
 <synopsis>STACK_OF(X509) *X509_STORE_CTX_get1_chain(X509_STORE_CTX *ctx);</synopsis>
 <synopsis>const char *X509_verify_cert_error_string(long n);</synopsis>
@@ -50,13 +53,26 @@ X509 *X509_STORE_CTX_get0_cert(X509_STORE_CTX *ctx);</synopsis>
       condition was detected.
     </para>
     <para>
-      X509_STORE_CTX_get0_cert() returns the leaf certificate being
-      verified.
-    </para>
-    <para>
       X509_STORE_CTX_get_current_cert() returns the certificate in
       <emphasis role="bold">ctx</emphasis> which caused the error or
       <emphasis role="bold">NULL</emphasis> if no certificate is relevant.
+    </para>
+    <para>
+      X509_STORE_CTX_set_current_cert() sets the certificate <emphasis role="bold">x</emphasis> in <emphasis role="bold">ctx</emphasis>
+      which caused the error. This value is not intended to remain valid
+      for very long, and remains owned by the caller. It may be examined by
+      a verification callback invoked to handle each error encountered
+      during chain verification and is no longer required after such a
+      callback. If a callback wishes the save the certificate for use after
+      it returns, it needs to increment its reference count via
+      <citerefentry> <refentrytitle>X509_up_ref</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>. Once such a <emphasis role="italic">saved</emphasis> certificate is no longer needed it can
+      be freed with <citerefentry> <refentrytitle>X509_free</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>.
+    </para>
+    <para>
+      X509_STORE_CTX_get0_cert() returns the leaf certificate being
+      verified.
     </para>
     <para>
       X509_STORE_CTX_get1_chain() returns a complete validate chain if a
@@ -529,7 +545,11 @@ X509 *X509_STORE_CTX_get0_cert(X509_STORE_CTX *ctx);</synopsis>
   <refsection xml:id="ID-477a9fa523edd523db0554a27295ed01"><title>SEE ALSO</title>
     <para>
       <citerefentry> <refentrytitle>X509_verify_cert</refentrytitle>
-      <manvolnum>3</manvolnum> </citerefentry>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>X509_up_ref</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>, <citerefentry>
+      <refentrytitle>X509_free</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>.
     </para>
   </refsection>
   <refsection xml:id="ID-4a1c8f4bc113dd9942292ea8a19f73d4"><title>HISTORY</title>
