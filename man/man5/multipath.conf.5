@@ -394,7 +394,7 @@ retry interval
 if a number of retries is given with \fIno_path_retry\fR and the
 overall retry interval is longer than the specified \fIdev_loss_tmo\fR value.
 The linux kernel will cap this value to \fI300\fR if \fBfast_io_fail_tmo\fR
-is not set.
+is not set. Default is 600.
 .TP
 .B queue_without_daemon
 If set to
@@ -496,6 +496,20 @@ checks, the next time it comes back online, it will marked and delayed, and not
 used until it has passed
 .I delay_wait_checks
 checks. Default is
+.I no
+.TP
+.B strict_timinig
+If set to
+.I yes
+, multipathd will start a new path checker loop after exactly one second,
+so that each path check will occur at exactly
+.I polling_interval
+seconds. On busy systems path checks might take longer than one second;
+here the missing ticks will be accounted for on the next round.
+A warning will be printed if path checks take longer than
+.I polling_interval
+seconds.
+Default is
 .I no
 .TP
 .B uxsock_timeout

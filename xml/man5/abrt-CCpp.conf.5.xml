@@ -83,32 +83,34 @@ IgnoredPaths = /path/to/ignore/<emphasis role="strong">, */another/ignored/path<
 </term>
 <listitem>
 <simpara>
-   ABRT will ignore crashes in executables whose absolute path matches one of
-   specified patterns.
+   ABRT will ignore crashes in executables whose absolute path matches
+   any of the glob patterns listed in the comma separated list.
 </simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
 <term>
-AllowedUsers = root, …
+AllowedUsers = root, wheel, …
 </term>
 <listitem>
 <simpara>
    ABRT will process only crashes of either allowed users <emphasis>AllowedUsers</emphasis> or
    users who are members of allowed group <emphasis>AllowedGroups</emphasis>. If no allowed users
    nor allowed group are specified ABRT will process crashes of all users.
+   <emphasis>AllowedUsers</emphasis> is a comma separated list.
 </simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
 <term>
-AllowedGroups = root, …
+AllowedGroups = root, wheel, …
 </term>
 <listitem>
 <simpara>
    ABRT will process only crashes of either allowed users <emphasis>AllowedUsers</emphasis> or
    users who are members of allowed group <emphasis>AllowedGroups</emphasis>. If no allowed users
    nor allowed group are specified ABRT will process crashes of all users.
+   <emphasis>AllowedGroups</emphasis> is a comma separated list.
 </simpara>
 </listitem>
 </varlistentry>
