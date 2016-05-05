@@ -1,0 +1,78 @@
+<!-- Converted by db4-upgrade version 1.1 -->
+<refentry xmlns="http://docbook.org/ns/docbook" version="5.0">
+  <refmeta>
+    <refentrytitle>d2i_PrivateKey.pod</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>d2i_Private_key, d2i_AutoPrivateKey, i2d_PrivateKey</refname>
+<refpurpose>decode and encode
+functions for reading and saving EVP_PKEY structures.</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv>
+<synopsis>#include &lt;openssl/evp.h&gt;</synopsis>
+<synopsis>EVP_PKEY *d2i_PrivateKey(int type, EVP_PKEY **a, const unsigned char **pp,
+                         long length);
+EVP_PKEY *d2i_AutoPrivateKey(EVP_PKEY **a, const unsigned char **pp,
+                             long length);
+int i2d_PrivateKey(EVP_PKEY *a, unsigned char **pp);</synopsis>
+  </refsynopsisdiv>
+  <refsection xml:id="ID-0a0491c3ba43e11c5dcbeb9acfc2d3f7"><title>DESCRIPTION</title>
+    <para>
+      d2i_PrivateKey() decodes a private key using algorithm <emphasis role="bold">type</emphasis>. It attempts to use any key specific
+      format or PKCS#8 unencrypted PrivateKeyInfo format. The <emphasis role="bold">type</emphasis> parameter should be a public key
+      algorithm constant such as <emphasis role="bold">EVP_PKEY_RSA</emphasis>. An error occurs if the decoded
+      key does not match <emphasis role="bold">type</emphasis>.
+    </para>
+    <para>
+      d2i_AutoPrivateKey() is similar to d2i_PrivateKey() except it
+      attempts to automatically detect the private key format.
+    </para>
+    <para>
+      i2d_PrivateKey() encodes <emphasis role="bold">key</emphasis>. It
+      uses a key specific format or, if none is defined for that key type,
+      PKCS#8 unencrypted PrivateKeyInfo format.
+    </para>
+    <para>
+      These functions are similar to the d2i_X509() functions, and you
+      should refer to that page for a detailed description (see
+      <citerefentry> <refentrytitle>d2i_X509</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>).
+    </para>
+  </refsection>
+  <refsection xml:id="ID-3d56e46a159b5df48f35c698fe52eab2"><title>NOTES</title>
+    <para>
+      All these functions use DER format and unencrypted keys. Applications
+      wishing to encrypt or decrypt private keys should use other functions
+      such as d2i_PKC8PrivateKey() instead.
+    </para>
+    <para>
+      If the <emphasis role="bold">*a</emphasis> is not NULL when calling
+      d2i_PrivateKey() or d2i_AutoPrivateKey() (i.e. an existing structure
+      is being reused) and the key format is PKCS#8 then <emphasis role="bold">*a</emphasis> will be freed and replaced on a successful
+      call.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-f70ea844b2f6558eee1d66797ca150fe"><title>RETURN VALUES</title>
+    <para>
+      d2i_PrivateKey() and d2i_AutoPrivateKey() return a valid <emphasis role="bold">EVP_KEY</emphasis> structure or <emphasis role="bold">NULL</emphasis> if an error occurs. The error code can be
+      obtained by calling <citerefentry>
+      <refentrytitle>ERR_get_error</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>.
+    </para>
+    <para>
+      i2d_PrivateKey() returns the number of bytes successfully encoded or
+      a negative value if an error occurs. The error code can be obtained
+      by calling <citerefentry>
+      <refentrytitle>ERR_get_error</refentrytitle> <manvolnum>3</manvolnum>
+      </citerefentry>.
+    </para>
+  </refsection>
+  <refsection xml:id="ID-f58f8bd7bc04a20d0dafeb9cb95dbf13"><title>SEE ALSO</title>
+    <para>
+      <citerefentry> <refentrytitle>crypto</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>, <citerefentry>
+      <refentrytitle>d2i_PKCS8PrivateKey</refentrytitle>
+      <manvolnum>3</manvolnum> </citerefentry>
+    </para>
+  </refsection>
+</refentry>
