@@ -19,8 +19,8 @@
           [-o &lt;name&gt;] [-b &lt;name&gt;] [-u &lt;upload-pack&gt;] [--reference &lt;repository&gt;]
           [--dissociate] [--separate-git-dir &lt;git dir&gt;]
           [--depth &lt;depth&gt;] [--[no-]single-branch]
-          [--recursive | --recurse-submodules] [--jobs &lt;n&gt;] [--] &lt;repository&gt;
-          [&lt;directory&gt;]</literallayout>
+          [--recursive | --recurse-submodules] [--[no-]shallow-submodules]
+          [--jobs &lt;n&gt;] [--] &lt;repository&gt; [&lt;directory&gt;]</literallayout>
 <simpara></simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
@@ -330,7 +330,9 @@ objects from the source repository into a pack in the cloned repository.</simpar
         Create a <emphasis>shallow</emphasis> clone with a history truncated to the
         specified number of commits. Implies <literal>--single-branch</literal> unless
         <literal>--no-single-branch</literal> is given to fetch the histories near the
-        tips of all branches.
+        tips of all branches. This implies <literal>--shallow-submodules</literal>. If
+        you want to have a shallow superproject clone, but full submodules,
+        also pass <literal>--no-shallow-submodules</literal>.
 </simpara>
 </listitem>
 </varlistentry>
@@ -366,6 +368,16 @@ objects from the source repository into a pack in the cloned repository.</simpar
         the clone is finished. This option is ignored if the cloned
         repository does not have a worktree/checkout (i.e. if any of
         <literal>--no-checkout</literal>/<literal>-n</literal>, <literal>--bare</literal>, or <literal>--mirror</literal> is given)
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+--[no-]shallow-submodules
+</term>
+<listitem>
+<simpara>
+        All submodules which are cloned will be shallow with a depth of 1.
 </simpara>
 </listitem>
 </varlistentry>

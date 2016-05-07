@@ -61,12 +61,7 @@ codes are:</simpara>
 <itemizedlist>
 <listitem>
 <simpara>
-The config file is invalid (ret=3),
-</simpara>
-</listitem>
-<listitem>
-<simpara>
-can not write to the config file (ret=4),
+The section or key is invalid (ret=1),
 </simpara>
 </listitem>
 <listitem>
@@ -76,7 +71,12 @@ no section or name was provided (ret=2),
 </listitem>
 <listitem>
 <simpara>
-the section or key is invalid (ret=1),
+the config file is invalid (ret=3),
+</simpara>
+</listitem>
+<listitem>
+<simpara>
+the config file cannot be written (ret=4),
 </simpara>
 </listitem>
 <listitem>
@@ -4439,6 +4439,19 @@ http.emptyAuth
         can be used to attempt GSS-Negotiate authentication without specifying
         a username in the URL, as libcurl normally requires a username for
         authentication.
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+http.extraHeader
+</term>
+<listitem>
+<simpara>
+        Pass an additional HTTP header when communicating with a server.  If
+        more than one such entry exists, all of them are added as extra
+        headers.  To allow overriding the settings inherited from the system
+        config, an empty value will reset the extra headers to the empty list.
 </simpara>
 </listitem>
 </varlistentry>

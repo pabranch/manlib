@@ -144,6 +144,27 @@
           </listitem>
         </varlistentry>
         <varlistentry>
+          <term>SSL_ERROR_WANT_ASYNC_JOB</term>
+          <listitem>
+            <para>
+	      The asynchronous job could not be started because there were
+	      no async jobs available in the pool (see
+	      ASYNC_init_thread(3)). This will only occur if the mode has
+	      been set to SSL_MODE_ASYNC using <citerefentry>
+	      <refentrytitle>SSL_CTX_set_mode</refentrytitle>
+	      <manvolnum>3</manvolnum> </citerefentry> or <citerefentry>
+	      <refentrytitle>SSL_set_mode</refentrytitle>
+	      <manvolnum>3</manvolnum> </citerefentry> and a maximum limit
+	      has been set on the async job pool through a call to
+	      <citerefentry>
+	      <refentrytitle>ASYNC_init_thread</refentrytitle>
+	      <manvolnum>3</manvolnum> </citerefentry>. The application
+	      should retry the operation after a currently executing
+	      asynchronous operation for the current thread has completed.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
           <term>SSL_ERROR_SYSCALL</term>
           <listitem>
             <para>

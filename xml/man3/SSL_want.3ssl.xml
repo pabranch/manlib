@@ -4,8 +4,10 @@
     <refentrytitle>SSL_want.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>SSL_want, SSL_want_nothing, SSL_want_read, SSL_want_write, SSL_want_x509_lookup</refname>
-<refpurpose>obtain state information TLS/SSL I/O operation</refpurpose>
+    <refname>SSL_want, SSL_want_nothing, SSL_want_read, SSL_want_write, SSL_want_x509_lookup,
+SSL_want_async, SSL_want_async_job</refname>
+<refpurpose>obtain state information TLS/SSL I/O
+operation</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
@@ -13,7 +15,9 @@
 int SSL_want_nothing(const SSL *ssl);
 int SSL_want_read(const SSL *ssl);
 int SSL_want_write(const SSL *ssl);
-int SSL_want_x509_lookup(const SSL *ssl);</synopsis>
+int SSL_want_x509_lookup(const SSL *ssl);
+int SSL_want_async(const SSL *ssl);
+int SSL_want_async_job(const SSL *ssl);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-3190a997ce3274826b187a311c504d32"><title>DESCRIPTION</title>
     <para>
@@ -98,12 +102,39 @@ int SSL_want_x509_lookup(const SSL *ssl);</synopsis>
             </para>
           </listitem>
         </varlistentry>
+        <varlistentry>
+          <term>SSL_ASYNC_PAUSED</term>
+          <listitem>
+            <para>
+	      An asynchronous operation partially completed and was then
+	      paused. See <citerefentry>
+	      <refentrytitle>SSL_get_all_async_fds</refentrytitle>
+	      <manvolnum>3</manvolnum> </citerefentry>. A call to
+	      <citerefentry> <refentrytitle>SSL_get_error</refentrytitle>
+	      <manvolnum>3</manvolnum> </citerefentry> should return
+	      SSL_ERROR_WANT_ASYNC.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>SSL_ASYNC_NO_JOBS</term>
+          <listitem>
+            <para>
+	      The asynchronous job could not be started because there were
+	      no async jobs available in the pool (see
+	      ASYNC_init_thread(3)). A call to <citerefentry>
+	      <refentrytitle>SSL_get_error</refentrytitle>
+	      <manvolnum>3</manvolnum> </citerefentry> should return
+	      SSL_ERROR_WANT_ASYNC_JOB.
+            </para>
+          </listitem>
+        </varlistentry>
       </variablelist>
     </para>
     <para>
       SSL_want_nothing(), SSL_want_read(), SSL_want_write(),
-      SSL_want_x509_lookup() return 1, when the corresponding condition is
-      true or 0 otherwise.
+      SSL_want_x509_lookup(), SSL_want_async() and SSL_want_async_job()
+      return 1, when the corresponding condition is true or 0 otherwise.
     </para>
   </refsection>
   <refsection xml:id="ID-e743680f5cd5c4f852795571ca29930e"><title>SEE ALSO</title>
