@@ -21,7 +21,7 @@
 .\" Formatted or processed versions of this manual, if unaccompanied by
 .\" the source, must acknowledge the copyright and authors of this work.
 .\" %%%LICENSE_END
-.TH IOCTl-FAT 2 2015-02-21 "Linux" "Linux Programmer's Manual"
+.TH IOCTl-FAT 2 2016-05-09 "Linux" "Linux Programmer's Manual"
 .SH NAME
 ioctl_fat \- manipulating the FAT filesystem
 .SH SYNOPSIS
@@ -111,7 +111,7 @@ Typically the volume label is displayed to the user as a group of two
 .PP
 .in +4n
 .nf
-printf("Volume ID %4x-%4x\\n", id >> 16, id & 0xFFFF);
+printf("Volume ID %04x-%04x\\n", id >> 16, id & 0xFFFF);
 .fi
 .in
 .SS Reading short file names of a directory
@@ -403,7 +403,7 @@ main(int argc, char *argv[])
     /*
      * Format the output as two groups of 16 bits each.
      */
-    printf("Volume ID %4x\-%4x\\n", id >> 16, id & 0xFFFF);
+    printf("Volume ID %04x\-%04x\\n", id >> 16, id & 0xFFFF);
 
     close(fd);
 

@@ -286,30 +286,8 @@ See also
 .BR getauxval (3).
 .TP
 .IR /proc/[pid]/cgroup " (since Linux 2.6.24)"
-.\" 	  Info in Documentation/cgroups/cgroups.txt
-This file describes control groups to which the process/task belongs.
-For each cgroup hierarchy there is one entry containing
-colon-separated fields of the form:
-.nf
-.ft CW
-
-    5:cpuacct,cpu,cpuset:/daemons
-.ft
-.fi
-.IP
-The colon-separated fields are, from left to right:
-.RS 11
-.IP 1. 3
-hierarchy ID number
-.IP 2.
-set of subsystems bound to the hierarchy
-.IP 3.
-control group in the hierarchy to which the process belongs
-.RE
-.IP
-This file is present only if the
-.B CONFIG_CGROUPS
-kernel configuration option is enabled.
+See
+.BR cgroups (7).
 .TP
 .IR /proc/[pid]/clear_refs " (since Linux 2.6.22)"
 .\" commit b813e931b4c8235bb42e301096ea97dbdee3e8fe (2.6.22)
@@ -1099,12 +1077,21 @@ and
 .TP
 .IR /proc/[pid]/mountinfo " (since Linux 2.6.26)"
 .\" This info adapted from Documentation/filesystems/proc.txt
+.\" commit 2d4d4864ac08caff5c204a752bd004eed4f08760
 This file contains information about mount points.
-It contains lines of the form:
+It supplies various information
+(e.g., propagation state, root of mount for bind mounts,
+identifier for each mount and its parent) that is missing from the (older)
+.IR /proc/[pid]/mounts
+file, and fixes various other problems with that file
+(e.g., nonextensibility,
+failure to distinguish per-mount versus per-superblock options).
+
+The file contains lines of the form:
 .nf
 .ft CW
 
-36 35 98:0 /mnt1 /mnt2 rw,noatime master:1 - ext3 /dev/root rw,errors=continue
+36 35 98:0 /mnt1 /mnt2 rw,noatime master:1 \- ext3 /dev/root rw,errors=continue
 (1)(2)(3)   (4)   (5)      (6)      (7)   (8) (9)   (10)         (11)
 .ft
 .fi
@@ -1113,35 +1100,38 @@ The numbers in parentheses are labels for the descriptions below:
 .RS 7
 .TP 5
 (1)
-mount ID: unique identifier of the mount (may be reused after
+mount ID: a unique ID for the mount (may be reused after
 .BR umount (2)).
 .TP
 (2)
-parent ID: ID of parent mount (or of self for the top of the mount tree).
+parent ID: the ID of the parent mount
+(or of self for the top of the mount tree).
 .TP
 (3)
-major:minor: value of
+major:minor: the value of
 .I st_dev
-for files on filesystem (see
+for files on this filesystem (see
 .BR stat (2)).
 .TP
 (4)
-root: root of the mount within the filesystem.
+root: the pathname of the directory in the filesystem
+which forms the root of this mount.
 .TP
 (5)
-mount point: mount point relative to the process's root.
+mount point: ithe pathname of the mount point relative
+to the process's root directory.
 .TP
 (6)
 mount options: per-mount options.
 .TP
 (7)
-optional fields: zero or more fields of the form "tag[:value]".
+optional fields: zero or more fields of the form "tag[:value]"; see below.
 .TP
 (8)
-separator: marks the end of the optional fields.
+separator: the end of the optional fields is marked by a single hyphen.
 .TP
 (9)
-filesystem type: name of filesystem in the form "type[.subtype]".
+filesystem type: the filesystem type in the form "type[.subtype]".
 .TP
 (10)
 mount source: filesystem-specific information or "none".
@@ -1150,7 +1140,6 @@ mount source: filesystem-specific information or "none".
 super options: per-superblock options.
 .RE
 .IP
-Parsers should ignore all unrecognized optional fields.
 Currently, the possible optional fields are:
 .RS 12
 .TP 18
@@ -1166,6 +1155,8 @@ mount is slave and receives propagation from peer group X (*)
 unbindable
 mount is unbindable
 .RE
+.IP
+Parsers should ignore all unrecognized optional fields.
 .IP
 (*) X is the closest dominant peer group under the process's root.
 If X is the immediate master of the mount,
@@ -2364,6 +2355,10 @@ They may be accessed through
 .BR lspci (8)
 and
 .BR setpci (8).
+.TP
+.IR /proc/cgroups " (since Linux 2.6.24)"
+See
+.BR cgroups (7).
 .TP
 .I /proc/cmdline
 Arguments passed to the Linux kernel at boot time.

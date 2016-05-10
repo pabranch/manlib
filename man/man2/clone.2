@@ -258,6 +258,22 @@ If the kernel is not configured with the
 .B CONFIG_BLOCK
 option, this flag is a no-op.
 .TP
+.BR CLONE_NEWCGROUP " (since Linux 4.6)"
+Create the process in a new cgroup namespace.
+If this flag is not set, then (as with
+.BR fork (2))
+the process is created in the same cgroup namespaces as the calling process.
+This flag is intended for the implementation of containers.
+
+For further information on cgroup namespaces, see
+.BR cgroup_namespaces (7).
+
+Only a privileged process
+.RB ( CAP_SYS_ADMIN )
+can employ
+.BR CLONE_NEWCGROUP .
+.\"
+.TP
 .BR CLONE_NEWIPC " (since Linux 2.6.19)"
 If
 .B CLONE_NEWIPC
@@ -583,6 +599,9 @@ and was
 altogether in Linux 2.6.38.
 Since then, the kernel silently ignores it without error.
 .\" glibc 2.8 removed this defn from bits/sched.h
+Starting with Linux 4.6, the same bit was reused for the
+.BR CLONE_NEWCGROUP
+flag.
 .TP
 .BR CLONE_SYSVSEM " (since Linux 2.5.10)"
 If
@@ -969,6 +988,13 @@ but the kernel was not configured with the
 .B CONFIG_UTS
 option.
 .TP
+.B EINVAL
+.I child_stack
+is not aligned to a suitable boundary for this architecture.
+For example, on aarch64,
+.I child_stack
+must be a multiple of 16.
+.TP
 .B ENOMEM
 Cannot allocate sufficient memory to allocate a task structure for the
 child, or to copy those parts of the caller's context that need to be
@@ -1013,6 +1039,11 @@ and the call would cause the limit on the number of
 nested user namespaces to be exceeded.
 See
 .BR user_namespaces (7).
+.TP
+.BR ERESTARTNOINTR " (since Linux 2.6.17)"
+.\" commit 4a2c7a7837da1b91468e50426066d988050e4d56
+System call was interrupted by a signal and will be restarted.
+(This can be seen only during a trace.)
 .SH VERSIONS
 There is no entry for
 .BR clone ()

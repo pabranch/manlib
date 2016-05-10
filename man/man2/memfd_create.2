@@ -25,6 +25,9 @@ memfd_create \- create an anonymous file
 .B #include <sys/memfd.h>
 .sp
 .BI "int memfd_create(const char *" name ", unsigned int " flags ");"
+
+.IR Note :
+There is no glibc wrapper for this system call; see NOTES.
 .SH DESCRIPTION
 .BR memfd_create ()
 creates an anonymous file and returns a file descriptor that refers to it.
@@ -156,13 +159,14 @@ There was insufficient memory to create a new anonymous file.
 The
 .BR memfd_create ()
 system call first appeared in Linux 3.17.
-.\" FIXME . When glibc support appears, update the following sentence:
-Support in the GNU C library is pending.
 .SH CONFORMING TO
 The
 .BR memfd_create ()
 system call is Linux-specific.
 .SH NOTES
+Glibc does not provide a wrapper for this system call; call it using
+.BR syscall (2).
+
 .\" See also http://lwn.net/Articles/593918/
 .\" and http://lwn.net/Articles/594919/ and http://lwn.net/Articles/591108/
 The
@@ -306,7 +310,7 @@ The program accepts up to three command-line arguments,
 of which the first two are required.
 The first argument is the name to associate with the file,
 the second argument is the size to be set for the file,
-and the optional third is a string of characters that specify
+and the optional third argument is a string of characters that specify
 seals to be set on file.
 
 The second program,

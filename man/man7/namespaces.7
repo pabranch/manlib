@@ -40,6 +40,7 @@ Linux provides the following namespaces:
 lB lB lB
 l lB l.
 Namespace	Constant	Isolates
+Cgroup	CLONE_NEWCGROUP	Cgroup root directory
 IPC	CLONE_NEWIPC	System V IPC, POSIX message queues
 Network	CLONE_NEWNET	Network devices, stacks, ports, etc.
 Mount	CLONE_NEWNS	Mount points
@@ -119,12 +120,13 @@ supports being manipulated by
 .nf
 $ \fBls -l /proc/$$/ns\fP
 total 0
-lrwxrwxrwx. 1 mtk mtk 0 Jan 14 01:20 ipc -> ipc:[4026531839]
-lrwxrwxrwx. 1 mtk mtk 0 Jan 14 01:20 mnt -> mnt:[4026531840]
-lrwxrwxrwx. 1 mtk mtk 0 Jan 14 01:20 net -> net:[4026531956]
-lrwxrwxrwx. 1 mtk mtk 0 Jan 14 01:20 pid -> pid:[4026531836]
-lrwxrwxrwx. 1 mtk mtk 0 Jan 14 01:20 user -> user:[4026531837]
-lrwxrwxrwx. 1 mtk mtk 0 Jan 14 01:20 uts -> uts:[4026531838]
+lrwxrwxrwx. 1 mtk mtk 0 Apr 28 12:46 cgroup -> cgroup:[4026531835]
+lrwxrwxrwx. 1 mtk mtk 0 Apr 28 12:46 ipc -> ipc:[4026531839]
+lrwxrwxrwx. 1 mtk mtk 0 Apr 28 12:46 mnt -> mnt:[4026531840]
+lrwxrwxrwx. 1 mtk mtk 0 Apr 28 12:46 net -> net:[4026531969]
+lrwxrwxrwx. 1 mtk mtk 0 Apr 28 12:46 pid -> pid:[4026531836]
+lrwxrwxrwx. 1 mtk mtk 0 Apr 28 12:46 user -> user:[4026531837]
+lrwxrwxrwx. 1 mtk mtk 0 Apr 28 12:46 uts -> uts:[4026531838]
 .fi
 .in
 
@@ -167,6 +169,9 @@ uts:[4026531838]
 
 The files in this subdirectory are as follows:
 .TP
+.IR /proc/[pid]/ns/cgroup " (since Linux 4.6)"
+This file is a handle for the cgroup namespace of the process.
+.TP
 .IR /proc/[pid]/ns/ipc " (since Linux 3.0)"
 This file is a handle for the IPC namespace of the process.
 .TP
@@ -184,6 +189,12 @@ This file is a handle for the user namespace of the process.
 .TP
 .IR /proc/[pid]/ns/uts " (since Linux 3.0)"
 This file is a handle for the UTS namespace of the process.
+.\"
+.\" ==================== Cgroup namespaces ====================
+.\"
+.SS Cgroup namespaces (CLONE_NEWCGROUP)
+See
+.BR cgroup_namespaces (7).
 .\"
 .\" ==================== IPC namespaces ====================
 .\"
@@ -370,8 +381,10 @@ See
 .BR setns (2),
 .BR unshare (2),
 .BR proc (5),
-.BR credentials (7),
 .BR capabilities (7),
+.BR cgroup_namespaces (7),
+.BR cgroups (7),
+.BR credentials (7),
 .BR pid_namespaces (7),
 .BR user_namespaces (7),
 .BR switch_root (8)
