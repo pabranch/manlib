@@ -5710,8 +5710,11 @@ pack.packSizeLimit
         is unaffected.  It can be overridden by the <literal>--max-pack-size</literal>
         option of <citerefentry>
 <refentrytitle>git-repack</refentrytitle><manvolnum>1</manvolnum>
-</citerefentry>. The minimum size allowed is
-        limited to 1 MiB. The default is unlimited.
+</citerefentry>.  Reaching this limit results
+        in the creation of multiple packfiles; which in turn prevents
+        bitmaps from being created.
+        The minimum size allowed is limited to 1 MiB.
+        The default is unlimited.
         Common unit suffixes of <emphasis>k</emphasis>, <emphasis>m</emphasis>, or <emphasis>g</emphasis> are
         supported.
 </simpara>
@@ -6518,8 +6521,9 @@ repack.writeBitmaps
         objects to disk (e.g., when <literal>git repack -a</literal> is run).  This
         index can speed up the "counting objects" phase of subsequent
         packs created for clones and fetches, at the cost of some disk
-        space and extra time spent on the initial repack.  Defaults to
-        false.
+        space and extra time spent on the initial repack.  This has
+        no effect if multiple packfiles are created.
+        Defaults to false.
 </simpara>
 </listitem>
 </varlistentry>

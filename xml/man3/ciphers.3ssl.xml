@@ -19,6 +19,7 @@
 [<emphasis role="bold">-tls1_2</emphasis>]
 [<emphasis role="bold">-s</emphasis>]
 [<emphasis role="bold">-psk</emphasis>]
+[<emphasis role="bold">-srp</emphasis>]
 [<emphasis role="bold">-stdname</emphasis>]
 [<emphasis role="bold">cipherlist</emphasis>]</synopsis>
   </refsynopsisdiv>
@@ -45,17 +46,17 @@
           <listitem>
             <para>
 	      Only list supported ciphers: those consistent with the
-	      security level, and minimum and maximum protocol version.
+	      security level, and minimum and maximum protocol version. 
 	      This is closer to the actual cipher list an application will
 	      support.
             </para>
             <para>
-	      This program does not set up support for SRP and so SRP based
-	      ciphers will always be excluded when using this option. PSK
-	      ciphers are not enabled by default and it requires the
-	      <emphasis role="bold">-psk</emphasis> to enable them. It also
-	      does not change the default list of supported signature
-	      algorithms.
+	      PSK and SRP ciphers are not enabled by default: they require
+	      <emphasis role="bold">-psk</emphasis> or <emphasis role="bold">-srp</emphasis> to enable them.
+            </para>
+            <para>
+	      It also does not change the default list of supported
+	      signature algorithms.
             </para>
             <para>
 	      On a server the list of supported ciphers might also exclude
@@ -74,6 +75,15 @@
             <para>
 	      When combined with <emphasis role="bold">-s</emphasis>
 	      includes cipher suites which require PSK.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><emphasis role="bold">-srp</emphasis></term>
+          <listitem>
+            <para>
+	      When combined with <emphasis role="bold">-s</emphasis>
+	      includes cipher suites which require SRP.
             </para>
           </listitem>
         </varlistentry>

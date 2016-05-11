@@ -12,7 +12,7 @@ DES_ofb64_encrypt, DES_xcbc_encrypt, DES_ede2_cbc_encrypt,
 DES_ede2_cfb64_encrypt, DES_ede2_ofb64_encrypt, DES_ede3_cbc_encrypt,
 DES_ede3_cfb64_encrypt, DES_ede3_ofb64_encrypt,
 DES_cbc_cksum, DES_quad_cksum, DES_string_to_key, DES_string_to_2keys,
-DES_fcrypt, DES_crypt, DES_enc_read, DES_enc_write</refname>
+DES_fcrypt, DES_crypt</refname>
 <refpurpose>DES encryption</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
@@ -84,10 +84,6 @@ void DES_string_to_2keys(const char *str, DES_cblock *key1,
        DES_cblock *key2);</synopsis>
 <synopsis>char *DES_fcrypt(const char *buf, const char *salt, char *ret);
 char *DES_crypt(const char *buf, const char *salt);</synopsis>
-<synopsis>int DES_enc_read(int fd, void *buf, int len, DES_key_schedule *sched,
-       DES_cblock *iv);
-int DES_enc_write(int fd, const void *buf, int len,
-       DES_key_schedule *sched, DES_cblock *iv);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-c3d1062a97dd9e0455cb6dbb767d1ed9"><title>DESCRIPTION</title>
     <para>
@@ -287,29 +283,6 @@ int DES_enc_write(int fd, const void *buf, int len,
       (in network byte order) containing the length of the following
       encrypted data.  The encrypted data then follows, padded with random
       data out to a multiple of 8 bytes.
-    </para>
-    <para>
-      DES_enc_read() is used to read <emphasis role="italic">len</emphasis>
-      bytes from file descriptor <emphasis role="italic">fd</emphasis> into
-      buffer <emphasis role="italic">buf</emphasis>. The data being read
-      from <emphasis role="italic">fd</emphasis> is assumed to have come
-      from DES_enc_write() and is decrypted using <emphasis role="italic">sched</emphasis> for the key schedule and <emphasis role="italic">iv</emphasis> for the initial vector.
-    </para>
-    <para>
-      <emphasis role="bold">Warning:</emphasis> The data format used by
-      DES_enc_write() and DES_enc_read() has a cryptographic weakness: When
-      asked to write more than MAXWRITE bytes, DES_enc_write() will split
-      the data into several chunks that are all encrypted using the same
-      IV.  So don't use these functions unless you are sure you know what
-      you do (in which case you might not want to use them anyway).  They
-      cannot handle non-blocking sockets. DES_enc_read() uses an internal
-      state and thus cannot be used on multiple files.
-    </para>
-    <para>
-      <emphasis role="italic">DES_rw_mode</emphasis> is used to specify the
-      encryption mode to use with DES_enc_read() and DES_end_write().  If
-      set to <emphasis role="italic">DES_PCBC_MODE</emphasis> (the
-      default), DES_pcbc_encrypt is used.  If set to <emphasis role="italic">DES_CBC_MODE</emphasis> DES_cbc_encrypt is used.
     </para>
   </refsection>
   <refsection xml:id="ID-368a209e1b74134f7f8bddc9612e85e7"><title>BUGS</title>

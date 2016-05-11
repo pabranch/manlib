@@ -10,8 +10,10 @@ i2d_X509_fp</refname>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/x509.h&gt;</synopsis>
-<synopsis>X509 *d2i_X509(X509 **px, const unsigned char **in, int len);
-int i2d_X509(X509 *x, unsigned char **out);</synopsis>
+<synopsis>X509 *d2i_X509(X509 **px, const unsigned char **in, long len);
+X509 *d2i_X509_AUX(X509 **px, const unsigned char **in, long len);
+int i2d_X509(X509 *x, unsigned char **out);
+int i2d_X509_AUX(X509 *x, unsigned char **out);</synopsis>
 <synopsis>X509 *d2i_X509_bio(BIO *bp, X509 **x);
 X509 *d2i_X509_fp(FILE *fp, X509 **x);</synopsis>
 <synopsis>int i2d_X509_bio(BIO *bp, X509 *x);
@@ -38,6 +40,13 @@ int i2d_X509_fp(FILE *fp, X509 *x);</synopsis>
       incremented to the byte following the parsed data.
     </para>
     <para>
+      d2i_X509_AUX() is similar to d2i_X509() but the input is expected to
+      consist of an X509 certificate followed by auxiliary trust
+      information. This is used by the PEM routines to read "TRUSTED
+      CERTIFICATE" objects. This function should not be called on untrusted
+      input.
+    </para>
+    <para>
       i2d_X509() encodes the structure pointed to by <emphasis role="bold">x</emphasis> into DER format. If <emphasis role="bold">out</emphasis> is not <emphasis role="bold">NULL</emphasis> is writes the DER encoded data to the
       buffer at <emphasis role="bold">*out</emphasis>, and increments it to
       point after the data just written. If the return value is negative an
@@ -47,6 +56,12 @@ int i2d_X509_fp(FILE *fp, X509 *x);</synopsis>
       If <emphasis role="bold">*out</emphasis> is <emphasis role="bold">NULL</emphasis> memory will be allocated for a buffer and
       the encoded data written to it. In this case <emphasis role="bold">*out</emphasis> is not incremented and it points to the
       start of the data just written.
+    </para>
+    <para>
+      i2d_X509_AUX() is similar to i2d_X509(), but the encoded output
+      contains both the certificate and any auxiliary trust information.
+      This is used by the PEM routines to write "TRUSTED CERTIFICATE"
+      objects. Note, this is a non-standard OpenSSL-specific data format.
     </para>
     <para>
       d2i_X509_bio() is similar to d2i_X509() except it attempts to parse

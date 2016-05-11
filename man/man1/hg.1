@@ -8249,6 +8249,10 @@ Execute a revision set query. See
 .
 Format ReStructuredText.
 .TP
+.B separate(sep, args)
+.
+Add a separator between non\-empty arguments.
+.TP
 .B shortest(node, minlength=4)
 .
 Obtain the shortest representation of
@@ -8330,6 +8334,15 @@ Join the list of files with a ", ":
 .nf
 .ft C
 $ hg log \-r 0 \-\-template "files: {join(files, \(aq, \(aq)}\en"
+.ft P
+.fi
+.IP \(bu 2
+.
+Separate non\-empty arguments by a " ":
+.sp
+.nf
+.ft C
+$ hg log \-r 0 \-\-template "{separate(\(aq \(aq, node, bookmarks, tags}\en"
 .ft P
 .fi
 .IP \(bu 2
