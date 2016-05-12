@@ -159,19 +159,12 @@
           <term><emphasis role="bold">-v2 alg</emphasis></term>
           <listitem>
             <para>
-	      This option enables the use of PKCS#5 v2.0 algorithms.
-	      Normally PKCS#8 private keys are encrypted with the password
-	      based encryption algorithm called <emphasis role="bold">pbeWithMD5AndDES-CBC</emphasis> this uses 56 bit
-	      DES encryption but it was the strongest encryption algorithm
-	      supported in PKCS#5 v1.5. Using the <emphasis role="bold">-v2</emphasis> option PKCS#5 v2.0 algorithms are
-	      used which can use any encryption algorithm such as 168 bit
-	      triple DES or 128 bit RC2 however not many implementations
-	      support PKCS#5 v2.0 yet. If you are just using private keys
-	      with OpenSSL then this doesn't matter.
+	      This option sets the PKCS#5 v2.0 algorithm.
             </para>
             <para>
 	      The <emphasis role="bold">alg</emphasis> argument is the
-	      encryption algorithm to use, valid values include <emphasis role="bold">des</emphasis>, <emphasis role="bold">des3</emphasis> and <emphasis role="bold">rc2</emphasis>. It is recommended that <emphasis role="bold">des3</emphasis> is used.
+	      encryption algorithm to use, valid values include <emphasis role="bold">aes128</emphasis>, <emphasis role="bold">aes256</emphasis> and <emphasis role="bold">des3</emphasis>. If this option isn't specified
+	      then <emphasis role="bold">aes256</emphasis> is used.
             </para>
           </listitem>
         </varlistentry>
@@ -180,8 +173,12 @@
           <listitem>
             <para>
 	      This option sets the PRF algorithm to use with PKCS#5 v2.0. A
-	      typical value values would be <emphasis role="bold">hmacWithSHA256</emphasis>. If this option isn't
-	      set then the default for the cipher is used or <emphasis role="bold">hmacWithSHA1</emphasis> if there is no default.
+	      typical value value would be <emphasis role="bold">hmacWithSHA256</emphasis>. If this option isn't
+	      set then the default for the cipher is used or <emphasis role="bold">hmacWithSHA256</emphasis> if there is no default.
+            </para>
+            <para>
+	      Some implementations may not support custom PRF algorithms
+	      and may require the <emphasis role="bold">hmacWithSHA1</emphasis> option to work.
             </para>
           </listitem>
         </varlistentry>
@@ -189,9 +186,10 @@
           <term><emphasis role="bold">-v1 alg</emphasis></term>
           <listitem>
             <para>
-	      This option specifies a PKCS#5 v1.5 or PKCS#12 algorithm to
-	      use. A complete list of possible algorithms is included
-	      below.
+	      This option indicates a PKCS#5 v1.5 or PKCS#12 algorithm
+	      should be used.  Some older implementations may not support
+	      PKCS#5 v2.0 and may require this option. If not specified
+	      PKCS#5 v2.0 for is used.
             </para>
           </listitem>
         </varlistentry>
@@ -228,6 +226,15 @@
   </refsection>
   <refsection xml:id="ID-d0840d24cc9282a9c3af272574b3f9b5"><title>NOTES</title>
     <para>
+      By default, when converting a key to PKCS#8 format, PKCS#5 v2.0 using
+      256 bit AES with HMAC and SHA256 is used.
+    </para>
+    <para>
+      Some older implementations do not support PKCS#5 v2.0 format and
+      require the older PKCS#5 v1.5 form instead, possibly also requiring
+      insecure weak encryption algorithms such as 56 bit DES.
+    </para>
+    <para>
       The encrypted form of a PEM encode PKCS#8 files uses the following
       headers and footers:
     </para>
@@ -243,15 +250,6 @@
       iteration counts are more secure that those encrypted using the
       traditional SSLeay compatible formats. So if additional security is
       considered important the keys should be converted.
-    </para>
-    <para>
-      The default encryption is only 56 bits because this is the encryption
-      that most current implementations of PKCS#8 will support.
-    </para>
-    <para>
-      Some software may use PKCS#12 password based encryption algorithms
-      with PKCS#8 format private keys: these are handled automatically but
-      there is no option to produce them.
     </para>
     <para>
       It is possible to write out DER encoded encrypted private keys in

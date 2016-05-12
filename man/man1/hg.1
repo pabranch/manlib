@@ -4172,6 +4172,11 @@ To avoid permanent data loss, rollback will refuse to rollback a
 commit transaction if it isn\(aqt checked out. Use \-\-force to
 override this protection.
 .sp
+The rollback command can be entirely disabled by setting the
+\fBui.rollback\fP configuration setting to false. If you\(aqre here
+because you want to use rollback and it\(aqs disabled, you can
+re\-enable the command by setting \fBui.rollback\fP to true.
+.sp
 This command is not intended for use on public repositories. Once
 changes are visible for pull by other users, rolling a transaction
 back locally is ineffective (someone else may already have pulled
