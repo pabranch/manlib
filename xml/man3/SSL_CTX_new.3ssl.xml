@@ -17,7 +17,7 @@ functions</refpurpose>
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
 <synopsis>SSL_CTX *SSL_CTX_new(const SSL_METHOD *method);
-void SSL_CTX_up_ref(SSL_CTX *ctx);</synopsis>
+int SSL_CTX_up_ref(SSL_CTX *ctx);</synopsis>
 <synopsis>const SSL_METHOD *TLS_method(void);
 const SSL_METHOD *TLS_server_method(void);
 const SSL_METHOD *TLS_client_method(void);</synopsis>
@@ -238,6 +238,9 @@ const SSL_METHOD *DTLSv1_2_client_method(void);
           <listitem>
             <para>
 	      The return value points to an allocated SSL_CTX object.
+            </para>
+            <para>
+	      SSL_CTX_up_ref() returns 1 for success and 0 for failure.
             </para>
           </listitem>
         </varlistentry>

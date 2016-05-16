@@ -10,7 +10,7 @@
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/ssl.h&gt;</synopsis>
 <synopsis>SSL *SSL_new(SSL_CTX *ctx);
-void SSL_up_ref(SSL *s);</synopsis>
+int SSL_up_ref(SSL *s);</synopsis>
   </refsynopsisdiv>
   <refsection xml:id="ID-12cae628e744f1664d34731d4689fb7b"><title>DESCRIPTION</title>
     <para>
@@ -47,6 +47,9 @@ void SSL_up_ref(SSL *s);</synopsis>
           <listitem>
             <para>
 	      The return value points to an allocated SSL structure.
+            </para>
+            <para>
+	      SSL_up_ref() returns 1 for success and 0 for failure.
             </para>
           </listitem>
         </varlistentry>

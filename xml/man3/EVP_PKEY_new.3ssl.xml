@@ -10,7 +10,7 @@
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/evp.h&gt;</synopsis>
 <synopsis>EVP_PKEY *EVP_PKEY_new(void);
-void EVP_PKEY_up_ref(EVP_PKEY *key);
+int EVP_PKEY_up_ref(EVP_PKEY *key);
 void EVP_PKEY_free(EVP_PKEY *key);</synopsis>
 <synopsis/>
   </refsynopsisdiv>
@@ -46,7 +46,7 @@ void EVP_PKEY_free(EVP_PKEY *key);</synopsis>
       EVP_PKEY_new() returns either the newly allocated <emphasis role="bold">EVP_PKEY</emphasis> structure or <emphasis role="bold">NULL</emphasis> if an error occurred.
     </para>
     <para>
-      EVP_PKEY_up_ref() and EVP_PKEY_free() do not return a value.
+      EVP_PKEY_up_ref() returns 1 for success and 0 for failure.
     </para>
   </refsection>
   <refsection xml:id="ID-68841d66901afa0f057e9252a7c62c40"><title>SEE ALSO</title>

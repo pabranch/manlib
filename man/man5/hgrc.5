@@ -1072,6 +1072,16 @@ the python data internally passed to <command>. \fB$HG_OPTS\fP is a
 dictionary of options (with unspecified options set to their defaults).
 \fB$HG_PATS\fP is a list of arguments. Hook failure is ignored.
 .TP
+.B \fBfail\-<command>\fP
+.sp
+Run after a failed invocation of an associated command. The contents
+of the command line are passed as \fB$HG_ARGS\fP. Parsed command line
+arguments are passed as \fB$HG_PATS\fP and \fB$HG_OPTS\fP. These contain
+string representations of the python data internally passed to
+<command>. \fB$HG_OPTS\fP is a dictionary of options (with unspecified
+options set to their defaults). \fB$HG_PATS\fP is a list of arguments.
+Hook failure is ignored.
+.TP
 .B \fBpre\-<command>\fP
 .sp
 Run before executing the associated command. The contents of the
