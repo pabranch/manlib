@@ -4,12 +4,15 @@
     <refentrytitle>threads.pod</refentrytitle>
   </refmeta>
   <refnamediv>
-    <refname>CRYPTO_THREAD_lock_new, CRYPTO_THREAD_read_lock, CRYPTO_THREAD_write_lock,
+    <refname>CRYPTO_THREAD_run_once,
+CRYPTO_THREAD_lock_new, CRYPTO_THREAD_read_lock, CRYPTO_THREAD_write_lock,
 CRYPTO_THREAD_unlock, CRYPTO_THREAD_lock_free, CRYPTO_atomic_add</refname>
 <refpurpose>OpenSSL thread support</refpurpose>
   </refnamediv>
   <refsynopsisdiv>
 <synopsis>#include &lt;openssl/crypto.h&gt;</synopsis>
+<synopsis>CRYPTO_ONCE CRYPTO_ONCE_STATIC_INIT;
+int CRYPTO_THREAD_run_once(CRYPTO_ONCE *once, void (*init)(void));</synopsis>
 <synopsis>CRYPTO_RWLOCK *CRYPTO_THREAD_lock_new(void);
 int CRYPTO_THREAD_read_lock(CRYPTO_RWLOCK *lock);
 int CRYPTO_THREAD_write_lock(CRYPTO_RWLOCK *lock);
@@ -31,6 +34,20 @@ void CRYPTO_THREAD_lock_free(CRYPTO_RWLOCK *lock);</synopsis>
     </para>
     <para>
       <variablelist>
+        <varlistentry>
+          <term>*
+CRYPTO_THREAD_run_once() can be used to perform one-time initialization.
+The <emphasis role="bold">once</emphasis> argument must be a pointer to a static object of type
+<emphasis role="bold">CRYPTO_ONCE</emphasis> that was statically initialized to the value
+<emphasis role="bold">CRYPTO_ONCE_STATIC_INIT</emphasis>.
+The <emphasis role="bold">init</emphasis> argument is a pointer to a function that performs the desired
+exactly once initialization.
+In particular, this can be used to allocate locks in a thread-safe manner,
+which can then be used with the locking functions below.</term>
+          <listitem>
+            <para/>
+          </listitem>
+        </varlistentry>
         <varlistentry>
           <term>*
 CRYPTO_THREAD_lock_new() allocates, initializes and returns a new read/write
@@ -83,6 +100,9 @@ be the only way that the variable is modified.</term>
   </refsection>
   <refsection xml:id="ID-07448e80b23e5c45dc6e6d63b54558c4"><title>RETURN VALUES</title>
     <para>
+      CRYPTO_THREAD_run_once() returns 1 on success, or 0 on error.
+    </para>
+    <para>
       CRYPTO_THREAD_lock_new() returns the allocated lock, or NULL on
       error.
     </para>
@@ -93,12 +113,56 @@ be the only way that the variable is modified.</term>
       The other functions return 1 on success or 0 on error.
     </para>
   </refsection>
+  <refsection xml:id="ID-d6f0739d2f48167d145e03aeaac3805d"><title>EXAMPLE</title>
+    <para>
+      This example safely initializes and uses a lock.
+    </para>
+    <screen>#include &amp;lt;openssl/crypto.h&amp;gt;
+
+static CRYPTO_ONCE once = CRYPTO_ONCE_STATIC_INIT;
+static CRYPTO_RWLOCK *lock;
+
+static void myinit(void)
+{
+    lock = CRYPTO_THREAD_lock_new();
+}
+
+static int mylock(void)
+{
+    if (!CRYPTO_THREAD_run_once(&amp;once, void init) || lock == NULL)
+        return 0;
+    return CRYPTO_THREAD_write_lock(lock);
+}
+
+static int myunlock(void)
+{
+    return CRYPTO_THREAD_unlock(lock);
+}
+
+int serialized(void)
+{
+    int ret = 0;
+
+    if (mylock()) {
+        /* Your code here, do not return without releasing the lock! */
+        ret = ... ;
+    }
+    myunlock();
+    return ret;
+}</screen>
+    <para>
+      Finalization of locks is an advanced topic, not covered in this
+      example. This can only be done at process exit or when a dynamically
+      loaded library is no longer in use and is unloaded. The simplest
+      solution is to just "leak" the lock in applications and not
+      repeatedly load/unload shared libraries that allocate locks.
+    </para>
+  </refsection>
   <refsection xml:id="ID-e18741d3b03aa44ee100c74b5baa6f79"><title>NOTES</title>
     <para>
       You can find out if OpenSSL was configured with thread support:
     </para>
-    <screen>#define OPENSSL_THREAD_DEFINES
-#include &amp;lt;openssl/opensslconf.h&amp;gt;
+    <screen>#include &amp;lt;openssl/opensslconf.h&amp;gt;
 #if defined(OPENSSL_THREADS)
   // thread support enabled
 #else
