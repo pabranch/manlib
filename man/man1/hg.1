@@ -5181,10 +5181,6 @@ http authentication with factotum
 .
 commands to sign and verify changesets
 .TP
-.B hgcia
-.
-hooks for integrating with the CIA.vc notification service
-.TP
 .B hgk
 .
 browse the repository in a graphical way
@@ -10924,48 +10920,6 @@ exclude names matching the given patterns
 .UNINDENT
 .sp
 [+] marked option can be specified multiple times
-.SS hgcia
-.sp
-hooks for integrating with the CIA.vc notification service
-.sp
-This is meant to be run as a changegroup or incoming hook. To
-configure it, set the following options in your hgrc:
-.sp
-.nf
-.ft C
-[cia]
-# your registered CIA user name
-user = foo
-# the name of the project in CIA
-project = foo
-# the module (subproject) (optional)
-#module = foo
-# Append a diffstat to the log message (optional)
-#diffstat = False
-# Template to use for log messages (optional)
-#template = {desc}\en{baseurl}{webroot}/rev/{node}\-\- {diffstat}
-# Style to use (optional)
-#style = foo
-# The URL of the CIA notification service (optional)
-# You can use mailto: URLs to send by email, e.g.
-# mailto:cia@cia.vc
-# Make sure to set email.from if you do this.
-#url = http://cia.vc/
-# print message instead of sending it (optional)
-#test = False
-# number of slashes to strip for url paths
-#strip = 0
-
-[hooks]
-# one of these:
-changegroup.cia = python:hgcia.hook
-#incoming.cia = python:hgcia.hook
-
-[web]
-# If you want hyperlinks (optional)
-baseurl = http://server/path/to/repo
-.ft P
-.fi
 .SS hgk
 .sp
 browse the repository in a graphical way

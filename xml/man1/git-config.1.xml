@@ -685,13 +685,14 @@ escape sequences) are invalid.</simpara>
 <title>Includes</title>
 <simpara>You can include one config file from another by setting the special
 <literal>include.path</literal> variable to the name of the file to be included. The
+variable takes a pathname as its value, and is subject to tilde
+expansion.</simpara>
+<simpara>The
 included file is expanded immediately, as if its contents had been
 found at the location of the include directive. If the value of the
 <literal>include.path</literal> variable is a relative path, the path is considered to be
 relative to the configuration file in which the include directive was
-found. The value of <literal>include.path</literal> is subject to tilde expansion: <literal>~/</literal>
-is expanded to the value of <literal>$HOME</literal>, and <literal>~user/</literal> to the specified
-user&#8217;s home directory. See below for examples.</simpara>
+found.  See below for examples.</simpara>
 </refsect2>
 <refsect2 id="_example">
 <title>Example</title>
@@ -713,7 +714,7 @@ user&#8217;s home directory. See below for examples.</simpara>
 <literallayout class="monospaced">[include]
         path = /path/to/foo.inc ; include by absolute path
         path = foo ; expand "foo" relative to the current file
-        path = ~/foo ; expand "foo" in your $HOME directory</literallayout>
+        path = ~/foo ; expand "foo" in your `$HOME` directory</literallayout>
 </refsect2>
 <refsect2 id="_values">
 <title>Values</title>
@@ -799,6 +800,20 @@ will paint that branch name in a plain <literal>black</literal>, even if the pre
 thing on the same output line (e.g. opening parenthesis before the
 list of branch names in <literal>log --decorate</literal> output) is set to be
 painted with <literal>bold</literal> or some other attribute.</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+pathname
+</term>
+<listitem>
+<simpara>
+        A variable that takes a pathname value can be given a
+        string that begins with "<literal>~/</literal>" or "<literal>~user/</literal>", and the usual
+        tilde expansion happens to such a string: <literal>~/</literal>
+        is expanded to the value of <literal>$HOME</literal>, and <literal>~user/</literal> to the
+        specified user&#8217;s home directory.
+</simpara>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -1051,6 +1066,19 @@ See <citerefentry>
 <refentrytitle>git-update-index</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry>.</simpara>
 <simpara>The default is true (when core.filemode is not specified in the config file).</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+core.hideDotFiles
+</term>
+<listitem>
+<simpara>
+        (Windows-only) If true, mark newly-created directories and files whose
+        name starts with a dot as hidden.  If <emphasis>dotGitOnly</emphasis>, only the <literal>.git/</literal>
+        directory is hidden, but no other files starting with a dot.  The
+        default mode is <emphasis>dotGitOnly</emphasis>.
+</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -1409,10 +1437,10 @@ core.logAllRefUpdates
 <listitem>
 <simpara>
         Enable the reflog. Updates to a ref &lt;ref&gt; is logged to the file
-        "$GIT_DIR/logs/&lt;ref&gt;", by appending the new and old
+        "<literal>$GIT_DIR/logs/&lt;ref&gt;</literal>", by appending the new and old
         SHA-1, the date/time and the reason of the update, but
         only when the file exists.  If this configuration
-        variable is set to true, missing "$GIT_DIR/logs/&lt;ref&gt;"
+        variable is set to true, missing "<literal>$GIT_DIR/logs/&lt;ref&gt;</literal>"
         file is automatically created for branch heads (i.e. under
         refs/heads/), remote refs (i.e. under refs/remotes/),
         note refs (i.e. under refs/notes/), and the symbolic ref HEAD.
@@ -1578,12 +1606,11 @@ core.excludesFile
 </term>
 <listitem>
 <simpara>
-        In addition to <emphasis>.gitignore</emphasis> (per-directory) and
-        <emphasis>.git/info/exclude</emphasis>, Git looks into this file for patterns
-        of files which are not meant to be tracked.  "<literal>~/</literal>" is expanded
-        to the value of <literal>$HOME</literal> and "<literal>~user/</literal>" to the specified user&#8217;s
-        home directory. Its default value is $XDG_CONFIG_HOME/git/ignore.
-        If $XDG_CONFIG_HOME is either not set or empty, $HOME/.config/git/ignore
+        Specifies the pathname to the file that contains patterns to
+        describe paths that are not meant to be tracked, in addition
+        to <emphasis>.gitignore</emphasis> (per-directory) and <emphasis>.git/info/exclude</emphasis>.
+        Defaults to <literal>$XDG_CONFIG_HOME/git/ignore</literal>.
+        If <literal>$XDG_CONFIG_HOME</literal> is either not set or empty, <literal>$HOME/.config/git/ignore</literal>
         is used instead. See <citerefentry>
 <refentrytitle>gitignore</refentrytitle><manvolnum>5</manvolnum>
 </citerefentry>.
@@ -1618,9 +1645,33 @@ core.attributesFile
 <refentrytitle>gitattributes</refentrytitle><manvolnum>5</manvolnum>
 </citerefentry>). Path expansions are made the same
         way as for <literal>core.excludesFile</literal>. Its default value is
-        $XDG_CONFIG_HOME/git/attributes. If $XDG_CONFIG_HOME is either not
-        set or empty, $HOME/.config/git/attributes is used instead.
+        <literal>$XDG_CONFIG_HOME/git/attributes</literal>. If <literal>$XDG_CONFIG_HOME</literal> is either not
+        set or empty, <literal>$HOME/.config/git/attributes</literal> is used instead.
 </simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+core.hooksPath
+</term>
+<listitem>
+<simpara>
+        By default Git will look for your hooks in the
+        <emphasis>$GIT_DIR/hooks</emphasis> directory. Set this to different path,
+        e.g. <emphasis>/etc/git/hooks</emphasis>, and Git will try to find your hooks in
+        that directory, e.g. <emphasis>/etc/git/hooks/pre-receive</emphasis> instead of
+        in <emphasis>$GIT_DIR/hooks/pre-receive</emphasis>.
+</simpara>
+<simpara>The path can be either absolute or relative. A relative path is
+taken as relative to the directory where the hooks are run (see
+the "DESCRIPTION" section of <citerefentry>
+<refentrytitle>githooks</refentrytitle><manvolnum>5</manvolnum>
+</citerefentry>).</simpara>
+<simpara>This configuration variable is useful in cases where you&#8217;d like to
+centrally configure your Git hooks instead of configuring them on a
+per-repository basis, or as a more flexible and centralized
+alternative to having an <literal>init.templateDir</literal> where you&#8217;ve changed
+default hooks.</simpara>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -2673,9 +2724,8 @@ commit.template
 </term>
 <listitem>
 <simpara>
-        Specify a file to use as the template for new commit messages.
-        "<literal>~/</literal>" is expanded to the value of <literal>$HOME</literal> and "<literal>~user/</literal>" to the
-        specified user&#8217;s home directory.
+        Specify the pathname of a file to use as the template for
+        new commit messages.
 </simpara>
 </listitem>
 </varlistentry>
@@ -3666,7 +3716,7 @@ gc.worktreePruneExpire
         <emphasis>git worktree prune --expire 3.months.ago</emphasis>.
         This config variable can be used to set a different grace
         period. The value "now" may be used to disable the grace
-        period and prune $GIT_DIR/worktrees immediately, or "never"
+        period and prune <literal>$GIT_DIR/worktrees</literal> immediately, or "never"
         may be used to suppress pruning.
 </simpara>
 </listitem>
@@ -4004,13 +4054,13 @@ gpg.program
 </term>
 <listitem>
 <simpara>
-        Use this custom program instead of "gpg" found on $PATH when
+        Use this custom program instead of "<literal>gpg</literal>" found on <literal>$PATH</literal> when
         making or verifying a PGP signature. The program must support the
         same command-line interface as GPG, namely, to verify a detached
-        signature, "gpg --verify $file - &lt;$signature" is run, and the
+        signature, "<literal>gpg --verify $file - &lt;$signature</literal>" is run, and the
         program is expected to signal a good signature by exiting with
         code 0, and to generate an ASCII-armored detached signature, the
-        standard input of "gpg -bsau $key" is fed with the contents to be
+        standard input of "<literal>gpg -bsau $key</literal>" is fed with the contents to be
         signed, and the program is expected to send the result to its
         standard output.
 </simpara>
@@ -4049,7 +4099,7 @@ gui.displayUntracked
 <listitem>
 <simpara>
         Determines if <citerefentry>
-<refentrytitle>:git-gui</refentrytitle><manvolnum>1</manvolnum>
+<refentrytitle>git-gui</refentrytitle><manvolnum>1</manvolnum>
 </citerefentry> shows untracked files
         in the file list. The default is "true".
 </simpara>
@@ -4461,13 +4511,12 @@ http.cookieFile
 </term>
 <listitem>
 <simpara>
-        File containing previously stored cookie lines which should be used
+        The pathname of a file containing previously stored cookie lines,
+        which should be used
         in the Git http session, if they match the server. The file format
         of the file to read cookies from should be plain HTTP headers or
-        the Netscape/Mozilla cookie file format (see <citerefentry>
-<refentrytitle>curl</refentrytitle><manvolnum>1</manvolnum>
-</citerefentry>).
-        NOTE that the file specified with http.cookieFile is only used as
+        the Netscape/Mozilla cookie file format (see <literal>curl(1)</literal>).
+        NOTE that the file specified with http.cookieFile is used only as
         input unless http.saveCookies is set.
 </simpara>
 </listitem>

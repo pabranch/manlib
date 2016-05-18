@@ -14,33 +14,45 @@
   <refpurpose>Hooks used by Git</refpurpose>
 </refnamediv>
 <refsynopsisdiv id="_synopsis">
-<simpara>$GIT_DIR/hooks/*</simpara>
+<simpara>$GIT_DIR/hooks/* (or `git config core.hooksPath`/*)</simpara>
 </refsynopsisdiv>
 <refsect1 id="_description">
 <title>DESCRIPTION</title>
-<simpara>Hooks are little scripts you can place in <literal>$GIT_DIR/hooks</literal>
-directory to trigger action at certain points.  When
-<emphasis>git init</emphasis> is run, a handful of example hooks are copied into the
-<literal>hooks</literal> directory of the new repository, but by default they are
-all disabled.  To enable a hook, rename it by removing its <literal>.sample</literal>
-suffix.</simpara>
-<note><simpara>It is also a requirement for a given hook to be executable.
-However - in a freshly initialized repository - the <literal>.sample</literal> files are
-executable by default.</simpara></note>
-<simpara>This document describes the currently defined hooks.</simpara>
+<simpara>Hooks are programs you can place in a hooks directory to trigger
+actions at certain points in git&#8217;s execution. Hooks that don&#8217;t have
+the executable bit set are ignored.</simpara>
+<simpara>By default the hooks directory is <literal>$GIT_DIR/hooks</literal>, but that can be
+changed via the <literal>core.hooksPath</literal> configuration variable (see
+<citerefentry>
+<refentrytitle>git-config</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry>).</simpara>
+<simpara>Before Git invokes a hook, it changes its working directory to either
+the root of the working tree in a non-bare repository, or to the
+$GIT_DIR in a bare repository.</simpara>
+<simpara>Hooks can get their arguments via the environment, command-line
+arguments, and stdin. See the documentation for each hook below for
+details.</simpara>
+<simpara><emphasis>git init</emphasis> may copy hooks to the new repository, depending on its
+configuration. See the "TEMPLATE DIRECTORY" section in
+<citerefentry>
+<refentrytitle>git-init</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> for details. When the rest of this document refers
+to "default hooks" it&#8217;s talking about the default template shipped
+with Git.</simpara>
+<simpara>The currently supported hooks are described below.</simpara>
 </refsect1>
 <refsect1 id="_hooks">
 <title>HOOKS</title>
 <refsect2 id="_applypatch_msg">
 <title>applypatch-msg</title>
-<simpara>This hook is invoked by <emphasis>git am</emphasis> script.  It takes a single
+<simpara>This hook is invoked by <emphasis>git am</emphasis>.  It takes a single
 parameter, the name of the file that holds the proposed commit
-log message.  Exiting with non-zero status causes
-<emphasis>git am</emphasis> to abort before applying the patch.</simpara>
+log message.  Exiting with a non-zero status causes <emphasis>git am</emphasis> to abort
+before applying the patch.</simpara>
 <simpara>The hook is allowed to edit the message file in place, and can
 be used to normalize the message into some project standard
-format (if the project has one). It can also be used to refuse
-the commit after inspecting the message file.</simpara>
+format. It can also be used to refuse the commit after inspecting
+the message file.</simpara>
 <simpara>The default <emphasis>applypatch-msg</emphasis> hook, when enabled, runs the
 <emphasis>commit-msg</emphasis> hook, if the latter is enabled.</simpara>
 </refsect2>
@@ -65,10 +77,10 @@ the outcome of <emphasis>git am</emphasis>.</simpara>
 <refsect2 id="_pre_commit">
 <title>pre-commit</title>
 <simpara>This hook is invoked by <emphasis>git commit</emphasis>, and can be bypassed
-with <literal>--no-verify</literal> option.  It takes no parameter, and is
+with the <literal>--no-verify</literal> option.  It takes no parameters, and is
 invoked before obtaining the proposed commit log message and
-making a commit.  Exiting with non-zero status from this script
-causes the <emphasis>git commit</emphasis> to abort.</simpara>
+making a commit.  Exiting with a non-zero status from this script
+causes the <emphasis>git commit</emphasis> command to abort before creating a commit.</simpara>
 <simpara>The default <emphasis>pre-commit</emphasis> hook, when enabled, catches introduction
 of lines with trailing whitespaces and aborts the commit when
 such a line is found.</simpara>
@@ -99,21 +111,21 @@ out the <literal>Conflicts:</literal> part of a merge&#8217;s commit message.</s
 <refsect2 id="_commit_msg">
 <title>commit-msg</title>
 <simpara>This hook is invoked by <emphasis>git commit</emphasis>, and can be bypassed
-with <literal>--no-verify</literal> option.  It takes a single parameter, the
+with the <literal>--no-verify</literal> option.  It takes a single parameter, the
 name of the file that holds the proposed commit log message.
-Exiting with non-zero status causes the <emphasis>git commit</emphasis> to
+Exiting with a non-zero status causes the <emphasis>git commit</emphasis> to
 abort.</simpara>
-<simpara>The hook is allowed to edit the message file in place, and can
-be used to normalize the message into some project standard
-format (if the project has one). It can also be used to refuse
-the commit after inspecting the message file.</simpara>
+<simpara>The hook is allowed to edit the message file in place, and can be used
+to normalize the message into some project standard format. It
+can also be used to refuse the commit after inspecting the message
+file.</simpara>
 <simpara>The default <emphasis>commit-msg</emphasis> hook, when enabled, detects duplicate
 "Signed-off-by" lines, and aborts the commit if one is found.</simpara>
 </refsect2>
 <refsect2 id="_post_commit">
 <title>post-commit</title>
-<simpara>This hook is invoked by <emphasis>git commit</emphasis>.  It takes no
-parameter, and is invoked after a commit is made.</simpara>
+<simpara>This hook is invoked by <emphasis>git commit</emphasis>. It takes no parameters, and is
+invoked after a commit is made.</simpara>
 <simpara>This hook is meant primarily for notification, and cannot affect
 the outcome of <emphasis>git commit</emphasis>.</simpara>
 </refsect2>
@@ -233,9 +245,13 @@ That is, to enforce a "fast-forward only" policy.</simpara>
 does not know the entire set of branches, so it would end up
 firing one e-mail per ref when used naively, though.  The
 <link linkend="post-receive"><emphasis>post-receive</emphasis></link> hook is more suited to that.</simpara>
-<simpara>Another use suggested on the mailing list is to use this hook to
-implement access control which is finer grained than the one
-based on filesystem group.</simpara>
+<simpara>In an environment that restricts the users' access only to git
+commands over the wire, this hook can be used to implement access
+control without relying on filesystem ownership and group
+membership. See <citerefentry>
+<refentrytitle>git-shell</refentrytitle><manvolnum>1</manvolnum>
+</citerefentry> for how you might use the login
+shell to restrict the user&#8217;s access to only git commands.</simpara>
 <simpara>Both standard output and standard error output are forwarded to
 <emphasis>git send-pack</emphasis> on the other end, so you can simply <literal>echo</literal> messages
 for the user.</simpara>
