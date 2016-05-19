@@ -38,13 +38,13 @@
       SSL/TLS code.
     </para>
     <para>
-      The negative return value from X509_verify_cert() can only occur if
-      no certificate is set in <emphasis role="bold">ctx</emphasis> (due to
-      a programming error); if X509_verify_cert() twice without
-      reinitialising <emphasis role="bold">ctx</emphasis> in between; or if
-      a retry operation is requested during internal lookups (which never
-      happens with standard lookup methods). It is however recommended that
-      application check for &lt;= 0 return value on error.
+      A negative return value from X509_verify_cert() can occur if it is
+      invoked incorrectly, such as with no certificate set in <emphasis role="bold">ctx</emphasis>, or when it is called twice in succession
+      without reinitialising <emphasis role="bold">ctx</emphasis> for the
+      second call. A negative return value can also happen due to internal
+      resource problems or if a retry operation is requested during
+      internal lookups (which never happens with standard lookup methods).
+      Applications must check for &lt;= 0 return value on error.
     </para>
   </refsection>
   <refsection xml:id="ID-4ce7e4759efdcdfc5d10bbb79ed86167"><title>BUGS</title>
